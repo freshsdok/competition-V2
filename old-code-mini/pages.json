@@ -1,0 +1,134 @@
+{
+  "pages": [{
+    "path": "pages/index/index",
+    "style": {
+      "navigationBarTitleText": "首页"
+    }
+  }, {
+    "path": "pages/login",
+    "style": {
+      "navigationBarTitleText": "登录",
+      "navigationStyle": "custom"
+    }
+  }, {
+    "path": "pages/match/index",
+    "style": {
+      "navigationBarTitleText": "赛事"
+    }
+  }, {
+    "path": "pages/scan/index",
+    "style": {
+      "navigationBarTitleText": "扫一扫",
+      "navigationStyle": "custom"
+    }
+  }, {
+    "path": "pages/scan/result",
+    "style": {
+      "navigationBarTitleText": "签到结果"
+    }
+  }, {
+    "path": "pages/scan/rule",
+    "style": {
+      "navigationBarTitleText": "规则"
+    }
+  }, {
+    "path": "pages/scan/query",
+    "style": {
+      "navigationBarTitleText": "确认信息"
+    }
+  }, {
+    "path": "pages/news/index",
+    "style": {
+      "navigationBarTitleText": "资讯"
+    }
+  }, {
+    "path": "pages/mine/index",
+    "style": {
+      "navigationBarTitleText": "我的"
+    }
+  }, {
+    "path": "pages/scene-resource/index",
+    "style": {
+      "navigationBarTitleText": "设备预约"
+    }
+  }, {
+    "path": "pages/my-credential/index",
+    "style": {
+      "navigationBarTitleText": "现场证件"
+    }
+  }, {
+    "path": "pages/review-secretary/index",
+    "style": {
+      "navigationBarTitleText": "秘书现场控制台",
+      "enablePullDownRefresh": true
+    }
+  }, {
+    "path": "pages/agreement/index",
+    "style": {
+      "navigationBarTitleText": ""
+    }
+  }, {
+    "path": "pages/notice/detail",
+    "style": {
+      "navigationBarTitleText": "公告详情"
+    }
+  }],
+  "subPackages": [{
+    "root": "pages-personal",
+    "pages": [{
+      "path": "order/index",
+      "style": { "navigationBarTitleText": "我的订单", "enablePullDownRefresh": true }
+    }, {
+      "path": "order/detail",
+      "style": { "navigationBarTitleText": "订单详情" }
+    }, {
+      "path": "invoice/index",
+      "style": { "navigationBarTitleText": "开票记录", "enablePullDownRefresh": true }
+    }, {
+      "path": "invoice/select",
+      "style": { "navigationBarTitleText": "选择开票项目" }
+    }, {
+      "path": "invoice/apply",
+      "style": { "navigationBarTitleText": "填写开票信息" }
+    }, {
+      "path": "team/index",
+      "style": { "navigationBarTitleText": "我的团队", "enablePullDownRefresh": true }
+    }, {
+      "path": "team/detail",
+      "style": { "navigationBarTitleText": "团队详情" }
+    }, {
+      "path": "certificate/index",
+      "style": { "navigationBarTitleText": "我的证书", "enablePullDownRefresh": true }
+    }, {
+      "path": "award-publicity/index",
+      "style": { "navigationBarTitleText": "获奖公示", "enablePullDownRefresh": true }
+    }, {
+      "path": "file/index",
+      "style": { "navigationBarTitleText": "我的文件", "enablePullDownRefresh": true }
+    }]
+  }],
+  "tabBar": {
+    "custom": true,
+    "color": "#ffffff",
+    "selectedColor": "#ffffff",
+    "backgroundColor": "#ffffff",
+    "list": [{
+      "pagePath": "pages/index/index"
+    }, {
+      "pagePath": "pages/match/index"
+    }, {
+      "pagePath": "pages/scan/index"
+    }, {
+      "pagePath": "pages/news/index"
+    }, {
+      "pagePath": "pages/mine/index"
+    }]
+  },
+  "globalStyle": {
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "信科赛",
+    "navigationBarBackgroundColor": "#3169F8",
+    "backgroundColor": "#ffffff",
+    "backgroundColorBottom": "#ffffff"
+  }
+}

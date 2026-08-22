@@ -1,0 +1,24 @@
+{
+    "name" : "信科赛小程序",
+    "appid" : "__UNI__7548077",
+    "description" : "",
+    "versionName" : "1.2.0",
+    "versionCode" : "100",
+    "transformPx" : false,
+    "quickapp" : {},
+    "mp-weixin" : {
+        "appid" : "wxc6513ab5b0a7e2ec",
+        "setting" : {
+            "urlCheck" : false,
+            "es6" : false,
+            "minified" : true,
+            "postcss" : true
+        },
+        "optimization" : {
+            "subPackages" : true
+        },
+        "lazyCodeLoading" : "requiredComponents",
+        "usingComponents" : true
+    },
+    "vueVersion" : "3"
+}

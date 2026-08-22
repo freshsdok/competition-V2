@@ -1,0 +1,54 @@
+# macOS
+.DS_Store
+
+# IDEs and editors
+.idea/
+.vscode/
+*.iml
+
+# Logs
+*.log
+logs/
+**/logs/
+
+# Java / Maven / Gradle build output
+target/
+**/target/
+*.class
+*.jar
+*.war
+*.ear
+.gradle/
+build/
+**/build/
+
+# Node / frontend build output
+node_modules/
+**/node_modules/
+dist/
+**/dist/
+.vite/
+coverage/
+**/coverage/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Local environment files
+.env
+.env.*
+!.env.example
+!.env.*.example
+
+# Runtime/upload/temp files
+tmp/
+temp/
+**/tmp/
+**/temp/
+upload/
+uploads/
+**/upload/
+**/uploads/
+*.zip
+/old-code-pc/pc/

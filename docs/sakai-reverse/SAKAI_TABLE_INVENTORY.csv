@@ -1,0 +1,297 @@
+table,domain,path,line,source
+CITATION_CITATION,其他工具表,citations/citations-impl/impl/src/sql/oracle/sakai_citation.sql,17,sql
+CITATION_COLLECTION,其他工具表,citations/citations-impl/impl/src/sql/oracle/sakai_citation.sql,5,sql
+CITATION_COLLECTION_ORDER,其他工具表,citations/citations-impl/impl/src/sql/oracle/sakai_citation.sql,28,sql
+CITATION_SCHEMA,其他工具表,citations/citations-impl/impl/src/sql/oracle/sakai_citation.sql,41,sql
+CITATION_SCHEMA_FIELD,其他工具表,citations/citations-impl/impl/src/sql/oracle/sakai_citation.sql,52,sql
+CMN_TYPE_T,其他工具表,common/common-composite-component/src/sql/oracle/sakai_common.sql,4,sql
+CM_ACADEMIC_SESSION_T,其他工具表,edu-services/cm-service/xdocs/db-conversion-2.3.1-2.4.0/oracle/cm-2.3.1-oracle.sql,18,sql
+CM_COURSE_SET_CANON_ASSOC_T,其他工具表,edu-services/cm-service/xdocs/db-conversion-2.3.1-2.4.0/oracle/cm-2.3.1-oracle.sql,19,sql
+CM_COURSE_SET_OFFERING_ASSOC_T,其他工具表,edu-services/cm-service/xdocs/db-conversion-2.3.1-2.4.0/oracle/cm-2.3.1-oracle.sql,20,sql
+CM_CROSS_LISTING_T,其他工具表,edu-services/cm-service/xdocs/db-conversion-2.3.1-2.4.0/oracle/cm-2.3.1-oracle.sql,21,sql
+CM_ENROLLMENT_SET_T,其他工具表,edu-services/cm-service/xdocs/db-conversion-2.3.1-2.4.0/oracle/cm-2.3.1-oracle.sql,22,sql
+CM_ENROLLMENT_T,其他工具表,edu-services/cm-service/xdocs/db-conversion-2.3.1-2.4.0/oracle/cm-2.3.1-oracle.sql,23,sql
+CM_MEETING_T,其他工具表,edu-services/cm-service/xdocs/db-conversion-2.3.1-2.4.0/oracle/cm-2.3.1-oracle.sql,24,sql
+CM_MEMBERSHIP_T,其他工具表,edu-services/cm-service/xdocs/db-conversion-2.3.1-2.4.0/oracle/cm-2.3.1-oracle.sql,25,sql
+CM_MEMBER_CONTAINER_T,其他工具表,edu-services/cm-service/xdocs/db-conversion-2.3.1-2.4.0/oracle/cm-2.3.1-oracle.sql,26,sql
+CM_OFFICIAL_INSTRUCTORS_T,其他工具表,edu-services/cm-service/xdocs/db-conversion-2.3.1-2.4.0/oracle/cm-2.3.1-oracle.sql,27,sql
+CM_SEC_CATEGORY_T,其他工具表,edu-services/cm-service/xdocs/db-conversion-2.3.1-2.4.0/oracle/conversion.sql,2,sql
+COMMONS_COMMENT,其他工具表,commons/impl/src/sql/oracle/commons_tables.sql,25,sql
+COMMONS_COMMONS,其他工具表,commons/impl/src/sql/oracle/commons_tables.sql,1,sql
+COMMONS_COMMONS_POST,其他工具表,commons/impl/src/sql/oracle/commons_tables.sql,8,sql
+COMMONS_LIKE,其他工具表,commons/impl/src/sql/oracle/commons_tables.sql,35,sql
+COMMONS_POST,其他工具表,commons/impl/src/sql/oracle/commons_tables.sql,14,sql
+CONTENTREVIEW_ITEM,其他工具表,content-review/api/src/main/resources/ContentReviewItem.hbm.xml,5,hbm
+HIERARCHY_NODE,其他工具表,hierarchy/api/src/java/org/sakaiproject/hierarchy/dao/hbm/HierarchyPersistentNode.hbm.xml,5,hbm
+HIERARCHY_NODE_META,其他工具表,hierarchy/api/src/java/org/sakaiproject/hierarchy/dao/hbm/HierarchyNodeMetaData.hbm.xml,5,hbm
+HIERARCHY_PERMS,其他工具表,hierarchy/api/src/java/org/sakaiproject/hierarchy/dao/hbm/HierarchyNodePermission.hbm.xml,5,hbm
+IMSENT_GROUP,其他工具表,providers/imsent/src/sql/hsqldb/imsent_provider.sql,34,sql
+IMSENT_MEMBERSHIP,其他工具表,providers/imsent/src/sql/hsqldb/imsent_provider.sql,88,sql
+IMSENT_PERSON,其他工具表,providers/imsent/src/sql/hsqldb/imsent_provider.sql,5,sql
+OAUTH_ACCESSORS,其他工具表,oauth/dao-hbm/src/resources/org/sakaiproject/oauth/dao/Accessor.hbm.xml,5,hbm
+OAUTH_CONSUMERS,其他工具表,oauth/dao-hbm/src/resources/org/sakaiproject/oauth/dao/Consumer.hbm.xml,5,hbm
+QRTZ_BLOB_TRIGGERS,其他工具表,jobscheduler/scheduler-component-shared/src/sql/mysql/quartz.sql,78,sql
+QRTZ_BLOB_TRIGGERS_NEW,其他工具表,jobscheduler/scheduler-component-shared/src/sql/mysql/quartz2-upgrade.sql,105,sql
+QRTZ_CALENDARS,其他工具表,jobscheduler/scheduler-component-shared/src/sql/mysql/quartz.sql,98,sql
+QRTZ_CRON_TRIGGERS,其他工具表,jobscheduler/scheduler-component-shared/src/sql/mysql/quartz.sql,67,sql
+QRTZ_CRON_TRIGGERS_NEW,其他工具表,jobscheduler/scheduler-component-shared/src/sql/mysql/quartz2-upgrade.sql,96,sql
+QRTZ_FIRED_TRIGGERS,其他工具表,jobscheduler/scheduler-component-shared/src/sql/mysql/quartz.sql,109,sql
+QRTZ_JOB_DETAILS,其他工具表,jobscheduler/scheduler-component-shared/src/sql/mysql/quartz.sql,9,sql
+QRTZ_JOB_DETAILS_NEW,其他工具表,jobscheduler/scheduler-component-shared/src/sql/mysql/quartz2-upgrade.sql,52,sql
+QRTZ_JOB_LISTENERS,其他工具表,jobscheduler/scheduler-component-shared/src/sql/mysql/quartz.sql,22,sql
+QRTZ_LOCKS,其他工具表,jobscheduler/scheduler-component-shared/src/sql/mysql/quartz.sql,132,sql
+QRTZ_PAUSED_TRIGGER_GRPS,其他工具表,jobscheduler/scheduler-component-shared/src/sql/mysql/quartz.sql,104,sql
+QRTZ_SCHEDULER_STATE,其他工具表,jobscheduler/scheduler-component-shared/src/sql/mysql/quartz.sql,125,sql
+QRTZ_SIMPLE_TRIGGERS,其他工具表,jobscheduler/scheduler-component-shared/src/sql/mysql/quartz.sql,55,sql
+QRTZ_SIMPLE_TRIGGERS_NEW,其他工具表,jobscheduler/scheduler-component-shared/src/sql/mysql/quartz2-upgrade.sql,86,sql
+QRTZ_SIMPROP_TRIGGERS,其他工具表,jobscheduler/scheduler-component-shared/src/sql/mysql/quartz2.sql,80,sql
+QRTZ_TRIGGERS,其他工具表,jobscheduler/scheduler-component-shared/src/sql/mysql/quartz.sql,32,sql
+QRTZ_TRIGGERS_NEW,其他工具表,jobscheduler/scheduler-component-shared/src/sql/mysql/quartz2-upgrade.sql,66,sql
+QRTZ_TRIGGER_LISTENERS,其他工具表,jobscheduler/scheduler-component-shared/src/sql/mysql/quartz.sql,88,sql
+SAKAI_CLUSTER,其他工具表,kernel/kernel-impl/src/main/sql/oracle/sakai_cluster.sql,5,sql
+SAKAI_CONFIG_ITEM,其他工具表,kernel/kernel-impl/src/main/sql/oracle/sakai_config_item.sql,5,sql
+SAKAI_DIGEST,其他工具表,kernel/kernel-impl/src/main/sql/oracle/sakai_digest.sql,5,sql
+SAKAI_HELP_CATEGORY,其他工具表,help/help-component/src/sql/oracle/sakai_help.sql,6,sql
+SAKAI_HELP_CATEGORY_T,其他工具表,help/help-component-shared/src/java/org/sakaiproject/component/app/help/model/CategoryBean.hbm.xml,5,hbm
+SAKAI_HELP_RESOURCE,其他工具表,help/help-component/src/sql/oracle/sakai_help.sql,11,sql
+SAKAI_HELP_RESOURCE_T,其他工具表,help/help-component-shared/src/java/org/sakaiproject/component/app/help/model/ResourceBean.hbm.xml,5,hbm
+SAKAI_LOCKS,其他工具表,kernel/kernel-impl/src/main/sql/oracle/sakai_locks.sql,5,sql
+SAKAI_NOTIFICATION,其他工具表,kernel/kernel-impl/src/main/sql/oracle/sakai_notification.sql,5,sql
+SAKAI_POSTEM_GRADEBOOK,其他工具表,postem/postem-hbm/src/java/org/sakaiproject/component/app/postem/data/GradebookImpl.hbm.xml,4,hbm
+SAKAI_POSTEM_STUDENT,其他工具表,postem/postem-hbm/src/java/org/sakaiproject/component/app/postem/data/StudentGradesImpl.hbm.xml,4,hbm
+SAKAI_PREFERENCES,其他工具表,kernel/kernel-impl/src/main/sql/oracle/sakai_preferences.sql,5,sql
+SAKAI_PRESENCE,其他工具表,presence/presence-impl/impl/src/sql/oracle/sakai_presence.sql,5,sql
+SAKAI_PRIVACY_RECORD,其他工具表,common/privacy-hbm/src/java/org/sakaiproject/hbm/sql/schema-export-oracle.sql,3,sql
+SCHEDULER_DELAYED_INVOCATION,其他工具表,jobscheduler/scheduler-component-shared/src/sql/oracle/delayed.sql,5,sql
+SCORM_ACTIVITY_TREE_HOLDER_T,其他工具表,scormplayer/scorm-api/src/java/org/sakaiproject/scorm/model/api/ActivityTreeHolder.hbm.xml,6,hbm
+SCORM_ADL_AUX_RESOURCE_T,其他工具表,scormplayer/scorm-api/src/java/org/adl/sequencer/SequencerMappings.hbm.xml,155,hbm
+SCORM_ADL_DURATION_T,其他工具表,scormplayer/scorm-api/src/java/org/adl/sequencer/SequencerMappings.hbm.xml,143,hbm
+SCORM_ADL_ROLLUP_RULESET_T,其他工具表,scormplayer/scorm-api/src/java/org/adl/sequencer/SequencerMappings.hbm.xml,191,hbm
+SCORM_ADL_ROLLUP_RULE_T,其他工具表,scormplayer/scorm-api/src/java/org/adl/sequencer/SequencerMappings.hbm.xml,171,hbm
+SCORM_ADL_SEQ_ACTIVITY_T,其他工具表,scormplayer/scorm-api/src/java/org/adl/sequencer/SequencerMappings.hbm.xml,335,hbm
+SCORM_ADL_SEQ_ACTIVITY_TREE_T,其他工具表,scormplayer/scorm-api/src/java/org/adl/sequencer/SequencerMappings.hbm.xml,533,hbm
+SCORM_ADL_SEQ_CONDITION_SET_T,其他工具表,scormplayer/scorm-api/src/java/org/adl/sequencer/SequencerMappings.hbm.xml,104,hbm
+SCORM_ADL_SEQ_CONDITION_T,其他工具表,scormplayer/scorm-api/src/java/org/adl/sequencer/SequencerMappings.hbm.xml,72,hbm
+SCORM_ADL_SEQ_OBJECTIVE_MAP_T,其他工具表,scormplayer/scorm-api/src/java/org/adl/sequencer/SequencerMappings.hbm.xml,215,hbm
+SCORM_ADL_SEQ_OBJECTIVE_T,其他工具表,scormplayer/scorm-api/src/java/org/adl/sequencer/SequencerMappings.hbm.xml,279,hbm
+SCORM_ADL_SEQ_OBJ_TRACKING_T,其他工具表,scormplayer/scorm-api/src/java/org/adl/sequencer/SequencerMappings.hbm.xml,235,hbm
+SCORM_ADL_SEQ_RULESET_T,其他工具表,scormplayer/scorm-api/src/java/org/adl/sequencer/SequencerMappings.hbm.xml,127,hbm
+SCORM_ADL_SEQ_RULE_T,其他工具表,scormplayer/scorm-api/src/java/org/adl/sequencer/SequencerMappings.hbm.xml,90,hbm
+SCORM_ADL_TRACKING,其他工具表,scormplayer/scorm-api/src/java/org/adl/sequencer/SequencerMappings.hbm.xml,306,hbm
+SCORM_ADL_VALID_REQUESTS_T,其他工具表,scormplayer/scorm-api/src/java/org/adl/sequencer/SequencerMappings.hbm.xml,38,hbm
+SCORM_ATTEMPT_T,其他工具表,scormplayer/scorm-api/src/java/org/sakaiproject/scorm/model/api/Attempt.hbm.xml,6,hbm
+SCORM_CMI_FIELD_GROUP_T,其他工具表,scormplayer/scorm-api/src/java/org/sakaiproject/scorm/model/api/CMIFieldGroup.hbm.xml,6,hbm
+SCORM_CMI_FIELD_T,其他工具表,scormplayer/scorm-api/src/java/org/sakaiproject/scorm/model/api/CMIField.hbm.xml,6,hbm
+SCORM_CONTENT_PACKAGE_T,其他工具表,scormplayer/scorm-api/src/java/org/sakaiproject/scorm/model/api/ContentPackage.hbm.xml,6,hbm
+SCORM_CP_MANIFEST_T,其他工具表,scormplayer/scorm-api/src/java/org/sakaiproject/scorm/model/api/ContentPackageManifest.hbm.xml,6,hbm
+SCORM_DATAMANAGER_T,其他工具表,scormplayer/scorm-api/src/java/org/adl/datamodels/SCODataManager.hbm.xml,6,hbm
+SCORM_DATAMODEL_T,其他工具表,scormplayer/scorm-api/src/java/org/adl/datamodels/DataModel.hbm.xml,6,hbm
+SCORM_DELIMITER_T,其他工具表,scormplayer/scorm-api/src/java/org/adl/datamodels/DMDelimiter.hbm.xml,6,hbm
+SCORM_DELIMIT_DESC_T,其他工具表,scormplayer/scorm-api/src/java/org/adl/datamodels/DMDelimiterDescriptor.hbm.xml,6,hbm
+SCORM_ELEMENT_DESC_T,其他工具表,scormplayer/scorm-api/src/java/org/adl/datamodels/DMElementDescriptor.hbm.xml,6,hbm
+SCORM_ELEMENT_T,其他工具表,scormplayer/scorm-api/src/java/org/adl/datamodels/DMElement.hbm.xml,6,hbm
+SCORM_LAUNCH_DATA_T,其他工具表,scormplayer/scorm-api/src/java/org/adl/validator/contentpackage/LaunchData.hbm.xml,7,hbm
+SCORM_PROCESSING_INFO_T,其他工具表,scormplayer/scorm-api/src/java/org/adl/datamodels/DMProcessingInfo.hbm.xml,6,hbm
+SCORM_TYPE_VALIDATOR_T,其他工具表,scormplayer/scorm-api/src/java/org/adl/datamodels/DMTypeValidator.hbm.xml,7,hbm
+SCORM_URL,其他工具表,scormplayer/scorm-api/src/java/org/adl/datamodels/DataModel.hbm.xml,87,hbm
+SSQ_ANSWER,其他工具表,site-manage/site-manage-hbm/src/java/org/sakaiproject/sitemanage/impl/SiteSetupQuestionAnswer.hbm.xml,5,hbm
+SSQ_QUESTION,其他工具表,site-manage/site-manage-hbm/src/java/org/sakaiproject/sitemanage/impl/SiteSetupQuestion.hbm.xml,6,hbm
+SSQ_SITETYPE_QUESTIONS,其他工具表,site-manage/site-manage-hbm/src/java/org/sakaiproject/sitemanage/impl/SiteTypeQuestions.hbm.xml,5,hbm
+SSQ_USER_ANSWER,其他工具表,site-manage/site-manage-hbm/src/java/org/sakaiproject/sitemanage/impl/SiteSetupUserAnswer.hbm.xml,5,hbm
+TAGGABLE_LINK,其他工具表,taggable/taggable-hbm/hbm/src/java/org/sakaiproject/taggable/impl/LinkImpl.hbm.xml,7,hbm
+TMP_DIGITS,其他工具表,msgcntr/messageforums-hbm/src/sql/oracle/SAK-29036.sql,9,sql
+TMP_SEQUENCE,其他工具表,msgcntr/messageforums-hbm/src/sql/oracle/SAK-29036.sql,22,sql
+URL_RANDOMISED_MAPPINGS_T,其他工具表,shortenedurl/docs/database/oracle/shortenedurl-ddl-1.0.0-oracle.sql,2,sql
+pasystem_banner_alert,其他工具表,pasystem/pasystem-impl/impl/src/resources/db/migration/mysql.sql,36,sql
+pasystem_banner_dismissed,其他工具表,pasystem/pasystem-impl/impl/src/resources/db/migration/mysql.sql,48,sql
+pasystem_popup_assign,其他工具表,pasystem/pasystem-impl/impl/src/resources/db/migration/mysql.sql,17,sql
+pasystem_popup_content,其他工具表,pasystem/pasystem-impl/impl/src/resources/db/migration/mysql.sql,11,sql
+pasystem_popup_dismissed,其他工具表,pasystem/pasystem-impl/impl/src/resources/db/migration/mysql.sql,24,sql
+pasystem_popup_screens,其他工具表,pasystem/pasystem-impl/impl/src/resources/db/migration/mysql.sql,1,sql
+qrtz_blob_triggers,其他工具表,jobscheduler/scheduler-component-shared/src/sql/oracle/quartz.sql,76,sql
+qrtz_calendars,其他工具表,jobscheduler/scheduler-component-shared/src/sql/oracle/quartz.sql,94,sql
+qrtz_cron_triggers,其他工具表,jobscheduler/scheduler-component-shared/src/sql/oracle/quartz.sql,66,sql
+qrtz_fired_triggers,其他工具表,jobscheduler/scheduler-component-shared/src/sql/oracle/quartz.sql,105,sql
+qrtz_job_details,其他工具表,jobscheduler/scheduler-component-shared/src/sql/oracle/quartz.sql,11,sql
+qrtz_job_listeners,其他工具表,jobscheduler/scheduler-component-shared/src/sql/oracle/quartz.sql,24,sql
+qrtz_locks,其他工具表,jobscheduler/scheduler-component-shared/src/sql/oracle/quartz.sql,128,sql
+qrtz_paused_trigger_grps,其他工具表,jobscheduler/scheduler-component-shared/src/sql/oracle/quartz.sql,100,sql
+qrtz_scheduler_state,其他工具表,jobscheduler/scheduler-component-shared/src/sql/oracle/quartz.sql,121,sql
+qrtz_simple_triggers,其他工具表,jobscheduler/scheduler-component-shared/src/sql/oracle/quartz.sql,55,sql
+qrtz_simprop_triggers,其他工具表,jobscheduler/scheduler-component-shared/src/sql/oracle/quartz2.sql,70,sql
+qrtz_trigger_listeners,其他工具表,jobscheduler/scheduler-component-shared/src/sql/oracle/quartz.sql,85,sql
+qrtz_triggers,其他工具表,jobscheduler/scheduler-component-shared/src/sql/oracle/quartz.sql,33,sql
+rwikicurrentcontent,其他工具表,rwiki/rwiki-model/src/java/uk/ac/cam/caret/sakai/rwiki/model/RWiki.hbm.xml,14,hbm
+rwikihistory,其他工具表,rwiki/rwiki-model/src/java/uk/ac/cam/caret/sakai/rwiki/model/RWiki.hbm.xml,34,hbm
+rwikihistorycontent,其他工具表,rwiki/rwiki-model/src/java/uk/ac/cam/caret/sakai/rwiki/model/RWiki.hbm.xml,24,hbm
+rwikiobject,其他工具表,rwiki/rwiki-model/src/java/uk/ac/cam/caret/sakai/rwiki/model/RWiki.hbm.xml,72,hbm
+rwikipagemessage,其他工具表,rwiki/rwiki-model/src/java/uk/ac/cam/caret/sakai/rwiki/message/model/message.hbm.xml,38,hbm
+rwikipagepresence,其他工具表,rwiki/rwiki-model/src/java/uk/ac/cam/caret/sakai/rwiki/message/model/message.hbm.xml,8,hbm
+rwikipagetrigger,其他工具表,rwiki/rwiki-model/src/java/uk/ac/cam/caret/sakai/rwiki/message/model/message.hbm.xml,51,hbm
+rwikipreference,其他工具表,rwiki/rwiki-model/src/java/uk/ac/cam/caret/sakai/rwiki/message/model/message.hbm.xml,22,hbm
+rwikiproperties,其他工具表,rwiki/rwiki-model/src/java/uk/ac/cam/caret/sakai/rwiki/model/RWiki.hbm.xml,5,hbm
+sakai_feedback,其他工具表,feedback/src/java/oracle/createtables.sql,1,sql
+search_journal,其他工具表,search/search-impl/impl/src/sql/oracle/sakai_search_parallel.sql,20,sql
+search_node_status,其他工具表,search/search-impl/impl/src/sql/oracle/sakai_search_parallel.sql,27,sql
+search_transaction,其他工具表,search/search-impl/impl/src/sql/oracle/sakai_search_parallel.sql,4,sql
+searchbuilderitem,其他工具表,search/search-impl/impl/src/sql/oracle/sakai_search_parallel.sql,10,sql
+tagservice_collection,其他工具表,tags/tags-impl/impl/src/resources/db/migration/mysql.sql,1,sql
+tagservice_tag,其他工具表,tags/tags-impl/impl/src/resources/db/migration/mysql.sql,17,sql
+user_audits_log,其他工具表,userauditservice/impl/src/sql/oracle/user_audits.sql,2,sql
+CONTENT_COLLECTION,内容与文件,kernel/kernel-impl/src/main/sql/oracle/sakai_content.sql,5,sql
+CONTENT_DROPBOX_CHANGES,内容与文件,kernel/kernel-impl/src/main/sql/oracle/sakai_content.sql,211,sql
+CONTENT_RESOURCE,内容与文件,kernel/kernel-impl/src/main/sql/oracle/sakai_content.sql,131,sql
+CONTENT_RESOURCE_BB_DELETE,内容与文件,kernel/kernel-impl/src/main/sql/oracle/sakai_content_delete.sql,53,sql
+CONTENT_RESOURCE_BODY_BINARY,内容与文件,kernel/kernel-impl/src/main/sql/oracle/sakai_content.sql,189,sql
+CONTENT_RESOURCE_DELETE,内容与文件,kernel/kernel-impl/src/main/sql/oracle/sakai_content_delete.sql,5,sql
+CONTENT_TYPE_REGISTRY,内容与文件,kernel/kernel-impl/src/main/sql/oracle/sakai_content_registry.sql,5,sql
+SAKAI_EVENT,日志统计,kernel/kernel-impl/src/main/sql/oracle/sakai_event.sql,5,sql
+SAKAI_EVENT_DELAY,日志统计,content/content-impl-providers/impl/src/sql/oracle/sakai_event_delay.sql,5,sql
+SST_DETAILED_EVENTS,日志统计,sitestats/schema/db-tables/oracle/useractivity.sql,1,sql
+SST_EVENTS,日志统计,sitestats/schema/db-tables/oracle/sitestats.sql,1,sql
+SST_JOB_RUN,日志统计,sitestats/schema/db-tables/oracle/sitestats.sql,2,sql
+SST_PREFERENCES,日志统计,sitestats/schema/db-tables/oracle/sitestats.sql,3,sql
+SST_PRESENCES,日志统计,sitestats/schema/db-tables/oracle/sitestats.sql,4,sql
+SST_PRESENCE_TOTALS,日志统计,sitestats/sitestats-impl-hib/src/java/org/sakaiproject/sitestats/impl/hbm/SitePresenceTotalImpl.hbm.xml,5,hbm
+SST_REPORTS,日志统计,sitestats/schema/db-tables/oracle/sitestats.sql,5,sql
+SST_RESOURCES,日志统计,sitestats/schema/db-tables/oracle/sitestats.sql,6,sql
+SST_SERVERSTATS,日志统计,sitestats/sitestats-impl-hib/src/java/org/sakaiproject/sitestats/impl/hbm/ServerStat.hbm.xml,5,hbm
+SST_SITEACTIVITY,日志统计,sitestats/schema/db-tables/oracle/sitestats.sql,7,sql
+SST_SITEVISITS,日志统计,sitestats/schema/db-tables/oracle/sitestats.sql,8,sql
+SST_USERSTATS,日志统计,sitestats/sitestats-impl-hib/src/java/org/sakaiproject/sitestats/impl/hbm/UserStat.hbm.xml,4,hbm
+ANNOUNCEMENT_CHANNEL,沟通协作,announcement/announcement-impl/impl/src/sql/oracle/sakai_announcement.sql,5,sql
+ANNOUNCEMENT_MESSAGE,沟通协作,announcement/announcement-impl/impl/src/sql/oracle/sakai_announcement.sql,21,sql
+CALENDAR_CALENDAR,沟通协作,calendar/calendar-impl/impl/src/sql/oracle/sakai_calendar.sql,5,sql
+CALENDAR_EVENT,沟通协作,calendar/calendar-impl/impl/src/sql/oracle/sakai_calendar.sql,21,sql
+CALENDAR_OPAQUEURL,沟通协作,calendar/calendar-hbm/src/main/resources/org/sakaiproject/calendar/dao/hbm/OpaqueUrl.hbm.xml,5,hbm
+CHAT_CHANNEL,沟通协作,chat/chat-impl/impl/src/sql/oracle/sakai_chat.sql,5,sql
+CHAT_MESSAGE,沟通协作,chat/chat-impl/impl/src/sql/oracle/sakai_chat.sql,21,sql
+MAILARCHIVE_CHANNEL,沟通协作,mailarchive/mailarchive-impl/impl/src/sql/oracle/sakai_mailarchive.sql,5,sql
+MAILARCHIVE_MESSAGE,沟通协作,mailarchive/mailarchive-impl/impl/src/sql/oracle/sakai_mailarchive.sql,21,sql
+MFR_ACTOR_PERSMISSIONS_T,沟通协作,msgcntr/messageforums-app/src/sql/oracle/sakai_messageforums.sql,247,sql
+MFR_ANONYMOUS_MAPPING_T,沟通协作,msgcntr/messageforums-hbm/src/java/org/sakaiproject/component/app/messageforums/dao/hibernate/AnonymousMapping.hbm.xml,5,hbm
+MFR_AREA_T,沟通协作,msgcntr/messageforums-app/src/sql/oracle/sakai_messageforums.sql,139,sql
+MFR_ATTACHMENT_T,沟通协作,msgcntr/messageforums-app/src/sql/oracle/sakai_messageforums.sql,154,sql
+MFR_CONTROL_PERSMISSIONS_T,沟通协作,msgcntr/messageforums-app/src/sql/oracle/sakai_messageforums.sql,223,sql
+MFR_DATE_RESTRICTIONS_T,沟通协作,msgcntr/messageforums-app/src/sql/oracle/sakai_messageforums.sql,266,sql
+MFR_EMAIL_NOTIFICATION_T,沟通协作,msgcntr/messageforums-docs/SAK-11740_mysql.sql,1,sql
+MFR_HIDDEN_GROUPS_T,沟通协作,msgcntr/messageforums-hbm/src/sql/oracle/mfr_conversion_28x-30x.sql,142,sql
+MFR_LABEL_T,沟通协作,msgcntr/messageforums-app/src/sql/oracle/sakai_messageforums.sql,53,sql
+MFR_MEMBERSHIP_ITEM_T,沟通协作,msgcntr/messageforums-docs/updating/mfr_m2-m3_mysq_conversion.sql,48,sql
+MFR_MESSAGE_FORUMS_USER_T,沟通协作,msgcntr/messageforums-app/src/sql/oracle/sakai_messageforums.sql,252,sql
+MFR_MESSAGE_PERSMISSIONS_T,沟通协作,msgcntr/messageforums-app/src/sql/oracle/sakai_messageforums.sql,235,sql
+MFR_MESSAGE_T,沟通协作,msgcntr/messageforums-app/src/sql/oracle/sakai_messageforums.sql,114,sql
+MFR_MOVE_HISTORY_T,沟通协作,msgcntr/messageforums-hbm/src/sql/oracle/mfr_conversion_30x-31x.sql,17,sql
+MFR_OPEN_FORUM_T,沟通协作,msgcntr/messageforums-app/src/sql/oracle/sakai_messageforums.sql,179,sql
+MFR_PERMISSION_LEVEL_T,沟通协作,msgcntr/messageforums-docs/updating/mfr_m2-m3_mysq_conversion.sql,11,sql
+MFR_PRIVATE_FORUM_T,沟通协作,msgcntr/messageforums-app/src/sql/oracle/sakai_messageforums.sql,203,sql
+MFR_RANKIMAGE_T,沟通协作,msgcntr/messageforums-hbm/src/sql/oracle/MSGCNTR-620.sql,27,sql
+MFR_RANK_INDIVIDUAL_T,沟通协作,msgcntr/messageforums-hbm/src/sql/oracle/SAK-29036.sql,1,sql
+MFR_RANK_T,沟通协作,msgcntr/messageforums-hbm/src/sql/oracle/MSGCNTR-620.sql,7,sql
+MFR_SYNOPTIC_ITEM,沟通协作,msgcntr/messageforums-hbm/src/sql/oracle/mfr_conversion_26x-27x.sql,79,sql
+MFR_TOPIC_T,沟通协作,msgcntr/messageforums-app/src/sql/oracle/sakai_messageforums.sql,78,sql
+MFR_UNREAD_STATUS_T,沟通协作,msgcntr/messageforums-app/src/sql/oracle/sakai_messageforums.sql,69,sql
+MSGCNTR_TMP,沟通协作,msgcntr/messageforums-hbm/src/sql/oracle/mfr_conversion_26x-27x.sql,110,sql
+mfr_actor_permissions_t,沟通协作,msgcntr/messageforums-app/src/sql/mysql/sakai_messageForums.sql,2,sql
+mfr_area_t,沟通协作,msgcntr/messageforums-app/src/sql/mysql/sakai_messageForums.sql,9,sql
+mfr_attachment_t,沟通协作,msgcntr/messageforums-app/src/sql/mysql/sakai_messageForums.sql,26,sql
+mfr_control_permissions_t,沟通协作,msgcntr/messageforums-app/src/sql/mysql/sakai_messageForums.sql,63,sql
+mfr_date_restrictions_t,沟通协作,msgcntr/messageforums-app/src/sql/mysql/sakai_messageForums.sql,77,sql
+mfr_label_t,沟通协作,msgcntr/messageforums-app/src/sql/mysql/sakai_messageForums.sql,92,sql
+mfr_message_forums_user_t,沟通协作,msgcntr/messageforums-app/src/sql/mysql/sakai_messageForums.sql,114,sql
+mfr_message_permissions_t,沟通协作,msgcntr/messageforums-app/src/sql/mysql/sakai_messageForums.sql,138,sql
+mfr_message_t,沟通协作,msgcntr/messageforums-app/src/sql/mysql/sakai_messageForums.sql,152,sql
+mfr_open_forum_t,沟通协作,msgcntr/messageforums-app/src/sql/mysql/sakai_messageForums.sql,183,sql
+mfr_private_forum_t,沟通协作,msgcntr/messageforums-app/src/sql/mysql/sakai_messageForums.sql,220,sql
+mfr_topic_t,沟通协作,msgcntr/messageforums-app/src/sql/mysql/sakai_messageForums.sql,244,sql
+mfr_unread_status_t,沟通协作,msgcntr/messageforums-app/src/sql/mysql/sakai_messageForums.sql,291,sql
+SAM_ANSWERFEEDBACK_T,测验/题库 Samigo,samigo/samigo-pack/src/sql/oracle/sakai_samigo_tables_v2_1_2.sql,353,sql
+SAM_ANSWER_T,测验/题库 Samigo,samigo/samigo-pack/src/sql/oracle/sakai_samigo_tables_v2_1_2.sql,105,sql
+SAM_ASSESSACCESSCONTROL_T,测验/题库 Samigo,samigo/samigo-pack/src/sql/oracle/sakai_samigo_tables_v2_1_2.sql,400,sql
+SAM_ASSESSEVALUATION_T,测验/题库 Samigo,samigo/samigo-pack/src/sql/oracle/sakai_samigo_tables_v2_1_2.sql,340,sql
+SAM_ASSESSFEEDBACK_T,测验/题库 Samigo,samigo/samigo-pack/src/sql/oracle/sakai_samigo_tables_v2_1_2.sql,502,sql
+SAM_ASSESSMENTBASE_T,测验/题库 Samigo,samigo/samigo-pack/src/sql/oracle/sakai_samigo_tables_v2_1_2.sql,557,sql
+SAM_ASSESSMENTGRADING_T,测验/题库 Samigo,samigo/samigo-pack/src/sql/oracle/sakai_samigo_tables_v2_1_2.sql,134,sql
+SAM_ASSESSMETADATA_T,测验/题库 Samigo,samigo/samigo-pack/src/sql/oracle/sakai_samigo_tables_v2_1_2.sql,589,sql
+SAM_ATTACHMENT_T,测验/题库 Samigo,samigo/samigo-pack/src/sql/oracle/sakai_samigo_tables_v2_4.sql,83,sql
+SAM_AUTHZDATA_T,测验/题库 Samigo,samigo/samigo-pack/src/sql/oracle/sakai_samigo_tables_v2_1_2.sql,326,sql
+SAM_EVENTLOG_T,测验/题库 Samigo,samigo/samigo-hibernate/src/java/org/sakaiproject/tool/assessment/data/dao/assessment/PublishedAssessment.hbm.xml,232,hbm
+SAM_EXTENDEDTIME_T,测验/题库 Samigo,samigo/samigo-hibernate/src/java/org/sakaiproject/tool/assessment/data/dao/assessment/ExtendedTime.hbm.xml,7,hbm
+SAM_FAVORITECOLCHOICESITEM_T,测验/题库 Samigo,samigo/samigo-hibernate/src/java/org/sakaiproject/tool/assessment/data/dao/assessment/FavoriteColChoices.hbm.xml,22,hbm
+SAM_FAVORITECOLCHOICES_T,测验/题库 Samigo,samigo/samigo-hibernate/src/java/org/sakaiproject/tool/assessment/data/dao/assessment/FavoriteColChoices.hbm.xml,6,hbm
+SAM_FUNCTIONDATA_T,测验/题库 Samigo,samigo/samigo-pack/src/sql/oracle/sakai_samigo_tables_v2_1_2.sql,152,sql
+SAM_GRADINGATTACHMENT_T,测验/题库 Samigo,samigo/docs/conversion/samigo_2_6_x-2_7_0_oracle_conversion.sql,9,sql
+SAM_GRADINGSUMMARY_T,测验/题库 Samigo,samigo/samigo-pack/src/sql/oracle/sakai_samigo_tables_v2_1_2.sql,249,sql
+SAM_ITEMFEEDBACK_T,测验/题库 Samigo,samigo/samigo-pack/src/sql/oracle/sakai_samigo_tables_v2_1_2.sql,219,sql
+SAM_ITEMGRADING_T,测验/题库 Samigo,samigo/samigo-pack/src/sql/oracle/sakai_samigo_tables_v2_1_2.sql,160,sql
+SAM_ITEMHISTORICAL_T,测验/题库 Samigo,samigo/samigo-hibernate/src/java/org/sakaiproject/tool/assessment/data/dao/assessment/ItemData.hbm.xml,131,hbm
+SAM_ITEMMETADATA_T,测验/题库 Samigo,samigo/samigo-pack/src/sql/oracle/sakai_samigo_tables_v2_1_2.sql,226,sql
+SAM_ITEMTAG_T,测验/题库 Samigo,samigo/samigo-hibernate/src/java/org/sakaiproject/tool/assessment/data/dao/assessment/ItemData.hbm.xml,105,hbm
+SAM_ITEMTEXT_T,测验/题库 Samigo,samigo/samigo-pack/src/sql/oracle/sakai_samigo_tables_v2_1_2.sql,525,sql
+SAM_ITEM_T,测验/题库 Samigo,samigo/samigo-pack/src/sql/oracle/sakai_samigo_tables_v2_1_2.sql,481,sql
+SAM_MEDIA_T,测验/题库 Samigo,samigo/samigo-pack/src/sql/oracle/sakai_samigo_tables_v2_1_2.sql,539,sql
+SAM_PUBLISHEDACCESSCONTROL_T,测验/题库 Samigo,samigo/samigo-pack/src/sql/oracle/sakai_samigo_tables_v2_1_2.sql,286,sql
+SAM_PUBLISHEDANSWERFEEDBACK_T,测验/题库 Samigo,samigo/samigo-pack/src/sql/oracle/sakai_samigo_tables_v2_1_2.sql,372,sql
+SAM_PUBLISHEDANSWER_T,测验/题库 Samigo,samigo/samigo-pack/src/sql/oracle/sakai_samigo_tables_v2_1_2.sql,360,sql
+SAM_PUBLISHEDASSESSMENT_T,测验/题库 Samigo,samigo/samigo-pack/src/sql/oracle/sakai_samigo_tables_v2_1_2.sql,117,sql
+SAM_PUBLISHEDATTACHMENT_T,测验/题库 Samigo,samigo/samigo-pack/src/sql/oracle/sakai_samigo_tables_v2_4.sql,97,sql
+SAM_PUBLISHEDEVALUATION_T,测验/题库 Samigo,samigo/samigo-pack/src/sql/oracle/sakai_samigo_tables_v2_1_2.sql,273,sql
+SAM_PUBLISHEDFEEDBACK_T,测验/题库 Samigo,samigo/samigo-pack/src/sql/oracle/sakai_samigo_tables_v2_1_2.sql,233,sql
+SAM_PUBLISHEDITEMFEEDBACK_T,测验/题库 Samigo,samigo/samigo-pack/src/sql/oracle/sakai_samigo_tables_v2_1_2.sql,212,sql
+SAM_PUBLISHEDITEMMETADATA_T,测验/题库 Samigo,samigo/samigo-pack/src/sql/oracle/sakai_samigo_tables_v2_1_2.sql,532,sql
+SAM_PUBLISHEDITEMTAG_T,测验/题库 Samigo,samigo/samigo-hibernate/src/java/org/sakaiproject/tool/assessment/data/dao/assessment/PublishedItemData.hbm.xml,106,hbm
+SAM_PUBLISHEDITEMTEXT_T,测验/题库 Samigo,samigo/samigo-pack/src/sql/oracle/sakai_samigo_tables_v2_1_2.sql,442,sql
+SAM_PUBLISHEDITEM_T,测验/题库 Samigo,samigo/samigo-pack/src/sql/oracle/sakai_samigo_tables_v2_1_2.sql,379,sql
+SAM_PUBLISHEDMETADATA_T,测验/题库 Samigo,samigo/samigo-pack/src/sql/oracle/sakai_samigo_tables_v2_1_2.sql,178,sql
+SAM_PUBLISHEDSECTIONMETADATA_T,测验/题库 Samigo,samigo/samigo-pack/src/sql/oracle/sakai_samigo_tables_v2_1_2.sql,185,sql
+SAM_PUBLISHEDSECTION_T,测验/题库 Samigo,samigo/samigo-pack/src/sql/oracle/sakai_samigo_tables_v2_1_2.sql,427,sql
+SAM_PUBLISHEDSECUREDIP_T,测验/题库 Samigo,samigo/samigo-pack/src/sql/oracle/sakai_samigo_tables_v2_1_2.sql,449,sql
+SAM_QUALIFIERDATA_T,测验/题库 Samigo,samigo/samigo-pack/src/sql/oracle/sakai_samigo_tables_v2_1_2.sql,312,sql
+SAM_QUESTIONPOOLACCESS_T,测验/题库 Samigo,samigo/samigo-pack/src/sql/oracle/sakai_samigo_tables_v2_1_2.sql,320,sql
+SAM_QUESTIONPOOLITEM_T,测验/题库 Samigo,samigo/samigo-pack/src/sql/oracle/sakai_samigo_tables_v2_1_2.sql,207,sql
+SAM_QUESTIONPOOL_T,测验/题库 Samigo,samigo/samigo-pack/src/sql/oracle/sakai_samigo_tables_v2_1_2.sql,456,sql
+SAM_SEBVALIDATION_T,测验/题库 Samigo,samigo/samigo-hibernate/src/java/org/sakaiproject/tool/assessment/data/dao/assessment/SebValidation.hbm.xml,5,hbm
+SAM_SECTIONGRADING_T,测验/题库 Samigo,samigo/samigo-hibernate/src/java/org/sakaiproject/tool/assessment/data/dao/grading/GradingData.hbm.xml,161,hbm
+SAM_SECTIONMETADATA_T,测验/题库 Samigo,samigo/samigo-pack/src/sql/oracle/sakai_samigo_tables_v2_1_2.sql,474,sql
+SAM_SECTION_T,测验/题库 Samigo,samigo/samigo-pack/src/sql/oracle/sakai_samigo_tables_v2_1_2.sql,192,sql
+SAM_SECUREDELIVERY_T,测验/题库 Samigo,samigo/samigo-hibernate/src/java/org/sakaiproject/tool/assessment/data/dao/grading/SecureDelivery.hbm.xml,6,hbm
+SAM_SECUREDIP_T,测验/题库 Samigo,samigo/samigo-pack/src/sql/oracle/sakai_samigo_tables_v2_1_2.sql,518,sql
+SAM_STUDENTGRADINGSUMMARY_T,测验/题库 Samigo,samigo/samigo-pack/src/sql/oracle/sakai_samigo_tables_v2_4.sql,115,sql
+SAM_TYPE_T,测验/题库 Samigo,samigo/samigo-pack/src/sql/oracle/sakai_samigo_tables_v2_1_2.sql,576,sql
+SAKAI_ALIAS,站点、用户与权限,kernel/kernel-impl/src/main/sql/oracle/sakai_alias.sql,5,sql
+SAKAI_ALIAS_PROPERTY,站点、用户与权限,kernel/kernel-impl/src/main/sql/oracle/sakai_alias.sql,21,sql
+SAKAI_PERSON_T,站点、用户与权限,common/common-composite-component/src/sql/oracle/sakai_common.sql,20,sql
+SAKAI_REALM,站点、用户与权限,kernel/kernel-impl/src/main/sql/oracle/sakai_realm.sql,7,sql
+SAKAI_REALM_FUNCTION,站点、用户与权限,kernel/kernel-impl/src/main/sql/oracle/sakai_realm.sql,100,sql
+SAKAI_REALM_LOCKS,站点、用户与权限,kernel/kernel-impl/src/main/sql/oracle/sakai_realm.sql,234,sql
+SAKAI_REALM_PROPERTY,站点、用户与权限,kernel/kernel-impl/src/main/sql/oracle/sakai_realm.sql,44,sql
+SAKAI_REALM_PROVIDER,站点、用户与权限,kernel/kernel-impl/src/main/sql/oracle/sakai_realm.sql,127,sql
+SAKAI_REALM_RL_FN,站点、用户与权限,kernel/kernel-impl/src/main/sql/oracle/sakai_realm.sql,150,sql
+SAKAI_REALM_RL_GR,站点、用户与权限,kernel/kernel-impl/src/main/sql/oracle/sakai_realm.sql,185,sql
+SAKAI_REALM_ROLE,站点、用户与权限,kernel/kernel-impl/src/main/sql/oracle/sakai_realm.sql,62,sql
+SAKAI_REALM_ROLE_DESC,站点、用户与权限,kernel/kernel-impl/src/main/sql/oracle/sakai_realm.sql,81,sql
+SAKAI_SESSION,站点、用户与权限,kernel/kernel-impl/src/main/sql/oracle/sakai_session.sql,5,sql
+SAKAI_SITE,站点、用户与权限,kernel/kernel-impl/src/main/sql/oracle/sakai_site.sql,19,sql
+SAKAI_SITE_GROUP,站点、用户与权限,kernel/kernel-impl/src/main/sql/oracle/sakai_site_group.sql,6,sql
+SAKAI_SITE_GROUP_PROPERTY,站点、用户与权限,kernel/kernel-impl/src/main/sql/oracle/sakai_site_group.sql,29,sql
+SAKAI_SITE_PAGE,站点、用户与权限,kernel/kernel-impl/src/main/sql/oracle/sakai_site.sql,80,sql
+SAKAI_SITE_PAGE_PROPERTY,站点、用户与权限,kernel/kernel-impl/src/main/sql/oracle/sakai_site.sql,106,sql
+SAKAI_SITE_PROPERTY,站点、用户与权限,kernel/kernel-impl/src/main/sql/oracle/sakai_site.sql,5,sql
+SAKAI_SITE_TOOL,站点、用户与权限,kernel/kernel-impl/src/main/sql/oracle/sakai_site.sql,133,sql
+SAKAI_SITE_TOOL_PROPERTY,站点、用户与权限,kernel/kernel-impl/src/main/sql/oracle/sakai_site.sql,167,sql
+SAKAI_SITE_USER,站点、用户与权限,kernel/kernel-impl/src/main/sql/oracle/sakai_site.sql,196,sql
+SAKAI_USER,站点、用户与权限,kernel/kernel-impl/src/main/sql/oracle/sakai_user.sql,20,sql
+SAKAI_USER_ID_MAP,站点、用户与权限,kernel/kernel-impl/src/main/sql/oracle/sakai_user.sql,59,sql
+SAKAI_USER_PROPERTY,站点、用户与权限,kernel/kernel-impl/src/main/sql/oracle/sakai_user.sql,5,sql
+SST_LESSONBUILDER,课程内容 LessonBuilder,sitestats/sitestats-impl-hib/src/java/org/sakaiproject/sitestats/impl/hbm/LessonBuilderStatImpl.hbm.xml,5,hbm
+lesson_builder_ch_status,课程内容 LessonBuilder,lessonbuilder/components/src/ddl/oracle/simplepage.for-11.sql,12,sql
+lesson_builder_comments,课程内容 LessonBuilder,lessonbuilder/hbm/src/java/org/sakaiproject/lessonbuildertool/simplepagecomment.hbm.xml,5,hbm
+lesson_builder_groups,课程内容 LessonBuilder,lessonbuilder/hbm/src/java/org/sakaiproject/lessonbuildertool/simplepagegroup.hbm.xml,5,hbm
+lesson_builder_items,课程内容 LessonBuilder,lessonbuilder/hbm/src/java/org/sakaiproject/lessonbuildertool/simplepageitem.hbm.xml,5,hbm
+lesson_builder_log,课程内容 LessonBuilder,lessonbuilder/hbm/src/java/org/sakaiproject/lessonbuildertool/simplepagelogentry.hbm.xml,5,hbm
+lesson_builder_p_eval_results,课程内容 LessonBuilder,lessonbuilder/hbm/src/java/org/sakaiproject/lessonbuildertool/simplepagepeerevalresult.hbm.xml,6,hbm
+lesson_builder_pages,课程内容 LessonBuilder,lessonbuilder/hbm/src/java/org/sakaiproject/lessonbuildertool/simplepage.hbm.xml,5,hbm
+lesson_builder_properties,课程内容 LessonBuilder,lessonbuilder/hbm/src/java/org/sakaiproject/lessonbuildertool/simplepageproperty.hbm.xml,5,hbm
+lesson_builder_q_responses,课程内容 LessonBuilder,lessonbuilder/hbm/src/java/org/sakaiproject/lessonbuildertool/simplepagequestionresponse.hbm.xml,5,hbm
+lesson_builder_qr_totals,课程内容 LessonBuilder,lessonbuilder/hbm/src/java/org/sakaiproject/lessonbuildertool/simplepagequestionresponsetotals.hbm.xml,5,hbm
+lesson_builder_student_pages,课程内容 LessonBuilder,lessonbuilder/hbm/src/java/org/sakaiproject/lessonbuildertool/simplestudentpage.hbm.xml,5,hbm

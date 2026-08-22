@@ -1,0 +1,67 @@
+.event-detail-commons{
+  .info-block{
+    padding: 15px 20px;
+    height: 50px;
+    background: #F5F5F5;
+    font-size: 20px;
+    color: #333333;
+  }
+  .u-i-line{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin:30px 0;
+    .u-i-line-title{
+      flex-shrink: 0;
+      font-size: 18px;
+      color: #333333;
+      width: 120px;
+      text-align: right;
+      margin-right: 50px;
+    }
+    .u-i-line-required{
+      color: #FF0000;
+      margin-right: 5px;
+    }
+    .u-i-line-content{
+      font-size: 18px;
+      color: #333333;
+      line-height: 1;
+      margin-right: 16px;
+      display: -webkit-box;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 1;
+      max-width: calc(100% - 250px); /* 添加固定宽度 */
+    }
+    .u-i-line-content-active{
+      color: #3169F8;
+      text-decoration-line: underline;
+      cursor: pointer;
+    }
+    .rz-line{
+      font-size: 16px;
+      color: #999999;
+      line-height: 1;
+      flex-shrink: 0; /* 防止被压缩 */
+    }
+    .rz-img{
+      width: 16px;
+      height: 16px;
+      margin-right: 5px;
+    }
+    .rz-btn-renzheng{
+      font-size: 16px;
+      color: #3B72FF;
+      font-weight: 500;
+      cursor: pointer;
+    }
+  }
+  .page-right-content{
+    width: 100%;
+    .content-card{
+      width: 100%;
+    }
+  }
+}

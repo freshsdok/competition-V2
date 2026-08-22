@@ -1,0 +1,802 @@
+evidence_id,type,domain,name,claim,path,line,detail
+SAK-E0001,readme,总体,README.md,README 声明 Sakai CLE，master 为当前开发线，运行在 Tomcat,README.md,,
+SAK-E0002,pom,总体,pom.xml,顶层 Maven POM 声明多模块构建,pom.xml,,
+SAK-E0003,doc,Kernel,kernel/README.md,Kernel 包含 Sakai 基础服务、API/SPI、实现和 Spring components.xml wiring,kernel/README.md,,
+SAK-E0004,doc,Portal,portal/README.md,Portal 控制 Sakai 外层 UI 和工具渲染,portal/README.md,,
+SAK-E0005,doc,Content,content/README.md,Content 提供 Resources 工具和 Drop Box,content/README.md,,
+SAK-E0006,core_api,核心服务,SecurityService,权限判断服务,kernel/api/src/main/java/org/sakaiproject/authz/api/SecurityService.java,37,
+SAK-E0007,core_api,核心服务,AuthzGroupService,Realm/AuthzGroup 服务,kernel/api/src/main/java/org/sakaiproject/authz/api/AuthzGroupService.java,46,
+SAK-E0008,core_api,核心服务,SiteService,站点服务,kernel/api/src/main/java/org/sakaiproject/site/api/SiteService.java,47,
+SAK-E0009,core_api,核心服务,ContentHostingService,内容资源服务,kernel/api/src/main/java/org/sakaiproject/content/api/ContentHostingService.java,101,
+SAK-E0010,core_api,核心服务,ToolManager,工具/Placement 服务,kernel/api/src/main/java/org/sakaiproject/tool/api/ToolManager.java,39,
+SAK-E0011,core_api,核心服务,SessionManager,会话服务,kernel/api/src/main/java/org/sakaiproject/tool/api/SessionManager.java,34,
+SAK-E0012,core_api,核心服务,AssignmentService,作业服务,assignment/api/src/java/org/sakaiproject/assignment/api/AssignmentService.java,58,
+SAK-E0013,core_api,核心服务,EntityBroker,实体/API 聚合服务,entitybroker/api/src/main/java/org/sakaiproject/entitybroker/EntityBroker.java,53,
+SAK-E0014,module,其他模块,access,Maven 模块/工具,access,,"java=2, webapp=False"
+SAK-E0015,module,其他模块,admin-bulk-user-membership,Maven 模块/工具,admin-bulk-user-membership,,"java=6, webapp=False"
+SAK-E0016,module,用户、站点与权限,admin-su,Maven 模块/工具,admin-su,,"java=1, webapp=False"
+SAK-E0017,module,用户、站点与权限,admin-tools,Maven 模块/工具,admin-tools,,"java=13, webapp=False"
+SAK-E0018,module,教学工具与协作,announcement,Maven 模块/工具,announcement,,"java=24, webapp=False"
+SAK-E0019,module,其他模块,announcement/announcement-api/api,Maven 模块/工具,announcement/announcement-api/api,,"java=9, webapp=False"
+SAK-E0020,module,内容、文件与集成,archive,Maven 模块/工具,archive,,"java=1, webapp=False"
+SAK-E0021,module,教学工具与协作,assignment,Maven 模块/工具,assignment,,"java=86, webapp=False"
+SAK-E0022,module,其他模块,assignment/api,Maven 模块/工具,assignment/api,,"java=32, webapp=False"
+SAK-E0023,module,教学工具与协作,calendar,Maven 模块/工具,calendar,,"java=74, webapp=False"
+SAK-E0024,module,其他模块,calendar/calendar-api/api,Maven 模块/工具,calendar/calendar-api/api,,"java=17, webapp=False"
+SAK-E0025,module,其他模块,calendar/calendar-bundles,Maven 模块/工具,calendar/calendar-bundles,,"java=0, webapp=False"
+SAK-E0026,module,其他模块,calendar/calendar-hbm,Maven 模块/工具,calendar/calendar-hbm,,"java=1, webapp=False"
+SAK-E0027,module,其他模块,card-game,Maven 模块/工具,card-game,,"java=5, webapp=False"
+SAK-E0028,module,其他模块,card-game/api,Maven 模块/工具,card-game/api,,"java=3, webapp=False"
+SAK-E0029,module,教学工具与协作,chat,Maven 模块/工具,chat,,"java=19, webapp=False"
+SAK-E0030,module,其他模块,chat/chat-api/api,Maven 模块/工具,chat/chat-api/api,,"java=8, webapp=False"
+SAK-E0031,module,内容、文件与集成,citations,Maven 模块/工具,citations,,"java=71, webapp=False"
+SAK-E0032,module,其他模块,citations/citations-api/api,Maven 模块/工具,citations/citations-api/api,,"java=25, webapp=False"
+SAK-E0033,module,内容、文件与集成,cloud-content,Maven 模块/工具,cloud-content,,"java=1, webapp=False"
+SAK-E0034,module,内容、文件与集成,cloud-storage,Maven 模块/工具,cloud-storage,,"java=14, webapp=False"
+SAK-E0035,module,其他模块,cloud-storage/googledrive,Maven 模块/工具,cloud-storage/googledrive,,"java=14, webapp=False"
+SAK-E0036,module,平台框架与门户,common,Maven 模块/工具,common,,"java=125, webapp=False"
+SAK-E0037,module,其他模块,common/archive-api,Maven 模块/工具,common/archive-api,,"java=16, webapp=False"
+SAK-E0038,module,其他模块,common/common-api,Maven 模块/工具,common/common-api,,"java=15, webapp=False"
+SAK-E0039,module,其他模块,common/impl,Maven 模块/工具,common/impl,,"java=8, webapp=False"
+SAK-E0040,module,其他模块,common/privacy-api,Maven 模块/工具,common/privacy-api,,"java=1, webapp=False"
+SAK-E0041,module,其他模块,common/privacy-hbm,Maven 模块/工具,common/privacy-hbm,,"java=1, webapp=False"
+SAK-E0042,module,教学工具与协作,commons,Maven 模块/工具,commons,,"java=28, webapp=False"
+SAK-E0043,module,其他模块,commons/api,Maven 模块/工具,commons/api,,"java=18, webapp=False"
+SAK-E0044,module,其他模块,conditions,Maven 模块/工具,conditions,,"java=13, webapp=False"
+SAK-E0045,module,其他模块,conditions/api,Maven 模块/工具,conditions/api,,"java=7, webapp=False"
+SAK-E0046,module,平台框架与门户,config,Maven 模块/工具,config,,"java=9, webapp=False"
+SAK-E0047,module,其他模块,config/configuration/bundles,Maven 模块/工具,config/configuration/bundles,,"java=0, webapp=False"
+SAK-E0048,module,教学工具与协作,content,Maven 模块/工具,content,,"java=74, webapp=False"
+SAK-E0049,module,教学工具与协作,content-review,Maven 模块/工具,content-review,,"java=48, webapp=False"
+SAK-E0050,module,其他模块,content-review/api,Maven 模块/工具,content-review/api,,"java=10, webapp=False"
+SAK-E0051,module,其他模块,content/content-bundles,Maven 模块/工具,content/content-bundles,,"java=0, webapp=False"
+SAK-E0052,module,其他模块,content/content-copyright/api,Maven 模块/工具,content/content-copyright/api,,"java=3, webapp=False"
+SAK-E0053,module,其他模块,content/content-metadata/api,Maven 模块/工具,content/content-metadata/api,,"java=6, webapp=False"
+SAK-E0054,module,教学工具与协作,conversations,Maven 模块/工具,conversations,,"java=65, webapp=False"
+SAK-E0055,module,其他模块,conversations/api,Maven 模块/工具,conversations/api,,"java=42, webapp=False"
+SAK-E0056,module,教学工具与协作,dashboard,Maven 模块/工具,dashboard,,"java=4, webapp=False"
+SAK-E0057,module,内容、文件与集成,dav,Maven 模块/工具,dav,,"java=5, webapp=False"
+SAK-E0058,module,其他模块,dav/dav-common,Maven 模块/工具,dav/dav-common,,"java=1, webapp=False"
+SAK-E0059,module,其他模块,dav/dav-server,Maven 模块/工具,dav/dav-server,,"java=1, webapp=False"
+SAK-E0060,module,用户、站点与权限,delegatedaccess,Maven 模块/工具,delegatedaccess,,"java=81, webapp=False"
+SAK-E0061,module,其他模块,delegatedaccess/api,Maven 模块/工具,delegatedaccess/api,,"java=17, webapp=False"
+SAK-E0062,module,平台框架与门户,deploy,Maven 模块/工具,deploy,,"java=0, webapp=False"
+SAK-E0063,module,其他模块,e2e-tests,Maven 模块/工具,e2e-tests,,"java=26, webapp=False"
+SAK-E0064,module,其他模块,edu-services,Maven 模块/工具,edu-services,,"java=100, webapp=False"
+SAK-E0065,module,其他模块,edu-services/cm-service/cm-api/api,Maven 模块/工具,edu-services/cm-service/cm-api/api,,"java=16, webapp=False"
+SAK-E0066,module,其他模块,edu-services/cm-service/cm-impl/hibernate-impl/hibernate,Maven 模块/工具,edu-services/cm-service/cm-impl/hibernate-impl/hibernate,,"java=15, webapp=False"
+SAK-E0067,module,其他模块,edu-services/scoring-service/api,Maven 模块/工具,edu-services/scoring-service/api,,"java=4, webapp=False"
+SAK-E0068,module,其他模块,edu-services/sections-service/sections-api,Maven 模块/工具,edu-services/sections-service/sections-api,,"java=20, webapp=False"
+SAK-E0069,module,其他模块,edu-services/sections-service/sections-impl/sakai/model,Maven 模块/工具,edu-services/sections-service/sections-impl/sakai/model,,"java=11, webapp=False"
+SAK-E0070,module,其他模块,emailtemplateservice,Maven 模块/工具,emailtemplateservice,,"java=4, webapp=False"
+SAK-E0071,module,平台框架与门户,entitybroker,Maven 模块/工具,entitybroker,,"java=267, webapp=False"
+SAK-E0072,module,其他模块,entitybroker/api,Maven 模块/工具,entitybroker/api,,"java=122, webapp=False"
+SAK-E0073,module,其他模块,external-calendaring-service,Maven 模块/工具,external-calendaring-service,,"java=7, webapp=False"
+SAK-E0074,module,其他模块,external-calendaring-service/api,Maven 模块/工具,external-calendaring-service/api,,"java=2, webapp=False"
+SAK-E0075,module,教学工具与协作,feedback,Maven 模块/工具,feedback,,"java=7, webapp=False"
+SAK-E0076,module,教学工具与协作,gradebookng,Maven 模块/工具,gradebookng,,"java=247, webapp=False"
+SAK-E0077,module,其他模块,gradebookng/api,Maven 模块/工具,gradebookng/api,,"java=71, webapp=False"
+SAK-E0078,module,其他模块,gradebookng/bundle,Maven 模块/工具,gradebookng/bundle,,"java=0, webapp=False"
+SAK-E0079,module,其他模块,help,Maven 模块/工具,help,,"java=39, webapp=False"
+SAK-E0080,module,其他模块,help/help,Maven 模块/工具,help/help,,"java=0, webapp=False"
+SAK-E0081,module,其他模块,help/help-api,Maven 模块/工具,help/help-api,,"java=10, webapp=False"
+SAK-E0082,module,其他模块,help/help-component-shared,Maven 模块/工具,help/help-component-shared,,"java=3, webapp=False"
+SAK-E0083,module,用户、站点与权限,hierarchy,Maven 模块/工具,hierarchy,,"java=21, webapp=False"
+SAK-E0084,module,其他模块,hierarchy/api,Maven 模块/工具,hierarchy/api,,"java=13, webapp=False"
+SAK-E0085,module,平台框架与门户,jobscheduler,Maven 模块/工具,jobscheduler,,"java=114, webapp=False"
+SAK-E0086,module,其他模块,jobscheduler/scheduler-api,Maven 模块/工具,jobscheduler/scheduler-api,,"java=14, webapp=False"
+SAK-E0087,module,其他模块,jobscheduler/scheduler-component-shared,Maven 模块/工具,jobscheduler/scheduler-component-shared,,"java=80, webapp=False"
+SAK-E0088,module,其他模块,jobscheduler/scheduler-events-model,Maven 模块/工具,jobscheduler/scheduler-events-model,,"java=4, webapp=False"
+SAK-E0089,module,其他模块,jobscheduler/scheduler-test-component-shared,Maven 模块/工具,jobscheduler/scheduler-test-component-shared,,"java=11, webapp=False"
+SAK-E0090,module,平台框架与门户,jsf,Maven 模块/工具,jsf,,"java=144, webapp=False"
+SAK-E0091,module,平台框架与门户,jsf2,Maven 模块/工具,jsf2,,"java=79, webapp=False"
+SAK-E0092,module,平台框架与门户,kernel,Maven 模块/工具,kernel,,"java=871, webapp=False"
+SAK-E0093,module,其他模块,kernel/api,Maven 模块/工具,kernel/api,,"java=442, webapp=False"
+SAK-E0094,module,其他模块,kernel/component-manager,Maven 模块/工具,kernel/component-manager,,"java=49, webapp=False"
+SAK-E0095,module,其他模块,kernel/kernel-storage-util,Maven 模块/工具,kernel/kernel-storage-util,,"java=39, webapp=False"
+SAK-E0096,module,教学工具与协作,lessonbuilder,Maven 模块/工具,lessonbuilder,,"java=171, webapp=False"
+SAK-E0097,module,其他模块,lessonbuilder/api,Maven 模块/工具,lessonbuilder/api,,"java=20, webapp=False"
+SAK-E0098,module,其他模块,lessonbuilder/hbm,Maven 模块/工具,lessonbuilder/hbm,,"java=16, webapp=False"
+SAK-E0099,module,平台框架与门户,library,Maven 模块/工具,library,,"java=0, webapp=False"
+SAK-E0100,module,用户、站点与权限,login,Maven 模块/工具,login,,"java=23, webapp=False"
+SAK-E0101,module,其他模块,login/login-api/api,Maven 模块/工具,login/login-api/api,,"java=9, webapp=False"
+SAK-E0102,module,教学工具与协作,lti,Maven 模块/工具,lti,,"java=279, webapp=False"
+SAK-E0103,module,其他模块,lti/lti-api,Maven 模块/工具,lti/lti-api,,"java=26, webapp=False"
+SAK-E0104,module,其他模块,lti/tsugi-util,Maven 模块/工具,lti/tsugi-util,,"java=184, webapp=False"
+SAK-E0105,module,教学工具与协作,mailarchive,Maven 模块/工具,mailarchive,,"java=19, webapp=False"
+SAK-E0106,module,其他模块,mailarchive/mailarchive-api/api,Maven 模块/工具,mailarchive/mailarchive-api/api,,"java=8, webapp=False"
+SAK-E0107,module,教学工具与协作,mailsender,Maven 模块/工具,mailsender,,"java=24, webapp=False"
+SAK-E0108,module,其他模块,mailsender/api,Maven 模块/工具,mailsender/api,,"java=13, webapp=False"
+SAK-E0109,module,其他模块,master,Maven 模块/工具,master,,"java=1, webapp=False"
+SAK-E0110,module,教学工具与协作,meetings,Maven 模块/工具,meetings,,"java=28, webapp=False"
+SAK-E0111,module,其他模块,meetings/api,Maven 模块/工具,meetings/api,,"java=9, webapp=False"
+SAK-E0112,module,其他模块,message,Maven 模块/工具,message,,"java=11, webapp=False"
+SAK-E0113,module,其他模块,message/message-api/api,Maven 模块/工具,message/message-api/api,,"java=7, webapp=False"
+SAK-E0114,module,内容、文件与集成,microsoft-integration,Maven 模块/工具,microsoft-integration,,"java=98, webapp=False"
+SAK-E0115,module,其他模块,microsoft-integration/api,Maven 模块/工具,microsoft-integration/api,,"java=53, webapp=False"
+SAK-E0116,module,教学工具与协作,msgcntr,Maven 模块/工具,msgcntr,,"java=199, webapp=False"
+SAK-E0117,module,其他模块,msgcntr/messageforums-api,Maven 模块/工具,msgcntr/messageforums-api,,"java=71, webapp=False"
+SAK-E0118,module,其他模块,msgcntr/messageforums-hbm,Maven 模块/工具,msgcntr/messageforums-hbm,,"java=39, webapp=False"
+SAK-E0119,module,用户、站点与权限,oauth,Maven 模块/工具,oauth,,"java=37, webapp=False"
+SAK-E0120,module,其他模块,oauth/api,Maven 模块/工具,oauth/api,,"java=15, webapp=False"
+SAK-E0121,module,其他模块,oauth/dao-hbm,Maven 模块/工具,oauth/dao-hbm,,"java=2, webapp=False"
+SAK-E0122,module,其他模块,pack,Maven 模块/工具,pack,,"java=0, webapp=False"
+SAK-E0123,module,其他模块,pack/pack-bin,Maven 模块/工具,pack/pack-bin,,"java=0, webapp=False"
+SAK-E0124,module,其他模块,pack/pack-src,Maven 模块/工具,pack/pack-src,,"java=0, webapp=False"
+SAK-E0125,module,其他模块,pasystem,Maven 模块/工具,pasystem,,"java=37, webapp=False"
+SAK-E0126,module,其他模块,pasystem/pasystem-api/api,Maven 模块/工具,pasystem/pasystem-api/api,,"java=13, webapp=False"
+SAK-E0127,module,教学工具与协作,plus,Maven 模块/工具,plus,,"java=39, webapp=False"
+SAK-E0128,module,其他模块,plus/api,Maven 模块/工具,plus/api,,"java=19, webapp=False"
+SAK-E0129,module,教学工具与协作,podcasts,Maven 模块/工具,podcasts,,"java=17, webapp=False"
+SAK-E0130,module,其他模块,podcasts/podcasts-api,Maven 模块/工具,podcasts/podcasts-api,,"java=5, webapp=False"
+SAK-E0131,module,教学工具与协作,polls,Maven 模块/工具,polls,,"java=41, webapp=False"
+SAK-E0132,module,其他模块,polls/api,Maven 模块/工具,polls/api,,"java=11, webapp=False"
+SAK-E0133,module,平台框架与门户,portal,Maven 模块/工具,portal,,"java=133, webapp=False"
+SAK-E0134,module,其他模块,portal/portal-api/api,Maven 模块/工具,portal/portal-api/api,,"java=23, webapp=False"
+SAK-E0135,module,其他模块,portal/portal-render-api/api,Maven 模块/工具,portal/portal-render-api/api,,"java=4, webapp=False"
+SAK-E0136,module,其他模块,portal/portal-util/util,Maven 模块/工具,portal/portal-util/util,,"java=9, webapp=False"
+SAK-E0137,module,教学工具与协作,postem,Maven 模块/工具,postem,,"java=21, webapp=False"
+SAK-E0138,module,其他模块,postem/postem-api,Maven 模块/工具,postem/postem-api,,"java=4, webapp=False"
+SAK-E0139,module,其他模块,postem/postem-hbm,Maven 模块/工具,postem/postem-hbm,,"java=4, webapp=False"
+SAK-E0140,module,其他模块,presence,Maven 模块/工具,presence,,"java=6, webapp=False"
+SAK-E0141,module,其他模块,presence/presence-api/api,Maven 模块/工具,presence/presence-api/api,,"java=2, webapp=False"
+SAK-E0142,module,用户、站点与权限,profile2,Maven 模块/工具,profile2,,"java=50, webapp=False"
+SAK-E0143,module,其他模块,profile2/api,Maven 模块/工具,profile2/api,,"java=16, webapp=False"
+SAK-E0144,module,平台框架与门户,providers,Maven 模块/工具,providers,,"java=51, webapp=False"
+SAK-E0145,module,用户、站点与权限,reset-pass,Maven 模块/工具,reset-pass,,"java=20, webapp=False"
+SAK-E0146,module,其他模块,reset-pass/account-validator-api,Maven 模块/工具,reset-pass/account-validator-api,,"java=6, webapp=False"
+SAK-E0147,module,用户、站点与权限,roster2,Maven 模块/工具,roster2,,"java=12, webapp=False"
+SAK-E0148,module,其他模块,roster2/bundle,Maven 模块/工具,roster2/bundle,,"java=0, webapp=False"
+SAK-E0149,module,平台框架与门户,rsf,Maven 模块/工具,rsf,,"java=37, webapp=False"
+SAK-E0150,module,教学工具与协作,rubrics,Maven 模块/工具,rubrics,,"java=36, webapp=False"
+SAK-E0151,module,其他模块,rubrics/api,Maven 模块/工具,rubrics/api,,"java=24, webapp=False"
+SAK-E0152,module,教学工具与协作,rwiki,Maven 模块/工具,rwiki,,"java=473, webapp=False"
+SAK-E0153,module,其他模块,rwiki/rwiki-api/api,Maven 模块/工具,rwiki/rwiki-api/api,,"java=49, webapp=False"
+SAK-E0154,module,其他模块,rwiki/rwiki-model,Maven 模块/工具,rwiki/rwiki-model,,"java=13, webapp=False"
+SAK-E0155,module,教学工具与协作,samigo,Maven 模块/工具,samigo,,"java=704, webapp=False"
+SAK-E0156,module,其他模块,samigo/samigo-api,Maven 模块/工具,samigo/samigo-api,,"java=73, webapp=False"
+SAK-E0157,module,其他模块,samigo/samigo-hibernate,Maven 模块/工具,samigo/samigo-hibernate,,"java=62, webapp=False"
+SAK-E0158,module,其他模块,samigo/samigo-services,Maven 模块/工具,samigo/samigo-services,,"java=205, webapp=False"
+SAK-E0159,module,教学工具与协作,scormplayer,Maven 模块/工具,scormplayer,,"java=355, webapp=False"
+SAK-E0160,module,其他模块,scormplayer/scorm-api,Maven 模块/工具,scormplayer/scorm-api,,"java=151, webapp=False"
+SAK-E0161,module,内容、文件与集成,search,Maven 模块/工具,search,,"java=82, webapp=False"
+SAK-E0162,module,其他模块,search/elasticsearch/api,Maven 模块/工具,search/elasticsearch/api,,"java=4, webapp=False"
+SAK-E0163,module,其他模块,search/search-api/api,Maven 模块/工具,search/search-api/api,,"java=22, webapp=False"
+SAK-E0164,module,其他模块,search/search-model,Maven 模块/工具,search/search-model,,"java=1, webapp=False"
+SAK-E0165,module,用户、站点与权限,sections,Maven 模块/工具,sections,,"java=37, webapp=False"
+SAK-E0166,module,其他模块,serviceworker,Maven 模块/工具,serviceworker,,"java=0, webapp=True"
+SAK-E0167,module,其他模块,shortenedurl,Maven 模块/工具,shortenedurl,,"java=9, webapp=False"
+SAK-E0168,module,其他模块,shortenedurl/api,Maven 模块/工具,shortenedurl/api,,"java=3, webapp=False"
+SAK-E0169,module,教学工具与协作,signup,Maven 模块/工具,signup,,"java=127, webapp=False"
+SAK-E0170,module,其他模块,signup/api,Maven 模块/工具,signup/api,,"java=32, webapp=False"
+SAK-E0171,module,用户、站点与权限,site,Maven 模块/工具,site,,"java=27, webapp=False"
+SAK-E0172,module,用户、站点与权限,site-manage,Maven 模块/工具,site-manage,,"java=103, webapp=False"
+SAK-E0173,module,其他模块,site-manage/datemanager/api,Maven 模块/工具,site-manage/datemanager/api,,"java=5, webapp=False"
+SAK-E0174,module,其他模块,site-manage/site-manage-api/api,Maven 模块/工具,site-manage/site-manage-api/api,,"java=18, webapp=False"
+SAK-E0175,module,其他模块,site-manage/site-manage-hbm,Maven 模块/工具,site-manage/site-manage-hbm,,"java=4, webapp=False"
+SAK-E0176,module,其他模块,site/term-manager/api,Maven 模块/工具,site/term-manager/api,,"java=6, webapp=False"
+SAK-E0177,module,其他模块,sitestats,Maven 模块/工具,sitestats,,"java=262, webapp=False"
+SAK-E0178,module,其他模块,sitestats/sitestats-api,Maven 模块/工具,sitestats/sitestats-api,,"java=78, webapp=False"
+SAK-E0179,module,其他模块,sitestats/sitestats-impl-hib,Maven 模块/工具,sitestats/sitestats-impl-hib,,"java=13, webapp=False"
+SAK-E0180,module,教学工具与协作,syllabus,Maven 模块/工具,syllabus,,"java=27, webapp=False"
+SAK-E0181,module,其他模块,syllabus/syllabus-api,Maven 模块/工具,syllabus/syllabus-api,,"java=6, webapp=False"
+SAK-E0182,module,其他模块,taggable,Maven 模块/工具,taggable,,"java=18, webapp=False"
+SAK-E0183,module,其他模块,taggable/taggable-api/api,Maven 模块/工具,taggable/taggable-api/api,,"java=11, webapp=False"
+SAK-E0184,module,其他模块,taggable/taggable-hbm/hbm,Maven 模块/工具,taggable/taggable-hbm/hbm,,"java=1, webapp=False"
+SAK-E0185,module,其他模块,tags,Maven 模块/工具,tags,,"java=42, webapp=False"
+SAK-E0186,module,其他模块,tags/tags-api/api,Maven 模块/工具,tags/tags-api/api,,"java=12, webapp=False"
+SAK-E0187,module,其他模块,textarea,Maven 模块/工具,textarea,,"java=14, webapp=False"
+SAK-E0188,module,用户、站点与权限,user,Maven 模块/工具,user,,"java=12, webapp=False"
+SAK-E0189,module,其他模块,user/user-util,Maven 模块/工具,user/user-util,,"java=1, webapp=False"
+SAK-E0190,module,其他模块,userauditservice,Maven 模块/工具,userauditservice,,"java=7, webapp=False"
+SAK-E0191,module,其他模块,userauditservice/api,Maven 模块/工具,userauditservice/api,,"java=2, webapp=False"
+SAK-E0192,module,用户、站点与权限,usermembership,Maven 模块/工具,usermembership,,"java=5, webapp=False"
+SAK-E0193,module,其他模块,usermembership/api,Maven 模块/工具,usermembership/api,,"java=1, webapp=False"
+SAK-E0194,module,平台框架与门户,velocity,Maven 模块/工具,velocity,,"java=31, webapp=False"
+SAK-E0195,module,其他模块,velocity/tool-api,Maven 模块/工具,velocity/tool-api,,"java=3, webapp=False"
+SAK-E0196,module,平台框架与门户,vuecomponents,Maven 模块/工具,vuecomponents,,"java=0, webapp=False"
+SAK-E0197,module,其他模块,vuecomponents/bundle,Maven 模块/工具,vuecomponents/bundle,,"java=0, webapp=False"
+SAK-E0198,module,平台框架与门户,web,Maven 模块/工具,web,,"java=7, webapp=False"
+SAK-E0199,module,其他模块,web/web-api/api,Maven 模块/工具,web/web-api/api,,"java=1, webapp=False"
+SAK-E0200,module,平台框架与门户,webapi,Maven 模块/工具,webapi,,"java=58, webapp=True"
+SAK-E0201,module,平台框架与门户,webcomponents,Maven 模块/工具,webcomponents,,"java=0, webapp=False"
+SAK-E0202,module,其他模块,webcomponents/bundle,Maven 模块/工具,webcomponents/bundle,,"java=0, webapp=False"
+SAK-E0203,module,平台框架与门户,webjars,Maven 模块/工具,webjars,,"java=0, webapp=False"
+SAK-E0204,module,平台框架与门户,webservices,Maven 模块/工具,webservices,,"java=37, webapp=False"
+SAK-E0205,module,平台框架与门户,wicket,Maven 模块/工具,wicket,,"java=8, webapp=False"
+SAK-E0206,table,其他工具表,SAKAI_HELP_CATEGORY,SQL/HBM 定义表,help/help-component/src/sql/oracle/sakai_help.sql,6,sql
+SAK-E0207,table,其他工具表,SAKAI_HELP_RESOURCE,SQL/HBM 定义表,help/help-component/src/sql/oracle/sakai_help.sql,11,sql
+SAK-E0208,table,站点、用户与权限,SAKAI_SITE_PROPERTY,SQL/HBM 定义表,kernel/kernel-impl/src/main/sql/oracle/sakai_site.sql,5,sql
+SAK-E0209,table,站点、用户与权限,SAKAI_SITE,SQL/HBM 定义表,kernel/kernel-impl/src/main/sql/oracle/sakai_site.sql,19,sql
+SAK-E0210,table,站点、用户与权限,SAKAI_SITE_PAGE,SQL/HBM 定义表,kernel/kernel-impl/src/main/sql/oracle/sakai_site.sql,80,sql
+SAK-E0211,table,站点、用户与权限,SAKAI_SITE_PAGE_PROPERTY,SQL/HBM 定义表,kernel/kernel-impl/src/main/sql/oracle/sakai_site.sql,106,sql
+SAK-E0212,table,站点、用户与权限,SAKAI_SITE_TOOL,SQL/HBM 定义表,kernel/kernel-impl/src/main/sql/oracle/sakai_site.sql,133,sql
+SAK-E0213,table,站点、用户与权限,SAKAI_SITE_TOOL_PROPERTY,SQL/HBM 定义表,kernel/kernel-impl/src/main/sql/oracle/sakai_site.sql,167,sql
+SAK-E0214,table,站点、用户与权限,SAKAI_SITE_USER,SQL/HBM 定义表,kernel/kernel-impl/src/main/sql/oracle/sakai_site.sql,196,sql
+SAK-E0215,table,其他工具表,SAKAI_DIGEST,SQL/HBM 定义表,kernel/kernel-impl/src/main/sql/oracle/sakai_digest.sql,5,sql
+SAK-E0216,table,站点、用户与权限,SAKAI_REALM,SQL/HBM 定义表,kernel/kernel-impl/src/main/sql/oracle/sakai_realm.sql,7,sql
+SAK-E0217,table,站点、用户与权限,SAKAI_REALM_PROPERTY,SQL/HBM 定义表,kernel/kernel-impl/src/main/sql/oracle/sakai_realm.sql,44,sql
+SAK-E0218,table,站点、用户与权限,SAKAI_REALM_ROLE,SQL/HBM 定义表,kernel/kernel-impl/src/main/sql/oracle/sakai_realm.sql,62,sql
+SAK-E0219,table,站点、用户与权限,SAKAI_REALM_ROLE_DESC,SQL/HBM 定义表,kernel/kernel-impl/src/main/sql/oracle/sakai_realm.sql,81,sql
+SAK-E0220,table,站点、用户与权限,SAKAI_REALM_FUNCTION,SQL/HBM 定义表,kernel/kernel-impl/src/main/sql/oracle/sakai_realm.sql,100,sql
+SAK-E0221,table,站点、用户与权限,SAKAI_REALM_PROVIDER,SQL/HBM 定义表,kernel/kernel-impl/src/main/sql/oracle/sakai_realm.sql,127,sql
+SAK-E0222,table,站点、用户与权限,SAKAI_REALM_RL_FN,SQL/HBM 定义表,kernel/kernel-impl/src/main/sql/oracle/sakai_realm.sql,150,sql
+SAK-E0223,table,站点、用户与权限,SAKAI_REALM_RL_GR,SQL/HBM 定义表,kernel/kernel-impl/src/main/sql/oracle/sakai_realm.sql,185,sql
+SAK-E0224,table,站点、用户与权限,SAKAI_REALM_LOCKS,SQL/HBM 定义表,kernel/kernel-impl/src/main/sql/oracle/sakai_realm.sql,234,sql
+SAK-E0225,table,内容与文件,CONTENT_TYPE_REGISTRY,SQL/HBM 定义表,kernel/kernel-impl/src/main/sql/oracle/sakai_content_registry.sql,5,sql
+SAK-E0226,table,站点、用户与权限,SAKAI_ALIAS,SQL/HBM 定义表,kernel/kernel-impl/src/main/sql/oracle/sakai_alias.sql,5,sql
+SAK-E0227,table,站点、用户与权限,SAKAI_ALIAS_PROPERTY,SQL/HBM 定义表,kernel/kernel-impl/src/main/sql/oracle/sakai_alias.sql,21,sql
+SAK-E0228,table,其他工具表,SAKAI_CONFIG_ITEM,SQL/HBM 定义表,kernel/kernel-impl/src/main/sql/oracle/sakai_config_item.sql,5,sql
+SAK-E0229,table,站点、用户与权限,SAKAI_USER_PROPERTY,SQL/HBM 定义表,kernel/kernel-impl/src/main/sql/oracle/sakai_user.sql,5,sql
+SAK-E0230,table,站点、用户与权限,SAKAI_USER,SQL/HBM 定义表,kernel/kernel-impl/src/main/sql/oracle/sakai_user.sql,20,sql
+SAK-E0231,table,站点、用户与权限,SAKAI_USER_ID_MAP,SQL/HBM 定义表,kernel/kernel-impl/src/main/sql/oracle/sakai_user.sql,59,sql
+SAK-E0232,table,内容与文件,CONTENT_COLLECTION,SQL/HBM 定义表,kernel/kernel-impl/src/main/sql/oracle/sakai_content.sql,5,sql
+SAK-E0233,table,内容与文件,CONTENT_RESOURCE,SQL/HBM 定义表,kernel/kernel-impl/src/main/sql/oracle/sakai_content.sql,131,sql
+SAK-E0234,table,内容与文件,CONTENT_RESOURCE_BODY_BINARY,SQL/HBM 定义表,kernel/kernel-impl/src/main/sql/oracle/sakai_content.sql,189,sql
+SAK-E0235,table,内容与文件,CONTENT_DROPBOX_CHANGES,SQL/HBM 定义表,kernel/kernel-impl/src/main/sql/oracle/sakai_content.sql,211,sql
+SAK-E0236,table,站点、用户与权限,SAKAI_SITE_GROUP,SQL/HBM 定义表,kernel/kernel-impl/src/main/sql/oracle/sakai_site_group.sql,6,sql
+SAK-E0237,table,站点、用户与权限,SAKAI_SITE_GROUP_PROPERTY,SQL/HBM 定义表,kernel/kernel-impl/src/main/sql/oracle/sakai_site_group.sql,29,sql
+SAK-E0238,table,日志统计,SAKAI_EVENT,SQL/HBM 定义表,kernel/kernel-impl/src/main/sql/oracle/sakai_event.sql,5,sql
+SAK-E0239,table,其他工具表,SAKAI_PREFERENCES,SQL/HBM 定义表,kernel/kernel-impl/src/main/sql/oracle/sakai_preferences.sql,5,sql
+SAK-E0240,table,站点、用户与权限,SAKAI_SESSION,SQL/HBM 定义表,kernel/kernel-impl/src/main/sql/oracle/sakai_session.sql,5,sql
+SAK-E0241,table,其他工具表,SAKAI_LOCKS,SQL/HBM 定义表,kernel/kernel-impl/src/main/sql/oracle/sakai_locks.sql,5,sql
+SAK-E0242,table,其他工具表,SAKAI_NOTIFICATION,SQL/HBM 定义表,kernel/kernel-impl/src/main/sql/oracle/sakai_notification.sql,5,sql
+SAK-E0243,table,内容与文件,CONTENT_RESOURCE_DELETE,SQL/HBM 定义表,kernel/kernel-impl/src/main/sql/oracle/sakai_content_delete.sql,5,sql
+SAK-E0244,table,内容与文件,CONTENT_RESOURCE_BB_DELETE,SQL/HBM 定义表,kernel/kernel-impl/src/main/sql/oracle/sakai_content_delete.sql,53,sql
+SAK-E0245,table,其他工具表,SAKAI_CLUSTER,SQL/HBM 定义表,kernel/kernel-impl/src/main/sql/oracle/sakai_cluster.sql,5,sql
+SAK-E0246,table,沟通协作,ANNOUNCEMENT_CHANNEL,SQL/HBM 定义表,announcement/announcement-impl/impl/src/sql/oracle/sakai_announcement.sql,5,sql
+SAK-E0247,table,沟通协作,ANNOUNCEMENT_MESSAGE,SQL/HBM 定义表,announcement/announcement-impl/impl/src/sql/oracle/sakai_announcement.sql,21,sql
+SAK-E0248,table,其他工具表,qrtz_job_details,SQL/HBM 定义表,jobscheduler/scheduler-component-shared/src/sql/oracle/quartz.sql,11,sql
+SAK-E0249,table,其他工具表,qrtz_job_listeners,SQL/HBM 定义表,jobscheduler/scheduler-component-shared/src/sql/oracle/quartz.sql,24,sql
+SAK-E0250,table,其他工具表,qrtz_triggers,SQL/HBM 定义表,jobscheduler/scheduler-component-shared/src/sql/oracle/quartz.sql,33,sql
+SAK-E0251,table,其他工具表,qrtz_simple_triggers,SQL/HBM 定义表,jobscheduler/scheduler-component-shared/src/sql/oracle/quartz.sql,55,sql
+SAK-E0252,table,其他工具表,qrtz_cron_triggers,SQL/HBM 定义表,jobscheduler/scheduler-component-shared/src/sql/oracle/quartz.sql,66,sql
+SAK-E0253,table,其他工具表,qrtz_blob_triggers,SQL/HBM 定义表,jobscheduler/scheduler-component-shared/src/sql/oracle/quartz.sql,76,sql
+SAK-E0254,table,其他工具表,qrtz_trigger_listeners,SQL/HBM 定义表,jobscheduler/scheduler-component-shared/src/sql/oracle/quartz.sql,85,sql
+SAK-E0255,table,其他工具表,qrtz_calendars,SQL/HBM 定义表,jobscheduler/scheduler-component-shared/src/sql/oracle/quartz.sql,94,sql
+SAK-E0256,table,其他工具表,qrtz_paused_trigger_grps,SQL/HBM 定义表,jobscheduler/scheduler-component-shared/src/sql/oracle/quartz.sql,100,sql
+SAK-E0257,table,其他工具表,qrtz_fired_triggers,SQL/HBM 定义表,jobscheduler/scheduler-component-shared/src/sql/oracle/quartz.sql,105,sql
+SAK-E0258,table,其他工具表,qrtz_scheduler_state,SQL/HBM 定义表,jobscheduler/scheduler-component-shared/src/sql/oracle/quartz.sql,121,sql
+SAK-E0259,table,其他工具表,qrtz_locks,SQL/HBM 定义表,jobscheduler/scheduler-component-shared/src/sql/oracle/quartz.sql,128,sql
+SAK-E0260,table,其他工具表,qrtz_simprop_triggers,SQL/HBM 定义表,jobscheduler/scheduler-component-shared/src/sql/oracle/quartz2.sql,70,sql
+SAK-E0261,table,其他工具表,SCHEDULER_DELAYED_INVOCATION,SQL/HBM 定义表,jobscheduler/scheduler-component-shared/src/sql/oracle/delayed.sql,5,sql
+SAK-E0262,table,其他工具表,QRTZ_JOB_DETAILS,SQL/HBM 定义表,jobscheduler/scheduler-component-shared/src/sql/mysql/quartz.sql,9,sql
+SAK-E0263,table,其他工具表,QRTZ_JOB_LISTENERS,SQL/HBM 定义表,jobscheduler/scheduler-component-shared/src/sql/mysql/quartz.sql,22,sql
+SAK-E0264,table,其他工具表,QRTZ_TRIGGERS,SQL/HBM 定义表,jobscheduler/scheduler-component-shared/src/sql/mysql/quartz.sql,32,sql
+SAK-E0265,table,其他工具表,QRTZ_SIMPLE_TRIGGERS,SQL/HBM 定义表,jobscheduler/scheduler-component-shared/src/sql/mysql/quartz.sql,55,sql
+SAK-E0266,table,其他工具表,QRTZ_CRON_TRIGGERS,SQL/HBM 定义表,jobscheduler/scheduler-component-shared/src/sql/mysql/quartz.sql,67,sql
+SAK-E0267,table,其他工具表,QRTZ_BLOB_TRIGGERS,SQL/HBM 定义表,jobscheduler/scheduler-component-shared/src/sql/mysql/quartz.sql,78,sql
+SAK-E0268,table,其他工具表,QRTZ_TRIGGER_LISTENERS,SQL/HBM 定义表,jobscheduler/scheduler-component-shared/src/sql/mysql/quartz.sql,88,sql
+SAK-E0269,table,其他工具表,QRTZ_CALENDARS,SQL/HBM 定义表,jobscheduler/scheduler-component-shared/src/sql/mysql/quartz.sql,98,sql
+SAK-E0270,table,其他工具表,QRTZ_PAUSED_TRIGGER_GRPS,SQL/HBM 定义表,jobscheduler/scheduler-component-shared/src/sql/mysql/quartz.sql,104,sql
+SAK-E0271,table,其他工具表,QRTZ_FIRED_TRIGGERS,SQL/HBM 定义表,jobscheduler/scheduler-component-shared/src/sql/mysql/quartz.sql,109,sql
+SAK-E0272,table,其他工具表,QRTZ_SCHEDULER_STATE,SQL/HBM 定义表,jobscheduler/scheduler-component-shared/src/sql/mysql/quartz.sql,125,sql
+SAK-E0273,table,其他工具表,QRTZ_LOCKS,SQL/HBM 定义表,jobscheduler/scheduler-component-shared/src/sql/mysql/quartz.sql,132,sql
+SAK-E0274,table,其他工具表,QRTZ_SIMPROP_TRIGGERS,SQL/HBM 定义表,jobscheduler/scheduler-component-shared/src/sql/mysql/quartz2.sql,80,sql
+SAK-E0275,table,其他工具表,QRTZ_JOB_DETAILS_NEW,SQL/HBM 定义表,jobscheduler/scheduler-component-shared/src/sql/mysql/quartz2-upgrade.sql,52,sql
+SAK-E0276,table,其他工具表,QRTZ_TRIGGERS_NEW,SQL/HBM 定义表,jobscheduler/scheduler-component-shared/src/sql/mysql/quartz2-upgrade.sql,66,sql
+SAK-E0277,table,其他工具表,QRTZ_SIMPLE_TRIGGERS_NEW,SQL/HBM 定义表,jobscheduler/scheduler-component-shared/src/sql/mysql/quartz2-upgrade.sql,86,sql
+SAK-E0278,table,其他工具表,QRTZ_CRON_TRIGGERS_NEW,SQL/HBM 定义表,jobscheduler/scheduler-component-shared/src/sql/mysql/quartz2-upgrade.sql,96,sql
+SAK-E0279,table,其他工具表,QRTZ_BLOB_TRIGGERS_NEW,SQL/HBM 定义表,jobscheduler/scheduler-component-shared/src/sql/mysql/quartz2-upgrade.sql,105,sql
+SAK-E0280,table,其他工具表,CITATION_COLLECTION,SQL/HBM 定义表,citations/citations-impl/impl/src/sql/oracle/sakai_citation.sql,5,sql
+SAK-E0281,table,其他工具表,CITATION_CITATION,SQL/HBM 定义表,citations/citations-impl/impl/src/sql/oracle/sakai_citation.sql,17,sql
+SAK-E0282,table,其他工具表,CITATION_COLLECTION_ORDER,SQL/HBM 定义表,citations/citations-impl/impl/src/sql/oracle/sakai_citation.sql,28,sql
+SAK-E0283,table,其他工具表,CITATION_SCHEMA,SQL/HBM 定义表,citations/citations-impl/impl/src/sql/oracle/sakai_citation.sql,41,sql
+SAK-E0284,table,其他工具表,CITATION_SCHEMA_FIELD,SQL/HBM 定义表,citations/citations-impl/impl/src/sql/oracle/sakai_citation.sql,52,sql
+SAK-E0285,table,课程内容 LessonBuilder,lesson_builder_ch_status,SQL/HBM 定义表,lessonbuilder/components/src/ddl/oracle/simplepage.for-11.sql,12,sql
+SAK-E0286,table,沟通协作,MFR_EMAIL_NOTIFICATION_T,SQL/HBM 定义表,msgcntr/messageforums-docs/SAK-11740_mysql.sql,1,sql
+SAK-E0287,table,沟通协作,MFR_LABEL_T,SQL/HBM 定义表,msgcntr/messageforums-app/src/sql/oracle/sakai_messageforums.sql,53,sql
+SAK-E0288,table,沟通协作,MFR_UNREAD_STATUS_T,SQL/HBM 定义表,msgcntr/messageforums-app/src/sql/oracle/sakai_messageforums.sql,69,sql
+SAK-E0289,table,沟通协作,MFR_TOPIC_T,SQL/HBM 定义表,msgcntr/messageforums-app/src/sql/oracle/sakai_messageforums.sql,78,sql
+SAK-E0290,table,沟通协作,MFR_MESSAGE_T,SQL/HBM 定义表,msgcntr/messageforums-app/src/sql/oracle/sakai_messageforums.sql,114,sql
+SAK-E0291,table,沟通协作,MFR_AREA_T,SQL/HBM 定义表,msgcntr/messageforums-app/src/sql/oracle/sakai_messageforums.sql,139,sql
+SAK-E0292,table,沟通协作,MFR_ATTACHMENT_T,SQL/HBM 定义表,msgcntr/messageforums-app/src/sql/oracle/sakai_messageforums.sql,154,sql
+SAK-E0293,table,沟通协作,MFR_OPEN_FORUM_T,SQL/HBM 定义表,msgcntr/messageforums-app/src/sql/oracle/sakai_messageforums.sql,179,sql
+SAK-E0294,table,沟通协作,MFR_PRIVATE_FORUM_T,SQL/HBM 定义表,msgcntr/messageforums-app/src/sql/oracle/sakai_messageforums.sql,203,sql
+SAK-E0295,table,沟通协作,MFR_CONTROL_PERSMISSIONS_T,SQL/HBM 定义表,msgcntr/messageforums-app/src/sql/oracle/sakai_messageforums.sql,223,sql
+SAK-E0296,table,沟通协作,MFR_MESSAGE_PERSMISSIONS_T,SQL/HBM 定义表,msgcntr/messageforums-app/src/sql/oracle/sakai_messageforums.sql,235,sql
+SAK-E0297,table,沟通协作,MFR_ACTOR_PERSMISSIONS_T,SQL/HBM 定义表,msgcntr/messageforums-app/src/sql/oracle/sakai_messageforums.sql,247,sql
+SAK-E0298,table,沟通协作,MFR_MESSAGE_FORUMS_USER_T,SQL/HBM 定义表,msgcntr/messageforums-app/src/sql/oracle/sakai_messageforums.sql,252,sql
+SAK-E0299,table,沟通协作,MFR_DATE_RESTRICTIONS_T,SQL/HBM 定义表,msgcntr/messageforums-app/src/sql/oracle/sakai_messageforums.sql,266,sql
+SAK-E0300,table,沟通协作,mfr_actor_permissions_t,SQL/HBM 定义表,msgcntr/messageforums-app/src/sql/mysql/sakai_messageForums.sql,2,sql
+SAK-E0301,table,沟通协作,mfr_area_t,SQL/HBM 定义表,msgcntr/messageforums-app/src/sql/mysql/sakai_messageForums.sql,9,sql
+SAK-E0302,table,沟通协作,mfr_attachment_t,SQL/HBM 定义表,msgcntr/messageforums-app/src/sql/mysql/sakai_messageForums.sql,26,sql
+SAK-E0303,table,沟通协作,mfr_control_permissions_t,SQL/HBM 定义表,msgcntr/messageforums-app/src/sql/mysql/sakai_messageForums.sql,63,sql
+SAK-E0304,table,沟通协作,mfr_date_restrictions_t,SQL/HBM 定义表,msgcntr/messageforums-app/src/sql/mysql/sakai_messageForums.sql,77,sql
+SAK-E0305,table,沟通协作,mfr_label_t,SQL/HBM 定义表,msgcntr/messageforums-app/src/sql/mysql/sakai_messageForums.sql,92,sql
+SAK-E0306,table,沟通协作,mfr_message_forums_user_t,SQL/HBM 定义表,msgcntr/messageforums-app/src/sql/mysql/sakai_messageForums.sql,114,sql
+SAK-E0307,table,沟通协作,mfr_message_permissions_t,SQL/HBM 定义表,msgcntr/messageforums-app/src/sql/mysql/sakai_messageForums.sql,138,sql
+SAK-E0308,table,沟通协作,mfr_message_t,SQL/HBM 定义表,msgcntr/messageforums-app/src/sql/mysql/sakai_messageForums.sql,152,sql
+SAK-E0309,table,沟通协作,mfr_open_forum_t,SQL/HBM 定义表,msgcntr/messageforums-app/src/sql/mysql/sakai_messageForums.sql,183,sql
+SAK-E0310,table,沟通协作,mfr_private_forum_t,SQL/HBM 定义表,msgcntr/messageforums-app/src/sql/mysql/sakai_messageForums.sql,220,sql
+SAK-E0311,table,沟通协作,mfr_topic_t,SQL/HBM 定义表,msgcntr/messageforums-app/src/sql/mysql/sakai_messageForums.sql,244,sql
+SAK-E0312,table,沟通协作,mfr_unread_status_t,SQL/HBM 定义表,msgcntr/messageforums-app/src/sql/mysql/sakai_messageForums.sql,291,sql
+SAK-E0313,table,沟通协作,MFR_PERMISSION_LEVEL_T,SQL/HBM 定义表,msgcntr/messageforums-docs/updating/mfr_m2-m3_mysq_conversion.sql,11,sql
+SAK-E0314,table,沟通协作,MFR_MEMBERSHIP_ITEM_T,SQL/HBM 定义表,msgcntr/messageforums-docs/updating/mfr_m2-m3_mysq_conversion.sql,48,sql
+SAK-E0315,table,沟通协作,MFR_RANK_T,SQL/HBM 定义表,msgcntr/messageforums-hbm/src/sql/oracle/MSGCNTR-620.sql,7,sql
+SAK-E0316,table,沟通协作,MFR_RANKIMAGE_T,SQL/HBM 定义表,msgcntr/messageforums-hbm/src/sql/oracle/MSGCNTR-620.sql,27,sql
+SAK-E0317,table,沟通协作,MFR_MOVE_HISTORY_T,SQL/HBM 定义表,msgcntr/messageforums-hbm/src/sql/oracle/mfr_conversion_30x-31x.sql,17,sql
+SAK-E0318,table,沟通协作,MFR_SYNOPTIC_ITEM,SQL/HBM 定义表,msgcntr/messageforums-hbm/src/sql/oracle/mfr_conversion_26x-27x.sql,79,sql
+SAK-E0319,table,沟通协作,MSGCNTR_TMP,SQL/HBM 定义表,msgcntr/messageforums-hbm/src/sql/oracle/mfr_conversion_26x-27x.sql,110,sql
+SAK-E0320,table,沟通协作,MFR_HIDDEN_GROUPS_T,SQL/HBM 定义表,msgcntr/messageforums-hbm/src/sql/oracle/mfr_conversion_28x-30x.sql,142,sql
+SAK-E0321,table,沟通协作,MFR_RANK_INDIVIDUAL_T,SQL/HBM 定义表,msgcntr/messageforums-hbm/src/sql/oracle/SAK-29036.sql,1,sql
+SAK-E0322,table,其他工具表,TMP_DIGITS,SQL/HBM 定义表,msgcntr/messageforums-hbm/src/sql/oracle/SAK-29036.sql,9,sql
+SAK-E0323,table,其他工具表,TMP_SEQUENCE,SQL/HBM 定义表,msgcntr/messageforums-hbm/src/sql/oracle/SAK-29036.sql,22,sql
+SAK-E0324,table,其他工具表,URL_RANDOMISED_MAPPINGS_T,SQL/HBM 定义表,shortenedurl/docs/database/oracle/shortenedurl-ddl-1.0.0-oracle.sql,2,sql
+SAK-E0325,table,其他工具表,SAKAI_PRESENCE,SQL/HBM 定义表,presence/presence-impl/impl/src/sql/oracle/sakai_presence.sql,5,sql
+SAK-E0326,table,其他工具表,CMN_TYPE_T,SQL/HBM 定义表,common/common-composite-component/src/sql/oracle/sakai_common.sql,4,sql
+SAK-E0327,table,站点、用户与权限,SAKAI_PERSON_T,SQL/HBM 定义表,common/common-composite-component/src/sql/oracle/sakai_common.sql,20,sql
+SAK-E0328,table,其他工具表,SAKAI_PRIVACY_RECORD,SQL/HBM 定义表,common/privacy-hbm/src/java/org/sakaiproject/hbm/sql/schema-export-oracle.sql,3,sql
+SAK-E0329,table,沟通协作,MAILARCHIVE_CHANNEL,SQL/HBM 定义表,mailarchive/mailarchive-impl/impl/src/sql/oracle/sakai_mailarchive.sql,5,sql
+SAK-E0330,table,沟通协作,MAILARCHIVE_MESSAGE,SQL/HBM 定义表,mailarchive/mailarchive-impl/impl/src/sql/oracle/sakai_mailarchive.sql,21,sql
+SAK-E0331,table,其他工具表,search_transaction,SQL/HBM 定义表,search/search-impl/impl/src/sql/oracle/sakai_search_parallel.sql,4,sql
+SAK-E0332,table,其他工具表,searchbuilderitem,SQL/HBM 定义表,search/search-impl/impl/src/sql/oracle/sakai_search_parallel.sql,10,sql
+SAK-E0333,table,其他工具表,search_journal,SQL/HBM 定义表,search/search-impl/impl/src/sql/oracle/sakai_search_parallel.sql,20,sql
+SAK-E0334,table,其他工具表,search_node_status,SQL/HBM 定义表,search/search-impl/impl/src/sql/oracle/sakai_search_parallel.sql,27,sql
+SAK-E0335,table,其他工具表,tagservice_collection,SQL/HBM 定义表,tags/tags-impl/impl/src/resources/db/migration/mysql.sql,1,sql
+SAK-E0336,table,其他工具表,tagservice_tag,SQL/HBM 定义表,tags/tags-impl/impl/src/resources/db/migration/mysql.sql,17,sql
+SAK-E0337,table,其他工具表,sakai_feedback,SQL/HBM 定义表,feedback/src/java/oracle/createtables.sql,1,sql
+SAK-E0338,table,日志统计,SAKAI_EVENT_DELAY,SQL/HBM 定义表,content/content-impl-providers/impl/src/sql/oracle/sakai_event_delay.sql,5,sql
+SAK-E0339,table,其他工具表,IMSENT_PERSON,SQL/HBM 定义表,providers/imsent/src/sql/hsqldb/imsent_provider.sql,5,sql
+SAK-E0340,table,其他工具表,IMSENT_GROUP,SQL/HBM 定义表,providers/imsent/src/sql/hsqldb/imsent_provider.sql,34,sql
+SAK-E0341,table,其他工具表,IMSENT_MEMBERSHIP,SQL/HBM 定义表,providers/imsent/src/sql/hsqldb/imsent_provider.sql,88,sql
+SAK-E0342,table,其他工具表,CM_SEC_CATEGORY_T,SQL/HBM 定义表,edu-services/cm-service/xdocs/db-conversion-2.3.1-2.4.0/oracle/conversion.sql,2,sql
+SAK-E0343,table,其他工具表,CM_ACADEMIC_SESSION_T,SQL/HBM 定义表,edu-services/cm-service/xdocs/db-conversion-2.3.1-2.4.0/oracle/cm-2.3.1-oracle.sql,18,sql
+SAK-E0344,table,其他工具表,CM_COURSE_SET_CANON_ASSOC_T,SQL/HBM 定义表,edu-services/cm-service/xdocs/db-conversion-2.3.1-2.4.0/oracle/cm-2.3.1-oracle.sql,19,sql
+SAK-E0345,table,其他工具表,CM_COURSE_SET_OFFERING_ASSOC_T,SQL/HBM 定义表,edu-services/cm-service/xdocs/db-conversion-2.3.1-2.4.0/oracle/cm-2.3.1-oracle.sql,20,sql
+SAK-E0346,table,其他工具表,CM_CROSS_LISTING_T,SQL/HBM 定义表,edu-services/cm-service/xdocs/db-conversion-2.3.1-2.4.0/oracle/cm-2.3.1-oracle.sql,21,sql
+SAK-E0347,table,其他工具表,CM_ENROLLMENT_SET_T,SQL/HBM 定义表,edu-services/cm-service/xdocs/db-conversion-2.3.1-2.4.0/oracle/cm-2.3.1-oracle.sql,22,sql
+SAK-E0348,table,其他工具表,CM_ENROLLMENT_T,SQL/HBM 定义表,edu-services/cm-service/xdocs/db-conversion-2.3.1-2.4.0/oracle/cm-2.3.1-oracle.sql,23,sql
+SAK-E0349,table,其他工具表,CM_MEETING_T,SQL/HBM 定义表,edu-services/cm-service/xdocs/db-conversion-2.3.1-2.4.0/oracle/cm-2.3.1-oracle.sql,24,sql
+SAK-E0350,table,其他工具表,CM_MEMBERSHIP_T,SQL/HBM 定义表,edu-services/cm-service/xdocs/db-conversion-2.3.1-2.4.0/oracle/cm-2.3.1-oracle.sql,25,sql
+SAK-E0351,table,其他工具表,CM_MEMBER_CONTAINER_T,SQL/HBM 定义表,edu-services/cm-service/xdocs/db-conversion-2.3.1-2.4.0/oracle/cm-2.3.1-oracle.sql,26,sql
+SAK-E0352,table,其他工具表,CM_OFFICIAL_INSTRUCTORS_T,SQL/HBM 定义表,edu-services/cm-service/xdocs/db-conversion-2.3.1-2.4.0/oracle/cm-2.3.1-oracle.sql,27,sql
+SAK-E0353,table,其他工具表,user_audits_log,SQL/HBM 定义表,userauditservice/impl/src/sql/oracle/user_audits.sql,2,sql
+SAK-E0354,table,其他工具表,COMMONS_COMMONS,SQL/HBM 定义表,commons/impl/src/sql/oracle/commons_tables.sql,1,sql
+SAK-E0355,table,其他工具表,COMMONS_COMMONS_POST,SQL/HBM 定义表,commons/impl/src/sql/oracle/commons_tables.sql,8,sql
+SAK-E0356,table,其他工具表,COMMONS_POST,SQL/HBM 定义表,commons/impl/src/sql/oracle/commons_tables.sql,14,sql
+SAK-E0357,table,其他工具表,COMMONS_COMMENT,SQL/HBM 定义表,commons/impl/src/sql/oracle/commons_tables.sql,25,sql
+SAK-E0358,table,其他工具表,COMMONS_LIKE,SQL/HBM 定义表,commons/impl/src/sql/oracle/commons_tables.sql,35,sql
+SAK-E0359,table,沟通协作,CHAT_CHANNEL,SQL/HBM 定义表,chat/chat-impl/impl/src/sql/oracle/sakai_chat.sql,5,sql
+SAK-E0360,table,沟通协作,CHAT_MESSAGE,SQL/HBM 定义表,chat/chat-impl/impl/src/sql/oracle/sakai_chat.sql,21,sql
+SAK-E0361,table,测验/题库 Samigo,SAM_GRADINGATTACHMENT_T,SQL/HBM 定义表,samigo/docs/conversion/samigo_2_6_x-2_7_0_oracle_conversion.sql,9,sql
+SAK-E0362,table,测验/题库 Samigo,SAM_ANSWER_T,SQL/HBM 定义表,samigo/samigo-pack/src/sql/oracle/sakai_samigo_tables_v2_1_2.sql,105,sql
+SAK-E0363,table,测验/题库 Samigo,SAM_PUBLISHEDASSESSMENT_T,SQL/HBM 定义表,samigo/samigo-pack/src/sql/oracle/sakai_samigo_tables_v2_1_2.sql,117,sql
+SAK-E0364,table,测验/题库 Samigo,SAM_ASSESSMENTGRADING_T,SQL/HBM 定义表,samigo/samigo-pack/src/sql/oracle/sakai_samigo_tables_v2_1_2.sql,134,sql
+SAK-E0365,table,测验/题库 Samigo,SAM_FUNCTIONDATA_T,SQL/HBM 定义表,samigo/samigo-pack/src/sql/oracle/sakai_samigo_tables_v2_1_2.sql,152,sql
+SAK-E0366,table,测验/题库 Samigo,SAM_ITEMGRADING_T,SQL/HBM 定义表,samigo/samigo-pack/src/sql/oracle/sakai_samigo_tables_v2_1_2.sql,160,sql
+SAK-E0367,table,测验/题库 Samigo,SAM_PUBLISHEDMETADATA_T,SQL/HBM 定义表,samigo/samigo-pack/src/sql/oracle/sakai_samigo_tables_v2_1_2.sql,178,sql
+SAK-E0368,table,测验/题库 Samigo,SAM_PUBLISHEDSECTIONMETADATA_T,SQL/HBM 定义表,samigo/samigo-pack/src/sql/oracle/sakai_samigo_tables_v2_1_2.sql,185,sql
+SAK-E0369,table,测验/题库 Samigo,SAM_SECTION_T,SQL/HBM 定义表,samigo/samigo-pack/src/sql/oracle/sakai_samigo_tables_v2_1_2.sql,192,sql
+SAK-E0370,table,测验/题库 Samigo,SAM_QUESTIONPOOLITEM_T,SQL/HBM 定义表,samigo/samigo-pack/src/sql/oracle/sakai_samigo_tables_v2_1_2.sql,207,sql
+SAK-E0371,table,测验/题库 Samigo,SAM_PUBLISHEDITEMFEEDBACK_T,SQL/HBM 定义表,samigo/samigo-pack/src/sql/oracle/sakai_samigo_tables_v2_1_2.sql,212,sql
+SAK-E0372,table,测验/题库 Samigo,SAM_ITEMFEEDBACK_T,SQL/HBM 定义表,samigo/samigo-pack/src/sql/oracle/sakai_samigo_tables_v2_1_2.sql,219,sql
+SAK-E0373,table,测验/题库 Samigo,SAM_ITEMMETADATA_T,SQL/HBM 定义表,samigo/samigo-pack/src/sql/oracle/sakai_samigo_tables_v2_1_2.sql,226,sql
+SAK-E0374,table,测验/题库 Samigo,SAM_PUBLISHEDFEEDBACK_T,SQL/HBM 定义表,samigo/samigo-pack/src/sql/oracle/sakai_samigo_tables_v2_1_2.sql,233,sql
+SAK-E0375,table,测验/题库 Samigo,SAM_GRADINGSUMMARY_T,SQL/HBM 定义表,samigo/samigo-pack/src/sql/oracle/sakai_samigo_tables_v2_1_2.sql,249,sql
+SAK-E0376,table,测验/题库 Samigo,SAM_PUBLISHEDEVALUATION_T,SQL/HBM 定义表,samigo/samigo-pack/src/sql/oracle/sakai_samigo_tables_v2_1_2.sql,273,sql
+SAK-E0377,table,测验/题库 Samigo,SAM_PUBLISHEDACCESSCONTROL_T,SQL/HBM 定义表,samigo/samigo-pack/src/sql/oracle/sakai_samigo_tables_v2_1_2.sql,286,sql
+SAK-E0378,table,测验/题库 Samigo,SAM_QUALIFIERDATA_T,SQL/HBM 定义表,samigo/samigo-pack/src/sql/oracle/sakai_samigo_tables_v2_1_2.sql,312,sql
+SAK-E0379,table,测验/题库 Samigo,SAM_QUESTIONPOOLACCESS_T,SQL/HBM 定义表,samigo/samigo-pack/src/sql/oracle/sakai_samigo_tables_v2_1_2.sql,320,sql
+SAK-E0380,table,测验/题库 Samigo,SAM_AUTHZDATA_T,SQL/HBM 定义表,samigo/samigo-pack/src/sql/oracle/sakai_samigo_tables_v2_1_2.sql,326,sql
+SAK-E0381,table,测验/题库 Samigo,SAM_ASSESSEVALUATION_T,SQL/HBM 定义表,samigo/samigo-pack/src/sql/oracle/sakai_samigo_tables_v2_1_2.sql,340,sql
+SAK-E0382,table,测验/题库 Samigo,SAM_ANSWERFEEDBACK_T,SQL/HBM 定义表,samigo/samigo-pack/src/sql/oracle/sakai_samigo_tables_v2_1_2.sql,353,sql
+SAK-E0383,table,测验/题库 Samigo,SAM_PUBLISHEDANSWER_T,SQL/HBM 定义表,samigo/samigo-pack/src/sql/oracle/sakai_samigo_tables_v2_1_2.sql,360,sql
+SAK-E0384,table,测验/题库 Samigo,SAM_PUBLISHEDANSWERFEEDBACK_T,SQL/HBM 定义表,samigo/samigo-pack/src/sql/oracle/sakai_samigo_tables_v2_1_2.sql,372,sql
+SAK-E0385,table,测验/题库 Samigo,SAM_PUBLISHEDITEM_T,SQL/HBM 定义表,samigo/samigo-pack/src/sql/oracle/sakai_samigo_tables_v2_1_2.sql,379,sql
+SAK-E0386,table,测验/题库 Samigo,SAM_ASSESSACCESSCONTROL_T,SQL/HBM 定义表,samigo/samigo-pack/src/sql/oracle/sakai_samigo_tables_v2_1_2.sql,400,sql
+SAK-E0387,table,测验/题库 Samigo,SAM_PUBLISHEDSECTION_T,SQL/HBM 定义表,samigo/samigo-pack/src/sql/oracle/sakai_samigo_tables_v2_1_2.sql,427,sql
+SAK-E0388,table,测验/题库 Samigo,SAM_PUBLISHEDITEMTEXT_T,SQL/HBM 定义表,samigo/samigo-pack/src/sql/oracle/sakai_samigo_tables_v2_1_2.sql,442,sql
+SAK-E0389,table,测验/题库 Samigo,SAM_PUBLISHEDSECUREDIP_T,SQL/HBM 定义表,samigo/samigo-pack/src/sql/oracle/sakai_samigo_tables_v2_1_2.sql,449,sql
+SAK-E0390,table,测验/题库 Samigo,SAM_QUESTIONPOOL_T,SQL/HBM 定义表,samigo/samigo-pack/src/sql/oracle/sakai_samigo_tables_v2_1_2.sql,456,sql
+SAK-E0391,table,测验/题库 Samigo,SAM_SECTIONMETADATA_T,SQL/HBM 定义表,samigo/samigo-pack/src/sql/oracle/sakai_samigo_tables_v2_1_2.sql,474,sql
+SAK-E0392,table,测验/题库 Samigo,SAM_ITEM_T,SQL/HBM 定义表,samigo/samigo-pack/src/sql/oracle/sakai_samigo_tables_v2_1_2.sql,481,sql
+SAK-E0393,table,测验/题库 Samigo,SAM_ASSESSFEEDBACK_T,SQL/HBM 定义表,samigo/samigo-pack/src/sql/oracle/sakai_samigo_tables_v2_1_2.sql,502,sql
+SAK-E0394,table,测验/题库 Samigo,SAM_SECUREDIP_T,SQL/HBM 定义表,samigo/samigo-pack/src/sql/oracle/sakai_samigo_tables_v2_1_2.sql,518,sql
+SAK-E0395,table,测验/题库 Samigo,SAM_ITEMTEXT_T,SQL/HBM 定义表,samigo/samigo-pack/src/sql/oracle/sakai_samigo_tables_v2_1_2.sql,525,sql
+SAK-E0396,table,测验/题库 Samigo,SAM_PUBLISHEDITEMMETADATA_T,SQL/HBM 定义表,samigo/samigo-pack/src/sql/oracle/sakai_samigo_tables_v2_1_2.sql,532,sql
+SAK-E0397,table,测验/题库 Samigo,SAM_MEDIA_T,SQL/HBM 定义表,samigo/samigo-pack/src/sql/oracle/sakai_samigo_tables_v2_1_2.sql,539,sql
+SAK-E0398,table,测验/题库 Samigo,SAM_ASSESSMENTBASE_T,SQL/HBM 定义表,samigo/samigo-pack/src/sql/oracle/sakai_samigo_tables_v2_1_2.sql,557,sql
+SAK-E0399,table,测验/题库 Samigo,SAM_TYPE_T,SQL/HBM 定义表,samigo/samigo-pack/src/sql/oracle/sakai_samigo_tables_v2_1_2.sql,576,sql
+SAK-E0400,table,测验/题库 Samigo,SAM_ASSESSMETADATA_T,SQL/HBM 定义表,samigo/samigo-pack/src/sql/oracle/sakai_samigo_tables_v2_1_2.sql,589,sql
+SAK-E0401,table,测验/题库 Samigo,SAM_ATTACHMENT_T,SQL/HBM 定义表,samigo/samigo-pack/src/sql/oracle/sakai_samigo_tables_v2_4.sql,83,sql
+SAK-E0402,table,测验/题库 Samigo,SAM_PUBLISHEDATTACHMENT_T,SQL/HBM 定义表,samigo/samigo-pack/src/sql/oracle/sakai_samigo_tables_v2_4.sql,97,sql
+SAK-E0403,table,测验/题库 Samigo,SAM_STUDENTGRADINGSUMMARY_T,SQL/HBM 定义表,samigo/samigo-pack/src/sql/oracle/sakai_samigo_tables_v2_4.sql,115,sql
+SAK-E0404,table,沟通协作,CALENDAR_CALENDAR,SQL/HBM 定义表,calendar/calendar-impl/impl/src/sql/oracle/sakai_calendar.sql,5,sql
+SAK-E0405,table,沟通协作,CALENDAR_EVENT,SQL/HBM 定义表,calendar/calendar-impl/impl/src/sql/oracle/sakai_calendar.sql,21,sql
+SAK-E0406,table,日志统计,SST_EVENTS,SQL/HBM 定义表,sitestats/schema/db-tables/oracle/sitestats.sql,1,sql
+SAK-E0407,table,日志统计,SST_JOB_RUN,SQL/HBM 定义表,sitestats/schema/db-tables/oracle/sitestats.sql,2,sql
+SAK-E0408,table,日志统计,SST_PREFERENCES,SQL/HBM 定义表,sitestats/schema/db-tables/oracle/sitestats.sql,3,sql
+SAK-E0409,table,日志统计,SST_PRESENCES,SQL/HBM 定义表,sitestats/schema/db-tables/oracle/sitestats.sql,4,sql
+SAK-E0410,table,日志统计,SST_REPORTS,SQL/HBM 定义表,sitestats/schema/db-tables/oracle/sitestats.sql,5,sql
+SAK-E0411,table,日志统计,SST_RESOURCES,SQL/HBM 定义表,sitestats/schema/db-tables/oracle/sitestats.sql,6,sql
+SAK-E0412,table,日志统计,SST_SITEACTIVITY,SQL/HBM 定义表,sitestats/schema/db-tables/oracle/sitestats.sql,7,sql
+SAK-E0413,table,日志统计,SST_SITEVISITS,SQL/HBM 定义表,sitestats/schema/db-tables/oracle/sitestats.sql,8,sql
+SAK-E0414,table,日志统计,SST_DETAILED_EVENTS,SQL/HBM 定义表,sitestats/schema/db-tables/oracle/useractivity.sql,1,sql
+SAK-E0415,table,其他工具表,pasystem_popup_screens,SQL/HBM 定义表,pasystem/pasystem-impl/impl/src/resources/db/migration/mysql.sql,1,sql
+SAK-E0416,table,其他工具表,pasystem_popup_content,SQL/HBM 定义表,pasystem/pasystem-impl/impl/src/resources/db/migration/mysql.sql,11,sql
+SAK-E0417,table,其他工具表,pasystem_popup_assign,SQL/HBM 定义表,pasystem/pasystem-impl/impl/src/resources/db/migration/mysql.sql,17,sql
+SAK-E0418,table,其他工具表,pasystem_popup_dismissed,SQL/HBM 定义表,pasystem/pasystem-impl/impl/src/resources/db/migration/mysql.sql,24,sql
+SAK-E0419,table,其他工具表,pasystem_banner_alert,SQL/HBM 定义表,pasystem/pasystem-impl/impl/src/resources/db/migration/mysql.sql,36,sql
+SAK-E0420,table,其他工具表,pasystem_banner_dismissed,SQL/HBM 定义表,pasystem/pasystem-impl/impl/src/resources/db/migration/mysql.sql,48,sql
+SAK-E0421,table,其他工具表,CONTENTREVIEW_ITEM,SQL/HBM 定义表,content-review/api/src/main/resources/ContentReviewItem.hbm.xml,5,hbm
+SAK-E0422,table,其他工具表,SAKAI_HELP_CATEGORY_T,SQL/HBM 定义表,help/help-component-shared/src/java/org/sakaiproject/component/app/help/model/CategoryBean.hbm.xml,5,hbm
+SAK-E0423,table,其他工具表,SAKAI_HELP_RESOURCE_T,SQL/HBM 定义表,help/help-component-shared/src/java/org/sakaiproject/component/app/help/model/ResourceBean.hbm.xml,5,hbm
+SAK-E0424,table,其他工具表,TAGGABLE_LINK,SQL/HBM 定义表,taggable/taggable-hbm/hbm/src/java/org/sakaiproject/taggable/impl/LinkImpl.hbm.xml,7,hbm
+SAK-E0425,table,其他工具表,rwikiproperties,SQL/HBM 定义表,rwiki/rwiki-model/src/java/uk/ac/cam/caret/sakai/rwiki/model/RWiki.hbm.xml,5,hbm
+SAK-E0426,table,其他工具表,rwikicurrentcontent,SQL/HBM 定义表,rwiki/rwiki-model/src/java/uk/ac/cam/caret/sakai/rwiki/model/RWiki.hbm.xml,14,hbm
+SAK-E0427,table,其他工具表,rwikihistorycontent,SQL/HBM 定义表,rwiki/rwiki-model/src/java/uk/ac/cam/caret/sakai/rwiki/model/RWiki.hbm.xml,24,hbm
+SAK-E0428,table,其他工具表,rwikihistory,SQL/HBM 定义表,rwiki/rwiki-model/src/java/uk/ac/cam/caret/sakai/rwiki/model/RWiki.hbm.xml,34,hbm
+SAK-E0429,table,其他工具表,rwikiobject,SQL/HBM 定义表,rwiki/rwiki-model/src/java/uk/ac/cam/caret/sakai/rwiki/model/RWiki.hbm.xml,72,hbm
+SAK-E0430,table,其他工具表,rwikipagepresence,SQL/HBM 定义表,rwiki/rwiki-model/src/java/uk/ac/cam/caret/sakai/rwiki/message/model/message.hbm.xml,8,hbm
+SAK-E0431,table,其他工具表,rwikipreference,SQL/HBM 定义表,rwiki/rwiki-model/src/java/uk/ac/cam/caret/sakai/rwiki/message/model/message.hbm.xml,22,hbm
+SAK-E0432,table,其他工具表,rwikipagemessage,SQL/HBM 定义表,rwiki/rwiki-model/src/java/uk/ac/cam/caret/sakai/rwiki/message/model/message.hbm.xml,38,hbm
+SAK-E0433,table,其他工具表,rwikipagetrigger,SQL/HBM 定义表,rwiki/rwiki-model/src/java/uk/ac/cam/caret/sakai/rwiki/message/model/message.hbm.xml,51,hbm
+SAK-E0434,table,课程内容 LessonBuilder,lesson_builder_pages,SQL/HBM 定义表,lessonbuilder/hbm/src/java/org/sakaiproject/lessonbuildertool/simplepage.hbm.xml,5,hbm
+SAK-E0435,table,课程内容 LessonBuilder,lesson_builder_properties,SQL/HBM 定义表,lessonbuilder/hbm/src/java/org/sakaiproject/lessonbuildertool/simplepageproperty.hbm.xml,5,hbm
+SAK-E0436,table,课程内容 LessonBuilder,lesson_builder_log,SQL/HBM 定义表,lessonbuilder/hbm/src/java/org/sakaiproject/lessonbuildertool/simplepagelogentry.hbm.xml,5,hbm
+SAK-E0437,table,课程内容 LessonBuilder,lesson_builder_comments,SQL/HBM 定义表,lessonbuilder/hbm/src/java/org/sakaiproject/lessonbuildertool/simplepagecomment.hbm.xml,5,hbm
+SAK-E0438,table,课程内容 LessonBuilder,lesson_builder_groups,SQL/HBM 定义表,lessonbuilder/hbm/src/java/org/sakaiproject/lessonbuildertool/simplepagegroup.hbm.xml,5,hbm
+SAK-E0439,table,课程内容 LessonBuilder,lesson_builder_items,SQL/HBM 定义表,lessonbuilder/hbm/src/java/org/sakaiproject/lessonbuildertool/simplepageitem.hbm.xml,5,hbm
+SAK-E0440,table,课程内容 LessonBuilder,lesson_builder_p_eval_results,SQL/HBM 定义表,lessonbuilder/hbm/src/java/org/sakaiproject/lessonbuildertool/simplepagepeerevalresult.hbm.xml,6,hbm
+SAK-E0441,table,课程内容 LessonBuilder,lesson_builder_q_responses,SQL/HBM 定义表,lessonbuilder/hbm/src/java/org/sakaiproject/lessonbuildertool/simplepagequestionresponse.hbm.xml,5,hbm
+SAK-E0442,table,课程内容 LessonBuilder,lesson_builder_qr_totals,SQL/HBM 定义表,lessonbuilder/hbm/src/java/org/sakaiproject/lessonbuildertool/simplepagequestionresponsetotals.hbm.xml,5,hbm
+SAK-E0443,table,课程内容 LessonBuilder,lesson_builder_student_pages,SQL/HBM 定义表,lessonbuilder/hbm/src/java/org/sakaiproject/lessonbuildertool/simplestudentpage.hbm.xml,5,hbm
+SAK-E0444,table,沟通协作,MFR_ANONYMOUS_MAPPING_T,SQL/HBM 定义表,msgcntr/messageforums-hbm/src/java/org/sakaiproject/component/app/messageforums/dao/hibernate/AnonymousMapping.hbm.xml,5,hbm
+SAK-E0445,table,其他工具表,SCORM_PROCESSING_INFO_T,SQL/HBM 定义表,scormplayer/scorm-api/src/java/org/adl/datamodels/DMProcessingInfo.hbm.xml,6,hbm
+SAK-E0446,table,其他工具表,SCORM_DELIMIT_DESC_T,SQL/HBM 定义表,scormplayer/scorm-api/src/java/org/adl/datamodels/DMDelimiterDescriptor.hbm.xml,6,hbm
+SAK-E0447,table,其他工具表,SCORM_TYPE_VALIDATOR_T,SQL/HBM 定义表,scormplayer/scorm-api/src/java/org/adl/datamodels/DMTypeValidator.hbm.xml,7,hbm
+SAK-E0448,table,其他工具表,SCORM_DATAMODEL_T,SQL/HBM 定义表,scormplayer/scorm-api/src/java/org/adl/datamodels/DataModel.hbm.xml,6,hbm
+SAK-E0449,table,其他工具表,SCORM_URL,SQL/HBM 定义表,scormplayer/scorm-api/src/java/org/adl/datamodels/DataModel.hbm.xml,87,hbm
+SAK-E0450,table,其他工具表,SCORM_DATAMANAGER_T,SQL/HBM 定义表,scormplayer/scorm-api/src/java/org/adl/datamodels/SCODataManager.hbm.xml,6,hbm
+SAK-E0451,table,其他工具表,SCORM_DELIMITER_T,SQL/HBM 定义表,scormplayer/scorm-api/src/java/org/adl/datamodels/DMDelimiter.hbm.xml,6,hbm
+SAK-E0452,table,其他工具表,SCORM_ELEMENT_T,SQL/HBM 定义表,scormplayer/scorm-api/src/java/org/adl/datamodels/DMElement.hbm.xml,6,hbm
+SAK-E0453,table,其他工具表,SCORM_ELEMENT_DESC_T,SQL/HBM 定义表,scormplayer/scorm-api/src/java/org/adl/datamodels/DMElementDescriptor.hbm.xml,6,hbm
+SAK-E0454,table,其他工具表,SCORM_ADL_VALID_REQUESTS_T,SQL/HBM 定义表,scormplayer/scorm-api/src/java/org/adl/sequencer/SequencerMappings.hbm.xml,38,hbm
+SAK-E0455,table,其他工具表,SCORM_ADL_SEQ_CONDITION_T,SQL/HBM 定义表,scormplayer/scorm-api/src/java/org/adl/sequencer/SequencerMappings.hbm.xml,72,hbm
+SAK-E0456,table,其他工具表,SCORM_ADL_SEQ_RULE_T,SQL/HBM 定义表,scormplayer/scorm-api/src/java/org/adl/sequencer/SequencerMappings.hbm.xml,90,hbm
+SAK-E0457,table,其他工具表,SCORM_ADL_SEQ_CONDITION_SET_T,SQL/HBM 定义表,scormplayer/scorm-api/src/java/org/adl/sequencer/SequencerMappings.hbm.xml,104,hbm
+SAK-E0458,table,其他工具表,SCORM_ADL_SEQ_RULESET_T,SQL/HBM 定义表,scormplayer/scorm-api/src/java/org/adl/sequencer/SequencerMappings.hbm.xml,127,hbm
+SAK-E0459,table,其他工具表,SCORM_ADL_DURATION_T,SQL/HBM 定义表,scormplayer/scorm-api/src/java/org/adl/sequencer/SequencerMappings.hbm.xml,143,hbm
+SAK-E0460,table,其他工具表,SCORM_ADL_AUX_RESOURCE_T,SQL/HBM 定义表,scormplayer/scorm-api/src/java/org/adl/sequencer/SequencerMappings.hbm.xml,155,hbm
+SAK-E0461,table,其他工具表,SCORM_ADL_ROLLUP_RULE_T,SQL/HBM 定义表,scormplayer/scorm-api/src/java/org/adl/sequencer/SequencerMappings.hbm.xml,171,hbm
+SAK-E0462,table,其他工具表,SCORM_ADL_ROLLUP_RULESET_T,SQL/HBM 定义表,scormplayer/scorm-api/src/java/org/adl/sequencer/SequencerMappings.hbm.xml,191,hbm
+SAK-E0463,table,其他工具表,SCORM_ADL_SEQ_OBJECTIVE_MAP_T,SQL/HBM 定义表,scormplayer/scorm-api/src/java/org/adl/sequencer/SequencerMappings.hbm.xml,215,hbm
+SAK-E0464,table,其他工具表,SCORM_ADL_SEQ_OBJ_TRACKING_T,SQL/HBM 定义表,scormplayer/scorm-api/src/java/org/adl/sequencer/SequencerMappings.hbm.xml,235,hbm
+SAK-E0465,table,其他工具表,SCORM_ADL_SEQ_OBJECTIVE_T,SQL/HBM 定义表,scormplayer/scorm-api/src/java/org/adl/sequencer/SequencerMappings.hbm.xml,279,hbm
+SAK-E0466,table,其他工具表,SCORM_ADL_TRACKING,SQL/HBM 定义表,scormplayer/scorm-api/src/java/org/adl/sequencer/SequencerMappings.hbm.xml,306,hbm
+SAK-E0467,table,其他工具表,SCORM_ADL_SEQ_ACTIVITY_T,SQL/HBM 定义表,scormplayer/scorm-api/src/java/org/adl/sequencer/SequencerMappings.hbm.xml,335,hbm
+SAK-E0468,table,其他工具表,SCORM_ADL_SEQ_ACTIVITY_TREE_T,SQL/HBM 定义表,scormplayer/scorm-api/src/java/org/adl/sequencer/SequencerMappings.hbm.xml,533,hbm
+SAK-E0469,table,其他工具表,SCORM_LAUNCH_DATA_T,SQL/HBM 定义表,scormplayer/scorm-api/src/java/org/adl/validator/contentpackage/LaunchData.hbm.xml,7,hbm
+SAK-E0470,table,其他工具表,SCORM_ATTEMPT_T,SQL/HBM 定义表,scormplayer/scorm-api/src/java/org/sakaiproject/scorm/model/api/Attempt.hbm.xml,6,hbm
+SAK-E0471,table,其他工具表,SCORM_CP_MANIFEST_T,SQL/HBM 定义表,scormplayer/scorm-api/src/java/org/sakaiproject/scorm/model/api/ContentPackageManifest.hbm.xml,6,hbm
+SAK-E0472,table,其他工具表,SCORM_CMI_FIELD_GROUP_T,SQL/HBM 定义表,scormplayer/scorm-api/src/java/org/sakaiproject/scorm/model/api/CMIFieldGroup.hbm.xml,6,hbm
+SAK-E0473,table,其他工具表,SCORM_CONTENT_PACKAGE_T,SQL/HBM 定义表,scormplayer/scorm-api/src/java/org/sakaiproject/scorm/model/api/ContentPackage.hbm.xml,6,hbm
+SAK-E0474,table,其他工具表,SCORM_CMI_FIELD_T,SQL/HBM 定义表,scormplayer/scorm-api/src/java/org/sakaiproject/scorm/model/api/CMIField.hbm.xml,6,hbm
+SAK-E0475,table,其他工具表,SCORM_ACTIVITY_TREE_HOLDER_T,SQL/HBM 定义表,scormplayer/scorm-api/src/java/org/sakaiproject/scorm/model/api/ActivityTreeHolder.hbm.xml,6,hbm
+SAK-E0476,table,其他工具表,SAKAI_POSTEM_GRADEBOOK,SQL/HBM 定义表,postem/postem-hbm/src/java/org/sakaiproject/component/app/postem/data/GradebookImpl.hbm.xml,4,hbm
+SAK-E0477,table,其他工具表,SAKAI_POSTEM_STUDENT,SQL/HBM 定义表,postem/postem-hbm/src/java/org/sakaiproject/component/app/postem/data/StudentGradesImpl.hbm.xml,4,hbm
+SAK-E0478,table,其他工具表,SSQ_USER_ANSWER,SQL/HBM 定义表,site-manage/site-manage-hbm/src/java/org/sakaiproject/sitemanage/impl/SiteSetupUserAnswer.hbm.xml,5,hbm
+SAK-E0479,table,其他工具表,SSQ_SITETYPE_QUESTIONS,SQL/HBM 定义表,site-manage/site-manage-hbm/src/java/org/sakaiproject/sitemanage/impl/SiteTypeQuestions.hbm.xml,5,hbm
+SAK-E0480,table,其他工具表,SSQ_QUESTION,SQL/HBM 定义表,site-manage/site-manage-hbm/src/java/org/sakaiproject/sitemanage/impl/SiteSetupQuestion.hbm.xml,6,hbm
+SAK-E0481,table,其他工具表,SSQ_ANSWER,SQL/HBM 定义表,site-manage/site-manage-hbm/src/java/org/sakaiproject/sitemanage/impl/SiteSetupQuestionAnswer.hbm.xml,5,hbm
+SAK-E0482,table,其他工具表,HIERARCHY_NODE,SQL/HBM 定义表,hierarchy/api/src/java/org/sakaiproject/hierarchy/dao/hbm/HierarchyPersistentNode.hbm.xml,5,hbm
+SAK-E0483,table,其他工具表,HIERARCHY_PERMS,SQL/HBM 定义表,hierarchy/api/src/java/org/sakaiproject/hierarchy/dao/hbm/HierarchyNodePermission.hbm.xml,5,hbm
+SAK-E0484,table,其他工具表,HIERARCHY_NODE_META,SQL/HBM 定义表,hierarchy/api/src/java/org/sakaiproject/hierarchy/dao/hbm/HierarchyNodeMetaData.hbm.xml,5,hbm
+SAK-E0485,table,测验/题库 Samigo,SAM_SECUREDELIVERY_T,SQL/HBM 定义表,samigo/samigo-hibernate/src/java/org/sakaiproject/tool/assessment/data/dao/grading/SecureDelivery.hbm.xml,6,hbm
+SAK-E0486,table,测验/题库 Samigo,SAM_SECTIONGRADING_T,SQL/HBM 定义表,samigo/samigo-hibernate/src/java/org/sakaiproject/tool/assessment/data/dao/grading/GradingData.hbm.xml,161,hbm
+SAK-E0487,table,测验/题库 Samigo,SAM_ITEMTAG_T,SQL/HBM 定义表,samigo/samigo-hibernate/src/java/org/sakaiproject/tool/assessment/data/dao/assessment/ItemData.hbm.xml,105,hbm
+SAK-E0488,table,测验/题库 Samigo,SAM_ITEMHISTORICAL_T,SQL/HBM 定义表,samigo/samigo-hibernate/src/java/org/sakaiproject/tool/assessment/data/dao/assessment/ItemData.hbm.xml,131,hbm
+SAK-E0489,table,测验/题库 Samigo,SAM_EVENTLOG_T,SQL/HBM 定义表,samigo/samigo-hibernate/src/java/org/sakaiproject/tool/assessment/data/dao/assessment/PublishedAssessment.hbm.xml,232,hbm
+SAK-E0490,table,测验/题库 Samigo,SAM_PUBLISHEDITEMTAG_T,SQL/HBM 定义表,samigo/samigo-hibernate/src/java/org/sakaiproject/tool/assessment/data/dao/assessment/PublishedItemData.hbm.xml,106,hbm
+SAK-E0491,table,测验/题库 Samigo,SAM_FAVORITECOLCHOICES_T,SQL/HBM 定义表,samigo/samigo-hibernate/src/java/org/sakaiproject/tool/assessment/data/dao/assessment/FavoriteColChoices.hbm.xml,6,hbm
+SAK-E0492,table,测验/题库 Samigo,SAM_FAVORITECOLCHOICESITEM_T,SQL/HBM 定义表,samigo/samigo-hibernate/src/java/org/sakaiproject/tool/assessment/data/dao/assessment/FavoriteColChoices.hbm.xml,22,hbm
+SAK-E0493,table,测验/题库 Samigo,SAM_SEBVALIDATION_T,SQL/HBM 定义表,samigo/samigo-hibernate/src/java/org/sakaiproject/tool/assessment/data/dao/assessment/SebValidation.hbm.xml,5,hbm
+SAK-E0494,table,测验/题库 Samigo,SAM_EXTENDEDTIME_T,SQL/HBM 定义表,samigo/samigo-hibernate/src/java/org/sakaiproject/tool/assessment/data/dao/assessment/ExtendedTime.hbm.xml,7,hbm
+SAK-E0495,table,其他工具表,OAUTH_CONSUMERS,SQL/HBM 定义表,oauth/dao-hbm/src/resources/org/sakaiproject/oauth/dao/Consumer.hbm.xml,5,hbm
+SAK-E0496,table,其他工具表,OAUTH_ACCESSORS,SQL/HBM 定义表,oauth/dao-hbm/src/resources/org/sakaiproject/oauth/dao/Accessor.hbm.xml,5,hbm
+SAK-E0497,table,沟通协作,CALENDAR_OPAQUEURL,SQL/HBM 定义表,calendar/calendar-hbm/src/main/resources/org/sakaiproject/calendar/dao/hbm/OpaqueUrl.hbm.xml,5,hbm
+SAK-E0498,table,日志统计,SST_PRESENCE_TOTALS,SQL/HBM 定义表,sitestats/sitestats-impl-hib/src/java/org/sakaiproject/sitestats/impl/hbm/SitePresenceTotalImpl.hbm.xml,5,hbm
+SAK-E0499,table,日志统计,SST_SERVERSTATS,SQL/HBM 定义表,sitestats/sitestats-impl-hib/src/java/org/sakaiproject/sitestats/impl/hbm/ServerStat.hbm.xml,5,hbm
+SAK-E0500,table,课程内容 LessonBuilder,SST_LESSONBUILDER,SQL/HBM 定义表,sitestats/sitestats-impl-hib/src/java/org/sakaiproject/sitestats/impl/hbm/LessonBuilderStatImpl.hbm.xml,5,hbm
+SAK-E0501,table,日志统计,SST_USERSTATS,SQL/HBM 定义表,sitestats/sitestats-impl-hib/src/java/org/sakaiproject/sitestats/impl/hbm/UserStat.hbm.xml,4,hbm
+SAK-E0502,code_reference,运行机制,SessionManager,代码引用核心服务 SessionManager,plus/tool/src/main/java/org/sakaiproject/plus/tool/MainController.java,27,import org.sakaiproject.tool.api.SessionManager;
+SAK-E0503,code_reference,运行机制,ToolManager,代码引用核心服务 ToolManager,plus/tool/src/main/java/org/sakaiproject/plus/tool/MainController.java,28,import org.sakaiproject.tool.api.ToolManager;
+SAK-E0504,code_reference,运行机制,SiteService,代码引用核心服务 SiteService,plus/tool/src/main/java/org/sakaiproject/plus/tool/MainController.java,30,import org.sakaiproject.site.api.SiteService;
+SAK-E0505,code_reference,运行机制,LTIService,代码引用核心服务 LTIService,plus/tool/src/main/java/org/sakaiproject/plus/tool/MainController.java,44,import org.sakaiproject.lti.api.LTIService;
+SAK-E0506,code_reference,运行机制,SessionManager,代码引用核心服务 SessionManager,plus/tool/src/main/java/org/sakaiproject/plus/tool/MainController.java,75,private SessionManager sessionManager;
+SAK-E0507,code_reference,运行机制,ToolManager,代码引用核心服务 ToolManager,plus/tool/src/main/java/org/sakaiproject/plus/tool/MainController.java,78,private ToolManager toolManager;
+SAK-E0508,code_reference,运行机制,LTIService,代码引用核心服务 LTIService,plus/tool/src/main/java/org/sakaiproject/plus/tool/MainController.java,93,private LTIService ltiService;
+SAK-E0509,code_reference,运行机制,SiteService,代码引用核心服务 SiteService,plus/tool/src/main/java/org/sakaiproject/plus/tool/MainController.java,96,private SiteService siteService;
+SAK-E0510,code_reference,运行机制,SecurityService,代码引用核心服务 SecurityService,plus/provider/src/main/java/org/sakaiproject/plus/ProviderServlet.java,67,import org.sakaiproject.authz.api.SecurityService;
+SAK-E0511,code_reference,运行机制,LTIService,代码引用核心服务 LTIService,plus/provider/src/main/java/org/sakaiproject/plus/ProviderServlet.java,71,import org.sakaiproject.lti.api.LTIService;
+SAK-E0512,code_reference,运行机制,ServerConfigurationService,代码引用核心服务 ServerConfigurationService,plus/provider/src/main/java/org/sakaiproject/plus/ProviderServlet.java,80,import org.sakaiproject.component.api.ServerConfigurationService;
+SAK-E0513,code_reference,运行机制,SiteService,代码引用核心服务 SiteService,plus/provider/src/main/java/org/sakaiproject/plus/ProviderServlet.java,85,import static org.sakaiproject.site.api.SiteService.SITE_TITLE_MAX_LENGTH;
+SAK-E0514,code_reference,运行机制,SiteService,代码引用核心服务 SiteService,plus/provider/src/main/java/org/sakaiproject/plus/ProviderServlet.java,86,import org.sakaiproject.site.api.SiteService.SiteTitleValidationStatus;
+SAK-E0515,code_reference,运行机制,SiteService,代码引用核心服务 SiteService,plus/provider/src/main/java/org/sakaiproject/plus/ProviderServlet.java,88,import org.sakaiproject.site.api.SiteService;
+SAK-E0516,code_reference,运行机制,AuthzGroupService,代码引用核心服务 AuthzGroupService,plus/provider/src/main/java/org/sakaiproject/plus/ProviderServlet.java,89,import org.sakaiproject.authz.api.AuthzGroupService;
+SAK-E0517,code_reference,运行机制,SessionManager,代码引用核心服务 SessionManager,plus/provider/src/main/java/org/sakaiproject/plus/ProviderServlet.java,94,import org.sakaiproject.tool.api.SessionManager;
+SAK-E0518,code_reference,运行机制,ToolManager,代码引用核心服务 ToolManager,plus/provider/src/main/java/org/sakaiproject/plus/ProviderServlet.java,95,import org.sakaiproject.tool.api.ToolManager;
+SAK-E0519,code_reference,运行机制,ServerConfigurationService,代码引用核心服务 ServerConfigurationService,plus/provider/src/main/java/org/sakaiproject/plus/ProviderServlet.java,137,@Autowired private ServerConfigurationService serverConfigurationService;
+SAK-E0520,code_reference,运行机制,SecurityService,代码引用核心服务 SecurityService,plus/provider/src/main/java/org/sakaiproject/plus/ProviderServlet.java,146,@Autowired private SecurityService securityService;
+SAK-E0521,code_reference,运行机制,SiteService,代码引用核心服务 SiteService,plus/provider/src/main/java/org/sakaiproject/plus/ProviderServlet.java,148,@Autowired private SiteService siteService;
+SAK-E0522,code_reference,运行机制,AuthzGroupService,代码引用核心服务 AuthzGroupService,plus/provider/src/main/java/org/sakaiproject/plus/ProviderServlet.java,149,@Autowired private AuthzGroupService authzGroupService;
+SAK-E0523,code_reference,运行机制,SessionManager,代码引用核心服务 SessionManager,plus/provider/src/main/java/org/sakaiproject/plus/ProviderServlet.java,150,@Autowired private SessionManager sessionManager;
+SAK-E0524,code_reference,运行机制,ToolManager,代码引用核心服务 ToolManager,plus/provider/src/main/java/org/sakaiproject/plus/ProviderServlet.java,151,@Autowired private ToolManager toolManager;
+SAK-E0525,code_reference,运行机制,EventTrackingService,代码引用核心服务 EventTrackingService,plus/impl/src/main/java/org/sakaiproject/plus/impl/PlusEventObserver.java,23,import org.sakaiproject.event.api.EventTrackingService;
+SAK-E0526,code_reference,运行机制,EventTrackingService,代码引用核心服务 EventTrackingService,plus/impl/src/main/java/org/sakaiproject/plus/impl/PlusEventObserver.java,33,@Autowired private EventTrackingService eventTrackingService;
+SAK-E0527,code_reference,运行机制,SiteService,代码引用核心服务 SiteService,plus/impl/src/main/java/org/sakaiproject/plus/impl/PlusServiceImpl.java,60,import org.sakaiproject.site.api.SiteService;
+SAK-E0528,code_reference,运行机制,ServerConfigurationService,代码引用核心服务 ServerConfigurationService,plus/impl/src/main/java/org/sakaiproject/plus/impl/PlusServiceImpl.java,64,import org.sakaiproject.component.api.ServerConfigurationService;
+SAK-E0529,code_reference,运行机制,SecurityService,代码引用核心服务 SecurityService,plus/impl/src/main/java/org/sakaiproject/plus/impl/PlusServiceImpl.java,71,import org.sakaiproject.authz.api.SecurityService;
+SAK-E0530,code_reference,运行机制,ServerConfigurationService,代码引用核心服务 ServerConfigurationService,plus/impl/src/main/java/org/sakaiproject/plus/impl/PlusServiceImpl.java,146,@Autowired private ServerConfigurationService serverConfigurationService;
+SAK-E0531,code_reference,运行机制,SiteService,代码引用核心服务 SiteService,plus/impl/src/main/java/org/sakaiproject/plus/impl/PlusServiceImpl.java,147,@Autowired private SiteService siteService;
+SAK-E0532,code_reference,运行机制,SecurityService,代码引用核心服务 SecurityService,plus/impl/src/main/java/org/sakaiproject/plus/impl/PlusServiceImpl.java,148,@Autowired private SecurityService securityService;
+SAK-E0533,code_reference,运行机制,AuthzGroupService,代码引用核心服务 AuthzGroupService,plus/impl/src/main/java/org/sakaiproject/plus/impl/PlusServiceImpl.java,556,* See also: kernel-impl/src/main/java/org/sakaiproject/authz/impl/DbAuthzGroupService.java
+SAK-E0534,code_reference,运行机制,SecurityService,代码引用核心服务 SecurityService,plus/impl/src/test/org/sakaiproject/plus/impl/PlusModelTests.java,49,import org.sakaiproject.authz.api.SecurityService;
+SAK-E0535,code_reference,运行机制,SessionManager,代码引用核心服务 SessionManager,plus/impl/src/test/org/sakaiproject/plus/impl/PlusModelTests.java,50,import org.sakaiproject.tool.api.SessionManager;
+SAK-E0536,code_reference,运行机制,UserDirectoryService,代码引用核心服务 UserDirectoryService,plus/impl/src/test/org/sakaiproject/plus/impl/PlusModelTests.java,52,import org.sakaiproject.user.api.UserDirectoryService;
+SAK-E0537,code_reference,运行机制,SecurityService,代码引用核心服务 SecurityService,plus/impl/src/test/org/sakaiproject/plus/impl/PlusModelTests.java,76,@Autowired private SecurityService securityService;
+SAK-E0538,code_reference,运行机制,SessionManager,代码引用核心服务 SessionManager,plus/impl/src/test/org/sakaiproject/plus/impl/PlusModelTests.java,77,@Autowired private SessionManager sessionManager;
+SAK-E0539,code_reference,运行机制,UserDirectoryService,代码引用核心服务 UserDirectoryService,plus/impl/src/test/org/sakaiproject/plus/impl/PlusModelTests.java,78,@Autowired private UserDirectoryService userDirectoryService;
+SAK-E0540,code_reference,运行机制,SiteService,代码引用核心服务 SiteService,plus/impl/src/test/org/sakaiproject/plus/impl/PlusTestConfiguration.java,32,import org.sakaiproject.site.api.SiteService;
+SAK-E0541,code_reference,运行机制,SiteService,代码引用核心服务 SiteService,plus/impl/src/test/org/sakaiproject/plus/impl/PlusTestConfiguration.java,96,"@Bean(name = ""org.sakaiproject.site.api.SiteService"")"
+SAK-E0542,code_reference,运行机制,SiteService,代码引用核心服务 SiteService,plus/impl/src/test/org/sakaiproject/plus/impl/PlusTestConfiguration.java,97,public SiteService siteConfigurationService() {
+SAK-E0543,code_reference,运行机制,SiteService,代码引用核心服务 SiteService,plus/impl/src/test/org/sakaiproject/plus/impl/PlusTestConfiguration.java,98,return mock(SiteService.class);
+SAK-E0544,code_reference,运行机制,AssignmentService,代码引用核心服务 AssignmentService,content-review/tool/src/main/java/org/sakaiproject/contentreview/tool/MainController.java,24,import org.sakaiproject.assignment.api.AssignmentService;
+SAK-E0545,code_reference,运行机制,AssignmentService,代码引用核心服务 AssignmentService,content-review/tool/src/main/java/org/sakaiproject/contentreview/tool/MainController.java,25,import org.sakaiproject.assignment.api.AssignmentServiceConstants;
+SAK-E0546,code_reference,运行机制,SessionManager,代码引用核心服务 SessionManager,content-review/tool/src/main/java/org/sakaiproject/contentreview/tool/MainController.java,29,import org.sakaiproject.tool.api.SessionManager;
+SAK-E0547,code_reference,运行机制,SessionManager,代码引用核心服务 SessionManager,content-review/tool/src/main/java/org/sakaiproject/contentreview/tool/MainController.java,54,private SessionManager sessionManager;
+SAK-E0548,code_reference,运行机制,AssignmentService,代码引用核心服务 AssignmentService,content-review/tool/src/main/java/org/sakaiproject/contentreview/tool/MainController.java,61,private AssignmentService assignmentService;
+SAK-E0549,code_reference,运行机制,AssignmentService,代码引用核心服务 AssignmentService,content-review/tool/src/main/java/org/sakaiproject/contentreview/tool/MainController.java,96,if(assignmentRef.startsWith(AssignmentServiceConstants.REFERENCE_ROOT)) {
+SAK-E0550,code_reference,运行机制,AssignmentService,代码引用核心服务 AssignmentService,content-review/tool/src/main/java/org/sakaiproject/contentreview/tool/MainController.java,119,if(assignmentRef.startsWith(AssignmentServiceConstants.REFERENCE_ROOT)) {
+SAK-E0551,code_reference,运行机制,AssignmentService,代码引用核心服务 AssignmentService,content-review/tool/src/main/java/org/sakaiproject/contentreview/tool/MainController.java,125,if (submission == null || !submission.getAttachments().contains(AssignmentServiceConstants.REF_PREFIX + contentId))
+SAK-E0552,code_reference,运行机制,SiteService,代码引用核心服务 SiteService,content-review/impl/service/src/main/java/org/sakaiproject/contentreview/service/ContentReviewFederatedServiceImpl.java,42,import org.sakaiproject.site.api.SiteService;
+SAK-E0553,code_reference,运行机制,ToolManager,代码引用核心服务 ToolManager,content-review/impl/service/src/main/java/org/sakaiproject/contentreview/service/ContentReviewFederatedServiceImpl.java,43,import org.sakaiproject.tool.api.ToolManager;
+SAK-E0554,code_reference,运行机制,ToolManager,代码引用核心服务 ToolManager,content-review/impl/service/src/main/java/org/sakaiproject/contentreview/service/ContentReviewFederatedServiceImpl.java,56,private ToolManager toolManager;
+SAK-E0555,code_reference,运行机制,SiteService,代码引用核心服务 SiteService,content-review/impl/service/src/main/java/org/sakaiproject/contentreview/service/ContentReviewFederatedServiceImpl.java,59,private SiteService siteService;
+SAK-E0556,code_reference,运行机制,AssignmentService,代码引用核心服务 AssignmentService,content-review/impl/service/src/main/java/org/sakaiproject/contentreview/service/BaseContentReviewService.java,28,import org.sakaiproject.assignment.api.AssignmentService;
+SAK-E0557,code_reference,运行机制,ServerConfigurationService,代码引用核心服务 ServerConfigurationService,content-review/impl/service/src/main/java/org/sakaiproject/contentreview/service/BaseContentReviewService.java,35,import org.sakaiproject.component.api.ServerConfigurationService;
+SAK-E0558,code_reference,运行机制,AssignmentService,代码引用核心服务 AssignmentService,content-review/impl/service/src/main/java/org/sakaiproject/contentreview/service/BaseContentReviewService.java,61,protected AssignmentService assignmentService;
+SAK-E0559,code_reference,运行机制,ServerConfigurationService,代码引用核心服务 ServerConfigurationService,content-review/impl/service/src/main/java/org/sakaiproject/contentreview/service/BaseContentReviewService.java,69,protected ServerConfigurationService serverConfigurationService;
+SAK-E0560,code_reference,运行机制,SessionManager,代码引用核心服务 SessionManager,content-review/impl/service/src/main/java/org/sakaiproject/contentreview/service/jobs/ContentReviewQueue.java,25,import org.sakaiproject.tool.api.SessionManager;
+SAK-E0561,code_reference,运行机制,SessionManager,代码引用核心服务 SessionManager,content-review/impl/service/src/main/java/org/sakaiproject/contentreview/service/jobs/ContentReviewQueue.java,33,private SessionManager sessionManager;
+SAK-E0562,code_reference,运行机制,ServerConfigurationService,代码引用核心服务 ServerConfigurationService,content-review/impl/compilatio/src/main/java/org/sakaiproject/contentreview/compilatio/CompilatioAccountConnection.java,22,import org.sakaiproject.component.api.ServerConfigurationService;
+SAK-E0563,code_reference,运行机制,ServerConfigurationService,代码引用核心服务 ServerConfigurationService,content-review/impl/compilatio/src/main/java/org/sakaiproject/contentreview/compilatio/CompilatioAccountConnection.java,74,private ServerConfigurationService serverConfigurationService;
+SAK-E0564,code_reference,运行机制,ServerConfigurationService,代码引用核心服务 ServerConfigurationService,content-review/impl/compilatio/src/main/java/org/sakaiproject/contentreview/compilatio/CompilatioAccountConnection.java,75,public void setServerConfigurationService (ServerConfigurationService serverConfigurationService) {
+SAK-E0565,code_reference,运行机制,ContentHostingService,代码引用核心服务 ContentHostingService,content-review/impl/compilatio/src/main/java/org/sakaiproject/contentreview/compilatio/CompilatioReviewServiceImpl.java,43,import org.sakaiproject.content.api.ContentHostingService;
+SAK-E0566,code_reference,运行机制,ToolManager,代码引用核心服务 ToolManager,content-review/impl/compilatio/src/main/java/org/sakaiproject/contentreview/compilatio/CompilatioReviewServiceImpl.java,60,import org.sakaiproject.tool.api.ToolManager;
+SAK-E0567,code_reference,运行机制,UserDirectoryService,代码引用核心服务 UserDirectoryService,content-review/impl/compilatio/src/main/java/org/sakaiproject/contentreview/compilatio/CompilatioReviewServiceImpl.java,61,import org.sakaiproject.user.api.UserDirectoryService;
+SAK-E0568,code_reference,运行机制,ToolManager,代码引用核心服务 ToolManager,content-review/impl/compilatio/src/main/java/org/sakaiproject/contentreview/compilatio/CompilatioReviewServiceImpl.java,189,@Setter protected ToolManager toolManager;
+SAK-E0569,code_reference,运行机制,UserDirectoryService,代码引用核心服务 UserDirectoryService,content-review/impl/compilatio/src/main/java/org/sakaiproject/contentreview/compilatio/CompilatioReviewServiceImpl.java,190,@Setter protected UserDirectoryService userDirectoryService;
+SAK-E0570,code_reference,运行机制,ContentHostingService,代码引用核心服务 ContentHostingService,content-review/impl/compilatio/src/main/java/org/sakaiproject/contentreview/compilatio/CompilatioReviewServiceImpl.java,191,@Setter protected ContentHostingService contentHostingService;
+SAK-E0571,code_reference,运行机制,AuthzGroupService,代码引用核心服务 AuthzGroupService,content-review/impl/turnitin-oc/src/main/java/org/sakaiproject/contentreview/turnitin/oc/ContentReviewServiceTurnitinOC.java,69,import org.sakaiproject.authz.api.AuthzGroupService;
+SAK-E0572,code_reference,运行机制,SecurityService,代码引用核心服务 SecurityService,content-review/impl/turnitin-oc/src/main/java/org/sakaiproject/contentreview/turnitin/oc/ContentReviewServiceTurnitinOC.java,71,import org.sakaiproject.authz.api.SecurityService;
+SAK-E0573,code_reference,运行机制,ContentHostingService,代码引用核心服务 ContentHostingService,content-review/impl/turnitin-oc/src/main/java/org/sakaiproject/contentreview/turnitin/oc/ContentReviewServiceTurnitinOC.java,72,import org.sakaiproject.content.api.ContentHostingService;
+SAK-E0574,code_reference,运行机制,SiteService,代码引用核心服务 SiteService,content-review/impl/turnitin-oc/src/main/java/org/sakaiproject/contentreview/turnitin/oc/ContentReviewServiceTurnitinOC.java,90,import org.sakaiproject.site.api.SiteService;
+SAK-E0575,code_reference,运行机制,SessionManager,代码引用核心服务 SessionManager,content-review/impl/turnitin-oc/src/main/java/org/sakaiproject/contentreview/turnitin/oc/ContentReviewServiceTurnitinOC.java,92,import org.sakaiproject.tool.api.SessionManager;
+SAK-E0576,code_reference,运行机制,UserDirectoryService,代码引用核心服务 UserDirectoryService,content-review/impl/turnitin-oc/src/main/java/org/sakaiproject/contentreview/turnitin/oc/ContentReviewServiceTurnitinOC.java,94,import org.sakaiproject.user.api.UserDirectoryService;
+SAK-E0577,code_reference,运行机制,UserDirectoryService,代码引用核心服务 UserDirectoryService,content-review/impl/turnitin-oc/src/main/java/org/sakaiproject/contentreview/turnitin/oc/ContentReviewServiceTurnitinOC.java,110,private UserDirectoryService userDirectoryService;
+SAK-E0578,code_reference,运行机制,SecurityService,代码引用核心服务 SecurityService,content-review/impl/turnitin-oc/src/main/java/org/sakaiproject/contentreview/turnitin/oc/ContentReviewServiceTurnitinOC.java,113,private SecurityService securityService;
+SAK-E0579,code_reference,运行机制,SiteService,代码引用核心服务 SiteService,content-review/impl/turnitin-oc/src/main/java/org/sakaiproject/contentreview/turnitin/oc/ContentReviewServiceTurnitinOC.java,116,private SiteService siteService;
+SAK-E0580,code_reference,运行机制,ContentHostingService,代码引用核心服务 ContentHostingService,content-review/impl/turnitin-oc/src/main/java/org/sakaiproject/contentreview/turnitin/oc/ContentReviewServiceTurnitinOC.java,119,private ContentHostingService contentHostingService;
+SAK-E0581,code_reference,运行机制,SessionManager,代码引用核心服务 SessionManager,content-review/impl/turnitin-oc/src/main/java/org/sakaiproject/contentreview/turnitin/oc/ContentReviewServiceTurnitinOC.java,122,private SessionManager sessionManager;
+SAK-E0582,code_reference,运行机制,AuthzGroupService,代码引用核心服务 AuthzGroupService,content-review/impl/turnitin-oc/src/main/java/org/sakaiproject/contentreview/turnitin/oc/ContentReviewServiceTurnitinOC.java,128,private AuthzGroupService authzGroupService;
+SAK-E0583,code_reference,运行机制,ServerConfigurationService,代码引用核心服务 ServerConfigurationService,content-review/impl/urkund/src/main/java/org/sakaiproject/contentreview/urkund/UrkundContentValidator.java,27,import org.sakaiproject.component.api.ServerConfigurationService;
+SAK-E0584,code_reference,运行机制,ServerConfigurationService,代码引用核心服务 ServerConfigurationService,content-review/impl/urkund/src/main/java/org/sakaiproject/contentreview/urkund/UrkundContentValidator.java,47,ServerConfigurationService serverConfigurationService;
+SAK-E0585,code_reference,运行机制,ServerConfigurationService,代码引用核心服务 ServerConfigurationService,content-review/impl/urkund/src/main/java/org/sakaiproject/contentreview/urkund/UrkundContentValidator.java,48,public void setServerConfigurationService(ServerConfigurationService serverConfigurationService) {
+SAK-E0586,code_reference,运行机制,SakaiPersonManager,代码引用核心服务 SakaiPersonManager,content-review/impl/urkund/src/main/java/org/sakaiproject/contentreview/urkund/UrkundReviewServiceImpl.java,46,import org.sakaiproject.api.common.edu.person.SakaiPersonManager;
+SAK-E0587,code_reference,运行机制,ServerConfigurationService,代码引用核心服务 ServerConfigurationService,content-review/impl/urkund/src/main/java/org/sakaiproject/contentreview/urkund/UrkundReviewServiceImpl.java,47,import org.sakaiproject.component.api.ServerConfigurationService;
+SAK-E0588,code_reference,运行机制,ContentHostingService,代码引用核心服务 ContentHostingService,content-review/impl/urkund/src/main/java/org/sakaiproject/contentreview/urkund/UrkundReviewServiceImpl.java,48,import org.sakaiproject.content.api.ContentHostingService;
+SAK-E0589,code_reference,运行机制,ToolManager,代码引用核心服务 ToolManager,content-review/impl/urkund/src/main/java/org/sakaiproject/contentreview/urkund/UrkundReviewServiceImpl.java,66,import org.sakaiproject.tool.api.ToolManager;
+SAK-E0590,code_reference,运行机制,UserDirectoryService,代码引用核心服务 UserDirectoryService,content-review/impl/urkund/src/main/java/org/sakaiproject/contentreview/urkund/UrkundReviewServiceImpl.java,68,import org.sakaiproject.user.api.UserDirectoryService;
+SAK-E0591,code_reference,运行机制,UserDirectoryService,代码引用核心服务 UserDirectoryService,content-review/impl/urkund/src/main/java/org/sakaiproject/contentreview/urkund/UrkundReviewServiceImpl.java,135,@Setter	protected UserDirectoryService userDirectoryService;
+SAK-E0592,code_reference,运行机制,ToolManager,代码引用核心服务 ToolManager,content-review/impl/urkund/src/main/java/org/sakaiproject/contentreview/urkund/UrkundReviewServiceImpl.java,136,@Setter	protected ToolManager toolManager;
+SAK-E0593,code_reference,运行机制,ContentHostingService,代码引用核心服务 ContentHostingService,content-review/impl/urkund/src/main/java/org/sakaiproject/contentreview/urkund/UrkundReviewServiceImpl.java,137,@Setter	protected ContentHostingService contentHostingService;
+SAK-E0594,code_reference,运行机制,SakaiPersonManager,代码引用核心服务 SakaiPersonManager,content-review/impl/urkund/src/main/java/org/sakaiproject/contentreview/urkund/UrkundReviewServiceImpl.java,138,@Setter	protected SakaiPersonManager sakaiPersonManager;
+SAK-E0595,code_reference,运行机制,ServerConfigurationService,代码引用核心服务 ServerConfigurationService,content-review/impl/urkund/src/main/java/org/sakaiproject/contentreview/urkund/UrkundAccountConnection.java,31,import org.sakaiproject.component.api.ServerConfigurationService;
+SAK-E0596,code_reference,运行机制,ServerConfigurationService,代码引用核心服务 ServerConfigurationService,content-review/impl/urkund/src/main/java/org/sakaiproject/contentreview/urkund/UrkundAccountConnection.java,134,private ServerConfigurationService serverConfigurationService;
+SAK-E0597,code_reference,运行机制,ServerConfigurationService,代码引用核心服务 ServerConfigurationService,content-review/impl/urkund/src/main/java/org/sakaiproject/contentreview/urkund/UrkundAccountConnection.java,135,public void setServerConfigurationService (ServerConfigurationService serverConfigurationService) {
+SAK-E0598,code_reference,运行机制,ServerConfigurationService,代码引用核心服务 ServerConfigurationService,content-review/impl/turnitin/src/main/java/org/sakaiproject/contentreview/turnitin/TurnitinAccountConnection.java,25,import org.sakaiproject.component.api.ServerConfigurationService;
+SAK-E0599,code_reference,运行机制,ServerConfigurationService,代码引用核心服务 ServerConfigurationService,content-review/impl/turnitin/src/main/java/org/sakaiproject/contentreview/turnitin/TurnitinAccountConnection.java,246,private ServerConfigurationService serverConfigurationService;
+SAK-E0600,code_reference,运行机制,ServerConfigurationService,代码引用核心服务 ServerConfigurationService,content-review/impl/turnitin/src/main/java/org/sakaiproject/contentreview/turnitin/TurnitinAccountConnection.java,247,public void setServerConfigurationService (ServerConfigurationService serverConfigurationService) {
+SAK-E0601,code_reference,运行机制,ServerConfigurationService,代码引用核心服务 ServerConfigurationService,content-review/impl/turnitin/src/main/java/org/sakaiproject/contentreview/turnitin/TurnitinContentValidator.java,27,import org.sakaiproject.component.api.ServerConfigurationService;
+SAK-E0602,code_reference,运行机制,ServerConfigurationService,代码引用核心服务 ServerConfigurationService,content-review/impl/turnitin/src/main/java/org/sakaiproject/contentreview/turnitin/TurnitinContentValidator.java,51,private ServerConfigurationService serverConfigurationService;
+SAK-E0603,code_reference,运行机制,ServerConfigurationService,代码引用核心服务 ServerConfigurationService,content-review/impl/turnitin/src/main/java/org/sakaiproject/contentreview/turnitin/TurnitinContentValidator.java,52,public void setServerConfigurationService (ServerConfigurationService serverConfigurationService) {
+SAK-E0604,code_reference,运行机制,SakaiPersonManager,代码引用核心服务 SakaiPersonManager,content-review/impl/turnitin/src/main/java/org/sakaiproject/contentreview/turnitin/TurnitinReviewServiceImpl.java,47,import org.sakaiproject.api.common.edu.person.SakaiPersonManager;
+SAK-E0605,code_reference,运行机制,SecurityService,代码引用核心服务 SecurityService,content-review/impl/turnitin/src/main/java/org/sakaiproject/contentreview/turnitin/TurnitinReviewServiceImpl.java,49,import org.sakaiproject.authz.api.SecurityService;
+SAK-E0606,code_reference,运行机制,ContentHostingService,代码引用核心服务 ContentHostingService,content-review/impl/turnitin/src/main/java/org/sakaiproject/contentreview/turnitin/TurnitinReviewServiceImpl.java,50,import org.sakaiproject.content.api.ContentHostingService;
+SAK-E0607,code_reference,运行机制,SiteService,代码引用核心服务 SiteService,content-review/impl/turnitin/src/main/java/org/sakaiproject/contentreview/turnitin/TurnitinReviewServiceImpl.java,74,import org.sakaiproject.site.api.SiteService;
+SAK-E0608,code_reference,运行机制,SessionManager,代码引用核心服务 SessionManager,content-review/impl/turnitin/src/main/java/org/sakaiproject/contentreview/turnitin/TurnitinReviewServiceImpl.java,76,import org.sakaiproject.tool.api.SessionManager;
+SAK-E0609,code_reference,运行机制,ToolManager,代码引用核心服务 ToolManager,content-review/impl/turnitin/src/main/java/org/sakaiproject/contentreview/turnitin/TurnitinReviewServiceImpl.java,77,import org.sakaiproject.tool.api.ToolManager;
+SAK-E0610,code_reference,运行机制,UserDirectoryService,代码引用核心服务 UserDirectoryService,content-review/impl/turnitin/src/main/java/org/sakaiproject/contentreview/turnitin/TurnitinReviewServiceImpl.java,80,import org.sakaiproject.user.api.UserDirectoryService;
+SAK-E0611,code_reference,运行机制,ContentHostingService,代码引用核心服务 ContentHostingService,content-review/impl/turnitin/src/main/java/org/sakaiproject/contentreview/turnitin/TurnitinReviewServiceImpl.java,218,private ContentHostingService contentHostingService;
+SAK-E0612,code_reference,运行机制,SakaiPersonManager,代码引用核心服务 SakaiPersonManager,content-review/impl/turnitin/src/main/java/org/sakaiproject/contentreview/turnitin/TurnitinReviewServiceImpl.java,221,private SakaiPersonManager sakaiPersonManager;
+SAK-E0613,code_reference,运行机制,UserDirectoryService,代码引用核心服务 UserDirectoryService,content-review/impl/turnitin/src/main/java/org/sakaiproject/contentreview/turnitin/TurnitinReviewServiceImpl.java,224,private UserDirectoryService userDirectoryService;
+SAK-E0614,code_reference,运行机制,SiteService,代码引用核心服务 SiteService,content-review/impl/turnitin/src/main/java/org/sakaiproject/contentreview/turnitin/TurnitinReviewServiceImpl.java,227,private SiteService siteService;
+SAK-E0615,code_reference,运行机制,SecurityService,代码引用核心服务 SecurityService,content-review/impl/turnitin/src/main/java/org/sakaiproject/contentreview/turnitin/TurnitinReviewServiceImpl.java,239,private SecurityService securityService;
+SAK-E0616,code_reference,运行机制,SessionManager,代码引用核心服务 SessionManager,content-review/impl/turnitin/src/main/java/org/sakaiproject/contentreview/turnitin/TurnitinReviewServiceImpl.java,242,private SessionManager sessionManager;
+SAK-E0617,code_reference,运行机制,ToolManager,代码引用核心服务 ToolManager,content-review/impl/turnitin/src/main/java/org/sakaiproject/contentreview/turnitin/TurnitinReviewServiceImpl.java,248,private ToolManager toolManager;
+SAK-E0618,code_reference,运行机制,ServerConfigurationService,代码引用核心服务 ServerConfigurationService,help/help-api/src/java/org/sakaiproject/api/app/help/Category.java,24,import org.sakaiproject.component.api.ServerConfigurationService;
+SAK-E0619,code_reference,运行机制,ServerConfigurationService,代码引用核心服务 ServerConfigurationService,help/help-api/src/java/org/sakaiproject/api/app/help/Category.java,102,static Comparator<Category> comparator(ServerConfigurationService serverConfigurationService) {
+SAK-E0620,code_reference,运行机制,ServerConfigurationService,代码引用核心服务 ServerConfigurationService,help/help-api/src/java/org/sakaiproject/api/app/help/Category.java,103,// This is a static method in the API so that you can inject the ServerConfigurationService in a test
+SAK-E0621,code_reference,运行机制,ServerConfigurationService,代码引用核心服务 ServerConfigurationService,help/help-tool/src/java/org/sakaiproject/tool/help/QuestionTool.java,27,import org.sakaiproject.component.cover.ServerConfigurationService;
+SAK-E0622,code_reference,运行机制,ToolManager,代码引用核心服务 ToolManager,help/help-tool/src/java/org/sakaiproject/tool/help/QuestionTool.java,30,import org.sakaiproject.tool.cover.ToolManager;
+SAK-E0623,code_reference,运行机制,ServerConfigurationService,代码引用核心服务 ServerConfigurationService,help/help-tool/src/java/org/sakaiproject/tool/help/QuestionTool.java,219,serverName = ServerConfigurationService.getServerName();
+SAK-E0624,code_reference,运行机制,ToolManager,代码引用核心服务 ToolManager,help/help-tool/src/java/org/sakaiproject/tool/help/QuestionTool.java,229,"+ ToolManager.getCurrentPlacement().getContext() + ""\n"";"
+SAK-E0625,code_reference,运行机制,ServerConfigurationService,代码引用核心服务 ServerConfigurationService,help/help-tool/src/java/org/sakaiproject/tool/help/ContentServlet.java,41,import org.sakaiproject.component.api.ServerConfigurationService;
+SAK-E0626,code_reference,运行机制,ComponentManager,代码引用核心服务 ComponentManager,help/help-tool/src/java/org/sakaiproject/tool/help/ContentServlet.java,42,import org.sakaiproject.component.cover.ComponentManager;
+SAK-E0627,code_reference,运行机制,ServerConfigurationService,代码引用核心服务 ServerConfigurationService,help/help-tool/src/java/org/sakaiproject/tool/help/ContentServlet.java,60,private ServerConfigurationService serverConfigurationService;
+SAK-E0628,code_reference,运行机制,ServerConfigurationService,代码引用核心服务 ServerConfigurationService,help/help-tool/src/java/org/sakaiproject/tool/help/ContentServlet.java,97,String sakaiHomePath = getServerConfigurationService().getSakaiHomePath();
+SAK-E0629,code_reference,运行机制,ServerConfigurationService,代码引用核心服务 ServerConfigurationService,help/help-tool/src/java/org/sakaiproject/tool/help/ContentServlet.java,98,"String localHelpPath = sakaiHomePath+getServerConfigurationService().getString(""help.localpath"",""/help/"");"
+SAK-E0630,code_reference,运行机制,ServerConfigurationService,代码引用核心服务 ServerConfigurationService,help/help-tool/src/java/org/sakaiproject/tool/help/ContentServlet.java,133,"String skinRepo = getServerConfigurationService().getString(""skin.repo"",defaultRepo);"
+SAK-E0631,code_reference,运行机制,ServerConfigurationService,代码引用核心服务 ServerConfigurationService,help/help-tool/src/java/org/sakaiproject/tool/help/ContentServlet.java,134,"String helpHeader = getServerConfigurationService().getString(""help.header"",null);"
+SAK-E0632,code_reference,运行机制,ServerConfigurationService,代码引用核心服务 ServerConfigurationService,help/help-tool/src/java/org/sakaiproject/tool/help/ContentServlet.java,135,"String helpFooter = getServerConfigurationService().getString(""help.footer"",null);"
+SAK-E0633,code_reference,运行机制,ComponentManager,代码引用核心服务 ComponentManager,help/help-tool/src/java/org/sakaiproject/tool/help/ContentServlet.java,218,helpManager = (HelpManager) ComponentManager.get(HelpManager.class.getName());
+SAK-E0634,code_reference,运行机制,ServerConfigurationService,代码引用核心服务 ServerConfigurationService,help/help-tool/src/java/org/sakaiproject/tool/help/ContentServlet.java,228,public ServerConfigurationService getServerConfigurationService()
+SAK-E0635,code_reference,运行机制,ComponentManager,代码引用核心服务 ComponentManager,help/help-tool/src/java/org/sakaiproject/tool/help/ContentServlet.java,232,serverConfigurationService = (ServerConfigurationService) ComponentManager.get(ServerConfigurationService.class.getName());
+SAK-E0636,code_reference,运行机制,ServerConfigurationService,代码引用核心服务 ServerConfigurationService,help/help-tool/src/java/org/sakaiproject/tool/help/HelpJsfTool.java,32,import org.sakaiproject.component.cover.ServerConfigurationService;
+SAK-E0637,code_reference,运行机制,ServerConfigurationService,代码引用核心服务 ServerConfigurationService,help/help-tool/src/java/org/sakaiproject/tool/help/HelpJsfTool.java,59,"private static final String EXTERNAL_WEBAPP_URL = ServerConfigurationService.getString(EXTERNAL_WEBAPP_URL_BASE, ""sakai"");"
+SAK-E0638,code_reference,运行机制,EventTrackingService,代码引用核心服务 EventTrackingService,help/help-tool/src/java/org/sakaiproject/tool/help/SearchTool.java,30,import org.sakaiproject.event.cover.EventTrackingService;
+SAK-E0639,code_reference,运行机制,EventTrackingService,代码引用核心服务 EventTrackingService,help/help-tool/src/java/org/sakaiproject/tool/help/SearchTool.java,105,"EventTrackingService.post(EventTrackingService.newEvent(""help.search"", this.searchString, false));"
+SAK-E0640,code_reference,运行机制,ServerConfigurationService,代码引用核心服务 ServerConfigurationService,help/help-tool/src/java/org/sakaiproject/tool/help/RestContentProvider.java,62,import org.sakaiproject.component.cover.ServerConfigurationService;
+SAK-E0641,code_reference,运行机制,ServerConfigurationService,代码引用核心服务 ServerConfigurationService,help/help-tool/src/java/org/sakaiproject/tool/help/RestContentProvider.java,87,"String skinRoot = ServerConfigurationService.getString(""skin.repo"","
+SAK-E0642,code_reference,运行机制,ServerConfigurationService,代码引用核心服务 ServerConfigurationService,help/help-tool/src/java/org/sakaiproject/tool/help/RestContentProvider.java,89,"String skin = ServerConfigurationService.getString(""skin.default"","
+SAK-E0643,code_reference,运行机制,ServerConfigurationService,代码引用核心服务 ServerConfigurationService,help/help-tool/src/java/org/sakaiproject/jsf/help/HelpFrameSetRender.java,41,import org.sakaiproject.component.cover.ServerConfigurationService;
+SAK-E0644,code_reference,运行机制,EventTrackingService,代码引用核心服务 EventTrackingService,help/help-tool/src/java/org/sakaiproject/jsf/help/HelpFrameSetRender.java,43,import org.sakaiproject.event.cover.EventTrackingService;
+SAK-E0645,code_reference,运行机制,UserDirectoryService,代码引用核心服务 UserDirectoryService,help/help-tool/src/java/org/sakaiproject/jsf/help/HelpFrameSetRender.java,47,import org.sakaiproject.user.cover.UserDirectoryService;
+SAK-E0646,code_reference,运行机制,EventTrackingService,代码引用核心服务 EventTrackingService,help/help-tool/src/java/org/sakaiproject/jsf/help/HelpFrameSetRender.java,98,"EventTrackingService.post(EventTrackingService.newEvent(""help.access"", helpParameter, false));"
+SAK-E0647,code_reference,运行机制,ServerConfigurationService,代码引用核心服务 ServerConfigurationService,help/help-tool/src/java/org/sakaiproject/jsf/help/HelpFrameSetRender.java,100,"helpWindowTitle = ServerConfigurationService.getString(""ui.service"", ""Sakai"") + "" "" + component.getAttributes().get(""helpWindowTitle"");"
+SAK-E0648,code_reference,运行机制,UserDirectoryService,代码引用核心服务 UserDirectoryService,help/help-tool/src/java/org/sakaiproject/jsf/help/HelpFrameSetRender.java,137,.getPreferences(UserDirectoryService.getCurrentUser().getId());
+SAK-E0649,code_reference,运行机制,ServerConfigurationService,代码引用核心服务 ServerConfigurationService,help/help-tool/src/java/org/sakaiproject/jsf/help/HelpFrameSetRender.java,163,"String page = ServerConfigurationService.getString(""help.welcomepage"");"
+SAK-E0650,code_reference,运行机制,ComponentManager,代码引用核心服务 ComponentManager,help/help-tool/src/java/org/sakaiproject/jsf/help/ContextSensitiveTreeRender.java,41,import org.sakaiproject.component.cover.ComponentManager;
+SAK-E0651,code_reference,运行机制,ServerConfigurationService,代码引用核心服务 ServerConfigurationService,help/help-tool/src/java/org/sakaiproject/jsf/help/ContextSensitiveTreeRender.java,42,import org.sakaiproject.component.api.ServerConfigurationService;
+SAK-E0652,code_reference,运行机制,ComponentManager,代码引用核心服务 ComponentManager,help/help-tool/src/java/org/sakaiproject/jsf/help/ContextSensitiveTreeRender.java,156,Set subCategories = new TreeSet(Category.comparator(ComponentManager.get(ServerConfigurationService.class)));
+SAK-E0653,code_reference,运行机制,ServerConfigurationService,代码引用核心服务 ServerConfigurationService,help/help-component/src/java/org/sakaiproject/component/app/help/HelpManagerImpl.java,75,import org.sakaiproject.component.api.ServerConfigurationService;
+SAK-E0654,code_reference,运行机制,ToolManager,代码引用核心服务 ToolManager,help/help-component/src/java/org/sakaiproject/component/app/help/HelpManagerImpl.java,80,import org.sakaiproject.tool.api.ToolManager;
+SAK-E0655,code_reference,运行机制,UserDirectoryService,代码引用核心服务 UserDirectoryService,help/help-component/src/java/org/sakaiproject/component/app/help/HelpManagerImpl.java,82,import org.sakaiproject.user.api.UserDirectoryService;
+SAK-E0656,code_reference,运行机制,ServerConfigurationService,代码引用核心服务 ServerConfigurationService,help/help-component/src/java/org/sakaiproject/component/app/help/HelpManagerImpl.java,142,@Setter private ServerConfigurationService serverConfigurationService;
+SAK-E0657,code_reference,运行机制,ToolManager,代码引用核心服务 ToolManager,help/help-component/src/java/org/sakaiproject/component/app/help/HelpManagerImpl.java,143,@Setter private ToolManager toolManager;
+SAK-E0658,code_reference,运行机制,UserDirectoryService,代码引用核心服务 UserDirectoryService,help/help-component/src/java/org/sakaiproject/component/app/help/HelpManagerImpl.java,144,@Setter private UserDirectoryService userDirectoryService;
+SAK-E0659,code_reference,运行机制,ServerConfigurationService,代码引用核心服务 ServerConfigurationService,help/help-component/src/java/org/sakaiproject/component/app/help/TutorialEntityProviderImpl.java,30,import org.sakaiproject.component.cover.ServerConfigurationService;
+SAK-E0660,code_reference,运行机制,ServerConfigurationService,代码引用核心服务 ServerConfigurationService,help/help-component/src/java/org/sakaiproject/component/app/help/TutorialEntityProviderImpl.java,91,"String sakaiInstanceName = ServerConfigurationService.getString(""ui.service"", ""Sakai"");"
+SAK-E0661,code_reference,运行机制,ServerConfigurationService,代码引用核心服务 ServerConfigurationService,help/help-component/src/test/java/org/sakaiproject/component/app/help/TestContext.java,23,import org.sakaiproject.component.api.ServerConfigurationService;
+SAK-E0662,code_reference,运行机制,ToolManager,代码引用核心服务 ToolManager,help/help-component/src/test/java/org/sakaiproject/component/app/help/TestContext.java,24,import org.sakaiproject.tool.api.ActiveToolManager;
+SAK-E0663,code_reference,运行机制,UserDirectoryService,代码引用核心服务 UserDirectoryService,help/help-component/src/test/java/org/sakaiproject/component/app/help/TestContext.java,28,import org.sakaiproject.user.api.UserDirectoryService;
+SAK-E0664,code_reference,运行机制,UserDirectoryService,代码引用核心服务 UserDirectoryService,help/help-component/src/test/java/org/sakaiproject/component/app/help/TestContext.java,44,"@Bean(""org.sakaiproject.user.api.UserDirectoryService"")"
+SAK-E0665,code_reference,运行机制,UserDirectoryService,代码引用核心服务 UserDirectoryService,help/help-component/src/test/java/org/sakaiproject/component/app/help/TestContext.java,45,public UserDirectoryService userDirectoryService() {
+SAK-E0666,code_reference,运行机制,UserDirectoryService,代码引用核心服务 UserDirectoryService,help/help-component/src/test/java/org/sakaiproject/component/app/help/TestContext.java,46,UserDirectoryService userDirectoryService =  mock(UserDirectoryService.class);
+SAK-E0667,code_reference,运行机制,ToolManager,代码引用核心服务 ToolManager,help/help-component/src/test/java/org/sakaiproject/component/app/help/TestContext.java,53,"@Bean(""org.sakaiproject.tool.api.ActiveToolManager"")"
+SAK-E0668,code_reference,运行机制,ToolManager,代码引用核心服务 ToolManager,help/help-component/src/test/java/org/sakaiproject/component/app/help/TestContext.java,54,public ActiveToolManager activeToolManager() {
+SAK-E0669,code_reference,运行机制,ToolManager,代码引用核心服务 ToolManager,help/help-component/src/test/java/org/sakaiproject/component/app/help/TestContext.java,55,ActiveToolManager toolManager = mock(ActiveToolManager.class);
+SAK-E0670,code_reference,运行机制,ServerConfigurationService,代码引用核心服务 ServerConfigurationService,help/help-component/src/test/java/org/sakaiproject/component/app/help/TestContext.java,65,"@Bean(""org.sakaiproject.component.api.ServerConfigurationService"")"
+SAK-E0671,code_reference,运行机制,ServerConfigurationService,代码引用核心服务 ServerConfigurationService,help/help-component/src/test/java/org/sakaiproject/component/app/help/TestContext.java,66,public ServerConfigurationService serverConfigurationService() {
+SAK-E0672,code_reference,运行机制,ServerConfigurationService,代码引用核心服务 ServerConfigurationService,help/help-component/src/test/java/org/sakaiproject/component/app/help/TestContext.java,67,ServerConfigurationService serverConfigurationService = mock(ServerConfigurationService.class);
+SAK-E0673,code_reference,运行机制,AuthzGroupService,代码引用核心服务 AuthzGroupService,kernel/kernel-test/src/main/java/org/sakaiproject/test/SakaiTests.java,20,import org.sakaiproject.authz.api.AuthzGroupService;
+SAK-E0674,code_reference,运行机制,SiteService,代码引用核心服务 SiteService,kernel/kernel-test/src/main/java/org/sakaiproject/test/SakaiTests.java,23,import org.sakaiproject.site.api.SiteService;
+SAK-E0675,code_reference,运行机制,UserDirectoryService,代码引用核心服务 UserDirectoryService,kernel/kernel-test/src/main/java/org/sakaiproject/test/SakaiTests.java,25,import org.sakaiproject.user.api.UserDirectoryService;
+SAK-E0676,code_reference,运行机制,AuthzGroupService,代码引用核心服务 AuthzGroupService,kernel/kernel-test/src/main/java/org/sakaiproject/test/SakaiTests.java,45,@Autowired protected AuthzGroupService authzGroupService;
+SAK-E0677,code_reference,运行机制,UserDirectoryService,代码引用核心服务 UserDirectoryService,kernel/kernel-test/src/main/java/org/sakaiproject/test/SakaiTests.java,46,@Autowired protected UserDirectoryService userDirectoryService;
+SAK-E0678,code_reference,运行机制,SiteService,代码引用核心服务 SiteService,kernel/kernel-test/src/main/java/org/sakaiproject/test/SakaiTests.java,47,@Autowired protected SiteService siteService;
+SAK-E0679,code_reference,运行机制,AuthzGroupService,代码引用核心服务 AuthzGroupService,kernel/kernel-test/src/main/java/org/sakaiproject/test/SakaiTestConfiguration.java,31,import org.sakaiproject.authz.api.AuthzGroupService;
+SAK-E0680,code_reference,运行机制,SecurityService,代码引用核心服务 SecurityService,kernel/kernel-test/src/main/java/org/sakaiproject/test/SakaiTestConfiguration.java,33,import org.sakaiproject.authz.api.SecurityService;
+SAK-E0681,code_reference,运行机制,ServerConfigurationService,代码引用核心服务 ServerConfigurationService,kernel/kernel-test/src/main/java/org/sakaiproject/test/SakaiTestConfiguration.java,34,import org.sakaiproject.component.api.ServerConfigurationService;
+SAK-E0682,code_reference,运行机制,EventTrackingService,代码引用核心服务 EventTrackingService,kernel/kernel-test/src/main/java/org/sakaiproject/test/SakaiTestConfiguration.java,36,import org.sakaiproject.event.api.EventTrackingService;
+SAK-E0683,code_reference,运行机制,SiteService,代码引用核心服务 SiteService,kernel/kernel-test/src/main/java/org/sakaiproject/test/SakaiTestConfiguration.java,39,import org.sakaiproject.site.api.SiteService;
+SAK-E0684,code_reference,运行机制,SessionManager,代码引用核心服务 SessionManager,kernel/kernel-test/src/main/java/org/sakaiproject/test/SakaiTestConfiguration.java,42,import org.sakaiproject.tool.api.SessionManager;
+SAK-E0685,code_reference,运行机制,ToolManager,代码引用核心服务 ToolManager,kernel/kernel-test/src/main/java/org/sakaiproject/test/SakaiTestConfiguration.java,43,import org.sakaiproject.tool.api.ToolManager;
+SAK-E0686,code_reference,运行机制,UserDirectoryService,代码引用核心服务 UserDirectoryService,kernel/kernel-test/src/main/java/org/sakaiproject/test/SakaiTestConfiguration.java,44,import org.sakaiproject.user.api.UserDirectoryService;
+SAK-E0687,code_reference,运行机制,AuthzGroupService,代码引用核心服务 AuthzGroupService,kernel/kernel-test/src/main/java/org/sakaiproject/test/SakaiTestConfiguration.java,109,"@Bean(name = ""org.sakaiproject.authz.api.AuthzGroupService"")"
+SAK-E0688,code_reference,运行机制,AuthzGroupService,代码引用核心服务 AuthzGroupService,kernel/kernel-test/src/main/java/org/sakaiproject/test/SakaiTestConfiguration.java,110,public AuthzGroupService authzGroupService() {
+SAK-E0689,code_reference,运行机制,AuthzGroupService,代码引用核心服务 AuthzGroupService,kernel/kernel-test/src/main/java/org/sakaiproject/test/SakaiTestConfiguration.java,111,return mock(AuthzGroupService.class);
+SAK-E0690,code_reference,运行机制,EventTrackingService,代码引用核心服务 EventTrackingService,kernel/kernel-test/src/main/java/org/sakaiproject/test/SakaiTestConfiguration.java,119,"@Bean(name = ""org.sakaiproject.event.api.EventTrackingService"")"
+SAK-E0691,code_reference,运行机制,EventTrackingService,代码引用核心服务 EventTrackingService,kernel/kernel-test/src/main/java/org/sakaiproject/test/SakaiTestConfiguration.java,120,public EventTrackingService eventTrackingService() {
+SAK-E0692,code_reference,运行机制,EventTrackingService,代码引用核心服务 EventTrackingService,kernel/kernel-test/src/main/java/org/sakaiproject/test/SakaiTestConfiguration.java,121,return mock(EventTrackingService.class);
+SAK-E0693,code_reference,运行机制,SecurityService,代码引用核心服务 SecurityService,kernel/kernel-test/src/main/java/org/sakaiproject/test/SakaiTestConfiguration.java,134,"@Bean(name = ""org.sakaiproject.authz.api.SecurityService"")"
+SAK-E0694,code_reference,运行机制,SecurityService,代码引用核心服务 SecurityService,kernel/kernel-test/src/main/java/org/sakaiproject/test/SakaiTestConfiguration.java,135,public SecurityService securityService() {
+SAK-E0695,code_reference,运行机制,SecurityService,代码引用核心服务 SecurityService,kernel/kernel-test/src/main/java/org/sakaiproject/test/SakaiTestConfiguration.java,136,return mock(SecurityService.class);
+SAK-E0696,code_reference,运行机制,ServerConfigurationService,代码引用核心服务 ServerConfigurationService,kernel/kernel-test/src/main/java/org/sakaiproject/test/SakaiTestConfiguration.java,139,"@Bean(name = ""org.sakaiproject.component.api.ServerConfigurationService"")"
+SAK-E0697,code_reference,运行机制,ServerConfigurationService,代码引用核心服务 ServerConfigurationService,kernel/kernel-test/src/main/java/org/sakaiproject/test/SakaiTestConfiguration.java,140,public ServerConfigurationService serverConfigurationService() {
+SAK-E0698,code_reference,运行机制,ServerConfigurationService,代码引用核心服务 ServerConfigurationService,kernel/kernel-test/src/main/java/org/sakaiproject/test/SakaiTestConfiguration.java,141,return mock(ServerConfigurationService.class);
+SAK-E0699,code_reference,运行机制,SessionManager,代码引用核心服务 SessionManager,kernel/kernel-test/src/main/java/org/sakaiproject/test/SakaiTestConfiguration.java,144,"@Bean(name = ""org.sakaiproject.tool.api.SessionManager"")"
+SAK-E0700,code_reference,运行机制,SessionManager,代码引用核心服务 SessionManager,kernel/kernel-test/src/main/java/org/sakaiproject/test/SakaiTestConfiguration.java,145,public SessionManager sessionManager() {
+SAK-E0701,code_reference,运行机制,SessionManager,代码引用核心服务 SessionManager,kernel/kernel-test/src/main/java/org/sakaiproject/test/SakaiTestConfiguration.java,146,return mock(SessionManager.class);
+SAK-E0702,code_reference,运行机制,SiteService,代码引用核心服务 SiteService,kernel/kernel-test/src/main/java/org/sakaiproject/test/SakaiTestConfiguration.java,149,"@Bean(name = ""org.sakaiproject.site.api.SiteService"")"
+SAK-E0703,code_reference,运行机制,SiteService,代码引用核心服务 SiteService,kernel/kernel-test/src/main/java/org/sakaiproject/test/SakaiTestConfiguration.java,150,public SiteService siteService() {
+SAK-E0704,code_reference,运行机制,SiteService,代码引用核心服务 SiteService,kernel/kernel-test/src/main/java/org/sakaiproject/test/SakaiTestConfiguration.java,151,return mock(SiteService.class);
+SAK-E0705,code_reference,运行机制,ToolManager,代码引用核心服务 ToolManager,kernel/kernel-test/src/main/java/org/sakaiproject/test/SakaiTestConfiguration.java,154,"@Bean(name = ""org.sakaiproject.tool.api.ToolManager"")"
+SAK-E0706,code_reference,运行机制,ToolManager,代码引用核心服务 ToolManager,kernel/kernel-test/src/main/java/org/sakaiproject/test/SakaiTestConfiguration.java,155,public ToolManager toolManager() {
+SAK-E0707,code_reference,运行机制,ToolManager,代码引用核心服务 ToolManager,kernel/kernel-test/src/main/java/org/sakaiproject/test/SakaiTestConfiguration.java,156,return mock(ToolManager.class);
+SAK-E0708,code_reference,运行机制,UserDirectoryService,代码引用核心服务 UserDirectoryService,kernel/kernel-test/src/main/java/org/sakaiproject/test/SakaiTestConfiguration.java,159,"@Bean(name = ""org.sakaiproject.user.api.UserDirectoryService"")"
+SAK-E0709,code_reference,运行机制,UserDirectoryService,代码引用核心服务 UserDirectoryService,kernel/kernel-test/src/main/java/org/sakaiproject/test/SakaiTestConfiguration.java,160,public UserDirectoryService userDirectoryService() {
+SAK-E0710,code_reference,运行机制,UserDirectoryService,代码引用核心服务 UserDirectoryService,kernel/kernel-test/src/main/java/org/sakaiproject/test/SakaiTestConfiguration.java,161,return mock(UserDirectoryService.class);
+SAK-E0711,code_reference,运行机制,ComponentManager,代码引用核心服务 ComponentManager,kernel/kernel-util/src/main/java/org/sakaiproject/util/Resource.java,24,import org.sakaiproject.component.cover.ComponentManager;
+SAK-E0712,code_reference,运行机制,ComponentManager,代码引用核心服务 ComponentManager,kernel/kernel-util/src/main/java/org/sakaiproject/util/Resource.java,45,"return new ResourceLoader(bundleName, ComponentManager.get(className).getClass().getClassLoader());"
+SAK-E0713,code_reference,运行机制,ServerConfigurationService,代码引用核心服务 ServerConfigurationService,kernel/kernel-util/src/main/java/org/sakaiproject/util/UserNotificationPreferencesRegistrationImpl.java,43,"*     <property name=""serverConfigurationService"" ref=""org.sakaiproject.component.api.ServerConfigurationService""/>"
+SAK-E0714,code_reference,运行机制,ComponentManager,代码引用核心服务 ComponentManager,kernel/kernel-util/src/main/java/org/sakaiproject/util/ResourceLoader.java,40,import org.sakaiproject.component.cover.ComponentManager;
+SAK-E0715,code_reference,运行机制,ServerConfigurationService,代码引用核心服务 ServerConfigurationService,kernel/kernel-util/src/main/java/org/sakaiproject/util/ResourceLoader.java,41,import org.sakaiproject.component.cover.ServerConfigurationService;
+SAK-E0716,code_reference,运行机制,SessionManager,代码引用核心服务 SessionManager,kernel/kernel-util/src/main/java/org/sakaiproject/util/ResourceLoader.java,45,import org.sakaiproject.tool.api.SessionManager;
+SAK-E0717,code_reference,运行机制,SessionManager,代码引用核心服务 SessionManager,kernel/kernel-util/src/main/java/org/sakaiproject/util/ResourceLoader.java,89,private static SessionManager sessionManager;
+SAK-E0718,code_reference,运行机制,SessionManager,代码引用核心服务 SessionManager,kernel/kernel-util/src/main/java/org/sakaiproject/util/ResourceLoader.java,90,protected SessionManager getSessionManager() {
+SAK-E0719,code_reference,运行机制,SessionManager,代码引用核心服务 SessionManager,kernel/kernel-util/src/main/java/org/sakaiproject/util/ResourceLoader.java,93,sessionManager = (SessionManager) ComponentManager.get(SessionManager.class);
+SAK-E0720,code_reference,运行机制,ComponentManager,代码引用核心服务 ComponentManager,kernel/kernel-util/src/main/java/org/sakaiproject/util/ResourceLoader.java,103,preferencesService = (PreferencesService) ComponentManager.get(PreferencesService.class);
+SAK-E0721,code_reference,运行机制,ComponentManager,代码引用核心服务 ComponentManager,kernel/kernel-util/src/main/java/org/sakaiproject/util/ResourceLoader.java,113,messageBundleService = (MessageBundleService) ComponentManager.get(MessageBundleService.class.getName());
+SAK-E0722,code_reference,运行机制,ComponentManager,代码引用核心服务 ComponentManager,kernel/kernel-util/src/main/java/org/sakaiproject/util/ResourceLoader.java,123,threadLocalManager = (ThreadLocalManager) ComponentManager.get(ThreadLocalManager.class);
+SAK-E0723,code_reference,运行机制,ServerConfigurationService,代码引用核心服务 ServerConfigurationService,kernel/kernel-util/src/main/java/org/sakaiproject/util/ResourceLoader.java,299,"String [] locales = ServerConfigurationService.getStrings(""locales.rtl"");"
+SAK-E0724,code_reference,运行机制,SessionManager,代码引用核心服务 SessionManager,kernel/kernel-util/src/main/java/org/sakaiproject/util/ResourceLoader.java,329,String sessionId = getSessionManager().getCurrentSession().getId();
+SAK-E0725,code_reference,运行机制,SessionManager,代码引用核心服务 SessionManager,kernel/kernel-util/src/main/java/org/sakaiproject/util/ResourceLoader.java,331,loc = (Locale) getSessionManager().getCurrentSession().getAttribute(LOCALE_SESSION_KEY+sessionId);
+SAK-E0726,code_reference,运行机制,SessionManager,代码引用核心服务 SessionManager,kernel/kernel-util/src/main/java/org/sakaiproject/util/ResourceLoader.java,394,String userId = getSessionManager().getCurrentSessionUserId();
+SAK-E0727,code_reference,运行机制,SessionManager,代码引用核心服务 SessionManager,kernel/kernel-util/src/main/java/org/sakaiproject/util/ResourceLoader.java,417,"loc = (Locale) getSessionManager().getCurrentSession().getAttribute(""locale"");"
+SAK-E0728,code_reference,运行机制,SessionManager,代码引用核心服务 SessionManager,kernel/kernel-util/src/main/java/org/sakaiproject/util/ResourceLoader.java,456,String sessionId = getSessionManager().getCurrentSession().getId();
+SAK-E0729,code_reference,运行机制,SessionManager,代码引用核心服务 SessionManager,kernel/kernel-util/src/main/java/org/sakaiproject/util/ResourceLoader.java,462,"getSessionManager().getCurrentSession().setAttribute(LOCALE_SESSION_KEY+sessionId,loc);"
+SAK-E0730,code_reference,运行机制,ComponentManager,代码引用核心服务 ComponentManager,kernel/kernel-util/src/main/java/org/sakaiproject/util/ResourceLoader.java,682,if (!ComponentManager.isTestingMode()) {
+SAK-E0731,code_reference,运行机制,ComponentManager,代码引用核心服务 ComponentManager,kernel/kernel-util/src/main/java/org/sakaiproject/util/ResourceLoader.java,738,if (StringUtils.isNotBlank(context) && !ComponentManager.isTestingMode()) {
+SAK-E0732,code_reference,运行机制,ServerConfigurationService,代码引用核心服务 ServerConfigurationService,kernel/kernel-util/src/main/java/org/sakaiproject/util/IframeUrlUtil.java,43,* @param sakaiBaseUrl  the Sakai server base URL (e.g. from ServerConfigurationService.getServerUrl())
+SAK-E0733,code_reference,运行机制,ServerConfigurationService,代码引用核心服务 ServerConfigurationService,kernel/kernel-util/src/main/java/org/sakaiproject/content/util/ZipContentUtil.java,48,import org.sakaiproject.component.api.ServerConfigurationService;
+SAK-E0734,code_reference,运行机制,ContentHostingService,代码引用核心服务 ContentHostingService,kernel/kernel-util/src/main/java/org/sakaiproject/content/util/ZipContentUtil.java,51,import org.sakaiproject.content.api.ContentHostingService;
+SAK-E0735,code_reference,运行机制,SessionManager,代码引用核心服务 SessionManager,kernel/kernel-util/src/main/java/org/sakaiproject/content/util/ZipContentUtil.java,64,import org.sakaiproject.tool.api.SessionManager;
+SAK-E0736,code_reference,运行机制,ContentHostingService,代码引用核心服务 ContentHostingService,kernel/kernel-util/src/main/java/org/sakaiproject/content/util/ZipContentUtil.java,82,private final ContentHostingService contentHostingService;
+SAK-E0737,code_reference,运行机制,ServerConfigurationService,代码引用核心服务 ServerConfigurationService,kernel/kernel-util/src/main/java/org/sakaiproject/content/util/ZipContentUtil.java,83,private final ServerConfigurationService serverConfigurationService;
+SAK-E0738,code_reference,运行机制,SessionManager,代码引用核心服务 SessionManager,kernel/kernel-util/src/main/java/org/sakaiproject/content/util/ZipContentUtil.java,84,private final SessionManager sessionManager;
+SAK-E0739,code_reference,运行机制,ContentHostingService,代码引用核心服务 ContentHostingService,kernel/kernel-util/src/main/java/org/sakaiproject/content/util/ZipContentUtil.java,91,"public ZipContentUtil(ContentHostingService contentHostingService,"
+SAK-E0740,code_reference,运行机制,ServerConfigurationService,代码引用核心服务 ServerConfigurationService,kernel/kernel-util/src/main/java/org/sakaiproject/content/util/ZipContentUtil.java,92,"ServerConfigurationService serverConfigurationService,"
+SAK-E0741,code_reference,运行机制,SessionManager,代码引用核心服务 SessionManager,kernel/kernel-util/src/main/java/org/sakaiproject/content/util/ZipContentUtil.java,93,SessionManager sessionManager) {
+SAK-E0742,code_reference,运行机制,ContentHostingService,代码引用核心服务 ContentHostingService,kernel/kernel-util/src/main/java/org/sakaiproject/content/util/ZipContentUtil.java,107,"maxZipExtractFiles = serverConfigurationService.getInt(ContentHostingService.RESOURCES_ZIP_EXPAND_MAX, MAX_ZIP_EXTRACT_FILES_DEFAULT);"
+SAK-E0743,code_reference,运行机制,ContentHostingService,代码引用核心服务 ContentHostingService,kernel/kernel-util/src/main/java/org/sakaiproject/content/util/ZipContentUtil.java,110,"log.warn(""{} is set to a value less than or equal to 0, defaulting to {}"", ContentHostingService.RESOURCES_ZIP_EXPAND_MAX, MAX_ZIP_EXTRACT_FILES_DEFAULT);"
+SAK-E0744,code_reference,运行机制,ServerConfigurationService,代码引用核心服务 ServerConfigurationService,kernel/kernel-util/src/test/java/org/sakaiproject/util/ZipContentUtilTest.java,29,import org.sakaiproject.component.api.ServerConfigurationService;
+SAK-E0745,code_reference,运行机制,ContentHostingService,代码引用核心服务 ContentHostingService,kernel/kernel-util/src/test/java/org/sakaiproject/util/ZipContentUtilTest.java,30,import org.sakaiproject.content.api.ContentHostingService;
+SAK-E0746,code_reference,运行机制,SessionManager,代码引用核心服务 SessionManager,kernel/kernel-util/src/test/java/org/sakaiproject/util/ZipContentUtilTest.java,32,import org.sakaiproject.tool.api.SessionManager;
+SAK-E0747,code_reference,运行机制,SessionManager,代码引用核心服务 SessionManager,kernel/kernel-util/src/test/java/org/sakaiproject/util/ZipContentUtilTest.java,47,SessionManager sm = Mockito.mock(SessionManager.class);
+SAK-E0748,code_reference,运行机制,ContentHostingService,代码引用核心服务 ContentHostingService,kernel/kernel-util/src/test/java/org/sakaiproject/util/ZipContentUtilTest.java,48,ContentHostingService chs = Mockito.mock(ContentHostingService.class);
+SAK-E0749,code_reference,运行机制,ServerConfigurationService,代码引用核心服务 ServerConfigurationService,kernel/kernel-util/src/test/java/org/sakaiproject/util/ZipContentUtilTest.java,49,ServerConfigurationService scs = Mockito.mock(ServerConfigurationService.class);
+SAK-E0750,code_reference,运行机制,ContentHostingService,代码引用核心服务 ContentHostingService,kernel/kernel-util/src/test/java/org/sakaiproject/util/ZipContentUtilTest.java,59,"Mockito.when(scs.getInt(ContentHostingService.RESOURCES_ZIP_EXPAND_MAX, MAX_ZIP_EXTRACT_FILES_DEFAULT)).thenReturn(1000);"
+SAK-E0751,code_reference,运行机制,ContentHostingService,代码引用核心服务 ContentHostingService,kernel/kernel-util/src/test/java/org/sakaiproject/util/ZipContentUtilTest.java,64,"Mockito.when(scs.getInt(ContentHostingService.RESOURCES_ZIP_EXPAND_MAX, MAX_ZIP_EXTRACT_FILES_DEFAULT)).thenReturn(10000);"
+SAK-E0752,code_reference,运行机制,ContentHostingService,代码引用核心服务 ContentHostingService,kernel/kernel-util/src/test/java/org/sakaiproject/util/ZipContentUtilTest.java,69,"Mockito.when(scs.getInt(ContentHostingService.RESOURCES_ZIP_EXPAND_MAX, MAX_ZIP_EXTRACT_FILES_DEFAULT)).thenReturn(-1);"
+SAK-E0753,code_reference,运行机制,ServerConfigurationService,代码引用核心服务 ServerConfigurationService,kernel/kernel-storage-util/src/main/java/org/sakaiproject/util/BaseDbFlatStorage.java,38,import org.sakaiproject.component.cover.ServerConfigurationService;
+SAK-E0754,code_reference,运行机制,ServerConfigurationService,代码引用核心服务 ServerConfigurationService,kernel/kernel-storage-util/src/main/java/org/sakaiproject/util/BaseDbFlatStorage.java,206,"String config =  ServerConfigurationService.getString(""DbFlatPropertiesCache"");"
+SAK-E0755,code_reference,运行机制,ToolManager,代码引用核心服务 ToolManager,kernel/kernel-storage-util/src/main/java/org/sakaiproject/content/util/BaseInteractionAction.java,59,* ToolManager.
+SAK-E0756,code_reference,运行机制,ServerConfigurationService,代码引用核心服务 ServerConfigurationService,kernel/kernel-impl/src/main/java/org/sakaiproject/ignite/IgniteConfigurationAdapter.java,44,import org.sakaiproject.component.api.ServerConfigurationService;
+SAK-E0757,code_reference,运行机制,ServerConfigurationService,代码引用核心服务 ServerConfigurationService,kernel/kernel-impl/src/main/java/org/sakaiproject/ignite/IgniteConfigurationAdapter.java,69,@Setter private ServerConfigurationService serverConfigurationService;
+SAK-E0758,code_reference,运行机制,SessionManager,代码引用核心服务 SessionManager,kernel/kernel-impl/src/main/java/org/sakaiproject/tool/impl/MyLittleSession.java,46,import org.sakaiproject.tool.api.SessionManager;
+SAK-E0759,code_reference,运行机制,SessionManager,代码引用核心服务 SessionManager,kernel/kernel-impl/src/main/java/org/sakaiproject/tool/impl/MyLittleSession.java,91,* SessionManager
+SAK-E0760,code_reference,运行机制,SessionManager,代码引用核心服务 SessionManager,kernel/kernel-impl/src/main/java/org/sakaiproject/tool/impl/MyLittleSession.java,93,private transient SessionManager sessionManager;
+SAK-E0761,code_reference,运行机制,SessionManager,代码引用核心服务 SessionManager,kernel/kernel-impl/src/main/java/org/sakaiproject/tool/impl/MyLittleSession.java,100,"public MyLittleSession(String type, SessionManager sessionManager, String id, Session s, String littleId,"
+SAK-E0762,code_reference,运行机制,ComponentManager,代码引用核心服务 ComponentManager,kernel/kernel-impl/src/main/java/org/sakaiproject/tool/impl/MyLittleSession.java,159,org.sakaiproject.component.api.ComponentManager compMgr =
+SAK-E0763,code_reference,运行机制,ComponentManager,代码引用核心服务 ComponentManager,kernel/kernel-impl/src/main/java/org/sakaiproject/tool/impl/MyLittleSession.java,160,org.sakaiproject.component.cover.ComponentManager.getInstance();
+SAK-E0764,code_reference,运行机制,SessionManager,代码引用核心服务 SessionManager,kernel/kernel-impl/src/main/java/org/sakaiproject/tool/impl/MyLittleSession.java,162,sessionManager = (SessionManager)compMgr.get(org.sakaiproject.tool.api.SessionManager.class);
+SAK-E0765,code_reference,运行机制,ServerConfigurationService,代码引用核心服务 ServerConfigurationService,kernel/kernel-impl/src/main/java/org/sakaiproject/tool/impl/JMXSessionComponent.java,24,import org.sakaiproject.component.api.ServerConfigurationService;
+SAK-E0766,code_reference,运行机制,SessionManager,代码引用核心服务 SessionManager,kernel/kernel-impl/src/main/java/org/sakaiproject/tool/impl/JMXSessionComponent.java,26,import org.sakaiproject.tool.api.SessionManager;
+SAK-E0767,code_reference,运行机制,ServerConfigurationService,代码引用核心服务 ServerConfigurationService,kernel/kernel-impl/src/main/java/org/sakaiproject/tool/impl/JMXSessionComponent.java,45,ServerConfigurationService serverConfigurationService;
+SAK-E0768,code_reference,运行机制,SessionManager,代码引用核心服务 SessionManager,kernel/kernel-impl/src/main/java/org/sakaiproject/tool/impl/JMXSessionComponent.java,46,private SessionManager sessionManager;
+SAK-E0769,code_reference,运行机制,SessionManager,代码引用核心服务 SessionManager,kernel/kernel-impl/src/main/java/org/sakaiproject/tool/impl/JMXSessionComponent.java,127,public SessionManager getSessionManager() {
+SAK-E0770,code_reference,运行机制,SessionManager,代码引用核心服务 SessionManager,kernel/kernel-impl/src/main/java/org/sakaiproject/tool/impl/JMXSessionComponent.java,131,public void setSessionManager(SessionManager sessionManager) {
+SAK-E0771,code_reference,运行机制,ServerConfigurationService,代码引用核心服务 ServerConfigurationService,kernel/kernel-impl/src/main/java/org/sakaiproject/tool/impl/JMXSessionComponent.java,138,public void setServerConfigurationService(ServerConfigurationService serverConfigurationService) {
+SAK-E0772,code_reference,运行机制,SecurityService,代码引用核心服务 SecurityService,kernel/kernel-impl/src/main/java/org/sakaiproject/tool/impl/ToolComponent.java,55,import org.sakaiproject.authz.api.SecurityService;
+SAK-E0773,code_reference,运行机制,SiteService,代码引用核心服务 SiteService,kernel/kernel-impl/src/main/java/org/sakaiproject/tool/impl/ToolComponent.java,59,import org.sakaiproject.site.api.SiteService;
+SAK-E0774,code_reference,运行机制,ToolManager,代码引用核心服务 ToolManager,kernel/kernel-impl/src/main/java/org/sakaiproject/tool/impl/ToolComponent.java,65,import org.sakaiproject.tool.api.ToolManager;
+SAK-E0775,code_reference,运行机制,SessionManager,代码引用核心服务 SessionManager,kernel/kernel-impl/src/main/java/org/sakaiproject/tool/impl/ToolComponent.java,66,import org.sakaiproject.tool.cover.SessionManager;
+SAK-E0776,code_reference,运行机制,ToolManager,代码引用核心服务 ToolManager,kernel/kernel-impl/src/main/java/org/sakaiproject/tool/impl/ToolComponent.java,77,public abstract class ToolComponent implements ToolManager
+SAK-E0777,code_reference,运行机制,SecurityService,代码引用核心服务 SecurityService,kernel/kernel-impl/src/main/java/org/sakaiproject/tool/impl/ToolComponent.java,96,@Setter protected SecurityService securityService;
+SAK-E0778,code_reference,运行机制,SiteService,代码引用核心服务 SiteService,kernel/kernel-impl/src/main/java/org/sakaiproject/tool/impl/ToolComponent.java,97,@Setter protected SiteService siteService;
+SAK-E0779,code_reference,运行机制,SiteService,代码引用核心服务 SiteService,kernel/kernel-impl/src/main/java/org/sakaiproject/tool/impl/ToolComponent.java,591,.filter(r -> !r.isAllowed(SiteService.SECURE_UPDATE_SITE)).collect(Collectors.toSet());
+SAK-E0780,code_reference,运行机制,SessionManager,代码引用核心服务 SessionManager,kernel/kernel-impl/src/main/java/org/sakaiproject/tool/impl/ToolComponent.java,681,Session session = SessionManager.getCurrentSession();
+SAK-E0781,code_reference,运行机制,ServerConfigurationService,代码引用核心服务 ServerConfigurationService,kernel/kernel-impl/src/main/java/org/sakaiproject/tool/impl/ToolResourceFactory.java,18,import org.sakaiproject.component.api.ServerConfigurationService;
+SAK-E0782,code_reference,运行机制,ServerConfigurationService,代码引用核心服务 ServerConfigurationService,kernel/kernel-impl/src/main/java/org/sakaiproject/tool/impl/ToolResourceFactory.java,36,private ServerConfigurationService serverConfigurationService;
+SAK-E0783,code_reference,运行机制,ComponentManager,代码引用核心服务 ComponentManager,kernel/kernel-impl/src/main/java/org/sakaiproject/tool/impl/ToolResourceFactory.java,42,// Resource starts up the ComponentManager through the cover.
+SAK-E0784,code_reference,运行机制,ServerConfigurationService,代码引用核心服务 ServerConfigurationService,kernel/kernel-impl/src/main/java/org/sakaiproject/tool/impl/ToolResourceFactory.java,46,public void setServerConfigurationService(ServerConfigurationService serverConfigurationService) {
+SAK-E0785,code_reference,运行机制,ComponentManager,代码引用核心服务 ComponentManager,kernel/kernel-impl/src/main/java/org/sakaiproject/tool/impl/SessionComponent.java,41,import org.sakaiproject.component.cover.ComponentManager;
+SAK-E0786,code_reference,运行机制,SessionManager,代码引用核心服务 SessionManager,kernel/kernel-impl/src/main/java/org/sakaiproject/tool/impl/SessionComponent.java,49,import org.sakaiproject.tool.api.SessionManager;
+SAK-E0787,code_reference,运行机制,ToolManager,代码引用核心服务 ToolManager,kernel/kernel-impl/src/main/java/org/sakaiproject/tool/impl/SessionComponent.java,52,import org.sakaiproject.tool.api.ToolManager;
+SAK-E0788,code_reference,运行机制,SessionManager,代码引用核心服务 SessionManager,kernel/kernel-impl/src/main/java/org/sakaiproject/tool/impl/SessionComponent.java,61,* Standard implementation of the Sakai SessionManager.
+SAK-E0789,code_reference,运行机制,SessionManager,代码引用核心服务 SessionManager,kernel/kernel-impl/src/main/java/org/sakaiproject/tool/impl/SessionComponent.java,65,"public class SessionComponent implements SessionManager, SessionStore"
+SAK-E0790,code_reference,运行机制,ToolManager,代码引用核心服务 ToolManager,kernel/kernel-impl/src/main/java/org/sakaiproject/tool/impl/SessionComponent.java,95,@Setter protected ToolManager toolManager;
+SAK-E0791,code_reference,运行机制,SessionManager,代码引用核心服务 SessionManager,kernel/kernel-impl/src/main/java/org/sakaiproject/tool/impl/SessionComponent.java,213,* Work interface methods: SessionManager
+SAK-E0792,code_reference,运行机制,ToolManager,代码引用核心服务 ToolManager,kernel/kernel-impl/src/main/java/org/sakaiproject/tool/impl/SessionComponent.java,289,// ToolManager should exist.  Protect against it being
+SAK-E0793,code_reference,运行机制,SessionManager,代码引用核心服务 SessionManager,kernel/kernel-impl/src/main/java/org/sakaiproject/tool/impl/SessionComponent.java,358,// the Session and SessionManager can see.
+SAK-E0794,code_reference,运行机制,SessionManager,代码引用核心服务 SessionManager,kernel/kernel-impl/src/main/java/org/sakaiproject/tool/impl/SessionComponent.java,456,"log.error(""SessionManager.setClusterableTools(String) unable to set value: ""+o);"
+SAK-E0795,code_reference,运行机制,ComponentManager,代码引用核心服务 ComponentManager,kernel/kernel-impl/src/main/java/org/sakaiproject/tool/impl/SessionComponent.java,553,ComponentManager.waitTillConfigured();
+SAK-E0796,code_reference,运行机制,SessionManager,代码引用核心服务 SessionManager,kernel/kernel-impl/src/main/java/org/sakaiproject/tool/impl/MySession.java,56,import org.sakaiproject.tool.api.SessionManager;
+SAK-E0797,code_reference,运行机制,SessionManager,代码引用核心服务 SessionManager,kernel/kernel-impl/src/main/java/org/sakaiproject/tool/impl/MySession.java,108,* SessionManager
+SAK-E0798,code_reference,运行机制,SessionManager,代码引用核心服务 SessionManager,kernel/kernel-impl/src/main/java/org/sakaiproject/tool/impl/MySession.java,110,private transient SessionManager sessionManager;
+SAK-E0799,code_reference,运行机制,SessionManager,代码引用核心服务 SessionManager,kernel/kernel-impl/src/main/java/org/sakaiproject/tool/impl/MySession.java,118,"public MySession(SessionManager sessionManager, String id, ThreadLocalManager threadLocalManager,"
+SAK-E0800,code_reference,运行机制,ComponentManager,代码引用核心服务 ComponentManager,kernel/kernel-impl/src/main/java/org/sakaiproject/tool/impl/MySession.java,150,org.sakaiproject.component.api.ComponentManager compMgr =
+SAK-E0801,code_reference,运行机制,ComponentManager,代码引用核心服务 ComponentManager,kernel/kernel-impl/src/main/java/org/sakaiproject/tool/impl/MySession.java,151,org.sakaiproject.component.cover.ComponentManager.getInstance();

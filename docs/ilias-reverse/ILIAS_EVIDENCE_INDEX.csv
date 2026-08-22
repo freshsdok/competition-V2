@@ -1,0 +1,1035 @@
+evidence_id,type,domain,name,claim,path,line,detail
+ILI-E0001,version,总体,ilias_version.php,ILIAS 版本声明,ilias_version.php,,10.6 2026-03-10
+ILI-E0002,readme,总体,README.md,项目说明 ILIAS 是开源 LMS，支持插件扩展,README.md,,
+ILI-E0003,composer,总体,composer.json,Composer 声明 PHP 版本、依赖、classmap、Customizing/global/plugins 插件目录,composer.json,,
+ILI-E0004,doc,权限,permission-handling.md,权限由 ref_id/object_id/tree、RBAC、路径、条件和对象状态共同决定,components/ILIAS/AccessControl/permission-handling.md,,
+ILI-E0005,doc,DI,DI README,全局 $DIC 提供 db/ctrl/user/tree/access/rbac/logger 等核心服务,components/ILIAS/DI/README.md,,
+ILI-E0006,doc,组件,Component README,Component 服务负责系统初始化和组件集成,components/ILIAS/Component/README.md,,
+ILI-E0007,component,用户与权限,AccessControl,组件声明 module.xml/service.xml,components/ILIAS/AccessControl,,"module=False, service=True"
+ILI-E0008,component,其他组件,Accessibility,组件声明 module.xml/service.xml,components/ILIAS/Accessibility,,"module=False, service=True"
+ILI-E0009,component,平台服务,Accordion,组件声明 module.xml/service.xml,components/ILIAS/Accordion,,"module=False, service=True"
+ILI-E0010,component,其他组件,Administration,组件声明 module.xml/service.xml,components/ILIAS/Administration,,"module=False, service=True"
+ILI-E0011,component,沟通协作,AdministrativeNotification,组件声明 module.xml/service.xml,components/ILIAS/AdministrativeNotification,,"module=False, service=True"
+ILI-E0012,component,平台服务,AdvancedEditing,组件声明 module.xml/service.xml,components/ILIAS/AdvancedEditing,,"module=False, service=True"
+ILI-E0013,component,内容与元数据,AdvancedMetaData,组件声明 module.xml/service.xml,components/ILIAS/AdvancedMetaData,,"module=False, service=True"
+ILI-E0014,component,用户与权限,AuthShibboleth,组件声明 module.xml/service.xml,components/ILIAS/AuthShibboleth,,"module=False, service=True"
+ILI-E0015,component,用户与权限,Authentication,组件声明 module.xml/service.xml,components/ILIAS/Authentication,,"module=False, service=True"
+ILI-E0016,component,沟通协作,Awareness,组件声明 module.xml/service.xml,components/ILIAS/Awareness,,"module=False, service=True"
+ILI-E0017,component,平台服务,BackgroundTasks_,组件声明 module.xml/service.xml,components/ILIAS/BackgroundTasks_,,"module=False, service=True"
+ILI-E0018,component,测试评估,Badge,组件声明 module.xml/service.xml,components/ILIAS/Badge,,"module=False, service=True"
+ILI-E0019,component,其他组件,Bibliographic,组件声明 module.xml/service.xml,components/ILIAS/Bibliographic,,"module=True, service=False"
+ILI-E0020,component,课程与学习资源,Blog,组件声明 module.xml/service.xml,components/ILIAS/Blog,,"module=True, service=False"
+ILI-E0021,component,沟通协作,BookingManager,组件声明 module.xml/service.xml,components/ILIAS/BookingManager,,"module=True, service=False"
+ILI-E0022,component,内容与元数据,COPage,组件声明 module.xml/service.xml,components/ILIAS/COPage,,"module=False, service=True"
+ILI-E0023,component,沟通协作,Calendar,组件声明 module.xml/service.xml,components/ILIAS/Calendar,,"module=False, service=True"
+ILI-E0024,component,仓库与对象,Category,组件声明 module.xml/service.xml,components/ILIAS/Category,,"module=True, service=False"
+ILI-E0025,component,仓库与对象,CategoryReference,组件声明 module.xml/service.xml,components/ILIAS/CategoryReference,,"module=True, service=False"
+ILI-E0026,component,测试评估,Certificate,组件声明 module.xml/service.xml,components/ILIAS/Certificate,,"module=False, service=True"
+ILI-E0027,component,沟通协作,Chatroom,组件声明 module.xml/service.xml,components/ILIAS/Chatroom,,"module=True, service=False"
+ILI-E0028,component,课程与学习资源,CmiXapi,组件声明 module.xml/service.xml,components/ILIAS/CmiXapi,,"module=True, service=False"
+ILI-E0029,component,其他组件,Component,组件声明 module.xml/service.xml,components/ILIAS/Component,,"module=False, service=True"
+ILI-E0030,component,沟通协作,Contact,组件声明 module.xml/service.xml,components/ILIAS/Contact,,"module=False, service=True"
+ILI-E0031,component,仓库与对象,Container,组件声明 module.xml/service.xml,components/ILIAS/Container,,"module=False, service=True"
+ILI-E0032,component,仓库与对象,ContainerReference,组件声明 module.xml/service.xml,components/ILIAS/ContainerReference,,"module=False, service=True"
+ILI-E0033,component,课程与学习资源,ContentPage,组件声明 module.xml/service.xml,components/ILIAS/ContentPage,,"module=True, service=False"
+ILI-E0034,component,仓库与对象,Course,组件声明 module.xml/service.xml,components/ILIAS/Course,,"module=True, service=False"
+ILI-E0035,component,仓库与对象,CourseReference,组件声明 module.xml/service.xml,components/ILIAS/CourseReference,,"module=True, service=False"
+ILI-E0036,component,平台服务,Cron,组件声明 module.xml/service.xml,components/ILIAS/Cron,,"module=False, service=True"
+ILI-E0037,component,界面与前端,Dashboard,组件声明 module.xml/service.xml,components/ILIAS/Dashboard,,"module=False, service=True"
+ILI-E0038,component,其他组件,DataCollection,组件声明 module.xml/service.xml,components/ILIAS/DataCollection,,"module=True, service=False"
+ILI-E0039,component,用户与权限,DataProtection,组件声明 module.xml/service.xml,components/ILIAS/DataProtection,,"module=False, service=True"
+ILI-E0040,component,其他组件,DataSet,组件声明 module.xml/service.xml,components/ILIAS/DataSet,,"module=False, service=True"
+ILI-E0041,component,平台服务,Database,组件声明 module.xml/service.xml,components/ILIAS/Database,,"module=False, service=True"
+ILI-E0042,component,平台服务,DidacticTemplate,组件声明 module.xml/service.xml,components/ILIAS/DidacticTemplate,,"module=False, service=True"
+ILI-E0043,component,其他组件,EmployeeTalk,组件声明 module.xml/service.xml,components/ILIAS/EmployeeTalk,,"module=True, service=False"
+ILI-E0044,component,平台服务,EventHandling,组件声明 module.xml/service.xml,components/ILIAS/EventHandling,,"module=False, service=True"
+ILI-E0045,component,课程与学习资源,Exercise,组件声明 module.xml/service.xml,components/ILIAS/Exercise,,"module=True, service=False"
+ILI-E0046,component,其他组件,Export,组件声明 module.xml/service.xml,components/ILIAS/Export,,"module=False, service=True"
+ILI-E0047,component,课程与学习资源,File,组件声明 module.xml/service.xml,components/ILIAS/File,,"module=True, service=False"
+ILI-E0048,component,课程与学习资源,FileServices,组件声明 module.xml/service.xml,components/ILIAS/FileServices,,"module=False, service=True"
+ILI-E0049,component,课程与学习资源,Filesystem,组件声明 module.xml/service.xml,components/ILIAS/Filesystem,,"module=False, service=True"
+ILI-E0050,component,仓库与对象,Folder,组件声明 module.xml/service.xml,components/ILIAS/Folder,,"module=True, service=False"
+ILI-E0051,component,沟通协作,Forum,组件声明 module.xml/service.xml,components/ILIAS/Forum,,"module=True, service=False"
+ILI-E0052,component,界面与前端,GlobalScreen_,组件声明 module.xml/service.xml,components/ILIAS/GlobalScreen_,,"module=False, service=True"
+ILI-E0053,component,课程与学习资源,Glossary,组件声明 module.xml/service.xml,components/ILIAS/Glossary,,"module=True, service=False"
+ILI-E0054,component,仓库与对象,Group,组件声明 module.xml/service.xml,components/ILIAS/Group,,"module=True, service=False"
+ILI-E0055,component,仓库与对象,GroupReference,组件声明 module.xml/service.xml,components/ILIAS/GroupReference,,"module=True, service=False"
+ILI-E0056,component,课程与学习资源,HTMLLearningModule,组件声明 module.xml/service.xml,components/ILIAS/HTMLLearningModule,,"module=True, service=False"
+ILI-E0057,component,其他组件,Help,组件声明 module.xml/service.xml,components/ILIAS/Help,,"module=False, service=True"
+ILI-E0058,component,仓库与对象,ILIASObject,组件声明 module.xml/service.xml,components/ILIAS/ILIASObject,,"module=False, service=True"
+ILI-E0059,component,其他组件,Imprint,组件声明 module.xml/service.xml,components/ILIAS/Imprint,,"module=False, service=True"
+ILI-E0060,component,测试评估,IndividualAssessment,组件声明 module.xml/service.xml,components/ILIAS/IndividualAssessment,,"module=True, service=False"
+ILI-E0061,component,其他组件,Init,组件声明 module.xml/service.xml,components/ILIAS/Init,,"module=False, service=True"
+ILI-E0062,component,仓库与对象,ItemGroup,组件声明 module.xml/service.xml,components/ILIAS/ItemGroup,,"module=True, service=False"
+ILI-E0063,component,用户与权限,LDAP,组件声明 module.xml/service.xml,components/ILIAS/LDAP,,"module=False, service=True"
+ILI-E0064,component,课程与学习资源,LTIConsumer,组件声明 module.xml/service.xml,components/ILIAS/LTIConsumer,,"module=True, service=False"
+ILI-E0065,component,课程与学习资源,LTIProvider,组件声明 module.xml/service.xml,components/ILIAS/LTIProvider,,"module=False, service=True"
+ILI-E0066,component,其他组件,Language,组件声明 module.xml/service.xml,components/ILIAS/Language,,"module=False, service=True"
+ILI-E0067,component,其他组件,LearningHistory,组件声明 module.xml/service.xml,components/ILIAS/LearningHistory,,"module=False, service=True"
+ILI-E0068,component,课程与学习资源,LearningModule,组件声明 module.xml/service.xml,components/ILIAS/LearningModule,,"module=True, service=False"
+ILI-E0069,component,课程与学习资源,LearningSequence,组件声明 module.xml/service.xml,components/ILIAS/LearningSequence,,"module=True, service=False"
+ILI-E0070,component,其他组件,LegalDocuments,组件声明 module.xml/service.xml,components/ILIAS/LegalDocuments,,"module=False, service=True"
+ILI-E0071,component,其他组件,Link,组件声明 module.xml/service.xml,components/ILIAS/Link,,"module=False, service=True"
+ILI-E0072,component,平台服务,Logging,组件声明 module.xml/service.xml,components/ILIAS/Logging,,"module=False, service=True"
+ILI-E0073,component,沟通协作,Mail,组件声明 module.xml/service.xml,components/ILIAS/Mail,,"module=False, service=True"
+ILI-E0074,component,界面与前端,MainMenu,组件声明 module.xml/service.xml,components/ILIAS/MainMenu,,"module=False, service=True"
+ILI-E0075,component,用户与权限,MediaCast,组件声明 module.xml/service.xml,components/ILIAS/MediaCast,,"module=True, service=False"
+ILI-E0076,component,仓库与对象,MediaObjects,组件声明 module.xml/service.xml,components/ILIAS/MediaObjects,,"module=False, service=True"
+ILI-E0077,component,课程与学习资源,MediaPool,组件声明 module.xml/service.xml,components/ILIAS/MediaPool,,"module=True, service=False"
+ILI-E0078,component,用户与权限,Membership,组件声明 module.xml/service.xml,components/ILIAS/Membership,,"module=False, service=True"
+ILI-E0079,component,内容与元数据,MetaData,组件声明 module.xml/service.xml,components/ILIAS/MetaData,,"module=False, service=True"
+ILI-E0080,component,其他组件,MyStaff,组件声明 module.xml/service.xml,components/ILIAS/MyStaff,,"module=False, service=True"
+ILI-E0081,component,沟通协作,News,组件声明 module.xml/service.xml,components/ILIAS/News,,"module=False, service=True"
+ILI-E0082,component,沟通协作,Notes,组件声明 module.xml/service.xml,components/ILIAS/Notes,,"module=False, service=True"
+ILI-E0083,component,沟通协作,Notification,组件声明 module.xml/service.xml,components/ILIAS/Notification,,"module=False, service=True"
+ILI-E0084,component,沟通协作,Notifications,组件声明 module.xml/service.xml,components/ILIAS/Notifications,,"module=False, service=True"
+ILI-E0085,component,沟通协作,OnScreenChat,组件声明 module.xml/service.xml,components/ILIAS/OnScreenChat,,"module=False, service=True"
+ILI-E0086,component,用户与权限,OpenIdConnect,组件声明 module.xml/service.xml,components/ILIAS/OpenIdConnect,,"module=False, service=True"
+ILI-E0087,component,用户与权限,OrgUnit,组件声明 module.xml/service.xml,components/ILIAS/OrgUnit,,"module=True, service=False"
+ILI-E0088,component,内容与元数据,PersonalWorkspace,组件声明 module.xml/service.xml,components/ILIAS/PersonalWorkspace,,"module=False, service=True"
+ILI-E0089,component,测试评估,Poll,组件声明 module.xml/service.xml,components/ILIAS/Poll,,"module=True, service=False"
+ILI-E0090,component,内容与元数据,Portfolio,组件声明 module.xml/service.xml,components/ILIAS/Portfolio,,"module=True, service=False"
+ILI-E0091,component,用户与权限,PrivacySecurity,组件声明 module.xml/service.xml,components/ILIAS/PrivacySecurity,,"module=False, service=True"
+ILI-E0092,component,其他组件,Randomization,组件声明 module.xml/service.xml,components/ILIAS/Randomization,,"module=False, service=True"
+ILI-E0093,component,仓库与对象,RemoteCategory,组件声明 module.xml/service.xml,components/ILIAS/RemoteCategory,,"module=True, service=False"
+ILI-E0094,component,仓库与对象,RemoteCourse,组件声明 module.xml/service.xml,components/ILIAS/RemoteCourse,,"module=True, service=False"
+ILI-E0095,component,课程与学习资源,RemoteFile,组件声明 module.xml/service.xml,components/ILIAS/RemoteFile,,"module=True, service=False"
+ILI-E0096,component,课程与学习资源,RemoteGlossary,组件声明 module.xml/service.xml,components/ILIAS/RemoteGlossary,,"module=True, service=False"
+ILI-E0097,component,仓库与对象,RemoteGroup,组件声明 module.xml/service.xml,components/ILIAS/RemoteGroup,,"module=True, service=False"
+ILI-E0098,component,课程与学习资源,RemoteLearningModule,组件声明 module.xml/service.xml,components/ILIAS/RemoteLearningModule,,"module=True, service=False"
+ILI-E0099,component,测试评估,RemoteTest,组件声明 module.xml/service.xml,components/ILIAS/RemoteTest,,"module=True, service=False"
+ILI-E0100,component,课程与学习资源,RemoteWiki,组件声明 module.xml/service.xml,components/ILIAS/RemoteWiki,,"module=True, service=False"
+ILI-E0101,component,仓库与对象,Repository,组件声明 module.xml/service.xml,components/ILIAS/Repository,,"module=False, service=True"
+ILI-E0102,component,平台服务,ResourceStorage,组件声明 module.xml/service.xml,components/ILIAS/ResourceStorage,,"module=False, service=True"
+ILI-E0103,component,仓库与对象,RootFolder,组件声明 module.xml/service.xml,components/ILIAS/RootFolder,,"module=True, service=False"
+ILI-E0104,component,用户与权限,Saml,组件声明 module.xml/service.xml,components/ILIAS/Saml,,"module=False, service=True"
+ILI-E0105,component,课程与学习资源,Scorm2004,组件声明 module.xml/service.xml,components/ILIAS/Scorm2004,,"module=True, service=False"
+ILI-E0106,component,课程与学习资源,ScormAicc,组件声明 module.xml/service.xml,components/ILIAS/ScormAicc,,"module=True, service=False"
+ILI-E0107,component,其他组件,Search,组件声明 module.xml/service.xml,components/ILIAS/Search,,"module=False, service=True"
+ILI-E0108,component,其他组件,Session,组件声明 module.xml/service.xml,components/ILIAS/Session,,"module=True, service=False"
+ILI-E0109,component,测试评估,Skill,组件声明 module.xml/service.xml,components/ILIAS/Skill,,"module=False, service=True"
+ILI-E0110,component,其他组件,StudyProgramme,组件声明 module.xml/service.xml,components/ILIAS/StudyProgramme,,"module=True, service=False"
+ILI-E0111,component,仓库与对象,StudyProgrammeReference,组件声明 module.xml/service.xml,components/ILIAS/StudyProgrammeReference,,"module=True, service=False"
+ILI-E0112,component,界面与前端,Style,组件声明 module.xml/service.xml,components/ILIAS/Style,,"module=False, service=True"
+ILI-E0113,component,测试评估,Survey,组件声明 module.xml/service.xml,components/ILIAS/Survey,,"module=True, service=False"
+ILI-E0114,component,测试评估,SurveyQuestionPool,组件声明 module.xml/service.xml,components/ILIAS/SurveyQuestionPool,,"module=True, service=False"
+ILI-E0115,component,其他组件,SystemCheck,组件声明 module.xml/service.xml,components/ILIAS/SystemCheck,,"module=False, service=True"
+ILI-E0116,component,仓库与对象,SystemFolder,组件声明 module.xml/service.xml,components/ILIAS/SystemFolder,,"module=True, service=False"
+ILI-E0117,component,界面与前端,Table,组件声明 module.xml/service.xml,components/ILIAS/Table,,"module=False, service=True"
+ILI-E0118,component,内容与元数据,Tagging,组件声明 module.xml/service.xml,components/ILIAS/Tagging,,"module=False, service=True"
+ILI-E0119,component,其他组件,Tasks,组件声明 module.xml/service.xml,components/ILIAS/Tasks,,"module=False, service=True"
+ILI-E0120,component,内容与元数据,Taxonomy,组件声明 module.xml/service.xml,components/ILIAS/Taxonomy,,"module=False, service=True"
+ILI-E0121,component,用户与权限,TermsOfService,组件声明 module.xml/service.xml,components/ILIAS/TermsOfService,,"module=False, service=True"
+ILI-E0122,component,测试评估,Test,组件声明 module.xml/service.xml,components/ILIAS/Test,,"module=True, service=False"
+ILI-E0123,component,测试评估,TestQuestionPool,组件声明 module.xml/service.xml,components/ILIAS/TestQuestionPool,,"module=True, service=False"
+ILI-E0124,component,测试评估,Tracking,组件声明 module.xml/service.xml,components/ILIAS/Tracking,,"module=False, service=True"
+ILI-E0125,component,仓库与对象,Tree,组件声明 module.xml/service.xml,components/ILIAS/Tree,,"module=False, service=True"
+ILI-E0126,component,界面与前端,UIComponent,组件声明 module.xml/service.xml,components/ILIAS/UIComponent,,"module=False, service=True"
+ILI-E0127,component,用户与权限,User,组件声明 module.xml/service.xml,components/ILIAS/User,,"module=False, service=True"
+ILI-E0128,component,其他组件,WOPI,组件声明 module.xml/service.xml,components/ILIAS/WOPI,,"module=False, service=True"
+ILI-E0129,component,平台服务,WebDAV,组件声明 module.xml/service.xml,components/ILIAS/WebDAV,,"module=False, service=True"
+ILI-E0130,component,其他组件,WebResource,组件声明 module.xml/service.xml,components/ILIAS/WebResource,,"module=True, service=False"
+ILI-E0131,component,平台服务,WebServices,组件声明 module.xml/service.xml,components/ILIAS/WebServices,,"module=False, service=True"
+ILI-E0132,component,课程与学习资源,Wiki,组件声明 module.xml/service.xml,components/ILIAS/Wiki,,"module=True, service=False"
+ILI-E0133,component,仓库与对象,WorkspaceFolder,组件声明 module.xml/service.xml,components/ILIAS/WorkspaceFolder,,"module=True, service=False"
+ILI-E0134,component,仓库与对象,WorkspaceRootFolder,组件声明 module.xml/service.xml,components/ILIAS/WorkspaceRootFolder,,"module=True, service=False"
+ILI-E0135,table,其他,cmi_comment,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/Scorm2004/data/mysql_schema.sql,2,
+ILI-E0136,table,其他,cmi_correct_response,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/Scorm2004/data/mysql_schema.sql,7,
+ILI-E0137,table,其他,cmi_interaction,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/Scorm2004/data/mysql_schema.sql,12,
+ILI-E0138,table,其他,cmi_node,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/Scorm2004/data/mysql_schema.sql,19,
+ILI-E0139,table,其他,cmi_objective,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/Scorm2004/data/mysql_schema.sql,30,
+ILI-E0140,table,其他,cp_auxilaryResource,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/Scorm2004/data/mysql_schema.sql,39,
+ILI-E0141,table,其他,cp_condition,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/Scorm2004/data/mysql_schema.sql,42,
+ILI-E0142,table,其他,cp_dependency,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/Scorm2004/data/mysql_schema.sql,45,
+ILI-E0143,table,其他,cp_file,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/Scorm2004/data/mysql_schema.sql,52,
+ILI-E0144,table,其他,cp_hideLMSUI,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/Scorm2004/data/mysql_schema.sql,57,
+ILI-E0145,table,其他,cp_item,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/Scorm2004/data/mysql_schema.sql,62,
+ILI-E0146,table,其他,cp_manifest,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/Scorm2004/data/mysql_schema.sql,69,
+ILI-E0147,table,其他,cp_mapinfo,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/Scorm2004/data/mysql_schema.sql,74,
+ILI-E0148,table,其他,cp_node,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/Scorm2004/data/mysql_schema.sql,79,
+ILI-E0149,table,其他,cp_objective,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/Scorm2004/data/mysql_schema.sql,84,
+ILI-E0150,table,其他,cp_organization,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/Scorm2004/data/mysql_schema.sql,87,
+ILI-E0151,table,其他,cp_package,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/Scorm2004/data/mysql_schema.sql,94,
+ILI-E0152,table,其他,cp_resource,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/Scorm2004/data/mysql_schema.sql,99,
+ILI-E0153,table,其他,cp_rule,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/Scorm2004/data/mysql_schema.sql,104,
+ILI-E0154,table,其他,cp_sequencing,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/Scorm2004/data/mysql_schema.sql,107,
+ILI-E0155,table,其他,cp_tree,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/Scorm2004/data/mysql_schema.sql,112,
+ILI-E0156,table,用户、对象与权限,object_data,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/Scorm2004/data/mysql_schema.sql,119,
+ILI-E0157,table,用户、对象与权限,object_reference,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/Scorm2004/data/mysql_schema.sql,120,
+ILI-E0158,table,仓库、课程与学习资源,sahs_lm,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/Scorm2004/data/mysql_schema.sql,123,
+ILI-E0159,table,用户、对象与权限,usr_data,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/Scorm2004/data/mysql_schema.sql,126,
+ILI-E0160,table,其他,lng_data,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/Scorm2004/data/mysql_schema.sql,127,
+ILI-E0161,table,其他,acc_access_key,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,12,
+ILI-E0162,table,其他,acc_cache,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,28,
+ILI-E0163,table,其他,acc_criterion_to_doc,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,44,
+ILI-E0164,table,其他,acc_criterion_to_doc_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,65,
+ILI-E0165,table,其他,acc_documents,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,79,
+ILI-E0166,table,其他,acc_documents_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,100,
+ILI-E0167,table,其他,acc_user_access_key,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,114,
+ILI-E0168,table,其他,acl_ws,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,130,
+ILI-E0169,table,其他,addressbook_mlist,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,147,
+ILI-E0170,table,其他,addressbook_mlist_ass,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,168,
+ILI-E0171,table,其他,addressbook_mlist_ass_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,186,
+ILI-E0172,table,其他,addressbook_mlist_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,200,
+ILI-E0173,table,其他,adl_shared_data,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,214,
+ILI-E0174,table,平台服务,adm_set_templ_hide_tab,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,232,
+ILI-E0175,table,平台服务,adm_set_templ_value,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,247,
+ILI-E0176,table,内容、元数据与作品集,adv_md_field_int,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,266,
+ILI-E0177,table,内容、元数据与作品集,adv_md_obj_rec_select,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,283,
+ILI-E0178,table,内容、元数据与作品集,adv_md_record,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,299,
+ILI-E0179,table,内容、元数据与作品集,adv_md_record_files,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,320,
+ILI-E0180,table,内容、元数据与作品集,adv_md_record_int,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,336,
+ILI-E0181,table,内容、元数据与作品集,adv_md_record_obj_ord,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,353,
+ILI-E0182,table,内容、元数据与作品集,adv_md_record_objs,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,369,
+ILI-E0183,table,内容、元数据与作品集,adv_md_record_scope,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,386,
+ILI-E0184,table,内容、元数据与作品集,adv_md_record_scope_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,402,
+ILI-E0185,table,内容、元数据与作品集,adv_md_record_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,416,
+ILI-E0186,table,内容、元数据与作品集,adv_md_substitutions,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,430,
+ILI-E0187,table,内容、元数据与作品集,adv_md_values_date,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,447,
+ILI-E0188,table,内容、元数据与作品集,adv_md_values_datetime,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,466,
+ILI-E0189,table,内容、元数据与作品集,adv_md_values_enum,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,485,
+ILI-E0190,table,内容、元数据与作品集,adv_md_values_extlink,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,504,
+ILI-E0191,table,内容、元数据与作品集,adv_md_values_float,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,524,
+ILI-E0192,table,内容、元数据与作品集,adv_md_values_int,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,543,
+ILI-E0193,table,内容、元数据与作品集,adv_md_values_intlink,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,562,
+ILI-E0194,table,内容、元数据与作品集,adv_md_values_location,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,581,
+ILI-E0195,table,内容、元数据与作品集,adv_md_values_ltext,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,602,
+ILI-E0196,table,内容、元数据与作品集,adv_md_values_text,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,622,
+ILI-E0197,table,内容、元数据与作品集,adv_mdf_definition,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,642,
+ILI-E0198,table,内容、元数据与作品集,adv_mdf_definition_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,665,
+ILI-E0199,table,内容、元数据与作品集,adv_mdf_enum,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,679,
+ILI-E0200,table,其他,aicc_course,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,697,
+ILI-E0201,table,其他,aicc_object,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,725,
+ILI-E0202,table,其他,aicc_object_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,746,
+ILI-E0203,table,其他,aicc_units,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,760,
+ILI-E0204,table,其他,aicc_units_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,785,
+ILI-E0205,table,测试、评估与证书,ass_log,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,799,
+ILI-E0206,table,测试、评估与证书,ass_log_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,823,
+ILI-E0207,table,用户、对象与权限,auth_ext_attr_mapping,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,837,
+ILI-E0208,table,平台服务,background_task,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,855,
+ILI-E0209,table,平台服务,background_task_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,876,
+ILI-E0210,table,其他,badge_badge,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,890,
+ILI-E0211,table,其他,badge_badge_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,914,
+ILI-E0212,table,其他,badge_image_templ_type,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,928,
+ILI-E0213,table,其他,badge_image_template,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,943,
+ILI-E0214,table,其他,badge_image_template_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,960,
+ILI-E0215,table,其他,badge_user_badge,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,974,
+ILI-E0216,table,其他,benchmark,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,992,
+ILI-E0217,table,其他,benchmark_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,1012,
+ILI-E0218,table,沟通协作,book_obj_use_book,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,1026,
+ILI-E0219,table,沟通协作,book_sel_object,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,1041,
+ILI-E0220,table,沟通协作,booking_entry,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,1057,
+ILI-E0221,table,沟通协作,booking_entry_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,1075,
+ILI-E0222,table,沟通协作,booking_member,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,1089,
+ILI-E0223,table,沟通协作,booking_member_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,1106,
+ILI-E0224,table,沟通协作,booking_obj_assignment,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,1120,
+ILI-E0225,table,沟通协作,booking_object,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,1135,
+ILI-E0226,table,沟通协作,booking_object_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,1161,
+ILI-E0227,table,沟通协作,booking_preferences,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,1175,
+ILI-E0228,table,沟通协作,booking_reservation,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,1191,
+ILI-E0229,table,沟通协作,booking_reservation_group_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,1219,
+ILI-E0230,table,沟通协作,booking_reservation_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,1233,
+ILI-E0231,table,沟通协作,booking_schedule,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,1247,
+ILI-E0232,table,沟通协作,booking_schedule_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,1271,
+ILI-E0233,table,沟通协作,booking_schedule_slot,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,1285,
+ILI-E0234,table,沟通协作,booking_settings,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,1302,
+ILI-E0235,table,沟通协作,booking_user,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,1329,
+ILI-E0236,table,沟通协作,bookmark_data,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,1347,
+ILI-E0237,table,沟通协作,bookmark_data_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,1367,
+ILI-E0238,table,沟通协作,bookmark_tree,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,1382,
+ILI-E0239,table,其他,buddylist,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,1405,
+ILI-E0240,table,其他,buddylist_requests,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,1421,
+ILI-E0241,table,平台服务,cache_clob,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,1439,
+ILI-E0242,table,平台服务,cache_text,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,1464,
+ILI-E0243,table,沟通协作,cal_auth_token,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,1489,
+ILI-E0244,table,沟通协作,cal_cat_assignments,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,1509,
+ILI-E0245,table,沟通协作,cal_cat_visibility,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,1525,
+ILI-E0246,table,沟通协作,cal_categories,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,1543,
+ILI-E0247,table,沟通协作,cal_categories_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,1568,
+ILI-E0248,table,沟通协作,cal_ch_group,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,1582,
+ILI-E0249,table,沟通协作,cal_ch_group_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,1599,
+ILI-E0250,table,沟通协作,cal_ch_settings,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,1613,
+ILI-E0251,table,沟通协作,cal_entries,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,1628,
+ILI-E0252,table,沟通协作,cal_entries_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,1660,
+ILI-E0253,table,沟通协作,cal_notification,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,1674,
+ILI-E0254,table,沟通协作,cal_notification_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,1693,
+ILI-E0255,table,沟通协作,cal_rec_exclusion,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,1707,
+ILI-E0256,table,沟通协作,cal_rec_exclusion_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,1724,
+ILI-E0257,table,沟通协作,cal_recurrence_rules,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,1738,
+ILI-E0258,table,沟通协作,cal_recurrence_rules_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,1766,
+ILI-E0259,table,沟通协作,cal_registrations,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,1780,
+ILI-E0260,table,沟通协作,cal_shared,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,1797,
+ILI-E0261,table,沟通协作,cal_shared_status,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,1816,
+ILI-E0262,table,沟通协作,chatroom_admconfig,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,1832,
+ILI-E0263,table,沟通协作,chatroom_admconfig_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,1849,
+ILI-E0264,table,沟通协作,chatroom_bans,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,1863,
+ILI-E0265,table,沟通协作,chatroom_history,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,1881,
+ILI-E0266,table,沟通协作,chatroom_history_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,1899,
+ILI-E0267,table,沟通协作,chatroom_sessions,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,1913,
+ILI-E0268,table,沟通协作,chatroom_sessions_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,1935,
+ILI-E0269,table,沟通协作,chatroom_settings,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,1949,
+ILI-E0270,table,沟通协作,chatroom_settings_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,1972,
+ILI-E0271,table,沟通协作,chatroom_users,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,1987,
+ILI-E0272,table,其他,cmi_comment_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,2024,
+ILI-E0273,table,其他,cmi_correct_response_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,2055,
+ILI-E0274,table,其他,cmi_custom,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,2069,
+ILI-E0275,table,其他,cmi_gobjective,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,2088,
+ILI-E0276,table,其他,cmi_interaction_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,2139,
+ILI-E0277,table,其他,cmi_node_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,2214,
+ILI-E0278,table,其他,cmi_objective_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,2256,
+ILI-E0279,table,其他,cmix_del_object,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,2270,
+ILI-E0280,table,其他,cmix_del_user,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,2288,
+ILI-E0281,table,其他,cmix_lrs_types,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,2305,
+ILI-E0282,table,其他,cmix_lrs_types_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,2348,
+ILI-E0283,table,其他,cmix_results,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,2362,
+ILI-E0284,table,其他,cmix_results_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,2383,
+ILI-E0285,table,其他,cmix_settings,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,2397,
+ILI-E0286,table,其他,cmix_token,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,2458,
+ILI-E0287,table,其他,cmix_users,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,2482,
+ILI-E0288,table,其他,conditions,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,2503,
+ILI-E0289,table,其他,conditions_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,2531,
+ILI-E0290,table,其他,cont_filter_field,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,2545,
+ILI-E0291,table,其他,cont_member_skills,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,2560,
+ILI-E0292,table,其他,cont_skills,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,2579,
+ILI-E0293,table,其他,container_reference,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,2595,
+ILI-E0294,table,其他,container_settings,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,2612,
+ILI-E0295,table,其他,container_sorting,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,2628,
+ILI-E0296,table,其他,container_sorting_bl,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,2646,
+ILI-E0297,table,其他,container_sorting_set,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,2661,
+ILI-E0298,table,仓库、课程与学习资源,content_object,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,2679,
+ILI-E0299,table,仓库、课程与学习资源,content_page_data,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,2724,
+ILI-E0300,table,仓库、课程与学习资源,content_page_metrics,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,2739,
+ILI-E0301,table,其他,copg_multilang,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,2756,
+ILI-E0302,table,其他,copg_multilang_lang,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,2772,
+ILI-E0303,table,其他,copg_pc_def,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,2788,
+ILI-E0304,table,其他,copg_pobj_def,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,2850,
+ILI-E0305,table,其他,copg_section_timings,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,2893,
+ILI-E0306,table,其他,copy_wizard_options,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,2909,
+ILI-E0307,table,其他,cp_auxilaryresource,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,2925,
+ILI-E0308,table,其他,cp_datamap,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,2959,
+ILI-E0309,table,其他,cp_hidelmsui,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,3009,
+ILI-E0310,table,其他,cp_node_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,3111,
+ILI-E0311,table,其他,cp_suspend,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,3276,
+ILI-E0312,table,平台服务,cron_job,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,3314,
+ILI-E0313,table,仓库、课程与学习资源,crs_archives,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,3386,
+ILI-E0314,table,仓库、课程与学习资源,crs_archives_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,3406,
+ILI-E0315,table,仓库、课程与学习资源,crs_f_definitions,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,3420,
+ILI-E0316,table,仓库、课程与学习资源,crs_f_definitions_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,3440,
+ILI-E0317,table,仓库、课程与学习资源,crs_file,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,3454,
+ILI-E0318,table,仓库、课程与学习资源,crs_file_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,3472,
+ILI-E0319,table,仓库、课程与学习资源,crs_groupings,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,3486,
+ILI-E0320,table,仓库、课程与学习资源,crs_items,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,3504,
+ILI-E0321,table,仓库、课程与学习资源,crs_lm_history,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,3550,
+ILI-E0322,table,仓库、课程与学习资源,crs_objective_lm,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,3568,
+ILI-E0323,table,仓库、课程与学习资源,crs_objective_lm_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,3587,
+ILI-E0324,table,仓库、课程与学习资源,crs_objective_qst,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,3601,
+ILI-E0325,table,仓库、课程与学习资源,crs_objective_qst_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,3619,
+ILI-E0326,table,仓库、课程与学习资源,crs_objective_status,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,3633,
+ILI-E0327,table,仓库、课程与学习资源,crs_objective_status_p,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,3649,
+ILI-E0328,table,仓库、课程与学习资源,crs_objective_tst,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,3664,
+ILI-E0329,table,仓库、课程与学习资源,crs_objective_tst_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,3684,
+ILI-E0330,table,仓库、课程与学习资源,crs_objectives,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,3698,
+ILI-E0331,table,仓库、课程与学习资源,crs_objectives_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,3720,
+ILI-E0332,table,仓库、课程与学习资源,crs_reference_settings,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,3734,
+ILI-E0333,table,仓库、课程与学习资源,crs_settings,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,3748,
+ILI-E0334,table,仓库、课程与学习资源,crs_start,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,3812,
+ILI-E0335,table,仓库、课程与学习资源,crs_start_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,3830,
+ILI-E0336,table,仓库、课程与学习资源,crs_timings_exceeded,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,3844,
+ILI-E0337,table,仓库、课程与学习资源,crs_timings_planed,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,3860,
+ILI-E0338,table,仓库、课程与学习资源,crs_timings_started,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,3877,
+ILI-E0339,table,仓库、课程与学习资源,crs_timings_user,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,3893,
+ILI-E0340,table,仓库、课程与学习资源,crs_timings_usr_accept,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,3910,
+ILI-E0341,table,仓库、课程与学习资源,crs_user_data,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,3928,
+ILI-E0342,table,仓库、课程与学习资源,crs_waiting_list,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,3944,
+ILI-E0343,table,其他,data_cache,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,3960,
+ILI-E0344,table,其他,dav_lock,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,3976,
+ILI-E0345,table,其他,dav_property,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,4002,
+ILI-E0346,table,其他,dbk_translations,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,4021,
+ILI-E0347,table,其他,desktop_item,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,4036,
+ILI-E0348,table,其他,didactic_tpl_a,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,4053,
+ILI-E0349,table,其他,didactic_tpl_a_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,4071,
+ILI-E0350,table,其他,didactic_tpl_abr,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,4086,
+ILI-E0351,table,其他,didactic_tpl_alp,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,4101,
+ILI-E0352,table,其他,didactic_tpl_alr,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,4120,
+ILI-E0353,table,其他,didactic_tpl_en,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,4135,
+ILI-E0354,table,其他,didactic_tpl_fp,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,4150,
+ILI-E0355,table,其他,didactic_tpl_fp_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,4171,
+ILI-E0356,table,其他,didactic_tpl_objs,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,4186,
+ILI-E0357,table,其他,didactic_tpl_sa,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,4202,
+ILI-E0358,table,其他,didactic_tpl_settings,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,4219,
+ILI-E0359,table,其他,didactic_tpl_settings_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,4243,
+ILI-E0360,table,其他,ecs_cmap_rule,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,4258,
+ILI-E0361,table,其他,ecs_cmap_rule_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,4281,
+ILI-E0362,table,其他,ecs_cms_data,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,4295,
+ILI-E0363,table,其他,ecs_cms_data_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,4317,
+ILI-E0364,table,其他,ecs_cms_tree,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,4331,
+ILI-E0365,table,其他,ecs_community,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,4350,
+ILI-E0366,table,其他,ecs_container_mapping,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,4368,
+ILI-E0367,table,其他,ecs_container_mapping_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,4388,
+ILI-E0368,table,其他,ecs_course_assignments,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,4402,
+ILI-E0369,table,其他,ecs_course_assignments_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,4424,
+ILI-E0370,table,其他,ecs_crs_mapping_atts,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,4438,
+ILI-E0371,table,其他,ecs_crs_mapping_atts_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,4455,
+ILI-E0372,table,其他,ecs_data_mapping,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,4469,
+ILI-E0373,table,其他,ecs_events,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,4486,
+ILI-E0374,table,其他,ecs_events_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,4504,
+ILI-E0375,table,其他,ecs_export,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,4518,
+ILI-E0376,table,其他,ecs_import,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,4534,
+ILI-E0377,table,其他,ecs_node_mapping_a,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,4556,
+ILI-E0378,table,其他,ecs_part_settings,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,4578,
+ILI-E0379,table,其他,ecs_remote_user,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,4606,
+ILI-E0380,table,其他,ecs_remote_user_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,4624,
+ILI-E0381,table,其他,ecs_server,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,4638,
+ILI-E0382,table,其他,ecs_server_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,4671,
+ILI-E0383,table,其他,ecs_user_consent,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,4685,
+ILI-E0384,table,其他,etal_data,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,4701,
+ILI-E0385,table,其他,etal_serie,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,4726,
+ILI-E0386,table,其他,event,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,4741,
+ILI-E0387,table,其他,event_appointment,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,4777,
+ILI-E0388,table,其他,event_appointment_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,4798,
+ILI-E0389,table,其他,event_items,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,4812,
+ILI-E0390,table,其他,event_participants,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,4828,
+ILI-E0391,table,其他,event_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,4850,
+ILI-E0392,table,测试、评估与证书,exc_ass_file_order,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,4864,
+ILI-E0393,table,测试、评估与证书,exc_ass_file_order_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,4882,
+ILI-E0394,table,测试、评估与证书,exc_ass_reminders,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,4896,
+ILI-E0395,table,测试、评估与证书,exc_ass_wiki_team,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,4919,
+ILI-E0396,table,测试、评估与证书,exc_assignment,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,4935,
+ILI-E0397,table,测试、评估与证书,exc_assignment_peer,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,4998,
+ILI-E0398,table,测试、评估与证书,exc_assignment_peer_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,5021,
+ILI-E0399,table,测试、评估与证书,exc_assignment_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,5035,
+ILI-E0400,table,测试、评估与证书,exc_crit,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,5049,
+ILI-E0401,table,测试、评估与证书,exc_crit_cat,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,5070,
+ILI-E0402,table,测试、评估与证书,exc_crit_cat_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,5087,
+ILI-E0403,table,测试、评估与证书,exc_crit_file,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,5101,
+ILI-E0404,table,测试、评估与证书,exc_crit_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,5119,
+ILI-E0405,table,测试、评估与证书,exc_data,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,5133,
+ILI-E0406,table,测试、评估与证书,exc_idl,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,5156,
+ILI-E0407,table,测试、评估与证书,exc_mandatory_random,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,5175,
+ILI-E0408,table,测试、评估与证书,exc_mem_ass_status,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,5191,
+ILI-E0409,table,测试、评估与证书,exc_members,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,5218,
+ILI-E0410,table,测试、评估与证书,exc_multi_feedback,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,5244,
+ILI-E0411,table,测试、评估与证书,exc_returned,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,5260,
+ILI-E0412,table,测试、评估与证书,exc_returned_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,5289,
+ILI-E0413,table,测试、评估与证书,exc_team_data,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,5303,
+ILI-E0414,table,测试、评估与证书,exc_usr_tutor,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,5318,
+ILI-E0415,table,其他,export_file_info,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,5337,
+ILI-E0416,table,其他,export_files,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,5358,
+ILI-E0417,table,其他,export_files_html,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,5375,
+ILI-E0418,table,其他,export_options,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,5392,
+ILI-E0419,table,其他,export_public_access,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,5411,
+ILI-E0420,table,其他,feedback_items_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,5428,
+ILI-E0421,table,仓库、课程与学习资源,file_based_lm,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,5442,
+ILI-E0422,table,仓库、课程与学习资源,file_data,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,5461,
+ILI-E0423,table,仓库、课程与学习资源,file_usage,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,5488,
+ILI-E0424,table,沟通协作,frm_data,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,5506,
+ILI-E0425,table,沟通协作,frm_data_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,5533,
+ILI-E0426,table,沟通协作,frm_drafts_history,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,5547,
+ILI-E0427,table,沟通协作,frm_drafts_history_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,5566,
+ILI-E0428,table,沟通协作,frm_notification,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,5580,
+ILI-E0429,table,沟通协作,frm_notification_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,5602,
+ILI-E0430,table,沟通协作,frm_posts,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,5616,
+ILI-E0431,table,沟通协作,frm_posts_deleted,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,5653,
+ILI-E0432,table,沟通协作,frm_posts_deleted_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,5681,
+ILI-E0433,table,沟通协作,frm_posts_drafts,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,5695,
+ILI-E0434,table,沟通协作,frm_posts_drafts_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,5726,
+ILI-E0435,table,沟通协作,frm_posts_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,5740,
+ILI-E0436,table,沟通协作,frm_posts_tree,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,5754,
+ILI-E0437,table,沟通协作,frm_posts_tree_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,5778,
+ILI-E0438,table,沟通协作,frm_settings,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,5792,
+ILI-E0439,table,沟通协作,frm_threads,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,5821,
+ILI-E0440,table,沟通协作,frm_threads_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,5850,
+ILI-E0441,table,沟通协作,frm_user_read,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,5864,
+ILI-E0442,table,内容、元数据与作品集,glo_advmd_col_order,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,5882,
+ILI-E0443,table,内容、元数据与作品集,glo_flashcard_box,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,5898,
+ILI-E0444,table,内容、元数据与作品集,glo_flashcard_term,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,5915,
+ILI-E0445,table,内容、元数据与作品集,glo_glossaries,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,5933,
+ILI-E0446,table,内容、元数据与作品集,glo_term_reference,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,5948,
+ILI-E0447,table,内容、元数据与作品集,glossary,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,5963,
+ILI-E0448,table,内容、元数据与作品集,glossary_collection,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,5988,
+ILI-E0449,table,内容、元数据与作品集,glossary_definition,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,6003,
+ILI-E0450,table,内容、元数据与作品集,glossary_definition_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,6022,
+ILI-E0451,table,内容、元数据与作品集,glossary_term,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,6036,
+ILI-E0452,table,内容、元数据与作品集,glossary_term_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,6059,
+ILI-E0453,table,仓库、课程与学习资源,grp_settings,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,6073,
+ILI-E0454,table,其他,gs_footer_items,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,6119,
+ILI-E0455,table,其他,gs_item_translation,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,6147,
+ILI-E0456,table,其他,help_map,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,6164,
+ILI-E0457,table,其他,help_module,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,6185,
+ILI-E0458,table,其他,help_module_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,6202,
+ILI-E0459,table,其他,help_tooltip,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,6216,
+ILI-E0460,table,其他,help_tooltip_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,6236,
+ILI-E0461,table,其他,history,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,6250,
+ILI-E0462,table,其他,history_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,6272,
+ILI-E0463,table,其他,iass_info_settings,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,6286,
+ILI-E0464,table,其他,iass_members,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,6305,
+ILI-E0465,table,其他,iass_settings,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,6333,
+ILI-E0466,table,平台服务,il_adn_dismiss,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,6351,
+ILI-E0467,table,平台服务,il_adn_dismiss_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,6367,
+ILI-E0468,table,平台服务,il_adn_notifications,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,6381,
+ILI-E0469,table,平台服务,il_adn_notifications_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,6420,
+ILI-E0470,table,平台服务,il_bibl_attribute,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,6434,
+ILI-E0471,table,平台服务,il_bibl_attribute_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,6451,
+ILI-E0472,table,平台服务,il_bibl_data,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,6465,
+ILI-E0473,table,平台服务,il_bibl_entry,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,6482,
+ILI-E0474,table,平台服务,il_bibl_entry_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,6498,
+ILI-E0475,table,平台服务,il_bibl_field,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,6512,
+ILI-E0476,table,平台服务,il_bibl_field_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,6530,
+ILI-E0477,table,平台服务,il_bibl_filter,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,6544,
+ILI-E0478,table,平台服务,il_bibl_filter_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,6561,
+ILI-E0479,table,平台服务,il_bibl_overview_model,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,6575,
+ILI-E0480,table,平台服务,il_bibl_settings,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,6594,
+ILI-E0481,table,平台服务,il_bibl_settings_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,6612,
+ILI-E0482,table,平台服务,il_bibl_translation,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,6626,
+ILI-E0483,table,平台服务,il_bibl_translation_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,6644,
+ILI-E0484,table,平台服务,il_block_setting,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,6658,
+ILI-E0485,table,平台服务,il_blog,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,6676,
+ILI-E0486,table,平台服务,il_blog_posting,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,6710,
+ILI-E0487,table,平台服务,il_blog_posting_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,6731,
+ILI-E0488,table,平台服务,il_bt_bucket,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,6745,
+ILI-E0489,table,平台服务,il_bt_bucket_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,6768,
+ILI-E0490,table,平台服务,il_bt_task,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,6782,
+ILI-E0491,table,平台服务,il_bt_task_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,6800,
+ILI-E0492,table,平台服务,il_bt_value,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,6814,
+ILI-E0493,table,平台服务,il_bt_value_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,6838,
+ILI-E0494,table,平台服务,il_bt_value_to_task,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,6852,
+ILI-E0495,table,平台服务,il_bt_value_to_task_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,6872,
+ILI-E0496,table,平台服务,il_cert_cron_queue,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,6886,
+ILI-E0497,table,平台服务,il_cert_cron_queue_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,6907,
+ILI-E0498,table,平台服务,il_cert_template,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,6921,
+ILI-E0499,table,平台服务,il_cert_template_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,6954,
+ILI-E0500,table,平台服务,il_cert_user_cert,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,6968,
+ILI-E0501,table,平台服务,il_cert_user_cert_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,7007,
+ILI-E0502,table,平台服务,il_certificate,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,7021,
+ILI-E0503,table,平台服务,il_custom_block,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,7035,
+ILI-E0504,table,平台服务,il_custom_block_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,7055,
+ILI-E0505,table,平台服务,il_db_steps,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,7069,
+ILI-E0506,table,平台服务,il_dcl_data,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,7638,
+ILI-E0507,table,平台服务,il_dcl_data_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,7657,
+ILI-E0508,table,平台服务,il_dcl_datatype,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,7671,
+ILI-E0509,table,平台服务,il_dcl_datatype_prop,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,7701,
+ILI-E0510,table,平台服务,il_dcl_field,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,7733,
+ILI-E0511,table,平台服务,il_dcl_field_prop,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,7754,
+ILI-E0512,table,平台服务,il_dcl_field_prop_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,7773,
+ILI-E0513,table,平台服务,il_dcl_field_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,7787,
+ILI-E0514,table,平台服务,il_dcl_record,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,7801,
+ILI-E0515,table,平台服务,il_dcl_record_field,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,7821,
+ILI-E0516,table,平台服务,il_dcl_record_field_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,7839,
+ILI-E0517,table,平台服务,il_dcl_record_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,7853,
+ILI-E0518,table,平台服务,il_dcl_sel_opts,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,7867,
+ILI-E0519,table,平台服务,il_dcl_sel_opts_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,7887,
+ILI-E0520,table,平台服务,il_dcl_stloc1_default,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,7901,
+ILI-E0521,table,平台服务,il_dcl_stloc1_default_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,7917,
+ILI-E0522,table,平台服务,il_dcl_stloc1_value,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,7931,
+ILI-E0523,table,平台服务,il_dcl_stloc1_value_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,7948,
+ILI-E0524,table,平台服务,il_dcl_stloc2_default,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,7962,
+ILI-E0525,table,平台服务,il_dcl_stloc2_default_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,7978,
+ILI-E0526,table,平台服务,il_dcl_stloc2_value,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,7992,
+ILI-E0527,table,平台服务,il_dcl_stloc2_value_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,8009,
+ILI-E0528,table,平台服务,il_dcl_stloc3_default,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,8023,
+ILI-E0529,table,平台服务,il_dcl_stloc3_default_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,8039,
+ILI-E0530,table,平台服务,il_dcl_stloc3_value,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,8053,
+ILI-E0531,table,平台服务,il_dcl_stloc3_value_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,8070,
+ILI-E0532,table,平台服务,il_dcl_table,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,8084,
+ILI-E0533,table,平台服务,il_dcl_table_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,8119,
+ILI-E0534,table,平台服务,il_dcl_tableview,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,8133,
+ILI-E0535,table,平台服务,il_dcl_tableview_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,8153,
+ILI-E0536,table,平台服务,il_dcl_tfield_set,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,8167,
+ILI-E0537,table,平台服务,il_dcl_tfield_set_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,8188,
+ILI-E0538,table,平台服务,il_dcl_tview_set,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,8202,
+ILI-E0539,table,平台服务,il_dcl_tview_set_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,8232,
+ILI-E0540,table,平台服务,il_dcl_view_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,8246,
+ILI-E0541,table,平台服务,il_exc_team,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,8260,
+ILI-E0542,table,平台服务,il_exc_team_log,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,8277,
+ILI-E0543,table,平台服务,il_exc_team_log_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,8297,
+ILI-E0544,table,平台服务,il_exc_team_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,8311,
+ILI-E0545,table,平台服务,il_external_feed_block,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,8325,
+ILI-E0546,table,平台服务,il_external_feed_block_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,8340,
+ILI-E0547,table,平台服务,il_file_icon,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,8354,
+ILI-E0548,table,平台服务,il_file_icon_suffixes,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,8369,
+ILI-E0549,table,平台服务,il_gc_memcache_server,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,8383,
+ILI-E0550,table,平台服务,il_gc_memcache_server_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,8402,
+ILI-E0551,table,平台服务,il_html_block,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,8416,
+ILI-E0552,table,平台服务,il_md_cpr_selections,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,8431,
+ILI-E0553,table,平台服务,il_md_cpr_selections_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,8468,
+ILI-E0554,table,平台服务,il_md_vocab_contr,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,8483,
+ILI-E0555,table,平台服务,il_md_vocab_contr_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,8501,
+ILI-E0556,table,平台服务,il_md_vocab_contr_vals,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,8515,
+ILI-E0557,table,平台服务,il_md_vocab_inactive,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,8531,
+ILI-E0558,table,平台服务,il_media_cast_data,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,8545,
+ILI-E0559,table,平台服务,il_media_cast_data_ord,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,8568,
+ILI-E0560,table,平台服务,il_meta_annotation,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,8584,
+ILI-E0561,table,平台服务,il_meta_annotation_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,8608,
+ILI-E0562,table,平台服务,il_meta_classification,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,8622,
+ILI-E0563,table,平台服务,il_meta_classification_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,8644,
+ILI-E0564,table,平台服务,il_meta_context,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,8658,
+ILI-E0565,table,平台服务,il_meta_context_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,8679,
+ILI-E0566,table,平台服务,il_meta_contribute,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,8693,
+ILI-E0567,table,平台服务,il_meta_contribute_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,8718,
+ILI-E0568,table,平台服务,il_meta_coverage,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,8732,
+ILI-E0569,table,平台服务,il_meta_coverage_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,8753,
+ILI-E0570,table,平台服务,il_meta_description,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,8767,
+ILI-E0571,table,平台服务,il_meta_description_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,8789,
+ILI-E0572,table,平台服务,il_meta_educational,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,8803,
+ILI-E0573,table,平台服务,il_meta_educational_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,8835,
+ILI-E0574,table,平台服务,il_meta_end_usr_role,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,8849,
+ILI-E0575,table,平台服务,il_meta_end_usr_role_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,8870,
+ILI-E0576,table,平台服务,il_meta_entity,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,8884,
+ILI-E0577,table,平台服务,il_meta_entity_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,8905,
+ILI-E0578,table,平台服务,il_meta_format,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,8919,
+ILI-E0579,table,平台服务,il_meta_format_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,8939,
+ILI-E0580,table,平台服务,il_meta_general,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,8953,
+ILI-E0581,table,平台服务,il_meta_general_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,8979,
+ILI-E0582,table,平台服务,il_meta_identifier,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,8993,
+ILI-E0583,table,平台服务,il_meta_identifier_,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,9015,
+ILI-E0584,table,平台服务,il_meta_identifier__seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,9037,
+ILI-E0585,table,平台服务,il_meta_identifier_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,9051,
+ILI-E0586,table,平台服务,il_meta_keyword,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,9065,
+ILI-E0587,table,平台服务,il_meta_keyword_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,9087,
+ILI-E0588,table,平台服务,il_meta_language,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,9101,
+ILI-E0589,table,平台服务,il_meta_language_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,9122,
+ILI-E0590,table,平台服务,il_meta_lifecycle,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,9136,
+ILI-E0591,table,平台服务,il_meta_lifecycle_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,9158,
+ILI-E0592,table,平台服务,il_meta_location,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,9172,
+ILI-E0593,table,平台服务,il_meta_location_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,9194,
+ILI-E0594,table,平台服务,il_meta_lr_type,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,9208,
+ILI-E0595,table,平台服务,il_meta_lr_type_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,9229,
+ILI-E0596,table,平台服务,il_meta_meta_data,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,9243,
+ILI-E0597,table,平台服务,il_meta_meta_data_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,9263,
+ILI-E0598,table,平台服务,il_meta_meta_schema,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,9277,
+ILI-E0599,table,平台服务,il_meta_meta_schema_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,9297,
+ILI-E0600,table,平台服务,il_meta_oer_exposed,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,9311,
+ILI-E0601,table,平台服务,il_meta_oer_stat,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,9328,
+ILI-E0602,table,平台服务,il_meta_or_composite,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,9344,
+ILI-E0603,table,平台服务,il_meta_or_composite_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,9369,
+ILI-E0604,table,平台服务,il_meta_relation,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,9383,
+ILI-E0605,table,平台服务,il_meta_relation_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,9403,
+ILI-E0606,table,平台服务,il_meta_requirement,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,9417,
+ILI-E0607,table,平台服务,il_meta_requirement_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,9444,
+ILI-E0608,table,平台服务,il_meta_rights,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,9458,
+ILI-E0609,table,平台服务,il_meta_rights_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,9482,
+ILI-E0610,table,平台服务,il_meta_tar,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,9496,
+ILI-E0611,table,平台服务,il_meta_tar_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,9520,
+ILI-E0612,table,平台服务,il_meta_taxon,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,9534,
+ILI-E0613,table,平台服务,il_meta_taxon_path,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,9557,
+ILI-E0614,table,平台服务,il_meta_taxon_path_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,9579,
+ILI-E0615,table,平台服务,il_meta_taxon_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,9593,
+ILI-E0616,table,平台服务,il_meta_technical,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,9607,
+ILI-E0617,table,平台服务,il_meta_technical_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,9633,
+ILI-E0618,table,平台服务,il_mm_actions,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,9647,
+ILI-E0619,table,平台服务,il_mm_custom_items,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,9663,
+ILI-E0620,table,平台服务,il_mm_items,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,9683,
+ILI-E0621,table,平台服务,il_mm_translation,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,9701,
+ILI-E0622,table,平台服务,il_new_item_grp,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,9718,
+ILI-E0623,table,平台服务,il_new_item_grp_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,9734,
+ILI-E0624,table,平台服务,il_news_item,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,9748,
+ILI-E0625,table,平台服务,il_news_item_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,9788,
+ILI-E0626,table,平台服务,il_news_read,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,9802,
+ILI-E0627,table,平台服务,il_news_subscription,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,9819,
+ILI-E0628,table,平台服务,il_object_def,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,9834,
+ILI-E0629,table,平台服务,il_object_group,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,10006,
+ILI-E0630,table,平台服务,il_object_sub_type,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,10035,
+ILI-E0631,table,平台服务,il_object_subobj,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,10062,
+ILI-E0632,table,平台服务,il_orgu_authority,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,10420,
+ILI-E0633,table,平台服务,il_orgu_authority_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,10438,
+ILI-E0634,table,平台服务,il_orgu_op_contexts,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,10453,
+ILI-E0635,table,平台服务,il_orgu_op_contexts_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,10479,
+ILI-E0636,table,平台服务,il_orgu_operations,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,10494,
+ILI-E0637,table,平台服务,il_orgu_operations_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,10546,
+ILI-E0638,table,平台服务,il_orgu_permissions,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,10561,
+ILI-E0639,table,平台服务,il_orgu_permissions_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,10582,
+ILI-E0640,table,平台服务,il_orgu_positions,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,10596,
+ILI-E0641,table,平台服务,il_orgu_positions_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,10616,
+ILI-E0642,table,平台服务,il_orgu_ua,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,10631,
+ILI-E0643,table,平台服务,il_orgu_ua_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,10653,
+ILI-E0644,table,平台服务,il_plugin,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,10667,
+ILI-E0645,table,平台服务,il_poll,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,10684,
+ILI-E0646,table,平台服务,il_poll_answer,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,10709,
+ILI-E0647,table,平台服务,il_poll_answer_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,10726,
+ILI-E0648,table,平台服务,il_poll_image,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,10740,
+ILI-E0649,table,平台服务,il_poll_vote,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,10755,
+ILI-E0650,table,平台服务,il_qpl_qst_fq_res,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,10771,
+ILI-E0651,table,平台服务,il_qpl_qst_fq_res_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,10801,
+ILI-E0652,table,平台服务,il_qpl_qst_fq_res_unit,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,10815,
+ILI-E0653,table,平台服务,il_qpl_qst_fq_res_unit_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,10833,
+ILI-E0654,table,平台服务,il_qpl_qst_fq_ucat,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,10847,
+ILI-E0655,table,平台服务,il_qpl_qst_fq_ucat_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,10863,
+ILI-E0656,table,平台服务,il_qpl_qst_fq_unit,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,10877,
+ILI-E0657,table,平台服务,il_qpl_qst_fq_unit_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,10898,
+ILI-E0658,table,平台服务,il_qpl_qst_fq_var,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,10912,
+ILI-E0659,table,平台服务,il_qpl_qst_fq_var_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,10937,
+ILI-E0660,table,平台服务,il_rating,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,10951,
+ILI-E0661,table,平台服务,il_rating_cat,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,10973,
+ILI-E0662,table,平台服务,il_rating_cat_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,10991,
+ILI-E0663,table,平台服务,il_resource,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,11005,
+ILI-E0664,table,平台服务,il_resource_flavour,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,11022,
+ILI-E0665,table,平台服务,il_resource_info,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,11042,
+ILI-E0666,table,平台服务,il_resource_rc,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,11062,
+ILI-E0667,table,平台服务,il_resource_rca,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,11078,
+ILI-E0668,table,平台服务,il_resource_revision,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,11094,
+ILI-E0669,table,平台服务,il_resource_stkh,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,11113,
+ILI-E0670,table,平台服务,il_resource_stkh_u,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,11129,
+ILI-E0671,table,平台服务,il_subscribers,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,11144,
+ILI-E0672,table,平台服务,il_tag,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,11161,
+ILI-E0673,table,平台服务,il_translations,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,11184,
+ILI-E0674,table,平台服务,il_upload_policy,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,11203,
+ILI-E0675,table,平台服务,il_upload_policy_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,11227,
+ILI-E0676,table,平台服务,il_verification,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,11241,
+ILI-E0677,table,平台服务,il_wac_secure_path,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,11258,
+ILI-E0678,table,平台服务,il_wiki_contributor,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,11275,
+ILI-E0679,table,平台服务,il_wiki_data,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,11292,
+ILI-E0680,table,平台服务,il_wiki_imp_pages,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,11320,
+ILI-E0681,table,平台服务,il_wiki_missing_page,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,11337,
+ILI-E0682,table,平台服务,il_wiki_page,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,11355,
+ILI-E0683,table,平台服务,il_wiki_page_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,11377,
+ILI-E0684,table,其他,int_link,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,11391,
+ILI-E0685,table,其他,item_group_item,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,11412,
+ILI-E0686,table,其他,itgr_data,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,11427,
+ILI-E0687,table,其他,last_visited,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,11445,
+ILI-E0688,table,其他,ldap_attribute_mapping,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,11464,
+ILI-E0689,table,其他,ldap_rg_mapping,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,11482,
+ILI-E0690,table,其他,ldap_rg_mapping_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,11504,
+ILI-E0691,table,其他,ldap_role_assignments,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,11518,
+ILI-E0692,table,其他,ldap_role_assignments_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,11543,
+ILI-E0693,table,其他,ldap_server_settings,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,11557,
+ILI-E0694,table,其他,ldap_server_settings_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,11604,
+ILI-E0695,table,其他,ldoc_acceptance_track,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,11618,
+ILI-E0696,table,其他,ldoc_acceptance_track_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,11636,
+ILI-E0697,table,其他,ldoc_criteria,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,11650,
+ILI-E0698,table,其他,ldoc_criteria_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,11671,
+ILI-E0699,table,其他,ldoc_documents,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,11685,
+ILI-E0700,table,其他,ldoc_documents_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,11709,
+ILI-E0701,table,其他,ldoc_versions,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,11723,
+ILI-E0702,table,其他,ldoc_versions_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,11745,
+ILI-E0703,table,其他,like_data,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,11759,
+ILI-E0704,table,其他,link_check,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,11781,
+ILI-E0705,table,其他,link_check_report,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,11802,
+ILI-E0706,table,其他,link_check_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,11817,
+ILI-E0707,table,仓库、课程与学习资源,lm_data,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,11831,
+ILI-E0708,table,仓库、课程与学习资源,lm_data_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,11859,
+ILI-E0709,table,仓库、课程与学习资源,lm_data_transl,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,11874,
+ILI-E0710,table,仓库、课程与学习资源,lm_glossaries,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,11893,
+ILI-E0711,table,仓库、课程与学习资源,lm_menu,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,11908,
+ILI-E0712,table,仓库、课程与学习资源,lm_menu_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,11931,
+ILI-E0713,table,仓库、课程与学习资源,lm_read_event,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,11945,
+ILI-E0714,table,仓库、课程与学习资源,lm_tree,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,11963,
+ILI-E0715,table,其他,lng_log,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,12007,
+ILI-E0716,table,其他,lng_modules,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,12022,
+ILI-E0717,table,其他,lo_access,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,12038,
+ILI-E0718,table,其他,loc_rnd_qpl,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,12056,
+ILI-E0719,table,其他,loc_settings,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,12075,
+ILI-E0720,table,其他,loc_tst_assignments,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,12102,
+ILI-E0721,table,其他,loc_tst_assignments_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,12120,
+ILI-E0722,table,其他,loc_tst_run,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,12134,
+ILI-E0723,table,其他,loc_user_results,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,12153,
+ILI-E0724,table,平台服务,log_components,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,12176,
+ILI-E0725,table,用户、对象与权限,loginname_history,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,12267,
+ILI-E0726,table,其他,lso_settings,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,12283,
+ILI-E0727,table,其他,lso_states,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,12302,
+ILI-E0728,table,仓库、课程与学习资源,lti2_access_token,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,12321,
+ILI-E0729,table,仓库、课程与学习资源,lti2_consumer,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,12340,
+ILI-E0730,table,仓库、课程与学习资源,lti2_consumer_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,12378,
+ILI-E0731,table,仓库、课程与学习资源,lti2_context,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,12392,
+ILI-E0732,table,仓库、课程与学习资源,lti2_context_seq,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,12414,
+ILI-E0733,table,仓库、课程与学习资源,lti2_nonce,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,12428,
+ILI-E0734,table,仓库、课程与学习资源,lti2_resource_link,setup_/sql/ilias3.sql 或组件 SQL 定义表,components/ILIAS/setup_/sql/ilias3.sql,12444,
+ILI-E0735,code_reference,运行机制,DIC,代码引用核心服务/全局对象 DIC,cli/inc.pwassist_session_handler.php,32,global $DIC;
+ILI-E0736,code_reference,运行机制,ilDB,代码引用核心服务/全局对象 ilDB,cli/inc.pwassist_session_handler.php,34,$ilDB = $DIC->database();
+ILI-E0737,code_reference,运行机制,ilDB,代码引用核心服务/全局对象 ilDB,cli/inc.pwassist_session_handler.php,40,(int) ($ilDB->fetchAssoc(
+ILI-E0738,code_reference,运行机制,ilDB,代码引用核心服务/全局对象 ilDB,cli/inc.pwassist_session_handler.php,41,$ilDB->query(
+ILI-E0739,code_reference,运行机制,ilDB,代码引用核心服务/全局对象 ilDB,cli/inc.pwassist_session_handler.php,43,"""SELECT 1 FROM usr_pwassist WHERE pwassist_id = "" . $ilDB->quote($hash, ilDBConstants::T_TEXT) ."
+ILI-E0740,code_reference,运行机制,DIC,代码引用核心服务/全局对象 DIC,cli/inc.pwassist_session_handler.php,58,global $DIC;
+ILI-E0741,code_reference,运行机制,ilDB,代码引用核心服务/全局对象 ilDB,cli/inc.pwassist_session_handler.php,60,$ilDB = $DIC->database();
+ILI-E0742,code_reference,运行机制,ilDB,代码引用核心服务/全局对象 ilDB,cli/inc.pwassist_session_handler.php,62,"$q = 'SELECT * FROM usr_pwassist WHERE pwassist_id = ' . $ilDB->quote($pwassist_id, ilDBConstants::T_TEXT);"
+ILI-E0743,code_reference,运行机制,ilDB,代码引用核心服务/全局对象 ilDB,cli/inc.pwassist_session_handler.php,63,$r = $ilDB->query($q);
+ILI-E0744,code_reference,运行机制,ilDB,代码引用核心服务/全局对象 ilDB,cli/inc.pwassist_session_handler.php,65,return $ilDB->fetchAssoc($r);
+ILI-E0745,code_reference,运行机制,DIC,代码引用核心服务/全局对象 DIC,cli/inc.pwassist_session_handler.php,73,global $DIC;
+ILI-E0746,code_reference,运行机制,ilDB,代码引用核心服务/全局对象 ilDB,cli/inc.pwassist_session_handler.php,75,$ilDB = $DIC->database();
+ILI-E0747,code_reference,运行机制,ilDB,代码引用核心服务/全局对象 ilDB,cli/inc.pwassist_session_handler.php,77,"$q = 'SELECT * FROM usr_pwassist WHERE user_id = ' . $ilDB->quote($user_id, ilDBConstants::T_INTEGER);"
+ILI-E0748,code_reference,运行机制,ilDB,代码引用核心服务/全局对象 ilDB,cli/inc.pwassist_session_handler.php,78,$r = $ilDB->query($q);
+ILI-E0749,code_reference,运行机制,ilDB,代码引用核心服务/全局对象 ilDB,cli/inc.pwassist_session_handler.php,80,return $ilDB->fetchAssoc($r);
+ILI-E0750,code_reference,运行机制,DIC,代码引用核心服务/全局对象 DIC,cli/inc.pwassist_session_handler.php,85,global $DIC;
+ILI-E0751,code_reference,运行机制,ilDB,代码引用核心服务/全局对象 ilDB,cli/inc.pwassist_session_handler.php,87,$ilDB = $DIC->database();
+ILI-E0752,code_reference,运行机制,ilDB,代码引用核心服务/全局对象 ilDB,cli/inc.pwassist_session_handler.php,90,"'WHERE pwassist_id = ' . $ilDB->quote($pwassist_id, ilDBConstants::T_TEXT) . ' ' ."
+ILI-E0753,code_reference,运行机制,ilDB,代码引用核心服务/全局对象 ilDB,cli/inc.pwassist_session_handler.php,91,"'OR user_id = ' . $ilDB->quote($user_id, ilDBConstants::T_INTEGER);"
+ILI-E0754,code_reference,运行机制,ilDB,代码引用核心服务/全局对象 ilDB,cli/inc.pwassist_session_handler.php,92,$ilDB->manipulate($q);
+ILI-E0755,code_reference,运行机制,ilDB,代码引用核心服务/全局对象 ilDB,cli/inc.pwassist_session_handler.php,96,$ilDB->manipulateF(
+ILI-E0756,code_reference,运行机制,ilDB,代码引用核心服务/全局对象 ilDB,cli/inc.pwassist_session_handler.php,98,"[ilDBConstants::T_TEXT, ilDBConstants::T_INTEGER, ilDBConstants::T_INTEGER, ilDBConstants::T_INTEGER],"
+ILI-E0757,code_reference,运行机制,DIC,代码引用核心服务/全局对象 DIC,cli/inc.pwassist_session_handler.php,105,global $DIC;
+ILI-E0758,code_reference,运行机制,ilDB,代码引用核心服务/全局对象 ilDB,cli/inc.pwassist_session_handler.php,107,$ilDB = $DIC->database();
+ILI-E0759,code_reference,运行机制,ilDB,代码引用核心服务/全局对象 ilDB,cli/inc.pwassist_session_handler.php,109,"$q = 'DELETE FROM usr_pwassist WHERE pwassist_id = ' . $ilDB->quote($pwassist_id, ilDBConstants::T_TEXT);"
+ILI-E0760,code_reference,运行机制,ilDB,代码引用核心服务/全局对象 ilDB,cli/inc.pwassist_session_handler.php,110,$ilDB->manipulate($q);
+ILI-E0761,code_reference,运行机制,DIC,代码引用核心服务/全局对象 DIC,cli/inc.pwassist_session_handler.php,116,global $DIC;
+ILI-E0762,code_reference,运行机制,ilDB,代码引用核心服务/全局对象 ilDB,cli/inc.pwassist_session_handler.php,118,$ilDB = $DIC->database();
+ILI-E0763,code_reference,运行机制,ilDB,代码引用核心服务/全局对象 ilDB,cli/inc.pwassist_session_handler.php,120,"$q = 'DELETE FROM usr_pwassist WHERE expires < ' . $ilDB->quote(time(), ilDBConstants::T_INTEGER);"
+ILI-E0764,code_reference,运行机制,ilDB,代码引用核心服务/全局对象 ilDB,cli/inc.pwassist_session_handler.php,121,$ilDB->manipulate($q);
+ILI-E0765,code_reference,运行机制,ilTree,代码引用核心服务/全局对象 ilTree,scripts/PHPStan/Rules/NoLegacyExplorerUsagesRule.php,42,"return ['ilExplorer', 'ilExplorerBaseGUI', 'ilTreeExplorerGUI'];"
+ILI-E0766,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/WebResource/WebResource.php,37,$pull[\ILIAS\Refinery\Factory::class]
+ILI-E0767,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/PrivacySecurity/PrivacySecurity.php,37,$pull[\ILIAS\Refinery\Factory::class]
+ILI-E0768,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/Bibliographic/Bibliographic.php,37,$pull[\ILIAS\Refinery\Factory::class]
+ILI-E0769,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/Http_/Http_.php,37,$pull[\ILIAS\Refinery\Factory::class]
+ILI-E0770,code_reference,运行机制,ilTree,代码引用核心服务/全局对象 ilTree,components/ILIAS/Tree/Tree.php,36,new \ilTreeSetupAgent(
+ILI-E0771,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/Tree/Tree.php,37,$pull[\ILIAS\Refinery\Factory::class]
+ILI-E0772,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/Database/Database.php,37,$pull[\ILIAS\Refinery\Factory::class]
+ILI-E0773,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/AdministrativeNotification/AdministrativeNotification.php,37,$pull[\ILIAS\Refinery\Factory::class]
+ILI-E0774,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/DataCollection/DataCollection.php,37,$pull[\ILIAS\Refinery\Factory::class]
+ILI-E0775,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/Registration/Registration.php,37,$pull[\ILIAS\Refinery\Factory::class]
+ILI-E0776,code_reference,运行机制,ilRepository,代码引用核心服务/全局对象 ilRepository,components/ILIAS/Repository/Repository.php,36,new \ilRepositorySetupAgent(
+ILI-E0777,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/Repository/Repository.php,37,$pull[\ILIAS\Refinery\Factory::class]
+ILI-E0778,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/Repository/Repository.php,41,$pull[\ILIAS\Refinery\Factory::class]
+ILI-E0779,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/LearningSequence/LearningSequence.php,37,$pull[\ILIAS\Refinery\Factory::class]
+ILI-E0780,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/Course/Course.php,37,$pull[\ILIAS\Refinery\Factory::class]
+ILI-E0781,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/Course/Course.php,41,$pull[\ILIAS\Refinery\Factory::class]
+ILI-E0782,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/Calendar/Calendar.php,37,$pull[\ILIAS\Refinery\Factory::class]
+ILI-E0783,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/WebServices/WebServices.php,37,$pull[\ILIAS\Refinery\Factory::class]
+ILI-E0784,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/WebServices/WebServices.php,42,$pull[\ILIAS\Refinery\Factory::class]
+ILI-E0785,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/ContentPage/ContentPage.php,37,$pull[\ILIAS\Refinery\Factory::class]
+ILI-E0786,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/Skill/Skill.php,37,$pull[\ILIAS\Refinery\Factory::class]
+ILI-E0787,code_reference,运行机制,ilTree,代码引用核心服务/全局对象 ilTree,components/ILIAS/Skill/dev.txt.php,205,- extends ilTreeExplorerGUI
+ILI-E0788,code_reference,运行机制,ilTree,代码引用核心服务/全局对象 ilTree,components/ILIAS/Skill/dev.txt.php,227,- extends ilTreeExplorerGUI
+ILI-E0789,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/Certificate/Certificate.php,37,$pull[\ILIAS\Refinery\Factory::class]
+ILI-E0790,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/Test/Test.php,37,$pull[\ILIAS\Refinery\Factory::class]
+ILI-E0791,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/LegalDocuments/LegalDocuments.php,37,$pull[\ILIAS\Refinery\Factory::class]
+ILI-E0792,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/AdvancedMetaData/AdvancedMetaData.php,37,$pull[\ILIAS\Refinery\Factory::class]
+ILI-E0793,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/File/File.php,37,$pull[\ILIAS\Refinery\Factory::class]
+ILI-E0794,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/FileServices/FileServices.php,37,$pull[\ILIAS\Refinery\Factory::class]
+ILI-E0795,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/StudyProgramme/StudyProgramme.php,37,$pull[\ILIAS\Refinery\Factory::class]
+ILI-E0796,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/EmployeeTalk/EmployeeTalk.php,38,$pull[\ILIAS\Refinery\Factory::class]
+ILI-E0797,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/COPage/COPage.php,37,$pull[\ILIAS\Refinery\Factory::class]
+ILI-E0798,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/OrgUnit/OrgUnit.php,37,$pull[\ILIAS\Refinery\Factory::class]
+ILI-E0799,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/SurveyQuestionPool/SurveyQuestionPool.php,40,$pull[\ILIAS\Refinery\Factory::class]
+ILI-E0800,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/Mail/Mail.php,37,$pull[\ILIAS\Refinery\Factory::class]
+ILI-E0801,code_reference,运行机制,ilAccess,代码引用核心服务/全局对象 ilAccess,components/ILIAS/AccessControl/AccessControl.php,36,new \ilAccessControlSetupAgent(
+ILI-E0802,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/AccessControl/AccessControl.php,37,$pull[\ILIAS\Refinery\Factory::class]
+ILI-E0803,code_reference,运行机制,ilAccess,代码引用核心服务/全局对象 ilAccess,components/ILIAS/AccessControl/AccessControl.php,40,new \ilAccessRBACSetupAgent(
+ILI-E0804,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/AccessControl/AccessControl.php,41,$pull[\ILIAS\Refinery\Factory::class]
+ILI-E0805,code_reference,运行机制,ilObject,代码引用核心服务/全局对象 ilObject,components/ILIAS/ILIASObject/ILIASObject.php,36,new \ILIAS\Object\Setup\ilObjectSetupAgent(
+ILI-E0806,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/ILIASObject/ILIASObject.php,37,$pull[\ILIAS\Refinery\Factory::class]
+ILI-E0807,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/GlobalScreen_/GlobalScreen_.php,24,use ILIAS\Refinery\Factory;
+ILI-E0808,code_reference,运行机制,GlobalScreen,代码引用核心服务/全局对象 GlobalScreen,components/ILIAS/GlobalScreen_/GlobalScreen_.php,25,use ILIAS\GlobalScreen_\UI\Footer\Setup\Agent;
+ILI-E0809,code_reference,运行机制,GlobalScreen,代码引用核心服务/全局对象 GlobalScreen,components/ILIAS/GlobalScreen_/GlobalScreen_.php,27,class GlobalScreen_ implements Component
+ILI-E0810,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/LTIConsumer/LTIConsumer.php,37,$pull[\ILIAS\Refinery\Factory::class]
+ILI-E0811,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/Setup/Setup.php,49,"$pull[\ILIAS\Refinery\Factory::class],"
+ILI-E0812,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/Setup/Setup.php,74,"$pull[\ILIAS\Refinery\Factory::class],"
+ILI-E0813,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/Setup/Setup.php,94,"$pull[\ILIAS\Refinery\Factory::class],"
+ILI-E0814,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/GlobalCache/GlobalCache.php,37,$pull[\ILIAS\Refinery\Factory::class]
+ILI-E0815,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/MediaPool/MediaPool.php,39,$pull[\ILIAS\Refinery\Factory::class]
+ILI-E0816,code_reference,运行机制,ilComponent,代码引用核心服务/全局对象 ilComponent,components/ILIAS/Component/Component.php,38,new \ilComponentsSetupAgent(
+ILI-E0817,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/Wiki/Wiki.php,37,$pull[\ILIAS\Refinery\Factory::class]
+ILI-E0818,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/Language/Language.php,42,"$pull[\ILIAS\Refinery\Factory::class],"
+ILI-E0819,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/Style/Style.php,37,$pull[\ILIAS\Refinery\Factory::class]
+ILI-E0820,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/Style/Style.php,42,$pull[\ILIAS\Refinery\Factory::class]
+ILI-E0821,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/User/User.php,26,use ILIAS\Refinery\Factory as Refinery;
+ILI-E0822,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/User/User.php,42,$pull[Refinery::class]
+ILI-E0823,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/Filesystem/Filesystem.php,37,$pull[\ILIAS\Refinery\Factory::class]
+ILI-E0824,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/MathJax/MathJax.php,37,$pull[\ILIAS\Refinery\Factory::class]
+ILI-E0825,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/FileDelivery/FileDelivery.php,37,$pull[\ILIAS\Refinery\Factory::class]
+ILI-E0826,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/Blog/Blog.php,37,$pull[\ILIAS\Refinery\Factory::class]
+ILI-E0827,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/VirusScanner/VirusScanner.php,37,$pull[\ILIAS\Refinery\Factory::class]
+ILI-E0828,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/Dashboard/Dashboard.php,37,$pull[\ILIAS\Refinery\Factory::class]
+ILI-E0829,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/Utilities/Utilities.php,37,$pull[\ILIAS\Refinery\Factory::class]
+ILI-E0830,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/Container/Container.php,37,$pull[\ILIAS\Refinery\Factory::class]
+ILI-E0831,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/Forum/Forum.php,37,$pull[\ILIAS\Refinery\Factory::class]
+ILI-E0832,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/Notes/Notes.php,37,$pull[\ILIAS\Refinery\Factory::class]
+ILI-E0833,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/DataProtection/DataProtection.php,37,$pull[\ILIAS\Refinery\Factory::class]
+ILI-E0834,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/Link/Link.php,37,$pull[\ILIAS\Refinery\Factory::class]
+ILI-E0835,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/Chatroom/Chatroom.php,35,$contribute[\ILIAS\Setup\Agent::class] = static fn() => new \ilChatroomSetupAgent($pull[\ILIAS\Refinery\Factory::class]);
+ILI-E0836,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/Exercise/Exercise.php,37,$pull[\ILIAS\Refinery\Factory::class]
+ILI-E0837,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/UICore/UICore.php,37,$pull[\ILIAS\Refinery\Factory::class]
+ILI-E0838,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/SystemFolder/SystemFolder.php,37,$pull[\ILIAS\Refinery\Factory::class]
+ILI-E0839,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/StaticURL/StaticURL.php,37,$pull[\ILIAS\Refinery\Factory::class]
+ILI-E0840,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/Cloud/Cloud.php,23,use ILIAS\Refinery\Factory;
+ILI-E0841,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/CmiXapi/CmiXapi.php,37,$pull[\ILIAS\Refinery\Factory::class]
+ILI-E0842,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/Conditions/Conditions.php,37,$pull[\ILIAS\Refinery\Factory::class]
+ILI-E0843,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/ItemGroup/ItemGroup.php,37,$pull[\ILIAS\Refinery\Factory::class]
+ILI-E0844,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/Portfolio/Portfolio.php,37,$pull[\ILIAS\Refinery\Factory::class]
+ILI-E0845,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/Glossary/Glossary.php,37,$pull[\ILIAS\Refinery\Factory::class]
+ILI-E0846,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/MediaObjects/MediaObjects.php,37,$pull[\ILIAS\Refinery\Factory::class]
+ILI-E0847,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/MediaObjects/MediaObjects.php,41,$pull[\ILIAS\Refinery\Factory::class]
+ILI-E0848,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/Tracking/Tracking.php,37,$pull[\ILIAS\Refinery\Factory::class]
+ILI-E0849,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/MediaCast/MediaCast.php,37,$pull[\ILIAS\Refinery\Factory::class]
+ILI-E0850,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/Administration/Administration.php,37,$pull[\ILIAS\Refinery\Factory::class]
+ILI-E0851,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/Refinery/Refinery.php,23,class Refinery implements Component\Component
+ILI-E0852,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/Refinery/Refinery.php,35,$provide[\ILIAS\Refinery\Factory::class] = static fn() =>
+ILI-E0853,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/Refinery/Refinery.php,36,new \ILIAS\Refinery\Factory(
+ILI-E0854,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/IndividualAssessment/IndividualAssessment.php,37,$pull[\ILIAS\Refinery\Factory::class]
+ILI-E0855,code_reference,运行机制,GlobalScreen,代码引用核心服务/全局对象 GlobalScreen,components/ILIAS/GlobalScreen/GlobalScreen.php,23,class GlobalScreen implements Component\Component
+ILI-E0856,code_reference,运行机制,GlobalScreen,代码引用核心服务/全局对象 GlobalScreen,components/ILIAS/GlobalScreen/GlobalScreen.php,36,new \ilGlobalScreenSetupAgent(
+ILI-E0857,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/GlobalScreen/GlobalScreen.php,37,$pull[\ILIAS\Refinery\Factory::class]
+ILI-E0858,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/Export/Export.php,25,use ILIAS\Refinery\Factory as RefineryFactory;
+ILI-E0859,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/Export/Export.php,40,$contribute[SetupAgent::class] = fn() => new ilExportSetupAgent($pull[RefineryFactory::class]);
+ILI-E0860,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/Export/Export.php,41,$contribute[SetupAgent::class] = fn() => new HTML\Setup\Agent($pull[RefineryFactory::class]);
+ILI-E0861,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/WOPI/WOPI.php,25,use ILIAS\Refinery\Factory;
+ILI-E0862,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/BackgroundTasks/BackgroundTasks.php,37,$pull[\ILIAS\Refinery\Factory::class]
+ILI-E0863,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/LearningModule/LearningModule.php,37,$pull[\ILIAS\Refinery\Factory::class]
+ILI-E0864,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/LearningModule/LearningModule.php,41,$pull[\ILIAS\Refinery\Factory::class]
+ILI-E0865,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/Authentication/Authentication.php,37,$pull[\ILIAS\Refinery\Factory::class]
+ILI-E0866,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/HTMLLearningModule/HTMLLearningModule.php,37,$pull[\ILIAS\Refinery\Factory::class]
+ILI-E0867,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/MetaData/MetaData.php,37,$pull[\ILIAS\Refinery\Factory::class]
+ILI-E0868,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/Imprint/Imprint.php,37,$pull[\ILIAS\Refinery\Factory::class]
+ILI-E0869,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/Logging/Logging.php,37,$pull[\ILIAS\Refinery\Factory::class]
+ILI-E0870,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/BookingManager/BookingManager.php,37,$pull[\ILIAS\Refinery\Factory::class]
+ILI-E0871,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/Notifications/Notifications.php,37,$pull[\ILIAS\Refinery\Factory::class]
+ILI-E0872,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/LTIProvider/LTIProvider.php,37,$pull[\ILIAS\Refinery\Factory::class]
+ILI-E0873,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/TestQuestionPool/TestQuestionPool.php,37,$pull[\ILIAS\Refinery\Factory::class]
+ILI-E0874,code_reference,运行机制,DIC,代码引用核心服务/全局对象 DIC,components/ILIAS/TestQuestionPool/save_question_post_data.php,18,global $DIC;
+ILI-E0875,code_reference,运行机制,DIC,代码引用核心服务/全局对象 DIC,components/ILIAS/TestQuestionPool/save_question_post_data.php,19,$lng = $DIC['lng'];
+ILI-E0876,code_reference,运行机制,DIC,代码引用核心服务/全局对象 DIC,components/ILIAS/TestQuestionPool/save_question_post_data.php,23,global $DIC;
+ILI-E0877,code_reference,运行机制,DIC,代码引用核心服务/全局对象 DIC,components/ILIAS/TestQuestionPool/save_question_post_data.php,24,$lng = $DIC['lng'];
+ILI-E0878,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/Help/Help.php,37,$pull[\ILIAS\Refinery\Factory::class]
+ILI-E0879,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/Poll/Poll.php,24,use ILIAS\Refinery\Factory as RefineryFactory;
+ILI-E0880,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/Poll/Poll.php,40,$contribute[SetupAgent::class] = fn() => new \ilPollSetupAgent($pull[RefineryFactory::class]);
+ILI-E0881,code_reference,运行机制,ResourceStorage,代码引用核心服务/全局对象 ResourceStorage,components/ILIAS/ResourceStorage/ResourceStorage.php,23,class ResourceStorage implements Component\Component
+ILI-E0882,code_reference,运行机制,ResourceStorage,代码引用核心服务/全局对象 ResourceStorage,components/ILIAS/ResourceStorage/ResourceStorage.php,36,new \ilResourceStorageSetupAgent(
+ILI-E0883,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/ResourceStorage/ResourceStorage.php,37,$pull[\ILIAS\Refinery\Factory::class]
+ILI-E0884,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/EventHandling/EventHandling.php,37,$pull[\ILIAS\Refinery\Factory::class]
+ILI-E0885,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/Scorm2004/Scorm2004.php,38,$pull[\ILIAS\Refinery\Factory::class]
+ILI-E0886,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/Badge/Badge.php,36,$pull[\ILIAS\Refinery\Factory::class]
+ILI-E0887,code_reference,运行机制,Refinery,代码引用核心服务/全局对象 Refinery,components/ILIAS/Session/Session.php,37,$pull[\ILIAS\Refinery\Factory::class]
+ILI-E0888,code_reference,运行机制,ilCtrl,代码引用核心服务/全局对象 ilCtrl,components/ILIAS/Session/classes/class.ilSessionMaterialsTableGUI.php,33,protected ilCtrl $ctrl;
+ILI-E0889,code_reference,运行机制,ilTree,代码引用核心服务/全局对象 ilTree,components/ILIAS/Session/classes/class.ilSessionMaterialsTableGUI.php,35,protected ilTree $tree;
+ILI-E0890,code_reference,运行机制,ilObject,代码引用核心服务/全局对象 ilObject,components/ILIAS/Session/classes/class.ilSessionMaterialsTableGUI.php,36,protected ilObjectDefinition $objDefinition;
+ILI-E0891,code_reference,运行机制,DIC,代码引用核心服务/全局对象 DIC,components/ILIAS/Session/classes/class.ilSessionMaterialsTableGUI.php,45,global $DIC;
+ILI-E0892,code_reference,运行机制,DIC,代码引用核心服务/全局对象 DIC,components/ILIAS/Session/classes/class.ilSessionMaterialsTableGUI.php,47,$this->ctrl = $DIC->ctrl();
+ILI-E0893,code_reference,运行机制,DIC,代码引用核心服务/全局对象 DIC,components/ILIAS/Session/classes/class.ilSessionMaterialsTableGUI.php,48,$this->lng = $DIC->language();
+ILI-E0894,code_reference,运行机制,DIC,代码引用核心服务/全局对象 DIC,components/ILIAS/Session/classes/class.ilSessionMaterialsTableGUI.php,49,$this->tree = $DIC->repositoryTree();
+ILI-E0895,code_reference,运行机制,DIC,代码引用核心服务/全局对象 DIC,components/ILIAS/Session/classes/class.ilSessionMaterialsTableGUI.php,50,$this->objDefinition = $DIC['objDefinition'];
+ILI-E0896,code_reference,运行机制,DIC,代码引用核心服务/全局对象 DIC,components/ILIAS/Session/classes/class.ilSessionMaterialsTableGUI.php,51,$this->ui = $DIC->ui()->factory();
+ILI-E0897,code_reference,运行机制,DIC,代码引用核心服务/全局对象 DIC,components/ILIAS/Session/classes/class.ilSessionMaterialsTableGUI.php,52,$this->renderer = $DIC->ui()->renderer();
+ILI-E0898,code_reference,运行机制,ilObject,代码引用核心服务/全局对象 ilObject,components/ILIAS/Session/classes/class.ilSessionMaterialsTableGUI.php,198,"$this->tpl->setVariable('TYPE_IMG', ilObject::_getIcon(0, 'tiny', $a_set['type']));"
+ILI-E0899,code_reference,运行机制,ilObject,代码引用核心服务/全局对象 ilObject,components/ILIAS/Session/classes/class.ilSessionLP.php,29,class ilSessionLP extends ilObjectLP
+ILI-E0900,code_reference,运行机制,ilCtrl,代码引用核心服务/全局对象 ilCtrl,components/ILIAS/Session/classes/class.ilSessionMembershipGUI.php,27,"* @ilCtrl_Calls ilSessionMembershipGUI: ilMailMemberSearchGUI, ilUsersGalleryGUI, ilRepositorySearchGUI"
+ILI-E0901,code_reference,运行机制,ilCtrl,代码引用核心服务/全局对象 ilCtrl,components/ILIAS/Session/classes/class.ilSessionMembershipGUI.php,28,* @ilCtrl_Calls ilSessionMembershipGUI: ilSessionOverviewGUI
+ILI-E0902,code_reference,运行机制,ilCtrl,代码引用核心服务/全局对象 ilCtrl,components/ILIAS/Session/classes/class.ilSessionMembershipGUI.php,29,* @ilCtrl_Calls ilSessionMembershipGUI: ilMemberExportGUI
+ILI-E0903,code_reference,运行机制,ilObject,代码引用核心服务/全局对象 ilObject,components/ILIAS/Session/classes/class.ilSessionMembershipGUI.php,44,"public function __construct(ilObjectGUI $repository_gui, ilObject $repository_obj)"
+ILI-E0904,code_reference,运行机制,ilObject,代码引用核心服务/全局对象 ilObject,components/ILIAS/Session/classes/class.ilSessionMembershipGUI.php,208,"ilObjectFactory::getInstanceByRefId($member_ref_id)->getTitle(),"
+ILI-E0905,code_reference,运行机制,ilObjUser,代码引用核心服务/全局对象 ilObjUser,components/ILIAS/Session/classes/class.ilSessionMembershipGUI.php,280,$name = ilObjUser::_lookupName($usr_id);
+ILI-E0906,code_reference,运行机制,ilTree,代码引用核心服务/全局对象 ilTree,components/ILIAS/Session/classes/class.ilSessionOverviewTableGUI.php,30,protected ilTree $tree;
+ILI-E0907,code_reference,运行机制,ilAccess,代码引用核心服务/全局对象 ilAccess,components/ILIAS/Session/classes/class.ilSessionOverviewTableGUI.php,31,protected ilAccessHandler $access;
+ILI-E0908,code_reference,运行机制,DIC,代码引用核心服务/全局对象 DIC,components/ILIAS/Session/classes/class.ilSessionOverviewTableGUI.php,46,global $DIC;
+ILI-E0909,code_reference,运行机制,DIC,代码引用核心服务/全局对象 DIC,components/ILIAS/Session/classes/class.ilSessionOverviewTableGUI.php,48,$this->ui_factory = $DIC->ui()->factory();
+ILI-E0910,code_reference,运行机制,DIC,代码引用核心服务/全局对象 DIC,components/ILIAS/Session/classes/class.ilSessionOverviewTableGUI.php,49,$this->renderer = $DIC->ui()->renderer();
+ILI-E0911,code_reference,运行机制,DIC,代码引用核心服务/全局对象 DIC,components/ILIAS/Session/classes/class.ilSessionOverviewTableGUI.php,51,$this->tree = $DIC->repositoryTree();
+ILI-E0912,code_reference,运行机制,DIC,代码引用核心服务/全局对象 DIC,components/ILIAS/Session/classes/class.ilSessionOverviewTableGUI.php,52,$this->access = $DIC->access();
+ILI-E0913,code_reference,运行机制,ilAccess,代码引用核心服务/全局对象 ilAccess,components/ILIAS/Session/classes/class.ilSessionOverviewTableGUI.php,107,$ilAccess = $this->access;
+ILI-E0914,code_reference,运行机制,ilObject,代码引用核心服务/全局对象 ilObject,components/ILIAS/Session/classes/class.ilSessionOverviewTableGUI.php,111,"$tmp_event = ilObjectFactory::getInstanceByRefId($event_id, false);"
+ILI-E0915,code_reference,运行机制,ilAccess,代码引用核心服务/全局对象 ilAccess,components/ILIAS/Session/classes/class.ilSessionOverviewTableGUI.php,113,"!$ilAccess->checkAccess('manage_members', '', $event_id)) {"
+ILI-E0916,code_reference,运行机制,ilObjUser,代码引用核心服务/全局对象 ilObjUser,components/ILIAS/Session/classes/class.ilSessionOverviewTableGUI.php,128,$name = ilObjUser::_lookupName($user_id);
+ILI-E0917,code_reference,运行机制,DIC,代码引用核心服务/全局对象 DIC,components/ILIAS/Session/classes/class.ilSessionWaitingList.php,32,global $DIC;
+ILI-E0918,code_reference,运行机制,DIC,代码引用核心服务/全局对象 DIC,components/ILIAS/Session/classes/class.ilSessionWaitingList.php,34,$ilAppEventHandler = $DIC->event();
+ILI-E0919,code_reference,运行机制,DIC,代码引用核心服务/全局对象 DIC,components/ILIAS/Session/classes/class.ilSessionWaitingList.php,35,$ilLog = $DIC->logger()->sess();
+ILI-E0920,code_reference,运行机制,ilTree,代码引用核心服务/全局对象 ilTree,components/ILIAS/Session/classes/class.ilSessionParticipantsTableGUI.php,30,private ilTree $tree;
+ILI-E0921,code_reference,运行机制,DIC,代码引用核心服务/全局对象 DIC,components/ILIAS/Session/classes/class.ilSessionParticipantsTableGUI.php,40,global $DIC;
+ILI-E0922,code_reference,运行机制,DIC,代码引用核心服务/全局对象 DIC,components/ILIAS/Session/classes/class.ilSessionParticipantsTableGUI.php,42,$this->logger = $DIC->logger()->sess();
+ILI-E0923,code_reference,运行机制,DIC,代码引用核心服务/全局对象 DIC,components/ILIAS/Session/classes/class.ilSessionParticipantsTableGUI.php,43,$this->tree = $DIC->repositoryTree();
+ILI-E0924,code_reference,运行机制,DIC,代码引用核心服务/全局对象 DIC,components/ILIAS/Session/classes/class.ilSessionParticipantsTableGUI.php,44,$this->rbac = $DIC->rbac();
+ILI-E0925,code_reference,运行机制,ilObject,代码引用核心服务/全局对象 ilObject,components/ILIAS/Session/classes/class.ilSessionParticipantsTableGUI.php,167,$this->lng->txt('objs_' . ilObject::_lookupType(ilObject::_lookupObjId($this->member_ref_id)) . '_role')
+ILI-E0926,code_reference,运行机制,ilObject,代码引用核心服务/全局对象 ilObject,components/ILIAS/Session/classes/class.ilSessionParticipantsTableGUI.php,362,"$type = ilObject::_lookupType($this->member_ref_id, true);"
+ILI-E0927,code_reference,运行机制,ilObject,代码引用核心服务/全局对象 ilObject,components/ILIAS/Session/classes/class.ilSessionParticipantsTableGUI.php,379,ilObject::_lookupTitle($role_id)
+ILI-E0928,code_reference,运行机制,ilObject,代码引用核心服务/全局对象 ilObject,components/ILIAS/Session/classes/class.ilObjSessionAccess.php,28,class ilObjSessionAccess extends ilObjectAccess
+ILI-E0929,code_reference,运行机制,ilObjUser,代码引用核心服务/全局对象 ilObjUser,components/ILIAS/Session/classes/class.ilObjSessionAccess.php,30,protected ilObjUser $user;
+ILI-E0930,code_reference,运行机制,DIC,代码引用核心服务/全局对象 DIC,components/ILIAS/Session/classes/class.ilObjSessionAccess.php,37,global $DIC;
+ILI-E0931,code_reference,运行机制,DIC,代码引用核心服务/全局对象 DIC,components/ILIAS/Session/classes/class.ilObjSessionAccess.php,39,$this->user = $DIC->user();
+ILI-E0932,code_reference,运行机制,DIC,代码引用核心服务/全局对象 DIC,components/ILIAS/Session/classes/class.ilObjSessionAccess.php,58,global $DIC;
+ILI-E0933,code_reference,运行机制,DIC,代码引用核心服务/全局对象 DIC,components/ILIAS/Session/classes/class.ilObjSessionAccess.php,113,global $DIC;
+ILI-E0934,code_reference,运行机制,ilAccess,代码引用核心服务/全局对象 ilAccess,components/ILIAS/Session/classes/class.ilObjSessionAccess.php,115,$ilAccess = $DIC->access();
+ILI-E0935,code_reference,运行机制,ilAccess,代码引用核心服务/全局对象 ilAccess,components/ILIAS/Session/classes/class.ilObjSessionAccess.php,123,"if ($ilAccess->checkAccess(""read"", """", (int) $t_arr[1]) ||"
+ILI-E0936,code_reference,运行机制,ilAccess,代码引用核心服务/全局对象 ilAccess,components/ILIAS/Session/classes/class.ilObjSessionAccess.php,124,"$ilAccess->checkAccess(""visible"", """", (int) $t_arr[1])) {"
+ILI-E0937,code_reference,运行机制,DIC,代码引用核心服务/全局对象 DIC,components/ILIAS/Session/classes/class.ilObjSessionAccess.php,132,global $DIC;
+ILI-E0938,code_reference,运行机制,ilDB,代码引用核心服务/全局对象 ilDB,components/ILIAS/Session/classes/class.ilObjSessionAccess.php,134,$ilDB = $DIC->database();
+ILI-E0939,code_reference,运行机制,ilDB,代码引用核心服务/全局对象 ilDB,components/ILIAS/Session/classes/class.ilObjSessionAccess.php,141,"$ilDB->quote($a_obj_id, ilDBConstants::T_INTEGER);"
+ILI-E0940,code_reference,运行机制,ilDB,代码引用核心服务/全局对象 ilDB,components/ILIAS/Session/classes/class.ilObjSessionAccess.php,142,$res = $ilDB->query($query);
+ILI-E0941,code_reference,运行机制,ilDB,代码引用核心服务/全局对象 ilDB,components/ILIAS/Session/classes/class.ilObjSessionAccess.php,143,while ($row = $res->fetchRow(ilDBConstants::FETCHMODE_OBJECT)) {
+ILI-E0942,code_reference,运行机制,DIC,代码引用核心服务/全局对象 DIC,components/ILIAS/Session/classes/class.ilObjSessionAccess.php,154,global $DIC;
+ILI-E0943,code_reference,运行机制,ilDB,代码引用核心服务/全局对象 ilDB,components/ILIAS/Session/classes/class.ilObjSessionAccess.php,156,$ilDB = $DIC->database();
+ILI-E0944,code_reference,运行机制,ilDB,代码引用核心服务/全局对象 ilDB,components/ILIAS/Session/classes/class.ilObjSessionAccess.php,161,"$ilDB->in('obj_id', $a_obj_ids, false, ilDBConstants::T_INTEGER);"
+ILI-E0945,code_reference,运行机制,ilDB,代码引用核心服务/全局对象 ilDB,components/ILIAS/Session/classes/class.ilObjSessionAccess.php,162,$res = $ilDB->query($query);
+ILI-E0946,code_reference,运行机制,ilDB,代码引用核心服务/全局对象 ilDB,components/ILIAS/Session/classes/class.ilObjSessionAccess.php,163,while ($row = $res->fetchRow(ilDBConstants::FETCHMODE_OBJECT)) {
+ILI-E0947,code_reference,运行机制,DIC,代码引用核心服务/全局对象 DIC,components/ILIAS/Session/classes/class.ilObjSessionAccess.php,170,global $DIC;
+ILI-E0948,code_reference,运行机制,ilDB,代码引用核心服务/全局对象 ilDB,components/ILIAS/Session/classes/class.ilObjSessionAccess.php,172,$ilDB = $DIC->database();
+ILI-E0949,code_reference,运行机制,DIC,代码引用核心服务/全局对象 DIC,components/ILIAS/Session/classes/class.ilObjSessionAccess.php,173,$ilUser = $DIC->user();
+ILI-E0950,code_reference,运行机制,ilDB,代码引用核心服务/全局对象 ilDB,components/ILIAS/Session/classes/class.ilObjSessionAccess.php,179,"$query = ""SELECT event_id, registered FROM event_participants WHERE usr_id = "" . $ilDB->quote($ilUser->getId(), 'integer');"
+ILI-E0951,code_reference,运行机制,ilDB,代码引用核心服务/全局对象 ilDB,components/ILIAS/Session/classes/class.ilObjSessionAccess.php,180,$res = $ilDB->query($query);
+ILI-E0952,code_reference,运行机制,ilDB,代码引用核心服务/全局对象 ilDB,components/ILIAS/Session/classes/class.ilObjSessionAccess.php,182,while ($row = $res->fetchRow(ilDBConstants::FETCHMODE_OBJECT)) {
+ILI-E0953,code_reference,运行机制,DIC,代码引用核心服务/全局对象 DIC,components/ILIAS/Session/classes/class.ilObjSessionAccess.php,190,global $DIC;
+ILI-E0954,code_reference,运行机制,DIC,代码引用核心服务/全局对象 DIC,components/ILIAS/Session/classes/class.ilObjSessionAccess.php,193,self::$booking_repo = $DIC->bookingManager()
+ILI-E0955,code_reference,运行机制,ilObject,代码引用核心服务/全局对象 ilObject,components/ILIAS/Session/classes/class.ilObjSessionListGUI.php,29,class ilObjSessionListGUI extends ilObjectListGUI
+ILI-E0956,code_reference,运行机制,ilCtrl,代码引用核心服务/全局对象 ilCtrl,components/ILIAS/Session/classes/class.ilObjSessionListGUI.php,31,protected ilCtrlInterface $ctrl;
+ILI-E0957,code_reference,运行机制,DIC,代码引用核心服务/全局对象 DIC,components/ILIAS/Session/classes/class.ilObjSessionListGUI.php,39,global $DIC;
+ILI-E0958,code_reference,运行机制,DIC,代码引用核心服务/全局对象 DIC,components/ILIAS/Session/classes/class.ilObjSessionListGUI.php,41,$this->lng = $DIC->language();
+ILI-E0959,code_reference,运行机制,DIC,代码引用核心服务/全局对象 DIC,components/ILIAS/Session/classes/class.ilObjSessionListGUI.php,42,$this->ctrl = $DIC->ctrl();
+ILI-E0960,code_reference,运行机制,ilCtrl,代码引用核心服务/全局对象 ilCtrl,components/ILIAS/Session/classes/class.ilObjSessionListGUI.php,87,$ilCtrl = $this->ctrl;
+ILI-E0961,code_reference,运行机制,ilCtrl,代码引用核心服务/全局对象 ilCtrl,components/ILIAS/Session/classes/class.ilObjSessionListGUI.php,90,"$ilCtrl->setParameterByClass(""ilrepositorygui"", ""ref_id"", $this->ref_id);"
+ILI-E0962,code_reference,运行机制,ilCtrl,代码引用核心服务/全局对象 ilCtrl,components/ILIAS/Session/classes/class.ilObjSessionListGUI.php,91,"$cmd_link = $ilCtrl->getLinkTargetByClass(""ilrepositorygui"", $a_cmd);"
+ILI-E0963,code_reference,运行机制,ilCtrl,代码引用核心服务/全局对象 ilCtrl,components/ILIAS/Session/classes/class.ilObjSessionListGUI.php,92,"$ilCtrl->setParameterByClass(""ilrepositorygui"", ""ref_id"", $this->requested_ref_id);"
+ILI-E0964,code_reference,运行机制,ilObject,代码引用核心服务/全局对象 ilObject,components/ILIAS/Session/classes/class.ilObjSessionListGUI.php,128,if ($this->getDetailsLevel() == ilObjectListGUI::DETAILS_MINIMAL) {
+ILI-E0965,code_reference,运行机制,ilObject,代码引用核心服务/全局对象 ilObject,components/ILIAS/Session/classes/class.ilObjSessionListGUI.php,137,if ($this->getDetailsLevel() == ilObjectListGUI::DETAILS_ALL) {
+ILI-E0966,code_reference,运行机制,DIC,代码引用核心服务/全局对象 DIC,components/ILIAS/Session/classes/class.ilObjSessionListGUI.php,204,global $DIC;
+ILI-E0967,code_reference,运行机制,ilDB,代码引用核心服务/全局对象 ilDB,components/ILIAS/Session/classes/class.ilObjSessionListGUI.php,206,$ilDB = $DIC->database();
+ILI-E0968,code_reference,运行机制,ilDB,代码引用核心服务/全局对象 ilDB,components/ILIAS/Session/classes/class.ilObjSessionListGUI.php,210,"'WHERE event_id = ' . $ilDB->quote($a_sess_id, 'integer') . ' ' ."
+ILI-E0969,code_reference,运行机制,ilDB,代码引用核心服务/全局对象 ilDB,components/ILIAS/Session/classes/class.ilObjSessionListGUI.php,212,$res = $ilDB->query($query);
+ILI-E0970,code_reference,运行机制,ilDB,代码引用核心服务/全局对象 ilDB,components/ILIAS/Session/classes/class.ilObjSessionListGUI.php,214,while ($row = $res->fetchRow(ilDBConstants::FETCHMODE_OBJECT)) {
+ILI-E0971,code_reference,运行机制,DIC,代码引用核心服务/全局对象 DIC,components/ILIAS/Session/classes/class.ilSessionDataSet.php,37,global $DIC;
+ILI-E0972,code_reference,运行机制,DIC,代码引用核心服务/全局对象 DIC,components/ILIAS/Session/classes/class.ilSessionDataSet.php,40,$this->logger = $DIC->logger()->sess();
+ILI-E0973,code_reference,运行机制,ilDB,代码引用核心服务/全局对象 ilDB,components/ILIAS/Session/classes/class.ilSessionDataSet.php,204,$ilDB = $this->db;
+ILI-E0974,code_reference,运行机制,ilDB,代码引用核心服务/全局对象 ilDB,components/ILIAS/Session/classes/class.ilSessionDataSet.php,215,"$ilDB->in(""ev.obj_id"", $a_ids, false, ""integer""));"
+ILI-E0975,code_reference,运行机制,ilDB,代码引用核心服务/全局对象 ilDB,components/ILIAS/Session/classes/class.ilSessionDataSet.php,227,"$ilDB->in(""ev.obj_id"", $a_ids, false, ""integer""));"
+ILI-E0976,code_reference,运行机制,ilDB,代码引用核心服务/全局对象 ilDB,components/ILIAS/Session/classes/class.ilSessionDataSet.php,239,"$ilDB->in(""ev.obj_id"", $a_ids, false, ""integer""));"
+ILI-E0977,code_reference,运行机制,ilDB,代码引用核心服务/全局对象 ilDB,components/ILIAS/Session/classes/class.ilSessionDataSet.php,251,"$ilDB->in(""ev.obj_id"", $a_ids, false, ""integer""));"
+ILI-E0978,code_reference,运行机制,ilDB,代码引用核心服务/全局对象 ilDB,components/ILIAS/Session/classes/class.ilSessionDataSet.php,269,"$ilDB->in(""ev.obj_id"", $a_ids, false, ""integer""));"
+ILI-E0979,code_reference,运行机制,ilDB,代码引用核心服务/全局对象 ilDB,components/ILIAS/Session/classes/class.ilSessionDataSet.php,288,"$ilDB->in(""event_id"", $a_ids, false, ""integer""));"
+ILI-E0980,code_reference,运行机制,ilObject,代码引用核心服务/全局对象 ilObject,components/ILIAS/Session/classes/class.ilSessionDataSet.php,308,"$a_set[""ItemId""] = ilObject::_lookupObjId((int) ($a_set[""ItemId""] ?? 0));"
+ILI-E0981,code_reference,运行机制,ilObject,代码引用核心服务/全局对象 ilObject,components/ILIAS/Session/classes/class.ilSessionDataSet.php,334,$refs = ilObject::_getAllReferences((int) $new_id);
+ILI-E0982,code_reference,运行机制,ilObject,代码引用核心服务/全局对象 ilObject,components/ILIAS/Session/classes/class.ilSessionDataSet.php,335,"$newObj = ilObjectFactory::getInstanceByRefId(end($refs), false);"
+ILI-E0983,code_reference,运行机制,ilObject,代码引用核心服务/全局对象 ilObject,components/ILIAS/Session/classes/class.ilSessionDataSet.php,417,$ref_id = current(ilObject::_getAllReferences((int) $obj_id));
+ILI-E0984,code_reference,运行机制,ilObject,代码引用核心服务/全局对象 ilObject,components/ILIAS/Session/classes/class.ilSessionDataSet.php,434,$ref_ids = ilObject::_getAllReferences((int) $obj_id);
+ILI-E0985,code_reference,运行机制,ilObject,代码引用核心服务/全局对象 ilObject,components/ILIAS/Session/classes/class.ilSessionDataSet.php,443,"protected function applyDidacticTemplate(ilObject $rep_object, int $tpl_id): void"
+ILI-E0986,code_reference,运行机制,ilObject,代码引用核心服务/全局对象 ilObject,components/ILIAS/Session/classes/class.ilObjSession.php,30,class ilObjSession extends ilObject
+ILI-E0987,code_reference,运行机制,ilObject,代码引用核心服务/全局对象 ilObject,components/ILIAS/Session/classes/class.ilObjSession.php,38,protected ilObjectDataCache $obj_data_cache;
+ILI-E0988,code_reference,运行机制,DIC,代码引用核心服务/全局对象 DIC,components/ILIAS/Session/classes/class.ilObjSession.php,62,global $DIC;
+ILI-E0989,code_reference,运行机制,DIC,代码引用核心服务/全局对象 DIC,components/ILIAS/Session/classes/class.ilObjSession.php,64,$this->session_logger = $DIC->logger()->sess();
+ILI-E0990,code_reference,运行机制,DIC,代码引用核心服务/全局对象 DIC,components/ILIAS/Session/classes/class.ilObjSession.php,65,$this->obj_data_cache = $DIC['ilObjDataCache'];
+ILI-E0991,code_reference,运行机制,DIC,代码引用核心服务/全局对象 DIC,components/ILIAS/Session/classes/class.ilObjSession.php,66,$this->event_handler = $DIC->event();
+ILI-E0992,code_reference,运行机制,DIC,代码引用核心服务/全局对象 DIC,components/ILIAS/Session/classes/class.ilObjSession.php,74,global $DIC;
+ILI-E0993,code_reference,运行机制,ilDB,代码引用核心服务/全局对象 ilDB,components/ILIAS/Session/classes/class.ilObjSession.php,76,$ilDB = $DIC->database();
+ILI-E0994,code_reference,运行机制,ilDB,代码引用核心服务/全局对象 ilDB,components/ILIAS/Session/classes/class.ilObjSession.php,79,"""WHERE obj_id = "" . $ilDB->quote($a_obj_id, 'integer') . "" "";"
+ILI-E0995,code_reference,运行机制,ilDB,代码引用核心服务/全局对象 ilDB,components/ILIAS/Session/classes/class.ilObjSession.php,80,$res = $ilDB->query($query);
+ILI-E0996,code_reference,运行机制,ilDB,代码引用核心服务/全局对象 ilDB,components/ILIAS/Session/classes/class.ilObjSession.php,81,while ($row = $res->fetchRow(ilDBConstants::FETCHMODE_OBJECT)) {
+ILI-E0997,code_reference,运行机制,DIC,代码引用核心服务/全局对象 DIC,components/ILIAS/Session/classes/class.ilObjSession.php,89,global $DIC;
+ILI-E0998,code_reference,运行机制,ilDB,代码引用核心服务/全局对象 ilDB,components/ILIAS/Session/classes/class.ilObjSession.php,91,$ilDB = $DIC->database();
+ILI-E0999,code_reference,运行机制,ilDB,代码引用核心服务/全局对象 ilDB,components/ILIAS/Session/classes/class.ilObjSession.php,94,"""WHERE obj_id = "" . $ilDB->quote($a_obj_id, 'integer');"
+ILI-E1000,code_reference,运行机制,ilDB,代码引用核心服务/全局对象 ilDB,components/ILIAS/Session/classes/class.ilObjSession.php,95,$res = $ilDB->query($query);
+ILI-E1001,code_reference,运行机制,ilDB,代码引用核心服务/全局对象 ilDB,components/ILIAS/Session/classes/class.ilObjSession.php,97,while ($row = $res->fetchRow(ilDBConstants::FETCHMODE_OBJECT)) {
+ILI-E1002,code_reference,运行机制,ilObject,代码引用核心服务/全局对象 ilObject,components/ILIAS/Session/classes/class.ilObjSession.php,406,"ilObjectServiceSettingsGUI::CUSTOM_METADATA,"
+ILI-E1003,code_reference,运行机制,ilObject,代码引用核心服务/全局对象 ilObject,components/ILIAS/Session/classes/class.ilObjSession.php,409,ilObjectServiceSettingsGUI::CUSTOM_METADATA
+ILI-E1004,code_reference,运行机制,ilDB,代码引用核心服务/全局对象 ilDB,components/ILIAS/Session/classes/class.ilObjSession.php,453,$ilDB = $this->db;
+ILI-E1005,code_reference,运行机制,ilDB,代码引用核心服务/全局对象 ilDB,components/ILIAS/Session/classes/class.ilObjSession.php,462,$next_id = $ilDB->nextId('event');
+ILI-E1006,code_reference,运行机制,ilDB,代码引用核心服务/全局对象 ilDB,components/ILIAS/Session/classes/class.ilObjSession.php,467,"$ilDB->quote($next_id, 'integer') . "", "" ."
+ILI-E1007,code_reference,运行机制,ilDB,代码引用核心服务/全局对象 ilDB,components/ILIAS/Session/classes/class.ilObjSession.php,485,"$this->db->quote((int) $this->isCannotParticipateOptionEnabled(), ilDBConstants::T_INTEGER) . ' ' ."
+ILI-E1008,code_reference,运行机制,ilDB,代码引用核心服务/全局对象 ilDB,components/ILIAS/Session/classes/class.ilObjSession.php,487,$res = $ilDB->manipulate($query);
+ILI-E1009,code_reference,运行机制,ilDB,代码引用核心服务/全局对象 ilDB,components/ILIAS/Session/classes/class.ilObjSession.php,503,$ilDB = $this->db;
+ILI-E1010,code_reference,运行机制,ilDB,代码引用核心服务/全局对象 ilDB,components/ILIAS/Session/classes/class.ilObjSession.php,531,"'show_cannot_part = ' . $this->db->quote((int) $this->isCannotParticipateOptionEnabled(), ilDBConstants::T_INTEGER) . ' ' ."
+ILI-E1011,code_reference,运行机制,ilDB,代码引用核心服务/全局对象 ilDB,components/ILIAS/Session/classes/class.ilObjSession.php,533,$res = $ilDB->manipulate($query);
+ILI-E1012,code_reference,运行机制,ilDB,代码引用核心服务/全局对象 ilDB,components/ILIAS/Session/classes/class.ilObjSession.php,547,$ilDB = $this->db;
+ILI-E1013,code_reference,运行机制,ilDB,代码引用核心服务/全局对象 ilDB,components/ILIAS/Session/classes/class.ilObjSession.php,559,$res = $ilDB->manipulate($query);
+ILI-E1014,code_reference,运行机制,ilDB,代码引用核心服务/全局对象 ilDB,components/ILIAS/Session/classes/class.ilObjSession.php,584,while ($row = $res->fetchRow(ilDBConstants::FETCHMODE_OBJECT)) {
+ILI-E1015,code_reference,运行机制,ilObject,代码引用核心服务/全局对象 ilObject,components/ILIAS/Session/classes/class.ilObjSession.php,659,$refs = ilObject::_getAllReferences($this->getId());
+ILI-E1016,code_reference,运行机制,ilObject,代码引用核心服务/全局对象 ilObject,components/ILIAS/Session/classes/class.ilObjSession.php,677,$user = ilObjectFactory::getInstanceByObjId($user_id);
+ILI-E1017,code_reference,运行机制,ilObjUser,代码引用核心服务/全局对象 ilObjUser,components/ILIAS/Session/classes/class.ilObjSession.php,678,if (!$user instanceof ilObjUser) {
+ILI-E1018,code_reference,运行机制,ilObject,代码引用核心服务/全局对象 ilObject,components/ILIAS/Session/classes/class.ilSessionMembershipRegistrationSettingsGUI.php,33,"public function __construct(ilObjectGUI $gui_object, ilObject $object, array $a_options)"
+ILI-E1019,code_reference,运行机制,DIC,代码引用核心服务/全局对象 DIC,components/ILIAS/Session/classes/class.ilSessionMembershipMailNotification.php,55,global $DIC;
+ILI-E1020,code_reference,运行机制,DIC,代码引用核心服务/全局对象 DIC,components/ILIAS/Session/classes/class.ilSessionMembershipMailNotification.php,57,$this->setting = $DIC->settings();
+ILI-E1021,code_reference,运行机制,ilObject,代码引用核心服务/全局对象 ilObject,components/ILIAS/Session/classes/class.ilSessionMembershipMailNotification.php,224,"$userObject = ilObjectFactory::getInstanceByObjId($userId, false);"
+ILI-E1022,code_reference,运行机制,ilObjUser,代码引用核心服务/全局对象 ilObjUser,components/ILIAS/Session/classes/class.ilSessionMembershipMailNotification.php,225,if (!($userObject instanceof \ilObjUser)) {
+ILI-E1023,code_reference,运行机制,ilObject,代码引用核心服务/全局对象 ilObject,components/ILIAS/Session/classes/class.ilSessionMembershipMailNotification.php,263,"$userObject = ilObjectFactory::getInstanceByObjId($userId, false);"
+ILI-E1024,code_reference,运行机制,ilObjUser,代码引用核心服务/全局对象 ilObjUser,components/ILIAS/Session/classes/class.ilSessionMembershipMailNotification.php,264,if (!($userObject instanceof \ilObjUser)) {
+ILI-E1025,code_reference,运行机制,ilObject,代码引用核心服务/全局对象 ilObject,components/ILIAS/Session/classes/class.ilSessionMembershipMailNotification.php,302,"$userObject = ilObjectFactory::getInstanceByObjId($userId, false);"
+ILI-E1026,code_reference,运行机制,ilObjUser,代码引用核心服务/全局对象 ilObjUser,components/ILIAS/Session/classes/class.ilSessionMembershipMailNotification.php,303,if (!($userObject instanceof \ilObjUser)) {
+ILI-E1027,code_reference,运行机制,ilDB,代码引用核心服务/全局对象 ilDB,components/ILIAS/Session/classes/class.ilSessionAppEventListener.php,27,protected ilDBInterface $database;
+ILI-E1028,code_reference,运行机制,ilObject,代码引用核心服务/全局对象 ilObject,components/ILIAS/Session/classes/class.ilSessionAppEventListener.php,28,protected ilObjectDataCache $objectDataCache;
+ILI-E1029,code_reference,运行机制,ilDB,代码引用核心服务/全局对象 ilDB,components/ILIAS/Session/classes/class.ilSessionAppEventListener.php,35,"\ilDBInterface $db,"
+ILI-E1030,code_reference,运行机制,ilObject,代码引用核心服务/全局对象 ilObject,components/ILIAS/Session/classes/class.ilSessionAppEventListener.php,36,"\ilObjectDataCache $objectDataCache,"
+ILI-E1031,code_reference,运行机制,DIC,代码引用核心服务/全局对象 DIC,components/ILIAS/Session/classes/class.ilSessionAppEventListener.php,73,global $DIC;
+ILI-E1032,code_reference,运行机制,DIC,代码引用核心服务/全局对象 DIC,components/ILIAS/Session/classes/class.ilSessionAppEventListener.php,76,"$DIC->database(),"
+ILI-E1033,code_reference,运行机制,DIC,代码引用核心服务/全局对象 DIC,components/ILIAS/Session/classes/class.ilSessionAppEventListener.php,77,"$DIC['ilObjDataCache'],"
+ILI-E1034,code_reference,运行机制,DIC,代码引用核心服务/全局对象 DIC,components/ILIAS/Session/classes/class.ilSessionAppEventListener.php,78,$DIC->logger()->sess()

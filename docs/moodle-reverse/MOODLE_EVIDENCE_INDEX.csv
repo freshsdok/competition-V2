@@ -1,0 +1,1231 @@
+evidence_id,type,domain,component_or_name,claim,path,line,snippet_or_detail
+MDL-E0001,version,总体,core,代码版本为 Moodle 5.3dev 开发分支,public/version.php,,"version=2026042000.00, release=5.3dev (Build: 20260420), branch=503"
+MDL-E0002,table,站点配置与升级,config,定义数据表：Moodle configuration variables,public/lib/db/install.xml,,"fields=id,name,value"
+MDL-E0003,table,站点配置与升级,config_plugins,定义数据表：Moodle modules and plugins configuration variables,public/lib/db/install.xml,,"fields=id,plugin,name,value"
+MDL-E0004,table,课程与分类,course,定义数据表：Central course table,public/lib/db/install.xml,,"fields=id,category,sortorder,fullname,shortname,idnumber,summary,summaryformat,format,showgrades,newsitems,startdate"
+MDL-E0005,table,课程与分类,course_categories,定义数据表：Course categories,public/lib/db/install.xml,,"fields=id,name,idnumber,description,descriptionformat,parent,sortorder,coursecount,visible,visibleold,timemodified,depth"
+MDL-E0006,table,用户与身份,communication_user,定义数据表：Communication user records mapping,public/lib/db/install.xml,,"fields=id,commid,userid,synced,deleted"
+MDL-E0007,table,选课与群组,enrol,"定义数据表：Instances of enrolment plugins used in courses, fields marked as custom have a plugin defined meaning, core does not touch them. Create a new linked table if you need even more custom fields.",public/lib/db/install.xml,,"fields=id,enrol,status,courseid,sortorder,name,enrolperiod,enrolstartdate,enrolenddate,expirynotify,expirythreshold,notifyall"
+MDL-E0008,table,用户与身份,user_enrolments,"定义数据表：Users participating in courses (aka enrolled users) - everybody who is participating/visible in course, that means both teachers and students",public/lib/db/install.xml,,"fields=id,status,enrolid,userid,timestart,timeend,modifierid,timecreated,timemodified"
+MDL-E0009,table,课程与分类,course_modules,定义数据表：course_modules table retrofitted from MySQL,public/lib/db/install.xml,,"fields=id,course,module,instance,section,idnumber,added,score,indent,visible,visibleoncoursepage,visibleold"
+MDL-E0010,table,消息与日历,message,定义数据表：Stores all unread messages,public/lib/db/install.xml,,"fields=id,useridfrom,useridto,subject,fullmessage,fullmessageformat,fullmessagehtml,smallmessage,notification,contexturl,contexturlname,timecreated"
+MDL-E0011,table,用户与身份,message_user_actions,定义数据表：Stores all per-user actions on individual messages,public/lib/db/install.xml,,"fields=id,userid,messageid,action,timecreated"
+MDL-E0012,table,消息与日历,notifications,定义数据表：Stores all notifications,public/lib/db/install.xml,,"fields=id,useridfrom,useridto,subject,fullmessage,fullmessageformat,fullmessagehtml,smallmessage,component,eventtype,contexturl,contexturlname"
+MDL-E0013,table,用户与身份,message_contacts,定义数据表：Maintains lists of contacts between users,public/lib/db/install.xml,,"fields=id,userid,contactid,timecreated"
+MDL-E0014,table,用户与身份,message_contact_requests,定义数据表：Maintains list of contact requests between users,public/lib/db/install.xml,,"fields=id,userid,requesteduserid,timecreated"
+MDL-E0015,table,活动与资源,modules,定义数据表：modules available in the site,public/lib/db/install.xml,,"fields=id,name,cron,lastcron,search,visible"
+MDL-E0016,table,用户与身份,sessions,定义数据表：Database based session storage - now recommended,public/lib/db/install.xml,,"fields=id,state,sid,userid,sessdata,timecreated,timemodified,firstip,lastip"
+MDL-E0017,table,用户与身份,user,定义数据表：One record for each person,public/lib/db/install.xml,,"fields=id,auth,confirmed,policyagreed,deleted,suspended,mnethostid,username,password,idnumber,firstname,lastname"
+MDL-E0018,table,用户与身份,user_preferences,定义数据表：Allows modules to store arbitrary user preferences,public/lib/db/install.xml,,"fields=id,userid,name,value"
+MDL-E0019,table,用户与身份,user_lastaccess,"定义数据表：To keep track of course page access times, used in online participants block, and participants list",public/lib/db/install.xml,,"fields=id,userid,courseid,timeaccess"
+MDL-E0020,table,用户与身份,user_password_history,定义数据表：A rotating log of hashes of previously used passwords for each user.,public/lib/db/install.xml,,"fields=id,userid,hash,timecreated"
+MDL-E0021,table,成绩与完成,scale,定义数据表：Defines grading scales,public/lib/db/install.xml,,"fields=id,courseid,userid,name,scale,description,descriptionformat,timemodified"
+MDL-E0022,table,成绩与完成,scale_history,定义数据表：History table,public/lib/db/install.xml,,"fields=id,action,oldid,source,timemodified,loggeduser,courseid,userid,name,scale,description"
+MDL-E0023,table,用户与身份,stats_user_daily,定义数据表：To accumulate daily stats per course/user,public/lib/db/install.xml,,"fields=id,courseid,userid,roleid,timeend,statsreads,statswrites,stattype"
+MDL-E0024,table,用户与身份,stats_user_weekly,定义数据表：To accumulate weekly stats per course/user,public/lib/db/install.xml,,"fields=id,courseid,userid,roleid,timeend,statsreads,statswrites,stattype"
+MDL-E0025,table,用户与身份,stats_user_monthly,定义数据表：To accumulate monthly stats per course/user,public/lib/db/install.xml,,"fields=id,courseid,userid,roleid,timeend,statsreads,statswrites,stattype"
+MDL-E0026,table,权限与上下文,role,定义数据表：moodle roles,public/lib/db/install.xml,,"fields=id,name,shortname,description,sortorder,archetype"
+MDL-E0027,table,课程与分类,context,定义数据表：one of these must be set,public/lib/db/install.xml,,"fields=id,contextlevel,instanceid,path,depth,locked"
+MDL-E0028,table,权限与上下文,capabilities,定义数据表：this defines all capabilities,public/lib/db/install.xml,,"fields=id,name,captype,contextlevel,component,riskbitmask"
+MDL-E0029,table,权限与上下文,role_allow_assign,定义数据表：this defines what role can assign what role,public/lib/db/install.xml,,"fields=id,roleid,allowassign"
+MDL-E0030,table,权限与上下文,role_allow_override,定义数据表：this defines what role can override what role,public/lib/db/install.xml,,"fields=id,roleid,allowoverride"
+MDL-E0031,table,权限与上下文,role_allow_switch,定义数据表：This table stores which which other roles a user is allowed to switch to if they have one role.,public/lib/db/install.xml,,"fields=id,roleid,allowswitch"
+MDL-E0032,table,权限与上下文,role_allow_view,定义数据表：This table stores which which other roles a user is allowed to view to if they have one role.,public/lib/db/install.xml,,"fields=id,roleid,allowview"
+MDL-E0033,table,选课与群组,role_assignments,定义数据表：assigning roles in different context,public/lib/db/install.xml,,"fields=id,roleid,contextid,userid,timemodified,modifierid,component,itemid,sortorder"
+MDL-E0034,table,权限与上下文,role_capabilities,"定义数据表：permission has to be signed, overriding a capability for a particular role in a particular context",public/lib/db/install.xml,,"fields=id,contextid,roleid,capability,permission,timemodified,modifierid"
+MDL-E0035,table,权限与上下文,role_names,定义数据表：role names in native strings,public/lib/db/install.xml,,"fields=id,roleid,contextid,name"
+MDL-E0036,table,用户与身份,user_info_field,定义数据表：Customisable user profile fields,public/lib/db/install.xml,,"fields=id,shortname,name,datatype,description,descriptionformat,categoryid,sortorder,required,locked,visible,forceunique"
+MDL-E0037,table,用户与身份,user_info_category,定义数据表：Customisable fields categories,public/lib/db/install.xml,,"fields=id,name,sortorder"
+MDL-E0038,table,用户与身份,user_info_data,定义数据表：Data for the customisable user fields,public/lib/db/install.xml,,"fields=id,userid,fieldid,data,dataformat"
+MDL-E0039,table,题库与测验,question_categories,定义数据表：Categories are for grouping questions,public/lib/db/install.xml,,"fields=id,name,contextid,info,infoformat,stamp,parent,sortorder,idnumber"
+MDL-E0040,table,题库与测验,question,定义数据表：This table stores the definition of one version of a question.,public/lib/db/install.xml,,"fields=id,parent,name,questiontext,questiontextformat,generalfeedback,generalfeedbackformat,defaultmark,penalty,qtype,length,stamp"
+MDL-E0041,table,题库与测验,question_bank_entries,定义数据表：Each question bank entry. This table has one row for each question that appears in the question bank.,public/lib/db/install.xml,,"fields=id,questioncategoryid,idnumber,ownerid,nextversion"
+MDL-E0042,table,题库与测验,question_versions,定义数据表：A join table linking the different question version definitions in the question table to the question_bank_entires.,public/lib/db/install.xml,,"fields=id,questionbankentryid,version,questionid,status"
+MDL-E0043,table,题库与测验,question_references,定义数据表：Records where a specific question is used.,public/lib/db/install.xml,,"fields=id,usingcontextid,component,questionarea,itemid,questionbankentryid,version"
+MDL-E0044,table,题库与测验,question_set_references,定义数据表：Records where groups of questions are used.,public/lib/db/install.xml,,"fields=id,usingcontextid,component,questionarea,itemid,questionscontextid,filtercondition"
+MDL-E0045,table,题库与测验,question_answers,"定义数据表：Answers, with a fractional grade (0-1) and feedback",public/lib/db/install.xml,,"fields=id,question,answer,answerformat,fraction,feedback,feedbackformat"
+MDL-E0046,table,题库与测验,question_hints,定义数据表：Stores the the part of the question definition that gives different feedback after each try in interactive and similar behaviours.,public/lib/db/install.xml,,"fields=id,questionid,hint,hintformat,shownumcorrect,clearwrong,options"
+MDL-E0047,table,题库与测验,question_usages,定义数据表：This table's main purpose it to assign a unique id to each attempt at a set of questions by some part of Moodle. A question usage is made up of a number of question_attempts.,public/lib/db/install.xml,,"fields=id,contextid,component,preferredbehaviour"
+MDL-E0048,table,题库与测验,question_attempts,"定义数据表：Each row here corresponds to an attempt at one question, as part of a question_usage. A question_attempt will have some question_attempt_steps",public/lib/db/install.xml,,"fields=id,questionusageid,slot,behaviour,questionid,variant,maxmark,minfraction,maxfraction,flagged,questionsummary,rightanswer"
+MDL-E0049,table,题库与测验,question_attempt_steps,"定义数据表：Stores one step in in a question attempt. As well as the data here, the step will have some data in the question_attempt_step_data table.",public/lib/db/install.xml,,"fields=id,questionattemptid,sequencenumber,state,fraction,timecreated,userid"
+MDL-E0050,table,题库与测验,question_statistics,定义数据表：Statistics for individual questions used in an activity.,public/lib/db/install.xml,,"fields=id,hashcode,timemodified,questionid,slot,subquestion,variant,s,effectiveweight,negcovar,discriminationindex,discriminativeefficiency"
+MDL-E0051,table,题库与测验,question_response_analysis,定义数据表：Analysis of student responses given to questions.,public/lib/db/install.xml,,"fields=id,hashcode,whichtries,timemodified,questionid,variant,subqid,aid,response,credit"
+MDL-E0052,table,题库与测验,question_response_count,定义数据表：Count for each responses for each try at a question.,public/lib/db/install.xml,,"fields=id,analysisid,try,rcount"
+MDL-E0053,table,成绩与完成,grade_outcomes,"定义数据表：This table describes the outcomes used in the system. An outcome is a statement tied to a rubric scale from low to high, such as âNot met, Borderline, Metâ (stored as 0,1 or 2)",public/lib/db/install.xml,,"fields=id,courseid,shortname,fullname,scaleid,description,descriptionformat,timecreated,timemodified,usermodified"
+MDL-E0054,table,成绩与完成,grade_categories,"定义数据表：This table keeps information about categories, used for grouping items.",public/lib/db/install.xml,,"fields=id,courseid,parent,depth,path,fullname,aggregation,keephigh,droplow,aggregateonlygraded,aggregateoutcomes,timecreated"
+MDL-E0055,table,成绩与完成,grade_items,"定义数据表：This table keeps information about gradeable items (ie columns). If an activity (eg an assignment or quiz) has multiple grade_items associated with it (eg several outcomes or numerical grades), then there will be a corresponding multiple number of rows in this table.",public/lib/db/install.xml,,"fields=id,courseid,categoryid,itemname,itemtype,itemmodule,iteminstance,itemnumber,iteminfo,idnumber,calculation,gradetype"
+MDL-E0056,table,成绩与完成,grade_grades,"定义数据表：grade_grades  This table keeps individual grades for each user and each item, exactly as imported or submitted by modules. The rawgrademax/min and rawscaleid are stored here to record the values at the time the grade was stored, because teachers might change this for an activity! All the results are normalised/resampled for the final grade value.",public/lib/db/install.xml,,"fields=id,itemid,userid,rawgrade,rawgrademax,rawgrademin,rawscaleid,usermodified,finalgrade,hidden,locked,locktime"
+MDL-E0057,table,成绩与完成,grade_outcomes_history,定义数据表：History table,public/lib/db/install.xml,,"fields=id,action,oldid,source,timemodified,loggeduser,courseid,shortname,fullname,scaleid,description,descriptionformat"
+MDL-E0058,table,成绩与完成,grade_categories_history,定义数据表：History of grade_categories,public/lib/db/install.xml,,"fields=id,action,oldid,source,timemodified,loggeduser,courseid,parent,depth,path,fullname,aggregation"
+MDL-E0059,table,成绩与完成,grade_items_history,定义数据表：History of grade_items,public/lib/db/install.xml,,"fields=id,action,oldid,source,timemodified,loggeduser,courseid,categoryid,itemname,itemtype,itemmodule,iteminstance"
+MDL-E0060,table,成绩与完成,grade_grades_history,定义数据表：History table,public/lib/db/install.xml,,"fields=id,action,oldid,source,timemodified,loggeduser,itemid,userid,rawgrade,rawgrademax,rawgrademin,rawscaleid"
+MDL-E0061,table,成绩与完成,grade_import_newitem,定义数据表：temporary table for storing new grade_item names from grade import,public/lib/db/install.xml,,"fields=id,itemname,importcode,importer"
+MDL-E0062,table,成绩与完成,grade_import_values,定义数据表：Temporary table for importing grades,public/lib/db/install.xml,,"fields=id,itemid,newgradeitem,userid,finalgrade,feedback,importcode,importer,importonlyfeedback"
+MDL-E0063,table,选课与群组,groups,定义数据表：Each record represents a group.,public/lib/db/install.xml,,"fields=id,courseid,idnumber,name,description,descriptionformat,enrolmentkey,picture,visibility,participation,timecreated,timemodified"
+MDL-E0064,table,选课与群组,groupings,定义数据表：A grouping is a collection of groups. WAS: groups_groupings,public/lib/db/install.xml,,"fields=id,courseid,name,idnumber,description,descriptionformat,configdata,timecreated,timemodified"
+MDL-E0065,table,选课与群组,groups_members,定义数据表：Link a user to a group.,public/lib/db/install.xml,,"fields=id,groupid,userid,timeadded,component,itemid"
+MDL-E0066,table,选课与群组,groupings_groups,"定义数据表：Link a grouping to a group (note, groups can be in multiple groupings ONLY in a course). WAS: groups_groupings_groups",public/lib/db/install.xml,,"fields=id,groupingid,groupid,timeadded"
+MDL-E0067,table,选课与群组,cohort,定义数据表：Each record represents one cohort (aka site-wide group).,public/lib/db/install.xml,,"fields=id,contextid,name,idnumber,description,descriptionformat,visible,component,timecreated,timemodified,theme"
+MDL-E0068,table,选课与群组,cohort_members,定义数据表：Link a user to a cohort.,public/lib/db/install.xml,,"fields=id,cohortid,userid,timeadded"
+MDL-E0069,table,用户与身份,user_private_key,"定义数据表：access keys used in cookieless scripts - rss, etc.",public/lib/db/install.xml,,"fields=id,script,value,userid,instance,iprestriction,validuntil,timecreated"
+MDL-E0070,table,成绩与完成,grade_letters,"定义数据表：Repository for grade letters, for courses and other moodle entities that use grades.",public/lib/db/install.xml,,"fields=id,contextid,lowerboundary,letter"
+MDL-E0071,table,成绩与完成,grade_settings,定义数据表：gradebook settings,public/lib/db/install.xml,,"fields=id,courseid,name,value"
+MDL-E0072,table,用户与身份,portfolio_instance_user,定义数据表：user data for portfolio instances.,public/lib/db/install.xml,,"fields=id,instance,userid,name,value"
+MDL-E0073,table,课程与分类,files,"定义数据表：description of files, content is stored in sha1 file pool",public/lib/db/install.xml,,"fields=id,contenthash,pathnamehash,contextid,component,filearea,itemid,filepath,filename,userid,filesize,mimetype"
+MDL-E0074,table,课程与分类,files_reference,定义数据表：Store files references,public/lib/db/install.xml,,"fields=id,repositoryid,lastsync,reference,referencehash"
+MDL-E0075,table,其他/插件扩展,external_services,定义数据表：built in and custom external services,public/lib/db/install.xml,,"fields=id,name,enabled,requiredcapability,restrictedusers,component,timecreated,timemodified,shortname,downloadfiles,uploadfiles"
+MDL-E0076,table,其他/插件扩展,external_functions,定义数据表：list of all external functions,public/lib/db/install.xml,,"fields=id,name,classname,methodname,classpath,component,capabilities,services"
+MDL-E0077,table,用户与身份,external_services_users,定义数据表：users allowed to use services with restricted users flag,public/lib/db/install.xml,,"fields=id,externalserviceid,userid,iprestriction,validuntil,timecreated"
+MDL-E0078,table,用户与身份,external_tokens,定义数据表：Security tokens for accessing of external services,public/lib/db/install.xml,,"fields=id,token,privatetoken,tokentype,userid,externalserviceid,sid,contextid,creatorid,iprestriction,validuntil,timecreated"
+MDL-E0079,table,日志与分析,badge,定义数据表：Defines badge,public/lib/db/install.xml,,"fields=id,name,description,timecreated,timemodified,usercreated,usermodified,issuername,issuerurl,issuercontact,expiredate,expireperiod"
+MDL-E0080,table,用户与身份,badge_backpack_oauth2,"定义数据表：Default comment for the table, please edit me",public/lib/db/install.xml,,"fields=id,usermodified,timecreated,timemodified,userid,issuerid,externalbackpackid,token,refreshtoken,expires,scope"
+MDL-E0081,table,用户与身份,user_devices,定义数据表：This table stores user's mobile devices information in order to send PUSH notifications,public/lib/db/install.xml,,"fields=id,userid,appid,name,model,platform,version,pushid,uuid,publickey,timecreated,timemodified"
+MDL-E0082,table,用户与身份,user_password_resets,定义数据表：table tracking password reset confirmation tokens,public/lib/db/install.xml,,"fields=id,userid,timerequested,timererequested,token"
+MDL-E0083,table,日志与分析,competency,定义数据表：This table contains the master record of each competency in a framework,public/lib/db/install.xml,,"fields=id,shortname,description,descriptionformat,idnumber,competencyframeworkid,parentid,path,sortorder,ruletype,ruleoutcome,ruleconfig"
+MDL-E0084,table,选课与群组,competency_templatecohort,"定义数据表：Default comment for the table, please edit me",public/lib/db/install.xml,,"fields=id,templateid,cohortid,timecreated,timemodified,usermodified"
+MDL-E0085,table,用户与身份,competency_usercomp,定义数据表：User competencies,public/lib/db/install.xml,,"fields=id,userid,competencyid,status,reviewerid,proficiency,grade,timecreated,timemodified,usermodified"
+MDL-E0086,table,用户与身份,competency_usercompcourse,定义数据表：User competencies in a course,public/lib/db/install.xml,,"fields=id,userid,courseid,competencyid,proficiency,grade,timecreated,timemodified,usermodified"
+MDL-E0087,table,用户与身份,competency_usercompplan,定义数据表：User competencies plans,public/lib/db/install.xml,,"fields=id,userid,competencyid,planid,proficiency,grade,sortorder,timecreated,timemodified,usermodified"
+MDL-E0088,table,用户与身份,competency_userevidence,定义数据表：The evidence of prior learning,public/lib/db/install.xml,,"fields=id,userid,name,description,descriptionformat,url,timecreated,timemodified,usermodified"
+MDL-E0089,table,用户与身份,competency_userevidencecomp,定义数据表：Relationship between user evidence and competencies,public/lib/db/install.xml,,"fields=id,userevidenceid,competencyid,timecreated,timemodified,usermodified"
+MDL-E0090,table,用户与身份,oauth2_endpoint,定义数据表：Describes the named endpoint for an oauth2 service.,public/lib/db/install.xml,,"fields=id,timecreated,timemodified,usermodified,name,url,issuerid"
+MDL-E0091,table,用户与身份,oauth2_issuer,定义数据表：Details for an oauth 2 connect identity issuer.,public/lib/db/install.xml,,"fields=id,timecreated,timemodified,usermodified,name,image,baseurl,clientid,clientsecret,loginscopes,loginscopesoffline,loginparams"
+MDL-E0092,table,用户与身份,oauth2_system_account,定义数据表：Stored details used to get an access token as a system user for this oauth2 service.,public/lib/db/install.xml,,"fields=id,timecreated,timemodified,usermodified,issuerid,refreshtoken,grantedscopes,email,username"
+MDL-E0093,table,用户与身份,oauth2_user_field_mapping,定义数据表：Mapping of oauth user fields to moodle fields.,public/lib/db/install.xml,,"fields=id,timemodified,timecreated,usermodified,issuerid,externalfield,internalfield"
+MDL-E0094,table,用户与身份,oauth2_access_token,定义数据表：Stores access tokens for system accounts in order to be able to use a single token across multiple sessions,public/lib/db/install.xml,,"fields=id,timecreated,timemodified,usermodified,issuerid,token,expires,scope"
+MDL-E0095,table,用户与身份,oauth2_refresh_token,定义数据表：Stores refresh tokens which can be exchanged for access tokens,public/lib/db/install.xml,,"fields=id,timecreated,timemodified,userid,issuerid,token,scopehash"
+MDL-E0096,table,用户与身份,reportbuilder_user_filter,定义数据表：Defines user report filter,public/lib/db/install.xml,,"fields=id,reportid,filterdata,usercreated,usermodified,timecreated,timemodified"
+MDL-E0097,table,活动与资源,assign,定义数据表：This table saves information about an instance of mod_assign in a course.,public/mod/assign/db/install.xml,,"fields=id,course,name,intro,introformat,alwaysshowdescription,nosubmissions,submissiondrafts,sendnotifications,sendlatenotifications,duedate,allowsubmissionsfromdate"
+MDL-E0098,table,用户与身份,assign_user_mapping,定义数据表：Map an assignment specific id number to a user,public/mod/assign/db/install.xml,,"fields=id,assignment,userid"
+MDL-E0099,table,用户与身份,assign_user_flags,定义数据表：List of flags that can be set for a single user in a single assignment.,public/mod/assign/db/install.xml,,"fields=id,userid,assignment,locked,mailed,extensionduedate,workflowstate"
+MDL-E0100,table,活动与资源,forum,定义数据表：Forums contain and structure discussion,public/mod/forum/db/install.xml,,"fields=id,course,type,name,intro,introformat,duedate,cutoffdate,assessed,assesstimestart,assesstimefinish,scale"
+MDL-E0101,table,活动与资源,quiz,定义数据表：The settings for each quiz.,public/mod/quiz/db/install.xml,,"fields=id,course,name,intro,introformat,timeopen,timeclose,timelimit,overduehandling,graceperiod,preferredbehaviour,canredoquestions"
+MDL-E0102,table,选课与群组,enrol_flatfile,定义数据表：enrol_flatfile table retrofitted from MySQL,public/enrol/flatfile/db/install.xml,,"fields=id,action,roleid,userid,courseid,timestart,timeend,timemodified"
+MDL-E0103,table,选课与群组,enrol_lti_tools,定义数据表：List of tools provided to the remote system,public/enrol/lti/db/install.xml,,"fields=id,enrolid,contextid,ltiversion,institution,lang,timezone,maxenrolled,maildisplay,city,country,gradesync"
+MDL-E0104,table,用户与身份,enrol_lti_users,定义数据表：User access log and gradeback data,public/enrol/lti/db/install.xml,,"fields=id,userid,toolid,serviceurl,sourceid,ltideploymentid,consumerkey,consumersecret,membershipsurl,membershipsid,lastgrade,lastaccess"
+MDL-E0105,table,选课与群组,enrol_lti_lti2_consumer,定义数据表：LTI consumers interacting with moodle,public/enrol/lti/db/install.xml,,"fields=id,name,consumerkey256,consumerkey,secret,ltiversion,consumername,consumerversion,consumerguid,profile,toolproxy,settings"
+MDL-E0106,table,选课与群组,enrol_lti_lti2_tool_proxy,定义数据表：A tool proxy between moodle and a consumer,public/enrol/lti/db/install.xml,,"fields=id,toolproxykey,consumerid,toolproxy,created,updated"
+MDL-E0107,table,选课与群组,enrol_lti_lti2_nonce,定义数据表：Nonce used for authentication between moodle and a consumer,public/enrol/lti/db/install.xml,,"fields=id,consumerid,value,expires"
+MDL-E0108,table,选课与群组,enrol_lti_lti2_resource_link,定义数据表：Link from the consumer to the tool,public/enrol/lti/db/install.xml,,"fields=id,contextid,consumerid,ltiresourcelinkkey,settings,primaryresourcelinkid,shareapproved,created,updated"
+MDL-E0109,table,选课与群组,enrol_lti_lti2_share_key,定义数据表：Resource link share key,public/enrol/lti/db/install.xml,,"fields=id,sharekey,resourcelinkid,autoapprove,expires"
+MDL-E0110,table,用户与身份,enrol_lti_lti2_user_result,定义数据表：Results for each user for each resource link,public/enrol/lti/db/install.xml,,"fields=id,resourcelinkid,ltiuserkey,ltiresultsourcedid,created,updated"
+MDL-E0111,table,选课与群组,enrol_lti_tool_consumer_map,定义数据表：Table that maps the published tool to tool consumers.,public/enrol/lti/db/install.xml,,"fields=id,toolid,consumerid"
+MDL-E0112,table,选课与群组,enrol_lti_app_registration,定义数据表：Details of each application that has been registered with the tool,public/enrol/lti/db/install.xml,,"fields=id,name,platformid,clientid,uniqueid,platformclienthash,platformuniqueidhash,authenticationrequesturl,jwksurl,accesstokenurl,status,timecreated"
+MDL-E0113,table,选课与群组,enrol_lti_deployment,定义数据表：Each row represents a deployment of a tool within a platform.,public/enrol/lti/db/install.xml,,"fields=id,name,deploymentid,platformid,legacyconsumerkey,timecreated,timemodified"
+MDL-E0114,table,选课与群组,enrol_lti_resource_link,定义数据表：Each row represents a resource link for a platform and deployment,public/enrol/lti/db/install.xml,,"fields=id,resourcelinkid,ltideploymentid,resourceid,lticontextid,lineitemsservice,lineitemservice,lineitemscope,resultscope,scorescope,contextmembershipsurl,nrpsserviceversions"
+MDL-E0115,table,用户与身份,enrol_lti_user_resource_link,定义数据表：Join table mapping users to resource links as this is a many:many relationship,public/enrol/lti/db/install.xml,,"fields=id,ltiuserid,resourcelinkid"
+MDL-E0116,table,选课与群组,enrol_paypal,定义数据表：Holds all known information about PayPal transactions,public/enrol/paypal/db/install.xml,,"fields=id,business,receiver_email,receiver_id,item_name,courseid,userid,instanceid,memo,tax,option_name1,option_selection1_x"
+MDL-E0117,table,用户与身份,auth_lti_linked_login,定义数据表：Accounts linked to a users Moodle account.,public/auth/lti/db/install.xml,,"fields=id,userid,issuer,issuer256,sub,sub256,timecreated,timemodified"
+MDL-E0118,table,用户与身份,auth_oauth2_linked_login,定义数据表：Accounts linked to a users Moodle account.,public/auth/oauth2/db/install.xml,,"fields=id,timecreated,timemodified,usermodified,userid,issuerid,username,email,confirmtoken,confirmtokenexpires"
+MDL-E0119,table,成绩与完成,gradepenalty_duedate_rule,定义数据表：Penalty rules,public/grade/penalty/duedate/db/install.xml,,"fields=id,contextid,sortorder,overdueby,penalty,usermodified,timecreated,timemodified"
+MDL-E0120,table,选课与群组,tool_cohortroles,定义数据表：Mapping of users to cohort role assignments.,public/admin/tool/cohortroles/db/install.xml,,"fields=id,cohortid,roleid,userid,timecreated,timemodified,usermodified"
+MDL-E0121,table,权限与上下文,tool_dataprivacy_purposerole,定义数据表：Data purpose overrides for a specific role,public/admin/tool/dataprivacy/db/install.xml,,"fields=id,purposeid,roleid,lawfulbases,sensitivedatareasons,retentionperiod,protected,usermodified,timecreated,timemodified"
+MDL-E0122,table,用户与身份,tool_mfa,定义数据表：Table to store factor configurations for users,public/admin/tool/mfa/db/install.xml,,"fields=id,userid,factor,secret,label,timecreated,createdfromip,timemodified,lastverified,revoked,lockcounter"
+MDL-E0123,table,用户与身份,tool_mfa_secrets,定义数据表：Table to store factor secrets,public/admin/tool/mfa/db/install.xml,,"fields=id,userid,factor,secret,timecreated,expiry,revoked,sessionid"
+MDL-E0124,table,用户与身份,tool_mfa_auth,定义数据表：Stores the last time a successful MFA auth was registered for a userid,public/admin/tool/mfa/db/install.xml,,"fields=id,userid,lastverified"
+MDL-E0125,table,用户与身份,tool_usertours_tours,定义数据表：List of tours,public/admin/tool/usertours/db/install.xml,,"fields=id,name,description,pathmatch,enabled,sortorder,endtourlabel,configdata,displaystepnumbers"
+MDL-E0126,table,用户与身份,tool_usertours_steps,定义数据表：Steps in an tour,public/admin/tool/usertours/db/install.xml,,"fields=id,tourid,title,content,contentformat,targettype,targetvalue,sortorder,configdata"
+MDL-E0127,table,题库与测验,question_calculated,定义数据表：Options for questions of type calculated,public/question/type/calculated/db/install.xml,,"fields=id,question,answer,tolerance,tolerancetype,correctanswerlength,correctanswerformat"
+MDL-E0128,table,题库与测验,question_calculated_options,定义数据表：Options for questions of type calculated,public/question/type/calculated/db/install.xml,,"fields=id,question,synchronize,single,shuffleanswers,correctfeedback,correctfeedbackformat,partiallycorrectfeedback,partiallycorrectfeedbackformat,incorrectfeedback,incorrectfeedbackformat,answernumbering"
+MDL-E0129,table,题库与测验,question_ddwtos,定义数据表：Defines drag and drop (words into sentences) questions,public/question/type/ddwtos/db/install.xml,,"fields=id,questionid,shuffleanswers,correctfeedback,correctfeedbackformat,partiallycorrectfeedback,partiallycorrectfeedbackformat,incorrectfeedback,incorrectfeedbackformat,shownumcorrect"
+MDL-E0130,table,题库与测验,question_gapselect,定义数据表：Defines select missing words questions,public/question/type/gapselect/db/install.xml,,"fields=id,questionid,shuffleanswers,correctfeedback,correctfeedbackformat,partiallycorrectfeedback,partiallycorrectfeedbackformat,incorrectfeedback,incorrectfeedbackformat,shownumcorrect"
+MDL-E0131,table,题库与测验,qtype_match_subquestions,定义数据表：The subquestions that make up a matching question,public/question/type/match/db/install.xml,,"fields=id,questionid,questiontext,questiontextformat,answertext"
+MDL-E0132,table,题库与测验,question_numerical,定义数据表：Options for numerical questions.,public/question/type/numerical/db/install.xml,,"fields=id,question,answer,tolerance"
+MDL-E0133,table,题库与测验,question_numerical_options,定义数据表：Options for questions of type numerical This table is also used by the calculated question type,public/question/type/numerical/db/install.xml,,"fields=id,question,showunits,unitsleft,unitgradingtype,unitpenalty"
+MDL-E0134,table,题库与测验,question_numerical_units,定义数据表：Optional unit options for numerical questions. This table is also used by the calculated question type.,public/question/type/numerical/db/install.xml,,"fields=id,question,multiplier,unit"
+MDL-E0135,table,题库与测验,question_truefalse,定义数据表：Options for True-False questions,public/question/type/truefalse/db/install.xml,,"fields=id,question,trueanswer,falseanswer,showstandardinstruction"
+MDL-E0136,plugin,插件体系,mod_assign,mod 插件目录，表17张、权限18个、服务23个,public/mod/assign,,
+MDL-E0137,plugin,插件体系,mod_bigbluebuttonbn,mod 插件目录，表3张、权限14个、服务0个,public/mod/bigbluebuttonbn,,
+MDL-E0138,plugin,插件体系,mod_book,mod 插件目录，表2张、权限7个、服务2个,public/mod/book,,
+MDL-E0139,plugin,插件体系,mod_choice,mod 插件目录，表3张、权限6个、服务6个,public/mod/choice,,
+MDL-E0140,plugin,插件体系,mod_data,mod 插件目录，表4张、权限19个、服务13个,public/mod/data,,
+MDL-E0141,plugin,插件体系,mod_feedback,mod 插件目录，表8张、权限12个、服务14个,public/mod/feedback,,
+MDL-E0142,plugin,插件体系,mod_folder,mod 插件目录，表1张、权限4个、服务2个,public/mod/folder,,
+MDL-E0143,plugin,插件体系,mod_forum,mod 插件目录，表10张、权限38个、服务18个,public/mod/forum,,
+MDL-E0144,plugin,插件体系,mod_glossary,mod 插件目录，表6张、权限16个、服务15个,public/mod/glossary,,
+MDL-E0145,plugin,插件体系,mod_h5pactivity,mod 插件目录，表3张、权限4个、服务0个,public/mod/h5pactivity,,
+MDL-E0146,plugin,插件体系,mod_imscp,mod 插件目录，表1张、权限3个、服务2个,public/mod/imscp,,
+MDL-E0147,plugin,插件体系,mod_label,mod 插件目录，表1张、权限2个、服务1个,public/mod/label,,
+MDL-E0148,plugin,插件体系,mod_lesson,mod 插件目录，表8张、权限7个、服务17个,public/mod/lesson,,
+MDL-E0149,plugin,插件体系,mod_lti,mod 插件目录，表10张、权限8个、服务14个,public/mod/lti,,
+MDL-E0150,plugin,插件体系,mod_page,mod 插件目录，表1张、权限3个、服务2个,public/mod/page,,
+MDL-E0151,plugin,插件体系,mod_qbank,mod 插件目录，表1张、权限2个、服务0个,public/mod/qbank,,
+MDL-E0152,plugin,插件体系,mod_quiz,mod 插件目录，表13张、权限52个、服务0个,public/mod/quiz,,
+MDL-E0153,plugin,插件体系,mod_resource,mod 插件目录，表2张、权限3个、服务2个,public/mod/resource,,
+MDL-E0154,plugin,插件体系,mod_scorm,mod 插件目录，表13张、权限7个、服务9个,public/mod/scorm,,
+MDL-E0155,plugin,插件体系,mod_subsection,mod 插件目录，表1张、权限1个、服务0个,public/mod/subsection,,
+MDL-E0156,plugin,插件体系,mod_url,mod 插件目录，表1张、权限3个、服务2个,public/mod/url,,
+MDL-E0157,plugin,插件体系,mod_wiki,mod 插件目录，表7张、权限10个、服务10个,public/mod/wiki,,
+MDL-E0158,plugin,插件体系,mod_workshop,mod 插件目录，表14张、权限19个、服务19个,public/mod/workshop,,
+MDL-E0159,plugin,插件体系,enrol_category,enrol 插件目录，表0张、权限2个、服务0个,public/enrol/category,,
+MDL-E0160,plugin,插件体系,enrol_cohort,enrol 插件目录，表0张、权限2个、服务0个,public/enrol/cohort,,
+MDL-E0161,plugin,插件体系,enrol_database,enrol 插件目录，表0张、权限2个、服务0个,public/enrol/database,,
+MDL-E0162,plugin,插件体系,enrol_fee,enrol 插件目录，表0张、权限4个、服务0个,public/enrol/fee,,
+MDL-E0163,plugin,插件体系,enrol_flatfile,enrol 插件目录，表1张、权限2个、服务0个,public/enrol/flatfile,,
+MDL-E0164,plugin,插件体系,enrol_guest,enrol 插件目录，表0张、权限1个、服务1个,public/enrol/guest,,
+MDL-E0165,plugin,插件体系,enrol_imsenterprise,enrol 插件目录，表0张、权限1个、服务0个,public/enrol/imsenterprise,,
+MDL-E0166,plugin,插件体系,enrol_ldap,enrol 插件目录，表0张、权限1个、服务0个,public/enrol/ldap,,
+MDL-E0167,plugin,插件体系,enrol_lti,enrol 插件目录，表15张、权限2个、服务0个,public/enrol/lti,,
+MDL-E0168,plugin,插件体系,enrol_manual,enrol 插件目录，表0张、权限5个、服务2个,public/enrol/manual,,
+MDL-E0169,plugin,插件体系,enrol_meta,enrol 插件目录，表0张、权限3个、服务0个,public/enrol/meta,,
+MDL-E0170,plugin,插件体系,enrol_paypal,enrol 插件目录，表1张、权限4个、服务0个,public/enrol/paypal,,
+MDL-E0171,plugin,插件体系,enrol_self,enrol 插件目录，表0张、权限6个、服务2个,public/enrol/self,,
+MDL-E0172,plugin,插件体系,auth_email,auth 插件目录，表0张、权限0个、服务2个,public/auth/email,,
+MDL-E0173,plugin,插件体系,auth_ldap,auth 插件目录，表0张、权限0个、服务0个,public/auth/ldap,,
+MDL-E0174,plugin,插件体系,auth_lti,auth 插件目录，表1张、权限0个、服务0个,public/auth/lti,,
+MDL-E0175,plugin,插件体系,auth_manual,auth 插件目录，表0张、权限0个、服务0个,public/auth/manual,,
+MDL-E0176,plugin,插件体系,auth_nologin,auth 插件目录，表0张、权限0个、服务0个,public/auth/nologin,,
+MDL-E0177,plugin,插件体系,auth_none,auth 插件目录，表0张、权限0个、服务0个,public/auth/none,,
+MDL-E0178,plugin,插件体系,auth_oauth2,auth 插件目录，表1张、权限1个、服务0个,public/auth/oauth2,,
+MDL-E0179,plugin,插件体系,auth_shibboleth,auth 插件目录，表0张、权限0个、服务0个,public/auth/shibboleth,,
+MDL-E0180,plugin,插件体系,auth_webservice,auth 插件目录，表0张、权限0个、服务0个,public/auth/webservice,,
+MDL-E0181,plugin,插件体系,repository_areafiles,repository 插件目录，表0张、权限1个、服务0个,public/repository/areafiles,,
+MDL-E0182,plugin,插件体系,repository_contentbank,repository 插件目录，表0张、权限4个、服务0个,public/repository/contentbank,,
+MDL-E0183,plugin,插件体系,repository_coursefiles,repository 插件目录，表0张、权限1个、服务0个,public/repository/coursefiles,,
+MDL-E0184,plugin,插件体系,repository_dropbox,repository 插件目录，表0张、权限1个、服务0个,public/repository/dropbox,,
+MDL-E0185,plugin,插件体系,repository_equella,repository 插件目录，表0张、权限1个、服务0个,public/repository/equella,,
+MDL-E0186,plugin,插件体系,repository_filesystem,repository 插件目录，表0张、权限1个、服务0个,public/repository/filesystem,,
+MDL-E0187,plugin,插件体系,repository_flickr,repository 插件目录，表0张、权限1个、服务0个,public/repository/flickr,,
+MDL-E0188,plugin,插件体系,repository_flickr_public,repository 插件目录，表0张、权限1个、服务0个,public/repository/flickr_public,,
+MDL-E0189,plugin,插件体系,repository_googledocs,repository 插件目录，表0张、权限1个、服务0个,public/repository/googledocs,,
+MDL-E0190,plugin,插件体系,repository_local,repository 插件目录，表0张、权限1个、服务0个,public/repository/local,,
+MDL-E0191,plugin,插件体系,repository_merlot,repository 插件目录，表0张、权限1个、服务0个,public/repository/merlot,,
+MDL-E0192,plugin,插件体系,repository_nextcloud,repository 插件目录，表0张、权限1个、服务0个,public/repository/nextcloud,,
+MDL-E0193,plugin,插件体系,repository_onedrive,repository 插件目录，表1张、权限1个、服务0个,public/repository/onedrive,,
+MDL-E0194,plugin,插件体系,repository_recent,repository 插件目录，表0张、权限1个、服务0个,public/repository/recent,,
+MDL-E0195,plugin,插件体系,repository_s3,repository 插件目录，表0张、权限1个、服务0个,public/repository/s3,,
+MDL-E0196,plugin,插件体系,repository_upload,repository 插件目录，表0张、权限1个、服务0个,public/repository/upload,,
+MDL-E0197,plugin,插件体系,repository_url,repository 插件目录，表0张、权限1个、服务0个,public/repository/url,,
+MDL-E0198,plugin,插件体系,repository_user,repository 插件目录，表0张、权限1个、服务0个,public/repository/user,,
+MDL-E0199,plugin,插件体系,repository_webdav,repository 插件目录，表0张、权限1个、服务0个,public/repository/webdav,,
+MDL-E0200,plugin,插件体系,repository_wikimedia,repository 插件目录，表0张、权限1个、服务0个,public/repository/wikimedia,,
+MDL-E0201,plugin,插件体系,repository_youtube,repository 插件目录，表0张、权限1个、服务0个,public/repository/youtube,,
+MDL-E0202,plugin,插件体系,theme_boost,theme 插件目录，表0张、权限0个、服务0个,public/theme/boost,,
+MDL-E0203,plugin,插件体系,theme_classic,theme 插件目录，表0张、权限0个、服务0个,public/theme/classic,,
+MDL-E0204,plugin,插件体系,tool_admin_presets,tool 插件目录，表0张、权限0个、服务0个,public/admin/tool/admin_presets,,
+MDL-E0205,plugin,插件体系,tool_analytics,tool 插件目录，表0张、权限0个、服务1个,public/admin/tool/analytics,,
+MDL-E0206,plugin,插件体系,tool_availabilityconditions,tool 插件目录，表0张、权限0个、服务0个,public/admin/tool/availabilityconditions,,
+MDL-E0207,plugin,插件体系,tool_behat,tool 插件目录，表0张、权限0个、服务0个,public/admin/tool/behat,,
+MDL-E0208,plugin,插件体系,tool_brickfield,tool 插件目录，表10张、权限2个、服务0个,public/admin/tool/brickfield,,
+MDL-E0209,plugin,插件体系,tool_capability,tool 插件目录，表0张、权限0个、服务0个,public/admin/tool/capability,,
+MDL-E0210,plugin,插件体系,tool_cohortroles,tool 插件目录，表1张、权限0个、服务0个,public/admin/tool/cohortroles,,
+MDL-E0211,plugin,插件体系,tool_componentlibrary,tool 插件目录，表0张、权限0个、服务0个,public/admin/tool/componentlibrary,,
+MDL-E0212,plugin,插件体系,tool_customlang,tool 插件目录，表2张、权限3个、服务0个,public/admin/tool/customlang,,
+MDL-E0213,plugin,插件体系,tool_dataprivacy,tool 插件目录，表10张、权限8个、服务0个,public/admin/tool/dataprivacy,,
+MDL-E0214,plugin,插件体系,tool_dbtransfer,tool 插件目录，表0张、权限0个、服务0个,public/admin/tool/dbtransfer,,
+MDL-E0215,plugin,插件体系,tool_filetypes,tool 插件目录，表0张、权限0个、服务0个,public/admin/tool/filetypes,,
+MDL-E0216,plugin,插件体系,tool_generator,tool 插件目录，表0张、权限0个、服务0个,public/admin/tool/generator,,
+MDL-E0217,plugin,插件体系,tool_httpsreplace,tool 插件目录，表0张、权限0个、服务0个,public/admin/tool/httpsreplace,,
+MDL-E0218,plugin,插件体系,tool_installaddon,tool 插件目录，表0张、权限0个、服务0个,public/admin/tool/installaddon,,
+MDL-E0219,plugin,插件体系,tool_langimport,tool 插件目录，表0张、权限0个、服务0个,public/admin/tool/langimport,,
+MDL-E0220,plugin,插件体系,tool_licensemanager,tool 插件目录，表0张、权限0个、服务0个,public/admin/tool/licensemanager,,
+MDL-E0221,plugin,插件体系,tool_log,tool 插件目录，表0张、权限0个、服务0个,public/admin/tool/log,,
+MDL-E0222,plugin,插件体系,tool_lp,tool 插件目录，表0张、权限0个、服务17个,public/admin/tool/lp,,
+MDL-E0223,plugin,插件体系,tool_lpimportcsv,tool 插件目录，表0张、权限0个、服务0个,public/admin/tool/lpimportcsv,,
+MDL-E0224,plugin,插件体系,tool_lpmigrate,tool 插件目录，表0张、权限1个、服务0个,public/admin/tool/lpmigrate,,
+MDL-E0225,plugin,插件体系,tool_messageinbound,tool 插件目录，表0张、权限0个、服务0个,public/admin/tool/messageinbound,,
+MDL-E0226,plugin,插件体系,tool_mfa,tool 插件目录，表3张、权限2个、服务0个,public/admin/tool/mfa,,
+MDL-E0227,plugin,插件体系,tool_mobile,tool 插件目录，表0张、权限0个、服务8个,public/admin/tool/mobile,,
+MDL-E0228,plugin,插件体系,tool_monitor,tool 插件目录，表4张、权限3个、服务0个,public/admin/tool/monitor,,
+MDL-E0229,plugin,插件体系,tool_multilangupgrade,tool 插件目录，表0张、权限0个、服务0个,public/admin/tool/multilangupgrade,,
+MDL-E0230,plugin,插件体系,tool_oauth2,tool 插件目录，表0张、权限0个、服务0个,public/admin/tool/oauth2,,
+MDL-E0231,plugin,插件体系,tool_phpunit,tool 插件目录，表0张、权限0个、服务0个,public/admin/tool/phpunit,,
+MDL-E0232,plugin,插件体系,tool_policy,tool 插件目录，表3张、权限4个、服务0个,public/admin/tool/policy,,
+MDL-E0233,plugin,插件体系,tool_profiling,tool 插件目录，表0张、权限0个、服务0个,public/admin/tool/profiling,,
+MDL-E0234,plugin,插件体系,tool_recyclebin,tool 插件目录，表2张、权限3个、服务0个,public/admin/tool/recyclebin,,
+MDL-E0235,plugin,插件体系,tool_replace,tool 插件目录，表0张、权限0个、服务0个,public/admin/tool/replace,,
+MDL-E0236,plugin,插件体系,tool_spamcleaner,tool 插件目录，表0张、权限0个、服务0个,public/admin/tool/spamcleaner,,
+MDL-E0237,plugin,插件体系,tool_task,tool 插件目录，表0张、权限0个、服务0个,public/admin/tool/task,,
+MDL-E0238,plugin,插件体系,tool_templatelibrary,tool 插件目录，表0张、权限0个、服务2个,public/admin/tool/templatelibrary,,
+MDL-E0239,plugin,插件体系,tool_unsuproles,tool 插件目录，表0张、权限0个、服务0个,public/admin/tool/unsuproles,,
+MDL-E0240,plugin,插件体系,tool_uploadcourse,tool 插件目录，表0张、权限1个、服务0个,public/admin/tool/uploadcourse,,
+MDL-E0241,plugin,插件体系,tool_uploaduser,tool 插件目录，表0张、权限1个、服务0个,public/admin/tool/uploaduser,,
+MDL-E0242,plugin,插件体系,tool_usertours,tool 插件目录，表2张、权限1个、服务0个,public/admin/tool/usertours,,
+MDL-E0243,plugin,插件体系,tool_xmldb,tool 插件目录，表0张、权限0个、服务0个,public/admin/tool/xmldb,,
+MDL-E0244,plugin,插件体系,qtype_calculated,qtype 插件目录，表5张、权限0个、服务0个,public/question/type/calculated,,
+MDL-E0245,plugin,插件体系,qtype_calculatedmulti,qtype 插件目录，表0张、权限0个、服务0个,public/question/type/calculatedmulti,,
+MDL-E0246,plugin,插件体系,qtype_calculatedsimple,qtype 插件目录，表0张、权限0个、服务0个,public/question/type/calculatedsimple,,
+MDL-E0247,plugin,插件体系,qtype_ddimageortext,qtype 插件目录，表3张、权限0个、服务0个,public/question/type/ddimageortext,,
+MDL-E0248,plugin,插件体系,qtype_ddmarker,qtype 插件目录，表3张、权限0个、服务0个,public/question/type/ddmarker,,
+MDL-E0249,plugin,插件体系,qtype_ddwtos,qtype 插件目录，表1张、权限0个、服务0个,public/question/type/ddwtos,,
+MDL-E0250,plugin,插件体系,qtype_description,qtype 插件目录，表0张、权限0个、服务0个,public/question/type/description,,
+MDL-E0251,plugin,插件体系,qtype_essay,qtype 插件目录，表1张、权限0个、服务0个,public/question/type/essay,,
+MDL-E0252,plugin,插件体系,qtype_gapselect,qtype 插件目录，表1张、权限0个、服务0个,public/question/type/gapselect,,
+MDL-E0253,plugin,插件体系,qtype_match,qtype 插件目录，表2张、权限0个、服务0个,public/question/type/match,,
+MDL-E0254,plugin,插件体系,qtype_missingtype,qtype 插件目录，表0张、权限0个、服务0个,public/question/type/missingtype,,
+MDL-E0255,plugin,插件体系,qtype_multianswer,qtype 插件目录，表1张、权限0个、服务0个,public/question/type/multianswer,,
+MDL-E0256,plugin,插件体系,qtype_multichoice,qtype 插件目录，表1张、权限0个、服务0个,public/question/type/multichoice,,
+MDL-E0257,plugin,插件体系,qtype_numerical,qtype 插件目录，表3张、权限0个、服务0个,public/question/type/numerical,,
+MDL-E0258,plugin,插件体系,qtype_ordering,qtype 插件目录，表1张、权限0个、服务0个,public/question/type/ordering,,
+MDL-E0259,plugin,插件体系,qtype_randomsamatch,qtype 插件目录，表1张、权限0个、服务0个,public/question/type/randomsamatch,,
+MDL-E0260,plugin,插件体系,qtype_shortanswer,qtype 插件目录，表1张、权限0个、服务0个,public/question/type/shortanswer,,
+MDL-E0261,plugin,插件体系,qtype_truefalse,qtype 插件目录，表1张、权限0个、服务0个,public/question/type/truefalse,,
+MDL-E0262,plugin,插件体系,qbank_bulkmove,qbank 插件目录，表0张、权限0个、服务0个,public/question/bank/bulkmove,,
+MDL-E0263,plugin,插件体系,qbank_columnsortorder,qbank 插件目录，表0张、权限0个、服务0个,public/question/bank/columnsortorder,,
+MDL-E0264,plugin,插件体系,qbank_comment,qbank 插件目录，表0张、权限2个、服务0个,public/question/bank/comment,,
+MDL-E0265,plugin,插件体系,qbank_customfields,qbank 插件目录，表0张、权限3个、服务0个,public/question/bank/customfields,,
+MDL-E0266,plugin,插件体系,qbank_deletequestion,qbank 插件目录，表0张、权限0个、服务0个,public/question/bank/deletequestion,,
+MDL-E0267,plugin,插件体系,qbank_editquestion,qbank 插件目录，表0张、权限0个、服务0个,public/question/bank/editquestion,,
+MDL-E0268,plugin,插件体系,qbank_exportquestions,qbank 插件目录，表0张、权限0个、服务0个,public/question/bank/exportquestions,,
+MDL-E0269,plugin,插件体系,qbank_exporttoxml,qbank 插件目录，表0张、权限0个、服务0个,public/question/bank/exporttoxml,,
+MDL-E0270,plugin,插件体系,qbank_history,qbank 插件目录，表0张、权限0个、服务0个,public/question/bank/history,,
+MDL-E0271,plugin,插件体系,qbank_importquestions,qbank 插件目录，表0张、权限0个、服务0个,public/question/bank/importquestions,,
+MDL-E0272,plugin,插件体系,qbank_managecategories,qbank 插件目录，表0张、权限0个、服务0个,public/question/bank/managecategories,,
+MDL-E0273,plugin,插件体系,qbank_previewquestion,qbank 插件目录，表0张、权限0个、服务0个,public/question/bank/previewquestion,,
+MDL-E0274,plugin,插件体系,qbank_statistics,qbank 插件目录，表0张、权限0个、服务0个,public/question/bank/statistics,,
+MDL-E0275,plugin,插件体系,qbank_tagquestion,qbank 插件目录，表0张、权限0个、服务0个,public/question/bank/tagquestion,,
+MDL-E0276,plugin,插件体系,qbank_usage,qbank 插件目录，表0张、权限0个、服务0个,public/question/bank/usage,,
+MDL-E0277,plugin,插件体系,qbank_viewcreator,qbank 插件目录，表0张、权限0个、服务0个,public/question/bank/viewcreator,,
+MDL-E0278,plugin,插件体系,qbank_viewquestionname,qbank 插件目录，表0张、权限0个、服务0个,public/question/bank/viewquestionname,,
+MDL-E0279,plugin,插件体系,qbank_viewquestiontext,qbank 插件目录，表0张、权限0个、服务0个,public/question/bank/viewquestiontext,,
+MDL-E0280,plugin,插件体系,qbank_viewquestiontype,qbank 插件目录，表0张、权限0个、服务0个,public/question/bank/viewquestiontype,,
+MDL-E0281,capability,权限模型,mod/bigbluebuttonbn:addinstance,权限点由 access.php 注册,public/mod/bigbluebuttonbn/db/access.php,33,
+MDL-E0282,capability,权限模型,mod/bigbluebuttonbn:addinstancewithmeeting,权限点由 access.php 注册,public/mod/bigbluebuttonbn/db/access.php,45,
+MDL-E0283,capability,权限模型,mod/bigbluebuttonbn:addinstancewithrecording,权限点由 access.php 注册,public/mod/bigbluebuttonbn/db/access.php,56,
+MDL-E0284,capability,权限模型,mod/bigbluebuttonbn:join,权限点由 access.php 注册,public/mod/bigbluebuttonbn/db/access.php,67,
+MDL-E0285,capability,权限模型,mod/bigbluebuttonbn:view,权限点由 access.php 注册,public/mod/bigbluebuttonbn/db/access.php,80,
+MDL-E0286,capability,权限模型,mod/bigbluebuttonbn:managerecordings,权限点由 access.php 注册,public/mod/bigbluebuttonbn/db/access.php,92,
+MDL-E0287,capability,权限模型,mod/bigbluebuttonbn:viewallrecordingformats,权限点由 access.php 注册,public/mod/bigbluebuttonbn/db/access.php,103,
+MDL-E0288,capability,权限模型,mod/bigbluebuttonbn:publishrecordings,权限点由 access.php 注册,public/mod/bigbluebuttonbn/db/access.php,113,
+MDL-E0289,capability,权限模型,mod/bigbluebuttonbn:unpublishrecordings,权限点由 access.php 注册,public/mod/bigbluebuttonbn/db/access.php,123,
+MDL-E0290,capability,权限模型,mod/bigbluebuttonbn:protectrecordings,权限点由 access.php 注册,public/mod/bigbluebuttonbn/db/access.php,133,
+MDL-E0291,capability,权限模型,mod/bigbluebuttonbn:unprotectrecordings,权限点由 access.php 注册,public/mod/bigbluebuttonbn/db/access.php,143,
+MDL-E0292,capability,权限模型,mod/bigbluebuttonbn:deleterecordings,权限点由 access.php 注册,public/mod/bigbluebuttonbn/db/access.php,153,
+MDL-E0293,capability,权限模型,mod/bigbluebuttonbn:importrecordings,权限点由 access.php 注册,public/mod/bigbluebuttonbn/db/access.php,163,
+MDL-E0294,capability,权限模型,mod/bigbluebuttonbn:seepresentation,权限点由 access.php 注册,public/mod/bigbluebuttonbn/db/access.php,173,
+MDL-E0295,capability,权限模型,mod/qbank:view,权限点由 access.php 注册,public/mod/qbank/db/access.php,31,
+MDL-E0296,capability,权限模型,mod/qbank:addinstance,权限点由 access.php 注册,public/mod/qbank/db/access.php,41,
+MDL-E0297,capability,权限模型,mod/data:addinstance,权限点由 access.php 注册,public/mod/data/db/access.php,29,
+MDL-E0298,capability,权限模型,mod/data:viewentry,权限点由 access.php 注册,public/mod/data/db/access.php,41,
+MDL-E0299,capability,权限模型,mod/data:writeentry,权限点由 access.php 注册,public/mod/data/db/access.php,55,
+MDL-E0300,capability,权限模型,mod/data:rate,权限点由 access.php 注册,public/mod/data/db/access.php,69,
+MDL-E0301,capability,权限模型,mod/data:viewrating,权限点由 access.php 注册,public/mod/data/db/access.php,80,
+MDL-E0302,capability,权限模型,mod/data:viewanyrating,权限点由 access.php 注册,public/mod/data/db/access.php,91,
+MDL-E0303,capability,权限模型,mod/data:viewallratings,权限点由 access.php 注册,public/mod/data/db/access.php,104,
+MDL-E0304,capability,权限模型,mod/data:approve,权限点由 access.php 注册,public/mod/data/db/access.php,117,
+MDL-E0305,capability,权限模型,mod/data:manageentries,权限点由 access.php 注册,public/mod/data/db/access.php,130,
+MDL-E0306,capability,权限模型,mod/data:managetemplates,权限点由 access.php 注册,public/mod/data/db/access.php,143,
+MDL-E0307,capability,权限模型,mod/data:viewalluserpresets,权限点由 access.php 注册,public/mod/data/db/access.php,155,
+MDL-E0308,capability,权限模型,mod/data:manageuserpresets,权限点由 access.php 注册,public/mod/data/db/access.php,166,
+MDL-E0309,capability,权限模型,mod/data:exportentry,权限点由 access.php 注册,public/mod/data/db/access.php,177,
+MDL-E0310,capability,权限模型,mod/data:exportownentry,权限点由 access.php 注册,public/mod/data/db/access.php,190,
+MDL-E0311,capability,权限模型,mod/data:exportallentries,权限点由 access.php 注册,public/mod/data/db/access.php,202,
+MDL-E0312,capability,权限模型,mod/data:exportuserinfo,权限点由 access.php 注册,public/mod/data/db/access.php,215,
+MDL-E0313,capability,权限模型,mod/data:view,权限点由 access.php 注册,public/mod/data/db/access.php,228,
+MDL-E0314,capability,权限模型,mod/data:comment,权限点由 access.php 注册,public/mod/data/db/access.php,242,
+MDL-E0315,capability,权限模型,mod/data:managecomments,权限点由 access.php 注册,public/mod/data/db/access.php,243,
+MDL-E0316,capability,权限模型,mod/resource:view,权限点由 access.php 注册,public/mod/resource/db/access.php,28,
+MDL-E0317,capability,权限模型,mod/resource:addinstance,权限点由 access.php 注册,public/mod/resource/db/access.php,37,
+MDL-E0318,capability,权限模型,mod/resource:portfolioexport,权限点由 access.php 注册,public/mod/resource/db/access.php,50,
+MDL-E0319,capability,权限模型,mod/lesson:addinstance,权限点由 access.php 注册,public/mod/lesson/db/access.php,31,
+MDL-E0320,capability,权限模型,mod/lesson:edit,权限点由 access.php 注册,public/mod/lesson/db/access.php,43,
+MDL-E0321,capability,权限模型,mod/lesson:grade,权限点由 access.php 注册,public/mod/lesson/db/access.php,56,
+MDL-E0322,capability,权限模型,mod/lesson:viewreports,权限点由 access.php 注册,public/mod/lesson/db/access.php,68,
+MDL-E0323,capability,权限模型,mod/lesson:manage,权限点由 access.php 注册,public/mod/lesson/db/access.php,79,
+MDL-E0324,capability,权限模型,mod/lesson:manageoverrides,权限点由 access.php 注册,public/mod/lesson/db/access.php,91,
+MDL-E0325,capability,权限模型,mod/lesson:view,权限点由 access.php 注册,public/mod/lesson/db/access.php,100,
+MDL-E0326,capability,权限模型,mod/glossary:addinstance,权限点由 access.php 注册,public/mod/glossary/db/access.php,29,
+MDL-E0327,capability,权限模型,mod/glossary:view,权限点由 access.php 注册,public/mod/glossary/db/access.php,41,
+MDL-E0328,capability,权限模型,mod/glossary:write,权限点由 access.php 注册,public/mod/glossary/db/access.php,55,
+MDL-E0329,capability,权限模型,mod/glossary:manageentries,权限点由 access.php 注册,public/mod/glossary/db/access.php,69,
+MDL-E0330,capability,权限模型,mod/glossary:managecategories,权限点由 access.php 注册,public/mod/glossary/db/access.php,82,
+MDL-E0331,capability,权限模型,mod/glossary:comment,权限点由 access.php 注册,public/mod/glossary/db/access.php,95,
+MDL-E0332,capability,权限模型,mod/glossary:managecomments,权限点由 access.php 注册,public/mod/glossary/db/access.php,109,
+MDL-E0333,capability,权限模型,mod/glossary:import,权限点由 access.php 注册,public/mod/glossary/db/access.php,122,
+MDL-E0334,capability,权限模型,mod/glossary:export,权限点由 access.php 注册,public/mod/glossary/db/access.php,135,
+MDL-E0335,capability,权限模型,mod/glossary:approve,权限点由 access.php 注册,public/mod/glossary/db/access.php,146,
+MDL-E0336,capability,权限模型,mod/glossary:rate,权限点由 access.php 注册,public/mod/glossary/db/access.php,159,
+MDL-E0337,capability,权限模型,mod/glossary:viewrating,权限点由 access.php 注册,public/mod/glossary/db/access.php,170,
+MDL-E0338,capability,权限模型,mod/glossary:viewanyrating,权限点由 access.php 注册,public/mod/glossary/db/access.php,181,
+MDL-E0339,capability,权限模型,mod/glossary:viewallratings,权限点由 access.php 注册,public/mod/glossary/db/access.php,194,
+MDL-E0340,capability,权限模型,mod/glossary:exportentry,权限点由 access.php 注册,public/mod/glossary/db/access.php,207,
+MDL-E0341,capability,权限模型,mod/glossary:exportownentry,权限点由 access.php 注册,public/mod/glossary/db/access.php,220,
+MDL-E0342,capability,权限模型,mod/book:addinstance,权限点由 access.php 注册,public/mod/book/db/access.php,29,
+MDL-E0343,capability,权限模型,mod/book:read,权限点由 access.php 注册,public/mod/book/db/access.php,41,
+MDL-E0344,capability,权限模型,mod/book:viewhiddenchapters,权限点由 access.php 注册,public/mod/book/db/access.php,54,
+MDL-E0345,capability,权限模型,mod/book:edit,权限点由 access.php 注册,public/mod/book/db/access.php,64,
+MDL-E0346,capability,权限模型,booktool/exportimscp:export,权限点由 access.php 注册,public/mod/book/tool/exportimscp/db/access.php,28,
+MDL-E0347,capability,权限模型,booktool/print:print,权限点由 access.php 注册,public/mod/book/tool/print/db/access.php,28,
+MDL-E0348,capability,权限模型,booktool/importhtml:import,权限点由 access.php 注册,public/mod/book/tool/importhtml/db/access.php,28,
+MDL-E0349,capability,权限模型,mod/h5pactivity:view,权限点由 access.php 注册,public/mod/h5pactivity/db/access.php,30,
+MDL-E0350,capability,权限模型,mod/h5pactivity:addinstance,权限点由 access.php 注册,public/mod/h5pactivity/db/access.php,42,
+MDL-E0351,capability,权限模型,mod/h5pactivity:submit,权限点由 access.php 注册,public/mod/h5pactivity/db/access.php,52,
+MDL-E0352,capability,权限模型,mod/h5pactivity:reviewattempts,权限点由 access.php 注册,public/mod/h5pactivity/db/access.php,60,
+MDL-E0353,capability,权限模型,mod/assign:view,权限点由 access.php 注册,public/mod/assign/db/access.php,27,
+MDL-E0354,capability,权限模型,mod/assign:submit,权限点由 access.php 注册,public/mod/assign/db/access.php,40,
+MDL-E0355,capability,权限模型,mod/assign:grade,权限点由 access.php 注册,public/mod/assign/db/access.php,49,
+MDL-E0356,capability,权限模型,mod/assign:exportownsubmission,权限点由 access.php 注册,public/mod/assign/db/access.php,61,
+MDL-E0357,capability,权限模型,mod/assign:addinstance,权限点由 access.php 注册,public/mod/assign/db/access.php,73,
+MDL-E0358,capability,权限模型,mod/assign:editothersubmission,权限点由 access.php 注册,public/mod/assign/db/access.php,85,
+MDL-E0359,capability,权限模型,mod/assign:grantextension,权限点由 access.php 注册,public/mod/assign/db/access.php,91,
+MDL-E0360,capability,权限模型,mod/assign:revealidentities,权限点由 access.php 注册,public/mod/assign/db/access.php,102,
+MDL-E0361,capability,权限模型,mod/assign:reviewgrades,权限点由 access.php 注册,public/mod/assign/db/access.php,112,
+MDL-E0362,capability,权限模型,mod/assign:releasegrades,权限点由 access.php 注册,public/mod/assign/db/access.php,122,
+MDL-E0363,capability,权限模型,mod/assign:managegrades,权限点由 access.php 注册,public/mod/assign/db/access.php,132,
+MDL-E0364,capability,权限模型,mod/assign:manageallocations,权限点由 access.php 注册,public/mod/assign/db/access.php,142,
+MDL-E0365,capability,权限模型,mod/assign:viewgrades,权限点由 access.php 注册,public/mod/assign/db/access.php,152,
+MDL-E0366,capability,权限模型,mod/assign:viewblinddetails,权限点由 access.php 注册,public/mod/assign/db/access.php,162,
+MDL-E0367,capability,权限模型,mod/assign:receivegradernotifications,权限点由 access.php 注册,public/mod/assign/db/access.php,172,
+MDL-E0368,capability,权限模型,mod/assign:manageoverrides,权限点由 access.php 注册,public/mod/assign/db/access.php,183,
+MDL-E0369,capability,权限模型,mod/assign:showhiddengrader,权限点由 access.php 注册,public/mod/assign/db/access.php,192,
+MDL-E0370,capability,权限模型,mod/assign:viewownsubmissionsummary,权限点由 access.php 注册,public/mod/assign/db/access.php,202,
+MDL-E0371,capability,权限模型,mod/lti:view,权限点由 access.php 注册,public/mod/lti/db/access.php,35,
+MDL-E0372,capability,权限模型,mod/lti:addinstance,权限点由 access.php 注册,public/mod/lti/db/access.php,47,
+MDL-E0373,capability,权限模型,mod/lti:manage,权限点由 access.php 注册,public/mod/lti/db/access.php,62,
+MDL-E0374,capability,权限模型,mod/lti:admin,权限点由 access.php 注册,public/mod/lti/db/access.php,77,
+MDL-E0375,capability,权限模型,mod/lti:addcoursetool,权限点由 access.php 注册,public/mod/lti/db/access.php,85,
+MDL-E0376,capability,权限模型,mod/lti:addpreconfiguredinstance,权限点由 access.php 注册,public/mod/lti/db/access.php,95,
+MDL-E0377,capability,权限模型,mod/lti:requesttooladd,权限点由 access.php 注册,public/mod/lti/db/access.php,107,
+MDL-E0378,capability,权限模型,mod/lti:addmanualinstance,权限点由 access.php 注册,public/mod/lti/db/access.php,118,
+MDL-E0379,capability,权限模型,mod/forum:addinstance,权限点由 access.php 注册,public/mod/forum/db/access.php,29,
+MDL-E0380,capability,权限模型,mod/forum:viewdiscussion,权限点由 access.php 注册,public/mod/forum/db/access.php,41,
+MDL-E0381,capability,权限模型,mod/forum:viewhiddentimedposts,权限点由 access.php 注册,public/mod/forum/db/access.php,55,
+MDL-E0382,capability,权限模型,mod/forum:startdiscussion,权限点由 access.php 注册,public/mod/forum/db/access.php,66,
+MDL-E0383,capability,权限模型,mod/forum:replypost,权限点由 access.php 注册,public/mod/forum/db/access.php,80,
+MDL-E0384,capability,权限模型,mod/forum:addnews,权限点由 access.php 注册,public/mod/forum/db/access.php,94,
+MDL-E0385,capability,权限模型,mod/forum:replynews,权限点由 access.php 注册,public/mod/forum/db/access.php,107,
+MDL-E0386,capability,权限模型,mod/forum:viewrating,权限点由 access.php 注册,public/mod/forum/db/access.php,120,
+MDL-E0387,capability,权限模型,mod/forum:viewanyrating,权限点由 access.php 注册,public/mod/forum/db/access.php,132,
+MDL-E0388,capability,权限模型,mod/forum:viewallratings,权限点由 access.php 注册,public/mod/forum/db/access.php,144,
+MDL-E0389,capability,权限模型,mod/forum:rate,权限点由 access.php 注册,public/mod/forum/db/access.php,157,
+MDL-E0390,capability,权限模型,mod/forum:postprivatereply,权限点由 access.php 注册,public/mod/forum/db/access.php,168,
+MDL-E0391,capability,权限模型,mod/forum:readprivatereplies,权限点由 access.php 注册,public/mod/forum/db/access.php,178,
+MDL-E0392,capability,权限模型,mod/forum:createattachment,权限点由 access.php 注册,public/mod/forum/db/access.php,188,
+MDL-E0393,capability,权限模型,mod/forum:deleteownpost,权限点由 access.php 注册,public/mod/forum/db/access.php,202,
+MDL-E0394,capability,权限模型,mod/forum:deleteanypost,权限点由 access.php 注册,public/mod/forum/db/access.php,214,
+MDL-E0395,capability,权限模型,mod/forum:splitdiscussions,权限点由 access.php 注册,public/mod/forum/db/access.php,225,
+MDL-E0396,capability,权限模型,mod/forum:movediscussions,权限点由 access.php 注册,public/mod/forum/db/access.php,236,
+MDL-E0397,capability,权限模型,mod/forum:pindiscussions,权限点由 access.php 注册,public/mod/forum/db/access.php,247,
+MDL-E0398,capability,权限模型,mod/forum:editanypost,权限点由 access.php 注册,public/mod/forum/db/access.php,258,
+MDL-E0399,capability,权限模型,mod/forum:viewqandawithoutposting,权限点由 access.php 注册,public/mod/forum/db/access.php,271,
+MDL-E0400,capability,权限模型,mod/forum:viewsubscribers,权限点由 access.php 注册,public/mod/forum/db/access.php,282,
+MDL-E0401,capability,权限模型,mod/forum:managesubscriptions,权限点由 access.php 注册,public/mod/forum/db/access.php,293,
+MDL-E0402,capability,权限模型,mod/forum:postwithoutthrottling,权限点由 access.php 注册,public/mod/forum/db/access.php,306,
+MDL-E0403,capability,权限模型,mod/forum:exportdiscussion,权限点由 access.php 注册,public/mod/forum/db/access.php,319,
+MDL-E0404,capability,权限模型,mod/forum:exportforum,权限点由 access.php 注册,public/mod/forum/db/access.php,331,
+MDL-E0405,capability,权限模型,mod/forum:exportpost,权限点由 access.php 注册,public/mod/forum/db/access.php,342,
+MDL-E0406,capability,权限模型,mod/forum:exportownpost,权限点由 access.php 注册,public/mod/forum/db/access.php,354,
+MDL-E0407,capability,权限模型,mod/forum:addquestion,权限点由 access.php 注册,public/mod/forum/db/access.php,367,
+MDL-E0408,capability,权限模型,mod/forum:allowforcesubscribe,权限点由 access.php 注册,public/mod/forum/db/access.php,379,
+MDL-E0409,capability,权限模型,mod/forum:canposttomygroups,权限点由 access.php 注册,public/mod/forum/db/access.php,390,
+MDL-E0410,capability,权限模型,mod/forum:canoverridediscussionlock,权限点由 access.php 注册,public/mod/forum/db/access.php,400,
+MDL-E0411,capability,权限模型,mod/forum:canoverridecutoff,权限点由 access.php 注册,public/mod/forum/db/access.php,409,
+MDL-E0412,capability,权限模型,mod/forum:cantogglefavourite,权限点由 access.php 注册,public/mod/forum/db/access.php,419,
+MDL-E0413,capability,权限模型,mod/forum:grade,权限点由 access.php 注册,public/mod/forum/db/access.php,427,
+MDL-E0414,capability,权限模型,mod/forum:canmailnow,权限点由 access.php 注册,public/mod/forum/db/access.php,437,
+MDL-E0415,capability,权限模型,forumreport/summary:view,权限点由 access.php 注册,public/mod/forum/report/summary/db/access.php,28,
+MDL-E0416,capability,权限模型,forumreport/summary:viewall,权限点由 access.php 注册,public/mod/forum/report/summary/db/access.php,38,
+MDL-E0417,capability,权限模型,mod/scorm:addinstance,权限点由 access.php 注册,public/mod/scorm/db/access.php,29,
+MDL-E0418,capability,权限模型,mod/scorm:viewreport,权限点由 access.php 注册,public/mod/scorm/db/access.php,41,
+MDL-E0419,capability,权限模型,mod/scorm:skipview,权限点由 access.php 注册,public/mod/scorm/db/access.php,52,
+MDL-E0420,capability,权限模型,mod/scorm:savetrack,权限点由 access.php 注册,public/mod/scorm/db/access.php,61,
+MDL-E0421,capability,权限模型,mod/scorm:viewscores,权限点由 access.php 注册,public/mod/scorm/db/access.php,73,
+MDL-E0422,capability,权限模型,mod/scorm:deleteresponses,权限点由 access.php 注册,public/mod/scorm/db/access.php,84,
+MDL-E0423,capability,权限模型,mod/scorm:deleteownresponses,权限点由 access.php 注册,public/mod/scorm/db/access.php,94,
+MDL-E0424,capability,权限模型,mod/feedback:addinstance,权限点由 access.php 注册,public/mod/feedback/db/access.php,29,
+MDL-E0425,capability,权限模型,mod/feedback:view,权限点由 access.php 注册,public/mod/feedback/db/access.php,41,
+MDL-E0426,capability,权限模型,mod/feedback:complete,权限点由 access.php 注册,public/mod/feedback/db/access.php,55,
+MDL-E0427,capability,权限模型,mod/feedback:viewanalysepage,权限点由 access.php 注册,public/mod/feedback/db/access.php,67,
+MDL-E0428,capability,权限模型,mod/feedback:deletesubmissions,权限点由 access.php 注册,public/mod/feedback/db/access.php,80,
+MDL-E0429,capability,权限模型,mod/feedback:mapcourse,权限点由 access.php 注册,public/mod/feedback/db/access.php,90,
+MDL-E0430,capability,权限模型,mod/feedback:edititems,权限点由 access.php 注册,public/mod/feedback/db/access.php,99,
+MDL-E0431,capability,权限模型,mod/feedback:createprivatetemplate,权限点由 access.php 注册,public/mod/feedback/db/access.php,111,
+MDL-E0432,capability,权限模型,mod/feedback:createpublictemplate,权限点由 access.php 注册,public/mod/feedback/db/access.php,123,
+MDL-E0433,capability,权限模型,mod/feedback:deletetemplate,权限点由 access.php 注册,public/mod/feedback/db/access.php,135,
+MDL-E0434,capability,权限模型,mod/feedback:viewreports,权限点由 access.php 注册,public/mod/feedback/db/access.php,145,
+MDL-E0435,capability,权限模型,mod/feedback:receivemail,权限点由 access.php 注册,public/mod/feedback/db/access.php,158,
+MDL-E0436,capability,权限模型,mod/url:view,权限点由 access.php 注册,public/mod/url/db/access.php,28,
+MDL-E0437,capability,权限模型,mod/url:addinstance,权限点由 access.php 注册,public/mod/url/db/access.php,37,
+MDL-E0438,capability,权限模型,mod/url:portfolioexport,权限点由 access.php 注册,public/mod/url/db/access.php,50,
+MDL-E0439,capability,权限模型,mod/choice:addinstance,权限点由 access.php 注册,public/mod/choice/db/access.php,29,
+MDL-E0440,capability,权限模型,mod/choice:choose,权限点由 access.php 注册,public/mod/choice/db/access.php,41,
+MDL-E0441,capability,权限模型,mod/choice:readresponses,权限点由 access.php 注册,public/mod/choice/db/access.php,52,
+MDL-E0442,capability,权限模型,mod/choice:deleteresponses,权限点由 access.php 注册,public/mod/choice/db/access.php,63,
+MDL-E0443,capability,权限模型,mod/choice:downloadresponses,权限点由 access.php 注册,public/mod/choice/db/access.php,74,
+MDL-E0444,capability,权限模型,mod/choice:view,权限点由 access.php 注册,public/mod/choice/db/access.php,85,
+MDL-E0445,capability,权限模型,mod/wiki:addinstance,权限点由 access.php 注册,public/mod/wiki/db/access.php,29,
+MDL-E0446,capability,权限模型,mod/wiki:viewpage,权限点由 access.php 注册,public/mod/wiki/db/access.php,41,
+MDL-E0447,capability,权限模型,mod/wiki:editpage,权限点由 access.php 注册,public/mod/wiki/db/access.php,55,
+MDL-E0448,capability,权限模型,mod/wiki:createpage,权限点由 access.php 注册,public/mod/wiki/db/access.php,69,
+MDL-E0449,capability,权限模型,mod/wiki:viewcomment,权限点由 access.php 注册,public/mod/wiki/db/access.php,83,
+MDL-E0450,capability,权限模型,mod/wiki:editcomment,权限点由 access.php 注册,public/mod/wiki/db/access.php,95,
+MDL-E0451,capability,权限模型,mod/wiki:managecomment,权限点由 access.php 注册,public/mod/wiki/db/access.php,109,
+MDL-E0452,capability,权限模型,mod/wiki:managefiles,权限点由 access.php 注册,public/mod/wiki/db/access.php,120,
+MDL-E0453,capability,权限模型,mod/wiki:overridelock,权限点由 access.php 注册,public/mod/wiki/db/access.php,131,
+MDL-E0454,capability,权限模型,mod/wiki:managewiki,权限点由 access.php 注册,public/mod/wiki/db/access.php,142,
+MDL-E0455,capability,权限模型,mod/quiz:view,权限点由 access.php 注册,public/mod/quiz/db/access.php,31,
+MDL-E0456,capability,权限模型,mod/quiz:addinstance,权限点由 access.php 注册,public/mod/quiz/db/access.php,44,
+MDL-E0457,capability,权限模型,mod/quiz:attempt,权限点由 access.php 注册,public/mod/quiz/db/access.php,57,
+MDL-E0458,capability,权限模型,mod/quiz:reviewmyattempts,权限点由 access.php 注册,public/mod/quiz/db/access.php,68,
+MDL-E0459,capability,权限模型,mod/quiz:manage,权限点由 access.php 注册,public/mod/quiz/db/access.php,78,
+MDL-E0460,capability,权限模型,mod/quiz:manageoverrides,权限点由 access.php 注册,public/mod/quiz/db/access.php,89,
+MDL-E0461,capability,权限模型,mod/quiz:viewoverrides,权限点由 access.php 注册,public/mod/quiz/db/access.php,99,
+MDL-E0462,capability,权限模型,mod/quiz:preview,权限点由 access.php 注册,public/mod/quiz/db/access.php,110,
+MDL-E0463,capability,权限模型,mod/quiz:grade,权限点由 access.php 注册,public/mod/quiz/db/access.php,121,
+MDL-E0464,capability,权限模型,mod/quiz:regrade,权限点由 access.php 注册,public/mod/quiz/db/access.php,133,
+MDL-E0465,capability,权限模型,mod/quiz:viewreports,权限点由 access.php 注册,public/mod/quiz/db/access.php,146,
+MDL-E0466,capability,权限模型,mod/quiz:deleteattempts,权限点由 access.php 注册,public/mod/quiz/db/access.php,158,
+MDL-E0467,capability,权限模型,mod/quiz:reopenattempts,权限点由 access.php 注册,public/mod/quiz/db/access.php,169,
+MDL-E0468,capability,权限模型,mod/quiz:ignoretimelimits,权限点由 access.php 注册,public/mod/quiz/db/access.php,179,
+MDL-E0469,capability,权限模型,mod/quiz:emailconfirmsubmission,权限点由 access.php 注册,public/mod/quiz/db/access.php,186,
+MDL-E0470,capability,权限模型,mod/quiz:emailnotifysubmission,权限点由 access.php 注册,public/mod/quiz/db/access.php,193,
+MDL-E0471,capability,权限模型,mod/quiz:emailwarnoverdue,权限点由 access.php 注册,public/mod/quiz/db/access.php,200,
+MDL-E0472,capability,权限模型,mod/quiz:emailnotifyattemptgraded,权限点由 access.php 注册,public/mod/quiz/db/access.php,207,
+MDL-E0473,capability,权限模型,mod/quiz:customisequestionnumbers,权限点由 access.php 注册,public/mod/quiz/db/access.php,214,
+MDL-E0474,capability,权限模型,quizaccess/seb:managetemplates,权限点由 access.php 注册,public/mod/quiz/accessrule/seb/db/access.php,29,
+MDL-E0475,capability,权限模型,quizaccess/seb:bypassseb,权限点由 access.php 注册,public/mod/quiz/accessrule/seb/db/access.php,36,
+MDL-E0476,capability,权限模型,quizaccess/seb:manage_seb_requiresafeexambrowser,权限点由 access.php 注册,public/mod/quiz/accessrule/seb/db/access.php,44,
+MDL-E0477,capability,权限模型,quizaccess/seb:manage_seb_configuremanually,权限点由 access.php 注册,public/mod/quiz/accessrule/seb/db/access.php,53,
+MDL-E0478,capability,权限模型,quizaccess/seb:manage_seb_usesebclientconfig,权限点由 access.php 注册,public/mod/quiz/accessrule/seb/db/access.php,63,
+MDL-E0479,capability,权限模型,quizaccess/seb:manage_seb_templateid,权限点由 access.php 注册,public/mod/quiz/accessrule/seb/db/access.php,72,
+MDL-E0480,capability,权限模型,quizaccess/seb:manage_filemanager_sebconfigfile,权限点由 access.php 注册,public/mod/quiz/accessrule/seb/db/access.php,80,
+MDL-E0481,capability,权限模型,quizaccess/seb:manage_seb_showsebdownloadlink,权限点由 access.php 注册,public/mod/quiz/accessrule/seb/db/access.php,88,
+MDL-E0482,capability,权限模型,quizaccess/seb:manage_seb_allowedbrowserexamkeys,权限点由 access.php 注册,public/mod/quiz/accessrule/seb/db/access.php,96,
+MDL-E0483,capability,权限模型,quizaccess/seb:manage_seb_linkquitseb,权限点由 access.php 注册,public/mod/quiz/accessrule/seb/db/access.php,104,
+MDL-E0484,capability,权限模型,quizaccess/seb:manage_seb_userconfirmquit,权限点由 access.php 注册,public/mod/quiz/accessrule/seb/db/access.php,112,
+MDL-E0485,capability,权限模型,quizaccess/seb:manage_seb_allowuserquitseb,权限点由 access.php 注册,public/mod/quiz/accessrule/seb/db/access.php,120,
+MDL-E0486,capability,权限模型,quizaccess/seb:manage_seb_quitpassword,权限点由 access.php 注册,public/mod/quiz/accessrule/seb/db/access.php,128,
+MDL-E0487,capability,权限模型,quizaccess/seb:manage_seb_allowreloadinexam,权限点由 access.php 注册,public/mod/quiz/accessrule/seb/db/access.php,136,
+MDL-E0488,capability,权限模型,quizaccess/seb:manage_seb_showsebtaskbar,权限点由 access.php 注册,public/mod/quiz/accessrule/seb/db/access.php,144,
+MDL-E0489,capability,权限模型,quizaccess/seb:manage_seb_showreloadbutton,权限点由 access.php 注册,public/mod/quiz/accessrule/seb/db/access.php,152,
+MDL-E0490,capability,权限模型,quizaccess/seb:manage_seb_showtime,权限点由 access.php 注册,public/mod/quiz/accessrule/seb/db/access.php,160,
+MDL-E0491,capability,权限模型,quizaccess/seb:manage_seb_showkeyboardlayout,权限点由 access.php 注册,public/mod/quiz/accessrule/seb/db/access.php,168,
+MDL-E0492,capability,权限模型,quizaccess/seb:manage_seb_showwificontrol,权限点由 access.php 注册,public/mod/quiz/accessrule/seb/db/access.php,177,
+MDL-E0493,capability,权限模型,quizaccess/seb:manage_seb_enableaudiocontrol,权限点由 access.php 注册,public/mod/quiz/accessrule/seb/db/access.php,185,
+MDL-E0494,capability,权限模型,quizaccess/seb:manage_seb_muteonstartup,权限点由 access.php 注册,public/mod/quiz/accessrule/seb/db/access.php,193,
+MDL-E0495,capability,权限模型,quizaccess/seb:manage_seb_allowcapturecamera,权限点由 access.php 注册,public/mod/quiz/accessrule/seb/db/access.php,201,
+MDL-E0496,capability,权限模型,quizaccess/seb:manage_seb_allowcapturemicrophone,权限点由 access.php 注册,public/mod/quiz/accessrule/seb/db/access.php,209,
+MDL-E0497,capability,权限模型,quizaccess/seb:manage_seb_allowspellchecking,权限点由 access.php 注册,public/mod/quiz/accessrule/seb/db/access.php,217,
+MDL-E0498,capability,权限模型,quizaccess/seb:manage_seb_activateurlfiltering,权限点由 access.php 注册,public/mod/quiz/accessrule/seb/db/access.php,225,
+MDL-E0499,capability,权限模型,quizaccess/seb:manage_seb_filterembeddedcontent,权限点由 access.php 注册,public/mod/quiz/accessrule/seb/db/access.php,233,
+MDL-E0500,capability,权限模型,quizaccess/seb:manage_seb_expressionsallowed,权限点由 access.php 注册,public/mod/quiz/accessrule/seb/db/access.php,241,
+MDL-E0501,capability,权限模型,quizaccess/seb:manage_seb_regexallowed,权限点由 access.php 注册,public/mod/quiz/accessrule/seb/db/access.php,249,
+MDL-E0502,capability,权限模型,quizaccess/seb:manage_seb_expressionsblocked,权限点由 access.php 注册,public/mod/quiz/accessrule/seb/db/access.php,257,
+MDL-E0503,capability,权限模型,quizaccess/seb:manage_seb_regexblocked,权限点由 access.php 注册,public/mod/quiz/accessrule/seb/db/access.php,265,
+MDL-E0504,capability,权限模型,quiz/grading:viewstudentnames,权限点由 access.php 注册,public/mod/quiz/report/grading/db/access.php,29,
+MDL-E0505,capability,权限模型,quiz/grading:viewidnumber,权限点由 access.php 注册,public/mod/quiz/report/grading/db/access.php,42,
+MDL-E0506,capability,权限模型,quiz/statistics:view,权限点由 access.php 注册,public/mod/quiz/report/statistics/db/access.php,28,
+MDL-E0507,capability,权限模型,mod/label:addinstance,权限点由 access.php 注册,public/mod/label/db/access.php,29,
+MDL-E0508,capability,权限模型,mod/label:view,权限点由 access.php 注册,public/mod/label/db/access.php,41,
+MDL-E0509,capability,权限模型,mod/folder:addinstance,权限点由 access.php 注册,public/mod/folder/db/access.php,29,
+MDL-E0510,capability,权限模型,mod/folder:view,权限点由 access.php 注册,public/mod/folder/db/access.php,41,
+MDL-E0511,capability,权限模型,mod/folder:portfolioexport,权限点由 access.php 注册,public/mod/folder/db/access.php,51,
+MDL-E0512,capability,权限模型,mod/folder:managefiles,权限点由 access.php 注册,public/mod/folder/db/access.php,62,
+MDL-E0513,capability,权限模型,mod/subsection:addinstance,权限点由 access.php 注册,public/mod/subsection/db/access.php,30,
+MDL-E0514,capability,权限模型,mod/imscp:view,权限点由 access.php 注册,public/mod/imscp/db/access.php,28,
+MDL-E0515,capability,权限模型,mod/imscp:addinstance,权限点由 access.php 注册,public/mod/imscp/db/access.php,37,
+MDL-E0516,capability,权限模型,mod/imscp:portfolioexport,权限点由 access.php 注册,public/mod/imscp/db/access.php,50,
+MDL-E0517,capability,权限模型,mod/page:view,权限点由 access.php 注册,public/mod/page/db/access.php,28,
+MDL-E0518,capability,权限模型,mod/page:addinstance,权限点由 access.php 注册,public/mod/page/db/access.php,37,
+MDL-E0519,capability,权限模型,mod/page:portfolioexport,权限点由 access.php 注册,public/mod/page/db/access.php,51,
+MDL-E0520,capability,权限模型,mod/workshop:view,权限点由 access.php 注册,public/mod/workshop/db/access.php,31,
+MDL-E0521,capability,权限模型,mod/workshop:addinstance,权限点由 access.php 注册,public/mod/workshop/db/access.php,44,
+MDL-E0522,capability,权限模型,mod/workshop:switchphase,权限点由 access.php 注册,public/mod/workshop/db/access.php,58,
+MDL-E0523,capability,权限模型,mod/workshop:editdimensions,权限点由 access.php 注册,public/mod/workshop/db/access.php,69,
+MDL-E0524,capability,权限模型,mod/workshop:submit,权限点由 access.php 注册,public/mod/workshop/db/access.php,81,
+MDL-E0525,capability,权限模型,mod/workshop:peerassess,权限点由 access.php 注册,public/mod/workshop/db/access.php,92,
+MDL-E0526,capability,权限模型,mod/workshop:manageexamples,权限点由 access.php 注册,public/mod/workshop/db/access.php,103,
+MDL-E0527,capability,权限模型,mod/workshop:allocate,权限点由 access.php 注册,public/mod/workshop/db/access.php,114,
+MDL-E0528,capability,权限模型,mod/workshop:publishsubmissions,权限点由 access.php 注册,public/mod/workshop/db/access.php,125,
+MDL-E0529,capability,权限模型,mod/workshop:viewauthornames,权限点由 access.php 注册,public/mod/workshop/db/access.php,137,
+MDL-E0530,capability,权限模型,mod/workshop:viewreviewernames,权限点由 access.php 注册,public/mod/workshop/db/access.php,149,
+MDL-E0531,capability,权限模型,mod/workshop:viewallsubmissions,权限点由 access.php 注册,public/mod/workshop/db/access.php,162,
+MDL-E0532,capability,权限模型,mod/workshop:viewpublishedsubmissions,权限点由 access.php 注册,public/mod/workshop/db/access.php,175,
+MDL-E0533,capability,权限模型,mod/workshop:viewauthorpublished,权限点由 access.php 注册,public/mod/workshop/db/access.php,187,
+MDL-E0534,capability,权限模型,mod/workshop:viewallassessments,权限点由 access.php 注册,public/mod/workshop/db/access.php,203,
+MDL-E0535,capability,权限模型,mod/workshop:overridegrades,权限点由 access.php 注册,public/mod/workshop/db/access.php,215,
+MDL-E0536,capability,权限模型,mod/workshop:ignoredeadlines,权限点由 access.php 注册,public/mod/workshop/db/access.php,227,
+MDL-E0537,capability,权限模型,mod/workshop:deletesubmissions,权限点由 access.php 注册,public/mod/workshop/db/access.php,238,
+MDL-E0538,capability,权限模型,mod/workshop:exportsubmissions,权限点由 access.php 注册,public/mod/workshop/db/access.php,250,
+MDL-E0539,capability,权限模型,communication/matrix:moderator,权限点由 access.php 注册,public/communication/provider/matrix/db/access.php,30,
+MDL-E0540,capability,权限模型,report/stats:view,权限点由 access.php 注册,public/report/stats/db/access.php,29,
+MDL-E0541,capability,权限模型,report/participation:view,权限点由 access.php 注册,public/report/participation/db/access.php,29,
+MDL-E0542,capability,权限模型,report/performance:view,权限点由 access.php 注册,public/report/performance/db/access.php,28,
+MDL-E0543,capability,权限模型,report/log:view,权限点由 access.php 注册,public/report/log/db/access.php,31,
+MDL-E0544,capability,权限模型,report/log:viewtoday,权限点由 access.php 注册,public/report/log/db/access.php,44,
+MDL-E0545,capability,权限模型,report/outline:view,权限点由 access.php 注册,public/report/outline/db/access.php,29,
+MDL-E0546,capability,权限模型,report/outline:viewuserreport,权限点由 access.php 注册,public/report/outline/db/access.php,42,
+MDL-E0547,capability,权限模型,report/status:view,权限点由 access.php 注册,public/report/status/db/access.php,29,
+MDL-E0548,capability,权限模型,report/completion:view,权限点由 access.php 注册,public/report/completion/db/access.php,30,
+MDL-E0549,capability,权限模型,report/courseoverview:view,权限点由 access.php 注册,public/report/courseoverview/db/access.php,29,
+MDL-E0550,capability,权限模型,report/questioninstances:view,权限点由 access.php 注册,public/report/questioninstances/db/access.php,29,
+MDL-E0551,capability,权限模型,report/security:view,权限点由 access.php 注册,public/report/security/db/access.php,29,
+MDL-E0552,capability,权限模型,report/loglive:view,权限点由 access.php 注册,public/report/loglive/db/access.php,31,
+MDL-E0553,capability,权限模型,report/progress:view,权限点由 access.php 注册,public/report/progress/db/access.php,29,
+MDL-E0554,capability,权限模型,report/usersessions:manageownsessions,权限点由 access.php 注册,public/report/usersessions/db/access.php,30,
+MDL-E0555,capability,权限模型,moodle/site:config,权限点由 access.php 注册,public/lib/db/access.php,58,
+MDL-E0556,capability,权限模型,moodle/site:configview,权限点由 access.php 注册,public/lib/db/access.php,67,
+MDL-E0557,capability,权限模型,moodle/site:readallmessages,权限点由 access.php 注册,public/lib/db/access.php,76,
+MDL-E0558,capability,权限模型,moodle/site:manageallmessaging,权限点由 access.php 注册,public/lib/db/access.php,88,
+MDL-E0559,capability,权限模型,moodle/site:deleteanymessage,权限点由 access.php 注册,public/lib/db/access.php,99,
+MDL-E0560,capability,权限模型,moodle/site:sendmessage,权限点由 access.php 注册,public/lib/db/access.php,110,
+MDL-E0561,capability,权限模型,moodle/site:senderrormessage,权限点由 access.php 注册,public/lib/db/access.php,122,
+MDL-E0562,capability,权限模型,moodle/site:deleteownmessage,权限点由 access.php 注册,public/lib/db/access.php,131,
+MDL-E0563,capability,权限模型,moodle/site:approvecourse,权限点由 access.php 注册,public/lib/db/access.php,140,
+MDL-E0564,capability,权限模型,moodle/backup:backupcourse,权限点由 access.php 注册,public/lib/db/access.php,151,
+MDL-E0565,capability,权限模型,moodle/backup:backupsection,权限点由 access.php 注册,public/lib/db/access.php,165,
+MDL-E0566,capability,权限模型,moodle/backup:backupactivity,权限点由 access.php 注册,public/lib/db/access.php,179,
+MDL-E0567,capability,权限模型,moodle/backup:backuptargetimport,权限点由 access.php 注册,public/lib/db/access.php,193,
+MDL-E0568,capability,权限模型,moodle/backup:downloadfile,权限点由 access.php 注册,public/lib/db/access.php,207,
+MDL-E0569,capability,权限模型,moodle/backup:configure,权限点由 access.php 注册,public/lib/db/access.php,221,
+MDL-E0570,capability,权限模型,moodle/backup:userinfo,权限点由 access.php 注册,public/lib/db/access.php,233,
+MDL-E0571,capability,权限模型,moodle/backup:anonymise,权限点由 access.php 注册,public/lib/db/access.php,244,
+MDL-E0572,capability,权限模型,moodle/restore:restorecourse,权限点由 access.php 注册,public/lib/db/access.php,255,
+MDL-E0573,capability,权限模型,moodle/restore:restoresection,权限点由 access.php 注册,public/lib/db/access.php,269,
+MDL-E0574,capability,权限模型,moodle/restore:restoreactivity,权限点由 access.php 注册,public/lib/db/access.php,283,
+MDL-E0575,capability,权限模型,moodle/restore:viewautomatedfilearea,权限点由 access.php 注册,public/lib/db/access.php,297,
+MDL-E0576,capability,权限模型,moodle/restore:restoretargetimport,权限点由 access.php 注册,public/lib/db/access.php,309,
+MDL-E0577,capability,权限模型,moodle/restore:uploadfile,权限点由 access.php 注册,public/lib/db/access.php,323,
+MDL-E0578,capability,权限模型,moodle/restore:configure,权限点由 access.php 注册,public/lib/db/access.php,337,
+MDL-E0579,capability,权限模型,moodle/restore:rolldates,权限点由 access.php 注册,public/lib/db/access.php,349,
+MDL-E0580,capability,权限模型,moodle/restore:userinfo,权限点由 access.php 注册,public/lib/db/access.php,359,
+MDL-E0581,capability,权限模型,moodle/restore:createuser,权限点由 access.php 注册,public/lib/db/access.php,370,
+MDL-E0582,capability,权限模型,moodle/site:manageblocks,权限点由 access.php 注册,public/lib/db/access.php,381,
+MDL-E0583,capability,权限模型,moodle/site:accessallgroups,权限点由 access.php 注册,public/lib/db/access.php,393,
+MDL-E0584,capability,权限模型,moodle/site:viewanonymousevents,权限点由 access.php 注册,public/lib/db/access.php,403,
+MDL-E0585,capability,权限模型,moodle/site:viewfullnames,权限点由 access.php 注册,public/lib/db/access.php,414,
+MDL-E0586,capability,权限模型,moodle/site:viewuseridentity,权限点由 access.php 注册,public/lib/db/access.php,428,
+MDL-E0587,capability,权限模型,moodle/site:viewreports,权限点由 access.php 注册,public/lib/db/access.php,439,
+MDL-E0588,capability,权限模型,moodle/site:trustcontent,权限点由 access.php 注册,public/lib/db/access.php,452,
+MDL-E0589,capability,权限模型,moodle/site:uploadusers,权限点由 access.php 注册,public/lib/db/access.php,464,
+MDL-E0590,capability,权限模型,moodle/filter:manage,权限点由 access.php 注册,public/lib/db/access.php,476,
+MDL-E0591,capability,权限模型,moodle/user:create,权限点由 access.php 注册,public/lib/db/access.php,486,
+MDL-E0592,capability,权限模型,moodle/user:delete,权限点由 access.php 注册,public/lib/db/access.php,497,
+MDL-E0593,capability,权限模型,moodle/user:update,权限点由 access.php 注册,public/lib/db/access.php,508,
+MDL-E0594,capability,权限模型,moodle/user:viewdetails,权限点由 access.php 注册,public/lib/db/access.php,519,
+MDL-E0595,capability,权限模型,moodle/user:viewprofilepictures,权限点由 access.php 注册,public/lib/db/access.php,532,
+MDL-E0596,capability,权限模型,moodle/user:viewalldetails,权限点由 access.php 注册,public/lib/db/access.php,541,
+MDL-E0597,capability,权限模型,moodle/user:viewlastip,权限点由 access.php 注册,public/lib/db/access.php,551,
+MDL-E0598,capability,权限模型,moodle/user:viewhiddendetails,权限点由 access.php 注册,public/lib/db/access.php,561,
+MDL-E0599,capability,权限模型,moodle/user:loginas,权限点由 access.php 注册,public/lib/db/access.php,574,
+MDL-E0600,capability,权限模型,moodle/user:managesyspages,权限点由 access.php 注册,public/lib/db/access.php,586,
+MDL-E0601,capability,权限模型,moodle/user:manageblocks,权限点由 access.php 注册,public/lib/db/access.php,598,
+MDL-E0602,capability,权限模型,moodle/user:manageownblocks,权限点由 access.php 注册,public/lib/db/access.php,607,
+MDL-E0603,capability,权限模型,moodle/user:manageownfiles,权限点由 access.php 注册,public/lib/db/access.php,619,
+MDL-E0604,capability,权限模型,moodle/user:ignoreuserquota,权限点由 access.php 注册,public/lib/db/access.php,632,
+MDL-E0605,capability,权限模型,moodle/my:configsyspages,权限点由 access.php 注册,public/lib/db/access.php,640,
+MDL-E0606,capability,权限模型,moodle/role:assign,权限点由 access.php 注册,public/lib/db/access.php,651,
+MDL-E0607,capability,权限模型,moodle/role:review,权限点由 access.php 注册,public/lib/db/access.php,663,
+MDL-E0608,capability,权限模型,moodle/role:override,权限点由 access.php 注册,public/lib/db/access.php,677,
+MDL-E0609,capability,权限模型,moodle/role:safeoverride,权限点由 access.php 注册,public/lib/db/access.php,690,
+MDL-E0610,capability,权限模型,moodle/role:manage,权限点由 access.php 注册,public/lib/db/access.php,701,
+MDL-E0611,capability,权限模型,moodle/role:switchroles,权限点由 access.php 注册,public/lib/db/access.php,712,
+MDL-E0612,capability,权限模型,moodle/category:manage,权限点由 access.php 注册,public/lib/db/access.php,728,
+MDL-E0613,capability,权限模型,moodle/category:viewcourselist,权限点由 access.php 注册,public/lib/db/access.php,740,
+MDL-E0614,capability,权限模型,moodle/category:viewhiddencategories,权限点由 access.php 注册,public/lib/db/access.php,750,
+MDL-E0615,capability,权限模型,moodle/cohort:manage,权限点由 access.php 注册,public/lib/db/access.php,763,
+MDL-E0616,capability,权限模型,moodle/cohort:assign,权限点由 access.php 注册,public/lib/db/access.php,773,
+MDL-E0617,capability,权限模型,moodle/cohort:view,权限点由 access.php 注册,public/lib/db/access.php,783,
+MDL-E0618,capability,权限模型,moodle/cohort:configurecustomfields,权限点由 access.php 注册,public/lib/db/access.php,793,
+MDL-E0619,capability,权限模型,moodle/group:configurecustomfields,权限点由 access.php 注册,public/lib/db/access.php,800,
+MDL-E0620,capability,权限模型,moodle/course:create,权限点由 access.php 注册,public/lib/db/access.php,807,
+MDL-E0621,capability,权限模型,moodle/course:creategroupconversations,权限点由 access.php 注册,public/lib/db/access.php,819,
+MDL-E0622,capability,权限模型,moodle/course:request,权限点由 access.php 注册,public/lib/db/access.php,829,
+MDL-E0623,capability,权限模型,moodle/course:delete,权限点由 access.php 注册,public/lib/db/access.php,834,
+MDL-E0624,capability,权限模型,moodle/course:update,权限点由 access.php 注册,public/lib/db/access.php,845,
+MDL-E0625,capability,权限模型,moodle/course:view,权限点由 access.php 注册,public/lib/db/access.php,857,
+MDL-E0626,capability,权限模型,moodle/course:enrolreview,权限点由 access.php 注册,public/lib/db/access.php,867,
+MDL-E0627,capability,权限模型,moodle/course:enrolconfig,权限点由 access.php 注册,public/lib/db/access.php,880,
+MDL-E0628,capability,权限模型,moodle/course:reviewotherusers,权限点由 access.php 注册,public/lib/db/access.php,892,
+MDL-E0629,capability,权限模型,moodle/course:bulkmessaging,权限点由 access.php 注册,public/lib/db/access.php,903,
+MDL-E0630,capability,权限模型,moodle/course:viewhiddenuserfields,权限点由 access.php 注册,public/lib/db/access.php,916,
+MDL-E0631,capability,权限模型,moodle/course:viewhiddencourses,权限点由 access.php 注册,public/lib/db/access.php,929,
+MDL-E0632,capability,权限模型,moodle/course:visibility,权限点由 access.php 注册,public/lib/db/access.php,941,
+MDL-E0633,capability,权限模型,moodle/course:managefiles,权限点由 access.php 注册,public/lib/db/access.php,951,
+MDL-E0634,capability,权限模型,moodle/course:ignoreavailabilityrestrictions,权限点由 access.php 注册,public/lib/db/access.php,963,
+MDL-E0635,capability,权限模型,moodle/course:ignorefilesizelimits,权限点由 access.php 注册,public/lib/db/access.php,975,
+MDL-E0636,capability,权限模型,moodle/course:manageactivities,权限点由 access.php 注册,public/lib/db/access.php,983,
+MDL-E0637,capability,权限模型,moodle/course:activityvisibility,权限点由 access.php 注册,public/lib/db/access.php,995,
+MDL-E0638,capability,权限模型,moodle/course:viewhiddenactivities,权限点由 access.php 注册,public/lib/db/access.php,1005,
+MDL-E0639,capability,权限模型,moodle/course:viewparticipants,权限点由 access.php 注册,public/lib/db/access.php,1016,
+MDL-E0640,capability,权限模型,moodle/course:viewoverview,权限点由 access.php 注册,public/lib/db/access.php,1028,
+MDL-E0641,capability,权限模型,moodle/course:changefullname,权限点由 access.php 注册,public/lib/db/access.php,1039,
+MDL-E0642,capability,权限模型,moodle/course:changeshortname,权限点由 access.php 注册,public/lib/db/access.php,1052,
+MDL-E0643,capability,权限模型,moodle/course:changelockedcustomfields,权限点由 access.php 注册,public/lib/db/access.php,1065,
+MDL-E0644,capability,权限模型,moodle/course:configurecustomfields,权限点由 access.php 注册,public/lib/db/access.php,1076,
+MDL-E0645,capability,权限模型,moodle/course:renameroles,权限点由 access.php 注册,public/lib/db/access.php,1085,
+MDL-E0646,capability,权限模型,moodle/course:changeidnumber,权限点由 access.php 注册,public/lib/db/access.php,1095,
+MDL-E0647,capability,权限模型,moodle/course:changecategory,权限点由 access.php 注册,public/lib/db/access.php,1107,
+MDL-E0648,capability,权限模型,moodle/course:changesummary,权限点由 access.php 注册,public/lib/db/access.php,1119,
+MDL-E0649,capability,权限模型,moodle/course:setforcedlanguage,权限点由 access.php 注册,public/lib/db/access.php,1132,
+MDL-E0650,capability,权限模型,moodle/site:viewparticipants,权限点由 access.php 注册,public/lib/db/access.php,1143,
+MDL-E0651,capability,权限模型,moodle/course:isincompletionreports,权限点由 access.php 注册,public/lib/db/access.php,1152,
+MDL-E0652,capability,权限模型,moodle/course:viewscales,权限点由 access.php 注册,public/lib/db/access.php,1160,
+MDL-E0653,capability,权限模型,moodle/course:managescales,权限点由 access.php 注册,public/lib/db/access.php,1172,
+MDL-E0654,capability,权限模型,moodle/course:managegroups,权限点由 access.php 注册,public/lib/db/access.php,1182,
+MDL-E0655,capability,权限模型,moodle/course:viewhiddengroups,权限点由 access.php 注册,public/lib/db/access.php,1193,
+MDL-E0656,capability,权限模型,moodle/course:reset,权限点由 access.php 注册,public/lib/db/access.php,1204,
+MDL-E0657,capability,权限模型,moodle/course:viewsuspendedusers,权限点由 access.php 注册,public/lib/db/access.php,1216,
+MDL-E0658,capability,权限模型,moodle/course:tag,权限点由 access.php 注册,public/lib/db/access.php,1226,
+MDL-E0659,capability,权限模型,moodle/blog:view,权限点由 access.php 注册,public/lib/db/access.php,1237,
+MDL-E0660,capability,权限模型,moodle/blog:search,权限点由 access.php 注册,public/lib/db/access.php,1251,
+MDL-E0661,capability,权限模型,moodle/blog:viewdrafts,权限点由 access.php 注册,public/lib/db/access.php,1264,
+MDL-E0662,capability,权限模型,moodle/blog:create,权限点由 access.php 注册,public/lib/db/access.php,1274,
+MDL-E0663,capability,权限模型,moodle/blog:manageentries,权限点由 access.php 注册,public/lib/db/access.php,1286,
+MDL-E0664,capability,权限模型,moodle/blog:manageexternal,权限点由 access.php 注册,public/lib/db/access.php,1299,
+MDL-E0665,capability,权限模型,moodle/calendar:manageownentries,权限点由 access.php 注册,public/lib/db/access.php,1314,
+MDL-E0666,capability,权限模型,moodle/calendar:managegroupentries,权限点由 access.php 注册,public/lib/db/access.php,1326,
+MDL-E0667,capability,权限模型,moodle/calendar:manageentries,权限点由 access.php 注册,public/lib/db/access.php,1339,
+MDL-E0668,capability,权限模型,moodle/user:editprofile,权限点由 access.php 注册,public/lib/db/access.php,1352,
+MDL-E0669,capability,权限模型,moodle/user:editownprofile,权限点由 access.php 注册,public/lib/db/access.php,1363,
+MDL-E0670,capability,权限模型,moodle/user:changeownpassword,权限点由 access.php 注册,public/lib/db/access.php,1376,
+MDL-E0671,capability,权限模型,moodle/user:readuserposts,权限点由 access.php 注册,public/lib/db/access.php,1389,
+MDL-E0672,capability,权限模型,moodle/user:readuserblogs,权限点由 access.php 注册,public/lib/db/access.php,1401,
+MDL-E0673,capability,权限模型,moodle/user:viewuseractivitiesreport,权限点由 access.php 注册,public/lib/db/access.php,1414,
+MDL-E0674,capability,权限模型,moodle/user:editmessageprofile,权限点由 access.php 注册,public/lib/db/access.php,1424,
+MDL-E0675,capability,权限模型,moodle/user:editownmessageprofile,权限点由 access.php 注册,public/lib/db/access.php,1435,
+MDL-E0676,capability,权限模型,moodle/question:managecategory,权限点由 access.php 注册,public/lib/db/access.php,1446,
+MDL-E0677,capability,权限模型,moodle/question:add,权限点由 access.php 注册,public/lib/db/access.php,1457,
+MDL-E0678,capability,权限模型,moodle/question:editmine,权限点由 access.php 注册,public/lib/db/access.php,1467,
+MDL-E0679,capability,权限模型,moodle/question:editall,权限点由 access.php 注册,public/lib/db/access.php,1477,
+MDL-E0680,capability,权限模型,moodle/question:viewmine,权限点由 access.php 注册,public/lib/db/access.php,1487,
+MDL-E0681,service,服务接口,mod_data_get_databases_by_courses,外部服务函数由 services.php 注册,public/mod/data/db/services.php,29,
+MDL-E0682,service,服务接口,mod_data_view_database,外部服务函数由 services.php 注册,public/mod/data/db/services.php,38,
+MDL-E0683,service,服务接口,mod_data_get_data_access_information,外部服务函数由 services.php 注册,public/mod/data/db/services.php,46,
+MDL-E0684,service,服务接口,mod_data_get_entries,外部服务函数由 services.php 注册,public/mod/data/db/services.php,54,
+MDL-E0685,service,服务接口,mod_data_get_entry,外部服务函数由 services.php 注册,public/mod/data/db/services.php,62,
+MDL-E0686,service,服务接口,mod_data_get_fields,外部服务函数由 services.php 注册,public/mod/data/db/services.php,70,
+MDL-E0687,service,服务接口,mod_data_search_entries,外部服务函数由 services.php 注册,public/mod/data/db/services.php,78,
+MDL-E0688,service,服务接口,mod_data_approve_entry,外部服务函数由 services.php 注册,public/mod/data/db/services.php,86,
+MDL-E0689,service,服务接口,mod_data_delete_entry,外部服务函数由 services.php 注册,public/mod/data/db/services.php,94,
+MDL-E0690,service,服务接口,mod_data_add_entry,外部服务函数由 services.php 注册,public/mod/data/db/services.php,102,
+MDL-E0691,service,服务接口,mod_data_update_entry,外部服务函数由 services.php 注册,public/mod/data/db/services.php,110,
+MDL-E0692,service,服务接口,mod_data_delete_saved_preset,外部服务函数由 services.php 注册,public/mod/data/db/services.php,118,
+MDL-E0693,service,服务接口,mod_data_get_mapping_information,外部服务函数由 services.php 注册,public/mod/data/db/services.php,125,
+MDL-E0694,service,服务接口,mod_resource_view_resource,外部服务函数由 services.php 注册,public/mod/resource/db/services.php,31,
+MDL-E0695,service,服务接口,mod_resource_get_resources_by_courses,外部服务函数由 services.php 注册,public/mod/resource/db/services.php,39,
+MDL-E0696,service,服务接口,mod_lesson_get_lessons_by_courses,外部服务函数由 services.php 注册,public/mod/lesson/db/services.php,30,
+MDL-E0697,service,服务接口,mod_lesson_get_lesson_access_information,外部服务函数由 services.php 注册,public/mod/lesson/db/services.php,39,
+MDL-E0698,service,服务接口,mod_lesson_view_lesson,外部服务函数由 services.php 注册,public/mod/lesson/db/services.php,47,
+MDL-E0699,service,服务接口,mod_lesson_get_questions_attempts,外部服务函数由 services.php 注册,public/mod/lesson/db/services.php,55,
+MDL-E0700,service,服务接口,mod_lesson_get_user_grade,外部服务函数由 services.php 注册,public/mod/lesson/db/services.php,63,
+MDL-E0701,service,服务接口,mod_lesson_get_user_attempt_grade,外部服务函数由 services.php 注册,public/mod/lesson/db/services.php,71,
+MDL-E0702,service,服务接口,mod_lesson_get_content_pages_viewed,外部服务函数由 services.php 注册,public/mod/lesson/db/services.php,79,
+MDL-E0703,service,服务接口,mod_lesson_get_user_timers,外部服务函数由 services.php 注册,public/mod/lesson/db/services.php,87,
+MDL-E0704,service,服务接口,mod_lesson_get_pages,外部服务函数由 services.php 注册,public/mod/lesson/db/services.php,95,
+MDL-E0705,service,服务接口,mod_lesson_launch_attempt,外部服务函数由 services.php 注册,public/mod/lesson/db/services.php,103,
+MDL-E0706,service,服务接口,mod_lesson_get_page_data,外部服务函数由 services.php 注册,public/mod/lesson/db/services.php,111,
+MDL-E0707,service,服务接口,mod_lesson_process_page,外部服务函数由 services.php 注册,public/mod/lesson/db/services.php,119,
+MDL-E0708,service,服务接口,mod_lesson_finish_attempt,外部服务函数由 services.php 注册,public/mod/lesson/db/services.php,127,
+MDL-E0709,service,服务接口,mod_lesson_get_attempts_overview,外部服务函数由 services.php 注册,public/mod/lesson/db/services.php,135,
+MDL-E0710,service,服务接口,mod_lesson_get_user_attempt,外部服务函数由 services.php 注册,public/mod/lesson/db/services.php,143,
+MDL-E0711,service,服务接口,mod_lesson_get_pages_possible_jumps,外部服务函数由 services.php 注册,public/mod/lesson/db/services.php,151,
+MDL-E0712,service,服务接口,mod_lesson_get_lesson,外部服务函数由 services.php 注册,public/mod/lesson/db/services.php,159,
+MDL-E0713,service,服务接口,mod_glossary_get_glossaries_by_courses,外部服务函数由 services.php 注册,public/mod/glossary/db/services.php,30,
+MDL-E0714,service,服务接口,mod_glossary_view_glossary,外部服务函数由 services.php 注册,public/mod/glossary/db/services.php,39,
+MDL-E0715,service,服务接口,mod_glossary_view_entry,外部服务函数由 services.php 注册,public/mod/glossary/db/services.php,48,
+MDL-E0716,service,服务接口,mod_glossary_get_entries_by_letter,外部服务函数由 services.php 注册,public/mod/glossary/db/services.php,58,
+MDL-E0717,service,服务接口,mod_glossary_get_entries_by_date,外部服务函数由 services.php 注册,public/mod/glossary/db/services.php,67,
+MDL-E0718,service,服务接口,mod_glossary_get_categories,外部服务函数由 services.php 注册,public/mod/glossary/db/services.php,76,
+MDL-E0719,service,服务接口,mod_glossary_get_entries_by_category,外部服务函数由 services.php 注册,public/mod/glossary/db/services.php,85,
+MDL-E0720,service,服务接口,mod_glossary_get_authors,外部服务函数由 services.php 注册,public/mod/glossary/db/services.php,94,
+MDL-E0721,service,服务接口,mod_glossary_get_entries_by_author,外部服务函数由 services.php 注册,public/mod/glossary/db/services.php,103,
+MDL-E0722,service,服务接口,mod_glossary_get_entries_by_author_id,外部服务函数由 services.php 注册,public/mod/glossary/db/services.php,112,
+MDL-E0723,service,服务接口,mod_glossary_get_entries_by_search,外部服务函数由 services.php 注册,public/mod/glossary/db/services.php,121,
+MDL-E0724,service,服务接口,mod_glossary_get_entries_by_term,外部服务函数由 services.php 注册,public/mod/glossary/db/services.php,130,
+MDL-E0725,service,服务接口,mod_glossary_get_entries_to_approve,外部服务函数由 services.php 注册,public/mod/glossary/db/services.php,139,
+MDL-E0726,service,服务接口,mod_glossary_get_entry_by_id,外部服务函数由 services.php 注册,public/mod/glossary/db/services.php,148,
+MDL-E0727,service,服务接口,mod_glossary_add_entry,外部服务函数由 services.php 注册,public/mod/glossary/db/services.php,158,
+MDL-E0728,service,服务接口,mod_book_view_book,外部服务函数由 services.php 注册,public/mod/book/db/services.php,31,
+MDL-E0729,service,服务接口,mod_book_get_books_by_courses,外部服务函数由 services.php 注册,public/mod/book/db/services.php,40,
+MDL-E0730,service,服务接口,mod_assign_copy_previous_attempt,外部服务函数由 services.php 注册,public/mod/assign/db/services.php,28,
+MDL-E0731,service,服务接口,mod_assign_get_grades,外部服务函数由 services.php 注册,public/mod/assign/db/services.php,37,
+MDL-E0732,service,服务接口,mod_assign_get_assignments,外部服务函数由 services.php 注册,public/mod/assign/db/services.php,46,
+MDL-E0733,service,服务接口,mod_assign_get_submissions,外部服务函数由 services.php 注册,public/mod/assign/db/services.php,55,
+MDL-E0734,service,服务接口,mod_assign_get_user_flags,外部服务函数由 services.php 注册,public/mod/assign/db/services.php,64,
+MDL-E0735,service,服务接口,mod_assign_set_user_flags,外部服务函数由 services.php 注册,public/mod/assign/db/services.php,73,
+MDL-E0736,service,服务接口,mod_assign_get_user_mappings,外部服务函数由 services.php 注册,public/mod/assign/db/services.php,83,
+MDL-E0737,service,服务接口,mod_assign_revert_submissions_to_draft,外部服务函数由 services.php 注册,public/mod/assign/db/services.php,92,
+MDL-E0738,service,服务接口,mod_assign_lock_submissions,外部服务函数由 services.php 注册,public/mod/assign/db/services.php,101,
+MDL-E0739,service,服务接口,mod_assign_unlock_submissions,外部服务函数由 services.php 注册,public/mod/assign/db/services.php,110,
+MDL-E0740,service,服务接口,mod_assign_save_submission,外部服务函数由 services.php 注册,public/mod/assign/db/services.php,119,
+MDL-E0741,service,服务接口,mod_assign_submit_for_grading,外部服务函数由 services.php 注册,public/mod/assign/db/services.php,128,
+MDL-E0742,service,服务接口,mod_assign_save_grade,外部服务函数由 services.php 注册,public/mod/assign/db/services.php,137,
+MDL-E0743,service,服务接口,mod_assign_save_grades,外部服务函数由 services.php 注册,public/mod/assign/db/services.php,146,
+MDL-E0744,service,服务接口,mod_assign_save_user_extensions,外部服务函数由 services.php 注册,public/mod/assign/db/services.php,155,
+MDL-E0745,service,服务接口,mod_assign_reveal_identities,外部服务函数由 services.php 注册,public/mod/assign/db/services.php,164,
+MDL-E0746,service,服务接口,mod_assign_view_grading_table,外部服务函数由 services.php 注册,public/mod/assign/db/services.php,173,
+MDL-E0747,service,服务接口,mod_assign_view_submission_status,外部服务函数由 services.php 注册,public/mod/assign/db/services.php,183,
+MDL-E0748,service,服务接口,mod_assign_get_submission_status,外部服务函数由 services.php 注册,public/mod/assign/db/services.php,193,
+MDL-E0749,service,服务接口,mod_assign_list_participants,外部服务函数由 services.php 注册,public/mod/assign/db/services.php,203,
+MDL-E0750,service,服务接口,mod_assign_submit_grading_form,外部服务函数由 services.php 注册,public/mod/assign/db/services.php,214,
+MDL-E0751,service,服务接口,mod_assign_get_participant,外部服务函数由 services.php 注册,public/mod/assign/db/services.php,224,
+MDL-E0752,service,服务接口,mod_assign_view_assign,外部服务函数由 services.php 注册,public/mod/assign/db/services.php,234,
+MDL-E0753,service,服务接口,mod_lti_get_tool_launch_data,外部服务函数由 services.php 注册,public/mod/lti/db/services.php,31,
+MDL-E0754,service,服务接口,mod_lti_get_ltis_by_courses,外部服务函数由 services.php 注册,public/mod/lti/db/services.php,40,
+MDL-E0755,service,服务接口,mod_lti_view_lti,外部服务函数由 services.php 注册,public/mod/lti/db/services.php,50,
+MDL-E0756,service,服务接口,mod_lti_get_tool_proxies,外部服务函数由 services.php 注册,public/mod/lti/db/services.php,59,
+MDL-E0757,service,服务接口,mod_lti_create_tool_proxy,外部服务函数由 services.php 注册,public/mod/lti/db/services.php,68,
+MDL-E0758,service,服务接口,mod_lti_delete_tool_proxy,外部服务函数由 services.php 注册,public/mod/lti/db/services.php,77,
+MDL-E0759,service,服务接口,mod_lti_get_tool_proxy_registration_request,外部服务函数由 services.php 注册,public/mod/lti/db/services.php,86,
+MDL-E0760,service,服务接口,mod_lti_get_tool_types,外部服务函数由 services.php 注册,public/mod/lti/db/services.php,95,
+MDL-E0761,service,服务接口,mod_lti_create_tool_type,外部服务函数由 services.php 注册,public/mod/lti/db/services.php,122,
+MDL-E0762,service,服务接口,mod_lti_update_tool_type,外部服务函数由 services.php 注册,public/mod/lti/db/services.php,131,
+MDL-E0763,service,服务接口,mod_lti_delete_tool_type,外部服务函数由 services.php 注册,public/mod/lti/db/services.php,140,
+MDL-E0764,service,服务接口,mod_lti_delete_course_tool_type,外部服务函数由 services.php 注册,public/mod/lti/db/services.php,149,
+MDL-E0765,service,服务接口,mod_lti_toggle_showinactivitychooser,外部服务函数由 services.php 注册,public/mod/lti/db/services.php,157,
+MDL-E0766,service,服务接口,mod_lti_is_cartridge,外部服务函数由 services.php 注册,public/mod/lti/db/services.php,165,
+MDL-E0767,service,服务接口,mod_forum_get_forums_by_courses,外部服务函数由 services.php 注册,public/mod/forum/db/services.php,28,
+MDL-E0768,service,服务接口,mod_forum_get_discussion_posts,外部服务函数由 services.php 注册,public/mod/forum/db/services.php,40,
+MDL-E0769,service,服务接口,mod_forum_get_forum_discussions,外部服务函数由 services.php 注册,public/mod/forum/db/services.php,51,
+MDL-E0770,service,服务接口,mod_forum_view_forum,外部服务函数由 services.php 注册,public/mod/forum/db/services.php,61,
+MDL-E0771,service,服务接口,mod_forum_view_forum_discussion,外部服务函数由 services.php 注册,public/mod/forum/db/services.php,71,
+MDL-E0772,service,服务接口,mod_forum_add_discussion_post,外部服务函数由 services.php 注册,public/mod/forum/db/services.php,81,
+MDL-E0773,service,服务接口,mod_forum_add_discussion,外部服务函数由 services.php 注册,public/mod/forum/db/services.php,92,
+MDL-E0774,service,服务接口,mod_forum_can_add_discussion,外部服务函数由 services.php 注册,public/mod/forum/db/services.php,102,
+MDL-E0775,service,服务接口,mod_forum_get_forum_access_information,外部服务函数由 services.php 注册,public/mod/forum/db/services.php,111,
+MDL-E0776,service,服务接口,mod_forum_set_subscription_state,外部服务函数由 services.php 注册,public/mod/forum/db/services.php,119,
+MDL-E0777,service,服务接口,mod_forum_set_lock_state,外部服务函数由 services.php 注册,public/mod/forum/db/services.php,129,
+MDL-E0778,service,服务接口,mod_forum_toggle_favourite_state,外部服务函数由 services.php 注册,public/mod/forum/db/services.php,140,
+MDL-E0779,service,服务接口,mod_forum_set_pin_state,外部服务函数由 services.php 注册,public/mod/forum/db/services.php,149,
+MDL-E0780,service,服务接口,mod_forum_delete_post,外部服务函数由 services.php 注册,public/mod/forum/db/services.php,159,
+MDL-E0781,service,服务接口,mod_forum_get_discussion_posts_by_userid,外部服务函数由 services.php 注册,public/mod/forum/db/services.php,168,
+MDL-E0782,service,服务接口,mod_forum_get_discussion_post,外部服务函数由 services.php 注册,public/mod/forum/db/services.php,177,
+MDL-E0783,service,服务接口,mod_forum_prepare_draft_area_for_post,外部服务函数由 services.php 注册,public/mod/forum/db/services.php,185,
+MDL-E0784,service,服务接口,mod_forum_update_discussion_post,外部服务函数由 services.php 注册,public/mod/forum/db/services.php,193,
+MDL-E0785,service,服务接口,mod_scorm_view_scorm,外部服务函数由 services.php 注册,public/mod/scorm/db/services.php,29,
+MDL-E0786,service,服务接口,mod_scorm_get_scorm_attempt_count,外部服务函数由 services.php 注册,public/mod/scorm/db/services.php,38,
+MDL-E0787,service,服务接口,mod_scorm_get_scorm_scoes,外部服务函数由 services.php 注册,public/mod/scorm/db/services.php,47,
+MDL-E0788,service,服务接口,mod_scorm_get_scorm_user_data,外部服务函数由 services.php 注册,public/mod/scorm/db/services.php,56,
+MDL-E0789,service,服务接口,mod_scorm_insert_scorm_tracks,外部服务函数由 services.php 注册,public/mod/scorm/db/services.php,65,
+MDL-E0790,service,服务接口,mod_scorm_get_scorm_sco_tracks,外部服务函数由 services.php 注册,public/mod/scorm/db/services.php,77,
+MDL-E0791,service,服务接口,mod_scorm_get_scorms_by_courses,外部服务函数由 services.php 注册,public/mod/scorm/db/services.php,86,
+MDL-E0792,service,服务接口,mod_scorm_launch_sco,外部服务函数由 services.php 注册,public/mod/scorm/db/services.php,96,
+MDL-E0793,service,服务接口,mod_scorm_get_scorm_access_information,外部服务函数由 services.php 注册,public/mod/scorm/db/services.php,105,
+MDL-E0794,service,服务接口,mod_feedback_get_feedbacks_by_courses,外部服务函数由 services.php 注册,public/mod/feedback/db/services.php,31,
+MDL-E0795,service,服务接口,mod_feedback_get_feedback_access_information,外部服务函数由 services.php 注册,public/mod/feedback/db/services.php,40,
+MDL-E0796,service,服务接口,mod_feedback_view_feedback,外部服务函数由 services.php 注册,public/mod/feedback/db/services.php,48,
+MDL-E0797,service,服务接口,mod_feedback_get_current_completed_tmp,外部服务函数由 services.php 注册,public/mod/feedback/db/services.php,56,
+MDL-E0798,service,服务接口,mod_feedback_get_items,外部服务函数由 services.php 注册,public/mod/feedback/db/services.php,64,
+MDL-E0799,service,服务接口,mod_feedback_launch_feedback,外部服务函数由 services.php 注册,public/mod/feedback/db/services.php,72,
+MDL-E0800,service,服务接口,mod_feedback_get_page_items,外部服务函数由 services.php 注册,public/mod/feedback/db/services.php,80,
+MDL-E0801,service,服务接口,mod_feedback_process_page,外部服务函数由 services.php 注册,public/mod/feedback/db/services.php,88,
+MDL-E0802,service,服务接口,mod_feedback_get_analysis,外部服务函数由 services.php 注册,public/mod/feedback/db/services.php,96,
+MDL-E0803,service,服务接口,mod_feedback_get_unfinished_responses,外部服务函数由 services.php 注册,public/mod/feedback/db/services.php,104,
+MDL-E0804,service,服务接口,mod_feedback_get_finished_responses,外部服务函数由 services.php 注册,public/mod/feedback/db/services.php,112,
+MDL-E0805,service,服务接口,mod_feedback_get_non_respondents,外部服务函数由 services.php 注册,public/mod/feedback/db/services.php,120,
+MDL-E0806,service,服务接口,mod_feedback_get_responses_analysis,外部服务函数由 services.php 注册,public/mod/feedback/db/services.php,128,
+MDL-E0807,service,服务接口,mod_feedback_get_last_completed,外部服务函数由 services.php 注册,public/mod/feedback/db/services.php,136,
+MDL-E0808,service,服务接口,mod_url_view_url,外部服务函数由 services.php 注册,public/mod/url/db/services.php,31,
+MDL-E0809,service,服务接口,mod_url_get_urls_by_courses,外部服务函数由 services.php 注册,public/mod/url/db/services.php,39,
+MDL-E0810,service,服务接口,mod_choice_get_choice_results,外部服务函数由 services.php 注册,public/mod/choice/db/services.php,31,
+MDL-E0811,service,服务接口,mod_choice_get_choice_options,外部服务函数由 services.php 注册,public/mod/choice/db/services.php,40,
+MDL-E0812,service,服务接口,mod_choice_submit_choice_response,外部服务函数由 services.php 注册,public/mod/choice/db/services.php,49,
+MDL-E0813,service,服务接口,mod_choice_view_choice,外部服务函数由 services.php 注册,public/mod/choice/db/services.php,58,
+MDL-E0814,service,服务接口,mod_choice_get_choices_by_courses,外部服务函数由 services.php 注册,public/mod/choice/db/services.php,67,
+MDL-E0815,service,服务接口,mod_choice_delete_choice_responses,外部服务函数由 services.php 注册,public/mod/choice/db/services.php,77,
+MDL-E0816,service,服务接口,mod_wiki_get_wikis_by_courses,外部服务函数由 services.php 注册,public/mod/wiki/db/services.php,29,
+MDL-E0817,service,服务接口,mod_wiki_view_wiki,外部服务函数由 services.php 注册,public/mod/wiki/db/services.php,39,
+MDL-E0818,service,服务接口,mod_wiki_view_page,外部服务函数由 services.php 注册,public/mod/wiki/db/services.php,48,
+MDL-E0819,service,服务接口,mod_wiki_get_subwikis,外部服务函数由 services.php 注册,public/mod/wiki/db/services.php,57,
+MDL-E0820,service,服务接口,mod_wiki_get_subwiki_pages,外部服务函数由 services.php 注册,public/mod/wiki/db/services.php,65,
+MDL-E0821,service,服务接口,mod_wiki_get_subwiki_files,外部服务函数由 services.php 注册,public/mod/wiki/db/services.php,74,
+MDL-E0822,service,服务接口,mod_wiki_get_page_contents,外部服务函数由 services.php 注册,public/mod/wiki/db/services.php,83,
+MDL-E0823,service,服务接口,mod_wiki_get_page_for_editing,外部服务函数由 services.php 注册,public/mod/wiki/db/services.php,92,
+MDL-E0824,service,服务接口,mod_wiki_new_page,外部服务函数由 services.php 注册,public/mod/wiki/db/services.php,101,
+MDL-E0825,service,服务接口,mod_wiki_edit_page,外部服务函数由 services.php 注册,public/mod/wiki/db/services.php,110,
+MDL-E0826,service,服务接口,mod_label_get_labels_by_courses,外部服务函数由 services.php 注册,public/mod/label/db/services.php,31,
+MDL-E0827,service,服务接口,mod_folder_view_folder,外部服务函数由 services.php 注册,public/mod/folder/db/services.php,31,
+MDL-E0828,service,服务接口,mod_folder_get_folders_by_courses,外部服务函数由 services.php 注册,public/mod/folder/db/services.php,39,
+MDL-E0829,service,服务接口,mod_imscp_view_imscp,外部服务函数由 services.php 注册,public/mod/imscp/db/services.php,31,
+MDL-E0830,service,服务接口,mod_imscp_get_imscps_by_courses,外部服务函数由 services.php 注册,public/mod/imscp/db/services.php,40,
+MDL-E0831,service,服务接口,mod_page_view_page,外部服务函数由 services.php 注册,public/mod/page/db/services.php,31,
+MDL-E0832,service,服务接口,mod_page_get_pages_by_courses,外部服务函数由 services.php 注册,public/mod/page/db/services.php,40,
+MDL-E0833,service,服务接口,mod_workshop_get_workshops_by_courses,外部服务函数由 services.php 注册,public/mod/workshop/db/services.php,31,
+MDL-E0834,service,服务接口,mod_workshop_get_workshop_access_information,外部服务函数由 services.php 注册,public/mod/workshop/db/services.php,40,
+MDL-E0835,service,服务接口,mod_workshop_get_user_plan,外部服务函数由 services.php 注册,public/mod/workshop/db/services.php,48,
+MDL-E0836,service,服务接口,mod_workshop_view_workshop,外部服务函数由 services.php 注册,public/mod/workshop/db/services.php,56,
+MDL-E0837,service,服务接口,mod_workshop_add_submission,外部服务函数由 services.php 注册,public/mod/workshop/db/services.php,64,
+MDL-E0838,service,服务接口,mod_workshop_update_submission,外部服务函数由 services.php 注册,public/mod/workshop/db/services.php,72,
+MDL-E0839,service,服务接口,mod_workshop_delete_submission,外部服务函数由 services.php 注册,public/mod/workshop/db/services.php,80,
+MDL-E0840,service,服务接口,mod_workshop_get_submissions,外部服务函数由 services.php 注册,public/mod/workshop/db/services.php,88,
+MDL-E0841,service,服务接口,mod_workshop_get_submission,外部服务函数由 services.php 注册,public/mod/workshop/db/services.php,95,
+MDL-E0842,service,服务接口,mod_workshop_get_submission_assessments,外部服务函数由 services.php 注册,public/mod/workshop/db/services.php,102,
+MDL-E0843,service,服务接口,mod_workshop_get_assessment,外部服务函数由 services.php 注册,public/mod/workshop/db/services.php,109,
+MDL-E0844,service,服务接口,mod_workshop_get_assessment_form_definition,外部服务函数由 services.php 注册,public/mod/workshop/db/services.php,116,
+MDL-E0845,service,服务接口,mod_workshop_get_reviewer_assessments,外部服务函数由 services.php 注册,public/mod/workshop/db/services.php,123,
+MDL-E0846,service,服务接口,mod_workshop_update_assessment,外部服务函数由 services.php 注册,public/mod/workshop/db/services.php,130,
+MDL-E0847,service,服务接口,mod_workshop_get_grades,外部服务函数由 services.php 注册,public/mod/workshop/db/services.php,137,
+MDL-E0848,service,服务接口,mod_workshop_evaluate_assessment,外部服务函数由 services.php 注册,public/mod/workshop/db/services.php,144,
+MDL-E0849,service,服务接口,mod_workshop_get_grades_report,外部服务函数由 services.php 注册,public/mod/workshop/db/services.php,151,
+MDL-E0850,service,服务接口,mod_workshop_view_submission,外部服务函数由 services.php 注册,public/mod/workshop/db/services.php,158,
+MDL-E0851,service,服务接口,mod_workshop_evaluate_submission,外部服务函数由 services.php 注册,public/mod/workshop/db/services.php,166,
+MDL-E0852,service,服务接口,report_insights_action_executed,外部服务函数由 services.php 注册,public/report/insights/db/services.php,28,
+MDL-E0853,service,服务接口,report_competency_data_for_report,外部服务函数由 services.php 注册,public/report/competency/db/services.php,33,
+MDL-E0854,service,服务接口,core_auth_confirm_user,外部服务函数由 services.php 注册,public/lib/db/services.php,37,
+MDL-E0855,service,服务接口,core_auth_request_password_reset,外部服务函数由 services.php 注册,public/lib/db/services.php,45,
+MDL-E0856,service,服务接口,core_auth_is_minor,外部服务函数由 services.php 注册,public/lib/db/services.php,53,
+MDL-E0857,service,服务接口,core_auth_is_age_digital_consent_verification_enabled,外部服务函数由 services.php 注册,public/lib/db/services.php,61,
+MDL-E0858,service,服务接口,core_auth_resend_confirmation_email,外部服务函数由 services.php 注册,public/lib/db/services.php,69,
+MDL-E0859,service,服务接口,core_backup_get_async_backup_progress,外部服务函数由 services.php 注册,public/lib/db/services.php,77,
+MDL-E0860,service,服务接口,core_backup_get_async_backup_links_backup,外部服务函数由 services.php 注册,public/lib/db/services.php,86,
+MDL-E0861,service,服务接口,core_backup_get_async_backup_links_restore,外部服务函数由 services.php 注册,public/lib/db/services.php,95,
+MDL-E0862,service,服务接口,core_backup_get_copy_progress,外部服务函数由 services.php 注册,public/lib/db/services.php,104,
+MDL-E0863,service,服务接口,core_backup_submit_copy_form,外部服务函数由 services.php 注册,public/lib/db/services.php,113,
+MDL-E0864,service,服务接口,core_badges_get_user_badges,外部服务函数由 services.php 注册,public/lib/db/services.php,140,
+MDL-E0865,service,服务接口,core_blog_get_entries,外部服务函数由 services.php 注册,public/lib/db/services.php,154,
+MDL-E0866,service,服务接口,core_blog_view_entries,外部服务函数由 services.php 注册,public/lib/db/services.php,163,
+MDL-E0867,service,服务接口,core_calendar_get_calendar_monthly_view,外部服务函数由 services.php 注册,public/lib/db/services.php,202,
+MDL-E0868,service,服务接口,core_calendar_get_calendar_day_view,外部服务函数由 services.php 注册,public/lib/db/services.php,212,
+MDL-E0869,service,服务接口,core_calendar_get_calendar_upcoming_view,外部服务函数由 services.php 注册,public/lib/db/services.php,222,
+MDL-E0870,service,服务接口,core_calendar_update_event_start_day,外部服务函数由 services.php 注册,public/lib/db/services.php,232,
+MDL-E0871,service,服务接口,core_calendar_create_calendar_events,外部服务函数由 services.php 注册,public/lib/db/services.php,242,
+MDL-E0872,service,服务接口,core_calendar_delete_calendar_events,外部服务函数由 services.php 注册,public/lib/db/services.php,251,
+MDL-E0873,service,服务接口,core_calendar_get_calendar_events,外部服务函数由 services.php 注册,public/lib/db/services.php,261,
+MDL-E0874,service,服务接口,core_calendar_get_action_events_by_timesort,外部服务函数由 services.php 注册,public/lib/db/services.php,270,
+MDL-E0875,service,服务接口,core_calendar_get_action_events_by_course,外部服务函数由 services.php 注册,public/lib/db/services.php,281,
+MDL-E0876,service,服务接口,core_calendar_get_action_events_by_courses,外部服务函数由 services.php 注册,public/lib/db/services.php,291,
+MDL-E0877,service,服务接口,core_calendar_get_calendar_event_by_id,外部服务函数由 services.php 注册,public/lib/db/services.php,301,
+MDL-E0878,service,服务接口,core_calendar_submit_create_update_form,外部服务函数由 services.php 注册,public/lib/db/services.php,311,
+MDL-E0879,service,服务接口,core_calendar_get_calendar_access_information,外部服务函数由 services.php 注册,public/lib/db/services.php,321,
+MDL-E0880,service,服务接口,core_calendar_get_allowed_event_types,外部服务函数由 services.php 注册,public/lib/db/services.php,329,
+MDL-E0881,service,服务接口,core_cohort_add_cohort_members,外部服务函数由 services.php 注册,public/lib/db/services.php,364,
+MDL-E0882,service,服务接口,core_cohort_create_cohorts,外部服务函数由 services.php 注册,public/lib/db/services.php,372,
+MDL-E0883,service,服务接口,core_cohort_delete_cohort_members,外部服务函数由 services.php 注册,public/lib/db/services.php,380,
+MDL-E0884,service,服务接口,core_cohort_delete_cohorts,外部服务函数由 services.php 注册,public/lib/db/services.php,388,
+MDL-E0885,service,服务接口,core_cohort_get_cohort_members,外部服务函数由 services.php 注册,public/lib/db/services.php,397,
+MDL-E0886,service,服务接口,core_cohort_search_cohorts,外部服务函数由 services.php 注册,public/lib/db/services.php,405,
+MDL-E0887,service,服务接口,core_cohort_get_cohorts,外部服务函数由 services.php 注册,public/lib/db/services.php,414,
+MDL-E0888,service,服务接口,core_cohort_update_cohorts,外部服务函数由 services.php 注册,public/lib/db/services.php,422,
+MDL-E0889,service,服务接口,core_comment_get_comments,外部服务函数由 services.php 注册,public/lib/db/services.php,430,
+MDL-E0890,service,服务接口,core_comment_add_comments,外部服务函数由 services.php 注册,public/lib/db/services.php,438,
+MDL-E0891,service,服务接口,core_comment_delete_comments,外部服务函数由 services.php 注册,public/lib/db/services.php,445,
+MDL-E0892,service,服务接口,core_completion_get_activities_completion_status,外部服务函数由 services.php 注册,public/lib/db/services.php,453,
+MDL-E0893,service,服务接口,core_completion_get_course_completion_status,外部服务函数由 services.php 注册,public/lib/db/services.php,460,
+MDL-E0894,service,服务接口,core_completion_mark_course_self_completed,外部服务函数由 services.php 注册,public/lib/db/services.php,468,
+MDL-E0895,service,服务接口,core_completion_update_activity_completion_status_manually,外部服务函数由 services.php 注册,public/lib/db/services.php,475,
+MDL-E0896,service,服务接口,core_completion_override_activity_completion_status,外部服务函数由 services.php 注册,public/lib/db/services.php,483,
+MDL-E0897,service,服务接口,core_course_create_categories,外部服务函数由 services.php 注册,public/lib/db/services.php,491,
+MDL-E0898,service,服务接口,core_course_create_courses,外部服务函数由 services.php 注册,public/lib/db/services.php,499,
+MDL-E0899,service,服务接口,core_course_delete_categories,外部服务函数由 services.php 注册,public/lib/db/services.php,507,
+MDL-E0900,service,服务接口,core_course_delete_courses,外部服务函数由 services.php 注册,public/lib/db/services.php,515,
+MDL-E0901,service,服务接口,core_course_delete_modules,外部服务函数由 services.php 注册,public/lib/db/services.php,523,
+MDL-E0902,service,服务接口,core_course_duplicate_course,外部服务函数由 services.php 注册,public/lib/db/services.php,531,
+MDL-E0903,service,服务接口,core_course_get_categories,外部服务函数由 services.php 注册,public/lib/db/services.php,539,
+MDL-E0904,service,服务接口,core_course_get_contents,外部服务函数由 services.php 注册,public/lib/db/services.php,548,
+MDL-E0905,service,服务接口,core_course_get_course_module,外部服务函数由 services.php 注册,public/lib/db/services.php,557,
+MDL-E0906,service,服务接口,core_course_get_course_module_by_instance,外部服务函数由 services.php 注册,public/lib/db/services.php,565,
+MDL-E0907,service,服务接口,core_course_get_module,外部服务函数由 services.php 注册,public/lib/db/services.php,574,
+MDL-E0908,service,服务接口,core_course_edit_module,外部服务函数由 services.php 注册,public/lib/db/services.php,642,
+MDL-E0909,service,服务接口,core_course_edit_section,外部服务函数由 services.php 注册,public/lib/db/services.php,653,
+MDL-E0910,service,服务接口,core_course_get_courses,外部服务函数由 services.php 注册,public/lib/db/services.php,663,
+MDL-E0911,service,服务接口,core_course_import_course,外部服务函数由 services.php 注册,public/lib/db/services.php,673,
+MDL-E0912,service,服务接口,core_course_search_courses,外部服务函数由 services.php 注册,public/lib/db/services.php,681,
+MDL-E0913,service,服务接口,core_course_update_categories,外部服务函数由 services.php 注册,public/lib/db/services.php,690,
+MDL-E0914,service,服务接口,core_course_update_courses,外部服务函数由 services.php 注册,public/lib/db/services.php,698,
+MDL-E0915,service,服务接口,core_course_view_course,外部服务函数由 services.php 注册,public/lib/db/services.php,707,
+MDL-E0916,service,服务接口,core_course_get_user_navigation_options,外部服务函数由 services.php 注册,public/lib/db/services.php,715,
+MDL-E0917,service,服务接口,core_course_get_user_administration_options,外部服务函数由 services.php 注册,public/lib/db/services.php,723,
+MDL-E0918,service,服务接口,core_course_get_courses_by_field,外部服务函数由 services.php 注册,public/lib/db/services.php,732,
+MDL-E0919,service,服务接口,core_course_check_updates,外部服务函数由 services.php 注册,public/lib/db/services.php,740,
+MDL-E0920,service,服务接口,core_course_get_updates_since,外部服务函数由 services.php 注册,public/lib/db/services.php,749,
+MDL-E0921,service,服务接口,core_course_get_enrolled_courses_by_timeline_classification,外部服务函数由 services.php 注册,public/lib/db/services.php,758,
+MDL-E0922,service,服务接口,core_course_get_enrolled_courses_with_action_events_by_timeline_classification,外部服务函数由 services.php 注册,public/lib/db/services.php,767,
+MDL-E0923,service,服务接口,core_course_get_recent_courses,外部服务函数由 services.php 注册,public/lib/db/services.php,777,
+MDL-E0924,service,服务接口,core_course_set_favourite_courses,外部服务函数由 services.php 注册,public/lib/db/services.php,786,
+MDL-E0925,service,服务接口,core_course_get_enrolled_users_by_cmid,外部服务函数由 services.php 注册,public/lib/db/services.php,795,
+MDL-E0926,service,服务接口,core_course_add_content_item_to_user_favourites,外部服务函数由 services.php 注册,public/lib/db/services.php,803,
+MDL-E0927,service,服务接口,core_course_remove_content_item_from_user_favourites,外部服务函数由 services.php 注册,public/lib/db/services.php,811,
+MDL-E0928,service,服务接口,core_course_get_course_content_items,外部服务函数由 services.php 注册,public/lib/db/services.php,819,
+MDL-E0929,service,服务接口,core_course_get_activity_chooser_footer,外部服务函数由 services.php 注册,public/lib/db/services.php,829,
+MDL-E0930,service,服务接口,core_course_toggle_activity_recommendation,外部服务函数由 services.php 注册,public/lib/db/services.php,837,
+MDL-E0931,service,服务接口,core_enrol_get_course_enrolment_methods,外部服务函数由 services.php 注册,public/lib/db/services.php,851,
+MDL-E0932,service,服务接口,core_enrol_get_enrolled_users,外部服务函数由 services.php 注册,public/lib/db/services.php,859,
+MDL-E0933,service,服务接口,core_enrol_get_enrolled_users_with_capability,外部服务函数由 services.php 注册,public/lib/db/services.php,869,
+MDL-E0934,service,服务接口,core_enrol_get_potential_users,外部服务函数由 services.php 注册,public/lib/db/services.php,877,
+MDL-E0935,service,服务接口,core_enrol_get_users_courses,外部服务函数由 services.php 注册,public/lib/db/services.php,897,
+MDL-E0936,service,服务接口,core_enrol_submit_user_enrolment_form,外部服务函数由 services.php 注册,public/lib/db/services.php,906,
+MDL-E0937,service,服务接口,core_enrol_unenrol_user_enrolment,外部服务函数由 services.php 注册,public/lib/db/services.php,914,
+MDL-E0938,service,服务接口,core_fetch_notifications,外部服务函数由 services.php 注册,public/lib/db/services.php,922,
+MDL-E0939,service,服务接口,core_session_touch,外部服务函数由 services.php 注册,public/lib/db/services.php,932,
+MDL-E0940,service,服务接口,core_session_time_remaining,外部服务函数由 services.php 注册,public/lib/db/services.php,940,
+MDL-E0941,service,服务接口,core_files_get_files,外部服务函数由 services.php 注册,public/lib/db/services.php,948,
+MDL-E0942,service,服务接口,core_files_upload,外部服务函数由 services.php 注册,public/lib/db/services.php,956,
+MDL-E0943,service,服务接口,core_files_delete_draft_files,外部服务函数由 services.php 注册,public/lib/db/services.php,963,
+MDL-E0944,service,服务接口,core_files_get_unused_draft_itemid,外部服务函数由 services.php 注册,public/lib/db/services.php,969,
+MDL-E0945,service,服务接口,core_form_get_filetypes_browser_data,外部服务函数由 services.php 注册,public/lib/db/services.php,975,
+MDL-E0946,service,服务接口,core_form_dynamic_form,外部服务函数由 services.php 注册,public/lib/db/services.php,984,
+MDL-E0947,service,服务接口,core_get_component_strings,外部服务函数由 services.php 注册,public/lib/db/services.php,990,
+MDL-E0948,service,服务接口,core_get_fragment,外部服务函数由 services.php 注册,public/lib/db/services.php,1001,
+MDL-E0949,service,服务接口,core_get_string,外部服务函数由 services.php 注册,public/lib/db/services.php,1009,
+MDL-E0950,service,服务接口,core_get_strings,外部服务函数由 services.php 注册,public/lib/db/services.php,1018,
+MDL-E0951,service,服务接口,core_get_user_dates,外部服务函数由 services.php 注册,public/lib/db/services.php,1027,
+MDL-E0952,service,服务接口,core_grades_update_grades,外部服务函数由 services.php 注册,public/lib/db/services.php,1035,
+MDL-E0953,service,服务接口,core_grades_create_gradecategories,外部服务函数由 services.php 注册,public/lib/db/services.php,1071,
+MDL-E0954,service,服务接口,core_grades_get_enrolled_users_for_selector,外部服务函数由 services.php 注册,public/lib/db/services.php,1077,
+MDL-E0955,service,服务接口,core_grading_get_definitions,外部服务函数由 services.php 注册,public/lib/db/services.php,1119,
+MDL-E0956,service,服务接口,core_grading_get_gradingform_instances,外部服务函数由 services.php 注册,public/lib/db/services.php,1125,
+MDL-E0957,service,服务接口,core_grading_save_definitions,外部服务函数由 services.php 注册,public/lib/db/services.php,1131,
+MDL-E0958,service,服务接口,core_group_add_group_members,外部服务函数由 services.php 注册,public/lib/db/services.php,1137,
+MDL-E0959,service,服务接口,core_group_assign_grouping,外部服务函数由 services.php 注册,public/lib/db/services.php,1145,
+MDL-E0960,service,服务接口,core_group_create_groupings,外部服务函数由 services.php 注册,public/lib/db/services.php,1152,
+MDL-E0961,service,服务接口,core_group_create_groups,外部服务函数由 services.php 注册,public/lib/db/services.php,1159,
+MDL-E0962,service,服务接口,core_group_delete_group_members,外部服务函数由 services.php 注册,public/lib/db/services.php,1167,
+MDL-E0963,service,服务接口,core_group_delete_groupings,外部服务函数由 services.php 注册,public/lib/db/services.php,1175,
+MDL-E0964,service,服务接口,core_group_delete_groups,外部服务函数由 services.php 注册,public/lib/db/services.php,1182,
+MDL-E0965,service,服务接口,core_group_get_activity_allowed_groups,外部服务函数由 services.php 注册,public/lib/db/services.php,1190,
+MDL-E0966,service,服务接口,core_group_get_activity_groupmode,外部服务函数由 services.php 注册,public/lib/db/services.php,1198,
+MDL-E0967,service,服务接口,core_group_get_course_groupings,外部服务函数由 services.php 注册,public/lib/db/services.php,1206,
+MDL-E0968,service,服务接口,core_group_get_course_groups,外部服务函数由 services.php 注册,public/lib/db/services.php,1214,
+MDL-E0969,service,服务接口,core_group_get_course_user_groups,外部服务函数由 services.php 注册,public/lib/db/services.php,1224,
+MDL-E0970,service,服务接口,core_group_get_group_members,外部服务函数由 services.php 注册,public/lib/db/services.php,1233,
+MDL-E0971,service,服务接口,core_group_get_groupings,外部服务函数由 services.php 注册,public/lib/db/services.php,1241,
+MDL-E0972,service,服务接口,core_group_get_groups,外部服务函数由 services.php 注册,public/lib/db/services.php,1248,
+MDL-E0973,service,服务接口,core_group_unassign_grouping,外部服务函数由 services.php 注册,public/lib/db/services.php,1263,
+MDL-E0974,service,服务接口,core_group_update_groupings,外部服务函数由 services.php 注册,public/lib/db/services.php,1270,
+MDL-E0975,service,服务接口,core_group_update_groups,外部服务函数由 services.php 注册,public/lib/db/services.php,1277,
+MDL-E0976,service,服务接口,core_message_mute_conversations,外部服务函数由 services.php 注册,public/lib/db/services.php,1285,
+MDL-E0977,service,服务接口,core_message_unmute_conversations,外部服务函数由 services.php 注册,public/lib/db/services.php,1294,
+MDL-E0978,service,服务接口,core_message_block_user,外部服务函数由 services.php 注册,public/lib/db/services.php,1303,
+MDL-E0979,service,服务接口,core_message_get_contact_requests,外部服务函数由 services.php 注册,public/lib/db/services.php,1312,
+MDL-E0980,service,服务接口,core_message_create_contact_request,外部服务函数由 services.php 注册,public/lib/db/services.php,1321,
+MDL-E0981,code_reference,运行机制,require_login,代码使用 require_login 支撑访问控制/业务流程,public/editmode.php,37,require_login();
+MDL-E0982,code_reference,运行机制,has_capability,代码使用 has_capability 支撑访问控制/业务流程,public/index.php,58,"$hasmaintenanceaccess = has_capability('moodle/site:maintenanceaccess', context_system::instance());"
+MDL-E0983,code_reference,运行机制,context_system::instance,代码使用 context_system::instance 支撑访问控制/业务流程,public/index.php,58,"$hasmaintenanceaccess = has_capability('moodle/site:maintenanceaccess', context_system::instance());"
+MDL-E0984,code_reference,运行机制,has_capability,代码使用 has_capability 支撑访问控制/业务流程,public/index.php,65,"$hassiteconfig = has_capability('moodle/site:config', context_system::instance());"
+MDL-E0985,code_reference,运行机制,context_system::instance,代码使用 context_system::instance 支撑访问控制/业务流程,public/index.php,65,"$hassiteconfig = has_capability('moodle/site:config', context_system::instance());"
+MDL-E0986,code_reference,运行机制,context_course::instance,代码使用 context_course::instance 支撑访问控制/业务流程,public/index.php,124,course_view(context_course::instance(SITEID));
+MDL-E0987,code_reference,运行机制,get_fast_modinfo,代码使用 get_fast_modinfo 支撑访问控制/业务流程,public/index.php,134,$modinfo = get_fast_modinfo($SITE);
+MDL-E0988,code_reference,运行机制,has_capability,代码使用 has_capability 支撑访问控制/业务流程,public/index.php,166,"if ($editing && has_capability('moodle/course:create', context_system::instance())) {"
+MDL-E0989,code_reference,运行机制,context_system::instance,代码使用 context_system::instance 支撑访问控制/业务流程,public/index.php,166,"if ($editing && has_capability('moodle/course:create', context_system::instance())) {"
+MDL-E0990,code_reference,运行机制,require_login,代码使用 require_login 支撑访问控制/业务流程,public/file.php,68,"require_login($course, true, null, false);"
+MDL-E0991,code_reference,运行机制,require_login,代码使用 require_login 支撑访问控制/业务流程,public/file.php,76,"require_login(0, true, null, false);"
+MDL-E0992,code_reference,运行机制,context_course::instance,代码使用 context_course::instance 支撑访问控制/业务流程,public/file.php,80,$context = context_course::instance($course->id);
+MDL-E0993,code_reference,运行机制,file_storage,代码使用 file_storage 支撑访问控制/业务流程,public/file.php,82,$fs = get_file_storage();
+MDL-E0994,code_reference,运行机制,get_file_storage,代码使用 get_file_storage 支撑访问控制/业务流程,public/file.php,82,$fs = get_file_storage();
+MDL-E0995,code_reference,运行机制,context_system::instance,代码使用 context_system::instance 支撑访问控制/业务流程,public/help_ajax.php,37,$PAGE->set_context(context_system::instance());
+MDL-E0996,code_reference,运行机制,context_system::instance,代码使用 context_system::instance 支撑访问控制/业务流程,public/help.php,42,$PAGE->set_context(context_system::instance());
+MDL-E0997,code_reference,运行机制,require_login,代码使用 require_login 支撑访问控制/业务流程,public/draftfile.php,33,require_login();
+MDL-E0998,code_reference,运行机制,file_storage,代码使用 file_storage 支撑访问控制/业务流程,public/draftfile.php,75,$fs = get_file_storage();
+MDL-E0999,code_reference,运行机制,get_file_storage,代码使用 get_file_storage 支撑访问控制/业务流程,public/draftfile.php,75,$fs = get_file_storage();
+MDL-E1000,code_reference,运行机制,file_storage,代码使用 file_storage 支撑访问控制/业务流程,public/competency/lib.php,297,$fs = get_file_storage();
+MDL-E1001,code_reference,运行机制,get_file_storage,代码使用 get_file_storage 支撑访问控制/业务流程,public/competency/lib.php,297,$fs = get_file_storage();
+MDL-E1002,code_reference,运行机制,has_capability,代码使用 has_capability 支撑访问控制/业务流程,public/blocks/moodleblock.class.php,184,"if ( !has_capability('moodle/block:view', $this->context) ) {"
+MDL-E1003,code_reference,运行机制,has_capability,代码使用 has_capability 支撑访问控制/业务流程,public/blocks/moodleblock.class.php,221,"if (!has_capability('moodle/block:view', $this->context)) {"
+MDL-E1004,code_reference,运行机制,has_capability,代码使用 has_capability 支撑访问控制/业务流程,public/blocks/moodleblock.class.php,563,"if (has_capability('moodle/block:edit', $this->context)) {"
+MDL-E1005,code_reference,运行机制,has_capability,代码使用 has_capability 支撑访问控制/业务流程,public/blocks/moodleblock.class.php,572,"return has_capability('moodle/my:manageblocks', $this->page->context);"
+MDL-E1006,code_reference,运行机制,has_capability,代码使用 has_capability 支撑访问控制/业务流程,public/blocks/moodleblock.class.php,599,"&& has_capability('moodle/user:manageownblocks', $page->context);"
+MDL-E1007,code_reference,运行机制,has_capability,代码使用 has_capability 支撑访问控制/业务流程,public/blocks/moodleblock.class.php,617,"&& has_capability('moodle/my:manageblocks', $page->context);"
+MDL-E1008,code_reference,运行机制,has_capability,代码使用 has_capability 支撑访问控制/业务流程,public/blocks/moodleblock.class.php,629,"&& has_capability('moodle/block:edit', $page->context)) {"
+MDL-E1009,code_reference,运行机制,has_capability,代码使用 has_capability 支撑访问控制/业务流程,public/blocks/moodleblock.class.php,656,"return has_capability($capability, $page->context);"
+MDL-E1010,code_reference,运行机制,has_capability,代码使用 has_capability 支撑访问控制/业务流程,public/blocks/moodleblock.class.php,776,"if ( !has_capability('moodle/block:view', $this->context) ) {"
+MDL-E1011,code_reference,运行机制,context_system::instance,代码使用 context_system::instance 支撑访问控制/业务流程,public/blocks/edit_form.php,354,$systemcontext = context_system::instance();
+MDL-E1012,code_reference,运行机制,context_system::instance,代码使用 context_system::instance 支撑访问控制/业务流程,public/repository/draftfiles_ajax.php,33,$PAGE->set_context(context_system::instance());
+MDL-E1013,code_reference,运行机制,require_login,代码使用 require_login 支撑访问控制/业务流程,public/repository/draftfiles_ajax.php,34,require_login();
+MDL-E1014,code_reference,运行机制,file_storage,代码使用 file_storage 支撑访问控制/业务流程,public/repository/draftfiles_ajax.php,49,"//NOTE TO ALL DEVELOPERS: this script must deal only with draft area of current user, it has to use only file_storage and no file_browser!!"
+MDL-E1015,code_reference,运行机制,file_storage,代码使用 file_storage 支撑访问控制/业务流程,public/repository/draftfiles_ajax.php,75,$fs = get_file_storage();
+MDL-E1016,code_reference,运行机制,get_file_storage,代码使用 get_file_storage 支撑访问控制/业务流程,public/repository/draftfiles_ajax.php,75,$fs = get_file_storage();
+MDL-E1017,code_reference,运行机制,file_storage,代码使用 file_storage 支撑访问控制/业务流程,public/repository/draftfiles_ajax.php,157,$fs = get_file_storage();
+MDL-E1018,code_reference,运行机制,get_file_storage,代码使用 get_file_storage 支撑访问控制/业务流程,public/repository/draftfiles_ajax.php,157,$fs = get_file_storage();
+MDL-E1019,code_reference,运行机制,file_storage,代码使用 file_storage 支撑访问控制/业务流程,public/repository/draftfiles_ajax.php,207,$fs = get_file_storage();
+MDL-E1020,code_reference,运行机制,get_file_storage,代码使用 get_file_storage 支撑访问控制/业务流程,public/repository/draftfiles_ajax.php,207,$fs = get_file_storage();
+MDL-E1021,code_reference,运行机制,file_storage,代码使用 file_storage 支撑访问控制/业务流程,public/repository/draftfiles_ajax.php,280,$fs = get_file_storage();
+MDL-E1022,code_reference,运行机制,get_file_storage,代码使用 get_file_storage 支撑访问控制/业务流程,public/repository/draftfiles_ajax.php,280,$fs = get_file_storage();
+MDL-E1023,code_reference,运行机制,file_storage,代码使用 file_storage 支撑访问控制/业务流程,public/repository/draftfiles_ajax.php,294,$fs = get_file_storage();
+MDL-E1024,code_reference,运行机制,get_file_storage,代码使用 get_file_storage 支撑访问控制/业务流程,public/repository/draftfiles_ajax.php,294,$fs = get_file_storage();
+MDL-E1025,code_reference,运行机制,require_login,代码使用 require_login 支撑访问控制/业务流程,public/repository/filepicker.php,36,require_login();
+MDL-E1026,code_reference,运行机制,context_system::instance,代码使用 context_system::instance 支撑访问控制/业务流程,public/repository/filepicker.php,385,"$params['context'] = array($user_context, context_system::instance());"
+MDL-E1027,code_reference,运行机制,context_system::instance,代码使用 context_system::instance 支撑访问控制/业务流程,public/repository/lib.php,256,"repository::static_function($this->_typename, 'create', $this->_typename, 0, context_system::instance(), $instanceoptions);"
+MDL-E1028,code_reference,运行机制,has_capability,代码使用 has_capability 支撑访问控制/业务流程,public/repository/lib.php,760,"$can = has_capability('repository/'.$this->get_typename().':view', $currentcontext);"
+MDL-E1029,code_reference,运行机制,file_storage,代码使用 file_storage 支撑访问控制/业务流程,public/repository/lib.php,816,$fs = get_file_storage();
+MDL-E1030,code_reference,运行机制,get_file_storage,代码使用 get_file_storage 支撑访问控制/业务流程,public/repository/lib.php,816,$fs = get_file_storage();
+MDL-E1031,code_reference,运行机制,file_storage,代码使用 file_storage 支撑访问控制/业务流程,public/repository/lib.php,825,*        {@link repository::get_file_reference()} or {@link file_storage::pack_reference()}
+MDL-E1032,code_reference,运行机制,file_storage,代码使用 file_storage 支撑访问控制/业务流程,public/repository/lib.php,829,"$params = file_storage::unpack_reference($reference, true);"
+MDL-E1033,code_reference,运行机制,file_storage,代码使用 file_storage 支撑访问控制/业务流程,public/repository/lib.php,830,$fs = get_file_storage();
+MDL-E1034,code_reference,运行机制,get_file_storage,代码使用 get_file_storage 支撑访问控制/业务流程,public/repository/lib.php,830,$fs = get_file_storage();
+MDL-E1035,code_reference,运行机制,file_storage,代码使用 file_storage 支撑访问控制/业务流程,public/repository/lib.php,848,"$params = file_storage::unpack_reference($reference, true);"
+MDL-E1036,code_reference,运行机制,file_storage,代码使用 file_storage 支撑访问控制/业务流程,public/repository/lib.php,880,$fs = get_file_storage();
+MDL-E1037,code_reference,运行机制,get_file_storage,代码使用 get_file_storage 支撑访问控制/业务流程,public/repository/lib.php,880,$fs = get_file_storage();
+MDL-E1038,code_reference,运行机制,file_storage,代码使用 file_storage 支撑访问控制/业务流程,public/repository/lib.php,952,$fs = get_file_storage();
+MDL-E1039,code_reference,运行机制,get_file_storage,代码使用 get_file_storage 支撑访问控制/业务流程,public/repository/lib.php,952,$fs = get_file_storage();
+MDL-E1040,code_reference,运行机制,context_system::instance,代码使用 context_system::instance 支撑访问控制/业务流程,public/repository/lib.php,986,$context = context_system::instance();
+MDL-E1041,code_reference,运行机制,context_system::instance,代码使用 context_system::instance 支撑访问控制/业务流程,public/repository/lib.php,1029,$current_context = context_system::instance();
+MDL-E1042,code_reference,运行机制,context_system::instance,代码使用 context_system::instance 支撑访问控制/业务流程,public/repository/lib.php,1032,$current_context = context_system::instance();
+MDL-E1043,code_reference,运行机制,has_capability,代码使用 has_capability 支撑访问控制/业务流程,public/repository/lib.php,1139,"$capability = has_capability('repository/'.$record->repositorytype.':view', $current_context);"
+MDL-E1044,code_reference,运行机制,has_capability,代码使用 has_capability 支撑访问控制/业务流程,public/repository/lib.php,1142,"$capability = $capability && has_capability('moodle/course:managefiles', $current_context);"
+MDL-E1045,code_reference,运行机制,context_system::instance,代码使用 context_system::instance 支撑访问控制/业务流程,public/repository/lib.php,1166,"return self::get_repository_by_id($id, context_system::instance());"
+MDL-E1046,code_reference,运行机制,file_storage,代码使用 file_storage 支撑访问控制/业务流程,public/repository/lib.php,1229,$fs = get_file_storage();
+MDL-E1047,code_reference,运行机制,get_file_storage,代码使用 get_file_storage 支撑访问控制/业务流程,public/repository/lib.php,1229,$fs = get_file_storage();
+MDL-E1048,code_reference,运行机制,file_storage,代码使用 file_storage 支撑访问控制/业务流程,public/repository/lib.php,1230,"$params = file_storage::unpack_reference($storedfile->get_reference(), true);"
+MDL-E1049,code_reference,运行机制,file_storage,代码使用 file_storage 支撑访问控制/业务流程,public/repository/lib.php,1262,"$params = file_storage::unpack_reference($reference, true);"
+MDL-E1050,code_reference,运行机制,has_capability,代码使用 has_capability 支撑访问控制/业务流程,public/repository/lib.php,1272,"if (is_siteadmin() || ($context && has_capability('moodle/course:managefiles', $context))) {"
+MDL-E1051,code_reference,运行机制,file_storage,代码使用 file_storage 支撑访问控制/业务流程,public/repository/lib.php,1365,$fs = get_file_storage();
+MDL-E1052,code_reference,运行机制,get_file_storage,代码使用 get_file_storage 支撑访问控制/业务流程,public/repository/lib.php,1365,$fs = get_file_storage();
+MDL-E1053,code_reference,运行机制,has_capability,代码使用 has_capability 支撑访问控制/业务流程,public/repository/lib.php,1584,"if (!has_capability('repository/'.$type->get_typename().':view', $context)) {"
+MDL-E1054,code_reference,运行机制,file_storage,代码使用 file_storage 支撑访问控制/业务流程,public/repository/lib.php,1643,return file_storage::pack_reference($params);
+MDL-E1055,code_reference,运行机制,file_storage,代码使用 file_storage 支撑访问控制/业务流程,public/repository/lib.php,1757,$fs = get_file_storage();
+MDL-E1056,code_reference,运行机制,get_file_storage,代码使用 get_file_storage 支撑访问控制/业务流程,public/repository/lib.php,1757,$fs = get_file_storage();
+MDL-E1057,code_reference,运行机制,has_capability,代码使用 has_capability 支撑访问控制/业务流程,public/repository/lib.php,1834,"} else if ($repocontext->contextlevel == CONTEXT_MODULE && !has_capability('moodle/course:update', $repocontext)) {"
+MDL-E1058,code_reference,运行机制,has_capability,代码使用 has_capability 支撑访问控制/业务流程,public/repository/lib.php,1837,"} else if ($repocontext->contextlevel == CONTEXT_SYSTEM && !has_capability('moodle/site:config', $repocontext)) {"
+MDL-E1059,code_reference,运行机制,file_storage,代码使用 file_storage 支撑访问控制/业务流程,public/repository/lib.php,2501,$fs = get_file_storage();
+MDL-E1060,code_reference,运行机制,get_file_storage,代码使用 get_file_storage 支撑访问控制/业务流程,public/repository/lib.php,2501,$fs = get_file_storage();
+MDL-E1061,code_reference,运行机制,file_storage,代码使用 file_storage 支撑访问控制/业务流程,public/repository/lib.php,2551,$fs = get_file_storage();
+MDL-E1062,code_reference,运行机制,get_file_storage,代码使用 get_file_storage 支撑访问控制/业务流程,public/repository/lib.php,2551,$fs = get_file_storage();
+MDL-E1063,code_reference,运行机制,file_storage,代码使用 file_storage 支撑访问控制/业务流程,public/repository/lib.php,2647,$fs = get_file_storage();
+MDL-E1064,code_reference,运行机制,get_file_storage,代码使用 get_file_storage 支撑访问控制/业务流程,public/repository/lib.php,2647,$fs = get_file_storage();
+MDL-E1065,code_reference,运行机制,file_storage,代码使用 file_storage 支撑访问控制/业务流程,public/repository/lib.php,2661,$fs = get_file_storage();
+MDL-E1066,code_reference,运行机制,get_file_storage,代码使用 get_file_storage 支撑访问控制/业务流程,public/repository/lib.php,2661,$fs = get_file_storage();
+MDL-E1067,code_reference,运行机制,file_storage,代码使用 file_storage 支撑访问控制/业务流程,public/repository/lib.php,2672,$fs = get_file_storage();
+MDL-E1068,code_reference,运行机制,get_file_storage,代码使用 get_file_storage 支撑访问控制/业务流程,public/repository/lib.php,2672,$fs = get_file_storage();
+MDL-E1069,code_reference,运行机制,file_storage,代码使用 file_storage 支撑访问控制/业务流程,public/repository/lib.php,2729,$fs = get_file_storage();
+MDL-E1070,code_reference,运行机制,get_file_storage,代码使用 get_file_storage 支撑访问控制/业务流程,public/repository/lib.php,2729,$fs = get_file_storage();
+MDL-E1071,code_reference,运行机制,file_storage,代码使用 file_storage 支撑访问控制/业务流程,public/repository/lib.php,2730,"$params = file_storage::unpack_reference($file->get_reference(), true);"
+MDL-E1072,code_reference,运行机制,context_system::instance,代码使用 context_system::instance 支撑访问控制/业务流程,public/repository/lib.php,3139,"$contexts = array($user_context, context_system::instance());"
+MDL-E1073,code_reference,运行机制,context_course::instance,代码使用 context_course::instance 支撑访问控制/业务流程,public/repository/lib.php,3142,$contexts[] = context_course::instance($course->id);
+MDL-E1074,code_reference,运行机制,file_storage,代码使用 file_storage 支撑访问控制/业务流程,public/repository/lib.php,3207,$fs = get_file_storage();
+MDL-E1075,code_reference,运行机制,get_file_storage,代码使用 get_file_storage 支撑访问控制/业务流程,public/repository/lib.php,3207,$fs = get_file_storage();
+MDL-E1076,code_reference,运行机制,file_storage,代码使用 file_storage 支撑访问控制/业务流程,public/repository/lib.php,3276,$fs = get_file_storage();
+MDL-E1077,code_reference,运行机制,get_file_storage,代码使用 get_file_storage 支撑访问控制/业务流程,public/repository/lib.php,3276,$fs = get_file_storage();
+MDL-E1078,code_reference,运行机制,require_login,代码使用 require_login 支撑访问控制/业务流程,public/repository/repository_ajax.php,58,"require_login($course, false, $cm, false, true);"
+MDL-E1079,code_reference,运行机制,file_storage,代码使用 file_storage 支撑访问控制/业务流程,public/repository/repository_ajax.php,198,$fs = get_file_storage();
+MDL-E1080,code_reference,运行机制,get_file_storage,代码使用 get_file_storage 支撑访问控制/业务流程,public/repository/repository_ajax.php,198,$fs = get_file_storage();
+MDL-E1081,code_reference,运行机制,require_login,代码使用 require_login 支撑访问控制/业务流程,public/repository/manage_instances.php,79,"require_login($course, false);"
+MDL-E1082,code_reference,运行机制,require_capability,代码使用 require_capability 支撑访问控制/业务流程,public/repository/manage_instances.php,81,"require_capability('moodle/course:update',  $context);"
+MDL-E1083,code_reference,运行机制,require_login,代码使用 require_login 支撑访问控制/业务流程,public/repository/manage_instances.php,85,require_login();
+MDL-E1084,code_reference,运行机制,has_capability,代码使用 has_capability 支撑访问控制/业务流程,public/repository/manage_instances.php,113,"$canviewrepository = has_capability('repository/'.$type->get_typename().':view', $context);"
+MDL-E1085,code_reference,运行机制,require_login,代码使用 require_login 支撑访问控制/业务流程,public/repository/repository_callback.php,33,require_login();
+MDL-E1086,code_reference,运行机制,file_storage,代码使用 file_storage 支撑访问控制/业务流程,public/repository/draftfiles_manager.php,21,"// NOTE TO ALL DEVELOPERS: this script must deal only with draft area of current user, it has to use only file_storage and no file_browser!!"
+MDL-E1087,code_reference,运行机制,require_login,代码使用 require_login 支撑访问控制/业务流程,public/repository/draftfiles_manager.php,40,require_login();
+MDL-E1088,code_reference,运行机制,file_storage,代码使用 file_storage 支撑访问控制/业务流程,public/repository/draftfiles_manager.php,72,$fs = get_file_storage();
+MDL-E1089,code_reference,运行机制,get_file_storage,代码使用 get_file_storage 支撑访问控制/业务流程,public/repository/draftfiles_manager.php,72,$fs = get_file_storage();
+MDL-E1090,code_reference,运行机制,require_login,代码使用 require_login 支撑访问控制/业务流程,public/course/info.php,47,require_login();
+MDL-E1091,code_reference,运行机制,context_course::instance,代码使用 context_course::instance 支撑访问控制/业务流程,public/course/info.php,50,$context = context_course::instance($course->id);
+MDL-E1092,code_reference,运行机制,has_capability,代码使用 has_capability 支撑访问控制/业务流程,public/course/modlib.php,76,"if (has_capability('moodle/course:setforcedlanguage', context_course::instance($course->id))) {"
+MDL-E1093,code_reference,运行机制,context_course::instance,代码使用 context_course::instance 支撑访问控制/业务流程,public/course/modlib.php,76,"if (has_capability('moodle/course:setforcedlanguage', context_course::instance($course->id))) {"
+MDL-E1094,code_reference,运行机制,completion_info,代码使用 completion_info 支撑访问控制/业务流程,public/course/modlib.php,83,$completion = new completion_info($course);
+MDL-E1095,code_reference,运行机制,has_capability,代码使用 has_capability 支撑访问控制/业务流程,public/course/modlib.php,389,"and has_capability('moodle/grade:managegradingforms', $modcontext)) {"
+MDL-E1096,code_reference,运行机制,context_course::instance,代码使用 context_course::instance 支撑访问控制/业务流程,public/course/modlib.php,579,$context = context_course::instance($course->id);
+MDL-E1097,code_reference,运行机制,require_capability,代码使用 require_capability 支撑访问控制/业务流程,public/course/modlib.php,580,"require_capability('moodle/course:manageactivities', $context);"
+MDL-E1098,code_reference,运行机制,get_fast_modinfo,代码使用 get_fast_modinfo 支撑访问控制/业务流程,public/course/modlib.php,585,$sectioninfo = get_fast_modinfo($course)->get_section_info($sectionnum);
+MDL-E1099,code_reference,运行机制,get_fast_modinfo,代码使用 get_fast_modinfo 支撑访问控制/业务流程,public/course/modlib.php,588,$sectioninfo = get_fast_modinfo($course)->get_section_info($sectionnum);
+MDL-E1100,code_reference,运行机制,require_capability,代码使用 require_capability 支撑访问控制/业务流程,public/course/modlib.php,610,"require_capability('moodle/course:manageactivities', $context);"
+MDL-E1101,code_reference,运行机制,has_capability,代码使用 has_capability 支撑访问控制/业务流程,public/course/modlib.php,651,"if (has_capability('moodle/course:setforcedlanguage', $modcontext)) {"
+MDL-E1102,code_reference,运行机制,completion_info,代码使用 completion_info 支撑访问控制/业务流程,public/course/modlib.php,667,$completion = new completion_info($course);
+MDL-E1103,code_reference,运行机制,has_capability,代码使用 has_capability 支撑访问控制/业务流程,public/course/modlib.php,782,"if (has_capability('moodle/course:activityvisibility', $modcontext)) {"
+MDL-E1104,code_reference,运行机制,get_fast_modinfo,代码使用 get_fast_modinfo 支撑访问控制/业务流程,public/course/modlib.php,814,"get_fast_modinfo($course)->get_cm($cm->id),"
+MDL-E1105,code_reference,运行机制,has_capability,代码使用 has_capability 支撑访问控制/业务流程,public/course/modlib.php,888,"and has_capability('moodle/grade:managegradingforms', $context)) {"
+MDL-E1106,code_reference,运行机制,has_capability,代码使用 has_capability 支撑访问控制/业务流程,public/course/modlib.php,998,"and has_capability('moodle/grade:managegradingforms', $context)) {"
+MDL-E1107,code_reference,运行机制,require_login,代码使用 require_login 支撑访问控制/业务流程,public/course/editbulkcompletion.php,31,require_login($course);
+MDL-E1108,code_reference,运行机制,require_capability,代码使用 require_capability 支撑访问控制/业务流程,public/course/editbulkcompletion.php,40,"require_capability('moodle/course:manageactivities', context_course::instance($course->id));"
+MDL-E1109,code_reference,运行机制,context_course::instance,代码使用 context_course::instance 支撑访问控制/业务流程,public/course/editbulkcompletion.php,40,"require_capability('moodle/course:manageactivities', context_course::instance($course->id));"
+MDL-E1110,code_reference,运行机制,get_fast_modinfo,代码使用 get_fast_modinfo 支撑访问控制/业务流程,public/course/editbulkcompletion.php,44,$modinfo = get_fast_modinfo($courseid);
+MDL-E1111,code_reference,运行机制,require_login,代码使用 require_login 支撑访问控制/业务流程,public/course/scales.php,42,require_login($course);
+MDL-E1112,code_reference,运行机制,context_course::instance,代码使用 context_course::instance 支撑访问控制/业务流程,public/course/scales.php,43,$context = context_course::instance($course->id);
+MDL-E1113,code_reference,运行机制,require_login,代码使用 require_login 支撑访问控制/业务流程,public/course/scales.php,46,require_login();
+MDL-E1114,code_reference,运行机制,context_system::instance,代码使用 context_system::instance 支撑访问控制/业务流程,public/course/scales.php,47,$context = context_system::instance();
+MDL-E1115,code_reference,运行机制,require_capability,代码使用 require_capability 支撑访问控制/业务流程,public/course/scales.php,51,"require_capability('moodle/course:viewscales', $context);"
+MDL-E1116,code_reference,运行机制,context_system::instance,代码使用 context_system::instance 支撑访问控制/业务流程,public/course/scales.php,86,$systemcontext = context_system::instance();
+MDL-E1117,code_reference,运行机制,has_capability,代码使用 has_capability 支撑访问控制/业务流程,public/course/scales.php,91,"if (has_capability('moodle/course:managescales', $context)) {"
+MDL-E1118,code_reference,运行机制,has_capability,代码使用 has_capability 支撑访问控制/业务流程,public/course/scales.php,115,"if (has_capability('moodle/course:managescales', $context)) {"
+MDL-E1119,code_reference,运行机制,context_course::instance,代码使用 context_course::instance 支撑访问控制/业务流程,public/course/togglecompletion.php,51,$context = context_course::instance($course->id);
+MDL-E1120,code_reference,运行机制,require_login,代码使用 require_login 支撑访问控制/业务流程,public/course/togglecompletion.php,52,require_login($course);
+MDL-E1121,code_reference,运行机制,completion_info,代码使用 completion_info 支撑访问控制/业务流程,public/course/togglecompletion.php,54,$completion = new completion_info($course);
+MDL-E1122,code_reference,运行机制,role_assign,代码使用 role_assign 支撑访问控制/业务流程,public/course/togglecompletion.php,70,"if ($criteria and user_has_role_assignment($USER->id, $criteria->role, $context->id)) {"
+MDL-E1123,code_reference,运行机制,require_login,代码使用 require_login 支撑访问控制/业务流程,public/course/togglecompletion.php,140,"require_login($course, false, $cm);"
+MDL-E1124,code_reference,运行机制,require_capability,代码使用 require_capability 支撑访问控制/业务流程,public/course/togglecompletion.php,141,"require_capability('moodle/course:togglecompletion', context_module::instance($cmid));"
+MDL-E1125,code_reference,运行机制,completion_info,代码使用 completion_info 支撑访问控制/业务流程,public/course/togglecompletion.php,148,$completion = new completion_info($course);
+MDL-E1126,code_reference,运行机制,get_fast_modinfo,代码使用 get_fast_modinfo 支撑访问控制/业务流程,public/course/renderer.php,245,"section: get_fast_modinfo($course)->get_section_info($section),"
+MDL-E1127,code_reference,运行机制,context_system::instance,代码使用 context_system::instance 支撑访问控制/业务流程,public/course/renderer.php,497,"\core_user::get_profile_url($coursecontact['user'], context_system::instance()),"
+MDL-E1128,code_reference,运行机制,context_course::instance,代码使用 context_course::instance 支撑访问控制/业务流程,public/course/renderer.php,1080,"$coursecontext = context_course::instance($course->id, MUST_EXIST);"
+MDL-E1129,code_reference,运行机制,has_capability,代码使用 has_capability 支撑访问控制/业务流程,public/course/renderer.php,1081,"if ($course->visible == 0 && !has_capability('moodle/course:viewhiddencourses', $coursecontext)) {"
+MDL-E1130,code_reference,运行机制,has_capability,代码使用 has_capability 支撑访问控制/业务流程,public/course/renderer.php,1351,"if (!$totalcount && !$this->page->user_is_editing() && has_capability('moodle/course:create', context_system::instance())) {"
+MDL-E1131,code_reference,运行机制,context_system::instance,代码使用 context_system::instance 支撑访问控制/业务流程,public/course/renderer.php,1351,"if (!$totalcount && !$this->page->user_is_editing() && has_capability('moodle/course:create', context_system::instance())) {"
+MDL-E1132,code_reference,运行机制,get_fast_modinfo,代码使用 get_fast_modinfo 支撑访问控制/业务流程,public/course/renderer.php,1491,$modinfo = get_fast_modinfo($SITE);
+MDL-E1133,code_reference,运行机制,get_fast_modinfo,代码使用 get_fast_modinfo 支撑访问控制/业务流程,public/course/renderer.php,1602,$newsforumcm = get_fast_modinfo($SITE)->instances['forum'][$newsforum->id];
+MDL-E1134,code_reference,运行机制,context_course::instance,代码使用 context_course::instance 支撑访问控制/业务流程,public/course/renderer.php,1920,$context = context_course::instance($course->id);
+MDL-E1135,code_reference,运行机制,context_course::instance,代码使用 context_course::instance 支撑访问控制/业务流程,public/course/renderer.php,1942,$options['context'] = context_course::instance($course->id);
+MDL-E1136,code_reference,运行机制,require_login,代码使用 require_login 支撑访问控制/业务流程,public/course/index.php,33,require_login();
+MDL-E1137,code_reference,运行机制,context_system::instance,代码使用 context_system::instance 支撑访问控制/业务流程,public/course/index.php,55,$PAGE->set_context(context_system::instance());
+MDL-E1138,code_reference,运行机制,context_course::instance,代码使用 context_course::instance 支撑访问控制/业务流程,public/course/moodleform_mod.php,110,$this->context = context_course::instance($course->id);
+MDL-E1139,code_reference,运行机制,get_fast_modinfo,代码使用 get_fast_modinfo 支撑访问控制/业务流程,public/course/moodleform_mod.php,319,$cm = get_fast_modinfo($COURSE)->get_cm($this->_cm->id);
+MDL-E1140,code_reference,运行机制,get_fast_modinfo,代码使用 get_fast_modinfo 支撑访问控制/业务流程,public/course/moodleform_mod.php,525,$section = get_fast_modinfo($COURSE)->get_section_info($this->_section);
+MDL-E1141,code_reference,运行机制,has_capability,代码使用 has_capability 支撑访问控制/业务流程,public/course/moodleform_mod.php,540,"if (!empty($this->_cm) && !has_capability('moodle/course:activityvisibility', $this->get_context())) {"
+MDL-E1142,code_reference,运行机制,has_capability,代码使用 has_capability 支撑访问控制/业务流程,public/course/moodleform_mod.php,550,"if (has_capability('moodle/course:setforcedlanguage', $this->get_context())) {"
+MDL-E1143,code_reference,运行机制,has_capability,代码使用 has_capability 支撑访问控制/业务流程,public/course/moodleform_mod.php,565,"if (has_capability('moodle/course:configuredownloadcontent', $this->get_context())) {"
+MDL-E1144,code_reference,运行机制,get_fast_modinfo,代码使用 get_fast_modinfo 支撑访问控制/业务流程,public/course/moodleform_mod.php,638,$modinfo = get_fast_modinfo($COURSE);
+MDL-E1145,code_reference,运行机制,completion_info,代码使用 completion_info 支撑访问控制/业务流程,public/course/moodleform_mod.php,648,$completion = new completion_info($COURSE);
+MDL-E1146,code_reference,运行机制,get_fast_modinfo,代码使用 get_fast_modinfo 支撑访问控制/业务流程,public/course/modedit.php,65,"$sectionnum = get_fast_modinfo($course)->get_section_info_by_id($sectionid, MUST_EXIST)->sectionnum;"
+MDL-E1147,code_reference,运行机制,require_login,代码使用 require_login 支撑访问控制/业务流程,public/course/modedit.php,74,require_login($course);
+MDL-E1148,code_reference,运行机制,require_login,代码使用 require_login 支撑访问控制/业务流程,public/course/modedit.php,111,// require_login
+MDL-E1149,code_reference,运行机制,require_login,代码使用 require_login 支撑访问控制/业务流程,public/course/modedit.php,112,"require_login($course, false, $cm); // needed to setup proper $COURSE"
+MDL-E1150,code_reference,运行机制,require_login,代码使用 require_login 支撑访问控制/业务流程,public/course/modedit.php,131,require_login();
+MDL-E1151,code_reference,运行机制,context_course::instance,代码使用 context_course::instance 支撑访问控制/业务流程,public/course/modedit.php,219,$context = context_course::instance($course->id);
+MDL-E1152,code_reference,运行机制,require_login,代码使用 require_login 支撑访问控制/业务流程,public/course/recent.php,39,require_login($course);
+MDL-E1153,code_reference,运行机制,context_course::instance,代码使用 context_course::instance 支撑访问控制/业务流程,public/course/recent.php,40,$context = context_course::instance($course->id);
+MDL-E1154,code_reference,运行机制,get_fast_modinfo,代码使用 get_fast_modinfo 支撑访问控制/业务流程,public/course/recent.php,85,$modinfo = get_fast_modinfo($course);
+MDL-E1155,code_reference,运行机制,has_capability,代码使用 has_capability 支撑访问控制/业务流程,public/course/recent.php,88,"if (has_capability('moodle/course:viewhiddensections', $context)) {"
+MDL-E1156,code_reference,运行机制,has_capability,代码使用 has_capability 支撑访问控制/业务流程,public/course/recent.php,244,"$viewfullnames[$activity->cmid] = has_capability('moodle/site:viewfullnames', $cm_context);"
+MDL-E1157,code_reference,运行机制,require_login,代码使用 require_login 支撑访问控制/业务流程,public/course/editsection.php,51,require_login($course);
+MDL-E1158,code_reference,运行机制,context_course::instance,代码使用 context_course::instance 支撑访问控制/业务流程,public/course/editsection.php,52,$context = context_course::instance($course->id);
+MDL-E1159,code_reference,运行机制,require_capability,代码使用 require_capability 支撑访问控制/业务流程,public/course/editsection.php,53,"require_capability('moodle/course:update', $context);"
+MDL-E1160,code_reference,运行机制,get_fast_modinfo,代码使用 get_fast_modinfo 支撑访问控制/业务流程,public/course/editsection.php,56,$sectioninfo = get_fast_modinfo($course)->get_section_info($sectionnum);
+MDL-E1161,code_reference,运行机制,context_course::instance,代码使用 context_course::instance 支撑访问控制/业务流程,public/course/overview.php,42,"$context = context_course::instance($course->id, MUST_EXIST);"
+MDL-E1162,code_reference,运行机制,require_login,代码使用 require_login 支撑访问控制/业务流程,public/course/overview.php,44,require_login($course);
+MDL-E1163,code_reference,运行机制,require_capability,代码使用 require_capability 支撑访问控制/业务流程,public/course/overview.php,45,"require_capability('moodle/course:viewoverview', $context);"
+MDL-E1164,code_reference,运行机制,require_login,代码使用 require_login 支撑访问控制/业务流程,public/course/loginas.php,39,require_login();
+MDL-E1165,code_reference,运行机制,require_login,代码使用 require_login 支撑访问控制/业务流程,public/course/changenumsections.php,46,require_login($course);
+MDL-E1166,code_reference,运行机制,require_capability,代码使用 require_capability 支撑访问控制/业务流程,public/course/changenumsections.php,47,"require_capability('moodle/course:update', context_course::instance($course->id));"
+MDL-E1167,code_reference,运行机制,context_course::instance,代码使用 context_course::instance 支撑访问控制/业务流程,public/course/changenumsections.php,47,"require_capability('moodle/course:update', context_course::instance($course->id));"
+MDL-E1168,code_reference,运行机制,update_course,代码使用 update_course 支撑访问控制/业务流程,public/course/changenumsections.php,79,"update_course((object)array('id' => $course->id,"
+MDL-E1169,code_reference,运行机制,require_capability,代码使用 require_capability 支撑访问控制/业务流程,public/course/changenumsections.php,90,"require_capability('moodle/course:movesections', context_course::instance($course->id));"
+MDL-E1170,code_reference,运行机制,context_course::instance,代码使用 context_course::instance 支撑访问控制/业务流程,public/course/changenumsections.php,90,"require_capability('moodle/course:movesections', context_course::instance($course->id));"
+MDL-E1171,code_reference,运行机制,context_course::instance,代码使用 context_course::instance 支撑访问控制/业务流程,public/course/user.php,55,$coursecontext   = context_course::instance($course->id);
+MDL-E1172,code_reference,运行机制,require_login,代码使用 require_login 支撑访问控制/业务流程,public/course/user.php,69,require_login();
+MDL-E1173,code_reference,运行机制,has_capability,代码使用 has_capability 支撑访问控制/业务流程,public/course/user.php,71,"if (has_capability('moodle/user:viewuseractivitiesreport', $personalcontext) and !is_enrolled($coursecontext)) {"
+MDL-E1174,code_reference,运行机制,require_login,代码使用 require_login 支撑访问控制/业务流程,public/course/user.php,75,require_login($course);
+MDL-E1175,code_reference,运行机制,has_capability,代码使用 has_capability 支撑访问控制/业务流程,public/course/user.php,87,"$anyreport  = has_capability('moodle/user:viewuseractivitiesreport', $personalcontext);"
+MDL-E1176,code_reference,运行机制,has_capability,代码使用 has_capability 支撑访问控制/业务流程,public/course/user.php,94,"if (has_capability('moodle/grade:viewall', $coursecontext)) {"
+MDL-E1177,code_reference,运行机制,has_capability,代码使用 has_capability 支撑访问控制/业务流程,public/course/user.php,98,"} else if ($course->showgrades and $user->id == $USER->id and has_capability('moodle/grade:view', $coursecontext)) {"
+MDL-E1178,code_reference,运行机制,has_capability,代码使用 has_capability 支撑访问控制/业务流程,public/course/user.php,102,"} else if ($course->showgrades and has_capability('moodle/grade:viewall', $personalcontext)) {"
+MDL-E1179,code_reference,运行机制,require_capability,代码使用 require_capability 支撑访问控制/业务流程,public/course/user.php,114,"require_capability('moodle/user:viewuseractivitiesreport', $personalcontext);"
+MDL-E1180,code_reference,运行机制,has_capability,代码使用 has_capability 支撑访问控制/业务流程,public/course/user.php,184,"'heading' => fullname($user, has_capability('moodle/site:viewfullnames', $PAGE->context)),"
+MDL-E1181,code_reference,运行机制,require_capability,代码使用 require_capability 支撑访问控制/业务流程,public/course/user.php,202,"require_capability('gradereport/' . $CFG->grade_profilereport . ':view', $coursecontext);"
+MDL-E1182,code_reference,运行机制,require_login,代码使用 require_login 支撑访问控制/业务流程,public/course/reset.php,46,"require_login($course, preventredirect: true); // This redirects here if a reset is in progress. Don't keep redirecting."
+MDL-E1183,code_reference,运行机制,require_capability,代码使用 require_capability 支撑访问控制/业务流程,public/course/reset.php,47,"require_capability('moodle/course:reset', context_course::instance($course->id));"
+MDL-E1184,code_reference,运行机制,context_course::instance,代码使用 context_course::instance 支撑访问控制/业务流程,public/course/reset.php,47,"require_capability('moodle/course:reset', context_course::instance($course->id));"
+MDL-E1185,code_reference,运行机制,context_course::instance,代码使用 context_course::instance 支撑访问控制/业务流程,public/course/section.php,82,"$context = context_course::instance($course->id, MUST_EXIST);"
+MDL-E1186,code_reference,运行机制,require_login,代码使用 require_login 支撑访问控制/业务流程,public/course/section.php,84,require_login($course);
+MDL-E1187,code_reference,运行机制,get_fast_modinfo,代码使用 get_fast_modinfo 支撑访问控制/业务流程,public/course/section.php,91,$modinfo = get_fast_modinfo($course);
+MDL-E1188,code_reference,运行机制,require_capability,代码使用 require_capability 支撑访问控制/业务流程,public/course/section.php,108,"require_capability('moodle/course:viewhiddensections', $context);"
+MDL-E1189,code_reference,运行机制,has_capability,代码使用 has_capability 支撑访问控制/业务流程,public/course/section.php,193,"if (core_communication\api::is_available() && has_capability('moodle/course:update', $context)) {"
+MDL-E1190,code_reference,运行机制,completion_info,代码使用 completion_info 支撑访问控制/业务流程,public/course/section.php,240,$completion = new completion_info($course);
+MDL-E1191,code_reference,运行机制,context_system::instance,代码使用 context_system::instance 支撑访问控制/业务流程,public/course/search.php,67,$PAGE->set_context(context_system::instance());
+MDL-E1192,code_reference,运行机制,require_login,代码使用 require_login 支撑访问控制/业务流程,public/course/search.php,72,require_login();
+MDL-E1193,code_reference,运行机制,context_system::instance,代码使用 context_system::instance 支撑访问控制/业务流程,public/course/management.php,51,$systemcontext = $context = context_system::instance();
+MDL-E1194,code_reference,运行机制,require_login,代码使用 require_login 支撑访问控制/业务流程,public/course/management.php,114,require_login();
+MDL-E1195,code_reference,运行机制,has_capability,代码使用 has_capability 支撑访问控制/业务流程,public/course/management.php,116,"if (!core_course_category::has_capability_on_any(array('moodle/category:manage', 'moodle/course:create'))) {"
+MDL-E1196,code_reference,运行机制,context_course::instance,代码使用 context_course::instance 支撑访问控制/业务流程,public/course/edit_form.php,37,$coursecontext = context_course::instance($course->id);
+MDL-E1197,code_reference,运行机制,has_capability,代码使用 has_capability 支撑访问控制/业务流程,public/course/edit_form.php,65,"if (!empty($course->id) and !has_capability('moodle/course:changefullname', $coursecontext)) {"
+MDL-E1198,code_reference,运行机制,has_capability,代码使用 has_capability 支撑访问控制/业务流程,public/course/edit_form.php,75,"if (!empty($course->id) and !has_capability('moodle/course:changeshortname', $coursecontext)) {"
+MDL-E1199,code_reference,运行机制,has_capability,代码使用 has_capability 支撑访问控制/业务流程,public/course/edit_form.php,82,"if (has_capability('moodle/course:create', $categorycontext)) {"
+MDL-E1200,code_reference,运行机制,has_capability,代码使用 has_capability 支撑访问控制/业务流程,public/course/edit_form.php,94,"if (has_capability('moodle/course:changecategory', $coursecontext)) {"
+MDL-E1201,code_reference,运行机制,has_capability,代码使用 has_capability 支撑访问控制/业务流程,public/course/edit_form.php,119,"if (!has_capability('moodle/course:visibility', $coursecontext)) {"
+MDL-E1202,code_reference,运行机制,has_capability,代码使用 has_capability 支撑访问控制/业务流程,public/course/edit_form.php,144,"if ((!empty($course->id) && !has_capability('moodle/course:configuredownloadcontent', $coursecontext)) ||"
+MDL-E1203,code_reference,运行机制,has_capability,代码使用 has_capability 支撑访问控制/业务流程,public/course/edit_form.php,198,"if (!empty($course->id) and !has_capability('moodle/course:changeidnumber', $coursecontext)) {"
+MDL-E1204,code_reference,运行机制,has_capability,代码使用 has_capability 支撑访问控制/业务流程,public/course/edit_form.php,218,"if (!empty($course->id) and !has_capability('moodle/course:changesummary', $coursecontext)) {"
+MDL-E1205,code_reference,运行机制,has_capability,代码使用 has_capability 支撑访问控制/业务流程,public/course/edit_form.php,289,"|| (!empty($course->id) && has_capability('moodle/course:setforcedlanguage', $coursecontext))) {"
+MDL-E1206,code_reference,运行机制,completion_info,代码使用 completion_info 支撑访问控制/业务流程,public/course/edit_form.php,372,if (completion_info::is_enabled_for_site()) {
+MDL-E1207,code_reference,运行机制,has_capability,代码使用 has_capability 支撑访问控制/业务流程,public/course/edit_form.php,412,"|| (!empty($course->id) && has_capability('moodle/course:tag', $coursecontext)))) {"
+MDL-E1208,code_reference,运行机制,require_login,代码使用 require_login 支撑访问控制/业务流程,public/course/mod.php,76,require_login();
+MDL-E1209,code_reference,运行机制,get_fast_modinfo,代码使用 get_fast_modinfo 支撑访问控制/业务流程,public/course/mod.php,88,$sectioninfo = get_fast_modinfo($id)->get_section_info($section);
+MDL-E1210,code_reference,运行机制,require_login,代码使用 require_login 支撑访问控制/业务流程,public/course/mod.php,137,"require_login($course, false, $cm);"
+MDL-E1211,code_reference,运行机制,context_course::instance,代码使用 context_course::instance 支撑访问控制/业务流程,public/course/mod.php,138,$coursecontext = context_course::instance($course->id);
+MDL-E1212,code_reference,运行机制,require_login,代码使用 require_login 支撑访问控制/业务流程,public/course/mod.php,155,"require_login($course, false, $cm);"
+MDL-E1213,code_reference,运行机制,require_capability,代码使用 require_capability 支撑访问控制/业务流程,public/course/mod.php,157,"require_capability('moodle/course:manageactivities', $modcontext);"
+MDL-E1214,code_reference,运行机制,require_login,代码使用 require_login 支撑访问控制/业务流程,public/course/mod.php,212,"require_login($course, false, $cm);"
+MDL-E1215,code_reference,运行机制,context_course::instance,代码使用 context_course::instance 支撑访问控制/业务流程,public/course/mod.php,213,$coursecontext = context_course::instance($course->id);
+MDL-E1216,code_reference,运行机制,require_capability,代码使用 require_capability 支撑访问控制/业务流程,public/course/mod.php,215,"require_capability('moodle/course:manageactivities', $modcontext);"
+MDL-E1217,code_reference,运行机制,require_login,代码使用 require_login 支撑访问控制/业务流程,public/course/mod.php,264,"require_login($course, false, $cm);"
+MDL-E1218,code_reference,运行机制,context_course::instance,代码使用 context_course::instance 支撑访问控制/业务流程,public/course/mod.php,265,$coursecontext = context_course::instance($course->id);
+MDL-E1219,code_reference,运行机制,require_capability,代码使用 require_capability 支撑访问控制/业务流程,public/course/mod.php,267,"require_capability('moodle/course:manageactivities', $modcontext);"
+MDL-E1220,code_reference,运行机制,require_login,代码使用 require_login 支撑访问控制/业务流程,public/course/mod.php,292,"require_login($course, false, $cm);"
+MDL-E1221,code_reference,运行机制,context_course::instance,代码使用 context_course::instance 支撑访问控制/业务流程,public/course/mod.php,293,$coursecontext = context_course::instance($course->id);
+MDL-E1222,code_reference,运行机制,require_capability,代码使用 require_capability 支撑访问控制/业务流程,public/course/mod.php,295,"require_capability('moodle/course:activityvisibility', $modcontext);"
+MDL-E1223,code_reference,运行机制,require_login,代码使用 require_login 支撑访问控制/业务流程,public/course/mod.php,309,"require_login($course, false, $cm);"
+MDL-E1224,code_reference,运行机制,require_capability,代码使用 require_capability 支撑访问控制/业务流程,public/course/mod.php,310,"require_capability('moodle/course:activityvisibility', $cm->context);"
+MDL-E1225,code_reference,运行机制,require_login,代码使用 require_login 支撑访问控制/业务流程,public/course/mod.php,324,"require_login($course, false, $cm);"
+MDL-E1226,code_reference,运行机制,require_capability,代码使用 require_capability 支撑访问控制/业务流程,public/course/mod.php,325,"require_capability('moodle/course:activityvisibility', $cm->context);"
+MDL-E1227,code_reference,运行机制,require_login,代码使用 require_login 支撑访问控制/业务流程,public/course/mod.php,344,"require_login($course, false, $cm);"
+MDL-E1228,code_reference,运行机制,context_course::instance,代码使用 context_course::instance 支撑访问控制/业务流程,public/course/mod.php,345,$coursecontext = context_course::instance($course->id);
+MDL-E1229,code_reference,运行机制,require_capability,代码使用 require_capability 支撑访问控制/业务流程,public/course/mod.php,347,"require_capability('moodle/course:manageactivities', $modcontext);"
+MDL-E1230,code_reference,运行机制,require_login,代码使用 require_login 支撑访问控制/业务流程,public/course/mod.php,362,"require_login($course, false, $cm);"

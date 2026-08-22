@@ -1,0 +1,79 @@
+$main-color:#3169F8;
+$main-red-color:#FF4848;
+
+$main-green:#51C512;
+
+$main-white:#ffffff;
+
+$main-blue:#4B7EFF;
+
+$main-gray:#999999;
+// 混合样式
+@mixin ellipsis($num) {
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: $num;
+  // text-align: justify;
+}
+
+@mixin positionTL($t:0, $l:0, $tt:0, $tl:0) {
+  position: absolute;
+  top: $t;
+  left: $l;
+  transform: translate($tl, $tt);
+}
+
+@mixin positionTR($t:0, $r:0, $tt:0, $tl:0) {
+  position: absolute;
+  top: $t;
+  right: $r;
+  transform: translate($tl, $tt);
+}
+
+@mixin positionBL($b:0, $l:0, $tt:0, $tl:0) {
+  position: absolute;
+  bottom: $b;
+  left: $l;
+  transform: translate($tl, $tt);
+}
+
+@mixin positionBR($b:0, $r:0, $tt:0, $tl:0) {
+  position: absolute;
+  bottom: $b;
+  right: $r;
+  transform: translate($tl, $tt);
+}
+
+@mixin positionFull($t:0, $r:0, $b:0, $l:0) {
+  position: absolute;
+  top: $t;
+  right: $r;
+  bottom: $b;
+  left: $l;
+}
+
+@mixin flexAlign($h:flex-start, $v:center) {
+  display: flex;
+  justify-content: $h;
+  align-items: $v;
+}
+
+@mixin flexColAlign($h:flex-start, $v:flex-start) {
+  display: flex;
+  flex-direction: column;
+  justify-content: $h;
+  align-items: $v;
+}
+
+@mixin borderRadius($br) {
+  border-radius: $br;
+  overflow: hidden;
+  transform: translateY(0);
+}
+
+@mixin fontWeight($br) {
+  font-weight:if($br >= 600, bolder, bold);
+  font-weight: $br;
+}

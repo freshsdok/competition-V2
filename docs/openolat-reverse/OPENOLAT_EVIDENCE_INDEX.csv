@@ -1,0 +1,1005 @@
+evidence_id,type,domain,name,claim,path,line,detail
+OOL-E0001,project,总体,pom.xml,Maven WAR 项目，artifactId 为 openolat-lms，版本 21.0-SNAPSHOT,pom.xml,,Java 17 / Spring / Hibernate / CXF 等依赖
+OOL-E0002,project_doc,总体,openolat-architecture.md,项目内文档声明服务端状态 UI、Spring、Hibernate/JPA、Velocity、REST 等架构,doc/openolat-architecture.md,1,
+OOL-E0003,project_doc,前端,openolat-frontend.md,项目内文档说明 Velocity、Bootstrap/SASS、jQuery 和 AJAX 局部更新,doc/openolat-frontend.md,1,
+OOL-E0004,core_class,核心框架,OpenOLATServlet,Servlet 总入口,src/main/java/org/olat/core/servlets/OpenOLATServlet.java,60,
+OOL-E0005,core_class,核心框架,DispatcherModule,请求分发模块,src/main/java/org/olat/core/dispatcher/DispatcherModule.java,53,
+OOL-E0006,core_class,核心框架,AuthenticatedDispatcher,已登录用户主 UI 分发,src/main/java/org/olat/dispatcher/AuthenticatedDispatcher.java,83,
+OOL-E0007,core_class,核心框架,DMZDispatcher,未登录区/登录注册分发,src/main/java/org/olat/dispatcher/DMZDispatcher.java,69,
+OOL-E0008,core_class,核心框架,RESTDispatcher,REST 深链/接口分发,src/main/java/org/olat/dispatcher/RESTDispatcher.java,86,
+OOL-E0009,core_class,核心框架,BaseSecurity,基础安全接口,src/main/java/org/olat/basesecurity/BaseSecurity.java,48,
+OOL-E0010,core_class,核心框架,BaseSecurityManager,用户与权限管理实现,src/main/java/org/olat/basesecurity/BaseSecurityManager.java,98,
+OOL-E0011,core_class,核心框架,RepositoryService,学习资源仓库服务接口,src/main/java/org/olat/repository/RepositoryService.java,61,
+OOL-E0012,core_class,核心框架,RepositoryServiceImpl,学习资源仓库服务实现,src/main/java/org/olat/repository/manager/RepositoryServiceImpl.java,140,
+OOL-E0013,core_class,核心框架,CourseFactory,课程装载/访问核心工厂,src/main/java/org/olat/course/CourseFactory.java,166,
+OOL-E0014,core_class,核心框架,BasicController,服务端 UI 控制器基类,src/main/java/org/olat/core/gui/control/controller/BasicController.java,71,
+OOL-E0015,core_class,核心框架,FormBasicController,表单控制器基类,src/main/java/org/olat/core/gui/components/form/flexible/impl/FormBasicController.java,77,
+OOL-E0016,table,其他业务模块,o_forum,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,1,
+OOL-E0017,table,其他业务模块,o_forum_pseudonym,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,9,
+OOL-E0018,table,其他业务模块,o_property,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,18,
+OOL-E0019,table,用户、组织与权限,o_bs_secgroup,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,35,
+OOL-E0020,table,用户、组织与权限,o_bs_group,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,42,
+OOL-E0021,table,用户、组织与权限,o_bs_group_member,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,49,
+OOL-E0022,table,用户、组织与权限,o_bs_group_member_history,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,60,
+OOL-E0023,table,用户、组织与权限,o_bs_grant,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,76,
+OOL-E0024,table,用户、组织与权限,o_gp_business,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,86,
+OOL-E0025,table,其他业务模块,o_temporarykey,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,125,
+OOL-E0026,table,用户、组织与权限,o_bs_authentication,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,138,
+OOL-E0027,table,用户、组织与权限,o_bs_authentication_history,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,162,
+OOL-E0028,table,用户、组织与权限,o_bs_recovery_key,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,173,
+OOL-E0029,table,用户、组织与权限,o_bs_webauthn_stats,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,184,
+OOL-E0030,table,通知,o_noti_pub,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,193,
+OOL-E0031,table,通知,o_noti_mail,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,211,
+OOL-E0032,table,用户、组织与权限,o_bs_identity,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,221,
+OOL-E0033,table,用户、组织与权限,o_bs_relation_role,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,242,
+OOL-E0034,table,用户、组织与权限,o_bs_relation_right,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,252,
+OOL-E0035,table,用户、组织与权限,o_bs_relation_role_to_right,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,258,
+OOL-E0036,table,用户、组织与权限,o_bs_identity_to_identity,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,265,
+OOL-E0037,table,其他业务模块,o_csp_log,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,275,
+OOL-E0038,table,资源仓库与课程资源,o_olatresource,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,293,
+OOL-E0039,table,用户、组织与权限,o_bs_namedgroup,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,302,
+OOL-E0040,table,资源仓库与课程资源,o_catentry,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,311,
+OOL-E0041,table,其他业务模块,o_note,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,329,
+OOL-E0042,table,其他业务模块,o_references,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,342,
+OOL-E0043,table,其他业务模块,o_references_history,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,352,
+OOL-E0044,table,用户、组织与权限,o_user,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,362,
+OOL-E0045,table,用户、组织与权限,o_userproperty,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,456,
+OOL-E0046,table,用户、组织与权限,o_user_data_export,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,463,
+OOL-E0047,table,用户、组织与权限,o_user_data_delete,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,474,
+OOL-E0048,table,用户、组织与权限,o_user_absence_leave,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,484,
+OOL-E0049,table,其他业务模块,o_message,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,497,
+OOL-E0050,table,用户、组织与权限,o_gp_bgtoarea_rel,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,517,
+OOL-E0051,table,通知,o_noti_sub,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,526,
+OOL-E0052,table,用户、组织与权限,o_bs_policy,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,538,
+OOL-E0053,table,用户、组织与权限,o_gp_bgarea,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,550,
+OOL-E0054,table,资源仓库与课程资源,o_repositoryentry,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,559,
+OOL-E0055,table,资源仓库与课程资源,o_re_to_group,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,606,
+OOL-E0056,table,资源仓库与课程资源,o_re_template_to_group,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,615,
+OOL-E0057,table,资源仓库与课程资源,o_re_to_tax_level,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,622,
+OOL-E0058,table,资源仓库与课程资源,o_repositoryentry_cycle,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,629,
+OOL-E0059,table,资源仓库与课程资源,o_repositoryentry_stats,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,641,
+OOL-E0060,table,用户、组织与权限,o_bs_membership,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,653,
+OOL-E0061,table,资源仓库与课程资源,o_re_educational_type,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,663,
+OOL-E0062,table,日志、统计与平台运维,o_plock,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,674,
+OOL-E0063,table,其他业务模块,hibernate_unique_key,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,682,
+OOL-E0064,table,日志、统计与平台运维,o_lifecycle,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,686,
+OOL-E0065,table,日志、统计与平台运维,oc_lock,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,698,
+OOL-E0066,table,其他业务模块,o_readmessage,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,709,
+OOL-E0067,table,日志、统计与平台运维,o_loggingtable,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,719,
+OOL-E0068,table,其他业务模块,o_checklist,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,746,
+OOL-E0069,table,其他业务模块,o_checkpoint,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,755,
+OOL-E0070,table,其他业务模块,o_checkpoint_results,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,766,
+OOL-E0071,table,项目与协作,o_projectbroker,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,776,
+OOL-E0072,table,项目与协作,o_projectbroker_project,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,783,
+OOL-E0073,table,项目与协作,o_projectbroker_customfields,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,799,
+OOL-E0074,table,用户、组织与权限,o_usercomment,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,806,
+OOL-E0075,table,用户、组织与权限,o_userrating,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,818,
+OOL-E0076,table,其他业务模块,o_info_message,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,832,
+OOL-E0077,table,其他业务模块,o_info_message_to_group,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,854,
+OOL-E0078,table,其他业务模块,o_info_message_to_cur_el,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,861,
+OOL-E0079,table,其他业务模块,o_co_db_entry,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,869,
+OOL-E0080,table,用户、组织与权限,o_bs_invitation,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,886,
+OOL-E0081,table,其他业务模块,o_tag_tag,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,905,
+OOL-E0082,table,其他业务模块,o_todo_task,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,913,
+OOL-E0083,table,其他业务模块,o_todo_task_tag,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,941,
+OOL-E0084,table,其他业务模块,o_mail,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,950,
+OOL-E0085,table,其他业务模块,o_mail_to_recipient,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,965,
+OOL-E0086,table,其他业务模块,o_mail_recipient,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,971,
+OOL-E0087,table,其他业务模块,o_mail_attachment,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,984,
+OOL-E0088,table,订单、付费与访问控制,o_ac_cost_center,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,999,
+OOL-E0089,table,订单、付费与访问控制,o_ac_offer,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,1009,
+OOL-E0090,table,订单、付费与访问控制,o_ac_offer_to_organisation,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,1040,
+OOL-E0091,table,订单、付费与访问控制,o_ac_method,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,1049,
+OOL-E0092,table,订单、付费与访问控制,o_ac_offer_access,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,1062,
+OOL-E0093,table,订单、付费与访问控制,o_ac_auto_advance_order,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,1074,
+OOL-E0094,table,订单、付费与访问控制,o_ac_billing_address,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,1088,
+OOL-E0095,table,订单、付费与访问控制,o_ac_order,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,1110,
+OOL-E0096,table,订单、付费与访问控制,o_ac_order_part,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,1134,
+OOL-E0097,table,订单、付费与访问控制,o_ac_order_line,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,1149,
+OOL-E0098,table,订单、付费与访问控制,o_ac_transaction,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,1166,
+OOL-E0099,table,订单、付费与访问控制,o_ac_reservation,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,1179,
+OOL-E0100,table,订单、付费与访问控制,o_ac_paypal_transaction,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,1193,
+OOL-E0101,table,订单、付费与访问控制,o_ac_checkout_transaction,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,1225,
+OOL-E0102,table,其他业务模块,o_ca_launcher,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,1250,
+OOL-E0103,table,其他业务模块,o_ca_launcher_to_organisation,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,1262,
+OOL-E0104,table,其他业务模块,o_ca_filter,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,1270,
+OOL-E0105,table,日志、统计与平台运维,o_stat_lastupdated,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,1283,
+OOL-E0106,table,日志、统计与平台运维,o_stat_dayofweek,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,1293,
+OOL-E0107,table,日志、统计与平台运维,o_stat_hourofday,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,1307,
+OOL-E0108,table,日志、统计与平台运维,o_stat_weekly,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,1321,
+OOL-E0109,table,日志、统计与平台运维,o_stat_daily,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,1335,
+OOL-E0110,table,日志、统计与平台运维,o_stat_studylevel,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,1349,
+OOL-E0111,table,日志、统计与平台运维,o_stat_studybranch3,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,1363,
+OOL-E0112,table,其他业务模块,o_mark,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,1375,
+OOL-E0113,table,在线会议集成,o_om_room_reference,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,1388,
+OOL-E0114,table,在线会议集成,o_aconnect_meeting,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,1403,
+OOL-E0115,table,在线会议集成,o_aconnect_user,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,1428,
+OOL-E0116,table,在线会议集成,o_bbb_template,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,1439,
+OOL-E0117,table,在线会议集成,o_bbb_server,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,1474,
+OOL-E0118,table,在线会议集成,o_bbb_meeting,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,1488,
+OOL-E0119,table,在线会议集成,o_bbb_attendee,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,1524,
+OOL-E0120,table,在线会议集成,o_bbb_recording,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,1536,
+OOL-E0121,table,在线会议集成,o_teams_meeting,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,1553,
+OOL-E0122,table,在线会议集成,o_teams_user,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,1585,
+OOL-E0123,table,在线会议集成,o_teams_attendee,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,1596,
+OOL-E0124,table,测评、作业与成绩,o_as_eff_statement,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,1610,
+OOL-E0125,table,测评、作业与成绩,o_as_user_course_infos,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,1641,
+OOL-E0126,table,测评、作业与成绩,o_as_entry,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,1657,
+OOL-E0127,table,测评、作业与成绩,o_as_score_accounting_trigger,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,1725,
+OOL-E0128,table,测评、作业与成绩,o_as_compensation,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,1739,
+OOL-E0129,table,测评、作业与成绩,o_as_compensation_log,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,1755,
+OOL-E0130,table,测评、作业与成绩,o_as_mode_course,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,1769,
+OOL-E0131,table,测评、作业与成绩,o_as_mode_course_to_group,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,1806,
+OOL-E0132,table,测评、作业与成绩,o_as_mode_course_to_area,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,1813,
+OOL-E0133,table,测评、作业与成绩,o_as_mode_course_to_cur_el,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,1820,
+OOL-E0134,table,测评、作业与成绩,o_as_seb_template,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,1828,
+OOL-E0135,table,测评、作业与成绩,o_as_inspection_configuration,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,1843,
+OOL-E0136,table,测评、作业与成绩,o_as_inspection,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,1864,
+OOL-E0137,table,测评、作业与成绩,o_as_inspection_log,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,1884,
+OOL-E0138,table,测评、作业与成绩,o_as_message,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,1896,
+OOL-E0139,table,测评、作业与成绩,o_as_message_log,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,1911,
+OOL-E0140,table,其他业务模块,o_cer_template,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,1922,
+OOL-E0141,table,其他业务模块,o_cer_certificate,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,1934,
+OOL-E0142,table,其他业务模块,o_cer_entry_config,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,1961,
+OOL-E0143,table,其他业务模块,o_cer_program,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,1983,
+OOL-E0144,table,其他业务模块,o_cer_program_to_organisation,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,2011,
+OOL-E0145,table,其他业务模块,o_cer_program_to_element,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,2019,
+OOL-E0146,table,其他业务模块,o_cer_program_mail_config,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,2027,
+OOL-E0147,table,其他业务模块,o_cer_program_log,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,2043,
+OOL-E0148,table,测评、作业与成绩,o_gr_grade_system,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,2061,
+OOL-E0149,table,测评、作业与成绩,o_gr_performance_class,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,2078,
+OOL-E0150,table,测评、作业与成绩,o_gr_grade_scale,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,2089,
+OOL-E0151,table,测评、作业与成绩,o_gr_breakpoint,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,2101,
+OOL-E0152,table,在线会议集成,o_goto_organizer,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,2113,
+OOL-E0153,table,在线会议集成,o_goto_meeting,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,2132,
+OOL-E0154,table,在线会议集成,o_goto_registrant,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,2150,
+OOL-E0155,table,其他业务模块,o_vid_transcoding,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,2163,
+OOL-E0156,table,其他业务模块,o_vid_metadata,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,2178,
+OOL-E0157,table,其他业务模块,o_vid_to_organisation,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,2194,
+OOL-E0158,table,其他业务模块,o_vid_task_session,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,2203,
+OOL-E0159,table,其他业务模块,o_vid_task_selection,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,2225,
+OOL-E0160,table,日历,o_cal_use_config,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,2239,
+OOL-E0161,table,日历,o_cal_import,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,2254,
+OOL-E0162,table,日历,o_cal_import_to,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,2267,
+OOL-E0163,table,即时消息,o_im_message,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,2279,
+OOL-E0164,table,即时消息,o_im_notification,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,2296,
+OOL-E0165,table,即时消息,o_im_roster_entry,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,2309,
+OOL-E0166,table,即时消息,o_im_preferences,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,2327,
+OOL-E0167,table,其他业务模块,o_mapper,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,2337,
+OOL-E0168,table,测评、作业与成绩,o_qti_assessmenttest_session,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,2349,
+OOL-E0169,table,测评、作业与成绩,o_qti_assessmentitem_session,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,2377,
+OOL-E0170,table,测评、作业与成绩,o_qti_assessment_response,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,2397,
+OOL-E0171,table,测评、作业与成绩,o_qti_assessment_marks,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,2410,
+OOL-E0172,table,其他业务模块,o_practice_resource,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,2423,
+OOL-E0173,table,其他业务模块,o_practice_global_item_ref,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,2436,
+OOL-E0174,table,文件与VFS,o_vfs_metadata,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,2452,
+OOL-E0175,table,文件与VFS,o_vfs_thumbnail,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,2500,
+OOL-E0176,table,文件与VFS,o_vfs_revision,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,2515,
+OOL-E0177,table,文件与VFS,o_vfs_statistics,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,2546,
+OOL-E0178,table,其他业务模块,o_de_access,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,2561,
+OOL-E0179,table,其他业务模块,o_de_user_info,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,2578,
+OOL-E0180,table,作品集与内容编辑,o_pf_binder,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,2588,
+OOL-E0181,table,作品集与内容编辑,o_pf_section,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,2607,
+OOL-E0182,table,作品集与内容编辑,o_ce_page,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,2624,
+OOL-E0183,table,作品集与内容编辑,o_ce_page_body,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,2646,
+OOL-E0184,table,作品集与内容编辑,o_ce_page_part,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,2655,
+OOL-E0185,table,作品集与内容编辑,o_media,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,2673,
+OOL-E0186,table,作品集与内容编辑,o_media_tag,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,2701,
+OOL-E0187,table,作品集与内容编辑,o_media_to_tax_level,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,2709,
+OOL-E0188,table,作品集与内容编辑,o_media_to_group,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,2717,
+OOL-E0189,table,作品集与内容编辑,o_media_version,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,2729,
+OOL-E0190,table,作品集与内容编辑,o_media_version_metadata,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,2746,
+OOL-E0191,table,作品集与内容编辑,o_media_log,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,2757,
+OOL-E0192,table,作品集与内容编辑,o_media_to_page_part,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,2767,
+OOL-E0193,table,作品集与内容编辑,o_ce_page_reference,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,2779,
+OOL-E0194,table,作品集与内容编辑,o_pf_category,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,2788,
+OOL-E0195,table,作品集与内容编辑,o_pf_category_relation,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,2795,
+OOL-E0196,table,作品集与内容编辑,o_pf_assessment_section,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,2804,
+OOL-E0197,table,作品集与内容编辑,o_ce_assignment,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,2816,
+OOL-E0198,table,作品集与内容编辑,o_pf_binder_user_infos,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,2841,
+OOL-E0199,table,作品集与内容编辑,o_ce_page_user_infos,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,2854,
+OOL-E0200,table,作品集与内容编辑,o_ce_page_to_tax_competence,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,2866,
+OOL-E0201,table,作品集与内容编辑,o_ce_audit_log,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,2874,
+OOL-E0202,table,质量管理与表单,o_eva_form_survey,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,2887,
+OOL-E0203,table,质量管理与表单,o_eva_form_participation,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,2903,
+OOL-E0204,table,质量管理与表单,o_eva_form_session,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,2921,
+OOL-E0205,table,质量管理与表单,o_eva_form_response,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,2943,
+OOL-E0206,table,质量管理与表单,o_qual_data_collection,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,2957,
+OOL-E0207,table,质量管理与表单,o_qual_data_collection_to_org,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,2978,
+OOL-E0208,table,质量管理与表单,o_qual_context,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,2986,
+OOL-E0209,table,质量管理与表单,o_qual_context_to_organisation,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,3000,
+OOL-E0210,table,质量管理与表单,o_qual_context_to_curriculum,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,3008,
+OOL-E0211,table,质量管理与表单,o_qual_context_to_cur_element,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,3016,
+OOL-E0212,table,质量管理与表单,o_qual_context_to_tax_level,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,3024,
+OOL-E0213,table,质量管理与表单,o_qual_reminder,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,3032,
+OOL-E0214,table,质量管理与表单,o_qual_report_access,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,3043,
+OOL-E0215,table,质量管理与表单,o_qual_generator,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,3059,
+OOL-E0216,table,质量管理与表单,o_qual_generator_config,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,3071,
+OOL-E0217,table,质量管理与表单,o_qual_generator_to_org,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,3081,
+OOL-E0218,table,质量管理与表单,o_qual_generator_override,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,3089,
+OOL-E0219,table,质量管理与表单,o_qual_analysis_presentation,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,3101,
+OOL-E0220,table,质量管理与表单,o_qual_audit_log,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,3117,
+OOL-E0221,table,题库,o_qp_pool,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,3131,
+OOL-E0222,table,题库,o_qp_taxonomy_level,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,3141,
+OOL-E0223,table,题库,o_qp_item,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,3152,
+OOL-E0224,table,题库,o_qp_item_audit_log,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,3192,
+OOL-E0225,table,题库,o_qp_pool_2_item,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,3206,
+OOL-E0226,table,题库,o_qp_share_item,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,3215,
+OOL-E0227,table,题库,o_qp_item_collection,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,3224,
+OOL-E0228,table,题库,o_qp_collection_2_item,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,3233,
+OOL-E0229,table,题库,o_qp_edu_context,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,3241,
+OOL-E0230,table,题库,o_qp_item_type,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,3249,
+OOL-E0231,table,题库,o_qp_license,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,3257,
+OOL-E0232,table,LTI集成,o_lti_outcome,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,3267,
+OOL-E0233,table,LTI集成,o_lti_tool,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,3281,
+OOL-E0234,table,LTI集成,o_lti_tool_deployment,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,3298,
+OOL-E0235,table,LTI集成,o_lti_context,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,3325,
+OOL-E0236,table,LTI集成,o_lti_platform,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,3350,
+OOL-E0237,table,LTI集成,o_lti_shared_tool_deployment,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,3368,
+OOL-E0238,table,LTI集成,o_lti_shared_tool_service,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,3379,
+OOL-E0239,table,LTI集成,o_lti_content_item,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,3390,
+OOL-E0240,table,LTI集成,o_lti_key,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,3433,
+OOL-E0241,table,测评、作业与成绩,o_cl_checkbox,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,3446,
+OOL-E0242,table,测评、作业与成绩,o_cl_check,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,3457,
+OOL-E0243,table,测评、作业与成绩,o_gta_task_list,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,3468,
+OOL-E0244,table,测评、作业与成绩,o_gta_task,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,3477,
+OOL-E0245,table,测评、作业与成绩,o_gta_task_revision,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,3514,
+OOL-E0246,table,测评、作业与成绩,o_gta_task_revision_date,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,3528,
+OOL-E0247,table,测评、作业与成绩,o_gta_review_assignment,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,3538,
+OOL-E0248,table,测评、作业与成绩,o_gta_mark,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,3551,
+OOL-E0249,table,其他业务模块,o_rem_reminder,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,3561,
+OOL-E0250,table,其他业务模块,o_rem_sent_reminder,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,3579,
+OOL-E0251,table,其他业务模块,o_ex_task,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,3589,
+OOL-E0252,table,其他业务模块,o_ex_task_modifier,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,3608,
+OOL-E0253,table,其他业务模块,o_ex_export_metadata,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,3617,
+OOL-E0254,table,其他业务模块,o_ex_export_metadata_to_org,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,3637,
+OOL-E0255,table,其他业务模块,o_ex_export_metadata_to_cur,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,3645,
+OOL-E0256,table,其他业务模块,o_ex_export_metadata_to_cur_el,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,3653,
+OOL-E0257,table,其他业务模块,o_sms_message_log,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,3662,
+OOL-E0258,table,其他业务模块,o_feed,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,3674,
+OOL-E0259,table,其他业务模块,o_feed_item,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,3691,
+OOL-E0260,table,其他业务模块,o_lecture_reason,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,3716,
+OOL-E0261,table,其他业务模块,o_lecture_absence_category,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,3726,
+OOL-E0262,table,其他业务模块,o_lecture_absence_notice,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,3736,
+OOL-E0263,table,其他业务模块,o_lecture_block,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,3754,
+OOL-E0264,table,其他业务模块,o_lecture_block_to_group,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,3787,
+OOL-E0265,table,其他业务模块,o_lecture_notice_to_block,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,3794,
+OOL-E0266,table,其他业务模块,o_lecture_notice_to_entry,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,3802,
+OOL-E0267,table,其他业务模块,o_lecture_block_roll_call,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,3810,
+OOL-E0268,table,其他业务模块,o_lecture_reminder,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,3834,
+OOL-E0269,table,其他业务模块,o_lecture_participant_summary,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,3843,
+OOL-E0270,table,其他业务模块,o_lecture_entry_config,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,3862,
+OOL-E0271,table,其他业务模块,o_lecture_block_audit_log,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,3884,
+OOL-E0272,table,其他业务模块,o_lecture_block_to_tax_level,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,3901,
+OOL-E0273,table,其他业务模块,o_cp_system,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,3910,
+OOL-E0274,table,其他业务模块,o_cp_system_to_organisation,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,3925,
+OOL-E0275,table,其他业务模块,o_cp_wallet,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,3933,
+OOL-E0276,table,其他业务模块,o_cp_transaction,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,3944,
+OOL-E0277,table,其他业务模块,o_cp_transaction_details,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,3962,
+OOL-E0278,table,其他业务模块,o_cp_repositoryentry_config,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,3971,
+OOL-E0279,table,其他业务模块,o_cp_cur_element_config,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,3984,
+OOL-E0280,table,其他业务模块,o_tax_taxonomy,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,3996,
+OOL-E0281,table,其他业务模块,o_tax_taxonomy_level_type,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,4011,
+OOL-E0282,table,其他业务模块,o_tax_taxonomy_type_to_type,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,4035,
+OOL-E0283,table,其他业务模块,o_tax_taxonomy_level,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,4042,
+OOL-E0284,table,其他业务模块,o_tax_taxonomy_competence,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,4064,
+OOL-E0285,table,其他业务模块,o_tax_competence_audit_log,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,4081,
+OOL-E0286,table,其他业务模块,o_dialog_element,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,4096,
+OOL-E0287,table,其他业务模块,o_lic_license_type,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,4111,
+OOL-E0288,table,其他业务模块,o_lic_license_type_activation,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,4124,
+OOL-E0289,table,其他业务模块,o_lic_license,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,4132,
+OOL-E0290,table,用户、组织与权限,o_org_organisation_type,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,4145,
+OOL-E0291,table,用户、组织与权限,o_org_organisation,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,4158,
+OOL-E0292,table,用户、组织与权限,o_org_email_domain,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,4178,
+OOL-E0293,table,用户、组织与权限,o_org_type_to_type,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,4189,
+OOL-E0294,table,资源仓库与课程资源,o_re_to_organisation,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,4196,
+OOL-E0295,table,课程体系与培养计划,o_cur_element_type,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,4207,
+OOL-E0296,table,课程体系与培养计划,o_cur_curriculum,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,4226,
+OOL-E0297,table,课程体系与培养计划,o_cur_curriculum_element,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,4243,
+OOL-E0298,table,课程体系与培养计划,o_cur_element_type_to_type,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,4297,
+OOL-E0299,table,课程体系与培养计划,o_cur_element_to_tax_level,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,4304,
+OOL-E0300,table,课程体系与培养计划,o_cur_audit_log,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,4312,
+OOL-E0301,table,其他业务模块,o_es_usage,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,4326,
+OOL-E0302,table,其他业务模块,o_livestream_launch,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,4345,
+OOL-E0303,table,其他业务模块,o_livestream_url_template,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,4355,
+OOL-E0304,table,其他业务模块,o_grad_to_identity,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,4366,
+OOL-E0305,table,其他业务模块,o_grad_assignment,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,4376,
+OOL-E0306,table,其他业务模块,o_grad_time_record,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,4395,
+OOL-E0307,table,其他业务模块,o_grad_configuration,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,4407,
+OOL-E0308,table,其他业务模块,o_course_element,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,4428,
+OOL-E0309,table,其他业务模块,o_course_color_category,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,4448,
+OOL-E0310,table,其他业务模块,o_course_disclaimer_consent,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,4461,
+OOL-E0311,table,其他业务模块,o_ap_topic,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,4473,
+OOL-E0312,table,其他业务模块,o_ap_organizer,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,4489,
+OOL-E0313,table,其他业务模块,o_ap_topic_to_group,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,4498,
+OOL-E0314,table,其他业务模块,o_ap_appointment,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,4506,
+OOL-E0315,table,其他业务模块,o_ap_participation,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,4528,
+OOL-E0316,table,用户、组织与权限,o_org_role_to_right,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,4540,
+OOL-E0317,table,其他业务模块,o_ct_location,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,4550,
+OOL-E0318,table,其他业务模块,o_ct_registration,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,4569,
+OOL-E0319,table,其他业务模块,o_immunity_proof,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,4596,
+OOL-E0320,table,其他业务模块,o_zoom_profile,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,4608,
+OOL-E0321,table,其他业务模块,o_zoom_config,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,4622,
+OOL-E0322,table,项目与协作,o_proj_project,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,4634,
+OOL-E0323,table,项目与协作,o_proj_project_to_org,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,4652,
+OOL-E0324,table,项目与协作,o_proj_template_to_org,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,4659,
+OOL-E0325,table,项目与协作,o_proj_project_user_info,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,4666,
+OOL-E0326,table,项目与协作,o_proj_artefact,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,4675,
+OOL-E0327,table,项目与协作,o_proj_artefact_to_artefact,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,4690,
+OOL-E0328,table,项目与协作,o_proj_tag,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,4699,
+OOL-E0329,table,项目与协作,o_proj_file,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,4707,
+OOL-E0330,table,项目与协作,o_proj_todo,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,4715,
+OOL-E0331,table,项目与协作,o_proj_note,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,4724,
+OOL-E0332,table,项目与协作,o_proj_appointment,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,4733,
+OOL-E0333,table,项目与协作,o_proj_milestone,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,4752,
+OOL-E0334,table,项目与协作,o_proj_decision,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,4765,
+OOL-E0335,table,项目与协作,o_proj_activity,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,4775,
+OOL-E0336,table,资源仓库与课程资源,o_repositoryentry_audit_log,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,4793,
+OOL-E0337,table,其他业务模块,o_jup_hub,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,4806,
+OOL-E0338,table,其他业务模块,o_jup_deployment,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,4826,
+OOL-E0339,table,其他业务模块,o_badge_template,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,4840,
+OOL-E0340,table,其他业务模块,o_badge_class,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,4852,
+OOL-E0341,table,其他业务模块,o_badge_assertion,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,4880,
+OOL-E0342,table,其他业务模块,o_badge_category,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,4899,
+OOL-E0343,table,其他业务模块,o_badge_entry_config,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,4907,
+OOL-E0344,table,其他业务模块,o_badge_organization,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,4918,
+OOL-E0345,table,其他业务模块,o_gui_prefs,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,4928,
+OOL-E0346,table,其他业务模块,o_tb_broker,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,4940,
+OOL-E0347,table,其他业务模块,o_tb_participant,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,4960,
+OOL-E0348,table,其他业务模块,o_tb_topic,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,4970,
+OOL-E0349,table,其他业务模块,o_tb_custom_field_definition,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,4989,
+OOL-E0350,table,其他业务模块,o_tb_custom_field,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,5002,
+OOL-E0351,table,其他业务模块,o_tb_selection,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,5013,
+OOL-E0352,table,其他业务模块,o_tb_audit_log,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,5024,
+OOL-E0353,table,其他业务模块,o_ai_usage_log,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,5040,
+OOL-E0354,table,其他业务模块,o_feed_tag,PostgreSQL setupDatabase.sql 定义业务表,src/main/resources/database/postgresql/setupDatabase.sql,5078,
+OOL-E0355,entity,其他,NoteImpl,JPA 实体/表映射类,src/main/java/org/olat/note/NoteImpl.java,,o_note
+OOL-E0356,entity,注册,SelfRegistrationAutoAccessMethod,JPA 实体/表映射类,src/main/java/org/olat/registration/SelfRegistrationAutoAccessMethod.java,,
+OOL-E0357,entity,注册,TemporaryKeyImpl,JPA 实体/表映射类,src/main/java/org/olat/registration/TemporaryKeyImpl.java,,o_temporarykey
+OOL-E0358,entity,资源仓库,RepositoryEntry,JPA 实体/表映射类,src/main/java/org/olat/repository/RepositoryEntry.java,,o_repositoryentry
+OOL-E0359,entity,群组,BusinessGroupImpl,JPA 实体/表映射类,src/main/java/org/olat/group/BusinessGroupImpl.java,,o_gp_business
+OOL-E0360,entity,用户,UserImpl,JPA 实体/表映射类,src/main/java/org/olat/user/UserImpl.java,,o_user
+OOL-E0361,entity,其他,Property,JPA 实体/表映射类,src/main/java/org/olat/properties/Property.java,,o_property
+OOL-E0362,entity,用户与权限,AuthenticationImpl,JPA 实体/表映射类,src/main/java/org/olat/basesecurity/AuthenticationImpl.java,,o_bs_authentication
+OOL-E0363,entity,用户与权限,IdentityShort,JPA 实体/表映射类,src/main/java/org/olat/basesecurity/IdentityShort.java,,o_bs_identity_short_v
+OOL-E0364,entity,用户与权限,SecurityGroupMembershipImpl,JPA 实体/表映射类,src/main/java/org/olat/basesecurity/SecurityGroupMembershipImpl.java,,o_bs_membership
+OOL-E0365,entity,用户与权限,SecurityGroupImpl,JPA 实体/表映射类,src/main/java/org/olat/basesecurity/SecurityGroupImpl.java,,o_bs_secgroup
+OOL-E0366,entity,用户与权限,NamedGroupImpl,JPA 实体/表映射类,src/main/java/org/olat/basesecurity/NamedGroupImpl.java,,o_bs_namedgroup
+OOL-E0367,entity,用户与权限,IdentityImpl,JPA 实体/表映射类,src/main/java/org/olat/basesecurity/IdentityImpl.java,,o_bs_identity
+OOL-E0368,entity,资源标识,OLATResourceImpl,JPA 实体/表映射类,src/main/java/org/olat/resource/OLATResourceImpl.java,,o_olatresource
+OOL-E0369,entity,认证登录,WebAuthnStatisticsImpl,JPA 实体/表映射类,src/main/java/org/olat/login/webauthn/model/WebAuthnStatisticsImpl.java,,o_bs_webauthn_stats
+OOL-E0370,entity,业务模块,CertificationProgramMailConfigurationImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/certificationprogram/model/CertificationProgramMailConfigurationImpl.java,,o_cer_program_mail_config
+OOL-E0371,entity,业务模块,CertificationProgramLogImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/certificationprogram/model/CertificationProgramLogImpl.java,,o_cer_program_log
+OOL-E0372,entity,业务模块,CertificationProgramToOrganisationImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/certificationprogram/model/CertificationProgramToOrganisationImpl.java,,o_cer_program_to_organisation
+OOL-E0373,entity,业务模块,CertificationProgramToCurriculumElementImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/certificationprogram/model/CertificationProgramToCurriculumElementImpl.java,,o_cer_program_to_element
+OOL-E0374,entity,业务模块,CertificationProgramImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/certificationprogram/model/CertificationProgramImpl.java,,o_cer_program
+OOL-E0375,entity,业务模块,AdobeConnectMeetingImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/adobeconnect/model/AdobeConnectMeetingImpl.java,,o_aconnect_meeting
+OOL-E0376,entity,业务模块,AdobeConnectUserImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/adobeconnect/model/AdobeConnectUserImpl.java,,o_aconnect_user
+OOL-E0377,entity,业务模块,DisadvantageCompensationAuditLogImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/dcompensation/model/DisadvantageCompensationAuditLogImpl.java,,o_as_compensation_log
+OOL-E0378,entity,业务模块,DisadvantageCompensationImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/dcompensation/model/DisadvantageCompensationImpl.java,,o_as_compensation
+OOL-E0379,entity,业务模块,InvitationImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/invitation/model/InvitationImpl.java,,o_bs_invitation
+OOL-E0380,entity,业务模块,ReadMessageImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/fo/model/ReadMessageImpl.java,,o_readmessage
+OOL-E0381,entity,业务模块,MessageRefImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/fo/model/MessageRefImpl.java,,o_message
+OOL-E0382,entity,业务模块,MessageImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/fo/model/MessageImpl.java,,o_message
+OOL-E0383,entity,业务模块,MessagePeekviewImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/fo/model/MessagePeekviewImpl.java,,o_message
+OOL-E0384,entity,业务模块,PseudonymImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/fo/model/PseudonymImpl.java,,o_forum_pseudonym
+OOL-E0385,entity,业务模块,MessageStatistics,JPA 实体/表映射类,src/main/java/org/olat/modules/fo/model/MessageStatistics.java,,o_message
+OOL-E0386,entity,业务模块,ForumImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/fo/model/ForumImpl.java,,o_forum
+OOL-E0387,entity,业务模块,MessageLightImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/fo/model/MessageLightImpl.java,,o_message
+OOL-E0388,entity,业务模块,BinderUserInfosImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/portfolio/model/BinderUserInfosImpl.java,,o_pf_binder_user_infos
+OOL-E0389,entity,业务模块,BinderImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/portfolio/model/BinderImpl.java,,o_pf_binder
+OOL-E0390,entity,业务模块,SectionImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/portfolio/model/SectionImpl.java,,o_pf_section
+OOL-E0391,entity,业务模块,PageUserInformationsImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/portfolio/model/PageUserInformationsImpl.java,,o_ce_page_user_infos
+OOL-E0392,entity,业务模块,AssessmentSectionImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/portfolio/model/AssessmentSectionImpl.java,,o_pf_assessment_section
+OOL-E0393,entity,业务模块,ZoomProfileImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/zoom/model/ZoomProfileImpl.java,,o_zoom_profile
+OOL-E0394,entity,业务模块,ZoomConfigImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/zoom/model/ZoomConfigImpl.java,,o_zoom_config
+OOL-E0395,entity,业务模块,TBCustomFieldImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/topicbroker/model/TBCustomFieldImpl.java,,o_tb_custom_field
+OOL-E0396,entity,业务模块,TBParticipantImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/topicbroker/model/TBParticipantImpl.java,,o_tb_participant
+OOL-E0397,entity,业务模块,TBBrokerImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/topicbroker/model/TBBrokerImpl.java,,o_tb_broker
+OOL-E0398,entity,业务模块,TBSelectionImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/topicbroker/model/TBSelectionImpl.java,,o_tb_selection
+OOL-E0399,entity,业务模块,TBTopicImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/topicbroker/model/TBTopicImpl.java,,o_tb_topic
+OOL-E0400,entity,业务模块,TBAuditLogImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/topicbroker/model/TBAuditLogImpl.java,,o_tb_audit_log
+OOL-E0401,entity,业务模块,TBCustomFieldDefinitionImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/topicbroker/model/TBCustomFieldDefinitionImpl.java,,o_tb_custom_field_definition
+OOL-E0402,entity,业务模块,TeamsUserImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/teams/model/TeamsUserImpl.java,,o_teams_user
+OOL-E0403,entity,业务模块,TeamsMeetingImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/teams/model/TeamsMeetingImpl.java,,o_teams_meeting
+OOL-E0404,entity,业务模块,TeamsAttendeeImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/teams/model/TeamsAttendeeImpl.java,,o_teams_attendee
+OOL-E0405,entity,业务模块,EdusharingUsageImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/edusharing/model/EdusharingUsageImpl.java,,o_es_usage
+OOL-E0406,entity,业务模块,TaxonomyCompetenceImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/taxonomy/model/TaxonomyCompetenceImpl.java,,o_tax_taxonomy_competence
+OOL-E0407,entity,业务模块,TaxonomyLevelTypeToTypeImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/taxonomy/model/TaxonomyLevelTypeToTypeImpl.java,,o_tax_taxonomy_type_to_type
+OOL-E0408,entity,业务模块,TaxonomyLevelTypeImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/taxonomy/model/TaxonomyLevelTypeImpl.java,,o_tax_taxonomy_level_type
+OOL-E0409,entity,业务模块,TaxonomyCompetenceAuditLogImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/taxonomy/model/TaxonomyCompetenceAuditLogImpl.java,,o_tax_competence_audit_log
+OOL-E0410,entity,业务模块,TaxonomyImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/taxonomy/model/TaxonomyImpl.java,,o_tax_taxonomy
+OOL-E0411,entity,业务模块,TaxonomyLevelImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/taxonomy/model/TaxonomyLevelImpl.java,,o_tax_taxonomy_level
+OOL-E0412,entity,业务模块,ProjTemplateToOrganisationImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/project/model/ProjTemplateToOrganisationImpl.java,,o_proj_template_to_org
+OOL-E0413,entity,业务模块,ProjNoteImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/project/model/ProjNoteImpl.java,,o_proj_note
+OOL-E0414,entity,业务模块,ProjMilestoneImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/project/model/ProjMilestoneImpl.java,,o_proj_milestone
+OOL-E0415,entity,业务模块,ProjFileImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/project/model/ProjFileImpl.java,,o_proj_file
+OOL-E0416,entity,业务模块,ProjAppointmentImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/project/model/ProjAppointmentImpl.java,,o_proj_appointment
+OOL-E0417,entity,业务模块,ProjProjectImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/project/model/ProjProjectImpl.java,,o_proj_project
+OOL-E0418,entity,业务模块,ProjArtefactToArtefactImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/project/model/ProjArtefactToArtefactImpl.java,,o_proj_artefact_to_artefact
+OOL-E0419,entity,业务模块,ProjTagImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/project/model/ProjTagImpl.java,,o_proj_tag
+OOL-E0420,entity,业务模块,ProjDecisionImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/project/model/ProjDecisionImpl.java,,o_proj_decision
+OOL-E0421,entity,业务模块,ProjArtefactImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/project/model/ProjArtefactImpl.java,,o_proj_artefact
+OOL-E0422,entity,业务模块,ProjProjectToOrganisationImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/project/model/ProjProjectToOrganisationImpl.java,,o_proj_project_to_org
+OOL-E0423,entity,业务模块,ProjToDoImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/project/model/ProjToDoImpl.java,,o_proj_todo
+OOL-E0424,entity,业务模块,ProjProjectUserInfoImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/project/model/ProjProjectUserInfoImpl.java,,o_proj_project_user_info
+OOL-E0425,entity,业务模块,ProjActivityImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/project/model/ProjActivityImpl.java,,o_proj_activity
+OOL-E0426,entity,业务模块,ToDoTaskTagImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/todo/model/ToDoTaskTagImpl.java,,o_todo_task_tag
+OOL-E0427,entity,业务模块,ToDoTaskImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/todo/model/ToDoTaskImpl.java,,o_todo_task
+OOL-E0428,entity,业务模块,JupyterDeploymentImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/jupyterhub/model/JupyterDeploymentImpl.java,,o_jup_deployment
+OOL-E0429,entity,业务模块,JupyterHubImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/jupyterhub/model/JupyterHubImpl.java,,o_jup_hub
+OOL-E0430,entity,业务模块,PerformanceClassImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/grade/model/PerformanceClassImpl.java,,o_gr_performance_class
+OOL-E0431,entity,业务模块,GradeSystemImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/grade/model/GradeSystemImpl.java,,o_gr_grade_system
+OOL-E0432,entity,业务模块,GradeScaleImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/grade/model/GradeScaleImpl.java,,o_gr_grade_scale
+OOL-E0433,entity,业务模块,BreakpointImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/grade/model/BreakpointImpl.java,,o_gr_breakpoint
+OOL-E0434,entity,业务模块,CreditPointSystemImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/creditpoint/model/CreditPointSystemImpl.java,,o_cp_system
+OOL-E0435,entity,业务模块,RepositoryEntryCreditPointConfigurationImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/creditpoint/model/RepositoryEntryCreditPointConfigurationImpl.java,,o_cp_repositoryentry_config
+OOL-E0436,entity,业务模块,CreditPointTransactionImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/creditpoint/model/CreditPointTransactionImpl.java,,o_cp_transaction
+OOL-E0437,entity,业务模块,CreditPointTransactionDetailsImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/creditpoint/model/CreditPointTransactionDetailsImpl.java,,o_cp_transaction_details
+OOL-E0438,entity,业务模块,CurriculumElementCreditPointConfigurationImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/creditpoint/model/CurriculumElementCreditPointConfigurationImpl.java,,o_cp_cur_element_config
+OOL-E0439,entity,业务模块,CreditPointWalletImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/creditpoint/model/CreditPointWalletImpl.java,,o_cp_wallet
+OOL-E0440,entity,业务模块,CreditPointSystemToOrganisationImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/creditpoint/model/CreditPointSystemToOrganisationImpl.java,,o_cp_system_to_organisation
+OOL-E0441,entity,业务模块,BigBlueButtonServerImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/bigbluebutton/model/BigBlueButtonServerImpl.java,,o_bbb_server
+OOL-E0442,entity,业务模块,BigBlueButtonAttendeeImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/bigbluebutton/model/BigBlueButtonAttendeeImpl.java,,o_bbb_attendee
+OOL-E0443,entity,业务模块,BigBlueButtonRecordingReferenceImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/bigbluebutton/model/BigBlueButtonRecordingReferenceImpl.java,,o_bbb_recording
+OOL-E0444,entity,业务模块,BigBlueButtonMeetingImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/bigbluebutton/model/BigBlueButtonMeetingImpl.java,,o_bbb_meeting
+OOL-E0445,entity,业务模块,BigBlueButtonMeetingTemplateImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/bigbluebutton/model/BigBlueButtonMeetingTemplateImpl.java,,o_bbb_template
+OOL-E0446,entity,业务模块,AssessmentEntryImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/assessment/model/AssessmentEntryImpl.java,,o_as_entry
+OOL-E0447,entity,业务模块,AssessmentMessageLogImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/message/model/AssessmentMessageLogImpl.java,,o_as_message_log
+OOL-E0448,entity,业务模块,AssessmentMessageImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/message/model/AssessmentMessageImpl.java,,o_as_message
+OOL-E0449,entity,业务模块,SentReminderImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/reminder/model/SentReminderImpl.java,,o_rem_sent_reminder
+OOL-E0450,entity,业务模块,ReminderImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/reminder/model/ReminderImpl.java,,o_rem_reminder
+OOL-E0451,entity,业务模块,ImmunityProofImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/immunityproof/model/ImmunityProofImpl.java,,o_immunity_proof
+OOL-E0452,entity,业务模块,CatalogFilterImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/catalog/model/CatalogFilterImpl.java,,o_ca_filter
+OOL-E0453,entity,业务模块,CatalogLauncherToOrganisationImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/catalog/model/CatalogLauncherToOrganisationImpl.java,,o_ca_launcher_to_organisation
+OOL-E0454,entity,业务模块,CatalogLauncherImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/catalog/model/CatalogLauncherImpl.java,,o_ca_launcher
+OOL-E0455,entity,业务模块,TitlePart,JPA 实体/表映射类,src/main/java/org/olat/modules/ceditor/model/jpa/TitlePart.java,,
+OOL-E0456,entity,业务模块,QuizPart,JPA 实体/表映射类,src/main/java/org/olat/modules/ceditor/model/jpa/QuizPart.java,,
+OOL-E0457,entity,业务模块,CodePart,JPA 实体/表映射类,src/main/java/org/olat/modules/ceditor/model/jpa/CodePart.java,,
+OOL-E0458,entity,业务模块,PageReferenceImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/ceditor/model/jpa/PageReferenceImpl.java,,o_ce_page_reference
+OOL-E0459,entity,业务模块,EvaluationFormPart,JPA 实体/表映射类,src/main/java/org/olat/modules/ceditor/model/jpa/EvaluationFormPart.java,,
+OOL-E0460,entity,业务模块,AbstractPart,JPA 实体/表映射类,src/main/java/org/olat/modules/ceditor/model/jpa/AbstractPart.java,,o_ce_page_part
+OOL-E0461,entity,业务模块,SpacerPart,JPA 实体/表映射类,src/main/java/org/olat/modules/ceditor/model/jpa/SpacerPart.java,,
+OOL-E0462,entity,业务模块,TablePart,JPA 实体/表映射类,src/main/java/org/olat/modules/ceditor/model/jpa/TablePart.java,,
+OOL-E0463,entity,业务模块,AssignmentImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/ceditor/model/jpa/AssignmentImpl.java,,o_ce_assignment
+OOL-E0464,entity,业务模块,ContainerPart,JPA 实体/表映射类,src/main/java/org/olat/modules/ceditor/model/jpa/ContainerPart.java,,
+OOL-E0465,entity,业务模块,PageBodyImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/ceditor/model/jpa/PageBodyImpl.java,,o_ce_page_body
+OOL-E0466,entity,业务模块,MathPart,JPA 实体/表映射类,src/main/java/org/olat/modules/ceditor/model/jpa/MathPart.java,,
+OOL-E0467,entity,业务模块,CategoryImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/ceditor/model/jpa/CategoryImpl.java,,o_pf_category
+OOL-E0468,entity,业务模块,CategoryToElementImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/ceditor/model/jpa/CategoryToElementImpl.java,,o_pf_category_relation
+OOL-E0469,entity,业务模块,HTMLPart,JPA 实体/表映射类,src/main/java/org/olat/modules/ceditor/model/jpa/HTMLPart.java,,
+OOL-E0470,entity,业务模块,TocPart,JPA 实体/表映射类,src/main/java/org/olat/modules/ceditor/model/jpa/TocPart.java,,
+OOL-E0471,entity,业务模块,ImageComparisonPart,JPA 实体/表映射类,src/main/java/org/olat/modules/ceditor/model/jpa/ImageComparisonPart.java,,
+OOL-E0472,entity,业务模块,MediaPart,JPA 实体/表映射类,src/main/java/org/olat/modules/ceditor/model/jpa/MediaPart.java,,
+OOL-E0473,entity,业务模块,GalleryPart,JPA 实体/表映射类,src/main/java/org/olat/modules/ceditor/model/jpa/GalleryPart.java,,
+OOL-E0474,entity,业务模块,PageToTaxonomyCompetenceImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/ceditor/model/jpa/PageToTaxonomyCompetenceImpl.java,,o_ce_page_to_tax_competence
+OOL-E0475,entity,业务模块,ContentAuditLogImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/ceditor/model/jpa/ContentAuditLogImpl.java,,o_ce_audit_log
+OOL-E0476,entity,业务模块,ParagraphPart,JPA 实体/表映射类,src/main/java/org/olat/modules/ceditor/model/jpa/ParagraphPart.java,,
+OOL-E0477,entity,业务模块,PageImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/ceditor/model/jpa/PageImpl.java,,o_ce_page
+OOL-E0478,entity,业务模块,ItemImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/webFeed/model/ItemImpl.java,,o_feed_item
+OOL-E0479,entity,业务模块,FeedTagImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/webFeed/model/FeedTagImpl.java,,o_feed_tag
+OOL-E0480,entity,业务模块,FeedImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/webFeed/model/FeedImpl.java,,o_feed
+OOL-E0481,entity,业务模块,ResourceShareImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/qpool/model/ResourceShareImpl.java,,o_qp_share_item
+OOL-E0482,entity,业务模块,QuestionItemAuditLogImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/qpool/model/QuestionItemAuditLogImpl.java,,o_qp_item_audit_log
+OOL-E0483,entity,业务模块,QuestionItemImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/qpool/model/QuestionItemImpl.java,,o_qp_item
+OOL-E0484,entity,业务模块,BusinessGroupToItemView,JPA 实体/表映射类,src/main/java/org/olat/modules/qpool/model/BusinessGroupToItemView.java,,o_qp_share_2_item_short_v
+OOL-E0485,entity,业务模块,PoolImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/qpool/model/PoolImpl.java,,o_qp_pool
+OOL-E0486,entity,业务模块,QEducationalContext,JPA 实体/表映射类,src/main/java/org/olat/modules/qpool/model/QEducationalContext.java,,o_qp_edu_context
+OOL-E0487,entity,业务模块,QLicense,JPA 实体/表映射类,src/main/java/org/olat/modules/qpool/model/QLicense.java,,o_qp_license
+OOL-E0488,entity,业务模块,PoolToItem,JPA 实体/表映射类,src/main/java/org/olat/modules/qpool/model/PoolToItem.java,,o_qp_pool_2_item
+OOL-E0489,entity,业务模块,ItemCollectionImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/qpool/model/ItemCollectionImpl.java,,o_qp_item_collection
+OOL-E0490,entity,业务模块,QItemType,JPA 实体/表映射类,src/main/java/org/olat/modules/qpool/model/QItemType.java,,o_qp_item_type
+OOL-E0491,entity,业务模块,CollectionToItem,JPA 实体/表映射类,src/main/java/org/olat/modules/qpool/model/CollectionToItem.java,,o_qp_collection_2_item
+OOL-E0492,entity,业务模块,PoolItemShortView,JPA 实体/表映射类,src/main/java/org/olat/modules/qpool/model/PoolItemShortView.java,,o_qp_pool_2_item_short_v
+OOL-E0493,entity,业务模块,CurriculumImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/curriculum/model/CurriculumImpl.java,,o_cur_curriculum
+OOL-E0494,entity,业务模块,CurriculumElementTypeToTypeImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/curriculum/model/CurriculumElementTypeToTypeImpl.java,,o_cur_element_type_to_type
+OOL-E0495,entity,业务模块,CurriculumElementTypeImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/curriculum/model/CurriculumElementTypeImpl.java,,o_cur_element_type
+OOL-E0496,entity,业务模块,CurriculumAuditLogImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/curriculum/model/CurriculumAuditLogImpl.java,,o_cur_audit_log
+OOL-E0497,entity,业务模块,CurriculumElementImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/curriculum/model/CurriculumElementImpl.java,,o_cur_curriculum_element
+OOL-E0498,entity,业务模块,CurriculumElementToTaxonomyLevelImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/curriculum/model/CurriculumElementToTaxonomyLevelImpl.java,,o_cur_element_to_tax_level
+OOL-E0499,entity,业务模块,ContactTracingLocationImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/contacttracing/model/ContactTracingLocationImpl.java,,o_ct_location
+OOL-E0500,entity,业务模块,ContactTracingRegistrationImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/contacttracing/model/ContactTracingRegistrationImpl.java,,o_ct_registration
+OOL-E0501,entity,业务模块,MediaVersionMetadataImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/cemedia/model/MediaVersionMetadataImpl.java,,o_media_version_metadata
+OOL-E0502,entity,业务模块,MediaToPagePartImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/cemedia/model/MediaToPagePartImpl.java,,o_media_to_page_part
+OOL-E0503,entity,业务模块,MediaImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/cemedia/model/MediaImpl.java,,o_media
+OOL-E0504,entity,业务模块,MediaTagImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/cemedia/model/MediaTagImpl.java,,o_media_tag
+OOL-E0505,entity,业务模块,MediaLogImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/cemedia/model/MediaLogImpl.java,,o_media_log
+OOL-E0506,entity,业务模块,MediaVersionImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/cemedia/model/MediaVersionImpl.java,,o_media_version
+OOL-E0507,entity,业务模块,MediaToGroupRelationImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/cemedia/model/MediaToGroupRelationImpl.java,,o_media_to_group
+OOL-E0508,entity,业务模块,MediaToTaxonomyLevelImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/cemedia/model/MediaToTaxonomyLevelImpl.java,,o_media_to_tax_level
+OOL-E0509,entity,业务模块,AppointmentImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/appointments/model/AppointmentImpl.java,,o_ap_appointment
+OOL-E0510,entity,业务模块,OrganizerImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/appointments/model/OrganizerImpl.java,,o_ap_organizer
+OOL-E0511,entity,业务模块,ParticipationImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/appointments/model/ParticipationImpl.java,,o_ap_participation
+OOL-E0512,entity,业务模块,TopicImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/appointments/model/TopicImpl.java,,o_ap_topic
+OOL-E0513,entity,业务模块,TopicToGroupImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/appointments/model/TopicToGroupImpl.java,,o_ap_topic_to_group
+OOL-E0514,entity,业务模块,QualityDataCollectionImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/quality/model/QualityDataCollectionImpl.java,,o_qual_data_collection
+OOL-E0515,entity,业务模块,QualityContextToTaxonomyLevelImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/quality/model/QualityContextToTaxonomyLevelImpl.java,,o_qual_context_to_tax_level
+OOL-E0516,entity,业务模块,QualityReminderImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/quality/model/QualityReminderImpl.java,,o_qual_reminder
+OOL-E0517,entity,业务模块,QualityContextToCurriculumElementImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/quality/model/QualityContextToCurriculumElementImpl.java,,o_qual_context_to_cur_element
+OOL-E0518,entity,业务模块,QualityDataCollectionToOrganisationImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/quality/model/QualityDataCollectionToOrganisationImpl.java,,o_qual_data_collection_to_org
+OOL-E0519,entity,业务模块,QualityContextToCurriculumImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/quality/model/QualityContextToCurriculumImpl.java,,o_qual_context_to_curriculum
+OOL-E0520,entity,业务模块,QualityAuditLogImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/quality/model/QualityAuditLogImpl.java,,o_qual_audit_log
+OOL-E0521,entity,业务模块,QualityContextToOrganisationImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/quality/model/QualityContextToOrganisationImpl.java,,o_qual_context_to_organisation
+OOL-E0522,entity,业务模块,QualityReportAccessImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/quality/model/QualityReportAccessImpl.java,,o_qual_report_access
+OOL-E0523,entity,业务模块,QualityContextImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/quality/model/QualityContextImpl.java,,o_qual_context
+OOL-E0524,entity,业务模块,QualityGeneratorToOrganisationImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/quality/generator/model/QualityGeneratorToOrganisationImpl.java,,o_qual_generator_to_org
+OOL-E0525,entity,业务模块,QualityGeneratorConfigImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/quality/generator/model/QualityGeneratorConfigImpl.java,,o_qual_generator_config
+OOL-E0526,entity,业务模块,QualityGeneratorImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/quality/generator/model/QualityGeneratorImpl.java,,o_qual_generator
+OOL-E0527,entity,业务模块,QualityGeneratorOverrideImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/quality/generator/model/QualityGeneratorOverrideImpl.java,,o_qual_generator_override
+OOL-E0528,entity,业务模块,AnalysisPresentationImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/quality/analysis/model/AnalysisPresentationImpl.java,,o_qual_analysis_presentation
+OOL-E0529,entity,业务模块,EvaluationFormSessionImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/forms/model/jpa/EvaluationFormSessionImpl.java,,o_eva_form_session
+OOL-E0530,entity,业务模块,EvaluationFormResponseImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/forms/model/jpa/EvaluationFormResponseImpl.java,,o_eva_form_response
+OOL-E0531,entity,业务模块,EvaluationFormSurveyImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/forms/model/jpa/EvaluationFormSurveyImpl.java,,o_eva_form_survey
+OOL-E0532,entity,业务模块,EvaluationFormParticipationImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/forms/model/jpa/EvaluationFormParticipationImpl.java,,o_eva_form_participation
+OOL-E0533,entity,业务模块,GradingTimeRecordImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/grading/model/GradingTimeRecordImpl.java,,o_grad_time_record
+OOL-E0534,entity,业务模块,RepositoryEntryGradingConfigurationImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/grading/model/RepositoryEntryGradingConfigurationImpl.java,,o_grad_configuration
+OOL-E0535,entity,业务模块,GraderToIdentityImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/grading/model/GraderToIdentityImpl.java,,o_grad_to_identity
+OOL-E0536,entity,业务模块,GradingAssignmentImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/grading/model/GradingAssignmentImpl.java,,o_grad_assignment
+OOL-E0537,entity,业务模块,GradingTimeRecordAppender,JPA 实体/表映射类,src/main/java/org/olat/modules/grading/model/GradingTimeRecordAppender.java,,o_grad_time_record
+OOL-E0538,entity,业务模块,BadgeTemplateImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/openbadges/model/BadgeTemplateImpl.java,,o_badge_template
+OOL-E0539,entity,业务模块,BadgeAssertionImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/openbadges/model/BadgeAssertionImpl.java,,o_badge_assertion
+OOL-E0540,entity,业务模块,BadgeEntryConfigurationImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/openbadges/model/BadgeEntryConfigurationImpl.java,,o_badge_entry_config
+OOL-E0541,entity,业务模块,BadgeOrganizationImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/openbadges/model/BadgeOrganizationImpl.java,,o_badge_organization
+OOL-E0542,entity,业务模块,BadgeClassImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/openbadges/model/BadgeClassImpl.java,,o_badge_class
+OOL-E0543,entity,业务模块,BadgeCategoryImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/openbadges/model/BadgeCategoryImpl.java,,o_badge_category
+OOL-E0544,entity,业务模块,GoToRegistrantImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/gotomeeting/model/GoToRegistrantImpl.java,,o_goto_registrant
+OOL-E0545,entity,业务模块,GoToOrganizerImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/gotomeeting/model/GoToOrganizerImpl.java,,o_goto_organizer
+OOL-E0546,entity,业务模块,GoToMeetingImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/gotomeeting/model/GoToMeetingImpl.java,,o_goto_meeting
+OOL-E0547,entity,业务模块,VideoMetaImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/video/model/VideoMetaImpl.java,,o_vid_metadata
+OOL-E0548,entity,业务模块,VideoToOrganisationImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/video/model/VideoToOrganisationImpl.java,,o_vid_to_organisation
+OOL-E0549,entity,业务模块,VideoTaskSegmentSelectionImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/video/model/VideoTaskSegmentSelectionImpl.java,,o_vid_task_selection
+OOL-E0550,entity,业务模块,VideoTaskSessionImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/video/model/VideoTaskSessionImpl.java,,o_vid_task_session
+OOL-E0551,entity,业务模块,VideoTranscodingImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/video/model/VideoTranscodingImpl.java,,o_vid_transcoding
+OOL-E0552,entity,业务模块,OpenMeetingsRoomReference,JPA 实体/表映射类,src/main/java/org/olat/modules/openmeetings/model/OpenMeetingsRoomReference.java,,o_om_room_reference
+OOL-E0553,entity,业务模块,AbsenceNoticeToLectureBlockImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/lecture/model/AbsenceNoticeToLectureBlockImpl.java,,o_lecture_notice_to_block
+OOL-E0554,entity,业务模块,LectureBlockReminderImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/lecture/model/LectureBlockReminderImpl.java,,o_lecture_reminder
+OOL-E0555,entity,业务模块,AbsenceNoticeImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/lecture/model/AbsenceNoticeImpl.java,,o_lecture_absence_notice
+OOL-E0556,entity,业务模块,LectureBlockRollCallImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/lecture/model/LectureBlockRollCallImpl.java,,o_lecture_block_roll_call
+OOL-E0557,entity,业务模块,RepositoryEntryLectureConfigurationImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/lecture/model/RepositoryEntryLectureConfigurationImpl.java,,o_lecture_entry_config
+OOL-E0558,entity,业务模块,AbsenceNoticeToRepositoryEntryImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/lecture/model/AbsenceNoticeToRepositoryEntryImpl.java,,o_lecture_notice_to_entry
+OOL-E0559,entity,业务模块,LectureParticipantSummaryImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/lecture/model/LectureParticipantSummaryImpl.java,,o_lecture_participant_summary
+OOL-E0560,entity,业务模块,LectureBlockToGroupImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/lecture/model/LectureBlockToGroupImpl.java,,o_lecture_block_to_group
+OOL-E0561,entity,业务模块,LectureBlockImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/lecture/model/LectureBlockImpl.java,,o_lecture_block
+OOL-E0562,entity,业务模块,LectureBlockToTaxonomyLevelImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/lecture/model/LectureBlockToTaxonomyLevelImpl.java,,o_lecture_block_to_tax_level
+OOL-E0563,entity,业务模块,ReasonImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/lecture/model/ReasonImpl.java,,o_lecture_reason
+OOL-E0564,entity,业务模块,AbsenceCategoryImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/lecture/model/AbsenceCategoryImpl.java,,o_lecture_absence_category
+OOL-E0565,entity,业务模块,LectureBlockAuditLogImpl,JPA 实体/表映射类,src/main/java/org/olat/modules/lecture/model/LectureBlockAuditLogImpl.java,,o_lecture_block_audit_log
+OOL-E0566,entity,业务模块,LectureParticipantCalendarSummary,JPA 实体/表映射类,src/main/java/org/olat/modules/lecture/model/LectureParticipantCalendarSummary.java,,o_lecture_participant_summary
+OOL-E0567,entity,资源标识,ReferenceImpl,JPA 实体/表映射类,src/main/java/org/olat/resource/references/ReferenceImpl.java,,o_references
+OOL-E0568,entity,资源标识,ReferenceHistoryImpl,JPA 实体/表映射类,src/main/java/org/olat/resource/references/ReferenceHistoryImpl.java,,o_references_history
+OOL-E0569,entity,资源标识,ResourceReservationImpl,JPA 实体/表映射类,src/main/java/org/olat/resource/accesscontrol/model/ResourceReservationImpl.java,,o_ac_reservation
+OOL-E0570,entity,资源标识,OrderPartImpl,JPA 实体/表映射类,src/main/java/org/olat/resource/accesscontrol/model/OrderPartImpl.java,,o_ac_order_part
+OOL-E0571,entity,资源标识,OrderImpl,JPA 实体/表映射类,src/main/java/org/olat/resource/accesscontrol/model/OrderImpl.java,,o_ac_order
+OOL-E0572,entity,资源标识,OrderLineImpl,JPA 实体/表映射类,src/main/java/org/olat/resource/accesscontrol/model/OrderLineImpl.java,,o_ac_order_line
+OOL-E0573,entity,资源标识,OfferAccessImpl,JPA 实体/表映射类,src/main/java/org/olat/resource/accesscontrol/model/OfferAccessImpl.java,,o_ac_offer_access
+OOL-E0574,entity,资源标识,AccessTransactionImpl,JPA 实体/表映射类,src/main/java/org/olat/resource/accesscontrol/model/AccessTransactionImpl.java,,o_ac_transaction
+OOL-E0575,entity,资源标识,BillingAddressImpl,JPA 实体/表映射类,src/main/java/org/olat/resource/accesscontrol/model/BillingAddressImpl.java,,o_ac_billing_address
+OOL-E0576,entity,资源标识,OfferToOrganisationImpl,JPA 实体/表映射类,src/main/java/org/olat/resource/accesscontrol/model/OfferToOrganisationImpl.java,,o_ac_offer_to_organisation
+OOL-E0577,entity,资源标识,TokenAccessMethod,JPA 实体/表映射类,src/main/java/org/olat/resource/accesscontrol/model/TokenAccessMethod.java,,
+OOL-E0578,entity,资源标识,OfferImpl,JPA 实体/表映射类,src/main/java/org/olat/resource/accesscontrol/model/OfferImpl.java,,o_ac_offer
+OOL-E0579,entity,资源标识,CostCenterImpl,JPA 实体/表映射类,src/main/java/org/olat/resource/accesscontrol/model/CostCenterImpl.java,,o_ac_cost_center
+OOL-E0580,entity,资源标识,AbstractAccessMethod,JPA 实体/表映射类,src/main/java/org/olat/resource/accesscontrol/model/AbstractAccessMethod.java,,o_ac_method
+OOL-E0581,entity,资源标识,FreeAccessMethod,JPA 实体/表映射类,src/main/java/org/olat/resource/accesscontrol/model/FreeAccessMethod.java,,
+OOL-E0582,entity,资源标识,InvoiceAccessMethod,JPA 实体/表映射类,src/main/java/org/olat/resource/accesscontrol/provider/invoice/model/InvoiceAccessMethod.java,,
+OOL-E0583,entity,资源标识,PaypalAccessMethod,JPA 实体/表映射类,src/main/java/org/olat/resource/accesscontrol/provider/paypal/model/PaypalAccessMethod.java,,
+OOL-E0584,entity,资源标识,PaypalTransaction,JPA 实体/表映射类,src/main/java/org/olat/resource/accesscontrol/provider/paypal/model/PaypalTransaction.java,,o_ac_paypal_transaction
+OOL-E0585,entity,资源标识,AdvanceOrderImpl,JPA 实体/表映射类,src/main/java/org/olat/resource/accesscontrol/provider/auto/model/AdvanceOrderImpl.java,,o_ac_auto_advance_order
+OOL-E0586,entity,资源标识,PaypalCheckoutTransactionImpl,JPA 实体/表映射类,src/main/java/org/olat/resource/accesscontrol/provider/paypalcheckout/model/PaypalCheckoutTransactionImpl.java,,o_ac_checkout_transaction
+OOL-E0587,entity,资源标识,PaypalCheckoutAccessMethod,JPA 实体/表映射类,src/main/java/org/olat/resource/accesscontrol/provider/paypalcheckout/model/PaypalCheckoutAccessMethod.java,,
+OOL-E0588,entity,用户与权限,GroupMembershipHistoryImpl,JPA 实体/表映射类,src/main/java/org/olat/basesecurity/model/GroupMembershipHistoryImpl.java,,o_bs_group_member_history
+OOL-E0589,entity,用户与权限,OrganisationImpl,JPA 实体/表映射类,src/main/java/org/olat/basesecurity/model/OrganisationImpl.java,,o_org_organisation
+OOL-E0590,entity,用户与权限,RelationRightImpl,JPA 实体/表映射类,src/main/java/org/olat/basesecurity/model/RelationRightImpl.java,,o_bs_relation_right
+OOL-E0591,entity,用户与权限,UserProperty,JPA 实体/表映射类,src/main/java/org/olat/basesecurity/model/UserProperty.java,,o_userproperty
+OOL-E0592,entity,用户与权限,RelationRoleToRightImpl,JPA 实体/表映射类,src/main/java/org/olat/basesecurity/model/RelationRoleToRightImpl.java,,o_bs_relation_role_to_right
+OOL-E0593,entity,用户与权限,OrganisationTypeImpl,JPA 实体/表映射类,src/main/java/org/olat/basesecurity/model/OrganisationTypeImpl.java,,o_org_organisation_type
+OOL-E0594,entity,用户与权限,RelationRoleImpl,JPA 实体/表映射类,src/main/java/org/olat/basesecurity/model/RelationRoleImpl.java,,o_bs_relation_role
+OOL-E0595,entity,用户与权限,GroupImpl,JPA 实体/表映射类,src/main/java/org/olat/basesecurity/model/GroupImpl.java,,o_bs_group
+OOL-E0596,entity,用户与权限,OrganisationEmailDomainImpl,JPA 实体/表映射类,src/main/java/org/olat/basesecurity/model/OrganisationEmailDomainImpl.java,,o_org_email_domain
+OOL-E0597,entity,用户与权限,AuthenticationHistoryImpl,JPA 实体/表映射类,src/main/java/org/olat/basesecurity/model/AuthenticationHistoryImpl.java,,o_bs_authentication_history
+OOL-E0598,entity,用户与权限,GrantImpl,JPA 实体/表映射类,src/main/java/org/olat/basesecurity/model/GrantImpl.java,,o_bs_grant
+OOL-E0599,entity,用户与权限,OrganisationRoleRightImpl,JPA 实体/表映射类,src/main/java/org/olat/basesecurity/model/OrganisationRoleRightImpl.java,,o_org_role_to_right
+OOL-E0600,entity,用户与权限,IdentityToIdentityRelationImpl,JPA 实体/表映射类,src/main/java/org/olat/basesecurity/model/IdentityToIdentityRelationImpl.java,,o_bs_identity_to_identity
+OOL-E0601,entity,用户与权限,RecoveryKeyImpl,JPA 实体/表映射类,src/main/java/org/olat/basesecurity/model/RecoveryKeyImpl.java,,o_bs_recovery_key
+OOL-E0602,entity,用户与权限,OrganisationTypeToTypeImpl,JPA 实体/表映射类,src/main/java/org/olat/basesecurity/model/OrganisationTypeToTypeImpl.java,,o_org_type_to_type
+OOL-E0603,entity,用户与权限,IdentityLastLoginImpl,JPA 实体/表映射类,src/main/java/org/olat/basesecurity/model/IdentityLastLoginImpl.java,,o_bs_identity
+OOL-E0604,entity,用户与权限,GroupMembershipImpl,JPA 实体/表映射类,src/main/java/org/olat/basesecurity/model/GroupMembershipImpl.java,,o_bs_group_member
+OOL-E0605,entity,标准协议/IMS,AssessmentTestMarksImpl,JPA 实体/表映射类,src/main/java/org/olat/ims/qti21/model/jpa/AssessmentTestMarksImpl.java,,o_qti_assessment_marks
+OOL-E0606,entity,标准协议/IMS,AssessmentTestSessionExtraTime,JPA 实体/表映射类,src/main/java/org/olat/ims/qti21/model/jpa/AssessmentTestSessionExtraTime.java,,o_qti_assessmenttest_session
+OOL-E0607,entity,标准协议/IMS,AssessmentResponseImpl,JPA 实体/表映射类,src/main/java/org/olat/ims/qti21/model/jpa/AssessmentResponseImpl.java,,o_qti_assessment_response
+OOL-E0608,entity,标准协议/IMS,AssessmentItemSessionImpl,JPA 实体/表映射类,src/main/java/org/olat/ims/qti21/model/jpa/AssessmentItemSessionImpl.java,,o_qti_assessmentitem_session
+OOL-E0609,entity,标准协议/IMS,AssessmentTestSessionImpl,JPA 实体/表映射类,src/main/java/org/olat/ims/qti21/model/jpa/AssessmentTestSessionImpl.java,,o_qti_assessmenttest_session
+OOL-E0610,entity,标准协议/IMS,LTI13ContextImpl,JPA 实体/表映射类,src/main/java/org/olat/ims/lti13/model/LTI13ContextImpl.java,,o_lti_context
+OOL-E0611,entity,标准协议/IMS,LTI13PlatformImpl,JPA 实体/表映射类,src/main/java/org/olat/ims/lti13/model/LTI13PlatformImpl.java,,o_lti_platform
+OOL-E0612,entity,标准协议/IMS,LTI13ToolImpl,JPA 实体/表映射类,src/main/java/org/olat/ims/lti13/model/LTI13ToolImpl.java,,o_lti_tool
+OOL-E0613,entity,标准协议/IMS,LTI13KeyImpl,JPA 实体/表映射类,src/main/java/org/olat/ims/lti13/model/LTI13KeyImpl.java,,o_lti_key
+OOL-E0614,entity,标准协议/IMS,LTI13SharedToolServiceImpl,JPA 实体/表映射类,src/main/java/org/olat/ims/lti13/model/LTI13SharedToolServiceImpl.java,,o_lti_shared_tool_service
+OOL-E0615,entity,标准协议/IMS,LTI13ContentItemImpl,JPA 实体/表映射类,src/main/java/org/olat/ims/lti13/model/LTI13ContentItemImpl.java,,o_lti_content_item
+OOL-E0616,entity,标准协议/IMS,LTI13SharedToolDeploymentImpl,JPA 实体/表映射类,src/main/java/org/olat/ims/lti13/model/LTI13SharedToolDeploymentImpl.java,,o_lti_shared_tool_deployment
+OOL-E0617,entity,标准协议/IMS,LTI13ToolDeploymentImpl,JPA 实体/表映射类,src/main/java/org/olat/ims/lti13/model/LTI13ToolDeploymentImpl.java,,o_lti_tool_deployment
+OOL-E0618,entity,标准协议/IMS,LTIOutcomeImpl,JPA 实体/表映射类,src/main/java/org/olat/ims/lti/model/LTIOutcomeImpl.java,,o_lti_outcome
+OOL-E0619,entity,用户,UserDataDeleteImpl,JPA 实体/表映射类,src/main/java/org/olat/user/model/UserDataDeleteImpl.java,,o_user_data_delete
+OOL-E0620,entity,用户,UserDataExportImpl,JPA 实体/表映射类,src/main/java/org/olat/user/model/UserDataExportImpl.java,,o_user_data_export
+OOL-E0621,entity,用户,AbsenceLeaveImpl,JPA 实体/表映射类,src/main/java/org/olat/user/model/AbsenceLeaveImpl.java,,o_user_absence_leave
+OOL-E0622,entity,即时消息,ImPreferencesImpl,JPA 实体/表映射类,src/main/java/org/olat/instantMessaging/model/ImPreferencesImpl.java,,o_im_preferences
+OOL-E0623,entity,即时消息,RosterEntryImpl,JPA 实体/表映射类,src/main/java/org/olat/instantMessaging/model/RosterEntryImpl.java,,o_im_roster_entry
+OOL-E0624,entity,即时消息,InstantMessageImpl,JPA 实体/表映射类,src/main/java/org/olat/instantMessaging/model/InstantMessageImpl.java,,o_im_message
+OOL-E0625,entity,即时消息,InstantMessageNotificationImpl,JPA 实体/表映射类,src/main/java/org/olat/instantMessaging/model/InstantMessageNotificationImpl.java,,o_im_notification
+OOL-E0626,entity,其他,ShibbolethAutoAccessMethod,JPA 实体/表映射类,src/main/java/org/olat/shibboleth/manager/ShibbolethAutoAccessMethod.java,,
+OOL-E0627,entity,通用服务,LifeCycleEntry,JPA 实体/表映射类,src/main/java/org/olat/commons/lifecycle/LifeCycleEntry.java,,o_lifecycle
+OOL-E0628,entity,通用服务,LockImpl,JPA 实体/表映射类,src/main/java/org/olat/commons/coordinate/cluster/lock/LockImpl.java,,oc_lock
+OOL-E0629,entity,通用服务,InfoMessageImpl,JPA 实体/表映射类,src/main/java/org/olat/commons/info/model/InfoMessageImpl.java,,o_info_message
+OOL-E0630,entity,通用服务,InfoMessageToCurriculumElementImpl,JPA 实体/表映射类,src/main/java/org/olat/commons/info/model/InfoMessageToCurriculumElementImpl.java,,o_info_message_to_cur_el
+OOL-E0631,entity,通用服务,InfoMessageToGroupImpl,JPA 实体/表映射类,src/main/java/org/olat/commons/info/model/InfoMessageToGroupImpl.java,,o_info_message_to_group
+OOL-E0632,entity,通用服务,ImportedCalendar,JPA 实体/表映射类,src/main/java/org/olat/commons/calendar/model/ImportedCalendar.java,,o_cal_import
+OOL-E0633,entity,通用服务,CalendarUserConfiguration,JPA 实体/表映射类,src/main/java/org/olat/commons/calendar/model/CalendarUserConfiguration.java,,o_cal_use_config
+OOL-E0634,entity,通用服务,ImportedToCalendar,JPA 实体/表映射类,src/main/java/org/olat/commons/calendar/model/ImportedToCalendar.java,,o_cal_import_to
+OOL-E0635,entity,群组,BGtoAreaRelationImpl,JPA 实体/表映射类,src/main/java/org/olat/group/area/BGtoAreaRelationImpl.java,,o_gp_bgtoarea_rel
+OOL-E0636,entity,群组,BGAreaImpl,JPA 实体/表映射类,src/main/java/org/olat/group/area/BGAreaImpl.java,,o_gp_bgarea
+OOL-E0637,entity,群组,BusinessGroupMembershipViewImpl,JPA 实体/表映射类,src/main/java/org/olat/group/model/BusinessGroupMembershipViewImpl.java,,o_bs_gp_membership_v
+OOL-E0638,entity,群组,RepositoryEntryToBusinessGroup,JPA 实体/表映射类,src/main/java/org/olat/group/model/RepositoryEntryToBusinessGroup.java,,o_re_to_group
+OOL-E0639,entity,群组,ContactView,JPA 实体/表映射类,src/main/java/org/olat/group/model/ContactView.java,,o_gp_contactkey_v
+OOL-E0640,entity,群组,BusinessGroupToSearch,JPA 实体/表映射类,src/main/java/org/olat/group/model/BusinessGroupToSearch.java,,o_gp_business
+OOL-E0641,entity,群组,BGRepositoryEntryRelation,JPA 实体/表映射类,src/main/java/org/olat/group/model/BGRepositoryEntryRelation.java,,o_gp_business_to_repository_v
+OOL-E0642,entity,群组,ContactViewExtended,JPA 实体/表映射类,src/main/java/org/olat/group/model/ContactViewExtended.java,,o_gp_contactext_v
+OOL-E0643,entity,群组,GroupToBusinessGroup,JPA 实体/表映射类,src/main/java/org/olat/group/model/GroupToBusinessGroup.java,,o_bs_group
+OOL-E0644,entity,群组,is,JPA 实体/表映射类,src/main/java/org/olat/group/model/BusinessGroupShortImpl.java,,o_gp_business
+OOL-E0645,entity,核心框架,representing,JPA 实体/表映射类,src/main/java/org/olat/core/logging/activity/LoggingObject.java,,o_loggingtable
+OOL-E0646,entity,核心框架,PersistedMapper,JPA 实体/表映射类,src/main/java/org/olat/core/dispatcher/mapper/model/PersistedMapper.java,,o_mapper
+OOL-E0647,entity,核心框架,PersistentTaskModifier,JPA 实体/表映射类,src/main/java/org/olat/core/commons/services/taskexecutor/model/PersistentTaskModifier.java,,o_ex_task_modifier
+OOL-E0648,entity,核心框架,PersistentTask,JPA 实体/表映射类,src/main/java/org/olat/core/commons/services/taskexecutor/model/PersistentTask.java,,o_ex_task
+OOL-E0649,entity,核心框架,SubscriptionMailImpl,JPA 实体/表映射类,src/main/java/org/olat/core/commons/services/notifications/model/SubscriptionMailImpl.java,,o_noti_mail
+OOL-E0650,entity,核心框架,PublisherImpl,JPA 实体/表映射类,src/main/java/org/olat/core/commons/services/notifications/model/PublisherImpl.java,,o_noti_pub
+OOL-E0651,entity,核心框架,SubscriberImpl,JPA 实体/表映射类,src/main/java/org/olat/core/commons/services/notifications/model/SubscriberImpl.java,,o_noti_sub
+OOL-E0652,entity,核心框架,TagImpl,JPA 实体/表映射类,src/main/java/org/olat/core/commons/services/tag/model/TagImpl.java,,o_tag_tag
+OOL-E0653,entity,核心框架,ExportMetadataToCurriculumImpl,JPA 实体/表映射类,src/main/java/org/olat/core/commons/services/export/model/ExportMetadataToCurriculumImpl.java,,o_ex_export_metadata_to_cur
+OOL-E0654,entity,核心框架,ExportMetadataImpl,JPA 实体/表映射类,src/main/java/org/olat/core/commons/services/export/model/ExportMetadataImpl.java,,o_ex_export_metadata
+OOL-E0655,entity,核心框架,ExportMetadataToCurriculumElementImpl,JPA 实体/表映射类,src/main/java/org/olat/core/commons/services/export/model/ExportMetadataToCurriculumElementImpl.java,,o_ex_export_metadata_to_cur_el
+OOL-E0656,entity,核心框架,ExportMetadataToOrganisationImpl,JPA 实体/表映射类,src/main/java/org/olat/core/commons/services/export/model/ExportMetadataToOrganisationImpl.java,,o_ex_export_metadata_to_org
+OOL-E0657,entity,核心框架,UserInfoImpl,JPA 实体/表映射类,src/main/java/org/olat/core/commons/services/doceditor/model/UserInfoImpl.java,,o_de_user_info
+OOL-E0658,entity,核心框架,AccessImpl,JPA 实体/表映射类,src/main/java/org/olat/core/commons/services/doceditor/model/AccessImpl.java,,o_de_access
+OOL-E0659,entity,核心框架,CSPLogImpl,JPA 实体/表映射类,src/main/java/org/olat/core/commons/services/csp/model/CSPLogImpl.java,,o_csp_log
+OOL-E0660,entity,核心框架,AiUsageLogImpl,JPA 实体/表映射类,src/main/java/org/olat/core/commons/services/ai/model/AiUsageLogImpl.java,,o_ai_usage_log
+OOL-E0661,entity,核心框架,UserRatingImpl,JPA 实体/表映射类,src/main/java/org/olat/core/commons/services/commentAndRating/model/UserRatingImpl.java,,o_userrating
+OOL-E0662,entity,核心框架,UserCommentImpl,JPA 实体/表映射类,src/main/java/org/olat/core/commons/services/commentAndRating/model/UserCommentImpl.java,,o_usercomment
+OOL-E0663,entity,核心框架,MarkImpl,JPA 实体/表映射类,src/main/java/org/olat/core/commons/services/mark/impl/MarkImpl.java,,o_mark
+OOL-E0664,entity,核心框架,PLockImpl,JPA 实体/表映射类,src/main/java/org/olat/core/commons/services/lock/pessimistic/PLockImpl.java,,o_plock
+OOL-E0665,entity,核心框架,MessageLogImpl,JPA 实体/表映射类,src/main/java/org/olat/core/commons/services/sms/model/MessageLogImpl.java,,o_sms_message_log
+OOL-E0666,entity,核心框架,ResourceLicenseImpl,JPA 实体/表映射类,src/main/java/org/olat/core/commons/services/license/model/ResourceLicenseImpl.java,,o_lic_license
+OOL-E0667,entity,核心框架,LicenseTypeActivation,JPA 实体/表映射类,src/main/java/org/olat/core/commons/services/license/model/LicenseTypeActivation.java,,o_lic_license_type_activation
+OOL-E0668,entity,核心框架,LicenseTypeImpl,JPA 实体/表映射类,src/main/java/org/olat/core/commons/services/license/model/LicenseTypeImpl.java,,o_lic_license_type
+OOL-E0669,entity,核心框架,VFSMetadataImpl,JPA 实体/表映射类,src/main/java/org/olat/core/commons/services/vfs/model/VFSMetadataImpl.java,,o_vfs_metadata
+OOL-E0670,entity,核心框架,VFSRevisionImpl,JPA 实体/表映射类,src/main/java/org/olat/core/commons/services/vfs/model/VFSRevisionImpl.java,,o_vfs_revision
+OOL-E0671,entity,核心框架,VFSStatisticsImpl,JPA 实体/表映射类,src/main/java/org/olat/core/commons/services/vfs/model/VFSStatisticsImpl.java,,o_vfs_statistics
+OOL-E0672,entity,核心框架,VFSMetadataDownloadCount,JPA 实体/表映射类,src/main/java/org/olat/core/commons/services/vfs/model/VFSMetadataDownloadCount.java,,o_vfs_metadata
+OOL-E0673,entity,核心框架,VFSThumbnailMetadataImpl,JPA 实体/表映射类,src/main/java/org/olat/core/commons/services/vfs/model/VFSThumbnailMetadataImpl.java,,o_vfs_thumbnail
+OOL-E0674,entity,核心框架,VFSMetadataFileSaved,JPA 实体/表映射类,src/main/java/org/olat/core/commons/services/vfs/model/VFSMetadataFileSaved.java,,o_vfs_metadata
+OOL-E0675,entity,核心框架,DBMailRecipient,JPA 实体/表映射类,src/main/java/org/olat/core/util/mail/model/DBMailRecipient.java,,o_mail_recipient
+OOL-E0676,entity,核心框架,DBMailLightImpl,JPA 实体/表映射类,src/main/java/org/olat/core/util/mail/model/DBMailLightImpl.java,,o_mail
+OOL-E0677,entity,核心框架,DBMailAttachment,JPA 实体/表映射类,src/main/java/org/olat/core/util/mail/model/DBMailAttachment.java,,o_mail_attachment
+OOL-E0678,entity,核心框架,DBMailImpl,JPA 实体/表映射类,src/main/java/org/olat/core/util/mail/model/DBMailImpl.java,,o_mail
+OOL-E0679,entity,核心框架,GuiPreferenceImpl,JPA 实体/表映射类,src/main/java/org/olat/core/util/prefs/gui/model/GuiPreferenceImpl.java,,o_gui_prefs
+OOL-E0680,entity,课程引擎,DailyStat,JPA 实体/表映射类,src/main/java/org/olat/course/statistic/daily/DailyStat.java,,o_stat_daily
+OOL-E0681,entity,课程引擎,DayOfWeekStat,JPA 实体/表映射类,src/main/java/org/olat/course/statistic/dayofweek/DayOfWeekStat.java,,o_stat_dayofweek
+OOL-E0682,entity,课程引擎,HourOfDayStat,JPA 实体/表映射类,src/main/java/org/olat/course/statistic/hourofday/HourOfDayStat.java,,o_stat_hourofday
+OOL-E0683,entity,课程引擎,WeeklyStat,JPA 实体/表映射类,src/main/java/org/olat/course/statistic/weekly/WeeklyStat.java,,o_stat_weekly
+OOL-E0684,entity,课程引擎,CourseDBEntryImpl,JPA 实体/表映射类,src/main/java/org/olat/course/db/impl/CourseDBEntryImpl.java,,o_co_db_entry
+OOL-E0685,entity,课程引擎,AssessmentInspectionConfigurationImpl,JPA 实体/表映射类,src/main/java/org/olat/course/assessment/model/AssessmentInspectionConfigurationImpl.java,,o_as_inspection_configuration
+OOL-E0686,entity,课程引擎,UserCourseInfosImpl,JPA 实体/表映射类,src/main/java/org/olat/course/assessment/model/UserCourseInfosImpl.java,,o_as_user_course_infos
+OOL-E0687,entity,课程引擎,UserEfficiencyStatementStandalone,JPA 实体/表映射类,src/main/java/org/olat/course/assessment/model/UserEfficiencyStatementStandalone.java,,o_as_eff_statement
+OOL-E0688,entity,课程引擎,AssessmentModeToAreaImpl,JPA 实体/表映射类,src/main/java/org/olat/course/assessment/model/AssessmentModeToAreaImpl.java,,o_as_mode_course_to_area
+OOL-E0689,entity,课程引擎,AssessmentModeToCurriculumElementImpl,JPA 实体/表映射类,src/main/java/org/olat/course/assessment/model/AssessmentModeToCurriculumElementImpl.java,,o_as_mode_course_to_cur_el
+OOL-E0690,entity,课程引擎,SafeExamBrowserTemplateImpl,JPA 实体/表映射类,src/main/java/org/olat/course/assessment/model/SafeExamBrowserTemplateImpl.java,,o_as_seb_template
+OOL-E0691,entity,课程引擎,UserEfficiencyStatementLight,JPA 实体/表映射类,src/main/java/org/olat/course/assessment/model/UserEfficiencyStatementLight.java,,o_as_eff_statement
+OOL-E0692,entity,课程引擎,AssessmentInspectionImpl,JPA 实体/表映射类,src/main/java/org/olat/course/assessment/model/AssessmentInspectionImpl.java,,o_as_inspection
+OOL-E0693,entity,课程引擎,AssessmentInspectionLogImpl,JPA 实体/表映射类,src/main/java/org/olat/course/assessment/model/AssessmentInspectionLogImpl.java,,o_as_inspection_log
+OOL-E0694,entity,课程引擎,UserEfficiencyStatementImpl,JPA 实体/表映射类,src/main/java/org/olat/course/assessment/model/UserEfficiencyStatementImpl.java,,o_as_eff_statement
+OOL-E0695,entity,课程引擎,ScoreAccountingTriggerImpl,JPA 实体/表映射类,src/main/java/org/olat/course/assessment/model/ScoreAccountingTriggerImpl.java,,o_as_score_accounting_trigger
+OOL-E0696,entity,课程引擎,UserEfficiencyStatementForCoaching,JPA 实体/表映射类,src/main/java/org/olat/course/assessment/model/UserEfficiencyStatementForCoaching.java,,o_as_eff_statement
+OOL-E0697,entity,课程引擎,AssessmentModeImpl,JPA 实体/表映射类,src/main/java/org/olat/course/assessment/model/AssessmentModeImpl.java,,o_as_mode_course
+OOL-E0698,entity,课程引擎,AssessmentModeToGroupImpl,JPA 实体/表映射类,src/main/java/org/olat/course/assessment/model/AssessmentModeToGroupImpl.java,,o_as_mode_course_to_group
+OOL-E0699,entity,课程引擎,ColorCategoryImpl,JPA 实体/表映射类,src/main/java/org/olat/course/style/model/ColorCategoryImpl.java,,o_course_color_category
+OOL-E0700,entity,课程引擎,DBCheck,JPA 实体/表映射类,src/main/java/org/olat/course/nodes/cl/model/DBCheck.java,,o_cl_check
+OOL-E0701,entity,课程引擎,DBCheckbox,JPA 实体/表映射类,src/main/java/org/olat/course/nodes/cl/model/DBCheckbox.java,,o_cl_checkbox
+OOL-E0702,entity,课程引擎,PracticeResourceImpl,JPA 实体/表映射类,src/main/java/org/olat/course/nodes/practice/model/PracticeResourceImpl.java,,o_practice_resource
+OOL-E0703,entity,课程引擎,PracticeAssessmentItemGlobalRefImpl,JPA 实体/表映射类,src/main/java/org/olat/course/nodes/practice/model/PracticeAssessmentItemGlobalRefImpl.java,,o_practice_global_item_ref
+OOL-E0704,entity,课程引擎,ProjectImpl,JPA 实体/表映射类,src/main/java/org/olat/course/nodes/projectbroker/datamodel/ProjectImpl.java,,o_projectbroker_project
+OOL-E0705,entity,课程引擎,ProjectBrokerImpl,JPA 实体/表映射类,src/main/java/org/olat/course/nodes/projectbroker/datamodel/ProjectBrokerImpl.java,,o_projectbroker
+OOL-E0706,entity,课程引擎,DialogElementImpl,JPA 实体/表映射类,src/main/java/org/olat/course/nodes/dialog/model/DialogElementImpl.java,,o_dialog_element
+OOL-E0707,entity,课程引擎,UrlTemplateImpl,JPA 实体/表映射类,src/main/java/org/olat/course/nodes/livestream/model/UrlTemplateImpl.java,,o_livestream_url_template
+OOL-E0708,entity,课程引擎,LaunchImpl,JPA 实体/表映射类,src/main/java/org/olat/course/nodes/livestream/model/LaunchImpl.java,,o_livestream_launch
+OOL-E0709,entity,课程引擎,TaskDueDateImpl,JPA 实体/表映射类,src/main/java/org/olat/course/nodes/gta/model/TaskDueDateImpl.java,,o_gta_task
+OOL-E0710,entity,课程引擎,TaskRevisionDateImpl,JPA 实体/表映射类,src/main/java/org/olat/course/nodes/gta/model/TaskRevisionDateImpl.java,,o_gta_task_revision_date
+OOL-E0711,entity,课程引擎,TaskRevisionImpl,JPA 实体/表映射类,src/main/java/org/olat/course/nodes/gta/model/TaskRevisionImpl.java,,o_gta_task_revision
+OOL-E0712,entity,课程引擎,TaskListImpl,JPA 实体/表映射类,src/main/java/org/olat/course/nodes/gta/model/TaskListImpl.java,,o_gta_task_list
+OOL-E0713,entity,课程引擎,TaskReviewAssignmentImpl,JPA 实体/表映射类,src/main/java/org/olat/course/nodes/gta/model/TaskReviewAssignmentImpl.java,,o_gta_review_assignment
+OOL-E0714,entity,课程引擎,TaskLightImpl,JPA 实体/表映射类,src/main/java/org/olat/course/nodes/gta/model/TaskLightImpl.java,,o_gta_task
+OOL-E0715,entity,课程引擎,IdentityMarkImpl,JPA 实体/表映射类,src/main/java/org/olat/course/nodes/gta/model/IdentityMarkImpl.java,,o_gta_mark
+OOL-E0716,entity,课程引擎,TaskImpl,JPA 实体/表映射类,src/main/java/org/olat/course/nodes/gta/model/TaskImpl.java,,o_gta_task
+OOL-E0717,entity,课程引擎,CertificateStandalone,JPA 实体/表映射类,src/main/java/org/olat/course/certificate/model/CertificateStandalone.java,,o_cer_certificate
+OOL-E0718,entity,课程引擎,RepositoryEntryCertificateConfigurationImpl,JPA 实体/表映射类,src/main/java/org/olat/course/certificate/model/RepositoryEntryCertificateConfigurationImpl.java,,o_cer_entry_config
+OOL-E0719,entity,课程引擎,CertificateImpl,JPA 实体/表映射类,src/main/java/org/olat/course/certificate/model/CertificateImpl.java,,o_cer_certificate
+OOL-E0720,entity,课程引擎,CertificateLightImpl,JPA 实体/表映射类,src/main/java/org/olat/course/certificate/model/CertificateLightImpl.java,,o_cer_certificate
+OOL-E0721,entity,课程引擎,CertificateTemplateImpl,JPA 实体/表映射类,src/main/java/org/olat/course/certificate/model/CertificateTemplateImpl.java,,o_cer_template
+OOL-E0722,entity,课程引擎,CourseDisclaimerConsentImpl,JPA 实体/表映射类,src/main/java/org/olat/course/disclaimer/model/CourseDisclaimerConsentImpl.java,,o_course_disclaimer_consent
+OOL-E0723,entity,课程引擎,CourseElementImpl,JPA 实体/表映射类,src/main/java/org/olat/course/core/model/CourseElementImpl.java,,o_course_element
+OOL-E0724,entity,其他,UpgradeLTI13ToolDeployment,JPA 实体/表映射类,src/main/java/org/olat/upgrade/model/UpgradeLTI13ToolDeployment.java,,o_lti_tool_deployment
+OOL-E0725,entity,其他,UpgradeMedia,JPA 实体/表映射类,src/main/java/org/olat/upgrade/model/UpgradeMedia.java,,o_media
+OOL-E0726,entity,资源仓库,RepositoryEntryToOrganisationImpl,JPA 实体/表映射类,src/main/java/org/olat/repository/model/RepositoryEntryToOrganisationImpl.java,,o_re_to_organisation
+OOL-E0727,entity,资源仓库,RepositoryEntryEducationalTypeImpl,JPA 实体/表映射类,src/main/java/org/olat/repository/model/RepositoryEntryEducationalTypeImpl.java,,o_re_educational_type
+OOL-E0728,entity,资源仓库,CatalogEntryImpl,JPA 实体/表映射类,src/main/java/org/olat/repository/model/CatalogEntryImpl.java,,o_catentry
+OOL-E0729,entity,资源仓库,RepositoryTemplateToGroupRelation,JPA 实体/表映射类,src/main/java/org/olat/repository/model/RepositoryTemplateToGroupRelation.java,,o_re_template_to_group
+OOL-E0730,entity,资源仓库,RepositoryEntryMembership,JPA 实体/表映射类,src/main/java/org/olat/repository/model/RepositoryEntryMembership.java,,o_re_membership_v
+OOL-E0731,entity,资源仓库,RepositoryEntryToTaxonomyLevelImpl,JPA 实体/表映射类,src/main/java/org/olat/repository/model/RepositoryEntryToTaxonomyLevelImpl.java,,o_re_to_tax_level
+OOL-E0732,entity,资源仓库,RepositoryEntryToGroupRelation,JPA 实体/表映射类,src/main/java/org/olat/repository/model/RepositoryEntryToGroupRelation.java,,o_re_to_group
+OOL-E0733,entity,资源仓库,RepositoryEntryAuditLogImpl,JPA 实体/表映射类,src/main/java/org/olat/repository/model/RepositoryEntryAuditLogImpl.java,,o_repositoryentry_audit_log
+OOL-E0734,entity,资源仓库,RepositoryEntryStatistics,JPA 实体/表映射类,src/main/java/org/olat/repository/model/RepositoryEntryStatistics.java,,o_repositoryentry_stats
+OOL-E0735,entity,资源仓库,RepositoryEntryLifecycle,JPA 实体/表映射类,src/main/java/org/olat/repository/model/RepositoryEntryLifecycle.java,,o_repositoryentry_cycle
+OOL-E0736,rest,REST API,PerformXDispatcher,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/login/performx/PerformXDispatcher.java,,org.olat.login.performx
+OOL-E0737,rest,REST API,PerformXAuthManager,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/login/performx/PerformXAuthManager.java,,org.olat.login.performx
+OOL-E0738,rest,REST API,OpenMeetingsModule,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/modules/openmeetings/OpenMeetingsModule.java,,org.olat.modules.openmeetings
+OOL-E0739,rest,REST API,BigBlueButtonModule,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/modules/bigbluebutton/BigBlueButtonModule.java,,org.olat.modules.bigbluebutton
+OOL-E0740,rest,REST API,ViteroModule,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/modules/vitero/ViteroModule.java,,org.olat.modules.vitero
+OOL-E0741,rest,REST API,AdobeConnectModule,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/modules/adobeconnect/AdobeConnectModule.java,,org.olat.modules.adobeconnect
+OOL-E0742,rest,REST API,DFNprovider,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/modules/adobeconnect/manager/DFNprovider.java,,org.olat.modules.adobeconnect.manager
+OOL-E0743,rest,REST API,AdobeConnect9Provider,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/modules/adobeconnect/manager/AdobeConnect9Provider.java,,org.olat.modules.adobeconnect.manager
+OOL-E0744,rest,REST API,AbstractAdobeConnectProvider,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/modules/adobeconnect/manager/AbstractAdobeConnectProvider.java,,org.olat.modules.adobeconnect.manager
+OOL-E0745,rest,REST API,AdobeConnectManagerImpl,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/modules/adobeconnect/manager/AdobeConnectManagerImpl.java,,org.olat.modules.adobeconnect.manager
+OOL-E0746,rest,REST API,BusinessGroupInvitationsWebService,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/modules/invitation/restapi/BusinessGroupInvitationsWebService.java,,org.olat.modules.invitation.restapi
+OOL-E0747,rest,REST API,RepositoryEntryInvitationsWebService,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/modules/invitation/restapi/RepositoryEntryInvitationsWebService.java,,org.olat.modules.invitation.restapi
+OOL-E0748,rest,REST API,ForumWebService,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/modules/fo/restapi/ForumWebService.java,,org.olat.modules.fo.restapi
+OOL-E0749,rest,REST API,MyForumsWebService,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/modules/fo/restapi/MyForumsWebService.java,,org.olat.modules.fo.restapi
+OOL-E0750,rest,REST API,ForumCourseNodeWebService,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/modules/fo/restapi/ForumCourseNodeWebService.java,,org.olat.modules.fo.restapi
+OOL-E0751,rest,REST API,ForumImportWebService,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/modules/fo/restapi/ForumImportWebService.java,,org.olat.modules.fo.restapi
+OOL-E0752,rest,REST API,RepositoryEntryTeamsMeetingWebService,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/modules/teams/restapi/RepositoryEntryTeamsMeetingWebService.java,,org.olat.modules.teams.restapi
+OOL-E0753,rest,REST API,ViteroBookingWebService,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/modules/vitero/restapi/ViteroBookingWebService.java,,org.olat.modules.vitero.restapi
+OOL-E0754,rest,REST API,ViteroWebService,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/modules/vitero/restapi/ViteroWebService.java,,org.olat.modules.vitero.restapi
+OOL-E0755,rest,REST API,ViteroManager,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/modules/vitero/manager/ViteroManager.java,,org.olat.modules.vitero.manager
+OOL-E0756,rest,REST API,TaxonomyWebService,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/modules/taxonomy/restapi/TaxonomyWebService.java,,org.olat.modules.taxonomy.restapi
+OOL-E0757,rest,REST API,TaxonomyModuleWebService,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/modules/taxonomy/restapi/TaxonomyModuleWebService.java,,org.olat.modules.taxonomy.restapi
+OOL-E0758,rest,REST API,ToDoTaskWebService,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/modules/todo/restapi/ToDoTaskWebService.java,,org.olat.modules.todo.restapi
+OOL-E0759,rest,REST API,DocumentPoolModuleWebService,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/modules/docpool/restapi/DocumentPoolModuleWebService.java,,org.olat.modules.docpool.restapi
+OOL-E0760,rest,REST API,rooms,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/modules/bigbluebutton/restapi/BigBlueButtonTemplatesWebService.java,,org.olat.modules.bigbluebutton.restapi
+OOL-E0761,rest,REST API,rooms,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/modules/bigbluebutton/restapi/BigBlueButtonServerWebService.java,,org.olat.modules.bigbluebutton.restapi
+OOL-E0762,rest,REST API,WikiWebService,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/modules/wiki/restapi/WikiWebService.java,,org.olat.modules.wiki.restapi
+OOL-E0763,rest,REST API,WikisWebService,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/modules/wiki/restapi/WikisWebService.java,,org.olat.modules.wiki.restapi
+OOL-E0764,rest,REST API,WikiWebServiceHelper,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/modules/wiki/restapi/WikiWebServiceHelper.java,,org.olat.modules.wiki.restapi
+OOL-E0765,rest,REST API,GroupWikiWebService,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/modules/wiki/restapi/GroupWikiWebService.java,,org.olat.modules.wiki.restapi
+OOL-E0766,rest,REST API,RemindersWebService,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/modules/reminder/restapi/RemindersWebService.java,,org.olat.modules.reminder.restapi
+OOL-E0767,rest,REST API,QuestionPoolWebService,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/modules/qpool/restapi/QuestionPoolWebService.java,,org.olat.modules.qpool.restapi
+OOL-E0768,rest,REST API,CurriculumElementTypesWebService,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/modules/curriculum/restapi/CurriculumElementTypesWebService.java,,org.olat.modules.curriculum.restapi
+OOL-E0769,rest,REST API,CurriculumsWebService,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/modules/curriculum/restapi/CurriculumsWebService.java,,org.olat.modules.curriculum.restapi
+OOL-E0770,rest,REST API,CurriculumElementsWebService,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/modules/curriculum/restapi/CurriculumElementsWebService.java,,org.olat.modules.curriculum.restapi
+OOL-E0771,rest,REST API,QualityWebService,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/modules/quality/restapi/QualityWebService.java,,org.olat.modules.quality.restapi
+OOL-E0772,rest,REST API,GradingWebService,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/modules/grading/restapi/GradingWebService.java,,org.olat.modules.grading.restapi
+OOL-E0773,rest,REST API,GoToTrainingWebService,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/modules/gotomeeting/restapi/GoToTrainingWebService.java,,org.olat.modules.gotomeeting.restapi
+OOL-E0774,rest,REST API,OpenMeetingsWebService,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/modules/openmeetings/restapi/OpenMeetingsWebService.java,,org.olat.modules.openmeetings.restapi
+OOL-E0775,rest,REST API,OpenMeetingsManagerImpl,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/modules/openmeetings/manager/OpenMeetingsManagerImpl.java,,org.olat.modules.openmeetings.manager
+OOL-E0776,rest,REST API,LectureBlocksRootWebService,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/modules/lecture/restapi/LectureBlocksRootWebService.java,,org.olat.modules.lecture.restapi
+OOL-E0777,rest,REST API,LectureBlockWebService,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/modules/lecture/restapi/LectureBlockWebService.java,,org.olat.modules.lecture.restapi
+OOL-E0778,rest,REST API,LectureBlocksWebService,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/modules/lecture/restapi/LectureBlocksWebService.java,,org.olat.modules.lecture.restapi
+OOL-E0779,rest,REST API,LectureBlockRollCallWebService,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/modules/lecture/restapi/LectureBlockRollCallWebService.java,,org.olat.modules.lecture.restapi
+OOL-E0780,rest,REST API,RepositoryEntriesWebService,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/restapi/repository/RepositoryEntriesWebService.java,,org.olat.restapi.repository
+OOL-E0781,rest,REST API,SharedFolderWebService,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/restapi/repository/SharedFolderWebService.java,,org.olat.restapi.repository
+OOL-E0782,rest,REST API,RepositoryEntryLifecycleWebService,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/restapi/repository/RepositoryEntryLifecycleWebService.java,,org.olat.restapi.repository
+OOL-E0783,rest,REST API,RepositoryEntryWebService,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/restapi/repository/RepositoryEntryWebService.java,,org.olat.restapi.repository
+OOL-E0784,rest,REST API,CatalogWebService,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/restapi/repository/CatalogWebService.java,,org.olat.restapi.repository
+OOL-E0785,rest,REST API,OpenOLATContainerResponseFilter,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/restapi/security/OpenOLATContainerResponseFilter.java,,org.olat.restapi.security
+OOL-E0786,rest,REST API,LearningGroupWebService,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/restapi/group/LearningGroupWebService.java,,org.olat.restapi.group
+OOL-E0787,rest,REST API,MyGroupWebService,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/restapi/group/MyGroupWebService.java,,org.olat.restapi.group
+OOL-E0788,rest,REST API,IndexerWebService,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/restapi/system/IndexerWebService.java,,org.olat.restapi.system
+OOL-E0789,rest,REST API,MonitoringWebService,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/restapi/system/MonitoringWebService.java,,org.olat.restapi.system
+OOL-E0790,rest,REST API,DatabaseWebService,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/restapi/system/DatabaseWebService.java,,org.olat.restapi.system
+OOL-E0791,rest,REST API,VFSStatsWebService,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/restapi/system/VFSStatsWebService.java,,org.olat.restapi.system
+OOL-E0792,rest,REST API,StatusWebservice,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/restapi/system/StatusWebservice.java,,org.olat.restapi.system
+OOL-E0793,rest,REST API,RuntimeWebService,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/restapi/system/RuntimeWebService.java,,org.olat.restapi.system
+OOL-E0794,rest,REST API,NotificationsAdminWebService,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/restapi/system/NotificationsAdminWebService.java,,org.olat.restapi.system
+OOL-E0795,rest,REST API,BigBlueButtonStatsWebService,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/restapi/system/BigBlueButtonStatsWebService.java,,org.olat.restapi.system
+OOL-E0796,rest,REST API,DocEditorWebService,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/restapi/system/DocEditorWebService.java,,org.olat.restapi.system
+OOL-E0797,rest,REST API,LogWebService,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/restapi/system/LogWebService.java,,org.olat.restapi.system
+OOL-E0798,rest,REST API,DocEditorSessionWebService,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/restapi/system/DocEditorSessionWebService.java,,org.olat.restapi.system
+OOL-E0799,rest,REST API,OpenOLATStatisticsWebService,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/restapi/system/OpenOLATStatisticsWebService.java,,org.olat.restapi.system
+OOL-E0800,rest,REST API,MemoryWebService,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/restapi/system/MemoryWebService.java,,org.olat.restapi.system
+OOL-E0801,rest,REST API,ThreadsWebService,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/restapi/system/ThreadsWebService.java,,org.olat.restapi.system
+OOL-E0802,rest,REST API,SystemWebService,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/restapi/system/SystemWebService.java,,org.olat.restapi.system
+OOL-E0803,rest,REST API,OlatRestApplication,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/restapi/support/OlatRestApplication.java,,org.olat.restapi.support
+OOL-E0804,rest,REST API,MediaTypeVariants,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/restapi/support/MediaTypeVariants.java,,org.olat.restapi.support
+OOL-E0805,rest,REST API,Ping,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/restapi/support/Ping.java,,org.olat.restapi.support
+OOL-E0806,rest,REST API,ObjectFactory,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/restapi/support/ObjectFactory.java,,org.olat.restapi.support
+OOL-E0807,rest,REST API,CatalogVOFactory,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/restapi/support/CatalogVOFactory.java,,org.olat.restapi.support
+OOL-E0808,rest,REST API,I18nWebService,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/restapi/i18n/I18nWebService.java,,org.olat.restapi.i18n
+OOL-E0809,rest,REST API,DateParam,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/restapi/system/vo/DateParam.java,,org.olat.restapi.system.vo
+OOL-E0810,rest,REST API,CourseResourceFolderWebService,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/restapi/repository/course/CourseResourceFolderWebService.java,,org.olat.restapi.repository.course
+OOL-E0811,rest,REST API,AbstractCourseNodeWebService,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/restapi/repository/course/AbstractCourseNodeWebService.java,,org.olat.restapi.repository.course
+OOL-E0812,rest,REST API,CoursesInfosWebService,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/restapi/repository/course/CoursesInfosWebService.java,,org.olat.restapi.repository.course
+OOL-E0813,rest,REST API,CourseWebService,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/restapi/repository/course/CourseWebService.java,,org.olat.restapi.repository.course
+OOL-E0814,rest,REST API,CourseGroupWebService,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/restapi/repository/course/CourseGroupWebService.java,,org.olat.restapi.repository.course
+OOL-E0815,rest,REST API,CourseAssessmentWebService,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/restapi/repository/course/CourseAssessmentWebService.java,,org.olat.restapi.repository.course
+OOL-E0816,rest,REST API,CoursesWebService,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/restapi/repository/course/CoursesWebService.java,,org.olat.restapi.repository.course
+OOL-E0817,rest,REST API,CourseRightsWebService,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/restapi/repository/course/CourseRightsWebService.java,,org.olat.restapi.repository.course
+OOL-E0818,rest,REST API,CourseElementWebService,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/restapi/repository/course/CourseElementWebService.java,,org.olat.restapi.repository.course
+OOL-E0819,rest,REST API,OrganisationsWebService,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/user/restapi/OrganisationsWebService.java,,org.olat.user.restapi
+OOL-E0820,rest,REST API,UserCoursesWebService,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/user/restapi/UserCoursesWebService.java,,org.olat.user.restapi
+OOL-E0821,rest,REST API,UserAuthenticationsWebService,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/user/restapi/UserAuthenticationsWebService.java,,org.olat.user.restapi
+OOL-E0822,rest,REST API,OrganisationTypesWebService,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/user/restapi/OrganisationTypesWebService.java,,org.olat.user.restapi
+OOL-E0823,rest,REST API,ContactsWebService,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/user/restapi/ContactsWebService.java,,org.olat.user.restapi
+OOL-E0824,rest,REST API,RelationRolesWebService,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/user/restapi/RelationRolesWebService.java,,org.olat.user.restapi
+OOL-E0825,rest,REST API,UserWebService,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/user/restapi/UserWebService.java,,org.olat.user.restapi
+OOL-E0826,rest,REST API,UserFoldersWebService,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/user/restapi/UserFoldersWebService.java,,org.olat.user.restapi
+OOL-E0827,rest,REST API,IdentityToIdentityRelationsWebService,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/user/restapi/IdentityToIdentityRelationsWebService.java,,org.olat.user.restapi
+OOL-E0828,rest,REST API,SystemRegistrationManager,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/admin/registration/SystemRegistrationManager.java,,org.olat.admin.registration
+OOL-E0829,rest,REST API,InfoMessageWebService,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/commons/info/restapi/InfoMessageWebService.java,,org.olat.commons.info.restapi
+OOL-E0830,rest,REST API,InfoMessagesWebService,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/commons/info/restapi/InfoMessagesWebService.java,,org.olat.commons.info.restapi
+OOL-E0831,rest,REST API,UserCalendarWebService,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/commons/calendar/restapi/UserCalendarWebService.java,,org.olat.commons.calendar.restapi
+OOL-E0832,rest,REST API,CalendarWSHelper,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/commons/calendar/restapi/CalendarWSHelper.java,,org.olat.commons.calendar.restapi
+OOL-E0833,rest,REST API,CalWebService,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/commons/calendar/restapi/CalWebService.java,,org.olat.commons.calendar.restapi
+OOL-E0834,rest,REST API,NotificationsWebService,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/core/commons/services/notifications/restapi/NotificationsWebService.java,,org.olat.core.commons.services.notifications.restapi
+OOL-E0835,rest,REST API,ExportArchivesWebService,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/core/commons/services/export/restapi/ExportArchivesWebService.java,,org.olat.core.commons.services.export.restapi
+OOL-E0836,rest,REST API,DrawioWebService,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/core/commons/services/doceditor/drawio/restapi/DrawioWebService.java,,org.olat.core.commons.services.doceditor.drawio.restapi
+OOL-E0837,rest,REST API,OnlyOfficeWebService,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/core/commons/services/doceditor/onlyoffice/restapi/OnlyOfficeWebService.java,,org.olat.core.commons.services.doceditor.onlyoffice.restapi
+OOL-E0838,rest,REST API,VFSWebservice,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/core/commons/services/vfs/restapi/VFSWebservice.java,,org.olat.core.commons.services.vfs.restapi
+OOL-E0839,rest,REST API,VFSStreamingOutput,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/core/commons/services/vfs/restapi/VFSStreamingOutput.java,,org.olat.core.commons.services.vfs.restapi
+OOL-E0840,rest,REST API,CourseExportMediaResource,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/course/export/CourseExportMediaResource.java,,org.olat.course.export
+OOL-E0841,rest,REST API,CourseDbWebService,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/course/db/restapi/CourseDbWebService.java,,org.olat.course.db.restapi
+OOL-E0842,rest,REST API,EfficiencyStatementWebService,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/course/assessment/restapi/EfficiencyStatementWebService.java,,org.olat.course.assessment.restapi
+OOL-E0843,rest,REST API,UserEfficiencyStatementWebService,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/course/assessment/restapi/UserEfficiencyStatementWebService.java,,org.olat.course.assessment.restapi
+OOL-E0844,rest,REST API,CourseAssessmentModeWebService,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/course/assessment/restapi/CourseAssessmentModeWebService.java,,org.olat.course.assessment.restapi
+OOL-E0845,rest,REST API,AssessmentModeWebService,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/course/assessment/restapi/AssessmentModeWebService.java,,org.olat.course.assessment.restapi
+OOL-E0846,rest,REST API,CourseArchivesWebService,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/course/archiver/restapi/CourseArchivesWebService.java,,org.olat.course.archiver.restapi
+OOL-E0847,rest,REST API,BCWebService,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/course/nodes/bc/BCWebService.java,,org.olat.course.nodes.bc
+OOL-E0848,rest,REST API,COWebService,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/course/nodes/co/COWebService.java,,org.olat.course.nodes.co
+OOL-E0849,rest,REST API,ENWebService,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/course/nodes/en/ENWebService.java,,org.olat.course.nodes.en
+OOL-E0850,rest,REST API,UserCertificationWebService,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/course/certificate/restapi/UserCertificationWebService.java,,org.olat.course.certificate.restapi
+OOL-E0851,rest,REST API,RepositoryEntryCertificationWebService,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/course/certificate/restapi/RepositoryEntryCertificationWebService.java,,org.olat.course.certificate.restapi
+OOL-E0852,rest,REST API,CourseCertificationWebService,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/course/certificate/restapi/CourseCertificationWebService.java,,org.olat.course.certificate.restapi
+OOL-E0853,rest,REST API,ChangePasswordWebService,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/registration/restapi/ChangePasswordWebService.java,,org.olat.registration.restapi
+OOL-E0854,rest,REST API,RegistrationWebService,REST/JAX-RS 相关类或带 @Path 类,src/main/java/org/olat/registration/restapi/RegistrationWebService.java,,org.olat.registration.restapi
+OOL-E0855,package,课程引擎,org.olat.course.nodes,Java 包前缀与文件数量,org.olat.course.nodes,,1097
+OOL-E0856,package,核心框架,org.olat.core.gui,Java 包前缀与文件数量,org.olat.core.gui,,833
+OOL-E0857,package,核心框架,org.olat.core.commons,Java 包前缀与文件数量,org.olat.core.commons,,805
+OOL-E0858,package,标准协议/IMS,org.olat.ims.qti21,Java 包前缀与文件数量,org.olat.ims.qti21,,401
+OOL-E0859,package,业务模块,org.olat.modules.curriculum,Java 包前缀与文件数量,org.olat.modules.curriculum,,383
+OOL-E0860,package,课程引擎,org.olat.course.assessment,Java 包前缀与文件数量,org.olat.course.assessment,,349
+OOL-E0861,package,业务模块,org.olat.modules.lecture,Java 包前缀与文件数量,org.olat.modules.lecture,,344
+OOL-E0862,package,业务模块,org.olat.modules.quality,Java 包前缀与文件数量,org.olat.modules.quality,,335
+OOL-E0863,package,核心框架,org.olat.core.util,Java 包前缀与文件数量,org.olat.core.util,,311
+OOL-E0864,package,业务模块,org.olat.modules.forms,Java 包前缀与文件数量,org.olat.modules.forms,,283
+OOL-E0865,package,业务模块,org.olat.modules.ceditor,Java 包前缀与文件数量,org.olat.modules.ceditor,,253
+OOL-E0866,package,业务模块,org.olat.modules.project,Java 包前缀与文件数量,org.olat.modules.project,,217
+OOL-E0867,package,资源标识,org.olat.resource.accesscontrol,Java 包前缀与文件数量,org.olat.resource.accesscontrol,,213
+OOL-E0868,package,业务模块,org.olat.modules.qpool,Java 包前缀与文件数量,org.olat.modules.qpool,,211
+OOL-E0869,package,业务模块,org.olat.modules.portfolio,Java 包前缀与文件数量,org.olat.modules.portfolio,,200
+OOL-E0870,package,资源仓库,org.olat.repository.ui,Java 包前缀与文件数量,org.olat.repository.ui,,193
+OOL-E0871,package,业务模块,org.olat.modules.video,Java 包前缀与文件数量,org.olat.modules.video,,177
+OOL-E0872,package,业务模块,org.olat.modules.topicbroker,Java 包前缀与文件数量,org.olat.modules.topicbroker,,144
+OOL-E0873,package,业务模块,org.olat.modules.coach,Java 包前缀与文件数量,org.olat.modules.coach,,141
+OOL-E0874,package,业务模块,org.olat.modules.certificationprogram,Java 包前缀与文件数量,org.olat.modules.certificationprogram,,141
+OOL-E0875,package,群组,org.olat.group.ui,Java 包前缀与文件数量,org.olat.group.ui,,134
+OOL-E0876,package,业务模块,org.olat.modules.cemedia,Java 包前缀与文件数量,org.olat.modules.cemedia,,129
+OOL-E0877,package,业务模块,org.olat.modules.taxonomy,Java 包前缀与文件数量,org.olat.modules.taxonomy,,123
+OOL-E0878,package,业务模块,org.olat.modules.catalog,Java 包前缀与文件数量,org.olat.modules.catalog,,117
+OOL-E0879,package,搜索,org.olat.search.service,Java 包前缀与文件数量,org.olat.search.service,,117
+OOL-E0880,package,业务模块,org.olat.modules.oaipmh,Java 包前缀与文件数量,org.olat.modules.oaipmh,,116
+OOL-E0881,package,用户,org.olat.user.ui,Java 包前缀与文件数量,org.olat.user.ui,,116
+OOL-E0882,package,业务模块,org.olat.modules.openbadges,Java 包前缀与文件数量,org.olat.modules.openbadges,,111
+OOL-E0883,package,业务模块,org.olat.modules.bigbluebutton,Java 包前缀与文件数量,org.olat.modules.bigbluebutton,,106
+OOL-E0884,package,标准协议/IMS,org.olat.ims.lti13,Java 包前缀与文件数量,org.olat.ims.lti13,,96
+OOL-E0885,package,业务模块,org.olat.modules.grading,Java 包前缀与文件数量,org.olat.modules.grading,,93
+OOL-E0886,package,课程引擎,org.olat.course.run,Java 包前缀与文件数量,org.olat.course.run,,92
+OOL-E0887,package,通用服务,org.olat.commons.calendar,Java 包前缀与文件数量,org.olat.commons.calendar,,91
+OOL-E0888,package,课程引擎,org.olat.course.condition,Java 包前缀与文件数量,org.olat.course.condition,,89
+OOL-E0889,package,业务模块,org.olat.modules.fo,Java 包前缀与文件数量,org.olat.modules.fo,,85
+OOL-E0890,package,课程引擎,org.olat.course.learningpath,Java 包前缀与文件数量,org.olat.course.learningpath,,85
+OOL-E0891,package,业务模块,org.olat.modules.webFeed,Java 包前缀与文件数量,org.olat.modules.webFeed,,82
+OOL-E0892,package,课程引擎,org.olat.course.certificate,Java 包前缀与文件数量,org.olat.course.certificate,,78
+OOL-E0893,package,业务模块,org.olat.modules.assessment,Java 包前缀与文件数量,org.olat.modules.assessment,,76
+OOL-E0894,package,课程引擎,org.olat.course.editor,Java 包前缀与文件数量,org.olat.course.editor,,75
+OOL-E0895,package,系统管理,org.olat.admin.user,Java 包前缀与文件数量,org.olat.admin.user,,64
+OOL-E0896,package,业务模块,org.olat.modules.appointments,Java 包前缀与文件数量,org.olat.modules.appointments,,63
+OOL-E0897,package,业务模块,org.olat.modules.creditpoint,Java 包前缀与文件数量,org.olat.modules.creditpoint,,63
+OOL-E0898,package,业务模块,org.olat.modules.grade,Java 包前缀与文件数量,org.olat.modules.grade,,61
+OOL-E0899,package,业务模块,org.olat.modules.todo,Java 包前缀与文件数量,org.olat.modules.todo,,60
+OOL-E0900,package,其他,org.olat.gui.demo,Java 包前缀与文件数量,org.olat.gui.demo,,59
+OOL-E0901,package,课程引擎,org.olat.course.member,Java 包前缀与文件数量,org.olat.course.member,,59
+OOL-E0902,package,用户,org.olat.user.propertyhandlers,Java 包前缀与文件数量,org.olat.user.propertyhandlers,,53
+OOL-E0903,package,业务模块,org.olat.modules.reminder,Java 包前缀与文件数量,org.olat.modules.reminder,,52
+OOL-E0904,package,业务模块,org.olat.modules.teams,Java 包前缀与文件数量,org.olat.modules.teams,,51
+OOL-E0905,package,REST API,org.olat.restapi.system,Java 包前缀与文件数量,org.olat.restapi.system,,51
+OOL-E0906,package,业务模块,org.olat.modules.wiki,Java 包前缀与文件数量,org.olat.modules.wiki,,50
+OOL-E0907,package,系统管理,org.olat.admin.sysinfo,Java 包前缀与文件数量,org.olat.admin.sysinfo,,50
+OOL-E0908,package,课程引擎,org.olat.course.archiver,Java 包前缀与文件数量,org.olat.course.archiver,,50
+OOL-E0909,package,业务模块,org.olat.modules.gotomeeting,Java 包前缀与文件数量,org.olat.modules.gotomeeting,,49
+OOL-E0910,package,业务模块,org.olat.modules.scorm,Java 包前缀与文件数量,org.olat.modules.scorm,,48
+OOL-E0911,package,REST API,org.olat.restapi.support,Java 包前缀与文件数量,org.olat.restapi.support,,48
+OOL-E0912,package,业务模块,org.olat.modules.edusharing,Java 包前缀与文件数量,org.olat.modules.edusharing,,47
+OOL-E0913,package,课程引擎,org.olat.course.reminder,Java 包前缀与文件数量,org.olat.course.reminder,,47
+OOL-E0914,package,课程引擎,org.olat.course.statistic,Java 包前缀与文件数量,org.olat.course.statistic,,47
+OOL-E0915,package,认证登录,org.olat.login.oauth,Java 包前缀与文件数量,org.olat.login.oauth,,45
+OOL-E0916,package,业务模块,org.olat.modules.library,Java 包前缀与文件数量,org.olat.modules.library,,45
+OOL-E0917,package,业务模块,org.olat.modules.adobeconnect,Java 包前缀与文件数量,org.olat.modules.adobeconnect,,44
+OOL-E0918,package,业务模块,org.olat.modules.vitero,Java 包前缀与文件数量,org.olat.modules.vitero,,43
+OOL-E0919,package,通用服务,org.olat.commons.info,Java 包前缀与文件数量,org.olat.commons.info,,41
+OOL-E0920,package,业务模块,org.olat.modules.contacttracing,Java 包前缀与文件数量,org.olat.modules.contacttracing,,38
+OOL-E0921,package,用户与权限,org.olat.basesecurity.model,Java 包前缀与文件数量,org.olat.basesecurity.model,,37
+OOL-E0922,package,群组,org.olat.group.model,Java 包前缀与文件数量,org.olat.group.model,,34
+OOL-E0923,package,课程引擎,org.olat.course.config,Java 包前缀与文件数量,org.olat.course.config,,34
+OOL-E0924,package,业务模块,org.olat.modules.immunityproof,Java 包前缀与文件数量,org.olat.modules.immunityproof,,33
+OOL-E0925,package,课程引擎,org.olat.course.wizard,Java 包前缀与文件数量,org.olat.course.wizard,,33
+OOL-E0926,package,课程引擎,org.olat.course.todo,Java 包前缀与文件数量,org.olat.course.todo,,33
+OOL-E0927,package,业务模块,org.olat.modules.sharepoint,Java 包前缀与文件数量,org.olat.modules.sharepoint,,32
+OOL-E0928,package,业务模块,org.olat.modules.invitation,Java 包前缀与文件数量,org.olat.modules.invitation,,32
+OOL-E0929,package,标准协议/IMS,org.olat.ims.cp,Java 包前缀与文件数量,org.olat.ims.cp,,32
+OOL-E0930,package,核心框架,org.olat.core.logging,Java 包前缀与文件数量,org.olat.core.logging,,32
+OOL-E0931,package,核心框架,org.olat.core.id,Java 包前缀与文件数量,org.olat.core.id,,31
+OOL-E0932,package,资源仓库,org.olat.repository.model,Java 包前缀与文件数量,org.olat.repository.model,,29
+OOL-E0933,package,其他,de.bps.course.nodes,Java 包前缀与文件数量,de.bps.course.nodes,,28
+OOL-E0934,package,业务模块,org.olat.modules.openmeetings,Java 包前缀与文件数量,org.olat.modules.openmeetings,,28
+OOL-E0935,package,即时消息,org.olat.instantMessaging.ui,Java 包前缀与文件数量,org.olat.instantMessaging.ui,,28
+OOL-E0936,package,课程引擎,org.olat.course.style,Java 包前缀与文件数量,org.olat.course.style,,28
+OOL-E0937,package,业务模块,org.olat.modules.zoom,Java 包前缀与文件数量,org.olat.modules.zoom,,26
+OOL-E0938,package,资源仓库,org.olat.repository.manager,Java 包前缀与文件数量,org.olat.repository.manager,,26
+OOL-E0939,package,用户,org.olat.user.restapi,Java 包前缀与文件数量,org.olat.user.restapi,,25
+OOL-E0940,package,资源仓库,org.olat.repository.bulk,Java 包前缀与文件数量,org.olat.repository.bulk,,25
+OOL-E0941,package,资源仓库,org.olat.repository.handlers,Java 包前缀与文件数量,org.olat.repository.handlers,,25
+OOL-E0942,package,业务模块,org.olat.modules.message,Java 包前缀与文件数量,org.olat.modules.message,,24
+OOL-E0943,package,业务模块,org.olat.modules.opencast,Java 包前缀与文件数量,org.olat.modules.opencast,,24
+OOL-E0944,package,认证登录,org.olat.login.webauthn,Java 包前缀与文件数量,org.olat.login.webauthn,,22
+OOL-E0945,package,业务模块,org.olat.modules.docpool,Java 包前缀与文件数量,org.olat.modules.docpool,,22
+OOL-E0946,package,其他,org.olat.fileresource.types,Java 包前缀与文件数量,org.olat.fileresource.types,,22
+OOL-E0947,package,认证登录,org.olat.login.validation,Java 包前缀与文件数量,org.olat.login.validation,,21
+OOL-E0948,package,用户与权限,org.olat.basesecurity.manager,Java 包前缀与文件数量,org.olat.basesecurity.manager,,21
+OOL-E0949,package,核心框架,org.olat.core.configuration,Java 包前缀与文件数量,org.olat.core.configuration,,21
+OOL-E0950,package,课程引擎,org.olat.course.noderight,Java 包前缀与文件数量,org.olat.course.noderight,,21
+OOL-E0951,package,用户,org.olat.user.manager,Java 包前缀与文件数量,org.olat.user.manager,,18
+OOL-E0952,package,业务模块,org.olat.modules.jupyterhub,Java 包前缀与文件数量,org.olat.modules.jupyterhub,,17
+OOL-E0953,package,业务模块,org.olat.modules.dcompensation,Java 包前缀与文件数量,org.olat.modules.dcompensation,,17
+OOL-E0954,package,通用服务,org.olat.commons.coordinate,Java 包前缀与文件数量,org.olat.commons.coordinate,,17
+OOL-E0955,package,REST API,org.olat.restapi.repository,Java 包前缀与文件数量,org.olat.restapi.repository,,15
+OOL-E0956,package,群组,org.olat.group.manager,Java 包前缀与文件数量,org.olat.group.manager,,15
+OOL-E0957,package,核心框架,org.olat.core.dispatcher,Java 包前缀与文件数量,org.olat.core.dispatcher,,15
+OOL-E0958,package,业务模块,org.olat.modules.cp,Java 包前缀与文件数量,org.olat.modules.cp,,14
+OOL-E0959,package,课程引擎,org.olat.course.disclaimer,Java 包前缀与文件数量,org.olat.course.disclaimer,,14
+OOL-E0960,package,课程引擎,org.olat.course.site,Java 包前缀与文件数量,org.olat.course.site,,14
+OOL-E0961,package,课程引擎,org.olat.course.duedate,Java 包前缀与文件数量,org.olat.course.duedate,,14
+OOL-E0962,package,标准协议/IMS,org.olat.ims.lti,Java 包前缀与文件数量,org.olat.ims.lti,,12
+OOL-E0963,package,课程引擎,org.olat.course.nodeaccess,Java 包前缀与文件数量,org.olat.course.nodeaccess,,12
+OOL-E0964,package,课程引擎,org.olat.course.groupsandrights,Java 包前缀与文件数量,org.olat.course.groupsandrights,,12
+OOL-E0965,package,业务模块,org.olat.modules.edubase,Java 包前缀与文件数量,org.olat.modules.edubase,,11
+OOL-E0966,package,业务模块,org.olat.modules.externalsite,Java 包前缀与文件数量,org.olat.modules.externalsite,,11
+OOL-E0967,package,其他,org.olat.gui.control,Java 包前缀与文件数量,org.olat.gui.control,,11
+OOL-E0968,package,通用服务,org.olat.commons.memberlist,Java 包前缀与文件数量,org.olat.commons.memberlist,,11
+OOL-E0969,package,核心框架,org.olat.core.extensions,Java 包前缀与文件数量,org.olat.core.extensions,,11
+OOL-E0970,package,资源仓库,org.olat.repository.wizard,Java 包前缀与文件数量,org.olat.repository.wizard,,11
+OOL-E0971,package,即时消息,org.olat.instantMessaging.model,Java 包前缀与文件数量,org.olat.instantMessaging.model,,10
+OOL-E0972,package,系统管理,org.olat.admin.quota,Java 包前缀与文件数量,org.olat.admin.quota,,10
+OOL-E0973,package,系统管理,org.olat.admin.securitygroup,Java 包前缀与文件数量,org.olat.admin.securitygroup,,10
+OOL-E0974,package,课程引擎,org.olat.course.db,Java 包前缀与文件数量,org.olat.course.db,,10
+OOL-E0975,package,认证登录,org.olat.login.auth,Java 包前缀与文件数量,org.olat.login.auth,,9
+OOL-E0976,package,其他,de.tuchemnitz.wizard.workflows,Java 包前缀与文件数量,de.tuchemnitz.wizard.workflows,,8
+OOL-E0977,package,REST API,org.olat.restapi.security,Java 包前缀与文件数量,org.olat.restapi.security,,8
+OOL-E0978,package,搜索,org.olat.search.ui,Java 包前缀与文件数量,org.olat.search.ui,,8
+OOL-E0979,package,系统管理,org.olat.admin.landingpages,Java 包前缀与文件数量,org.olat.admin.landingpages,,8
+OOL-E0980,package,业务模块,org.olat.modules.mediasite,Java 包前缀与文件数量,org.olat.modules.mediasite,,7
+OOL-E0981,package,业务模块,org.olat.modules.audiovideorecording,Java 包前缀与文件数量,org.olat.modules.audiovideorecording,,7
+OOL-E0982,package,业务模块,org.olat.modules.sharedfolder,Java 包前缀与文件数量,org.olat.modules.sharedfolder,,7
+OOL-E0983,package,资源标识,org.olat.resource.references,Java 包前缀与文件数量,org.olat.resource.references,,7
+OOL-E0984,package,系统管理,org.olat.admin.layout,Java 包前缀与文件数量,org.olat.admin.layout,,7
+OOL-E0985,package,系统管理,org.olat.admin.help,Java 包前缀与文件数量,org.olat.admin.help,,7
+OOL-E0986,package,其他,org.olat.shibboleth.manager,Java 包前缀与文件数量,org.olat.shibboleth.manager,,7
+OOL-E0987,package,课程引擎,org.olat.course.core,Java 包前缀与文件数量,org.olat.course.core,,7
+OOL-E0988,package,资源仓库,org.olat.repository.site,Java 包前缀与文件数量,org.olat.repository.site,,7
+OOL-E0989,package,业务模块,org.olat.modules.card2brain,Java 包前缀与文件数量,org.olat.modules.card2brain,,6
+OOL-E0990,package,即时消息,org.olat.instantMessaging.manager,Java 包前缀与文件数量,org.olat.instantMessaging.manager,,6
+OOL-E0991,package,系统管理,org.olat.admin.security,Java 包前缀与文件数量,org.olat.admin.security,,6
+OOL-E0992,package,系统管理,org.olat.admin.site,Java 包前缀与文件数量,org.olat.admin.site,,6
+OOL-E0993,package,其他,org.olat.shibboleth.handler,Java 包前缀与文件数量,org.olat.shibboleth.handler,,6
+OOL-E0994,package,其他,org.olat.ldap.ui,Java 包前缀与文件数量,org.olat.ldap.ui,,6
+OOL-E0995,package,群组,org.olat.group.area,Java 包前缀与文件数量,org.olat.group.area,,6
+OOL-E0996,package,课程引擎,org.olat.course.folder,Java 包前缀与文件数量,org.olat.course.folder,,6
+OOL-E0997,package,课程引擎,org.olat.course.quota,Java 包前缀与文件数量,org.olat.course.quota,,6
+OOL-E0998,package,课程引擎,org.olat.course.highscore,Java 包前缀与文件数量,org.olat.course.highscore,,6
+OOL-E0999,package,其他,de.bps.olat.portal,Java 包前缀与文件数量,de.bps.olat.portal,,5
+OOL-E1000,package,认证登录,org.olat.login.ui,Java 包前缀与文件数量,org.olat.login.ui,,5
+OOL-E1001,package,认证登录,org.olat.login.tocco,Java 包前缀与文件数量,org.olat.login.tocco,,5
+OOL-E1002,package,业务模块,org.olat.modules.glossary,Java 包前缀与文件数量,org.olat.modules.glossary,,5
+OOL-E1003,package,其他,org.olat.ldap.manager,Java 包前缀与文件数量,org.olat.ldap.manager,,5
+OOL-E1004,package,群组,org.olat.group.right,Java 包前缀与文件数量,org.olat.group.right,,5

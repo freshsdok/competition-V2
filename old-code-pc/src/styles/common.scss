@@ -1,0 +1,193 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html,body{
+  width: 100%;
+}
+.app {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-width: 1080PX;
+  justify-content: space-between;
+  background: #F5F5F5;
+}
+
+
+/* 通用容器样式 */
+.container-custom {
+  width: 88%;
+  margin: 0 auto;
+  max-width: 1440PX;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+/* 通用部分样式 */
+.section {
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+}
+
+@media (min-width: 768px) {
+  .section {
+    padding-top: 6rem;
+    padding-bottom: 6rem;
+  }
+}
+
+/* 通用标题样式 */
+h1 {
+  font-size: 2.5rem;
+  line-height: 1.2;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+h2 {
+  font-size: 2rem;
+  line-height: 1.2;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+h3 {
+  font-size: 1.5rem;
+  line-height: 1.2;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
+h4 {
+  font-size: 1.25rem;
+  line-height: 1.2;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+@media (min-width: 768px) {
+  h1 {
+    font-size: 3rem;
+  }
+
+  h2 {
+    font-size: 2.25rem;
+  }
+
+  h3 {
+    font-size: 1.75rem;
+  }
+
+  h4 {
+    font-size: 1.5rem;
+  }
+}
+
+/* 按钮样式 */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.625rem 1.25rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  text-align: center;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background-color: #3b82f6;
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #2563eb;
+}
+
+.btn-outline {
+  background-color: transparent;
+  border: 1px solid #3b82f6;
+  color: #3b82f6;
+}
+
+.btn-outline:hover {
+  background-color: #3b82f6;
+  color: white;
+}
+
+.btn-white {
+  background-color: white;
+  color: #3b82f6;
+}
+
+.btn-white:hover {
+  background-color: #f9fafb;
+}
+
+/* 卡片样式 */
+.card {
+  background-color: white;
+  border-radius: 0.75rem;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+}
+
+
+.rich-content {
+  max-width: 100%;
+  img{
+    max-width: 100%;
+  }
+}
+.rich-content :not(not) {
+  max-width: 100%;
+}
+.ql-container{
+  margin-top: 30px !important;
+  border: none !important;
+  .ql-editor{
+    padding: 0!important;
+    img{
+      display: inline !important;
+    }
+  }
+}
+.rich-content {
+  max-width: 100%;
+  user-select: text;
+  -webkit-user-select: text;
+  /* 添加样式保留空格 */
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  .p_class,
+  .span_class,
+  .video_class,
+  .table_class,
+  .img_class {
+    max-width: 100%;
+  }
+  .table_class {
+    white-space: pre-wrap;
+    word-break: break-all;
+  }
+  text,
+  span,
+  p {
+  user-select: text;
+  -webkit-user-select: text;
+  }
+}
+.base-page{
+  background: #F5F5F5;
+  min-height: 500px;
+}
+
+.page-content{
+  .bgcolor{
+    background:#3169F8;
+  }
+}

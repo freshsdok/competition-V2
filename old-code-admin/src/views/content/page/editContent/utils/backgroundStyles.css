@@ -1,0 +1,132 @@
+.bg-pc-home-tournament {
+  background-image: url('../../../../../assets/images/example/pc_home_tournament.png') !important;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.bg-mini-tournament-list {
+  background-image: url('../../../../../assets/images/example/mini_tournament_list.png') !important;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Tournament Tabs Background Images */
+.bg-tab-my-team {
+  background-image: url('../../../../../assets/images/example/tournamentTabs/tab1.png') !important;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.bg-tab-my-tournament {
+  background-image: url('../../../../../assets/images/example/tournamentTabs/tab2.png') !important;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.bg-tab-score-query {
+  background-image: url('../../../../../assets/images/example/tournamentTabs/tab3.png') !important;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.bg-mini-tournament-list {
+  background-image: url('../../../../../assets/images/example/mini_tournament_list.png') !important;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.bg-mini-home-tournament {
+  background-image: url('../../../../../assets/images/example/mini_home_tournament.png') !important;  
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.bg-mini-home-learn {
+  background-image: url('../../../../../assets/images/example/mini_home_learn.png') !important;  
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.bg-mini-info {
+  background-image: url('../../../../../assets/images/example/mini_info.png') !important;  
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.bg-pc-home-learn {
+  background-image: url('../../../../../assets/images/example/pc_home_learn.png') !important;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.bg-pc-home-information {
+  background-image: url('../../../../../assets/images/example/pc_home_information.png') !important;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.bg-pc-support {
+  background-image: url('../../../../../assets/images/example/pc_support.png') !important;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.bg-pc-tournament-list {
+  background-image: url('../../../../../assets/images/example/pc_tournament_list.png') !important;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.bg-pc-info {
+  background-image: url('../../../../../assets/images/example/pc_info.png') !important;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.bg-mini-home-information{
+  background-image: url('../../../../../assets/images/example/mini_home_information.png') !important;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* 标签图标样式 */
+.tab-icon {
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.tournament-icon {
+  background-image: url('../../../../../assets/images/example/homeTabs/tabs1.png') !important;
+}
+
+.learning-icon {
+  background-image: url('../../../../../assets/images/example/homeTabs/tabs2.png') !important;
+}
+
+.news-icon {
+  background-image: url('../../../../../assets/images/example/homeTabs/tabs3.png') !important;
+}
+
+.support-icon {
+  background-image: url('../../../../../assets/images/example/homeTabs/tabs4.png') !important;
+}
+
+.datang-icon {
+  background-image: url('../../../../../assets/images/example/homeTabs/tabs5.png') !important;
+}
