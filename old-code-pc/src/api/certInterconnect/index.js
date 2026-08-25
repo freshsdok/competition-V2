@@ -77,10 +77,56 @@ export function getGuidedCertificateSummary() {
   });
 }
 
-// 获取当前团队报名负责人名下学生证书的图片地址
-export function getGuidedCertificatePictures() {
+// 服务端分页查询负责人名下学生证书
+export function getGuidedCertificatePage(data, pageNum, pageSize) {
   return request({
-    url: `/competition/user/competitionCertExchangeRule/certificate/guidedPackage`,
+    url: `/competition/user/competitionCertExchangeRule/certificate/guidedPage`,
     method: "post",
+    params: { pageNum, pageSize },
+    data,
+  });
+}
+
+export function getGuidedCertificateFilterOptions() {
+  return request({
+    url: `/competition/user/competitionCertExchangeRule/certificate/guidedFilterOptions`,
+    method: "get",
+  });
+}
+
+export function fallbackGuidedCertificatePictures(certCodes) {
+  return request({
+    url: `/competition/user/competitionCertExchangeRule/certificate/fallback`,
+    method: "post",
+    data: { certCodes },
+  });
+}
+
+export function getGuidedCertificatePreview(certCode) {
+  return request({
+    url: `/competition/user/competitionCertExchangeRule/certificate/preview/${encodeURIComponent(certCode)}`,
+    method: "get",
+  });
+}
+
+export function createGuidedCertificateExportTask(data) {
+  return request({
+    url: `/competition/user/competitionCertExchangeRule/certificate/exportTask`,
+    method: "post",
+    data,
+  });
+}
+
+export function getGuidedCertificateExportTask(taskId) {
+  return request({
+    url: `/competition/user/competitionCertExchangeRule/certificate/exportTask/${taskId}`,
+    method: "get",
+  });
+}
+
+export function getGuidedCertificateExportDownload(taskId) {
+  return request({
+    url: `/competition/user/competitionCertExchangeRule/certificate/exportTask/${taskId}/download`,
+    method: "get",
   });
 }

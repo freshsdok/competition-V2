@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.competition.mapper.CompetitionTrackConfigMapper">
+
+    <resultMap type="com.teaching.system.api.domain.CompetitionTrackConfig" id="CompetitionTrackConfigResult">
+        <result property="competitionTrackConfigId"    column="competition_track_config_id"/>
+        <result property="competitionTrackId"    column="competition_track_id"/>
+        <result property="competitionTrackType"    column="competition_track_type"/>
+        <result property="secondLevelCode"    column="second_level_code"/>
+        <result property="secondLevelName"    column="second_level_name"/>
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="version"    column="version"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="checkPackageId"    column="check_package_id"    />
+        <association property="competitionConfig"     javaType="com.teaching.system.api.domain.CompetitionConfig" resultMap="CompetitionConfigResult" />
+        <collection property="competitionTrackEnterpriseList" ofType="com.teaching.system.api.domain.CompetitionEnterpriseRela" column="competition_track_config_id"
+                    select="selectCompetitionEnterpriseResult"/>
+    </resultMap>
+
+    <resultMap type="com.teaching.system.api.domain.CompetitionConfig" id="CompetitionConfigResult">
+        <result property="configId"    column="config_id"    />
+        <result property="competitionTrackConfigId"    column="competition_track_config_id"    />
+        <result property="joinType"    column="join_type"    />
+        <result property="isTeacherNess"    column="is_teacher_ness"    />
+        <result property="minPernNum"    column="min_pern_num"    />
+        <result property="maxPernNum"    column="max_pern_num"    />
+        <result property="minTeacherNum"    column="min_teacher_num"    />
+        <result property="maxTeacherNum"    column="max_teacher_num"    />
+        <result property="teamRule"    column="team_rule"    />
+        <result property="isRealNameAuth"    column="is_real_name_auth"    />
+        <result property="isStudent"    column="is_student"    />
+        <result property="isNationalityStudent"    column="is_nationality_student"    />
+        <result property="classRequest"    column="class_request"    />
+        <result property="professionRequest"    column="profession_request"    />
+        <result property="lowestGpa"    column="lowest_gpa"    />
+        <result property="applyStartTime"    column="apply_start_time"    />
+        <result property="applyEndTime"    column="apply_end_time"    />
+        <result property="worksSubmitWay"    column="works_submit_way"    />
+        <result property="worksFormat"    column="works_format"    />
+        <result property="worksFormatSize"    column="works_format_size"    />
+        <result property="worksSubmitDate"    column="works_submit_date"    />
+        <result property="worksSubmitExplain"    column="works_submit_explain"    />
+        <result property="fee"    column="fee"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="version"    column="version"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="userId"    column="user_id"    />
+        <result property="orgId"    column="org_id"    />
+    </resultMap>
+
+    <resultMap type="com.teaching.system.api.domain.CompetitionEnterpriseRela" id="CompetitionEnterpriseRelaResult">
+        <result property="relaId"    column="rela_id"    />
+        <result property="competitionSeriesId"    column="competition_series_id"    />
+        <result property="competitionTrackConfigId"    column="competition_track_config_id"    />
+        <result property="enterpriseId"    column="enterprise_id"    />
+        <result property="enterpriseName"    column="enterprise_name"    />
+        <result property="coptEndTime"    column="copt_end_time"    />
+        <result property="coptStartTime"    column="copt_start_time"    />
+        <result property="spopAmount"    column="spop_amount"    />
+        <result property="cooperationType"    column="cooperation_type"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="version"    column="version"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="userId"    column="user_id"    />
+        <result property="orgId"    column="org_id"    />
+    </resultMap>
+
+    <sql id="selectCompetitionTrackConfigVo">
+        select competition_track_config_id, competition_track_id, competition_track_type,second_level_code,create_by, second_level_name,
+        create_time, update_by, update_time, version, del_flag from competition_track_config
+    </sql>
+
+    <select id="selectCompetitionEnterpriseResult" parameterType="com.teaching.system.api.domain.CompetitionEnterpriseRela" resultMap="CompetitionEnterpriseRelaResult">
+        select a.rela_id, a.competition_series_id, a.competition_track_config_id,a.enterprise_id, b.enterprise_name,a.copt_end_time, a.copt_start_time, a.spop_amount,
+        a.cooperation_type, a.create_by, a.create_time, a.update_by, a.update_time, a.version, a.del_flag, a.user_id, a.org_id
+        from competition_enterprise_rela a
+        left join sponsoring_enterprise_info b on a.enterprise_id = b.enterprise_id
+        where a.del_flag = '0'
+        <if test="competitionTrackConfigId != null ">
+            and a.competition_track_config_id = #{competitionTrackConfigId}
+        </if>
+    </select>
+
+    <select id="selectCompetitionTrackConfigAllList" parameterType="List" resultMap="CompetitionTrackConfigResult">
+        <include refid="selectCompetitionTrackConfigVo"/>
+        where del_flag = '0' and competition_track_id in
+        <foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="selectCompetitionTrackConfigList" parameterType="com.teaching.system.api.domain.CompetitionTrackConfig" resultMap="CompetitionTrackConfigResult">
+        select a.competition_track_config_id, a.competition_track_id, a.competition_track_type, a.second_level_code, a.second_level_name,
+        b.config_id,b.competition_track_config_id, b.join_type, b.is_teacher_ness,
+        b.min_pern_num, b.max_pern_num, b.min_teacher_num, b.max_teacher_num, b.team_rule, b.is_real_name_auth, b.is_student,
+        b.is_nationality_student, b.class_request, b.profession_request, b.lowest_gpa, b.works_submit_way,b.works_format,
+        b.works_format_size,b.works_submit_date,b.works_submit_explain,b.apply_start_time,b.apply_end_time,b.fee,
+        a.create_by, a.create_time, a.update_by, a.update_time, a.version, a.del_flag
+        from competition_track_config a
+        left join competition_config b on a.competition_track_config_id = b.competition_track_config_id
+        where a.del_flag = '0'
+            <if test="competitionTrackId != null  and competitionTrackId != ''"> and competition_track_id = #{competitionTrackId}</if>
+            <if test="competitionGroupCode != null  and competitionGroupCode != ''"> and competition_group_code = #{competitionGroupCode}</if>
+            <if test="competitionItemCode != null  and competitionItemCode != ''"> and competition_item_code = #{competitionItemCode}</if>
+            <if test="subsidiarySubjectCode != null  and subsidiarySubjectCode != ''"> and subsidiary_subject_code = #{subsidiarySubjectCode}</if>
+            <if test="competitionGroup != null  and competitionGroup != ''"> and competition_group = #{competitionGroup}</if>
+            <if test="competitionItem != null  and competitionItem != ''"> and competition_item = #{competitionItem}</if>
+            <if test="subsidiarySubject != null  and subsidiarySubject != ''"> and subsidiary_subject = #{subsidiarySubject}</if>
+            <if test="competitionGroupName != null  and competitionGroupName != ''"> and competition_group_name like concat('%', #{competitionGroupName}, '%')</if>
+            <if test="competitionItemName != null  and competitionItemName != ''"> and competition_item_name like concat('%', #{competitionItemName}, '%')</if>
+            <if test="subsidiarySubjectName != null  and subsidiarySubjectName != ''"> and subsidiary_subject_name like concat('%', #{subsidiarySubjectName}, '%')</if>
+    </select>
+
+    <select id="selectCompetitionTrackConfigByConfigId" parameterType="com.teaching.system.api.domain.CompetitionTrackConfig" resultMap="CompetitionTrackConfigResult">
+        select a.competition_track_config_id, a.competition_track_id, a.competition_track_type, a.second_level_code, a.second_level_name,
+        b.config_id,b.competition_track_config_id, b.join_type, b.is_teacher_ness,t.check_package_id,
+        b.min_pern_num, b.max_pern_num, b.min_teacher_num, b.max_teacher_num, b.team_rule, b.is_real_name_auth, b.is_student,
+        b.is_nationality_student, b.class_request, b.profession_request, b.lowest_gpa, b.works_submit_way,b.works_format,
+        b.works_format_size,b.works_submit_date,b.works_submit_explain,b.apply_start_time,b.apply_end_time,b.fee,
+        a.create_by, a.create_time, a.update_by, a.update_time, a.version, a.del_flag
+        from competition_track_config a
+        left join competition_track_info t on t.competition_track_id = a.competition_track_id
+        left join competition_config b on a.competition_track_config_id = b.competition_track_config_id
+        where a.del_flag = '0'
+        <if test="competitionTrackConfigId!=null">
+            and a.competition_track_config_id = #{competitionTrackConfigId}
+        </if>
+        <if test="secondLevelCode!=null and secondLevelCode!=''">
+            and a.second_level_code = #{secondLevelCode}
+        </if>
+        <if test="checkStatus!=null and checkStatus!=''">
+            and t.check_status = #{checkStatus}
+        </if>
+    </select>
+
+    <select id="selectCompetitionTrackConfigByName" parameterType="com.teaching.system.api.domain.CompetitionTrackConfig" resultMap="CompetitionTrackConfigResult">
+        select a.competition_track_config_id, a.competition_track_id, a.competition_track_type, a.second_level_code, a.second_level_name,
+        b.config_id,b.competition_track_config_id, b.join_type, b.is_teacher_ness,
+        b.min_pern_num, b.max_pern_num, b.min_teacher_num, b.max_teacher_num, b.team_rule, b.is_real_name_auth, b.is_student,
+        b.is_nationality_student, b.class_request, b.profession_request, b.lowest_gpa, b.works_submit_way,b.works_format,
+        b.works_format_size,b.works_submit_date,b.works_submit_explain,b.apply_start_time,b.apply_end_time,b.fee,
+        a.create_by, a.create_time, a.update_by, a.update_time, a.version, a.del_flag
+        from competition_track_config a
+        left join competition_track_info t on t.competition_track_id = a.competition_track_id
+        left join competition_config b on a.competition_track_config_id = b.competition_track_config_id
+        where a.del_flag = '0'
+        <if test="competitionSeriesId!=null">
+            and t.competition_series_id = #{competitionSeriesId}
+        </if>
+        <if test="competitionTrackId!=null">
+            and a.competition_track_id in
+            <foreach collection="competitionTrackId.split(',')" item="item" open="(" close=")" separator=",">
+                #{item}
+            </foreach>
+        </if>
+        <if test="secondLevelName!=null and secondLevelName!=''">
+            and a.second_level_name in
+            <foreach collection="secondLevelName.split(',')" item="item" open="(" close=")" separator=",">
+                #{item}
+            </foreach>
+        </if>
+    </select>
+
+<!--    <select id="">-->
+<!--        select count(1) from competition_track_config-->
+<!--        where competition_series_id = #{competitionSeriesId}-->
+<!--        and second_level_name = #{secondLevelName}-->
+<!--    </select>-->
+
+    <insert id="insertCompetitionTrackConfig" parameterType="com.teaching.system.api.domain.CompetitionTrackConfig" useGeneratedKeys="true"
+     keyProperty="competitionTrackConfigId" keyColumn="competition_track_config_id">
+        insert into competition_track_config
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="competitionTrackId != null">competition_track_id,</if>
+            <if test="competitionTrackType != null">competition_track_type,</if>
+            <if test="secondLevelCode != null">second_level_code,</if>
+            <if test="secondLevelName != null">second_level_name,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="version != null">version,</if>
+            <if test="delFlag != null">del_flag,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="competitionTrackId != null">#{competitionTrackId},</if>
+            <if test="competitionTrackType != null">#{competitionTrackType},</if>
+            <if test="secondLevelCode != null">#{secondLevelCode},</if>
+            <if test="secondLevelName != null">#{secondLevelName},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="version != null">#{version},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+         </trim>
+    </insert>
+
+    <insert id="batchInsertCompetitionTrackConfig">
+        insert into competition_track_config (competition_track_id, competition_track_type,second_level_code,second_level_name,
+        create_by, create_time, update_by, update_time,version,del_flag)
+        values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.competitionTrackId}, #{item.competitionTrackType}, #{item.secondLevelCode},
+            #{item.secondLevelName}, #{item.createBy}, sysdate(), #{item.updateBy},
+            #{item.updateTime},#{item.version},'0')
+        </foreach>
+    </insert>
+
+    <update id="updateCompetitionTrackConfig" parameterType="com.teaching.system.api.domain.CompetitionTrackConfig">
+        update competition_track_config
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="competitionTrackId != null">competition_track_id = #{competitionTrackId},</if>
+            <if test="competitionTrackType != null">competition_track_type = #{competitionTrackType},</if>
+            <if test="secondLevelCode != null">second_level_code = #{secondLevelCode},</if>
+            <if test="secondLevelName != null">second_level_name = #{secondLevelName},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="version != null">version = #{version},</if>
+        </trim>
+        where competition_track_config_id = #{competitionTrackConfigId}
+    </update>
+
+    <update id="batchUpdateCompetitionTrackConfig">
+        update competition_track_config
+        <set>
+            <if test="list[0].competitionTrackId!=null">
+                competition_track_id = CASE
+                <foreach collection="list" item="item">
+                    WHEN competition_track_config_id = #{item.competitionTrackConfigId} THEN #{item.competitionTrackId}
+                </foreach>
+                ELSE competition_track_id
+                END,
+            </if>
+            <if test="list[0].competitionTrackType!=null">
+                competition_track_type = CASE
+                <foreach collection="list" item="item">
+                    WHEN competition_track_config_id = #{item.competitionTrackConfigId} THEN #{item.competitionTrackType}
+                </foreach>
+                ELSE competition_track_type
+                END,
+            </if>
+            <if test="list[0].secondLevelCode!=null">
+                second_level_code = CASE
+                <foreach collection="list" item="item">
+                    WHEN competition_track_config_id = #{item.competitionTrackConfigId} THEN #{item.secondLevelCode}
+                </foreach>
+                ELSE second_level_code
+                END,
+            </if>
+            <if test="list[0].secondLevelName!=null">
+                second_level_name = CASE
+                <foreach collection="list" item="item">
+                    WHEN competition_track_config_id = #{item.competitionTrackConfigId} THEN #{item.secondLevelName}
+                </foreach>
+                ELSE second_level_name
+                END,
+            </if>
+            update_time = NOW(),
+            version = version + 1
+        </set>
+        WHERE competition_track_config_id IN
+        <foreach collection="list" item="item" open="(" separator="," close=")">
+            #{item.competitionTrackConfigId}
+        </foreach>
+    </update>
+
+    <delete id="deleteCompetitionTrackConfigByCompetitionTrackConfigId" parameterType="Long">
+        update competition_track_config set del_flag = '1',update_time = sysdate(),version = version + 1 where competition_track_config_id = #{competitionTrackConfigId}
+    </delete>
+
+    <delete id="deleteCompetitionTrackConfigByCompetitionTrackConfigIds" parameterType="String">
+        update competition_track_config set del_flag = '1',update_time = sysdate(),version = version + 1 where competition_track_config_id in
+        <foreach item="competitionTrackConfigId" collection="array" open="(" separator="," close=")">
+            #{competitionTrackConfigId}
+        </foreach>
+    </delete>
+</mapper>

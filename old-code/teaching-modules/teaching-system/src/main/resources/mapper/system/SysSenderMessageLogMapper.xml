@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.system.mapper.SysSenderMessageLogMapper">
+    
+    <resultMap type="SysSenderMessageLog" id="SysSenderMessageLogResult">
+        <result property="sendId"    column="send_id"    />
+        <result property="operator"    column="operator"    />
+        <result property="operationTime"    column="operation_time"    />
+        <result property="operationIp"    column="operation_ip"    />
+        <result property="verifyType"    column="verify_type"    />
+        <result property="verifyResult"    column="verify_result"    />
+        <result property="verifyCode"    column="verify_code"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="version"    column="version"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="orgId"    column="org_id"    />
+        <result property="reason"    column="reason"    />
+    </resultMap>
+
+    <sql id="selectSysSenderMessageLogVo">
+        select send_id, operator, operation_time, operation_ip, verify_type, verify_result, verify_code, create_by, create_time, update_by, update_time, version, del_flag, org_id,reason from sys_sender_message_log
+    </sql>
+
+    <select id="selectSysSenderMessageLogList" parameterType="SysSenderMessageLog" resultMap="SysSenderMessageLogResult">
+        <include refid="selectSysSenderMessageLogVo"/>
+        <where>
+            <if test="operator != null  and operator != ''">
+                and operator LIKE concat('%', #{operator}, '%')
+            </if>
+            <if test="operationTimeStart != null ">
+                and operation_time >= #{operationTimeStart}
+            </if>
+            <if test="operationTimeEnd != null ">
+                and operation_time &lt;= #{operationTimeEnd}
+            </if>
+            <if test="operationIp != null  and operationIp != ''">
+                and operation_ip = #{operationIp}
+            </if>
+            <if test="verifyType != null  and verifyType != ''">
+                and verify_type = #{verifyType}
+            </if>
+            <if test="verifyResult != null  and verifyResult != ''">
+                and verify_result = #{verifyResult}
+            </if>
+            <if test="verifyCode != null  and verifyCode != ''">
+                and verify_code = #{verifyCode}
+            </if>
+        </where>
+    </select>
+    
+    <select id="selectSysSenderMessageLogBySendId" parameterType="Long" resultMap="SysSenderMessageLogResult">
+        <include refid="selectSysSenderMessageLogVo"/>
+        where send_id = #{sendId}
+    </select>
+
+    <insert id="insertSysSenderMessageLog" parameterType="SysSenderMessageLog" useGeneratedKeys="true" keyProperty="sendId">
+        insert into sys_sender_message_log
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="operator != null">operator,</if>
+            <if test="operationTime != null">operation_time,</if>
+            <if test="operationIp != null">operation_ip,</if>
+            <if test="verifyType != null">verify_type,</if>
+            <if test="verifyResult != null">verify_result,</if>
+            <if test="verifyCode != null">verify_code,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="version != null">version,</if>
+            <if test="delFlag != null">del_flag,</if>
+            <if test="orgId != null">org_id,</if>
+            <if test="reason != null">reason,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="operator != null">#{operator},</if>
+            <if test="operationTime != null">#{operationTime},</if>
+            <if test="operationIp != null">#{operationIp},</if>
+            <if test="verifyType != null">#{verifyType},</if>
+            <if test="verifyResult != null">#{verifyResult},</if>
+            <if test="verifyCode != null">#{verifyCode},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="version != null">#{version},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+            <if test="orgId != null">#{orgId},</if>
+            <if test="reason != null">#{reason},</if>
+         </trim>
+    </insert>
+
+    <update id="updateSysSenderMessageLog" parameterType="SysSenderMessageLog">
+        update sys_sender_message_log
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="operator != null">operator = #{operator},</if>
+            <if test="operationTime != null">operation_time = #{operationTime},</if>
+            <if test="operationIp != null">operation_ip = #{operationIp},</if>
+            <if test="verifyType != null">verify_type = #{verifyType},</if>
+            <if test="verifyResult != null">verify_result = #{verifyResult},</if>
+            <if test="verifyCode != null">verify_code = #{verifyCode},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="version != null">version = #{version},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+            <if test="orgId != null">org_id = #{orgId},</if>
+            <if test="reason != null">reason = #{reason},</if>
+        </trim>
+        where send_id = #{sendId}
+    </update>
+
+    <delete id="deleteSysSenderMessageLogBySendId" parameterType="Long">
+        delete from sys_sender_message_log where send_id = #{sendId}
+    </delete>
+
+    <delete id="deleteSysSenderMessageLogBySendIds" parameterType="String">
+        delete from sys_sender_message_log where send_id in 
+        <foreach item="sendId" collection="array" open="(" separator="," close=")">
+            #{sendId}
+        </foreach>
+    </delete>
+</mapper>

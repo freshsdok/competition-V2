@@ -1,0 +1,621 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.competition.mapper.CompetitionGradeInfoMapper">
+    <resultMap type="com.teaching.competition.domain.CompetitionGradeInfo" id="CompetitionGradeInfoResult">
+        <id property="gradeId" column="grade_id" />
+        <result property="competitionSeriesId" column="competition_series_id" />
+        <result property="competitionStageId" column="competition_stage_id" />
+        <result property="competitionTrackId" column="competition_track_id" />
+        <result property="secondLevelCode" column="second_level_code" />
+        <result property="courseId" column="course_id" />
+        <result property="trainingProgramId" column="training_program_id" />
+        <result property="memberId" column="member_id" />
+        <result property="userId" column="user_id" />
+        <result property="score" column="score" />
+        <result property="ranking" column="ranking" />
+        <result property="teamCode" column="team_code" />
+        <result property="gradeSource" column="grade_source" />
+        <result property="phone" column="phone" />
+        <result property="userName" column="user_name" />
+        <result property="idCard" column="id_card" />
+        <result property="email" column="email" />
+        <result property="leaderTeacherId" column="leader_teacher_id" />
+        <result property="competitionRoleName" column="competition_role_name" />
+        <result property="createBy" column="create_by" />
+        <result property="createTime" column="create_time" />
+        <result property="updateBy" column="update_by" />
+        <result property="updateTime" column="update_time" />
+        <result property="delFlag" column="del_flag" />
+        <result property="version" column="version" />
+        <result property="competitionName" column="competition_name" />
+        <result property="competitionTrackName" column="competition_track_name" />
+        <result property="secondLevelName" column="second_level_name" />
+        <result property="stageName" column="stage_name" />
+    </resultMap>
+
+    <sql id="selectCompetitionGradeInfoVo">
+        select grade_id, competition_series_id, competition_stage_id, competition_track_id, second_level_code, course_id, training_program_id, member_id, user_id, score, ranking, team_code, grade_source, user_name, id_card, create_by, create_time, update_by, update_time, del_flag, version from competition_grade_info
+    </sql>
+
+    <select id="selectCompetitionGradeInfoById" parameterType="Long" resultMap="CompetitionGradeInfoResult">
+        select cgi.grade_id, cgi.competition_series_id, cgi.competition_stage_id, cgi.competition_track_id, cgi.second_level_code, cgi.course_id, cgi.training_program_id, cgi.member_id,
+        cgi.user_id, cgi.score, cgi.team_code, cgi.grade_source, cgi.create_by, cgi.create_time, cgi.update_by, cgi.update_time,
+        cgi.del_flag, cgi.version, cgi.user_name,cai.phone, cgi.id_card, cai.email,cai.leader_teacher_id,cai.competition_role_name,
+        DENSE_RANK() OVER (ORDER BY CAST(cgi.score AS DECIMAL(10,2)) DESC) as ranking,
+        csi.competition_series_name,csi.competition_name,cti.competition_track_name,ctc.second_level_name,csc.stage_name
+        from competition_grade_info cgi
+        left join (select a.competition_series_id, a.competition_series_name,b.competition_name from competition_series_info a
+        left join competition_main_info b on a.competition_id = b.competition_id) csi on cgi.competition_series_id = csi.competition_series_id
+        left join competition_track_info cti on cgi.competition_track_id = cti.competition_track_id
+        left join competition_track_config ctc on cgi.second_level_code = ctc.second_level_code
+        left join competition_apply_info cai on cai.member_id = cgi.member_id
+        LEFT JOIN competition_stage_config csc on csc.stage_id = cgi.competition_series_id
+        where cgi.del_flag = '0'
+        and cgi.grade_id = #{gradeId}
+    </select>
+
+    <select id="selectCompetitionGradeInfoList" parameterType="com.teaching.competition.domain.CompetitionGradeInfo" resultMap="CompetitionGradeInfoResult">
+        WITH all_grades AS (
+        SELECT
+        grade_id,
+        DENSE_RANK() OVER (ORDER BY CAST(score AS DECIMAL(10,2)) DESC) as full_ranking
+        FROM competition_grade_info
+        WHERE del_flag = '0'
+        )
+        SELECT
+        cgi.grade_id,
+        cgi.competition_series_id,
+        cgi.competition_stage_id,
+        cgi.competition_track_id,
+        cgi.second_level_code,
+        cgi.course_id,
+        cgi.training_program_id,
+        cgi.member_id,
+        cgi.user_id,
+        cgi.score,
+        cgi.team_code,
+        cgi.grade_source,
+        cgi.create_by,
+        cgi.create_time,
+        cgi.update_by,
+        cgi.update_time,
+        cgi.del_flag,
+        cgi.version,
+        cgi.user_name,
+        cai.phone,
+        cgi.id_card,
+        cai.email,
+        cai.leader_teacher_id,
+        cai.competition_role_name,
+        ag.full_ranking as ranking,
+        csi.competition_series_name,
+        csi.competition_name,
+        cti.competition_track_name,
+        ctc.second_level_name,
+        csc.stage_name
+        FROM competition_grade_info cgi
+        LEFT JOIN all_grades ag ON cgi.grade_id = ag.grade_id
+        LEFT JOIN (
+        SELECT
+        a.competition_series_id,
+        a.competition_series_name,
+        b.competition_name
+        FROM competition_series_info a
+        LEFT JOIN competition_main_info b ON a.competition_id = b.competition_id
+        ) csi ON cgi.competition_series_id = csi.competition_series_id
+        LEFT JOIN competition_track_info cti ON cgi.competition_track_id = cti.competition_track_id
+        LEFT JOIN competition_track_config ctc ON cgi.second_level_code = ctc.second_level_code
+        LEFT JOIN competition_apply_info cai ON cai.member_id = cgi.member_id
+        LEFT JOIN competition_stage_config csc on csc.stage_id = cgi.competition_stage_id
+        WHERE cgi.del_flag = '0'
+            <if test="competitionSeriesId != null">
+                and cgi.competition_series_id = #{competitionSeriesId}
+            </if>
+            <if test="competitionStageId != null and competitionStageId != ''">
+                and cgi.competition_stage_id = #{competitionStageId}
+            </if>
+            <if test="competitionTrackId != null and competitionTrackId != ''">
+                and cgi.competition_track_id = #{competitionTrackId}
+            </if>
+            <if test="secondLevelCode != null and secondLevelCode != ''">
+                and cgi.second_level_code = #{secondLevelCode}
+            </if>
+            <if test="courseId != null">
+                and cgi.course_id = #{courseId}
+            </if>
+            <if test="trainingProgramId != null">
+                and cgi.training_program_id = #{trainingProgramId}
+            </if>
+            <if test="memberId != null">
+                and cgi.member_id = #{memberId}
+            </if>
+            <if test="userId != null">
+                and cgi.user_id = #{userId}
+            </if>
+            <if test="teamCode != null and teamCode != ''">
+                and cgi.team_code = #{teamCode}
+            </if>
+            <if test="gradeSource != null and gradeSource != ''">
+                and cgi.grade_source = #{gradeSource}
+            </if>
+<!--        <if test="competitionName != null and competitionName!=''">-->
+<!--            and cgi.competition_name like concat('%', #{competitionName}, '%')-->
+<!--        </if>-->
+<!--        <if test="competitionTrackName != null and competitionTrackName!=''">-->
+<!--            and cgi.competition_track_name like concat('%', #{competitionTrackName}, '%')-->
+<!--        </if>-->
+<!--        <if test="secondLevelName != null and secondLevelName!=''">-->
+<!--            and cgi.second_level_name like concat('%', #{secondLevelName}, '%')-->
+<!--        </if>-->
+        <if test="userName != null and userName!=''">
+            and cgi.user_name like concat('%', #{userName}, '%')
+        </if>
+        <if test="phone != null and phone!=''">
+            and cai.phone like concat('%', #{phone}, '%')
+        </if>
+        <if test="email != null and email!=''">
+            and cai.email like concat('%', #{email}, '%')
+        </if>
+        <if test="leaderTeacherName != null and leaderTeacherName!=''">
+            and cai.leader_teacher_id in (select user_id from auth_info where real_name like concat('%', #{leaderTeacherName}, '%'))
+        </if>
+        <if test="competitionRoleName != null and competitionRoleName!=''">
+            and cai.competition_role_name in
+            <foreach item="item" collection="competitionRoleName.split(',')" separator="," open="(" close=")">
+                #{item}
+            </foreach>
+        </if>
+        <if test="schoolName != null and schoolName!=''">
+            and cai.school in (select id from nationwide_college_info where school_name like concat('%', #{schoolName}, '%'))
+        </if>
+        <choose>
+            <when test="filterConditions!=null">
+                <if test="filterConditions.userScore != null and filterConditions.userScore!='' and filterConditions.conditions == '1'.toString()">
+                    and CAST(cgi.score AS DECIMAL(10,2)) > #{filterConditions.userScore}
+                </if>
+                <if test="filterConditions.userScore != null and filterConditions.userScore!='' and filterConditions.conditions == '2'.toString()">
+                    and CAST(cgi.score AS DECIMAL(10,2)) &lt; #{filterConditions.userScore}
+                </if>
+                <if test="filterConditions.userScore != null and filterConditions.userScore!='' and filterConditions.conditions == '3'.toString()">
+                    and CAST(cgi.score AS DECIMAL(10,2)) = #{filterConditions.userScore}
+                </if>
+                <if test="filterConditions.userScore != null and filterConditions.userScore!='' and filterConditions.conditions == '4'.toString()">
+                    and CAST(cgi.score AS DECIMAL(10,2)) >= #{userScoreStart} and CAST(cgi.score AS DECIMAL(10,2)) &lt;= #{userScoreEnd}
+                </if>
+                <if test="filterConditions.topN != null and filterConditions.topN != '' and filterConditions.ranking =='1'.toString()">
+                    and cgi.grade_id IN (
+                    select grade_id
+                    from (
+                    select
+                    grade_id,
+                    dense_rank() over (
+                    order by cast(score as DECIMAL(10, 2)) desc
+                    ) as dr
+                    from competition_grade_info
+                    where del_flag = '0'
+                    ) t
+                    where t.dr > CAST(#{filterConditions.topN} AS DECIMAL(10,0))
+                    )
+                </if>
+                <if test="filterConditions.topN != null and filterConditions.topN != '' and filterConditions.ranking =='2'.toString()">
+                    and cgi.grade_id IN (
+                    select grade_id
+                    from (
+                    select
+                    grade_id,
+                    dense_rank() over (
+                    order by cast(score as DECIMAL(10, 2)) desc
+                    ) as dr
+                    from competition_grade_info
+                    where del_flag = '0'
+                    ) t
+                    where t.dr &lt; CAST(#{filterConditions.topN} AS DECIMAL(10,0))
+                    )
+                </if>
+                <if test="filterConditions.topN != null and filterConditions.topN != '' and filterConditions.ranking =='3'.toString()">
+                    and cgi.grade_id IN (
+                    select grade_id
+                    from (
+                    select
+                    grade_id,
+                    dense_rank() over (
+                    order by cast(score as DECIMAL(10, 2)) desc
+                    ) as dr
+                    from competition_grade_info
+                    where del_flag = '0'
+                    ) t
+                    where t.dr = CAST(#{filterConditions.topN} AS DECIMAL(10,0))
+                    )
+                </if>
+                <if test="filterConditions.lowN != null and filterConditions.topN != null and filterConditions.ranking =='4'.toString()">
+                    and cgi.grade_id IN (
+                    select grade_id
+                    from (
+                    select
+                    grade_id,
+                    dense_rank() over (
+                    order by cast(score as DECIMAL(10, 2)) desc
+                    ) as dr
+                    from competition_grade_info
+                    where del_flag = '0'
+                    ) t
+                    where t.dr >= CAST(#{filterConditions.topN} AS DECIMAL(10,0)) AND t.dr &lt;= CAST(#{filterConditions.lowN} AS DECIMAL(10,0))
+                    )
+                </if>
+            </when>
+        </choose>
+        order by CAST(cgi.score AS DECIMAL(10,2)) desc
+    </select>
+
+    <select id="selectCompetitionGradeInfoList2" parameterType="com.teaching.competition.domain.CompetitionGradeInfo" resultMap="CompetitionGradeInfoResult">
+        WITH all_grades AS (
+        SELECT
+        grade_id,
+        DENSE_RANK() OVER (ORDER BY CAST(score AS DECIMAL(10,2)) DESC) as full_ranking
+        FROM competition_grade_info
+        WHERE del_flag = '0'
+        )
+        SELECT
+        cgi.grade_id,
+        cgi.competition_series_id,
+        cgi.competition_stage_id,
+        cgi.competition_track_id,
+        cgi.second_level_code,
+        cgi.course_id,
+        cgi.training_program_id,
+        cgi.member_id,
+        cgi.user_id,
+        cgi.score,
+        cgi.team_code,
+        cgi.grade_source,
+        cgi.create_by,
+        cgi.create_time,
+        cgi.update_by,
+        cgi.update_time,
+        cgi.del_flag,
+        cgi.version,
+        cgi.user_name,
+        cai.phone,
+        cgi.id_card,
+        cai.email,
+        cai.leader_teacher_id,
+        cai.competition_role_name,
+        ag.full_ranking as ranking,
+        csi.competition_series_name,
+        csi.competition_name,
+        cti.competition_track_name,
+        ctc.second_level_name,
+        csc.stage_name
+        FROM competition_grade_info cgi
+        LEFT JOIN all_grades ag ON cgi.grade_id = ag.grade_id
+        LEFT JOIN (
+        SELECT
+        a.competition_series_id,
+        a.competition_series_name,
+        b.competition_name
+        FROM competition_series_info a
+        LEFT JOIN competition_main_info b ON a.competition_id = b.competition_id
+        ) csi ON cgi.competition_series_id = csi.competition_series_id
+        LEFT JOIN competition_track_info cti ON cgi.competition_track_id = cti.competition_track_id
+        LEFT JOIN competition_track_config ctc ON cgi.second_level_code = ctc.second_level_code
+        LEFT JOIN competition_apply_info cai ON cai.member_id = cgi.member_id
+        LEFT JOIN competition_stage_config csc on csc.stage_id = cgi.competition_stage_id
+        WHERE cgi.del_flag = '0'
+        <if test="competitionSeriesId != null">
+            and cgi.competition_series_id = #{competitionSeriesId}
+        </if>
+        <if test="competitionTrackId != null and competitionTrackId != ''">
+            and cgi.competition_track_id = #{competitionTrackId}
+        </if>
+        <if test="secondLevelCode != null and secondLevelCode != ''">
+            and cgi.second_level_code = #{secondLevelCode}
+        </if>
+        <if test="courseId != null">
+            and cgi.course_id = #{courseId}
+        </if>
+        <if test="trainingProgramId != null">
+            and cgi.training_program_id = #{trainingProgramId}
+        </if>
+        <if test="memberId != null">
+            and cgi.member_id = #{memberId}
+        </if>
+        <if test="userId != null">
+            and cgi.user_id = #{userId}
+        </if>
+        <if test="teamCode != null and teamCode != ''">
+            and cgi.team_code = #{teamCode}
+        </if>
+        <if test="gradeSource != null and gradeSource != ''">
+            and cgi.grade_source = #{gradeSource}
+        </if>
+        <if test="userName != null and userName!=''">
+            and cgi.user_name like concat('%', #{userName}, '%')
+        </if>
+        <if test="phone != null and phone!=''">
+            and cai.phone like concat('%', #{phone}, '%')
+        </if>
+        <if test="email != null and email!=''">
+            and cai.email like concat('%', #{email}, '%')
+        </if>
+        <if test="leaderTeacherName != null and leaderTeacherName!=''">
+            and cai.leader_teacher_id in (select user_id from auth_info where real_name like concat('%', #{leaderTeacherName}, '%'))
+        </if>
+        <if test="stageName != null and stageName!=''">
+            and csc.stage_id = #{stageName}
+        </if>
+        <if test="competitionRoleName != null and competitionRoleName!=''">
+            and cai.competition_role_name in
+            <foreach item="item" collection="competitionRoleName.split(',')" separator="," open="(" close=")">
+                #{item}
+            </foreach>
+        </if>
+        <if test="schoolName != null and schoolName!=''">
+            and cai.school in (select id from nationwide_college_info where school_name like concat('%', #{schoolName}, '%'))
+        </if>
+        <choose>
+          <!-- 按成绩 conditions（1>、2<、3=、4区间），userScoreStart，userScoreEnd -->
+          <when test="filterConditions != null and filterConditions.conditions != null">
+              <if test="filterConditions.userScore != null and filterConditions.userScore!='' and filterConditions.conditions == '1'.toString()">
+                  and CAST(cgi.score AS DECIMAL(10,2)) > #{filterConditions.userScore}
+              </if>
+              <if test="filterConditions.userScore != null and filterConditions.userScore!='' and filterConditions.conditions == '2'.toString()">
+                  and CAST(cgi.score AS DECIMAL(10,2)) &lt; #{filterConditions.userScore}
+              </if>
+              <if test="filterConditions.userScore != null and filterConditions.userScore!='' and filterConditions.conditions == '3'.toString()">
+                  and CAST(cgi.score AS DECIMAL(10,2)) = #{filterConditions.userScore}
+              </if>
+              <if test="filterConditions.conditions == '4'.toString()">
+                <choose>
+                    <when test="filterConditions.userScoreStart != null and filterConditions.userScoreStart!='' and filterConditions.userScoreEnd != null and filterConditions.userScoreEnd!=''">
+                        and CAST(cgi.score AS DECIMAL(10,2)) >= #{filterConditions.userScoreStart} and CAST(cgi.score AS DECIMAL(10,2)) &lt;= #{filterConditions.userScoreEnd}
+                    </when>
+                    <when test="filterConditions.userScoreStart != null and filterConditions.userScoreStart!=''">
+                        and CAST(cgi.score AS DECIMAL(10,2)) >= #{filterConditions.userScoreStart}
+                    </when>
+                    <when test="filterConditions.userScoreEnd != null and filterConditions.userScoreEnd!=''">
+                        and CAST(cgi.score AS DECIMAL(10,2)) &lt;= #{filterConditions.userScoreEnd}
+                    </when>
+                </choose>
+              </if>
+          </when>
+        <!-- 按排名 ranking（1>、2<、3=、4区间），topN，lowN -->
+        <when test="filterConditions != null and filterConditions.ranking != null">
+            <if test="filterConditions.topN != null and filterConditions.topN != '' and filterConditions.ranking =='1'.toString()">
+                and cgi.grade_id IN (
+                select grade_id
+                from (
+                select
+                grade_id,
+                dense_rank() over (
+                order by cast(score as DECIMAL(10, 2)) desc
+                ) as dr
+                from competition_grade_info
+                where del_flag = '0'
+                ) t
+                where t.dr > CAST(#{filterConditions.topN} AS DECIMAL(10,0))
+                )
+            </if>
+            <if test="filterConditions.topN != null and filterConditions.topN != '' and filterConditions.ranking =='2'.toString()">
+                and cgi.grade_id IN (
+                select grade_id
+                from (
+                select
+                grade_id,
+                dense_rank() over (
+                order by cast(score as DECIMAL(10, 2)) desc
+                ) as dr
+                from competition_grade_info
+                where del_flag = '0'
+                ) t
+                where t.dr &lt; CAST(#{filterConditions.topN} AS DECIMAL(10,0))
+                )
+            </if>
+            <if test="filterConditions.topN != null and filterConditions.topN != '' and filterConditions.ranking =='3'.toString()">
+                and cgi.grade_id IN (
+                select grade_id
+                from (
+                select
+                grade_id,
+                dense_rank() over (
+                order by cast(score as DECIMAL(10, 2)) desc
+                ) as dr
+                from competition_grade_info
+                where del_flag = '0'
+                ) t
+                where t.dr = CAST(#{filterConditions.topN} AS DECIMAL(10,0))
+                )
+            </if>
+            <if test="filterConditions.ranking =='4'.toString()">
+                <choose>
+                    <when test="filterConditions.lowN != null and filterConditions.topN != null and filterConditions.lowN != '' and filterConditions.topN != ''">
+                        and cgi.grade_id IN (
+                        select grade_id
+                        from (
+                        select
+                        grade_id,
+                        dense_rank() over (
+                        order by cast(score as DECIMAL(10, 2)) desc
+                        ) as dr
+                        from competition_grade_info
+                        where del_flag = '0'
+                        ) t
+                        where t.dr >= CAST(#{filterConditions.topN} AS DECIMAL(10,0)) AND t.dr &lt;= CAST(#{filterConditions.lowN} AS DECIMAL(10,0))
+                        )
+                    </when>
+                    <when test="filterConditions.topN != null and filterConditions.topN != ''">
+                        and cgi.grade_id IN (
+                        select grade_id
+                        from (
+                        select
+                        grade_id,
+                        dense_rank() over (
+                        order by cast(score as DECIMAL(10, 2)) desc
+                        ) as dr
+                        from competition_grade_info
+                        where del_flag = '0'
+                        ) t
+                        where t.dr >= CAST(#{filterConditions.topN} AS DECIMAL(10,0))
+                        )
+                    </when>
+                    <when test="filterConditions.lowN != null and filterConditions.lowN != ''">
+                        and cgi.grade_id IN (
+                        select grade_id
+                        from (
+                        select
+                        grade_id,
+                        dense_rank() over (
+                        order by cast(score as DECIMAL(10, 2)) desc
+                        ) as dr
+                        from competition_grade_info
+                        where del_flag = '0'
+                        ) t
+                        where t.dr &lt;= CAST(#{filterConditions.lowN} AS DECIMAL(10,0))
+                        )
+                    </when>
+                </choose>
+            </if>
+        </when>
+        </choose>
+        order by CAST(cgi.score AS DECIMAL(10,2)) desc
+    </select>
+
+
+    <insert id="insertCompetitionGradeInfo" parameterType="com.teaching.competition.domain.CompetitionGradeInfo" useGeneratedKeys="true" keyProperty="gradeId">
+        insert into competition_grade_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="competitionSeriesId != null">competition_series_id,</if>
+            <if test="competitionStageId != null">competition_stage_id,</if>
+            <if test="competitionTrackId != null">competition_track_id,</if>
+            <if test="secondLevelCode != null">second_level_code,</if>
+            <if test="courseId != null">course_id,</if>
+            <if test="trainingProgramId != null">training_program_id,</if>
+            <if test="memberId != null">member_id,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="score != null">score,</if>
+            <if test="ranking != null">ranking,</if>
+            <if test="teamCode != null">team_code,</if>
+            <if test="gradeSource != null">grade_source,</if>
+            <if test="userName != null">user_name,</if>
+            <if test="idCard != null">id_card,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="delFlag != null">del_flag,</if>
+            <if test="version != null">version,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="competitionSeriesId != null">#{competitionSeriesId},</if>
+            <if test="competitionStageId != null">#{competitionStageId},</if>
+            <if test="competitionTrackId != null">#{competitionTrackId},</if>
+            <if test="secondLevelCode != null">#{secondLevelCode},</if>
+            <if test="courseId != null">#{courseId},</if>
+            <if test="trainingProgramId != null">#{trainingProgramId},</if>
+            <if test="memberId != null">#{memberId},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="score != null">#{score},</if>
+            <if test="ranking != null">#{ranking},</if>
+            <if test="teamCode != null">#{teamCode},</if>
+            <if test="gradeSource != null">#{gradeSource},</if>
+            <if test="userName != null">#{userName},</if>
+            <if test="idCard != null">#{idCard},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+            <if test="version != null">#{version},</if>
+        </trim>
+    </insert>
+
+    <insert id="batchInsertCompetitionGradeInfo" parameterType="java.util.List">
+        insert into competition_grade_info (competition_series_id, competition_stage_id, competition_track_id, second_level_code, course_id,
+        training_program_id, member_id, user_id, score, ranking, team_code, grade_source, user_name, id_card, create_by, create_time, update_by,
+        update_time)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.competitionSeriesId}, #{item.competitionStageId}, #{item.competitionTrackId}, #{item.secondLevelCode}, #{item.courseId},
+            #{item.trainingProgramId}, #{item.memberId}, #{item.userId}, #{item.score}, #{item.ranking}, #{item.teamCode},
+            #{item.gradeSource}, #{item.userName}, #{item.idCard}, #{item.createBy}, now(), #{item.updateBy}, #{item.updateTime})
+        </foreach>
+    </insert>
+
+    <update id="updateCompetitionGradeInfo" parameterType="com.teaching.competition.domain.CompetitionGradeInfo">
+        update competition_grade_info
+        <set>
+            <if test="competitionSeriesId != null">competition_series_id = #{competitionSeriesId},</if>
+            <if test="competitionStageId != null">competition_stage_id = #{competitionStageId},</if>
+            <if test="competitionTrackId != null">competition_track_id = #{competitionTrackId},</if>
+            <if test="secondLevelCode != null">second_level_code = #{secondLevelCode},</if>
+            <if test="courseId != null">course_id = #{courseId},</if>
+            <if test="trainingProgramId != null">training_program_id = #{trainingProgramId},</if>
+            <if test="memberId != null">member_id = #{memberId},</if>
+            <if test="userId != null">user_id = #{userId},</if>
+            score = #{score},
+            <if test="ranking != null">ranking = #{ranking},</if>
+            <if test="teamCode != null">team_code = #{teamCode},</if>
+            <if test="gradeSource != null">grade_source = #{gradeSource},</if>
+            <if test="userName != null">user_name = #{userName},</if>
+            <if test="idCard != null">id_card = #{idCard},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+            version = version+1,
+        </set>
+        where grade_id = #{gradeId}
+    </update>
+
+    <update id="batchUpdateCompetitionGradeInfo" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            update competition_grade_info
+            <set>
+                <if test="item.score != null">score = #{item.score},</if>
+                <if test="item.ranking != null">ranking = #{item.ranking},</if>
+                <if test="item.gradeSource != null">grade_source = #{item.gradeSource},</if>
+                <if test="item.userName != null">user_name = #{item.userName},</if>
+                <if test="item.idCard != null">id_card = #{item.idCard},</if>
+                <if test="item.updateBy != null">update_by = #{item.updateBy},</if>
+                <if test="item.updateTime != null">update_time = #{item.updateTime},</if>
+                <if test="item.delFlag != null">del_flag = #{item.delFlag},</if>
+                version = version+1,
+            </set>
+            where grade_id = #{item.gradeId}
+        </foreach>
+    </update>
+
+    <delete id="deleteCompetitionGradeInfoById" parameterType="Long">
+        update competition_grade_info set del_flag = '1' where grade_id = #{gradeId}
+    </delete>
+
+    <delete id="deleteCompetitionGradeInfoByIds" parameterType="Long[]">
+        delete from competition_grade_info where grade_id in
+        <foreach item="gradeId" collection="array" open="(" separator="," close=")">
+            #{gradeId}
+        </foreach>
+    </delete>
+
+    <select id="selectCompetitionGradeInfoByIdCard" parameterType="com.teaching.competition.domain.CompetitionGradeInfo" resultMap="CompetitionGradeInfoResult">
+        select cgi.grade_id, cgi.competition_series_id, cgi.competition_stage_id, cgi.competition_track_id, cgi.second_level_code, cgi.course_id, cgi.training_program_id, cgi.member_id,
+        cgi.user_id, cgi.score, cgi.team_code, cgi.grade_source, cgi.create_by, cgi.create_time, cgi.update_by, cgi.update_time,
+        cgi.del_flag, cgi.version, cai.phone, cai.user_name, cai.id_card, cai.email,cai.leader_teacher_id,cai.competition_role_name,
+        DENSE_RANK() OVER (ORDER BY cgi.score DESC) as score_rank
+        from competition_grade_info cgi
+        left join competition_apply_info cai on cai.member_id = cgi.member_id
+        where cgi.del_flag = '0' AND cgi.id_card = #{idCard}
+        <if test="competitionSeriesId != null">
+            and cgi.competition_series_id = #{competitionSeriesId}
+        </if>
+        <if test="competitionTrackId != null and competitionTrackId!=''">
+            and cgi.competition_track_id = #{competitionTrackId}
+        </if>
+        <if test="secondLevelCode != null and secondLevelCode!=''">
+            and cgi.second_level_code = #{secondLevelCode}
+        </if>
+        <if test="competitionStageId != null and competitionStageId!=''">
+            and cgi.competition_stage_id = #{competitionStageId}
+        </if>
+        limit 1
+    </select>
+</mapper>

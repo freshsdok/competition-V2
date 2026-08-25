@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.system.mapper.OrderInfoMapper">
+
+    <resultMap type="com.teaching.system.api.domain.OrderInfo" id="OrderInfoResult">
+        <result property="id" column="id"/>
+        <result property="orderId"    column="order_id"    />
+        <result property="userId"    column="user_id"    />
+        <result property="userName"    column="user_name"    />
+        <result property="commodityName"    column="commodity_name"    />
+        <result property="commodityId"    column="commodity_id"    />
+        <result property="commodityType"  column="commodity_type" />
+        <result property="amount"    column="amount"    />
+        <result property="payMode"    column="pay_mode"    />
+        <result property="payStatus"    column="pay_status"    />
+        <result property="payTime"    column="pay_time"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="version"    column="version"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="orgId"    column="org_id"    />
+        <result property="qrCode" column="qr_code" />
+        <result property="targetOrderId" column="target_order_id"/>
+        <result property="qrCodeExpireTime" column="qr_code_expire_time"/>
+        <result property="refundAmount" column="refund_amount"/>
+        <result property="refundOrderId" column="refund_order_id"/>
+        <result property="refundReason" column="refund_reason"/>
+        <result property="refundTime" column="refund_time"/>
+        <result property="lastOrder" column="last_order"/>
+        <result property="payMethod" column="pay_method"/>
+        <result property="auditOpinion" column="audit_opinion"/>
+        <result property="paymentProofFiles" column="payment_proof_files"/>
+        <result property="merId" column="mer_id"/>
+        <result property="invoiceStatus" column="invoice_status"/>
+        <result property="cmbOrderId" column="cmb_order_id"/>
+        <result property="orderType" column="order_type"/>
+        <result property="refundStatus" column="refund_status"/>
+        <result property="payOrderId" column="pay_order_id"/>
+        <result property="relAmount" column="rel_amount"/>
+        <result property="teamInfoList" column="team_json"/>
+    </resultMap>
+
+    <sql id="selectOrderInfoVo">
+        select id, order_id, user_id, user_name, commodity_name, commodity_id,commodity_type, amount, pay_mode, pay_status, pay_time, create_by,
+               create_time, update_by, update_time, version, del_flag, org_id,qr_code,target_order_id,qr_code_expire_time,cmb_order_id,
+               refund_order_id,refund_amount,refund_reason,refund_time,pay_method,audit_opinion,payment_proof_files,mer_id,invoice_status,
+            order_type,refund_status,pay_order_id,rel_amount,team_json
+        from order_info
+    </sql>
+
+    <select id="selectOrderInfoList" parameterType="com.teaching.system.api.domain.OrderInfo" resultMap="OrderInfoResult">
+        select o.id, o.order_id, o.user_id, o.user_name, commodity_name, commodity_id,commodity_type, o.amount, pay_mode, pay_status, pay_time, o.create_by,
+        o.create_time, o.update_by, o.update_time, o.version, o.del_flag, o.org_id,qr_code,target_order_id,qr_code_expire_time,o.mer_id,o.invoice_status,o.cmb_order_id,o.team_json,
+        refund_order_id,refund_amount,refund_reason,refund_time,pay_method,audit_opinion,payment_proof_files,u.phonenumber as phoneNumber,if(i.issued_status=1,true,false) as hasInvoiced,
+        c.school_name as schoolName ,o.order_type,o.refund_status,o.pay_order_id,o.rel_amount
+        from order_info o
+        left join sys_user u on o.user_id = u.user_id
+        left join nationwide_college_info c on c.id = u.school
+        left join invoice_info i on o.order_id = i.order_id
+        where o.del_flag = '0'
+        <if test="id!=null ">and o.id like concat('%',#{id},'%') </if>
+        <if test="idStr!=null and idStr!=''">and o.id like concat("%",#{idStr},"%")</if>
+        <if test ="userId!=null and userId != ''">and o.user_id = #{userId}</if>
+        <if test="orderId != null  and orderId != ''"> and o.order_id like concat('%',#{orderId},'%')</if>
+        <if test="userName != null  and userName != ''"> and o.user_name like concat('%', #{userName}, '%')</if>
+        <if test="commodityName != null  and commodityName != ''"> and commodity_name like concat('%', #{commodityName}, '%')</if>
+        <if test="commodityId != null  and commodityId != ''"> and commodity_id = #{commodityId}</if>
+        <if test="payMode != null  and payMode != ''"> and pay_mode = #{payMode}</if>
+        <if test="payStatus != null  and payStatus != ''"> and pay_status = #{payStatus}</if>
+        <if test="payTime != null "> and pay_time = #{payTime}</if>
+        <if test="phoneNumber!=null">and u.phonenumber like concat('%',#{phoneNumber},'%')</if>
+        <if test="commodityType!=null">and commodity_type = #{commodityType}</if>
+        <if test="payMethod!=null">and pay_method = #{payMethod}</if>
+        <if test="targetOrderId!=null">and target_order_id like concat('%',#{targetOrderId},'%')</if>
+        <if test="cmbOrderId!=null">and cmb_order_id like concat('%',#{cmbOrderId},'%')</if>
+        <if test="merId!=null and merId !=''">and mer_id = #{merId}</if>
+        <if test="invoiceStatus!=null and invoiceStatus!=''">and o.invoice_status = #{invoiceStatus}</if>
+        <if test="schoolName!=null and schoolName!=''">and c.school_name like concat('%',#{schoolName},'%')</if>
+        <if test="payStartTime!=null">
+            and pay_time &gt;= #{payStartTime}
+        </if>
+        <if test="payEndTime!=null">
+            and pay_time &lt;= #{payEndTime}
+        </if>
+        <if test="amountStart!=null">
+            and o.amount &gt;= #{amountStart}
+        </if>
+        <if test="amountEnd!=null">
+            and o.amount &lt;= #{amountEnd}
+        </if>
+        order by create_time desc
+    </select>
+
+    <select id="selectOrderInfoById" parameterType="Long" resultMap="OrderInfoResult">
+        <include refid="selectOrderInfoVo"/>
+        where id = #{refundId} and del_flag = '0'
+    </select>
+
+    <select id="selectOrderInfoTeamJson" resultMap="OrderInfoResult">
+        <include refid="selectOrderInfoVo"/>
+        where team_json is null and pay_order_id is null and del_flag = '0' and pay_status ='paid' order by pay_time
+    </select>
+
+    <insert id="insertOrderInfo" parameterType="com.teaching.system.api.domain.OrderInfo" useGeneratedKeys="true">
+        insert into order_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id!=null">id,</if>
+            <if test="orderId != null">order_id,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="userName != null">user_name,</if>
+            <if test="commodityName != null">commodity_name,</if>
+            <if test="commodityId != null">commodity_id,</if>
+            <if test="commodityType != null">commodity_type,</if>
+            <if test="amount != null">amount,</if>
+            <if test="payMode != null">pay_mode,</if>
+            <if test="payStatus != null">pay_status,</if>
+            <if test="payTime != null">pay_time,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="version != null">version,</if>
+            <if test="delFlag != null">del_flag,</if>
+            <if test="orgId != null">org_id,</if>
+            <if test="payMethod != null">pay_method,</if>
+            <if test="auditOpinion != null">audit_opinion,</if>
+            <if test="paymentProofFiles != null">payment_proof_files,</if>
+            <if test="merId != null">mer_id,</if>
+            <if test="outOrderId != null">out_order_id,</if>
+            <if test="cmbOrderId != null">cmb_order_id,</if>
+            <if test="bizOrderId != null">biz_order_id,</if>
+            <if test="invoiceStatus !=null">invoice_status,</if>
+            <if test="orderType !=null">order_type,</if>
+            <if test="refundStatus !=null">refund_status,</if>
+            <if test="payOrderId !=null">pay_order_id,</if>
+            <if test="qrCode !=null">qr_code,</if>
+            <if test="relAmount !=null">rel_amount,</if>
+            <if test="teamInfoList !=null">team_json,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id!=null">#{id},</if>
+            <if test="orderId != null">#{orderId},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="userName != null">#{userName},</if>
+            <if test="commodityName != null">#{commodityName},</if>
+            <if test="commodityId != null">#{commodityId},</if>
+            <if test="commodityType != null">#{commodityType},</if>
+            <if test="amount != null">#{amount},</if>
+            <if test="payMode != null">#{payMode},</if>
+            <if test="payStatus != null">#{payStatus},</if>
+            <if test="payTime != null">#{payTime},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="version != null">#{version},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+            <if test="orgId != null">#{orgId},</if>
+            <if test="payMethod != null">#{payMethod},</if>
+            <if test="auditOpinion != null">#{auditOpinion},</if>
+            <if test="paymentProofFiles != null">#{paymentProofFiles},</if>
+            <if test="merId != null">#{merId},</if>
+            <if test="outOrderId != null">#{outOrderId},</if>
+            <if test="cmbOrderId != null">#{cmbOrderId},</if>
+            <if test="bizOrderId != null">#{bizOrderId},</if>
+            <if test="invoiceStatus!=null">#{invoiceStatus},</if>
+            <if test="orderType!=null">#{orderType},</if>
+            <if test="refundStatus!=null">#{refundStatus},</if>
+            <if test="payOrderId!=null">#{payOrderId},</if>
+            <if test="qrCode !=null">#{qrCode},</if>
+            <if test="relAmount !=null">#{relAmount},</if>
+            <if test="teamInfoList !=null">#{teamInfoList},</if>
+         </trim>
+    </insert>
+
+    <update id="updateOrderInfo" parameterType="com.teaching.system.api.domain.OrderInfo">
+        update order_info
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="orderId != null">order_id = #{orderId},</if>
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="userName != null">user_name = #{userName},</if>
+            <if test="commodityName != null">commodity_name = #{commodityName},</if>
+            <if test="commodityId != null">commodity_id = #{commodityId},</if>
+            <if test="commodityType != null">commodity_type = #{commodityType},</if>
+            <if test="amount != null">amount = #{amount},</if>
+            <if test="payMode != null">pay_mode = #{payMode},</if>
+            <if test="payStatus != null">pay_status = #{payStatus},</if>
+            <if test="payTime != null">pay_time = #{payTime},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="version != null">version = #{version},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+            <if test="orgId != null">org_id = #{orgId},</if>
+            <if test="qrCode !=null">qr_code = #{qrCode},</if>
+            <if test="qrCodeExpireTime !=null">qr_code_expire_time = #{qrCodeExpireTime},</if>
+            <if test="targetOrderId !=null">target_order_id = #{targetOrderId},</if>
+            <if test="refundOrderId !=null">refund_order_id = #{refundOrderId},</if>
+            <if test="refundAmount !=null">refund_amount = #{refundAmount},</if>
+            <if test="refundTime !=null">refund_time = #{refundTime},</if>
+            <if test="refundReason !=null">refund_reason = #{refundReason},</if>
+            <if test="lastOrder !=null">last_order = #{lastOrder},</if>
+            <if test="payMethod !=null">pay_method = #{payMethod},</if>
+            <if test="auditOpinion !=null">audit_opinion = #{auditOpinion},</if>
+            <if test="paymentProofFiles !=null">payment_proof_files = #{paymentProofFiles},</if>
+            <if test="merId != null">mer_id = #{merId},</if>
+            <if test="outOrderId != null">out_order_id = #{outOrderId},</if>
+            <if test="cmbOrderId != null">cmb_order_id = #{cmbOrderId},</if>
+            <if test="bizOrderId != null">biz_order_id = #{bizOrderId},</if>
+            <if test="invoiceStatus!=null">invoice_status = #{invoiceStatus},</if>
+            <if test="orderType!=null">order_type = #{orderType},</if>
+            <if test="refundStatus!=null">refund_status = #{refundStatus},</if>
+            <if test="payOrderId!=null">pay_order_id = #{payOrderId},</if>
+            <if test="relAmount!=null">rel_amount = #{relAmount},</if>
+            <if test="teamInfoList !=null">team_json = #{teamInfoList},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteOrderInfoByOrderId" parameterType="Long">
+        update order_info set del_flag = '1' where id = #{id}
+    </delete>
+
+    <delete id="deleteOrderInfoByOrderIds" parameterType="Long">
+        update order_info set del_flag = '1' where id in
+        <foreach item="ids" collection="array" open="(" separator="," close=")">
+            #{ids}
+        </foreach>
+    </delete>
+
+    <select id="selectOrderInfoByOrderId" resultMap="OrderInfoResult">
+        <include refid="selectOrderInfoVo"/>
+        where del_flag = '0' and order_id = #{orderId}
+    </select>
+
+    <select id="selectOrderInfoByRefundOrderId" resultMap="OrderInfoResult">
+        <include refid="selectOrderInfoVo"/>
+        where del_flag = '0' and refund_order_id = #{refundOrderId}
+    </select>
+
+    <select id="syncPaymentResult" resultMap="OrderInfoResult">
+        <include refid="selectOrderInfoVo"/>
+        where qr_code_expire_time > current_time() and (pay_status = 'pending' or pay_status ='paying') and pay_method = 'online' and del_flag = 0
+    </select>
+
+    <select id="syncRefundResult" resultMap="OrderInfoResult">
+        <include refid="selectOrderInfoVo"/>
+        where del_flag = 0 and pay_status = 'refunding'
+    </select>
+    <select id="getOrderByUserIdAndCommodityId" resultMap="OrderInfoResult">
+        <include refid="selectOrderInfoVo"/>
+        where user_id = #{userId} and commodity_id = #{commodityId} and del_flag = 0 and last_order = 1
+    </select>
+    <select id="selectOrderStatus" resultMap="OrderInfoResult">
+        <include refid="selectOrderInfoVo"/>
+        where del_flag = 0 and last_order = 1 and commodity_id in
+        <foreach item="commodityId" collection="req.commodityIds" open="(" separator="," close=")">
+            #{commodityId}
+        </foreach>
+        <if test="req.commodityType != null">and commodity_type = #{req.commodityType}</if>
+        <if test="req.payStatus != null">and pay_status = #{req.payStatus}</if>
+    </select>
+    <select id="getPendingCount" resultType="java.lang.Integer">
+        select count(1) from order_info where del_flag = 0 and pay_status = 'pending' and user_id = #{userId}
+    </select>
+
+    <select id="getOrderByCommodityId" resultMap="OrderInfoResult">
+        <include refid="selectOrderInfoVo"/>
+        where FIND_IN_SET (#{commodityCode},commodity_id) and del_flag = '0' and pay_order_id is null and last_order = 1 and pay_status = 'paid'
+    </select>
+
+    <!--    更新附件信息,去掉支付时间更新，换到审核通过再修改 20260107-->
+    <update id="updateAttachmentInfo">
+<!--        update order_info set payment_proof_files = #{attachmentInfo},pay_status = 'approving',audit_opinion=null ,pay_time = sysdate() where id = #{id}-->
+        update order_info set payment_proof_files = #{attachmentInfo},pay_status = 'approving',audit_opinion=null where id = #{id}
+    </update>
+
+    <select id="selectTeamCodesByOrderIds" resultType="java.lang.String">
+        select team_code from order_info where id in
+        <foreach item="id" collection="ids" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
+
+    <select id="selectCountByTeamCodes" resultType="java.lang.Integer">
+            SELECT count(1) FROM order_info WHERE del_flag = '0' AND
+            <foreach item="teamCode" collection="array" open="(" separator="OR" close=")">
+                FIND_IN_SET(#{teamCode},commodity_id)
+            </foreach>
+    </select>
+    <select id="selectOrderListByOrderIds" resultMap="OrderInfoResult">
+        <include refid="selectOrderInfoVo"/>
+        where id in
+        <foreach item="id" collection="ids" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
+
+    <select id="getCommodityNameList" resultType="String">
+        select distinct commodity_name from order_info where del_flag=0
+    </select>
+
+    <update id="updateRefundStatus">
+        update order_info set pay_status = 'refunded' and refund_reason= #{refundReason} where id = #{id}
+    </update>
+
+<!--   查询已支付的，非退费重缴类型的订单 -->
+    <select id="selectOrderByTeamCode" resultMap="OrderInfoResult">
+        select o.* from order_info o
+        left join order_goods_relation ogr on o.id = ogr.order_id and ogr.del_flag = '0'
+        where o.del_flag = '0' AND ogr.commodity_id =#{teamCode} and o.pay_status = 'paid' and (ogr.change_type != 'repayment' or (ogr.change_type = 'repayment' and ogr.pay_status ='cancelled') or ogr.change_type is NULL or ogr.pay_status is null)
+        order by o.create_time limit 1
+    </select>
+
+    <!-- 查询团队变更后有无待支付订单-->
+    <select id="selectPendingOrderByTeamCode" resultMap="OrderInfoResult">
+        select o.* from order_info o where o.del_flag = '0' AND o.commodity_id =#{teamCode} and (o.pay_status = 'pending' or o.pay_status = 'approving')
+    </select>
+
+    <select id="selectRefundRepaymentOrderByTeamCode" resultMap="OrderInfoResult">
+        select o.* from order_info o
+        left join order_goods_relation ogr on o.id = ogr.order_id and ogr.del_flag = '0'
+        where o.del_flag = '0' AND ogr.commodity_id = #{teamCode} and o.pay_status = 'paid' and ogr.change_type = 'repayment' and ogr.pay_status ='paid'
+        order by o.create_time desc limit 1
+    </select>
+
+    <select id="selectOrderListByTeamCode" resultMap="OrderInfoResult">
+        select o.* from order_info o
+        left join order_goods_relation ogr on o.id = ogr.order_id and ogr.del_flag = '0'
+        where o.del_flag = '0' AND ogr.commodity_id =#{teamCode} and o.pay_status = 'paid'
+        order by o.create_time
+    </select>
+
+    <update id="updateRefundCancelStatus">
+        update order_info set pay_status = 'refund_canceled' where id = #{refundId}
+    </update>
+
+    <select id="selectOrderInfoByPayOrderId" resultMap="OrderInfoResult">
+        <include refid="selectOrderInfoVo"/>
+        where pay_order_id = #{payOrderId} and del_flag = '0'
+    </select>
+
+    <select id="selectRefundOrderByPayOrderId" resultMap="OrderInfoResult">
+        <include refid="selectOrderInfoVo"/>
+        where pay_order_id = #{payOrderId} and order_type = "refund" and del_flag = '0'
+    </select>
+</mapper>

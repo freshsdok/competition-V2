@@ -1,0 +1,438 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.competition.mapper.CompetitionSceneCheckinOverviewMapper">
+
+    <resultMap id="StatisticsResult" type="com.teaching.competition.domain.CompetitionSceneCheckinOverviewStatisticsVO">
+        <result property="totalPersonCount" column="total_person_count"/>
+        <result property="signedPersonCount" column="signed_person_count"/>
+        <result property="unsignedPersonCount" column="unsigned_person_count"/>
+        <result property="checkinRate" column="checkin_rate"/>
+        <result property="scheduleCount" column="schedule_count"/>
+        <result property="warningScheduleCount" column="warning_schedule_count"/>
+        <result property="lastCheckinTime" column="last_checkin_time"/>
+    </resultMap>
+
+    <resultMap id="ScheduleCardResult" type="com.teaching.competition.domain.CompetitionSceneCheckinScheduleCardVO">
+        <id property="scheduleId" column="schedule_id"/>
+        <result property="scheduleName" column="schedule_name"/>
+        <result property="competitionSeriesId" column="competition_series_id"/>
+        <result property="competitionName" column="competition_name"/>
+        <result property="competitionTrackId" column="competition_track_id"/>
+        <result property="competitionTrackName" column="competition_track_name"/>
+        <result property="secondLevelCode" column="second_level_code"/>
+        <result property="secondLevelName" column="second_level_name"/>
+        <result property="competitionStartTime" column="competition_start_time"/>
+        <result property="competitionEndTime" column="competition_end_time"/>
+        <result property="checkinStartTime" column="checkin_start_time"/>
+        <result property="checkinEndTime" column="checkin_end_time"/>
+        <result property="checkinLocation" column="checkin_location"/>
+        <result property="competitionLocation" column="competition_location"/>
+        <result property="totalPersonCount" column="total_person_count"/>
+        <result property="signedPersonCount" column="signed_person_count"/>
+        <result property="unsignedPersonCount" column="unsigned_person_count"/>
+        <result property="checkinRate" column="checkin_rate"/>
+        <result property="memberTotalCount" column="member_total_count"/>
+        <result property="memberSignedCount" column="member_signed_count"/>
+        <result property="teamTotalCount" column="team_total_count"/>
+        <result property="completedTeamCount" column="completed_team_count"/>
+        <result property="partialTeamCount" column="partial_team_count"/>
+        <result property="unsignedTeamCount" column="unsigned_team_count"/>
+        <result property="lastCheckinTime" column="last_checkin_time"/>
+        <result property="scheduleStatus" column="schedule_status"/>
+        <result property="checkinStatus" column="checkin_status"/>
+        <result property="warningLevel" column="warning_level"/>
+        <result property="warningMessage" column="warning_message"/>
+    </resultMap>
+
+    <resultMap id="RankItemResult" type="com.teaching.competition.domain.CompetitionSceneCheckinRankItemVO">
+        <id property="scheduleId" column="schedule_id"/>
+        <result property="scheduleName" column="schedule_name"/>
+        <result property="totalPersonCount" column="total_person_count"/>
+        <result property="signedPersonCount" column="signed_person_count"/>
+        <result property="unsignedPersonCount" column="unsigned_person_count"/>
+        <result property="checkinRate" column="checkin_rate"/>
+        <result property="competitionStartTime" column="competition_start_time"/>
+    </resultMap>
+
+    <resultMap id="TimeGroupResult" type="com.teaching.competition.domain.CompetitionSceneCheckinTimeGroupVO">
+        <result property="competitionStartTime" column="competition_start_time"/>
+        <result property="scheduleCount" column="schedule_count"/>
+        <result property="totalPersonCount" column="total_person_count"/>
+        <result property="signedPersonCount" column="signed_person_count"/>
+        <result property="unsignedPersonCount" column="unsigned_person_count"/>
+        <result property="checkinRate" column="checkin_rate"/>
+    </resultMap>
+
+    <resultMap id="TeamResult" type="com.teaching.competition.domain.CompetitionSceneCheckinTeamVO">
+        <result property="teamCode" column="team_code"/>
+        <result property="teamName" column="team_name"/>
+        <result property="totalPersonCount" column="total_person_count"/>
+        <result property="signedPersonCount" column="signed_person_count"/>
+        <result property="unsignedPersonCount" column="unsigned_person_count"/>
+        <result property="checkinRate" column="checkin_rate"/>
+        <result property="teamStatus" column="team_status"/>
+    </resultMap>
+
+    <resultMap id="PersonResult" type="com.teaching.competition.domain.CompetitionSceneCheckinPersonVO">
+        <id property="targetId" column="target_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="memberId" column="member_id"/>
+        <result property="credentialId" column="credential_id"/>
+        <result property="teamCode" column="team_code"/>
+        <result property="teamName" column="team_name"/>
+        <result property="personName" column="person_name"/>
+        <result property="roleCode" column="role_code"/>
+        <result property="roleName" column="role_name"/>
+        <result property="checkinStatus" column="checkin_status"/>
+        <result property="checkinTime" column="checkin_time"/>
+        <result property="checkinMethod" column="checkin_method"/>
+    </resultMap>
+
+    <sql id="SignedTarget">
+        select
+            c.schedule_id,
+            c.target_id,
+            min(c.credential_id) as credential_id,
+            max(st.operation_time) as checkin_time
+        from competition_scene_subject_operation_state st
+        inner join competition_scene_credential c
+            on c.credential_id = st.credential_id
+            and c.del_flag = '0'
+        where st.deleted = 0
+          and st.scope_type = 'SCHEDULE'
+          and st.operation_type = 'REPORT'
+          and st.operation_status = 'DONE'
+          and c.schedule_id is not null
+          and c.target_id is not null
+          and st.scope_ref_id = c.schedule_id
+        group by c.schedule_id, c.target_id
+    </sql>
+
+    <sql id="CredentialTarget">
+        select schedule_id, target_id, min(credential_id) as credential_id
+        from competition_scene_credential
+        where del_flag = '0'
+          and schedule_id is not null
+          and target_id is not null
+        group by schedule_id, target_id
+    </sql>
+
+    <sql id="QueryFilter">
+        s.del_flag = '0'
+        and s.status = '0'
+        and t.del_flag = '0'
+        and t.status = '0'
+        and t.match_status = 'MATCHED'
+        and t.competition_role_name in ('队员', 'MEMBER', '选手', 'PLAYER')
+        <if test="competitionSeriesId != null">
+            and s.competition_series_id = #{competitionSeriesId}
+        </if>
+        <if test="competitionId != null">
+            and cs.competition_id = #{competitionId}
+        </if>
+        <if test="competitionTrackId != null and competitionTrackId != ''">
+            and s.competition_track_id = #{competitionTrackId}
+        </if>
+        <if test="startTimeBegin != null">
+            and s.contest_start_time &gt;= #{startTimeBegin}
+        </if>
+        <if test="startTimeEnd != null">
+            and s.contest_start_time &lt;= #{startTimeEnd}
+        </if>
+        <if test="checkinLocation != null and checkinLocation != ''">
+            and s.report_location like concat('%', #{checkinLocation}, '%')
+        </if>
+        <if test="scheduleId != null">
+            and s.schedule_id = #{scheduleId}
+        </if>
+    </sql>
+
+    <sql id="ScheduleAggregate">
+        select
+            s.schedule_id,
+            s.schedule_name,
+            s.competition_series_id,
+            s.competition_name,
+            s.competition_track_id,
+            s.competition_track_name,
+            s.second_level_code,
+            s.second_level_name,
+            s.contest_start_time as competition_start_time,
+            s.contest_end_time as competition_end_time,
+            s.report_start_time as checkin_start_time,
+            s.report_end_time as checkin_end_time,
+            s.report_location as checkin_location,
+            concat_ws(' / ', s.contest_location, s.contest_room) as competition_location,
+            count(distinct t.target_id) as total_person_count,
+            count(distinct signed.target_id) as signed_person_count,
+            count(distinct t.target_id) - count(distinct signed.target_id) as unsigned_person_count,
+            if(count(distinct t.target_id) = 0, 0,
+               round(count(distinct signed.target_id) * 100 / count(distinct t.target_id), 2)) as checkin_rate,
+            count(distinct t.target_id) as member_total_count,
+            count(distinct signed.target_id) as member_signed_count,
+            count(distinct coalesce(nullif(t.team_code, ''), concat('NO_TEAM:', t.target_id))) as team_total_count,
+            max(signed.checkin_time) as last_checkin_time,
+            s.status as schedule_status
+        from competition_scene_schedule s
+        left join competition_series_info cs
+            on cs.competition_series_id = s.competition_series_id
+            and cs.del_flag = '0'
+        inner join competition_scene_schedule_target t
+            on t.schedule_id = s.schedule_id
+        left join (
+            <include refid="SignedTarget"/>
+        ) signed
+            on signed.schedule_id = t.schedule_id
+            and signed.target_id = t.target_id
+        where <include refid="QueryFilter"/>
+        group by
+            s.schedule_id, s.schedule_name, s.competition_series_id, s.competition_name,
+            s.competition_track_id, s.competition_track_name, s.second_level_code, s.second_level_name,
+            s.contest_start_time, s.contest_end_time, s.report_start_time, s.report_end_time,
+            s.report_location, s.contest_location, s.contest_room, s.status
+    </sql>
+
+    <sql id="ScheduleStatusProjection">
+        select
+            a.*,
+            case
+                when a.total_person_count = 0 or a.signed_person_count = 0 then 'NOT_STARTED'
+                when a.signed_person_count = a.total_person_count then 'COMPLETED'
+                else 'PARTIAL'
+            end as checkin_status,
+            case
+                when a.unsigned_person_count &gt; 0 and a.competition_start_time &lt;= now() then 'RED'
+                when a.unsigned_person_count &gt; 0 and timestampdiff(minute, now(), a.competition_start_time) &lt;= 10
+                    and timestampdiff(minute, now(), a.competition_start_time) &gt;= 0 then 'ORANGE'
+                when a.checkin_rate &lt; 80 and timestampdiff(minute, now(), a.competition_start_time) &lt;= 30
+                    and timestampdiff(minute, now(), a.competition_start_time) &gt;= 0 then 'YELLOW'
+                else 'NORMAL'
+            end as warning_level,
+            case
+                when a.unsigned_person_count &gt; 0 and a.competition_start_time &lt;= now() then concat('比赛已开始，仍有', a.unsigned_person_count, '人未签到')
+                when a.unsigned_person_count &gt; 0 and timestampdiff(minute, now(), a.competition_start_time) &lt;= 10
+                    and timestampdiff(minute, now(), a.competition_start_time) &gt;= 0 then concat('距离比赛开始不足10分钟，仍有', a.unsigned_person_count, '人未签到')
+                when a.checkin_rate &lt; 80 and timestampdiff(minute, now(), a.competition_start_time) &lt;= 30
+                    and timestampdiff(minute, now(), a.competition_start_time) &gt;= 0 then '距离比赛开始不足30分钟，签到率低于80%'
+                else ''
+            end as warning_message
+        from (
+            <include refid="ScheduleAggregate"/>
+        ) a
+    </sql>
+
+    <sql id="FilteredScheduleRows">
+        select
+            v.*,
+            coalesce(team_count.completed_team_count, 0) as completed_team_count,
+            coalesce(team_count.partial_team_count, 0) as partial_team_count,
+            coalesce(team_count.unsigned_team_count, 0) as unsigned_team_count
+        from (
+            <include refid="ScheduleStatusProjection"/>
+        ) v
+        left join (
+            select
+                tg.schedule_id,
+                sum(case when tg.signed_person_count = tg.total_person_count and tg.total_person_count &gt; 0 then 1 else 0 end) as completed_team_count,
+                sum(case when tg.signed_person_count &gt; 0 and tg.signed_person_count &lt; tg.total_person_count then 1 else 0 end) as partial_team_count,
+                sum(case when tg.signed_person_count = 0 then 1 else 0 end) as unsigned_team_count
+            from (
+                select
+                    t.schedule_id,
+                    coalesce(nullif(t.team_code, ''), concat('NO_TEAM:', t.target_id)) as team_key,
+                    count(distinct t.target_id) as total_person_count,
+                    count(distinct signed.target_id) as signed_person_count
+                from competition_scene_schedule s
+                left join competition_series_info cs
+                    on cs.competition_series_id = s.competition_series_id
+                    and cs.del_flag = '0'
+                inner join competition_scene_schedule_target t
+                    on t.schedule_id = s.schedule_id
+                left join (
+                    <include refid="SignedTarget"/>
+                ) signed
+                    on signed.schedule_id = t.schedule_id
+                    and signed.target_id = t.target_id
+                where <include refid="QueryFilter"/>
+                group by t.schedule_id, coalesce(nullif(t.team_code, ''), concat('NO_TEAM:', t.target_id))
+            ) tg
+            group by tg.schedule_id
+        ) team_count on team_count.schedule_id = v.schedule_id
+        <where>
+            <if test="checkinStatus != null and checkinStatus != '' and checkinStatus != 'ALL' and checkinStatus != 'WARNING'">
+                and v.checkin_status = #{checkinStatus}
+            </if>
+            <if test="checkinStatus != null and checkinStatus == 'WARNING'">
+                and v.warning_level != 'NORMAL'
+            </if>
+            <if test="warningLevel != null and warningLevel != ''">
+                and v.warning_level = #{warningLevel}
+            </if>
+        </where>
+    </sql>
+
+    <select id="selectStatistics" parameterType="com.teaching.competition.domain.CompetitionSceneCheckinOverviewQuery"
+            resultMap="StatisticsResult">
+        select
+            coalesce(sum(r.total_person_count), 0) as total_person_count,
+            coalesce(sum(r.signed_person_count), 0) as signed_person_count,
+            coalesce(sum(r.unsigned_person_count), 0) as unsigned_person_count,
+            if(coalesce(sum(r.total_person_count), 0) = 0, 0,
+               round(sum(r.signed_person_count) * 100 / sum(r.total_person_count), 2)) as checkin_rate,
+            count(r.schedule_id) as schedule_count,
+            sum(case when r.warning_level != 'NORMAL' then 1 else 0 end) as warning_schedule_count,
+            max(r.last_checkin_time) as last_checkin_time
+        from (
+            <include refid="FilteredScheduleRows"/>
+        ) r
+    </select>
+
+    <select id="selectLowRateRank" parameterType="com.teaching.competition.domain.CompetitionSceneCheckinOverviewQuery"
+            resultMap="RankItemResult">
+        select
+            r.schedule_id,
+            r.schedule_name,
+            r.total_person_count,
+            r.signed_person_count,
+            r.unsigned_person_count,
+            r.checkin_rate,
+            r.competition_start_time
+        from (
+            <include refid="FilteredScheduleRows"/>
+        ) r
+        where r.total_person_count &gt; 0
+        order by r.checkin_rate asc, abs(timestampdiff(minute, now(), r.competition_start_time)) asc, r.competition_start_time asc
+        limit 10
+    </select>
+
+    <select id="selectStartTimeGroups" parameterType="com.teaching.competition.domain.CompetitionSceneCheckinOverviewQuery"
+            resultMap="TimeGroupResult">
+        select
+            r.competition_start_time,
+            count(r.schedule_id) as schedule_count,
+            coalesce(sum(r.total_person_count), 0) as total_person_count,
+            coalesce(sum(r.signed_person_count), 0) as signed_person_count,
+            coalesce(sum(r.unsigned_person_count), 0) as unsigned_person_count,
+            if(coalesce(sum(r.total_person_count), 0) = 0, 0,
+               round(sum(r.signed_person_count) * 100 / sum(r.total_person_count), 2)) as checkin_rate
+        from (
+            <include refid="FilteredScheduleRows"/>
+        ) r
+        group by r.competition_start_time
+        order by r.competition_start_time asc
+    </select>
+
+    <select id="selectScheduleCards" parameterType="com.teaching.competition.domain.CompetitionSceneCheckinOverviewQuery"
+            resultMap="ScheduleCardResult">
+        select *
+        from (
+            <include refid="FilteredScheduleRows"/>
+        ) r
+        order by
+            case r.warning_level
+                when 'RED' then 1
+                when 'ORANGE' then 2
+                when 'YELLOW' then 3
+                else 4
+            end,
+            r.competition_start_time asc,
+            r.schedule_id desc
+    </select>
+
+    <select id="selectScheduleCardById" parameterType="com.teaching.competition.domain.CompetitionSceneCheckinOverviewQuery"
+            resultMap="ScheduleCardResult">
+        select *
+        from (
+            <include refid="FilteredScheduleRows"/>
+        ) r
+        where r.schedule_id = #{scheduleId}
+    </select>
+
+    <select id="selectTeams" parameterType="Long" resultMap="TeamResult">
+        select
+            g.team_code,
+            g.team_name,
+            g.total_person_count,
+            g.signed_person_count,
+            g.total_person_count - g.signed_person_count as unsigned_person_count,
+            if(g.total_person_count = 0, 0, round(g.signed_person_count * 100 / g.total_person_count, 2)) as checkin_rate,
+            case
+                when g.total_person_count &gt; 0 and g.signed_person_count = g.total_person_count then 'COMPLETED'
+                when g.signed_person_count &gt; 0 then 'PARTIAL'
+                else 'NOT_STARTED'
+            end as team_status
+        from (
+            select
+                coalesce(nullif(t.team_code, ''), concat('NO_TEAM:', t.target_id)) as team_code,
+                coalesce(nullif(t.team_name, ''), '未分组') as team_name,
+                count(distinct t.target_id) as total_person_count,
+                count(distinct signed.target_id) as signed_person_count
+            from competition_scene_schedule_target t
+            left join (
+                <include refid="SignedTarget"/>
+            ) signed
+                on signed.schedule_id = t.schedule_id
+                and signed.target_id = t.target_id
+            where t.schedule_id = #{scheduleId}
+              and t.del_flag = '0'
+              and t.status = '0'
+              and t.match_status = 'MATCHED'
+              and t.competition_role_name in ('队员', 'MEMBER', '选手', 'PLAYER')
+            group by coalesce(nullif(t.team_code, ''), concat('NO_TEAM:', t.target_id)), coalesce(nullif(t.team_name, ''), '未分组')
+        ) g
+        order by g.team_name asc, g.team_code asc
+    </select>
+
+    <select id="selectPersons" parameterType="com.teaching.competition.domain.CompetitionSceneCheckinOverviewQuery"
+            resultMap="PersonResult">
+        select
+            t.target_id,
+            t.user_id,
+            t.member_id,
+            coalesce(signed.credential_id, credential.credential_id) as credential_id,
+            t.team_code,
+            coalesce(nullif(t.team_name, ''), '未分组') as team_name,
+            t.user_name as person_name,
+            'MEMBER' as role_code,
+            '队员' as role_name,
+            case when signed.target_id is null then 'UNSIGNED' else 'SIGNED' end as checkin_status,
+            signed.checkin_time,
+            case when signed.target_id is null then null else 'REPORT' end as checkin_method
+        from competition_scene_schedule_target t
+        left join (
+            <include refid="SignedTarget"/>
+        ) signed
+            on signed.schedule_id = t.schedule_id
+            and signed.target_id = t.target_id
+        left join (
+            <include refid="CredentialTarget"/>
+        ) credential
+            on credential.schedule_id = t.schedule_id
+            and credential.target_id = t.target_id
+        where t.schedule_id = #{scheduleId}
+          and t.del_flag = '0'
+          and t.status = '0'
+          and t.match_status = 'MATCHED'
+          and t.competition_role_name in ('队员', 'MEMBER', '选手', 'PLAYER')
+        <if test="teamCode != null and teamCode != ''">
+            and coalesce(nullif(t.team_code, ''), concat('NO_TEAM:', t.target_id)) = #{teamCode}
+        </if>
+        <if test="keyword != null and keyword != ''">
+            and (
+                t.user_name like concat('%', #{keyword}, '%')
+                or t.team_name like concat('%', #{keyword}, '%')
+                or t.team_code like concat('%', #{keyword}, '%')
+                or t.certificate_code like concat('%', #{keyword}, '%')
+            )
+        </if>
+        <if test="checkinStatus != null and checkinStatus == 'SIGNED'">
+            and signed.target_id is not null
+        </if>
+        <if test="checkinStatus != null and checkinStatus == 'UNSIGNED'">
+            and signed.target_id is null
+        </if>
+        order by t.team_name asc, t.sequence_no asc, t.target_id asc
+    </select>
+</mapper>

@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.system.mapper.SysAuditMainConfigMapper">
+
+    <resultMap type="SysAuditMainConfig" id="SysAuditMainConfigResult">
+        <result property="auditId" column="audit_id"/>
+        <result property="auditTitle" column="audit_title"/>
+        <result property="auditType" column="audit_type"/>
+        <result property="flowDesc" column="flow_desc"/>
+        <result property="isEnable" column="is_enable"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="version" column="version"/>
+        <result property="delFlag" column="del_flag"/>
+        <result property="userId" column="user_id"/>
+        <result property="orgId" column="org_id"/>
+        <result property="checkingNum" column="checking_num"/>
+        <result property="usedNum" column="used_num"/>
+    </resultMap>
+
+    <resultMap id="SysAuditMainConfigSysAuditConfigResult" type="SysAuditMainConfig" extends="SysAuditMainConfigResult">
+        <collection property="sysAuditConfigList" ofType="SysAuditConfig" column="audit_id"
+                    select="selectSysAuditConfigList"/>
+    </resultMap>
+
+    <resultMap type="SysAuditConfig" id="SysAuditConfigResult">
+        <result property="configId" column="config_id"/>
+        <result property="auditId" column="audit_id"/>
+        <result property="levelName" column="level_name"/>
+        <result property="levelSort" column="level_sort"/>
+        <result property="isEnable" column="is_enable"/>
+        <result property="checkPersonType" column="check_person_type"/>
+        <result property="checkPersonOrg" column="check_person_org"/>
+        <result property="checkPersonRole" column="check_person_role"/>
+        <result property="checkPerson" column="check_person"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="delFlag" column="del_flag"/>
+        <result property="userId" column="user_id"/>
+        <result property="orgId" column="org_id"/>
+    </resultMap>
+
+    <sql id="selectSysAuditMainConfigVo">
+        select audit_id,
+               audit_title,
+               audit_type,
+               flow_desc,
+               is_enable,
+               create_by,
+               create_time,
+               update_by,
+               update_time,
+               version,
+               del_flag,
+               user_id,
+               org_id
+        from sys_audit_main_config
+    </sql>
+
+    <select id="selectSysAuditMainConfigList" parameterType="SysAuditMainConfig" resultMap="SysAuditMainConfigSysAuditConfigResult">
+        <include refid="selectSysAuditMainConfigVo"/>
+        <where>
+            <if test="auditTitle != null  and auditTitle != ''">and audit_title like concat('%', #{auditTitle},'%')</if>
+            <if test="auditType != null  and auditType != ''">and audit_type = #{auditType}</if>
+            <if test="flowDesc != null  and flowDesc != ''">and flow_desc like concat('%',#{flowDesc},'%')</if>
+            <if test="isEnable != null  and isEnable != ''">and is_enable = #{isEnable}</if>
+            <if test="version != null ">and version = #{version}</if>
+            <if test="userId != null ">and user_id = #{userId}</if>
+            <if test="orgId != null ">and org_id = #{orgId}</if>
+        </where>
+        order by audit_type,version desc
+    </select>
+
+    <select id="selectSysAuditMainConfigListWithOperatingConditions" parameterType="SysAuditMainConfig" resultMap="SysAuditMainConfigSysAuditConfigResult">
+        SELECT
+        samc.audit_id,
+        samc.audit_title,
+        samc.audit_type,
+        samc.flow_desc,
+        samc.is_enable,
+        samc.create_by,
+        samc.create_time,
+        samc.update_by,
+        samc.update_time,
+        samc.version,
+        samc.del_flag,
+        samc.user_id,
+        samc.org_id,
+        SUM(CASE WHEN sat.check_status = '3' and sat.del_flag='0' THEN 1 ELSE 0 END) AS checking_num,
+        SUM(CASE WHEN sat.del_flag = '0' THEN 1 ELSE 0 END) AS used_num
+        FROM
+        sys_audit_main_config samc
+        LEFT JOIN
+        sys_audit_task sat ON sat.audit_id = samc.audit_id
+        <where>
+            samc.del_flag='0'
+            <if test="auditTitle != null  and auditTitle != ''">and samc.audit_title like concat('%', #{auditTitle},'%')</if>
+            <if test="auditType != null  and auditType != ''">and samc.audit_type = #{auditType}</if>
+            <if test="flowDesc != null  and flowDesc != ''">and samc.flow_desc like concat('%',#{flowDesc},'%')</if>
+            <if test="isEnable != null  and isEnable != ''">and samc.is_enable = #{isEnable}</if>
+            <if test="version != null ">and samc.version = #{version}</if>
+            <if test="userId != null ">and samc.user_id = #{userId}</if>
+            <if test="orgId != null ">and samc.org_id = #{orgId}</if>
+        </where>
+        GROUP BY
+        samc.audit_id, samc.audit_title, samc.audit_type, samc.flow_desc,
+        samc.is_enable, samc.create_by, samc.create_time, samc.update_by,
+        samc.update_time, samc.version, samc.del_flag, samc.user_id, samc.org_id
+    </select>
+<!-- and is_enable = '1' -->
+    <select id="selectNewVersionAuditMainConfigByType" parameterType="String" resultMap="SysAuditMainConfigSysAuditConfigResult">
+        <include refid="selectSysAuditMainConfigVo"/>
+        where del_flag = '0'  and audit_type = #{auditType} order by version desc limit 1
+    </select>
+
+    <select id="selectSysAuditMainConfigByAuditId" parameterType="Long"
+            resultMap="SysAuditMainConfigSysAuditConfigResult">
+        select audit_id,
+               audit_title,
+               audit_type,
+               flow_desc,
+               is_enable,
+               create_by,
+               create_time,
+               update_by,
+               update_time,
+               version,
+               del_flag,
+               user_id,
+               org_id
+        from sys_audit_main_config
+        where audit_id = #{auditId}
+    </select>
+
+    <select id="selectMaxVersionByType" resultType="java.lang.Long">
+        select max(version)
+        from sys_audit_main_config
+        where del_flag = '0'
+          and audit_type = #{auditType}
+    </select>
+
+    <select id="selectSysAuditConfigList" resultMap="SysAuditConfigResult">
+        select config_id,
+               audit_id,
+               level_name,
+               level_sort,
+               is_enable,
+               check_person_type,
+               check_person_org,
+               check_person_role,
+               check_person,
+               create_by,
+               create_time,
+               update_by,
+               update_time,
+               del_flag,
+               user_id,
+               org_id
+        from sys_audit_config
+        where audit_id = #{audit_id} order by level_sort asc
+    </select>
+
+    <insert id="insertSysAuditMainConfig" parameterType="SysAuditMainConfig" useGeneratedKeys="true"
+            keyProperty="auditId"
+            keyColumn="audit_id">
+        insert into sys_audit_main_config
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="auditId != null">audit_id,</if>
+            <if test="auditTitle != null">audit_title,</if>
+            <if test="auditType != null">audit_type,</if>
+            <if test="flowDesc != null">flow_desc,</if>
+            <if test="isEnable != null">is_enable,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="version != null">version,</if>
+            <if test="delFlag != null">del_flag,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="orgId != null">org_id,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="auditId != null">#{auditId},</if>
+            <if test="auditTitle != null">#{auditTitle},</if>
+            <if test="auditType != null">#{auditType},</if>
+            <if test="flowDesc != null">#{flowDesc},</if>
+            <if test="isEnable != null">#{isEnable},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="version != null">#{version},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="orgId != null">#{orgId},</if>
+        </trim>
+    </insert>
+
+    <update id="updateSysAuditMainConfig" parameterType="SysAuditMainConfig">
+        update sys_audit_main_config
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="auditTitle != null">audit_title = #{auditTitle},</if>
+            <if test="auditType != null">audit_type = #{auditType},</if>
+            <if test="flowDesc != null">flow_desc = #{flowDesc},</if>
+            <if test="isEnable != null">is_enable = #{isEnable},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="version != null">version = #{version},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="orgId != null">org_id = #{orgId},</if>
+        </trim>
+        where audit_id = #{auditId}
+    </update>
+
+    <update id="updateSysAuditConfig" parameterType="SysAuditConfig">
+        update sys_audit_config
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="auditId != null">audit_id = #{auditId},</if>
+            <if test="levelName != null">level_name = #{levelName},</if>
+            <if test="levelSort != null">level_sort = #{levelSort},</if>
+            <if test="isEnable != null">is_enable = #{isEnable},</if>
+            <if test="checkPersonType != null">check_person_type = #{checkPersonType},</if>
+            <if test="checkPersonOrg != null">check_person_org = #{checkPersonOrg},</if>
+            <if test="checkPersonRole != null">check_person_role = #{checkPersonRole},</if>
+            <if test="checkPerson != null">check_person = #{checkPerson},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="orgId != null">org_id = #{orgId},</if>
+        </trim>
+        where config_id = #{configId}
+    </update>
+
+    <delete id="deleteSysAuditMainConfigByAuditId" parameterType="Long">
+        delete
+        from sys_audit_main_config
+        where audit_id = #{auditId}
+    </delete>
+
+    <delete id="deleteSysAuditMainConfigByAuditIds" parameterType="String">
+        delete from sys_audit_main_config where audit_id in
+        <foreach item="auditId" collection="array" open="(" separator="," close=")">
+            #{auditId}
+        </foreach>
+    </delete>
+
+    <delete id="deleteSysAuditConfigByAuditIds" parameterType="String">
+        delete from sys_audit_config where audit_id in
+        <foreach item="auditId" collection="array" open="(" separator="," close=")">
+            #{auditId}
+        </foreach>
+    </delete>
+
+    <delete id="deleteSysAuditConfigByAuditId" parameterType="Long">
+        delete
+        from sys_audit_config
+        where audit_id = #{auditId}
+    </delete>
+
+    <insert id="batchSysAuditConfig">
+        insert into sys_audit_config( config_id, audit_id, level_name, level_sort, is_enable, check_person_type,
+        check_person_org, check_person_role, check_person, create_by, create_time, update_by, update_time, del_flag,
+        user_id, org_id) values
+        <foreach item="item" index="index" collection="list" separator=",">
+            ( #{item.configId}, #{item.auditId}, #{item.levelName}, #{item.levelSort}, #{item.isEnable},
+            #{item.checkPersonType}, #{item.checkPersonOrg}, #{item.checkPersonRole}, #{item.checkPerson},
+            #{item.createBy}, #{item.createTime}, #{item.updateBy}, #{item.updateTime}, #{item.delFlag}, #{item.userId},
+            #{item.orgId})
+        </foreach>
+    </insert>
+
+    <insert id="insertSysAuditConfig" parameterType="SysAuditConfig" useGeneratedKeys="true" keyProperty="configId"
+            keyColumn="config_id">
+        insert into sys_audit_config
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="configId != null">config_id,</if>
+            <if test="auditId != null">audit_id,</if>
+            <if test="levelName != null">level_name,</if>
+            <if test="levelSort != null">level_sort,</if>
+            <if test="isEnable != null">is_enable,</if>
+            <if test="checkPersonType != null">check_person_type,</if>
+            <if test="checkPersonOrg != null">check_person_org,</if>
+            <if test="checkPersonRole != null">check_person_role,</if>
+            <if test="checkPerson != null">check_person,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="delFlag != null">del_flag,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="orgId != null">org_id,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="configId != null">#{configId},</if>
+            <if test="auditId != null">#{auditId},</if>
+            <if test="levelName != null">#{levelName},</if>
+            <if test="levelSort != null">#{levelSort},</if>
+            <if test="isEnable != null">#{isEnable},</if>
+            <if test="checkPersonType != null">#{checkPersonType},</if>
+            <if test="checkPersonOrg != null">#{checkPersonOrg},</if>
+            <if test="checkPersonRole != null">#{checkPersonRole},</if>
+            <if test="checkPerson != null">#{checkPerson},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="orgId != null">#{orgId},</if>
+        </trim>
+    </insert>
+</mapper>

@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.content.mapper.NewsInfoMapper">
+
+    <resultMap type="NewsInfo" id="NewsInfoResult">
+        <result property="newsId" column="news_id"/>
+        <result property="newsTitle" column="news_title"/>
+        <result property="newsViceTitle" column="news_vice_title"/>
+        <result property="newsCont" column="news_cont"/>
+        <result property="newsAbstract" column="news_abstract"/>
+        <result property="newsImage" column="news_image"/>
+        <result property="newsTag" column="news_tag"/>
+        <result property="newsAuthor" column="news_author"/>
+        <result property="newsSource" column="news_source"/>
+        <result property="newsType" column="news_type"/>
+        <result property="publishTime" column="publish_time"/>
+        <result property="newsStatus" column="news_status"/>
+        <result property="classifyId" column="classify_id"/>
+        <result property="readingQuantity" column="reading_quantity"/>
+        <result property="likesNum" column="likes_num"/>
+        <result property="isTop" column="is_top"/>
+        <result property="checkStatus" column="check_status"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="version" column="version"/>
+        <result property="delFlag" column="del_flag"/>
+        <result property="userId" column="user_id"/>
+        <result property="orgId" column="org_id"/>
+    </resultMap>
+
+    <resultMap type="com.teaching.content.domain.vo.PublicNewsInfo" id="PublicNewsInfoResult">
+        <id property="newsId" column="news_id"/>
+        <result property="newsTitle" column="news_title"/>
+        <result property="newsViceTitle" column="news_vice_title"/>
+        <result property="newsCont" column="news_cont"/>
+        <result property="newsAbstract" column="news_abstract"/>
+        <result property="newsImage" column="news_image"/>
+        <result property="newsTag" column="news_tag"/>
+        <result property="newsAuthor" column="news_author"/>
+        <result property="newsSource" column="news_source"/>
+        <result property="newsType" column="news_type"/>
+        <result property="publishTime" column="publish_time"/>
+        <result property="classifyId" column="classify_id"/>
+        <result property="readingQuantity" column="reading_quantity"/>
+        <result property="likesNum" column="likes_num"/>
+        <result property="isTop" column="is_top"/>
+    </resultMap>
+
+    <sql id="selectPublicNewsInfoVo">
+        select news_id,
+               news_title,
+               news_vice_title,
+               news_cont,
+               news_abstract,
+               news_image,
+               news_tag,
+               news_author,
+               news_source,
+               news_type,
+               publish_time,
+               classify_id,
+               reading_quantity,
+               likes_num,
+               is_top
+        from news_info
+    </sql>
+
+    <sql id="selectNewsInfoVo">
+        select news_id,
+               news_title,
+               news_vice_title,
+               news_cont,
+               news_abstract,
+               news_image,
+               news_tag,
+               news_author,
+               news_source,
+               news_type,
+               publish_time,
+               news_status,
+               classify_id,
+               reading_quantity,
+               likes_num,
+               is_top,
+               check_status,
+               create_by,
+               create_time,
+               update_by,
+               update_time,
+               version,
+               del_flag,
+               user_id,
+               org_id
+        from news_info
+    </sql>
+
+    <select id="selectNewsInfoList" parameterType="NewsInfo" resultMap="NewsInfoResult">
+        <include refid="selectNewsInfoVo"/>
+        <where>
+            and del_flag = '0'
+            <if test="newsTitle != null and newsTitle != ''">
+                and news_title like concat('%', #{newsTitle}, '%')
+            </if>
+            <if test="newsViceTitle != null and newsViceTitle != ''">
+                and news_vice_title like concat('%', #{newsViceTitle}, '%')
+            </if>
+            <if test="newsCont != null and newsCont != ''">
+                and news_cont like concat('%', #{newsCont}, '%')
+            </if>
+            <if test="newsAbstract != null and newsAbstract != ''">
+                and news_abstract like concat('%', #{newsAbstract}, '%')
+            </if>
+            <if test="newsStatus != null and newsStatus != ''">
+                and news_status = #{newsStatus}
+            </if>
+            <if test="newsAuthor != null and newsAuthor != ''">
+                and news_author like concat('%', #{newsAuthor}, '%')
+            </if>
+            <if test="newsSource != null and newsSource != ''">
+                and news_source like concat('%', #{newsSource}, '%')
+            </if>
+            <if test="newsType != null and newsType != ''">
+                and news_type = #{newsType}
+            </if>
+            <if test="newsTag != null and newsTag != ''">
+                and news_tag like concat('%', #{newsTag}, '%')
+            </if>
+            <if test="classifyId != null">
+                and classify_id = #{classifyId}
+            </if>
+            <if test="isTop != null and isTop != ''">
+                and is_top = #{isTop}
+            </if>
+            <if test="checkStatus != null and checkStatus != ''">
+                and check_status = #{checkStatus}
+            </if>
+            <if test="userId != null">
+                and user_id = #{userId}
+            </if>
+            <if test="orgId != null">
+                and org_id = #{orgId}
+            </if>
+            <if test="params.beginPublishTime != null and params.beginPublishTime != ''">
+                and date_format(publish_time,'%y%m%d') &gt;= date_format(#{params.beginPublishTime},'%y%m%d')
+            </if>
+            <if test="params.endPublishTime != null and params.endPublishTime != ''">
+                and date_format(publish_time,'%y%m%d') &lt;= date_format(#{params.endPublishTime},'%y%m%d')
+            </if>
+        </where>
+        <choose>
+            <when test="params.orderScene == 'createOnly'">
+                order by create_time desc
+            </when>
+            <otherwise>
+                order by is_top desc,
+                (case when publish_time is not null then publish_time else create_time end) desc,
+                create_time desc
+            </otherwise>
+        </choose>
+    </select>
+
+    <select id="selectNewsInfoByNewsId" parameterType="Long" resultMap="NewsInfoResult">
+        <include refid="selectNewsInfoVo"/>
+        where news_id = #{newsId}
+    </select>
+
+    <select id="selectPublicNewsInfoByNewsId"
+            parameterType="Long"
+            resultMap="PublicNewsInfoResult">
+        <include refid="selectPublicNewsInfoVo"/>
+        where news_id = #{newsId}
+          and del_flag = '0'
+          and news_status = '6'
+          and publish_time is not null
+          and publish_time &lt;= now()
+    </select>
+
+    <select id="selectPublicNewsInfoList"
+            parameterType="com.teaching.content.domain.query.PublicNewsQuery"
+            resultMap="PublicNewsInfoResult">
+        <include refid="selectPublicNewsInfoVo"/>
+        <where>
+            and del_flag = '0'
+            and news_status = '6'
+            and publish_time is not null
+            and publish_time &lt;= now()
+            <if test="newsTitle != null and newsTitle != ''">
+                and news_title like concat('%', #{newsTitle}, '%')
+            </if>
+            <if test="newsViceTitle != null and newsViceTitle != ''">
+                and news_vice_title like concat('%', #{newsViceTitle}, '%')
+            </if>
+            <if test="newsAbstract != null and newsAbstract != ''">
+                and news_abstract like concat('%', #{newsAbstract}, '%')
+            </if>
+            <if test="newsAuthor != null and newsAuthor != ''">
+                and news_author like concat('%', #{newsAuthor}, '%')
+            </if>
+            <if test="newsSource != null and newsSource != ''">
+                and news_source like concat('%', #{newsSource}, '%')
+            </if>
+            <if test="newsType != null and newsType != ''">
+                and news_type = #{newsType}
+            </if>
+            <if test="newsTag != null and newsTag != ''">
+                and news_tag like concat('%', #{newsTag}, '%')
+            </if>
+            <if test="classifyId != null">
+                and classify_id = #{classifyId}
+            </if>
+            <if test="isTop != null and isTop != ''">
+                and is_top = #{isTop}
+            </if>
+        </where>
+        order by is_top desc, publish_time desc
+    </select>
+
+    <insert id="insertNewsInfo" parameterType="NewsInfo" useGeneratedKeys="true" keyProperty="newsId">
+        insert into news_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="newsTitle != null and newsTitle != ''">news_title,</if>
+            <if test="newsViceTitle != null">news_vice_title,</if>
+            <if test="newsCont != null">news_cont,</if>
+            <if test="newsAbstract != null">news_abstract,</if>
+            <if test="newsImage != null">news_image,</if>
+            <if test="newsTag != null">news_tag,</if>
+            <if test="newsAuthor != null">news_author,</if>
+            <if test="newsSource != null">news_source,</if>
+            <if test="newsType != null">news_type,</if>
+            <if test="publishTime != null">publish_time,</if>
+            <if test="newsStatus != null">news_status,</if>
+            <if test="classifyId != null">classify_id,</if>
+            <if test="readingQuantity != null">reading_quantity,</if>
+            <if test="likesNum != null">likes_num,</if>
+            <if test="isTop != null">is_top,</if>
+            <if test="checkStatus != null">check_status,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="version != null">version,</if>
+            <if test="delFlag != null">del_flag,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="orgId != null">org_id,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="newsTitle != null and newsTitle != ''">#{newsTitle},</if>
+            <if test="newsViceTitle != null">#{newsViceTitle},</if>
+            <if test="newsCont != null">#{newsCont},</if>
+            <if test="newsAbstract != null">#{newsAbstract},</if>
+            <if test="newsImage != null">#{newsImage},</if>
+            <if test="newsTag != null">#{newsTag},</if>
+            <if test="newsAuthor != null">#{newsAuthor},</if>
+            <if test="newsSource != null">#{newsSource},</if>
+            <if test="newsType != null">#{newsType},</if>
+            <if test="publishTime != null">#{publishTime},</if>
+            <if test="newsStatus != null">#{newsStatus},</if>
+            <if test="classifyId != null">#{classifyId},</if>
+            <if test="readingQuantity != null">#{readingQuantity},</if>
+            <if test="likesNum != null">#{likesNum},</if>
+            <if test="isTop != null">#{isTop},</if>
+            <if test="checkStatus != null">#{checkStatus},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="version != null">#{version},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="orgId != null">#{orgId},</if>
+        </trim>
+    </insert>
+
+    <update id="updateNewsInfo" parameterType="NewsInfo">
+        update news_info
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="newsTitle != null and newsTitle != ''">news_title = #{newsTitle},</if>
+            <if test="newsViceTitle != null">news_vice_title = #{newsViceTitle},</if>
+            <if test="newsCont != null">news_cont = #{newsCont},</if>
+            <if test="newsAbstract != null">news_abstract = #{newsAbstract},</if>
+            <if test="newsImage != null">news_image = #{newsImage},</if>
+            <if test="newsTag != null">news_tag = #{newsTag},</if>
+            <if test="newsAuthor != null">news_author = #{newsAuthor},</if>
+            <if test="newsSource != null">news_source = #{newsSource},</if>
+            <if test="newsType != null">news_type = #{newsType},</if>
+            <if test="publishTime != null">publish_time = #{publishTime},</if>
+            <if test="newsStatus != null">news_status = #{newsStatus},</if>
+            <if test="classifyId != null">classify_id = #{classifyId},</if>
+            <if test="readingQuantity != null">reading_quantity = #{readingQuantity},</if>
+            <if test="likesNum != null">likes_num = #{likesNum},</if>
+            <if test="isTop != null">is_top = #{isTop},</if>
+            <if test="checkStatus != null">check_status = #{checkStatus},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="version != null">version = #{version},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="orgId != null">org_id = #{orgId},</if>
+        </trim>
+        where news_id = #{newsId}
+    </update>
+
+    <update id="updateNewsStatus" parameterType="NewsInfo">
+        update news_info
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="newsStatus != null and newsStatus != ''">news_status = #{newsStatus},</if>
+            <if test="checkStatus != null and checkStatus != ''">check_status = #{checkStatus},</if>
+            <if test="publishTime != null">publish_time = #{publishTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where news_id = #{newsId}
+    </update>
+
+    <update id="increaseReadingQuantity" parameterType="Long">
+        update news_info
+        set reading_quantity = reading_quantity + 1
+        where news_id = #{newsId}
+    </update>
+
+    <update id="increaseLikesNum" parameterType="Long">
+        update news_info
+        set likes_num = likes_num + 1
+        where news_id = #{newsId}
+    </update>
+
+    <delete id="deleteNewsInfoByNewsId" parameterType="Long">
+        update news_info set del_flag = '2' where news_id = #{newsId}
+    </delete>
+
+    <delete id="deleteNewsInfoByNewsIds" parameterType="String">
+        update news_info set del_flag = '2' where news_id in
+        <foreach item="newsId" collection="array" open="(" separator="," close=")">
+            #{newsId}
+        </foreach>
+    </delete>
+</mapper>

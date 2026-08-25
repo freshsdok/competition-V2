@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.competition.review.mapper.ReviewSessionMapper">
+
+    <resultMap type="com.teaching.competition.review.domain.ReviewSession" id="ReviewSessionResult">
+<id property="id" column="id"/>
+<result property="activityId" column="activity_id"/>
+<result property="roundId" column="round_id"/>
+<result property="sessionName" column="session_name"/>
+<result property="sessionCode" column="session_code"/>
+<result property="location" column="location"/>
+<result property="startTime" column="start_time"/>
+<result property="endTime" column="end_time"/>
+<result property="secretaryUserId" column="secretary_user_id"/>
+<result property="panelId" column="panel_id"/>
+<result property="currentObjectId" column="current_object_id"/>
+<result property="currentStartedTime" column="current_started_time"/>
+<result property="status" column="status"/>
+<result property="createBy" column="create_by"/>
+<result property="createTime" column="create_time"/>
+<result property="updateBy" column="update_by"/>
+<result property="updateTime" column="update_time"/>
+<result property="remark" column="remark"/>
+<result property="delFlag" column="del_flag"/>
+    </resultMap>
+
+    <sql id="selectReviewSessionVo">
+        select id, activity_id, round_id, session_name, session_code, location, start_time, end_time, secretary_user_id, panel_id, current_object_id, current_started_time, status, create_by, create_time, update_by, update_time, remark, del_flag
+        from review_session
+    </sql>
+
+    <select id="selectById" parameterType="Long" resultMap="ReviewSessionResult">
+        <include refid="selectReviewSessionVo"/>
+        where id = #{id} and del_flag = '0'
+    </select>
+
+    <select id="selectList" parameterType="com.teaching.competition.review.domain.ReviewSession" resultMap="ReviewSessionResult">
+        <include refid="selectReviewSessionVo"/>
+        <where>
+    del_flag = '0'
+    <if test="activityId != null">
+        and activity_id = #{activityId}
+    </if>
+    <if test="roundId != null">
+        and round_id = #{roundId}
+    </if>
+    <if test="sessionName != null and sessionName != ''">
+        and session_name like concat('%', #{sessionName}, '%')
+    </if>
+    <if test="sessionCode != null and sessionCode != ''">
+        and session_code = #{sessionCode}
+    </if>
+    <if test="location != null and location != ''">
+        and location = #{location}
+    </if>
+    <if test="startTime != null">
+        and start_time = #{startTime}
+    </if>
+    <if test="endTime != null">
+        and end_time = #{endTime}
+    </if>
+    <if test="secretaryUserId != null">
+        and secretary_user_id = #{secretaryUserId}
+    </if>
+    <if test="panelId != null">
+        and panel_id = #{panelId}
+    </if>
+    <if test="currentObjectId != null">
+        and current_object_id = #{currentObjectId}
+    </if>
+    <if test="currentStartedTime != null">
+        and current_started_time = #{currentStartedTime}
+    </if>
+    <if test="status != null and status != ''">
+        and status = #{status}
+    </if>
+        </where>
+        order by id desc
+    </select>
+
+    <insert id="insert" parameterType="com.teaching.competition.review.domain.ReviewSession" useGeneratedKeys="true" keyProperty="id">
+        insert into review_session
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+    <if test="activityId != null">activity_id,</if>
+    <if test="roundId != null">round_id,</if>
+    <if test="sessionName != null">session_name,</if>
+    <if test="sessionCode != null">session_code,</if>
+    <if test="location != null">location,</if>
+    <if test="startTime != null">start_time,</if>
+    <if test="endTime != null">end_time,</if>
+    <if test="secretaryUserId != null">secretary_user_id,</if>
+    <if test="panelId != null">panel_id,</if>
+    <if test="currentObjectId != null">current_object_id,</if>
+    <if test="currentStartedTime != null">current_started_time,</if>
+    <if test="status != null">status,</if>
+    <if test="createBy != null">create_by,</if>
+    <if test="createTime != null">create_time,</if>
+    <if test="updateBy != null">update_by,</if>
+    <if test="updateTime != null">update_time,</if>
+    <if test="remark != null">remark,</if>
+    <if test="delFlag != null">del_flag,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+    <if test="activityId != null">#{activityId},</if>
+    <if test="roundId != null">#{roundId},</if>
+    <if test="sessionName != null">#{sessionName},</if>
+    <if test="sessionCode != null">#{sessionCode},</if>
+    <if test="location != null">#{location},</if>
+    <if test="startTime != null">#{startTime},</if>
+    <if test="endTime != null">#{endTime},</if>
+    <if test="secretaryUserId != null">#{secretaryUserId},</if>
+    <if test="panelId != null">#{panelId},</if>
+    <if test="currentObjectId != null">#{currentObjectId},</if>
+    <if test="currentStartedTime != null">#{currentStartedTime},</if>
+    <if test="status != null">#{status},</if>
+    <if test="createBy != null">#{createBy},</if>
+    <if test="createTime != null">#{createTime},</if>
+    <if test="updateBy != null">#{updateBy},</if>
+    <if test="updateTime != null">#{updateTime},</if>
+    <if test="remark != null">#{remark},</if>
+    <if test="delFlag != null">#{delFlag},</if>
+        </trim>
+    </insert>
+
+    <update id="update" parameterType="com.teaching.competition.review.domain.ReviewSession">
+        update review_session
+        <set>
+    <if test="activityId != null">activity_id = #{activityId},</if>
+    <if test="roundId != null">round_id = #{roundId},</if>
+    <if test="sessionName != null">session_name = #{sessionName},</if>
+    <if test="sessionCode != null">session_code = #{sessionCode},</if>
+    <if test="location != null">location = #{location},</if>
+    <if test="startTime != null">start_time = #{startTime},</if>
+    <if test="endTime != null">end_time = #{endTime},</if>
+    <if test="secretaryUserId != null">secretary_user_id = #{secretaryUserId},</if>
+    <if test="panelId != null">panel_id = #{panelId},</if>
+    <if test="currentObjectId != null">current_object_id = #{currentObjectId},</if>
+    <if test="currentStartedTime != null">current_started_time = #{currentStartedTime},</if>
+    <if test="status != null">status = #{status},</if>
+    <if test="updateBy != null">update_by = #{updateBy},</if>
+    <if test="updateTime != null">update_time = #{updateTime},</if>
+    <if test="remark != null">remark = #{remark},</if>
+        </set>
+        where id = #{id} and del_flag = '0'
+    </update>
+
+    <update id="deleteByIds">
+        update review_session
+        set del_flag = '1', update_by = #{updateBy}, update_time = now()
+        where id in
+        <foreach item="id" collection="ids" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+</mapper>

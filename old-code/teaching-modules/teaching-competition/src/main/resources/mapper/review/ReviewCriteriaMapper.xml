@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.competition.review.mapper.ReviewCriteriaMapper">
+
+    <resultMap type="com.teaching.competition.review.domain.ReviewCriteria" id="ReviewCriteriaResult">
+<id property="id" column="id"/>
+<result property="ruleId" column="rule_id"/>
+<result property="parentId" column="parent_id"/>
+<result property="criteriaName" column="criteria_name"/>
+<result property="criteriaDesc" column="criteria_desc"/>
+<result property="scoreType" column="score_type"/>
+<result property="minScore" column="min_score"/>
+<result property="maxScore" column="max_score"/>
+<result property="weight" column="weight"/>
+<result property="required" column="required"/>
+<result property="optionsJson" column="options_json"/>
+<result property="sortOrder" column="sort_order"/>
+<result property="enabled" column="enabled"/>
+<result property="createBy" column="create_by"/>
+<result property="createTime" column="create_time"/>
+<result property="updateBy" column="update_by"/>
+<result property="updateTime" column="update_time"/>
+<result property="remark" column="remark"/>
+<result property="delFlag" column="del_flag"/>
+    </resultMap>
+
+    <sql id="selectReviewCriteriaVo">
+        select id, rule_id, parent_id, criteria_name, criteria_desc, score_type, min_score, max_score, weight, required, options_json, sort_order, enabled, create_by, create_time, update_by, update_time, remark, del_flag
+        from review_criteria
+    </sql>
+
+    <select id="selectById" parameterType="Long" resultMap="ReviewCriteriaResult">
+        <include refid="selectReviewCriteriaVo"/>
+        where id = #{id} and del_flag = '0'
+    </select>
+
+    <select id="selectList" parameterType="com.teaching.competition.review.domain.ReviewCriteria" resultMap="ReviewCriteriaResult">
+        <include refid="selectReviewCriteriaVo"/>
+        <where>
+    del_flag = '0'
+    <if test="ruleId != null">
+        and rule_id = #{ruleId}
+    </if>
+    <if test="parentId != null">
+        and parent_id = #{parentId}
+    </if>
+    <if test="criteriaName != null and criteriaName != ''">
+        and criteria_name like concat('%', #{criteriaName}, '%')
+    </if>
+    <if test="criteriaDesc != null and criteriaDesc != ''">
+        and criteria_desc = #{criteriaDesc}
+    </if>
+    <if test="scoreType != null and scoreType != ''">
+        and score_type = #{scoreType}
+    </if>
+    <if test="minScore != null">
+        and min_score = #{minScore}
+    </if>
+    <if test="maxScore != null">
+        and max_score = #{maxScore}
+    </if>
+    <if test="weight != null">
+        and weight = #{weight}
+    </if>
+    <if test="required != null and required != ''">
+        and required = #{required}
+    </if>
+    <if test="optionsJson != null and optionsJson != ''">
+        and options_json = #{optionsJson}
+    </if>
+    <if test="sortOrder != null">
+        and sort_order = #{sortOrder}
+    </if>
+    <if test="enabled != null and enabled != ''">
+        and enabled = #{enabled}
+    </if>
+        </where>
+        order by id desc
+    </select>
+
+    <insert id="insert" parameterType="com.teaching.competition.review.domain.ReviewCriteria" useGeneratedKeys="true" keyProperty="id">
+        insert into review_criteria
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+    <if test="ruleId != null">rule_id,</if>
+    <if test="parentId != null">parent_id,</if>
+    <if test="criteriaName != null">criteria_name,</if>
+    <if test="criteriaDesc != null">criteria_desc,</if>
+    <if test="scoreType != null">score_type,</if>
+    <if test="minScore != null">min_score,</if>
+    <if test="maxScore != null">max_score,</if>
+    <if test="weight != null">weight,</if>
+    <if test="required != null">required,</if>
+    <if test="optionsJson != null">options_json,</if>
+    <if test="sortOrder != null">sort_order,</if>
+    <if test="enabled != null">enabled,</if>
+    <if test="createBy != null">create_by,</if>
+    <if test="createTime != null">create_time,</if>
+    <if test="updateBy != null">update_by,</if>
+    <if test="updateTime != null">update_time,</if>
+    <if test="remark != null">remark,</if>
+    <if test="delFlag != null">del_flag,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+    <if test="ruleId != null">#{ruleId},</if>
+    <if test="parentId != null">#{parentId},</if>
+    <if test="criteriaName != null">#{criteriaName},</if>
+    <if test="criteriaDesc != null">#{criteriaDesc},</if>
+    <if test="scoreType != null">#{scoreType},</if>
+    <if test="minScore != null">#{minScore},</if>
+    <if test="maxScore != null">#{maxScore},</if>
+    <if test="weight != null">#{weight},</if>
+    <if test="required != null">#{required},</if>
+    <if test="optionsJson != null">#{optionsJson},</if>
+    <if test="sortOrder != null">#{sortOrder},</if>
+    <if test="enabled != null">#{enabled},</if>
+    <if test="createBy != null">#{createBy},</if>
+    <if test="createTime != null">#{createTime},</if>
+    <if test="updateBy != null">#{updateBy},</if>
+    <if test="updateTime != null">#{updateTime},</if>
+    <if test="remark != null">#{remark},</if>
+    <if test="delFlag != null">#{delFlag},</if>
+        </trim>
+    </insert>
+
+    <update id="update" parameterType="com.teaching.competition.review.domain.ReviewCriteria">
+        update review_criteria
+        <set>
+    <if test="ruleId != null">rule_id = #{ruleId},</if>
+    <if test="parentId != null">parent_id = #{parentId},</if>
+    <if test="criteriaName != null">criteria_name = #{criteriaName},</if>
+    <if test="criteriaDesc != null">criteria_desc = #{criteriaDesc},</if>
+    <if test="scoreType != null">score_type = #{scoreType},</if>
+    <if test="minScore != null">min_score = #{minScore},</if>
+    <if test="maxScore != null">max_score = #{maxScore},</if>
+    <if test="weight != null">weight = #{weight},</if>
+    <if test="required != null">required = #{required},</if>
+    <if test="optionsJson != null">options_json = #{optionsJson},</if>
+    <if test="sortOrder != null">sort_order = #{sortOrder},</if>
+    <if test="enabled != null">enabled = #{enabled},</if>
+    <if test="updateBy != null">update_by = #{updateBy},</if>
+    <if test="updateTime != null">update_time = #{updateTime},</if>
+    <if test="remark != null">remark = #{remark},</if>
+        </set>
+        where id = #{id} and del_flag = '0'
+    </update>
+
+    <update id="deleteByIds">
+        update review_criteria
+        set del_flag = '1', update_by = #{updateBy}, update_time = now()
+        where id in
+        <foreach item="id" collection="ids" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+</mapper>

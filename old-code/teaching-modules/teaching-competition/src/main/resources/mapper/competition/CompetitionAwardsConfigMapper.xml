@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.competition.mapper.CompetitionAwardsConfigMapper">
+    
+    <resultMap type="com.teaching.system.api.domain.CompetitionAwardsConfig" id="CompetitionAwardsConfigResult">
+        <result property="awardsId"    column="awards_id"    />
+        <result property="competitionSeriesId"    column="competition_series_id"    />
+        <result property="stageId"    column="stage_id"    />
+        <result property="awardsName"    column="awards_name"    />
+        <result property="awardNum"    column="award_num"    />
+        <result property="bonusNum"    column="bonus_num"    />
+        <result property="awardDesc"    column="award_desc"    />
+        <result property="competitionTrackName"    column="competition_track_name"    />
+        <result property="groupClassify"    column="group_classify"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="version"    column="version"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="userId"    column="user_id"    />
+        <result property="orgId"    column="org_id"    />
+    </resultMap>
+
+    <sql id="selectCompetitionAwardsConfigVo">
+        select awards_id, competition_series_id, stage_id,awards_name, award_num, bonus_num, award_desc,competition_track_name,group_classify,
+        create_by, create_time, update_by, update_time, version, del_flag, user_id, org_id from competition_awards_config
+    </sql>
+
+    <select id="selectCompetitionAwardsConfigList" parameterType="com.teaching.system.api.domain.CompetitionAwardsConfig" resultMap="CompetitionAwardsConfigResult">
+        <include refid="selectCompetitionAwardsConfigVo"/>
+        where del_flag = '0'
+        <if test="competitionSeriesId != null "> and competition_series_id = #{competitionSeriesId}</if>
+        <if test="stageId != null "> and stage_id = #{stageId}</if>
+        <if test="awardsName != null "> and awards_name = #{awardsName}</if>
+        <if test="competitionTrackName != null "> and competition_track_name = #{competitionTrackName}</if>
+        <if test="groupClassify != null "> and group_classify = #{groupClassify}</if>
+        order by awards_name
+    </select>
+    
+    <select id="selectCompetitionAwardsConfigByAwardsId" parameterType="Long" resultMap="CompetitionAwardsConfigResult">
+        <include refid="selectCompetitionAwardsConfigVo"/>
+        where awards_id = #{awardsId} and del_flag = '0'
+    </select>
+
+    <insert id="insertCompetitionAwardsConfig" parameterType="com.teaching.system.api.domain.CompetitionAwardsConfig">
+        insert into competition_awards_config (awards_id,competition_series_id,stage_id,awards_name,award_num,bonus_num,
+            award_desc,competition_track_name,group_classify,create_by,create_time,version,del_flag,user_id,org_id)
+        values
+        <foreach collection="awardsConfigList" item="item" index="index" separator=",">
+            (#{item.awardsId},#{item.competitionSeriesId},#{item.stageId},#{item.awardsName},#{item.awardNum},#{item.bonusNum},#{item.awardDesc},
+            #{item.competitionTrackName},#{item.groupClassify},#{item.createBy},#{item.createTime},#{item.version},#{item.delFlag},#{item.userId},#{item.orgId})
+        </foreach>
+    </insert>
+
+    <update id="updateCompetitionAwardsConfig" parameterType="com.teaching.system.api.domain.CompetitionAwardsConfig">
+        update competition_awards_config
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="competitionSeriesId != null">competition_series_id = #{competitionSeriesId},</if>
+            <if test="stageId != null">stage_id = #{stageId},</if>
+            <if test="awardsName != null">awards_name = #{awardsName},</if>
+            <if test="awardNum != null">award_num = #{awardNum},</if>
+            <if test="bonusNum != null">bonus_num = #{bonusNum},</if>
+            <if test="awardDesc != null">award_desc = #{awardDesc},</if>
+            <if test="competitionTrackName != null">competition_track_name = #{competitionTrackName},</if>
+            <if test="groupClassify != null">group_classify = #{groupClassify},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            version = version+1,
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="orgId != null">org_id = #{orgId},</if>
+        </trim>
+        where awards_id = #{awardsId} and competition_series_id = #{competitionSeriesId} and stage_id = #{stageId}
+    </update>
+
+    <delete id="deleteCompetitionAwardsConfigBySeriesId" parameterType="Long">
+        update competition_awards_config set del_flag = '1',update_time = now(),version = version+1 where competition_series_id = #{competitionSeriesId}
+    </delete>
+
+    <delete id="deleteCompetitionAwardsConfigByAwardsIds" parameterType="String">
+        delete from competition_awards_config where awards_id in
+        <foreach item="awardsId" collection="array" open="(" separator="," close=")">
+            #{awardsId}
+        </foreach>
+    </delete>
+</mapper>

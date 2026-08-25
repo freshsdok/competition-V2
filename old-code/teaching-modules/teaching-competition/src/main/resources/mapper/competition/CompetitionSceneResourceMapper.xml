@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.competition.mapper.CompetitionSceneResourceMapper">
+
+    <resultMap type="com.teaching.competition.domain.CompetitionSceneResource" id="CompetitionSceneResourceResult">
+        <id property="resourceId" column="resource_id"/>
+        <result property="resourceCode" column="resource_code"/>
+        <result property="resourceName" column="resource_name"/>
+        <result property="resourceType" column="resource_type"/>
+        <result property="resourceStatus" column="resource_status"/>
+        <result property="brandModel" column="brand_model"/>
+        <result property="deviceQuantity" column="device_quantity"/>
+        <result property="workstationCount" column="workstation_count"/>
+        <result property="defaultSlotDurationMinutes" column="default_slot_duration_minutes"/>
+        <result property="defaultSharedOccupancy" column="default_shared_occupancy"/>
+        <result property="needOpsConfirm" column="need_ops_confirm"/>
+        <result property="opsContactName" column="ops_contact_name"/>
+        <result property="opsContactPhone" column="ops_contact_phone"/>
+        <result property="safetyNotice" column="safety_notice"/>
+        <result property="attentionNotes" column="attention_notes"/>
+        <result property="parameterJson" column="parameter_json"/>
+        <result property="usageInstructions" column="usage_instructions"/>
+        <result property="imageUrls" column="image_urls"/>
+        <result property="adminRemark" column="admin_remark"/>
+        <result property="sortOrder" column="sort_order"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="deleted" column="deleted"/>
+    </resultMap>
+
+    <resultMap type="com.teaching.competition.domain.CompetitionSceneResourceVO" id="CompetitionSceneResourceVOResult">
+        <id property="resourceId" column="resource_id"/>
+        <result property="resourceCode" column="resource_code"/>
+        <result property="resourceName" column="resource_name"/>
+        <result property="resourceType" column="resource_type"/>
+        <result property="resourceStatus" column="resource_status"/>
+        <result property="brandModel" column="brand_model"/>
+        <result property="deviceQuantity" column="device_quantity"/>
+        <result property="workstationCount" column="workstation_count"/>
+        <result property="defaultSlotDurationMinutes" column="default_slot_duration_minutes"/>
+        <result property="defaultSharedOccupancy" column="default_shared_occupancy"/>
+        <result property="needOpsConfirm" column="need_ops_confirm"/>
+        <result property="opsContactName" column="ops_contact_name"/>
+        <result property="opsContactPhone" column="ops_contact_phone"/>
+        <result property="safetyNotice" column="safety_notice"/>
+        <result property="attentionNotes" column="attention_notes"/>
+        <result property="parameterJson" column="parameter_json"/>
+        <result property="usageInstructions" column="usage_instructions"/>
+        <result property="imageUrls" column="image_urls"/>
+        <result property="adminRemark" column="admin_remark"/>
+        <result property="sortOrder" column="sort_order"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <sql id="selectCompetitionSceneResourceVo">
+        select resource_id, resource_code, resource_name, resource_type, resource_status, brand_model,
+               device_quantity, workstation_count, default_slot_duration_minutes, default_shared_occupancy,
+               need_ops_confirm, ops_contact_name, ops_contact_phone, safety_notice, attention_notes,
+               parameter_json, usage_instructions, image_urls, admin_remark, sort_order, create_by,
+               create_time, update_by, update_time, deleted
+        from competition_scene_resource
+    </sql>
+
+    <select id="selectCompetitionSceneResourceById" parameterType="Long" resultMap="CompetitionSceneResourceVOResult">
+        <include refid="selectCompetitionSceneResourceVo"/>
+        where resource_id = #{resourceId} and deleted = 0
+    </select>
+
+    <select id="selectCompetitionSceneResourceByCode" parameterType="String" resultMap="CompetitionSceneResourceResult">
+        <include refid="selectCompetitionSceneResourceVo"/>
+        where resource_code = #{resourceCode} and deleted = 0
+        limit 1
+    </select>
+
+    <select id="selectCompetitionSceneResourceList"
+            parameterType="com.teaching.competition.domain.CompetitionSceneResourceQuery"
+            resultMap="CompetitionSceneResourceVOResult">
+        <include refid="selectCompetitionSceneResourceVo"/>
+        <where>
+            deleted = 0
+            <if test="resourceCode != null and resourceCode != ''">
+                and resource_code like concat('%', #{resourceCode}, '%')
+            </if>
+            <if test="resourceName != null and resourceName != ''">
+                and resource_name like concat('%', #{resourceName}, '%')
+            </if>
+            <if test="resourceType != null and resourceType != ''">
+                and resource_type = #{resourceType}
+            </if>
+            <if test="resourceStatus != null and resourceStatus != ''">
+                and resource_status = #{resourceStatus}
+            </if>
+        </where>
+        order by sort_order asc, resource_id desc
+    </select>
+
+    <insert id="insertCompetitionSceneResource"
+            parameterType="com.teaching.competition.domain.CompetitionSceneResource"
+            useGeneratedKeys="true" keyProperty="resourceId">
+        insert into competition_scene_resource
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="resourceCode != null">resource_code,</if>
+            <if test="resourceName != null">resource_name,</if>
+            <if test="resourceType != null">resource_type,</if>
+            <if test="resourceStatus != null">resource_status,</if>
+            <if test="brandModel != null">brand_model,</if>
+            <if test="deviceQuantity != null">device_quantity,</if>
+            <if test="workstationCount != null">workstation_count,</if>
+            <if test="defaultSlotDurationMinutes != null">default_slot_duration_minutes,</if>
+            <if test="defaultSharedOccupancy != null">default_shared_occupancy,</if>
+            <if test="needOpsConfirm != null">need_ops_confirm,</if>
+            <if test="opsContactName != null">ops_contact_name,</if>
+            <if test="opsContactPhone != null">ops_contact_phone,</if>
+            <if test="safetyNotice != null">safety_notice,</if>
+            <if test="attentionNotes != null">attention_notes,</if>
+            <if test="parameterJson != null">parameter_json,</if>
+            <if test="usageInstructions != null">usage_instructions,</if>
+            <if test="imageUrls != null">image_urls,</if>
+            <if test="adminRemark != null">admin_remark,</if>
+            <if test="sortOrder != null">sort_order,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="deleted != null">deleted,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="resourceCode != null">#{resourceCode},</if>
+            <if test="resourceName != null">#{resourceName},</if>
+            <if test="resourceType != null">#{resourceType},</if>
+            <if test="resourceStatus != null">#{resourceStatus},</if>
+            <if test="brandModel != null">#{brandModel},</if>
+            <if test="deviceQuantity != null">#{deviceQuantity},</if>
+            <if test="workstationCount != null">#{workstationCount},</if>
+            <if test="defaultSlotDurationMinutes != null">#{defaultSlotDurationMinutes},</if>
+            <if test="defaultSharedOccupancy != null">#{defaultSharedOccupancy},</if>
+            <if test="needOpsConfirm != null">#{needOpsConfirm},</if>
+            <if test="opsContactName != null">#{opsContactName},</if>
+            <if test="opsContactPhone != null">#{opsContactPhone},</if>
+            <if test="safetyNotice != null">#{safetyNotice},</if>
+            <if test="attentionNotes != null">#{attentionNotes},</if>
+            <if test="parameterJson != null">#{parameterJson},</if>
+            <if test="usageInstructions != null">#{usageInstructions},</if>
+            <if test="imageUrls != null">#{imageUrls},</if>
+            <if test="adminRemark != null">#{adminRemark},</if>
+            <if test="sortOrder != null">#{sortOrder},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="deleted != null">#{deleted},</if>
+        </trim>
+    </insert>
+
+    <update id="updateCompetitionSceneResource"
+            parameterType="com.teaching.competition.domain.CompetitionSceneResource">
+        update competition_scene_resource
+        <set>
+            <if test="resourceCode != null">resource_code = #{resourceCode},</if>
+            <if test="resourceName != null">resource_name = #{resourceName},</if>
+            <if test="resourceType != null">resource_type = #{resourceType},</if>
+            <if test="resourceStatus != null">resource_status = #{resourceStatus},</if>
+            <if test="brandModel != null">brand_model = #{brandModel},</if>
+            <if test="deviceQuantity != null">device_quantity = #{deviceQuantity},</if>
+            <if test="workstationCount != null">workstation_count = #{workstationCount},</if>
+            <if test="defaultSlotDurationMinutes != null">default_slot_duration_minutes = #{defaultSlotDurationMinutes},</if>
+            <if test="defaultSharedOccupancy != null">default_shared_occupancy = #{defaultSharedOccupancy},</if>
+            <if test="needOpsConfirm != null">need_ops_confirm = #{needOpsConfirm},</if>
+            <if test="opsContactName != null">ops_contact_name = #{opsContactName},</if>
+            <if test="opsContactPhone != null">ops_contact_phone = #{opsContactPhone},</if>
+            <if test="safetyNotice != null">safety_notice = #{safetyNotice},</if>
+            <if test="attentionNotes != null">attention_notes = #{attentionNotes},</if>
+            <if test="parameterJson != null">parameter_json = #{parameterJson},</if>
+            <if test="usageInstructions != null">usage_instructions = #{usageInstructions},</if>
+            <if test="imageUrls != null">image_urls = #{imageUrls},</if>
+            <if test="adminRemark != null">admin_remark = #{adminRemark},</if>
+            <if test="sortOrder != null">sort_order = #{sortOrder},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </set>
+        where resource_id = #{resourceId} and deleted = 0
+    </update>
+
+    <update id="deleteCompetitionSceneResourceByIds">
+        update competition_scene_resource
+        set deleted = 1,
+            resource_code = concat(resource_code, '#DEL#', resource_id),
+            update_by = #{updateBy},
+            update_time = now()
+        where deleted = 0
+          and resource_id in
+        <foreach item="resourceId" collection="resourceIds" open="(" separator="," close=")">
+            #{resourceId}
+        </foreach>
+    </update>
+
+    <update id="updateCompetitionSceneResourceStatus">
+        update competition_scene_resource
+        set resource_status = #{resourceStatus},
+            update_by = #{updateBy},
+            update_time = now()
+        where resource_id = #{resourceId} and deleted = 0
+    </update>
+
+    <select id="countScheduleResourceByResourceIds" resultType="int">
+        select count(1)
+        from competition_scene_schedule_resource
+        where deleted = 0
+          and resource_id in
+        <foreach item="resourceId" collection="resourceIds" open="(" separator="," close=")">
+            #{resourceId}
+        </foreach>
+    </select>
+</mapper>

@@ -1,0 +1,15 @@
+# 基础镜像
+FROM  openjdk:8-jre
+# author
+MAINTAINER teaching
+
+# 挂载目录
+VOLUME /home/teaching
+# 创建目录
+RUN mkdir -p /home/teaching
+# 指定路径
+WORKDIR /home/teaching
+# 复制jar文件到路径
+COPY ./jar/teaching-gateway.jar /home/teaching/teaching-gateway.jar
+# 启动网关服务
+ENTRYPOINT ["java","-jar","teaching-gateway.jar"]

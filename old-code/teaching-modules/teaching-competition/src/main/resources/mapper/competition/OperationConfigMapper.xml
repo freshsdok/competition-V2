@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.competition.mapper.OperationConfigMapper">
+
+    <resultMap type="com.teaching.system.api.domain.OperationConfig" id="OperationConfigResult">
+        <result property="id"    column="id"    />
+        <result property="competitionSeriesId"    column="competition_series_id"    />
+        <result property="operationType"    column="operation_type"    />
+        <result property="allowedUserTypes"    column="allowed_user_types"    />
+        <result property="allowedTimeRanges"    column="allowed_time_ranges"    />
+        <result property="modifyScope"    column="modify_scope"    />
+        <result property="hintText1"    column="hint_text1"    />
+        <result property="hintText2"    column="hint_text2"    />
+        <result property="attachments"    column="attachments"    />
+        <result property="forceReadSeconds"    column="force_read_seconds"    />
+        <result property="maxTimes"    column="max_times"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="version"    column="version"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="userId"    column="user_id"    />
+        <result property="orgId"    column="org_id"    />
+    </resultMap>
+
+    <sql id="selectOperationConfigVo">
+        select id, competition_series_id, operation_type, allowed_user_types, allowed_time_ranges, modify_scope, hint_text1, hint_text2, attachments, force_read_seconds, max_times, create_time, update_time, create_by, update_by, version, del_flag, user_id, org_id from operation_config
+    </sql>
+
+    <select id="selectOperationConfigList" parameterType="com.teaching.system.api.domain.OperationConfig" resultMap="OperationConfigResult">
+        <include refid="selectOperationConfigVo"/>
+        where del_flag = '0'
+            <if test="competitionSeriesId != null "> and competition_series_id = #{competitionSeriesId}</if>
+            <if test="operationType != null  and operationType != ''"> and operation_type = #{operationType}</if>
+            <if test="allowedUserTypes != null  and allowedUserTypes != ''"> and allowed_user_types = #{allowedUserTypes}</if>
+            <if test="allowedTimeRanges != null  and allowedTimeRanges != ''"> and allowed_time_ranges = #{allowedTimeRanges}</if>
+            <if test="hintText1 != null  and hintText1 != ''"> and hint_text1 = #{hintText1}</if>
+            <if test="hintText2 != null  and hintText2 != ''"> and hint_text2 = #{hintText2}</if>
+            <if test="attachments != null  and attachments != ''"> and attachments = #{attachments}</if>
+            <if test="forceReadSeconds != null "> and force_read_seconds = #{forceReadSeconds}</if>
+            <if test="maxTimes != null "> and max_times = #{maxTimes}</if>
+            <if test="version != null "> and version = #{version}</if>
+            <if test="userId != null "> and user_id = #{userId}</if>
+            <if test="orgId != null "> and org_id = #{orgId}</if>
+    </select>
+
+    <select id="selectOperationConfigByCompetitionSeriesId" parameterType="Long" resultMap="OperationConfigResult">
+        <include refid="selectOperationConfigVo"/>
+        where del_flag = '0'
+        <if test="competitionSeriesId != null ">
+            and competition_series_id = #{competitionSeriesId}
+        </if>
+    </select>
+
+    <select id="selectModifyScopeBySeriesIdAndOperationType" resultType="String">
+        select modify_scope from operation_config where competition_series_id = #{competitionSeriesId} and operation_type = #{operationType} and del_flag = '0'
+    </select>
+
+    <select id="selectOperationConfigById" parameterType="Long" resultMap="OperationConfigResult">
+        <include refid="selectOperationConfigVo"/>
+        where id = #{id} and del_flag = '0'
+    </select>
+
+    <insert id="insertOperationConfig" parameterType="com.teaching.system.api.domain.OperationConfig" useGeneratedKeys="true" keyProperty="id">
+        insert into operation_config
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="competitionSeriesId != null">competition_series_id,</if>
+            <if test="operationType != null and operationType != ''">operation_type,</if>
+            <if test="allowedUserTypes != null and allowedUserTypes != ''">allowed_user_types,</if>
+            <if test="allowedTimeRanges != null and allowedTimeRanges != ''">allowed_time_ranges,</if>
+            <if test="modifyScope != null and modifyScope != ''">modify_scope,</if>
+            <if test="hintText1 != null">hint_text1,</if>
+            <if test="hintText2 != null">hint_text2,</if>
+            <if test="attachments != null">attachments,</if>
+            <if test="forceReadSeconds != null">force_read_seconds,</if>
+            <if test="maxTimes != null">max_times,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="version != null">version,</if>
+            <if test="delFlag != null">del_flag,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="orgId != null">org_id,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="competitionSeriesId != null">#{competitionSeriesId},</if>
+            <if test="operationType != null and operationType != ''">#{operationType},</if>
+            <if test="allowedUserTypes != null and allowedUserTypes != ''">#{allowedUserTypes},</if>
+            <if test="allowedTimeRanges != null and allowedTimeRanges != ''">#{allowedTimeRanges},</if>
+            <if test="modifyScope != null and modifyScope != ''">#{modifyScope},</if>
+            <if test="hintText1 != null">#{hintText1},</if>
+            <if test="hintText2 != null">#{hintText2},</if>
+            <if test="attachments != null">#{attachments},</if>
+            <if test="forceReadSeconds != null">#{forceReadSeconds},</if>
+            <if test="maxTimes != null">#{maxTimes},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="version != null">#{version},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="orgId != null">#{orgId},</if>
+         </trim>
+    </insert>
+
+    <insert id="batchInsertOperationConfig">
+        insert into operation_config (competition_series_id, operation_type, allowed_user_types, allowed_time_ranges, hint_text1, hint_text2, attachments,
+        force_read_seconds, max_times, create_time, update_time, create_by, update_by, del_flag, user_id, org_id)
+        values
+        <foreach item="item" index="index" collection="list" separator=",">
+            (#{item.competitionSeriesId}, #{item.operationType}, #{item.allowedUserTypes}, #{item.allowedTimeRanges},
+            #{item.hintText1}, #{item.hintText2}, #{item.attachments}, #{item.forceReadSeconds}, #{item.maxTimes},
+            now(), #{item.updateTime}, #{item.createBy}, #{item.updateBy}, '0',
+            #{item.userId}, #{item.orgId}
+            )
+        </foreach>
+
+    </insert>
+
+    <update id="updateOperationConfig" parameterType="com.teaching.system.api.domain.OperationConfig">
+        update operation_config
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="competitionSeriesId != null">competition_series_id = #{competitionSeriesId},</if>
+            <if test="operationType != null and operationType != ''">operation_type = #{operationType},</if>
+            <if test="allowedUserTypes != null and allowedUserTypes != ''">allowed_user_types = #{allowedUserTypes},</if>
+            <if test="allowedTimeRanges != null and allowedTimeRanges != ''">allowed_time_ranges = #{allowedTimeRanges},</if>
+            modify_scope = #{modifyScope},
+            hint_text1 = #{hintText1},
+            hint_text2 = #{hintText2},
+            <if test="attachments != null">attachments = #{attachments},</if>
+            force_read_seconds = #{forceReadSeconds},
+            max_times = #{maxTimes},
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            version =  version + 1,
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="orgId != null">org_id = #{orgId},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteOperationConfigById" parameterType="Long">
+        delete from operation_config where id = #{id}
+    </delete>
+
+    <delete id="deleteOperationConfigByCompetitionSeriesId" parameterType="Long">
+        update operation_config set del_flag = '1' where competition_series_id = #{competitionSeriesId}
+    </delete>
+
+    <delete id="deleteOperationConfigByIds" parameterType="String">
+        delete from operation_config where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <select id="getCompetitionFee" resultType="java.lang.String">
+        select cc.fee from competition_config cc
+        left join competition_track_config ctc on cc.competition_track_config_id = ctc.competition_track_config_id
+        where cc.del_flag =0 and ctc.second_level_code = #{secondLevelCode}
+    </select>
+</mapper>

@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.system.mapper.NationwideCollegeInfoMapper">
+
+    <resultMap type="NationwideCollegeInfo" id="NationwideCollegeInfoResult">
+        <result property="id"    column="id"    />
+        <result property="schoolName"    column="school_name"    />
+        <result property="schoolIdentificationCode"    column="school_identification_code"    />
+        <result property="competentDepartment"    column="competent_department"    />
+        <result property="province"    column="province"    />
+        <result property="city"    column="city"    />
+        <result property="provinceCode"    column="province_code"    />
+        <result property="cityCode"    column="city_code"    />
+        <result property="educationalLevel"    column="educational_level"    />
+        <result property="remak"    column="remak"    />
+        <result property="officialWebsiteAddress"    column="official_website_address"    />
+        <result property="internationalAcademy"    column="international_academy"    />
+        <result property="internationalCollegeWebsite"    column="international_college_website"    />
+        <result property="nineEightFive"    column="nine_eight_five"    />
+        <result property="twoOneOne"    column="two_one_one"    />
+        <result property="doubleFirstClassUniversityPlan"    column="double_first_class_university_plan"    />
+    </resultMap>
+
+    <sql id="selectNationwideCollegeInfoVo">
+        select id, school_name, school_identification_code, competent_department, province, city, province_code, city_code, educational_level, remak, official_website_address, international_academy, international_college_website, nine_eight_five, two_one_one, double_first_class_university_plan from nationwide_college_info
+    </sql>
+
+    <select id="selectNationwideCollegeInfoList" parameterType="NationwideCollegeInfo" resultMap="NationwideCollegeInfoResult">
+        <include refid="selectNationwideCollegeInfoVo"/>
+        <where>
+            <if test="schoolName != null  and schoolName != ''"> and school_name like concat('%', #{schoolName}, '%')</if>
+            <if test="schoolIdentificationCode != null  and schoolIdentificationCode != ''"> and school_identification_code = #{schoolIdentificationCode}</if>
+            <if test="competentDepartment != null  and competentDepartment != ''"> and competent_department = #{competentDepartment}</if>
+            <if test="province != null  and province != ''"> and province = #{province}</if>
+            <if test="city != null  and city != ''"> and city = #{city}</if>
+            <if test="provinceCode != null  and provinceCode != ''"> and province_code = #{provinceCode}</if>
+            <if test="cityCode != null  and cityCode != ''"> and city_code = #{cityCode}</if>
+            <if test="educationalLevel != null  and educationalLevel != ''"> and educational_level = #{educationalLevel}</if>
+            <if test="remak != null  and remak != ''"> and remak = #{remak}</if>
+            <if test="officialWebsiteAddress != null  and officialWebsiteAddress != ''"> and official_website_address = #{officialWebsiteAddress}</if>
+            <if test="internationalAcademy != null  and internationalAcademy != ''"> and international_academy = #{internationalAcademy}</if>
+            <if test="internationalCollegeWebsite != null  and internationalCollegeWebsite != ''"> and international_college_website = #{internationalCollegeWebsite}</if>
+            <if test="nineEightFive != null  and nineEightFive != ''"> and nine_eight_five = #{nineEightFive}</if>
+            <if test="twoOneOne != null  and twoOneOne != ''"> and two_one_one = #{twoOneOne}</if>
+            <if test="doubleFirstClassUniversityPlan != null  and doubleFirstClassUniversityPlan != ''"> and double_first_class_university_plan = #{doubleFirstClassUniversityPlan}</if>
+        </where>
+    </select>
+
+    <select id="selectNationwideCollegeInfoByNameLimit10" resultMap="NationwideCollegeInfoResult">
+        <include refid="selectNationwideCollegeInfoVo"/>
+        <where>
+            <if test="id != null  and id != ''"> and id = #{id}</if>
+            <if test="schoolName != null  and schoolName != ''"> and school_name like concat('%', #{schoolName}, '%')</if>
+            <if test="schoolIdentificationCode != null  and schoolIdentificationCode != ''"> and school_identification_code = #{schoolIdentificationCode}</if>
+            <if test="competentDepartment != null  and competentDepartment != ''"> and competent_department = #{competentDepartment}</if>
+            <if test="province != null  and province != ''"> and province = #{province}</if>
+            <if test="city != null  and city != ''"> and city = #{city}</if>
+            <if test="provinceCode != null  and provinceCode != ''"> and province_code = #{provinceCode}</if>
+            <if test="cityCode != null  and cityCode != ''"> and city_code = #{cityCode}</if>
+            <if test="educationalLevel != null  and educationalLevel != ''"> and educational_level = #{educationalLevel}</if>
+            <if test="remak != null  and remak != ''"> and remak = #{remak}</if>
+            <if test="officialWebsiteAddress != null  and officialWebsiteAddress != ''"> and official_website_address = #{officialWebsiteAddress}</if>
+            <if test="internationalAcademy != null  and internationalAcademy != ''"> and international_academy = #{internationalAcademy}</if>
+            <if test="internationalCollegeWebsite != null  and internationalCollegeWebsite != ''"> and international_college_website = #{internationalCollegeWebsite}</if>
+            <if test="nineEightFive != null  and nineEightFive != ''"> and nine_eight_five = #{nineEightFive}</if>
+            <if test="twoOneOne != null  and twoOneOne != ''"> and two_one_one = #{twoOneOne}</if>
+            <if test="doubleFirstClassUniversityPlan != null  and doubleFirstClassUniversityPlan != ''"> and double_first_class_university_plan = #{doubleFirstClassUniversityPlan}</if>
+        </where>
+        ORDER BY school_identification_code LIMIT 10
+    </select>
+
+    <select id="selectNationwideCollegeInfoById" parameterType="String" resultMap="NationwideCollegeInfoResult">
+        <include refid="selectNationwideCollegeInfoVo"/>
+        where id = #{id}
+    </select>
+
+    <select id="selectAllNationwideCollegeProvince" resultType="Map">
+        select distinct province_code 'provinceCode', province
+        from nationwide_college_info where province_code is not null
+    </select>
+
+    <select id="selectNationwideCollegeInfoBySchoolName" parameterType="String" resultMap="NationwideCollegeInfoResult">
+        <include refid="selectNationwideCollegeInfoVo"/>
+        where school_name = #{schoolName} limit 1
+    </select>
+
+    <insert id="insertNationwideCollegeInfo" parameterType="NationwideCollegeInfo">
+        insert into nationwide_college_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="schoolName != null">school_name,</if>
+            <if test="schoolIdentificationCode != null">school_identification_code,</if>
+            <if test="competentDepartment != null">competent_department,</if>
+            <if test="province != null">province,</if>
+            <if test="city != null">city,</if>
+            <if test="provinceCode != null">province_code,</if>
+            <if test="cityCode != null">city_code,</if>
+            <if test="educationalLevel != null">educational_level,</if>
+            <if test="remak != null">remak,</if>
+            <if test="officialWebsiteAddress != null">official_website_address,</if>
+            <if test="internationalAcademy != null">international_academy,</if>
+            <if test="internationalCollegeWebsite != null">international_college_website,</if>
+            <if test="nineEightFive != null">nine_eight_five,</if>
+            <if test="twoOneOne != null">two_one_one,</if>
+            <if test="doubleFirstClassUniversityPlan != null">double_first_class_university_plan,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="schoolName != null">#{schoolName},</if>
+            <if test="schoolIdentificationCode != null">#{schoolIdentificationCode},</if>
+            <if test="competentDepartment != null">#{competentDepartment},</if>
+            <if test="province != null">#{province},</if>
+            <if test="city != null">#{city},</if>
+            <if test="provinceCode != null">#{provinceCode},</if>
+            <if test="cityCode != null">#{cityCode},</if>
+            <if test="educationalLevel != null">#{educationalLevel},</if>
+            <if test="remak != null">#{remak},</if>
+            <if test="officialWebsiteAddress != null">#{officialWebsiteAddress},</if>
+            <if test="internationalAcademy != null">#{internationalAcademy},</if>
+            <if test="internationalCollegeWebsite != null">#{internationalCollegeWebsite},</if>
+            <if test="nineEightFive != null">#{nineEightFive},</if>
+            <if test="twoOneOne != null">#{twoOneOne},</if>
+            <if test="doubleFirstClassUniversityPlan != null">#{doubleFirstClassUniversityPlan},</if>
+        </trim>
+    </insert>
+
+    <update id="updateNationwideCollegeInfo" parameterType="NationwideCollegeInfo">
+        update nationwide_college_info
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="schoolName != null">school_name = #{schoolName},</if>
+            <if test="schoolIdentificationCode != null">school_identification_code = #{schoolIdentificationCode},</if>
+            <if test="competentDepartment != null">competent_department = #{competentDepartment},</if>
+            <if test="province != null">province = #{province},</if>
+            <if test="city != null">city = #{city},</if>
+            <if test="provinceCode != null">province_code = #{provinceCode},</if>
+            <if test="cityCode != null">city_code = #{cityCode},</if>
+            <if test="educationalLevel != null">educational_level = #{educationalLevel},</if>
+            <if test="remak != null">remak = #{remak},</if>
+            <if test="officialWebsiteAddress != null">official_website_address = #{officialWebsiteAddress},</if>
+            <if test="internationalAcademy != null">international_academy = #{internationalAcademy},</if>
+            <if test="internationalCollegeWebsite != null">international_college_website = #{internationalCollegeWebsite},</if>
+            <if test="nineEightFive != null">nine_eight_five = #{nineEightFive},</if>
+            <if test="twoOneOne != null">two_one_one = #{twoOneOne},</if>
+            <if test="doubleFirstClassUniversityPlan != null">double_first_class_university_plan = #{doubleFirstClassUniversityPlan},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteNationwideCollegeInfoById" parameterType="String">
+        delete from nationwide_college_info where id = #{id}
+    </delete>
+
+    <delete id="deleteNationwideCollegeInfoByIds" parameterType="String">
+        delete from nationwide_college_info where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.system.mapper.SysAuditTaskSubinfoMapper">
+
+    <resultMap type="SysAuditTaskSubinfo" id="SysAuditTaskSubinfoResult">
+        <result property="subId"    column="sub_id"    />
+        <result property="taskId"    column="task_id"    />
+        <result property="auditConfigId"    column="audit_config_id"    />
+        <result property="checkPer"    column="check_per"    />
+        <result property="checkTime"    column="check_time"    />
+        <result property="checkOpinion"    column="check_opinion"    />
+        <result property="checkStatus"    column="check_status"    />
+        <result property="videoId"    column="video_id"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="userId"    column="user_id"    />
+        <result property="orgId"    column="org_id"    />
+    </resultMap>
+
+    <sql id="selectSysAuditTaskSubinfoVo">
+        select sub_id, task_id, audit_config_id, check_per, check_time, check_opinion, check_status,video_id,
+               create_by, create_time, update_by, update_time, del_flag, user_id, org_id, admin_intervention from sys_audit_task_subinfo
+    </sql>
+
+    <select id="selectSysAuditTaskSubinfoList" parameterType="SysAuditTaskSubinfo" resultMap="SysAuditTaskSubinfoResult">
+        <include refid="selectSysAuditTaskSubinfoVo"/>
+        <where>
+            <if test="taskId != null "> and task_id = #{taskId}</if>
+            <if test="auditConfigId != null "> and audit_config_id = #{auditConfigId}</if>
+            <if test="checkPer != null "> and check_per = #{checkPer}</if>
+            <if test="checkTime != null "> and check_time = #{checkTime}</if>
+            <if test="checkOpinion != null  and checkOpinion != ''"> and check_opinion = #{checkOpinion}</if>
+            <if test="checkStatus != null  and checkStatus != ''"> and check_status = #{checkStatus}</if>
+            <if test="videoId != null  and videoId != ''"> and video_id = #{videoId}</if>
+            <if test="userId != null "> and user_id = #{userId}</if>
+            <if test="orgId != null "> and org_id = #{orgId}</if>
+        </where>
+    </select>
+
+    <select id="selectSysAuditTaskSubinfoBySubId" parameterType="Long" resultMap="SysAuditTaskSubinfoResult">
+        <include refid="selectSysAuditTaskSubinfoVo"/>
+        where sub_id = #{subId}
+    </select>
+
+    <insert id="insertSysAuditTaskSubinfo" parameterType="SysAuditTaskSubinfo" useGeneratedKeys="true" keyProperty="subId">
+        insert into sys_audit_task_subinfo
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="taskId != null">task_id,</if>
+            <if test="auditConfigId != null">audit_config_id,</if>
+            <if test="checkPer != null">check_per,</if>
+            <if test="checkTime != null">check_time,</if>
+            <if test="checkOpinion != null">check_opinion,</if>
+            <if test="checkStatus != null">check_status,</if>
+            <if test="videoId != null">video_id,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="delFlag != null">del_flag,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="orgId != null">org_id,</if>
+            <if test="adminIntervention != null">admin_intervention,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="taskId != null">#{taskId},</if>
+            <if test="auditConfigId != null">#{auditConfigId},</if>
+            <if test="checkPer != null">#{checkPer},</if>
+            <if test="checkTime != null">#{checkTime},</if>
+            <if test="checkOpinion != null">#{checkOpinion},</if>
+            <if test="checkStatus != null">#{checkStatus},</if>
+            <if test="videoId != null">#{videoId},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="orgId != null">#{orgId},</if>
+            <if test="adminIntervention != null">#{adminIntervention},</if>
+        </trim>
+    </insert>
+
+    <update id="updateSysAuditTaskSubinfo" parameterType="SysAuditTaskSubinfo">
+        update sys_audit_task_subinfo
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="taskId != null">task_id = #{taskId},</if>
+            <if test="auditConfigId != null">audit_config_id = #{auditConfigId},</if>
+            <if test="checkPer != null">check_per = #{checkPer},</if>
+            <if test="checkTime != null">check_time = #{checkTime},</if>
+            <if test="checkOpinion != null">check_opinion = #{checkOpinion},</if>
+            <if test="checkStatus != null">check_status = #{checkStatus},</if>
+            <if test="videoId != null">video_id = #{videoId},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="orgId != null">org_id = #{orgId},</if>
+            <if test="adminIntervention != null">admin_intervention = #{adminIntervention},</if>
+        </trim>
+        where sub_id = #{subId}
+    </update>
+
+    <delete id="deleteSysAuditTaskSubinfoBySubId" parameterType="Long">
+        delete from sys_audit_task_subinfo where sub_id = #{subId}
+    </delete>
+
+    <delete id="deleteSysAuditTaskSubinfoBySubIds" parameterType="String">
+        delete from sys_audit_task_subinfo where sub_id in
+        <foreach item="subId" collection="array" open="(" separator="," close=")">
+            #{subId}
+        </foreach>
+    </delete>
+</mapper>

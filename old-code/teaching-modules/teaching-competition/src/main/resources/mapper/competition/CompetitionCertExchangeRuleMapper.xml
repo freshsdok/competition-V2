@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.competition.mapper.CompetitionCertExchangeRuleMapper">
+    <resultMap type="com.teaching.competition.domain.CompetitionCertExchangeRule" id="CompetitionCertExchangeRuleResult">
+        <id property="ruleId" column="rule_id" />
+        <result property="competitionSeriesId" column="competition_series_id" />
+        <result property="competitionStageId" column="competition_stage_id" />
+        <result property="competitionTrackId" column="competition_track_id" />
+        <result property="secondLevelCode" column="second_level_code" />
+        <result property="applyDesc" column="apply_desc" />
+        <result property="rulerName" column="ruler_name" />
+        <result property="icon" column="icon" />
+        <result property="sort" column="sort" />
+        <result property="certConditions" column="cert_conditions" />
+        <result property="isTope" column="is_tope" />
+        <result property="rulerStatus" column="ruler_status" />
+        <result property="createBy" column="create_by" />
+        <result property="createTime" column="create_time" />
+        <result property="updateBy" column="update_by" />
+        <result property="updateTime" column="update_time" />
+        <result property="delFlag" column="del_flag" />
+        <result property="version" column="version" />
+        <collection property="detailList" ofType="com.teaching.competition.domain.CertExchangeRuleDetail" column="rule_id" select="selectCertExchangeRuleDetailByRuleId"/>
+    </resultMap>
+
+    <resultMap type="com.teaching.competition.domain.CompetitionCertExchangeRule" id="CompetitionCertExchangeRuleSimpleResult">
+        <id property="ruleId" column="rule_id" />
+        <result property="competitionSeriesId" column="competition_series_id" />
+        <result property="competitionStageId" column="competition_stage_id" />
+        <result property="competitionTrackId" column="competition_track_id" />
+        <result property="secondLevelCode" column="second_level_code" />
+        <result property="applyDesc" column="apply_desc" />
+        <result property="rulerName" column="ruler_name" />
+        <result property="icon" column="icon" />
+        <result property="sort" column="sort" />
+        <result property="certConditions" column="cert_conditions" />
+        <result property="isTope" column="is_tope" />
+        <result property="rulerStatus" column="ruler_status" />
+        <result property="createBy" column="create_by" />
+        <result property="createTime" column="create_time" />
+        <result property="updateBy" column="update_by" />
+        <result property="updateTime" column="update_time" />
+        <result property="delFlag" column="del_flag" />
+        <result property="version" column="version" />
+    </resultMap>
+
+    <resultMap type="com.teaching.competition.domain.CertExchangeRuleDetail" id="CertExchangeRuleDetailResult">
+        <id property="detailId" column="detail_id" />
+        <result property="ruleId" column="rule_id" />
+        <result property="originCertConfigId" column="origin_cert_config_id" />
+        <result property="originCertCode" column="origin_cert_code" />
+        <result property="originCertName" column="origin_cert_name" />
+        <result property="originCertScore" column="origin_cert_score" />
+        <result property="targetCertConfigId" column="target_cert_config_id" />
+        <result property="targetCertCode" column="target_cert_code" />
+        <result property="targetCertName" column="target_cert_name" />
+        <result property="targetCertScore" column="target_cert_score" />
+        <result property="ruleStatus" column="rule_status" />
+        <result property="originYearLimit" column="origin_year_limit" />
+        <result property="year" column="year" />
+        <result property="sort" column="sort" />
+        <result property="createBy" column="create_by" />
+        <result property="createTime" column="create_time" />
+        <result property="updateBy" column="update_by" />
+        <result property="updateTime" column="update_time" />
+        <result property="delFlag" column="del_flag" />
+        <result property="version" column="version" />
+    </resultMap>
+
+    <sql id="selectCompetitionCertExchangeRuleVo">
+        select rule_id, competition_series_id, competition_stage_id, competition_track_id, second_level_code, apply_desc, ruler_name, icon, sort, cert_conditions, is_tope, ruler_status, create_by, create_time, update_by, update_time, del_flag, version from competition_cert_exchange_rule
+    </sql>
+
+    <select id="selectCompetitionCertExchangeRuleById" parameterType="Long" resultMap="CompetitionCertExchangeRuleResult">
+        <include refid="selectCompetitionCertExchangeRuleVo" />
+        where rule_id = #{ruleId}
+    </select>
+
+    <select id="selectCompetitionCertExchangeRuleList" parameterType="com.teaching.competition.domain.CompetitionCertExchangeRule" resultMap="CompetitionCertExchangeRuleResult">
+        <include refid="selectCompetitionCertExchangeRuleVo" />
+        where del_flag = '0'
+            <if test="competitionSeriesId != null">
+                and rule_id in
+                (select a.rule_id from cert_exchange_rule_detail a where a.del_flag = '0'
+                and (a.origin_cert_config_id in (select cert_config_id from cert_config_info where del_flag = '0'
+                and competition_series_id = #{competitionSeriesId}
+                <if test="competitionStageId != null and competitionStageId != ''">
+                    and competition_stage_id = #{competitionStageId}
+                </if>
+                ) or
+                a.target_cert_config_id in (select cert_config_id from cert_config_info where del_flag = '0'
+                and competition_series_id = #{competitionSeriesId}
+                <if test="competitionStageId !=null and competitionStageId!= ''">
+                    and competition_stage_id = #{competitionStageId}
+                </if>
+                )))
+            </if>
+            <if test="competitionTrackId != null and competitionTrackId != ''">
+                and rule_id in
+                (select a.rule_id from cert_exchange_rule_detail a where a.del_flag = '0'
+                and (a.origin_cert_config_id in (select cert_config_id from cert_config_info where del_flag = '0'
+                and competition_track_id = #{competitionTrackId}) or
+                a.target_cert_config_id in (select cert_config_id from cert_config_info where del_flag = '0'
+                and competition_track_id = #{competitionTrackId})))
+            </if>
+            <if test="secondLevelCode != null and secondLevelCode != ''">
+                and rule_id in
+                (select a.rule_id from cert_exchange_rule_detail a where a.del_flag = '0'
+                and (a.origin_cert_config_id in (select cert_config_id from cert_config_info where del_flag = '0'
+                and second_level_code = #{secondLevelCode}) or
+                a.target_cert_config_id in (select cert_config_id from cert_config_info where del_flag = '0'
+                and second_level_code = #{secondLevelCode})))
+            </if>
+        <if test="originCertName != null and originCertName != ''">
+            and rule_id in (select a.rule_id from cert_exchange_rule_detail a where a.del_flag = '0'
+            and (a.origin_cert_config_id in (select cert_config_id from cert_config_info where del_flag = '0'
+            and cert_config_name like concat('%', #{originCertName}, '%'))))
+        </if>
+        <if test="targetCertName != null and targetCertName != ''">
+            and rule_id in (select a.rule_id from cert_exchange_rule_detail a where a.del_flag = '0'
+            and (a.target_cert_config_id in (select cert_config_id from cert_config_info where del_flag = '0'
+            and cert_config_name like concat('%', #{targetCertName}, '%'))))
+        </if>
+        <if test="certSource != null and certSource != ''">
+            and rule_id in (select a.rule_id from cert_exchange_rule_detail a where a.del_flag = '0'
+            and (a.origin_cert_config_id in (select cert_config_id from cert_config_info where del_flag = '0'
+            and cert_source like concat('%', #{certSource}, '%')) or
+            a.target_cert_config_id in (select cert_config_id from cert_config_info where del_flag = '0'
+            and cert_source like concat('%', #{certSource}, '%'))))
+        </if>
+<!--        <if test="competitionName != null and competitionName!=''">-->
+<!--            and competition_series_id in (select a.competition_series_id from competition_series_info a-->
+<!--            left join competition_main_info b on a.competition_id = b.competition_id where b.competition_name like concat('%', #{competitionName}, '%'))-->
+<!--        </if>-->
+<!--        <if test="competitionStageName != null and competitionStageName!=''">-->
+<!--            and competition_stage_id in (select stage_id from competition_stage_config where stage_name like concat('%', #{competitionStageName}, '%'))-->
+<!--        </if>-->
+<!--        <if test="competitionSeriesName != null and competitionSeriesName!=''">-->
+<!--            and competition_series_id in (select competition_series_id from competition_series_info where competition_series_name like concat('%', #{competitionSeriesName}, '%'))-->
+<!--        </if>-->
+<!--        <if test="competitionTrackName != null and competitionTrackName != ''">-->
+<!--            and competition_track_id in (select competition_track_id from competition_track_info where competition_track_name like concat('%', #{competitionTrackName}, '%'))-->
+<!--        </if>-->
+<!--        <if test="secondLevelName != null and secondLevelName != ''">-->
+<!--            and second_level_code in (select second_level_code from competition_track_config where second_level_name like concat('%', #{secondLevelName}, '%')-->
+<!--        </if>-->
+            <if test="rulerStatus != null and rulerStatus != ''">
+                and ruler_status = #{rulerStatus}
+            </if>
+            <if test="isTope != null and isTope != ''">
+                and is_tope = #{isTope}
+            </if>
+            <if test="keyWord != null and keyWord != ''">
+                and (
+                    ruler_name like concat('%', #{keyWord}, '%')
+                    or apply_desc like concat('%', #{keyWord}, '%')
+                    or exists (
+                        select 1
+                        from cert_exchange_rule_detail d
+                        where d.rule_id = competition_cert_exchange_rule.rule_id
+                          and d.del_flag = '0'
+                          and (
+                              d.origin_cert_code like concat('%', #{keyWord}, '%')
+                              or d.origin_cert_name like concat('%', #{keyWord}, '%')
+                              or d.target_cert_code like concat('%', #{keyWord}, '%')
+                              or d.target_cert_name like concat('%', #{keyWord}, '%')
+                          )
+                    )
+                )
+            </if>
+        order by sort
+    </select>
+
+    <select id="selectCompetitionCertExchangeRuleListSimple" parameterType="com.teaching.competition.domain.CompetitionCertExchangeRule" resultMap="CompetitionCertExchangeRuleSimpleResult">
+        <include refid="selectCompetitionCertExchangeRuleVo" />
+        where del_flag = '0'
+            <if test="competitionSeriesId != null">
+                and competition_series_id = #{competitionSeriesId}
+            </if>
+            <if test="competitionTrackId != null and competitionTrackId != ''">
+                and competition_track_id = #{competitionTrackId}
+            </if>
+            <if test="secondLevelCode != null and secondLevelCode != ''">
+                and second_level_code = #{secondLevelCode}
+            </if>
+            <if test="rulerStatus != null and rulerStatus != ''">
+                and ruler_status = #{rulerStatus}
+            </if>
+            <if test="isTope != null and isTope != ''">
+                and is_tope = #{isTope}
+            </if>
+        order by sort
+    </select>
+
+    <select id="selectCertExchangeRuleDetailByRuleId" parameterType="Long" resultMap="CertExchangeRuleDetailResult">
+        select detail_id, rule_id, origin_cert_code, origin_cert_name, origin_cert_score, origin_cert_config_id,target_cert_config_id,target_cert_code, target_cert_name,
+        target_cert_score, rule_status, year, origin_year_limit,sort, create_by, create_time, update_by, update_time, del_flag, version
+        from cert_exchange_rule_detail
+        where rule_id = #{ruleId} and del_flag = '0'
+        order by sort asc
+    </select>
+
+    <insert id="insertCompetitionCertExchangeRule" parameterType="com.teaching.competition.domain.CompetitionCertExchangeRule"
+            useGeneratedKeys="true" keyProperty="ruleId" keyColumn="rule_id">
+        insert into competition_cert_exchange_rule
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="competitionSeriesId != null">competition_series_id,</if>
+            <if test="competitionStageId != null">competition_stage_id,</if>
+            <if test="competitionTrackId != null">competition_track_id,</if>
+            <if test="secondLevelCode != null">second_level_code,</if>
+            <if test="applyDesc != null">apply_desc,</if>
+            <if test="rulerName != null">ruler_name,</if>
+            <if test="icon != null">icon,</if>
+            <if test="sort != null">sort,</if>
+            <if test="certConditions != null">cert_conditions,</if>
+            <if test="isTope != null">is_tope,</if>
+            <if test="rulerStatus != null">ruler_status,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="delFlag != null">del_flag,</if>
+            <if test="version != null">version,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="competitionSeriesId != null">#{competitionSeriesId},</if>
+            <if test="competitionStageId != null">#{competitionStageId},</if>
+            <if test="competitionTrackId != null">#{competitionTrackId},</if>
+            <if test="secondLevelCode != null">#{secondLevelCode},</if>
+            <if test="applyDesc != null">#{applyDesc},</if>
+            <if test="rulerName != null">#{rulerName},</if>
+            <if test="icon != null">#{icon},</if>
+            <if test="sort != null">#{sort},</if>
+            <if test="certConditions != null">#{certConditions},</if>
+            <if test="isTope != null">#{isTope},</if>
+            <if test="rulerStatus != null">#{rulerStatus},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+            <if test="version != null">#{version},</if>
+        </trim>
+    </insert>
+
+    <update id="updateCompetitionCertExchangeRule" parameterType="com.teaching.competition.domain.CompetitionCertExchangeRule">
+        update competition_cert_exchange_rule
+        <set>
+            <if test="competitionSeriesId != null">competition_series_id = #{competitionSeriesId},</if>
+            <if test="competitionStageId != null">competition_stage_id = #{competitionStageId},</if>
+            <if test="competitionTrackId != null">competition_track_id = #{competitionTrackId},</if>
+            <if test="secondLevelCode != null">second_level_code = #{secondLevelCode},</if>
+            <if test="applyDesc != null">apply_desc = #{applyDesc},</if>
+            <if test="rulerName != null">ruler_name = #{rulerName},</if>
+            <if test="icon != null">icon = #{icon},</if>
+            <if test="sort != null and sort == -1">sort = null,</if>
+            <if test="sort != null and sort != -1">sort = #{sort},</if>
+            <if test="certConditions != null">cert_conditions = #{certConditions},</if>
+            <if test="isTope != null">is_tope = #{isTope},</if>
+            <if test="rulerStatus != null">ruler_status = #{rulerStatus},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+            version = version+1,
+        </set>
+        where rule_id = #{ruleId}
+    </update>
+
+    <delete id="deleteCompetitionCertExchangeRuleById" parameterType="Long">
+        update competition_cert_exchange_rule set del_flag = '1' where rule_id = #{ruleId}
+    </delete>
+
+    <delete id="deleteCompetitionCertExchangeRuleByIds" parameterType="Long[]">
+        update competition_cert_exchange_rule set del_flag = '1' where rule_id in
+        <foreach item="ruleId" collection="array" open="(" separator="," close=")">
+            #{ruleId}
+        </foreach>
+    </delete>
+</mapper>

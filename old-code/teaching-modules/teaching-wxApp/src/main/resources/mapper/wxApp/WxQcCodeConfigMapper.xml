@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.wxApp.mapper.WxQcCodeConfigMapper">
+
+    <resultMap type="com.teaching.wxApp.domain.WxQcCodeConfig" id="WxQcCodeConfigResult">
+        <result property="codeConfigId" column="code_config_id"/>
+        <result property="codeConfigName" column="code_config_name"/>
+        <result property="competitionSeriesId" column="competition_series_id"/>
+        <result property="userGroupIds" column="user_group_ids"/>
+        <result property="successHintTitle" column="success_hint_title"/>
+        <result property="successHintDesc" column="success_hint_desc"/>
+        <result property="examinationHallRuler" column="examination_hall_ruler"/>
+        <result property="examinationHallPromise" column="examination_hall_promise"/>
+        <result property="improperTitle" column="improper_title"/>
+        <result property="improperDesc" column="improper_desc"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="remark" column="remark"/>
+        <result property="version" column="version"/>
+        <result property="delFlag" column="del_flag"/>
+        <result property="notMeMsg" column="not_me_msg"/>
+        <result property="competitionName" column="competition_name"/>
+        <result property="competitionSeriesName" column="competition_series_name"/>
+        <result property="checkStatus" column="check_status"/>
+        <result property="competitionStartTime" column="competition_start_time"/>
+        <result property="competitionEndTime" column="competition_end_time"/>
+<!--        <collection property="wxQcCodeRecordList" column="code_config_id"-->
+<!--                    ofType="com.teaching.wxApp.domain.WxQcCodeRecord"-->
+<!--                    select="com.teaching.wxApp.mapper.WxQcCodeRecordMapper.selectWxQcCodeRecordListByCodeConfigId"/>-->
+    </resultMap>
+
+    <resultMap type="com.teaching.wxApp.domain.WxQcCodeConfig" id="WxQcCodeConfigResult1">
+        <result property="codeConfigId" column="code_config_id"/>
+        <result property="codeConfigName" column="code_config_name"/>
+        <result property="competitionSeriesId" column="competition_series_id"/>
+        <result property="userGroupIds" column="user_group_ids"/>
+        <result property="successHintTitle" column="success_hint_title"/>
+        <result property="successHintDesc" column="success_hint_desc"/>
+        <result property="examinationHallRuler" column="examination_hall_ruler"/>
+        <result property="examinationHallPromise" column="examination_hall_promise"/>
+        <result property="improperTitle" column="improper_title"/>
+        <result property="improperDesc" column="improper_desc"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="remark" column="remark"/>
+        <result property="version" column="version"/>
+        <result property="delFlag" column="del_flag"/>
+        <result property="notMeMsg" column="not_me_msg"/>
+    </resultMap>
+
+    <sql id="selectWxQcCodeConfigVo">
+        select code_config_id,
+               code_config_name,
+               competition_series_id,
+               user_group_ids,
+               success_hint_title,
+               success_hint_desc,
+               examination_hall_ruler,
+               examination_hall_promise,
+               improper_title,
+               improper_desc,
+               create_by,
+               create_time,
+               update_by,
+               update_time,
+               remark,
+               version,
+               del_flag,
+               not_me_msg
+        from wx_qc_code_config
+    </sql>
+    <sql id="selectWxQcCodeConfigInfo">
+        select cc.code_config_id,
+               cc.code_config_name,
+               cc.competition_series_id,
+               cc.user_group_ids,
+               cc.success_hint_title,
+               cc.success_hint_desc,
+               cc.examination_hall_ruler,
+               cc.examination_hall_promise,
+               cc.improper_title,
+               cc.improper_desc,
+               cc.create_by,
+               cc.create_time,
+               cc.update_by,
+               cc.update_time,
+               cc.remark,
+               cc.version,
+               cc.del_flag,
+               cc.not_me_msg,
+                mi.competition_name,
+                si.competition_series_name,si.check_status,si.competition_start_time,si.competition_end_time
+        from wx_qc_code_config cc
+                 LEFT JOIN competition_series_info si on si.competition_series_id = cc.competition_series_id AND si.del_flag = '0'
+                 LEFT JOIN competition_main_info mi on mi.competition_id =si.competition_id AND mi.del_flag ='0'
+    </sql>
+
+    <select id="selectWxQcCodeConfigList" parameterType="com.teaching.wxApp.domain.WxQcCodeConfig"
+            resultMap="WxQcCodeConfigResult">
+        <include refid="selectWxQcCodeConfigInfo"/>
+        <where>
+            and cc.del_flag = '0'
+            <if test="codeConfigName != null and codeConfigName != ''">
+                and cc.code_config_name like concat('%', #{codeConfigName}, '%')
+            </if>
+            <if test="competitionSeriesId != null">
+                and cc.competition_series_id = #{competitionSeriesId}
+            </if>
+            <if test="userGroupIds != null and userGroupIds != ''">
+                and cc.user_group_ids = #{userGroupIds}
+            </if>
+            <if test="successHintTitle != null and successHintTitle != ''">
+                and cc.success_hint_title = #{successHintTitle}
+            </if>
+            <if test="successHintDesc != null and successHintDesc != ''">
+                and cc.success_hint_desc = #{successHintDesc}
+            </if>
+            <if test="examinationHallRuler != null and examinationHallRuler != ''">
+                and cc.examination_hall_ruler = #{examinationHallRuler}
+            </if>
+            <if test="examinationHallPromise != null and examinationHallPromise != ''">
+                and cc.examination_hall_promise = #{examinationHallPromise}
+            </if>
+            <if test="improperTitle != null and improperTitle != ''">
+                and cc.improper_title = #{improperTitle}
+            </if>
+            <if test="improperDesc != null and improperDesc != ''">
+                and cc.improper_desc = #{improperDesc}
+            </if>
+            <if test="version != null">
+                and cc.version = #{version}
+            </if>
+        </where>
+        order by cc.create_time desc
+    </select>
+
+
+    <select id="selectWxQcCodeConfigPcList" parameterType="com.teaching.wxApp.domain.WxQcCodeConfig"
+            resultMap="WxQcCodeConfigResult">
+        <include refid="selectWxQcCodeConfigInfo"/>
+        <where>
+            and cc.del_flag = '0'
+            <if test="codeConfigName != null and codeConfigName != ''">
+                and cc.code_config_name like concat('%', #{codeConfigName}, '%')
+            </if>
+            <if test="competitionSeriesId != null">
+                and cc.competition_series_id = #{competitionSeriesId}
+            </if>
+            <if test="successHintTitle != null and successHintTitle != ''">
+                and cc.success_hint_title = #{successHintTitle}
+            </if>
+            <if test="successHintDesc != null and successHintDesc != ''">
+                and cc.success_hint_desc = #{successHintDesc}
+            </if>
+            <if test="examinationHallRuler != null and examinationHallRuler != ''">
+                and cc.examination_hall_ruler = #{examinationHallRuler}
+            </if>
+            <if test="examinationHallPromise != null and examinationHallPromise != ''">
+                and cc.examination_hall_promise = #{examinationHallPromise}
+            </if>
+            <if test="improperTitle != null and improperTitle != ''">
+                and cc.improper_title = #{improperTitle}
+            </if>
+            <if test="improperDesc != null and improperDesc != ''">
+                and cc.improper_desc = #{improperDesc}
+            </if>
+            <if test="version != null">
+                and cc.version = #{version}
+            </if>
+            <if test="groupIds != null">
+                and
+                <foreach collection="groupIds" item="groupId" open="(" close=")" separator=" OR ">
+                    FIND_IN_SET(#{groupId}, cc.user_group_ids)
+                </foreach>
+            </if>
+        </where>
+        order by cc.create_time desc
+    </select>
+
+    <select id="selectWxQcCodeConfigList1" parameterType="com.teaching.wxApp.domain.WxQcCodeConfig"
+            resultMap="WxQcCodeConfigResult1">
+        <include refid="selectWxQcCodeConfigVo"/>
+        <where>
+            and del_flag = '0'
+            <if test="codeConfigName != null and codeConfigName != ''">
+                and code_config_name like concat('%', #{codeConfigName}, '%')
+            </if>
+            <if test="competitionSeriesId != null">
+                and competition_series_id = #{competitionSeriesId}
+            </if>
+            <if test="userGroupIds != null and userGroupIds != ''">
+                and user_group_ids = #{userGroupIds}
+            </if>
+            <if test="successHintTitle != null and successHintTitle != ''">
+                and success_hint_title = #{successHintTitle}
+            </if>
+            <if test="successHintDesc != null and successHintDesc != ''">
+                and success_hint_desc = #{successHintDesc}
+            </if>
+            <if test="examinationHallRuler != null and examinationHallRuler != ''">
+                and examination_hall_ruler = #{examinationHallRuler}
+            </if>
+            <if test="examinationHallPromise != null and examinationHallPromise != ''">
+                and examination_hall_promise = #{examinationHallPromise}
+            </if>
+            <if test="improperTitle != null and improperTitle != ''">
+                and improper_title = #{improperTitle}
+            </if>
+            <if test="improperDesc != null and improperDesc != ''">
+                and improper_desc = #{improperDesc}
+            </if>
+            <if test="version != null">
+                and version = #{version}
+            </if>
+        </where>
+        order by create_time desc
+    </select>
+
+    <select id="selectWxQcCodeConfigByCodeConfigId" parameterType="Long" resultMap="WxQcCodeConfigResult">
+        <include refid="selectWxQcCodeConfigVo"/>
+        where code_config_id = #{codeConfigId}
+    </select>
+
+    <insert id="insertWxQcCodeConfig" parameterType="com.teaching.wxApp.domain.WxQcCodeConfig" useGeneratedKeys="true"
+            keyProperty="codeConfigId">
+        insert into wx_qc_code_config
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="codeConfigName != null and codeConfigName != ''">code_config_name,</if>
+            <if test="competitionSeriesId != null">competition_series_id,</if>
+            <if test="userGroupIds != null">user_group_ids,</if>
+            <if test="successHintTitle != null">success_hint_title,</if>
+            <if test="successHintDesc != null">success_hint_desc,</if>
+            <if test="examinationHallRuler != null">examination_hall_ruler,</if>
+            <if test="examinationHallPromise != null">examination_hall_promise,</if>
+            <if test="improperTitle != null">improper_title,</if>
+            <if test="improperDesc != null">improper_desc,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+            <if test="version != null">version,</if>
+            <if test="delFlag != null">del_flag,</if>
+            <if test="notMeMsg != null">not_me_msg,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="codeConfigName != null and codeConfigName != ''">#{codeConfigName},</if>
+            <if test="competitionSeriesId != null">#{competitionSeriesId},</if>
+            <if test="userGroupIds != null">#{userGroupIds},</if>
+            <if test="successHintTitle != null">#{successHintTitle},</if>
+            <if test="successHintDesc != null">#{successHintDesc},</if>
+            <if test="examinationHallRuler != null">#{examinationHallRuler},</if>
+            <if test="examinationHallPromise != null">#{examinationHallPromise},</if>
+            <if test="improperTitle != null">#{improperTitle},</if>
+            <if test="improperDesc != null">#{improperDesc},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="version != null">#{version},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+            <if test="notMeMsg != null">#{notMeMsg},</if>
+        </trim>
+    </insert>
+
+    <update id="updateWxQcCodeConfig" parameterType="com.teaching.wxApp.domain.WxQcCodeConfig">
+        update wx_qc_code_config
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="codeConfigName != null and codeConfigName != ''">code_config_name = #{codeConfigName},</if>
+            <if test="competitionSeriesId != null">competition_series_id = #{competitionSeriesId},</if>
+            <if test="userGroupIds != null">user_group_ids = #{userGroupIds},</if>
+            <if test="successHintTitle != null">success_hint_title = #{successHintTitle},</if>
+            <if test="successHintDesc != null">success_hint_desc = #{successHintDesc},</if>
+            <if test="examinationHallRuler != null">examination_hall_ruler = #{examinationHallRuler},</if>
+            <if test="examinationHallPromise != null">examination_hall_promise = #{examinationHallPromise},</if>
+            <if test="improperTitle != null">improper_title = #{improperTitle},</if>
+            <if test="improperDesc != null">improper_desc = #{improperDesc},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="version != null">version = #{version},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+            <if test="notMeMsg != null">not_me_msg = #{notMeMsg},</if>
+        </trim>
+        where code_config_id = #{codeConfigId}
+    </update>
+
+    <delete id="deleteWxQcCodeConfigByCodeConfigId" parameterType="Long">
+        update wx_qc_code_config
+        set del_flag = '2'
+        where code_config_id = #{codeConfigId}
+    </delete>
+
+    <delete id="deleteWxQcCodeConfigByCodeConfigIds">
+        update wx_qc_code_config
+        set del_flag = '2'
+        where code_config_id in
+        <foreach collection="array" item="codeConfigId" open="(" separator="," close=")">
+            #{codeConfigId}
+        </foreach>
+    </delete>
+</mapper>

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.system.mapper.ReviewRecordMapper">
+
+    <resultMap type="com.teaching.system.domain.ReviewRecord" id="ReviewRecordResult">
+        <result property="id"    column="id"    />
+        <result property="expertId"    column="expert_id"    />
+        <result property="fileId"    column="file_id"    />
+        <result property="reviewStatus"    column="review_status"    />
+        <result property="reviewTime"    column="review_time"    />
+        <result property="lastPage"    column="last_page"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="delFlag"    column="del_flag"    />
+    </resultMap>
+
+    <sql id="selectReviewRecordVo">
+        select id, expert_id, file_id, review_status, review_time, last_page, create_by, create_time, update_by, update_time, del_flag from review_record
+    </sql>
+
+    <select id="selectReviewRecordList" parameterType="com.teaching.system.domain.ReviewRecord" resultMap="ReviewRecordResult">
+        <include refid="selectReviewRecordVo"/>
+        <where>
+            <if test="expertId != null "> and expert_id = #{expertId}</if>
+            <if test="fileId != null "> and file_id = #{fileId}</if>
+            <if test="reviewStatus != null  and reviewStatus != ''"> and review_status = #{reviewStatus}</if>
+            <if test="reviewTime != null "> and review_time = #{reviewTime}</if>
+            <if test="lastPage != null  and lastPage != ''"> and last_page = #{lastPage}</if>
+        </where>
+    </select>
+
+    <select id="selectRecordByExpertAndFile" resultMap = "ReviewRecordResult">
+        <include refid="selectReviewRecordVo"/>
+        where del_flag = '0' and expert_id = #{expertId} and file_id = #{fileId}
+    </select>
+
+    <select id="selectReviewRecordById" parameterType="Long" resultMap="ReviewRecordResult">
+        <include refid="selectReviewRecordVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertReviewRecord" parameterType="com.teaching.system.domain.ReviewRecord" useGeneratedKeys="true" keyProperty="id">
+        insert into review_record
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="expertId != null">expert_id,</if>
+            <if test="fileId != null">file_id,</if>
+            <if test="reviewStatus != null">review_status,</if>
+            <if test="reviewTime != null">review_time,</if>
+            <if test="lastPage != null">last_page,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="delFlag != null">del_flag,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="expertId != null">#{expertId},</if>
+            <if test="fileId != null">#{fileId},</if>
+            <if test="reviewStatus != null">#{reviewStatus},</if>
+            <if test="reviewTime != null">#{reviewTime},</if>
+            <if test="lastPage != null">#{lastPage},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+        </trim>
+    </insert>
+
+    <update id="updateReviewRecord" parameterType="com.teaching.system.domain.ReviewRecord">
+        update review_record
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="expertId != null">expert_id = #{expertId},</if>
+            <if test="fileId != null">file_id = #{fileId},</if>
+            <if test="reviewStatus != null">review_status = #{reviewStatus},</if>
+            <if test="reviewTime != null">review_time = #{reviewTime},</if>
+            <if test="lastPage != null">last_page = #{lastPage},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteReviewRecordById" parameterType="Long">
+        delete from review_record where id = #{id}
+    </delete>
+
+    <delete id="deleteReviewRecordByIds" parameterType="String">
+        delete from review_record where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>com.teaching</groupId>
+        <artifactId>teaching</artifactId>
+        <version>3.6.6</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <modules>
+        <module>teaching-common-log</module>
+        <module>teaching-common-core</module>
+        <module>teaching-common-redis</module>
+        <module>teaching-common-seata</module>
+        <module>teaching-common-swagger</module>
+        <module>teaching-common-security</module>
+        <module>teaching-common-sensitive</module>
+        <module>teaching-common-datascope</module>
+        <module>teaching-common-datasource</module>
+        <module>teaching-common-im</module>
+        <module>teaching-common-client</module>
+    </modules>
+
+    <artifactId>teaching-common</artifactId>
+    <packaging>pom</packaging>
+
+    <description>
+        teaching-common通用模块
+    </description>
+
+</project>

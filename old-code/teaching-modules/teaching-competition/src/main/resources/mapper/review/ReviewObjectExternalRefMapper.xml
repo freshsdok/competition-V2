@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.competition.review.mapper.ReviewObjectExternalRefMapper">
+
+    <resultMap type="com.teaching.competition.review.domain.ReviewObjectExternalRef" id="ReviewObjectExternalRefResult">
+<id property="id" column="id"/>
+<result property="activityId" column="activity_id"/>
+<result property="objectId" column="object_id"/>
+<result property="sourceModule" column="source_module"/>
+<result property="sourceBizType" column="source_biz_type"/>
+<result property="sourceBizId" column="source_biz_id"/>
+<result property="sourceBizCode" column="source_biz_code"/>
+<result property="sourceTeamId" column="source_team_id"/>
+<result property="sourceRegistrationId" column="source_registration_id"/>
+<result property="relationType" column="relation_type"/>
+<result property="extraData" column="extra_data"/>
+<result property="createBy" column="create_by"/>
+<result property="createTime" column="create_time"/>
+<result property="updateBy" column="update_by"/>
+<result property="updateTime" column="update_time"/>
+<result property="remark" column="remark"/>
+<result property="delFlag" column="del_flag"/>
+    </resultMap>
+
+    <sql id="selectReviewObjectExternalRefVo">
+        select id, activity_id, object_id, source_module, source_biz_type, source_biz_id, source_biz_code, source_team_id, source_registration_id, relation_type, extra_data, create_by, create_time, update_by, update_time, remark, del_flag
+        from review_object_external_ref
+    </sql>
+
+    <select id="selectById" parameterType="Long" resultMap="ReviewObjectExternalRefResult">
+        <include refid="selectReviewObjectExternalRefVo"/>
+        where id = #{id} and del_flag = '0'
+    </select>
+
+    <select id="selectList" parameterType="com.teaching.competition.review.domain.ReviewObjectExternalRef" resultMap="ReviewObjectExternalRefResult">
+        <include refid="selectReviewObjectExternalRefVo"/>
+        <where>
+    del_flag = '0'
+    <if test="activityId != null">
+        and activity_id = #{activityId}
+    </if>
+    <if test="objectId != null">
+        and object_id = #{objectId}
+    </if>
+    <if test="sourceModule != null and sourceModule != ''">
+        and source_module = #{sourceModule}
+    </if>
+    <if test="sourceBizType != null and sourceBizType != ''">
+        and source_biz_type = #{sourceBizType}
+    </if>
+    <if test="sourceBizId != null and sourceBizId != ''">
+        and source_biz_id = #{sourceBizId}
+    </if>
+    <if test="sourceBizCode != null and sourceBizCode != ''">
+        and source_biz_code = #{sourceBizCode}
+    </if>
+    <if test="sourceTeamId != null and sourceTeamId != ''">
+        and source_team_id = #{sourceTeamId}
+    </if>
+    <if test="sourceRegistrationId != null and sourceRegistrationId != ''">
+        and source_registration_id = #{sourceRegistrationId}
+    </if>
+    <if test="relationType != null and relationType != ''">
+        and relation_type = #{relationType}
+    </if>
+    <if test="extraData != null and extraData != ''">
+        and extra_data = #{extraData}
+    </if>
+        </where>
+        order by id desc
+    </select>
+
+    <insert id="insert" parameterType="com.teaching.competition.review.domain.ReviewObjectExternalRef" useGeneratedKeys="true" keyProperty="id">
+        insert into review_object_external_ref
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+    <if test="activityId != null">activity_id,</if>
+    <if test="objectId != null">object_id,</if>
+    <if test="sourceModule != null">source_module,</if>
+    <if test="sourceBizType != null">source_biz_type,</if>
+    <if test="sourceBizId != null">source_biz_id,</if>
+    <if test="sourceBizCode != null">source_biz_code,</if>
+    <if test="sourceTeamId != null">source_team_id,</if>
+    <if test="sourceRegistrationId != null">source_registration_id,</if>
+    <if test="relationType != null">relation_type,</if>
+    <if test="extraData != null">extra_data,</if>
+    <if test="createBy != null">create_by,</if>
+    <if test="createTime != null">create_time,</if>
+    <if test="updateBy != null">update_by,</if>
+    <if test="updateTime != null">update_time,</if>
+    <if test="remark != null">remark,</if>
+    <if test="delFlag != null">del_flag,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+    <if test="activityId != null">#{activityId},</if>
+    <if test="objectId != null">#{objectId},</if>
+    <if test="sourceModule != null">#{sourceModule},</if>
+    <if test="sourceBizType != null">#{sourceBizType},</if>
+    <if test="sourceBizId != null">#{sourceBizId},</if>
+    <if test="sourceBizCode != null">#{sourceBizCode},</if>
+    <if test="sourceTeamId != null">#{sourceTeamId},</if>
+    <if test="sourceRegistrationId != null">#{sourceRegistrationId},</if>
+    <if test="relationType != null">#{relationType},</if>
+    <if test="extraData != null">#{extraData},</if>
+    <if test="createBy != null">#{createBy},</if>
+    <if test="createTime != null">#{createTime},</if>
+    <if test="updateBy != null">#{updateBy},</if>
+    <if test="updateTime != null">#{updateTime},</if>
+    <if test="remark != null">#{remark},</if>
+    <if test="delFlag != null">#{delFlag},</if>
+        </trim>
+    </insert>
+
+    <update id="update" parameterType="com.teaching.competition.review.domain.ReviewObjectExternalRef">
+        update review_object_external_ref
+        <set>
+    <if test="activityId != null">activity_id = #{activityId},</if>
+    <if test="objectId != null">object_id = #{objectId},</if>
+    <if test="sourceModule != null">source_module = #{sourceModule},</if>
+    <if test="sourceBizType != null">source_biz_type = #{sourceBizType},</if>
+    <if test="sourceBizId != null">source_biz_id = #{sourceBizId},</if>
+    <if test="sourceBizCode != null">source_biz_code = #{sourceBizCode},</if>
+    <if test="sourceTeamId != null">source_team_id = #{sourceTeamId},</if>
+    <if test="sourceRegistrationId != null">source_registration_id = #{sourceRegistrationId},</if>
+    <if test="relationType != null">relation_type = #{relationType},</if>
+    <if test="extraData != null">extra_data = #{extraData},</if>
+    <if test="updateBy != null">update_by = #{updateBy},</if>
+    <if test="updateTime != null">update_time = #{updateTime},</if>
+    <if test="remark != null">remark = #{remark},</if>
+        </set>
+        where id = #{id} and del_flag = '0'
+    </update>
+
+    <update id="deleteByIds">
+        update review_object_external_ref
+        set del_flag = '1', update_by = #{updateBy}, update_time = now()
+        where id in
+        <foreach item="id" collection="ids" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+</mapper>

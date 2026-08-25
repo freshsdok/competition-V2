@@ -1,0 +1,4 @@
+com.teaching.common.core.config.ManagementEndpointSecurityAutoConfiguration
+com.teaching.common.core.config.ManagementEndpointExposureSecurityAutoConfiguration
+com.teaching.common.core.utils.SpringUtils
+com.teaching.common.core.sms.SmsConfigInfo

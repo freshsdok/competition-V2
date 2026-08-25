@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.course.mapper.CourseClassifyInfoMapper">
+
+    <resultMap type="CourseClassifyInfo" id="CourseClassifyInfoResult">
+        <result property="classifyId" column="classify_id"/>
+        <result property="parentClassify" column="parent_classify"/>
+        <result property="parentName" column="parent_name"/>
+        <result property="classifyName" column="classify_name"/>
+        <result property="classifyCode" column="classify_code"/>
+        <result property="classifyDesc" column="classify_desc"/>
+        <result property="classifyImage" column="classify_image"/>
+        <result property="weight" column="weight"/>
+        <result property="status" column="status"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="version" column="version"/>
+        <result property="delFlag" column="del_flag"/>
+        <result property="userId" column="user_id"/>
+        <result property="orgId" column="org_id"/>
+    </resultMap>
+
+    <sql id="selectCourseClassifyInfoVo">
+        select cci.classify_id,
+               cci.parent_classify,
+               ccio.classify_name as parent_name,
+               cci.classify_name,
+               cci.classify_code,
+               cci.classify_desc,
+               cci.classify_image,
+               cci.weight,
+               cci.`status`,
+               cci.create_by,
+               cci.create_time,
+               cci.update_by,
+               cci.update_time,
+               cci.version,
+               cci.del_flag,
+               cci.user_id,
+               cci.org_id
+        from course_classify_info cci
+                 LEFT JOIN course_classify_info ccio on ccio.classify_id = cci.parent_classify
+    </sql>
+
+    <select id="selectCourseClassifyInfoList" parameterType="CourseClassifyInfo" resultMap="CourseClassifyInfoResult">
+        <include refid="selectCourseClassifyInfoVo"/>
+        <where>
+            and cci.del_flag = '0'
+            <if test="parentClassify != null ">and cci.parent_classify = #{parentClassify}</if>
+            <if test="classifyName != null  and classifyName != ''">
+                and cci.classify_name like concat('%', #{classifyName},'%')
+            </if>
+            <if test="parentName != null  and parentName != ''">
+                and ccio.classify_name like concat('%', #{parentName},'%')
+            </if>
+            <if test="classifyCode != null  and classifyCode != ''">and cci.classify_code like concat('%', #{classifyCode},'%')</if>
+            <if test="classifyDesc != null  and classifyDesc != ''">and cci.classify_desc = #{classifyDesc}</if>
+            <if test="classifyImage != null  and classifyImage != ''">and cci.classify_image = #{classifyImage}</if>
+            <if test="weight != null  and weight != ''">and cci.weight = #{weight}</if>
+            <if test="status != null  and status != ''">and cci.status = #{status}</if>
+            <if test="version != null ">and cci.version = #{version}</if>
+            <if test="userId != null ">and cci.user_id = #{userId}</if>
+            <if test="orgId != null ">and cci.org_id = #{orgId}</if>
+            <if test="params.beginTime != null and params.beginTime != ''">
+                and cci.create_time &gt;= #{params.beginTime}
+            </if>
+            <if test="params.endTime != null and params.endTime != ''">
+                and cci.create_time &lt;= #{params.endTime}
+            </if>
+        </where>
+        order by cci.parent_classify,cci.weight asc,cci.create_time desc
+    </select>
+
+    <select id="selectCourseClassifyInfoByClassifyId" parameterType="Long" resultMap="CourseClassifyInfoResult">
+        <include refid="selectCourseClassifyInfoVo"/>
+        where cci.classify_id = #{classifyId}
+    </select>
+
+    <insert id="insertCourseClassifyInfo" parameterType="CourseClassifyInfo" useGeneratedKeys="true"
+            keyProperty="classifyId">
+        insert into course_classify_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="parentClassify != null">parent_classify,</if>
+            <if test="classifyName != null and classifyName != ''">classify_name,</if>
+            <if test="classifyCode != null and classifyCode != ''">classify_code,</if>
+            <if test="classifyDesc != null">classify_desc,</if>
+            <if test="classifyImage != null">classify_image,</if>
+            <if test="weight != null">weight,</if>
+            <if test="status != null">status,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="version != null">version,</if>
+            <if test="delFlag != null">del_flag,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="orgId != null">org_id,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="parentClassify != null">#{parentClassify},</if>
+            <if test="classifyName != null and classifyName != ''">#{classifyName},</if>
+            <if test="classifyCode != null and classifyCode != ''">#{classifyCode},</if>
+            <if test="classifyDesc != null">#{classifyDesc},</if>
+            <if test="classifyImage != null">#{classifyImage},</if>
+            <if test="weight != null">#{weight},</if>
+            <if test="status != null">#{status},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="version != null">#{version},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="orgId != null">#{orgId},</if>
+        </trim>
+    </insert>
+
+    <update id="updateCourseClassifyInfo" parameterType="CourseClassifyInfo">
+        update course_classify_info
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="parentClassify != null">parent_classify = #{parentClassify},</if>
+            <if test="classifyName != null and classifyName != ''">classify_name = #{classifyName},</if>
+            <if test="classifyCode != null and classifyCode != ''">classify_code = #{classifyCode},</if>
+            <if test="classifyDesc != null">classify_desc = #{classifyDesc},</if>
+            <if test="classifyImage != null">classify_image = #{classifyImage},</if>
+            <if test="weight != null">weight = #{weight},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            version = version + 1,
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="orgId != null">org_id = #{orgId},</if>
+        </trim>
+        where classify_id = #{classifyId}
+    </update>
+
+    <delete id="deleteCourseClassifyInfoByClassifyId" parameterType="Long">
+        delete
+        from course_classify_info
+        where classify_id = #{classifyId}
+    </delete>
+
+    <delete id="deleteCourseClassifyInfoByClassifyIds" parameterType="String">
+        delete from course_classify_info where classify_id in
+        <foreach item="classifyId" collection="array" open="(" separator="," close=")">
+            #{classifyId}
+        </foreach>
+    </delete>
+    <select id="hasChildByClassifyId" resultType="Integer">
+        select count(1)
+        from course_classify_info
+        where parent_classify = #{classifyId}
+    </select>
+</mapper>

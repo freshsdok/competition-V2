@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.course.mapper.CourseChapterVideoMapper">
+
+    <resultMap type="CourseChapterVideo" id="CourseChapterVideoResult">
+        <result property="videoId" column="video_id"/>
+        <result property="chapterId" column="chapter_id"/>
+        <result property="videoName" column="video_name"/>
+        <result property="videoFile" column="video_file"/>
+        <result property="videoNum" column="video_num"/>
+        <result property="videoDuration" column="video_duration"/>
+        <result property="isFree" column="is_free"/>
+        <result property="expenses" column="expenses"/>
+        <result property="checkStatus" column="check_status"/>
+        <result property="applyReason" column="apply_reason"/>
+        <result property="publishStatus" column="publish_status"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="version" column="version"/>
+        <result property="delFlag" column="del_flag"/>
+        <result property="userId" column="user_id"/>
+        <result property="orgId" column="org_id"/>
+    </resultMap>
+
+    <sql id="selectCourseChapterVideoVo">
+        select video_id,
+               chapter_id,
+               video_name,
+               video_file,
+               video_num,
+               video_duration,
+               is_free,
+               expenses,
+               check_status,
+               apply_reason,
+               publish_status,
+               create_by,
+               create_time,
+               update_by,
+               update_time,
+               version,
+               del_flag,
+               user_id,
+               org_id
+        from course_chapter_video
+    </sql>
+
+    <select id="selectCourseChapterVideoList" parameterType="CourseChapterVideo" resultMap="CourseChapterVideoResult">
+        <include refid="selectCourseChapterVideoVo"/>
+        <where>
+            AND del_flag = '0'
+            <if test="chapterId != null ">and chapter_id = #{chapterId}</if>
+            <if test="videoName != null  and videoName != ''">and video_name like concat('%', #{videoName}, '%')</if>
+            <if test="videoFile != null  and videoFile != ''">and video_file = #{videoFile}</if>
+            <if test="videoNum != null  and videoNum != ''">and video_num = #{videoNum}</if>
+            <if test="videoDuration != null ">and video_duration = #{videoDuration}</if>
+            <if test="isFree != null  and isFree != ''">and is_free = #{isFree}</if>
+            <if test="params.beginExpenses != null and params.beginExpenses != ''">
+                and expenses &gt;= #{beginExpenses}
+            </if>
+            <if test="params.endExpenses != null and params.endExpenses != ''">
+                and expenses &lt;= #{endExpenses}
+            </if>
+            <if test="checkStatus != null  and checkStatus != ''">and check_status = #{checkStatus}</if>
+            <if test="applyReason != null  and applyReason != ''">and apply_reason = #{applyReason}</if>
+            <if test="publishStatus != null  and publishStatus != ''">and publish_status = #{publishStatus}</if>
+            <if test="version != null ">and version = #{version}</if>
+            <if test="userId != null ">and user_id = #{userId}</if>
+            <if test="orgId != null ">and org_id = #{orgId}</if>
+        </where>
+    </select>
+
+    <select id="selectCourseChapterVideoByVideoId" parameterType="Long" resultMap="CourseChapterVideoResult">
+        <include refid="selectCourseChapterVideoVo"/>
+        where video_id = #{videoId} AND del_flag = '0'
+    </select>
+
+    <select id="selectCourseChapterVideoByVideoIds" parameterType="Long" resultMap="CourseChapterVideoResult">
+        <include refid="selectCourseChapterVideoVo"/>
+        where del_flag = '0' and check_status != '5' and video_id in
+        <foreach item="item" collection="array" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <insert id="insertCourseChapterVideo" parameterType="CourseChapterVideo" useGeneratedKeys="true" keyProperty="videoId">
+        insert into course_chapter_video
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="videoId != null">video_id,</if>
+            <if test="chapterId != null">chapter_id,</if>
+            <if test="videoName != null">video_name,</if>
+            <if test="videoFile != null">video_file,</if>
+            <if test="videoNum != null">video_num,</if>
+            <if test="videoDuration != null">video_duration,</if>
+            <if test="isFree != null">is_free,</if>
+            <if test="expenses != null">expenses,</if>
+            <if test="checkStatus != null">check_status,</if>
+            <if test="applyReason != null">apply_reason,</if>
+            <if test="publishStatus != null">publish_status,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="version != null">version,</if>
+            <if test="delFlag != null">del_flag,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="orgId != null">org_id,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="videoId != null">#{videoId},</if>
+            <if test="chapterId != null">#{chapterId},</if>
+            <if test="videoName != null">#{videoName},</if>
+            <if test="videoFile != null">#{videoFile},</if>
+            <if test="videoNum != null">#{videoNum},</if>
+            <if test="videoDuration != null">#{videoDuration},</if>
+            <if test="isFree != null">#{isFree},</if>
+            <if test="expenses != null">#{expenses},</if>
+            <if test="checkStatus != null">#{checkStatus},</if>
+            <if test="applyReason != null">#{applyReason},</if>
+            <if test="publishStatus != null">#{publishStatus},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="version != null">#{version},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="orgId != null">#{orgId},</if>
+        </trim>
+    </insert>
+
+    <update id="updateCourseChapterVideo" parameterType="CourseChapterVideo">
+        update course_chapter_video
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="chapterId != null">chapter_id = #{chapterId},</if>
+            <if test="videoName != null">video_name = #{videoName},</if>
+            <if test="videoFile != null">video_file = #{videoFile},</if>
+            <if test="videoNum != null">video_num = #{videoNum},</if>
+            <if test="videoDuration != null">video_duration = #{videoDuration},</if>
+            <if test="isFree != null">is_free = #{isFree},</if>
+            <if test="expenses != null">expenses = #{expenses},</if>
+            <if test="checkStatus != null">check_status = #{checkStatus},</if>
+            <if test="applyReason != null">apply_reason = #{applyReason},</if>
+            <if test="publishStatus != null">publish_status = #{publishStatus},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            version = version + 1,
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="orgId != null">org_id = #{orgId},</if>
+        </trim>
+        where video_id = #{videoId}
+    </update>
+
+    <delete id="deleteCourseChapterVideoByVideoId" parameterType="Long">
+        delete
+        from course_chapter_video
+        where video_id = #{videoId}
+    </delete>
+    <update id="updateFlagChapterVideoByVideoId" parameterType="Long">
+            update course_chapter_video set del_flag = '1' where video_id = #{videoId}
+    </update>
+
+    <delete id="deleteCourseChapterVideoByVideoByChapterIds" parameterType="Long">
+        delete
+        from course_chapter_video
+        where chapter_id = in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <delete id="deleteCourseChapterVideoByVideoIds" parameterType="String">
+        delete from course_chapter_video where video_id in
+        <foreach item="videoId" collection="array" open="(" separator="," close=")">
+            #{videoId}
+        </foreach>
+    </delete>
+
+    <update id="updateFlagChapterVideoByVideoIds" parameterType="String">
+            update course_chapter_video set del_flag = '1' where video_id in
+        <foreach item="videoId" collection="array" open="(" separator="," close=")">
+                #{videoId}
+        </foreach>
+    </update>
+
+    <select id="selectCoursePublishStatusByVideoId" parameterType="Long" resultType="java.lang.String">
+        SELECT ci.publish_status from course_chapter_video ccv
+                               LEFT JOIN course_chapter_info cci on cci.chapter_id = ccv.chapter_id
+                               LEFT JOIN course_info ci on ci.course_id = cci.course_id
+        where ccv.video_id = #{videoId}
+    </select>
+    <select id="selectCoursePublishStatusByChapterId" parameterType="Long" resultType="java.lang.String">
+        SELECT ci.publish_status FROM course_chapter_info cci
+                                          LEFT JOIN course_info ci on ci.course_id=cci.course_id
+        where cci.chapter_id = #{chapterId}
+    </select>
+</mapper>

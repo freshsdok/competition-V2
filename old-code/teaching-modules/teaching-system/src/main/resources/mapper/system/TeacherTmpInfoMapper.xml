@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.system.mapper.TeacherTmpInfoMapper">
+    
+    <resultMap type="TeacherTmpInfo" id="TeacherTmpInfoResult">
+        <result property="id"    column="id"    />
+        <result property="userName"    column="user_name"    />
+        <result property="pwd"    column="pwd"    />
+        <result property="phone"    column="phone"    />
+        <result property="realName"    column="real_name"    />
+        <result property="idCard"    column="id_card"    />
+        <result property="email"    column="email"    />
+        <result property="role"    column="role"    />
+        <result property="province"    column="province"    />
+        <result property="schoolName"    column="school_name"    />
+        <result property="institute"    column="institute"    />
+        <result property="position"    column="position"    />
+        <result property="professionalTitle"    column="professional_title"    />
+        <result property="registTime"    column="regist_time"    />
+        <result property="reamke"    column="reamke"    />
+        <result property="teacherUrl"    column="teacher_url"    />
+        <result property="status"    column="status"    />
+    </resultMap>
+
+    <sql id="selectTeacherTmpInfoVo">
+        select id, user_name, pwd, phone, real_name, id_card, email, role, province, school_name, institute, position, professional_title, regist_time, reamke, teacher_url, status from teacher_tmp_info
+    </sql>
+
+    <select id="selectTeacherTmpInfoList" parameterType="TeacherTmpInfo" resultMap="TeacherTmpInfoResult">
+        <include refid="selectTeacherTmpInfoVo"/>
+        <where>  
+            <if test="userName != null  and userName != ''"> and user_name like concat('%', #{userName}, '%')</if>
+            <if test="pwd != null  and pwd != ''"> and pwd = #{pwd}</if>
+            <if test="phone != null  and phone != ''"> and phone = #{phone}</if>
+            <if test="realName != null  and realName != ''"> and real_name like concat('%', #{realName}, '%')</if>
+            <if test="idCard != null  and idCard != ''"> and id_card = #{idCard}</if>
+            <if test="email != null  and email != ''"> and email = #{email}</if>
+            <if test="role != null  and role != ''"> and role = #{role}</if>
+            <if test="province != null  and province != ''"> and province = #{province}</if>
+            <if test="schoolName != null  and schoolName != ''"> and school_name like concat('%', #{schoolName}, '%')</if>
+            <if test="institute != null  and institute != ''"> and institute = #{institute}</if>
+            <if test="position != null  and position != ''"> and position = #{position}</if>
+            <if test="professionalTitle != null  and professionalTitle != ''"> and professional_title = #{professionalTitle}</if>
+            <if test="registTime != null "> and regist_time = #{registTime}</if>
+            <if test="reamke != null  and reamke != ''"> and reamke = #{reamke}</if>
+            <if test="teacherUrl != null  and teacherUrl != ''"> and teacher_url = #{teacherUrl}</if>
+            <if test="status != null  and status != ''"> and status = #{status}</if>
+        </where>
+    </select>
+    
+    <select id="selectTeacherTmpInfoById" parameterType="String" resultMap="TeacherTmpInfoResult">
+        <include refid="selectTeacherTmpInfoVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertTeacherTmpInfo" parameterType="TeacherTmpInfo">
+        insert into teacher_tmp_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="userName != null">user_name,</if>
+            <if test="pwd != null">pwd,</if>
+            <if test="phone != null">phone,</if>
+            <if test="realName != null">real_name,</if>
+            <if test="idCard != null">id_card,</if>
+            <if test="email != null">email,</if>
+            <if test="role != null">role,</if>
+            <if test="province != null">province,</if>
+            <if test="schoolName != null">school_name,</if>
+            <if test="institute != null">institute,</if>
+            <if test="position != null">position,</if>
+            <if test="professionalTitle != null">professional_title,</if>
+            <if test="registTime != null">regist_time,</if>
+            <if test="reamke != null">reamke,</if>
+            <if test="teacherUrl != null">teacher_url,</if>
+            <if test="status != null">status,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="userName != null">#{userName},</if>
+            <if test="pwd != null">#{pwd},</if>
+            <if test="phone != null">#{phone},</if>
+            <if test="realName != null">#{realName},</if>
+            <if test="idCard != null">#{idCard},</if>
+            <if test="email != null">#{email},</if>
+            <if test="role != null">#{role},</if>
+            <if test="province != null">#{province},</if>
+            <if test="schoolName != null">#{schoolName},</if>
+            <if test="institute != null">#{institute},</if>
+            <if test="position != null">#{position},</if>
+            <if test="professionalTitle != null">#{professionalTitle},</if>
+            <if test="registTime != null">#{registTime},</if>
+            <if test="reamke != null">#{reamke},</if>
+            <if test="teacherUrl != null">#{teacherUrl},</if>
+            <if test="status != null">#{status},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTeacherTmpInfo" parameterType="TeacherTmpInfo">
+        update teacher_tmp_info
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="userName != null">user_name = #{userName},</if>
+            <if test="pwd != null">pwd = #{pwd},</if>
+            <if test="phone != null">phone = #{phone},</if>
+            <if test="realName != null">real_name = #{realName},</if>
+            <if test="idCard != null">id_card = #{idCard},</if>
+            <if test="email != null">email = #{email},</if>
+            <if test="role != null">role = #{role},</if>
+            <if test="province != null">province = #{province},</if>
+            <if test="schoolName != null">school_name = #{schoolName},</if>
+            <if test="institute != null">institute = #{institute},</if>
+            <if test="position != null">position = #{position},</if>
+            <if test="professionalTitle != null">professional_title = #{professionalTitle},</if>
+            <if test="registTime != null">regist_time = #{registTime},</if>
+            <if test="reamke != null">reamke = #{reamke},</if>
+            <if test="teacherUrl != null">teacher_url = #{teacherUrl},</if>
+            <if test="status != null">status = #{status},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTeacherTmpInfoById" parameterType="String">
+        delete from teacher_tmp_info where id = #{id}
+    </delete>
+
+    <delete id="deleteTeacherTmpInfoByIds" parameterType="String">
+        delete from teacher_tmp_info where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.competition.review.mapper.ReviewObjectMaterialMapper">
+
+    <resultMap type="com.teaching.competition.review.domain.ReviewObjectMaterial" id="ReviewObjectMaterialResult">
+<id property="id" column="id"/>
+<result property="activityId" column="activity_id"/>
+<result property="objectId" column="object_id"/>
+<result property="materialName" column="material_name"/>
+<result property="materialType" column="material_type"/>
+<result property="fileName" column="file_name"/>
+<result property="fileUrl" column="file_url"/>
+<result property="fileSize" column="file_size"/>
+<result property="mimeType" column="mime_type"/>
+<result property="fileExt" column="file_ext"/>
+<result property="visibleToReviewer" column="visible_to_reviewer"/>
+<result property="sortOrder" column="sort_order"/>
+<result property="uploadBy" column="upload_by"/>
+<result property="uploadTime" column="upload_time"/>
+<result property="status" column="status"/>
+<result property="sourceModule" column="source_module"/>
+<result property="sourceBizType" column="source_biz_type"/>
+<result property="sourceBizId" column="source_biz_id"/>
+<result property="sourceMaterialKey" column="source_material_key"/>
+<result property="createBy" column="create_by"/>
+<result property="createTime" column="create_time"/>
+<result property="updateBy" column="update_by"/>
+<result property="updateTime" column="update_time"/>
+<result property="remark" column="remark"/>
+<result property="delFlag" column="del_flag"/>
+    </resultMap>
+
+    <sql id="selectReviewObjectMaterialVo">
+        select id, activity_id, object_id, material_name, material_type, file_name, file_url, file_size, mime_type, file_ext, visible_to_reviewer, sort_order, upload_by, upload_time, status, source_module, source_biz_type, source_biz_id, source_material_key, create_by, create_time, update_by, update_time, remark, del_flag
+        from review_object_material
+    </sql>
+
+    <select id="selectById" parameterType="Long" resultMap="ReviewObjectMaterialResult">
+        <include refid="selectReviewObjectMaterialVo"/>
+        where id = #{id} and del_flag = '0'
+    </select>
+
+    <select id="selectList" parameterType="com.teaching.competition.review.domain.ReviewObjectMaterial" resultMap="ReviewObjectMaterialResult">
+        <include refid="selectReviewObjectMaterialVo"/>
+        <where>
+    del_flag = '0'
+    <if test="activityId != null">
+        and activity_id = #{activityId}
+    </if>
+    <if test="objectId != null">
+        and object_id = #{objectId}
+    </if>
+    <if test="materialName != null and materialName != ''">
+        and material_name like concat('%', #{materialName}, '%')
+    </if>
+    <if test="materialType != null and materialType != ''">
+        and material_type = #{materialType}
+    </if>
+    <if test="fileName != null and fileName != ''">
+        and file_name like concat('%', #{fileName}, '%')
+    </if>
+    <if test="fileUrl != null and fileUrl != ''">
+        and file_url = #{fileUrl}
+    </if>
+    <if test="fileSize != null">
+        and file_size = #{fileSize}
+    </if>
+    <if test="mimeType != null and mimeType != ''">
+        and mime_type = #{mimeType}
+    </if>
+    <if test="fileExt != null and fileExt != ''">
+        and file_ext = #{fileExt}
+    </if>
+    <if test="visibleToReviewer != null and visibleToReviewer != ''">
+        and visible_to_reviewer = #{visibleToReviewer}
+    </if>
+    <if test="sortOrder != null">
+        and sort_order = #{sortOrder}
+    </if>
+    <if test="uploadBy != null">
+        and upload_by = #{uploadBy}
+    </if>
+    <if test="uploadTime != null">
+        and upload_time = #{uploadTime}
+    </if>
+    <if test="status != null and status != ''">
+        and status = #{status}
+    </if>
+    <if test="sourceModule != null and sourceModule != ''">
+        and source_module = #{sourceModule}
+    </if>
+    <if test="sourceBizType != null and sourceBizType != ''">
+        and source_biz_type = #{sourceBizType}
+    </if>
+    <if test="sourceBizId != null and sourceBizId != ''">
+        and source_biz_id = #{sourceBizId}
+    </if>
+    <if test="sourceMaterialKey != null and sourceMaterialKey != ''">
+        and source_material_key = #{sourceMaterialKey}
+    </if>
+        </where>
+        order by id desc
+    </select>
+
+    <insert id="insert" parameterType="com.teaching.competition.review.domain.ReviewObjectMaterial" useGeneratedKeys="true" keyProperty="id">
+        insert into review_object_material
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+    <if test="activityId != null">activity_id,</if>
+    <if test="objectId != null">object_id,</if>
+    <if test="materialName != null">material_name,</if>
+    <if test="materialType != null">material_type,</if>
+    <if test="fileName != null">file_name,</if>
+    <if test="fileUrl != null">file_url,</if>
+    <if test="fileSize != null">file_size,</if>
+    <if test="mimeType != null">mime_type,</if>
+    <if test="fileExt != null">file_ext,</if>
+    <if test="visibleToReviewer != null">visible_to_reviewer,</if>
+    <if test="sortOrder != null">sort_order,</if>
+    <if test="uploadBy != null">upload_by,</if>
+    <if test="uploadTime != null">upload_time,</if>
+    <if test="status != null">status,</if>
+    <if test="sourceModule != null">source_module,</if>
+    <if test="sourceBizType != null">source_biz_type,</if>
+    <if test="sourceBizId != null">source_biz_id,</if>
+    <if test="sourceMaterialKey != null">source_material_key,</if>
+    <if test="createBy != null">create_by,</if>
+    <if test="createTime != null">create_time,</if>
+    <if test="updateBy != null">update_by,</if>
+    <if test="updateTime != null">update_time,</if>
+    <if test="remark != null">remark,</if>
+    <if test="delFlag != null">del_flag,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+    <if test="activityId != null">#{activityId},</if>
+    <if test="objectId != null">#{objectId},</if>
+    <if test="materialName != null">#{materialName},</if>
+    <if test="materialType != null">#{materialType},</if>
+    <if test="fileName != null">#{fileName},</if>
+    <if test="fileUrl != null">#{fileUrl},</if>
+    <if test="fileSize != null">#{fileSize},</if>
+    <if test="mimeType != null">#{mimeType},</if>
+    <if test="fileExt != null">#{fileExt},</if>
+    <if test="visibleToReviewer != null">#{visibleToReviewer},</if>
+    <if test="sortOrder != null">#{sortOrder},</if>
+    <if test="uploadBy != null">#{uploadBy},</if>
+    <if test="uploadTime != null">#{uploadTime},</if>
+    <if test="status != null">#{status},</if>
+    <if test="sourceModule != null">#{sourceModule},</if>
+    <if test="sourceBizType != null">#{sourceBizType},</if>
+    <if test="sourceBizId != null">#{sourceBizId},</if>
+    <if test="sourceMaterialKey != null">#{sourceMaterialKey},</if>
+    <if test="createBy != null">#{createBy},</if>
+    <if test="createTime != null">#{createTime},</if>
+    <if test="updateBy != null">#{updateBy},</if>
+    <if test="updateTime != null">#{updateTime},</if>
+    <if test="remark != null">#{remark},</if>
+    <if test="delFlag != null">#{delFlag},</if>
+        </trim>
+    </insert>
+
+    <update id="update" parameterType="com.teaching.competition.review.domain.ReviewObjectMaterial">
+        update review_object_material
+        <set>
+    <if test="activityId != null">activity_id = #{activityId},</if>
+    <if test="objectId != null">object_id = #{objectId},</if>
+    <if test="materialName != null">material_name = #{materialName},</if>
+    <if test="materialType != null">material_type = #{materialType},</if>
+    <if test="fileName != null">file_name = #{fileName},</if>
+    <if test="fileUrl != null">file_url = #{fileUrl},</if>
+    <if test="fileSize != null">file_size = #{fileSize},</if>
+    <if test="mimeType != null">mime_type = #{mimeType},</if>
+    <if test="fileExt != null">file_ext = #{fileExt},</if>
+    <if test="visibleToReviewer != null">visible_to_reviewer = #{visibleToReviewer},</if>
+    <if test="sortOrder != null">sort_order = #{sortOrder},</if>
+    <if test="uploadBy != null">upload_by = #{uploadBy},</if>
+    <if test="uploadTime != null">upload_time = #{uploadTime},</if>
+    <if test="status != null">status = #{status},</if>
+    <if test="sourceModule != null">source_module = #{sourceModule},</if>
+    <if test="sourceBizType != null">source_biz_type = #{sourceBizType},</if>
+    <if test="sourceBizId != null">source_biz_id = #{sourceBizId},</if>
+    <if test="sourceMaterialKey != null">source_material_key = #{sourceMaterialKey},</if>
+    <if test="updateBy != null">update_by = #{updateBy},</if>
+    <if test="updateTime != null">update_time = #{updateTime},</if>
+    <if test="remark != null">remark = #{remark},</if>
+        </set>
+        where id = #{id} and del_flag = '0'
+    </update>
+
+    <update id="deleteByIds">
+        update review_object_material
+        set del_flag = '1', update_by = #{updateBy}, update_time = now()
+        where id in
+        <foreach item="id" collection="ids" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+</mapper>

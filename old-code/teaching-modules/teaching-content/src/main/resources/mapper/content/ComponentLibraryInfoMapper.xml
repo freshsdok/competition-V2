@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.content.mapper.ComponentLibraryInfoMapper">
+
+    <resultMap type="ComponentLibraryInfo" id="ComponentLibraryInfoResult">
+        <result property="componentId" column="component_id"/>
+        <result property="displayPlatform" column="display_platform"/>
+        <result property="componentName" column="component_name"/>
+        <result property="componentClassify" column="component_classify"/>
+        <result property="componentDesc" column="component_desc"/>
+        <result property="componentLogotype" column="component_logotype"/>
+        <result property="componentJson" column="component_json"/>
+        <result property="imageUrl" column="image_url"/>
+        <result property="useDirection" column="use_direction"/>
+        <result property="status" column="status"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="version" column="version"/>
+        <result property="delFlag" column="del_flag"/>
+        <result property="userId" column="user_id"/>
+        <result property="orgId" column="org_id"/>
+    </resultMap>
+
+    <sql id="selectComponentLibraryInfoVo">
+        select component_id,
+               display_platform,
+               component_name,
+               component_classify,
+               component_desc,
+               component_logotype,
+               component_json,
+               image_url,
+               use_direction,
+               status,
+               create_by,
+               create_time,
+               update_by,
+               update_time,
+               version,
+               del_flag,
+               user_id,
+               org_id
+        from component_library_info
+    </sql>
+
+    <select id="selectComponentLibraryInfoList" parameterType="ComponentLibraryInfo"
+            resultMap="ComponentLibraryInfoResult">
+        <include refid="selectComponentLibraryInfoVo"/>
+        <where>
+            and del_flag = '0'
+            <if test="componentName != null  and componentName != ''">and component_name like concat('%',
+                #{componentName}, '%')
+            </if>
+            <if test="componentClassify != null  and componentClassify != ''">and component_classify =
+                #{componentClassify}
+            </if>
+            <if test="displayPlatform != null  and displayPlatform != ''">and display_platform =
+                #{displayPlatform}
+            </if>
+            <if test="componentDesc != null  and componentDesc != ''">and component_desc like concat('%',
+                #{componentDesc}, '%')
+            </if>
+            <if test="componentLogotype != null  and componentLogotype != ''">and component_logotype =
+                #{componentLogotype}
+            </if>
+            <if test="useDirection != null  and useDirection != ''">and use_direction like concat('%', #{useDirection},
+                '%')
+            </if>
+            <if test="status != null  and status != ''">and status = #{status}</if>
+            <if test="version != null ">and version = #{version}</if>
+            <if test="userId != null ">and user_id = #{userId}</if>
+            <if test="orgId != null ">and org_id = #{orgId}</if>
+        </where>
+    </select>
+
+    <select id="selectComponentLibraryInfoByComponentId" parameterType="String" resultMap="ComponentLibraryInfoResult">
+        <include refid="selectComponentLibraryInfoVo"/>
+        where component_id = #{componentId}
+    </select>
+
+    <insert id="insertComponentLibraryInfo" parameterType="ComponentLibraryInfo">
+        insert into component_library_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="componentId != null">component_id,</if>
+            <if test="displayPlatform != null">display_platform,</if>
+            <if test="componentName != null and componentName != ''">component_name,</if>
+            <if test="componentClassify != null">component_classify,</if>
+            <if test="componentDesc != null">component_desc,</if>
+            <if test="componentLogotype != null and componentLogotype != ''">component_logotype,</if>
+            <if test="componentJson != null and componentJson != ''">component_json,</if>
+            <if test="imageUrl != null">image_url,</if>
+            <if test="useDirection != null">use_direction,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="version != null">version,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="orgId != null">org_id,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="componentId != null">#{componentId},</if>
+            <if test="displayPlatform != null">#{displayPlatform},</if>
+            <if test="componentName != null and componentName != ''">#{componentName},</if>
+            <if test="componentClassify != null">#{componentClassify},</if>
+            <if test="componentDesc != null">#{componentDesc},</if>
+            <if test="componentLogotype != null and componentLogotype != ''">#{componentLogotype},</if>
+            <if test="componentJson != null and componentJson != ''">#{componentJson},</if>
+            <if test="imageUrl != null">#{imageUrl},</if>
+            <if test="useDirection != null">#{useDirection},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="version != null">#{version},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="orgId != null">#{orgId},</if>
+        </trim>
+    </insert>
+
+    <update id="updateComponentLibraryInfo" parameterType="ComponentLibraryInfo">
+        update component_library_info
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="componentName != null and componentName != ''">component_name = #{componentName},</if>
+            <if test="displayPlatform != null and displayPlatform != ''">display_platform = #{displayPlatform},</if>
+            <if test="componentClassify != null">component_classify = #{componentClassify},</if>
+            <if test="componentDesc != null">component_desc = #{componentDesc},</if>
+            <if test="componentLogotype != null and componentLogotype != ''">component_logotype =
+                #{componentLogotype},
+            </if>
+            <if test="componentJson != null and componentJson != ''">component_json = #{componentJson},</if>
+            <if test="imageUrl != null">image_url = #{imageUrl},</if>
+            <if test="useDirection != null">use_direction = #{useDirection},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            version = version + 1,
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="orgId != null">org_id = #{orgId},</if>
+        </trim>
+        where component_id = #{componentId}
+    </update>
+
+    <delete id="deleteComponentLibraryInfoByComponentId" parameterType="String">
+        delete
+        from component_library_info
+        where component_id = #{componentId}
+    </delete>
+
+    <delete id="deleteComponentLibraryInfoByComponentIds" parameterType="String">
+        delete from component_library_info where component_id in
+        <foreach item="componentId" collection="array" open="(" separator="," close=")">
+            #{componentId}
+        </foreach>
+    </delete>
+</mapper>

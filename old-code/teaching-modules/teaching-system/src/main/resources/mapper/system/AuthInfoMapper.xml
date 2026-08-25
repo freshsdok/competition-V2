@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.system.mapper.AuthInfoMapper">
+
+    <resultMap type="com.teaching.system.api.domain.AuthInfo" id="AuthInfoResult">
+        <result property="authId"    column="auth_id"    />
+        <result property="userId"    column="user_id"    />
+        <result property="authTime"    column="auth_time"    />
+        <result property="realName"    column="real_name"    />
+        <result property="idCard"    column="id_card"    />
+        <result property="idCardType"    column="id_card_type"    />
+        <result property="idCardTypeName"    column="id_card_type_name"    />
+        <result property="authStatus"    column="auth_status"    />
+        <result property="authType"    column="auth_type"    />
+        <result property="idCardFront"    column="id_card_front"    />
+        <result property="idCardContrary"    column="id_card_contrary"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="version"    column="version"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="checkOpinion"    column="check_opinion"    />
+        <result property="checkStatus"    column="check_status"    />
+        <result property="countryName"    column="country_name"    />
+    </resultMap>
+
+    <sql id="selectAuthInfoVo">
+        select auth_id, user_id, auth_time, real_name, id_card, id_card_type, auth_status, auth_type, id_card_front, id_card_contrary,
+               create_by, create_time, update_by, update_time, version, del_flag,country_name,check_status,check_opinion from auth_info
+    </sql>
+
+    <select id="selectAuthInfoList" parameterType="com.teaching.system.api.domain.AuthInfo" resultMap="AuthInfoResult">
+        <include refid="selectAuthInfoVo"/>
+        <where>
+            <if test="userId != null "> and user_id = #{userId}</if>
+            <if test="authTime != null "> and auth_time = #{authTime}</if>
+            <if test="realName != null  and realName != ''"> and real_name like concat('%', #{realName}, '%')</if>
+            <if test="idCard != null  and idCard != ''"> and id_card = #{idCard}</if>
+            <if test="idCardType != null  and idCardType != ''"> and id_card_type = #{idCardType}</if>
+            <if test="authStatus != null  and authStatus != ''"> and auth_status = #{authStatus}</if>
+            <if test="checkStatus != null  and checkStatus != ''"> and check_status = #{checkStatus}</if>
+            <if test="authType != null  and authType != ''"> and auth_type = #{authType}</if>
+            <if test="idCardFront != null  and idCardFront != ''"> and id_card_front = #{idCardFront}</if>
+            <if test="idCardContrary != null  and idCardContrary != ''"> and id_card_contrary = #{idCardContrary}</if>
+            <if test="version != null "> and version = #{version}</if>
+        </where>
+    </select>
+
+    <select id="selectAuthInfoListByUserInfo" parameterType="List" resultMap="AuthInfoResult">
+        <include refid="selectAuthInfoVo"/>
+        where auth_status = '5'
+            <if test="idCartList != null">
+                and id_card in
+                <foreach item="idCard" collection="idCartList" separator="," open="(" close=")" index="">
+                    #{idCard}
+                </foreach>
+            </if>
+    </select>
+
+    <select id="selectAuthInfoListByIdCard" parameterType="com.teaching.system.api.domain.AuthInfo" resultMap="AuthInfoResult">
+        <include refid="selectAuthInfoVo"/>
+        where auth_status = '5' and id_card = #{idCard} and real_name = #{realName}
+    </select>
+
+    <select id="selectAuthInfoByUserId" parameterType="Long" resultMap="AuthInfoResult">
+        <include refid="selectAuthInfoVo"/>
+        where user_id = #{userId} and auth_status = '5' order by auth_time desc limit 1
+    </select>
+
+    <select id="selectAuthInfoByUserName" parameterType="String" resultMap="AuthInfoResult">
+        <include refid="selectAuthInfoVo"/>
+        where real_name like concat('%', #{realName}, '%') and auth_status = '5'
+    </select>
+
+    <select id="selectIdentityInfoByType" parameterType="com.teaching.system.api.domain.AuthInfo" resultMap="AuthInfoResult">
+            <include refid="selectAuthInfoVo"/>
+            where del_flag = '0' and  auth_status != '6' and id_card = #{idCard} and id_card_type = #{idCardType}
+    </select>
+
+    <select id="selectAuthInfoByAuthId" parameterType="Long" resultMap="AuthInfoResult">
+        <include refid="selectAuthInfoVo"/>
+        where user_id = #{userId} order by auth_time desc limit 1
+    </select>
+
+    <select id="selectAuthInfoById" parameterType="Long" resultMap="AuthInfoResult">
+        select ai.auth_id, ai.user_id, ai.auth_time, ai.real_name, ai.id_card, ai.id_card_type, ai.auth_status, ai.auth_type, ai.id_card_front,
+               ai.id_card_contrary, ai.create_by, ai.create_time, ai.update_by, ai.update_time, ai.version, ai.del_flag,sd.dict_label as country_name ,d.dict_label as id_card_type_name
+        from auth_info ai
+                 left join  sys_dict_data d on ai.id_card_type = d.dict_value and d.dict_type='document_type'
+                 LEFT JOIN sys_dict_data sd on ai.country_name = sd.dict_value and sd.dict_type='country_name'
+        where auth_id = #{authId}
+    </select>
+
+    <insert id="insertAuthInfo" parameterType="com.teaching.system.api.domain.AuthInfo" useGeneratedKeys="true" keyProperty="authId">
+        insert into auth_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="authId != null">auth_id,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="authTime != null">auth_time,</if>
+            <if test="realName != null">real_name,</if>
+            <if test="idCard != null">id_card,</if>
+            <if test="idCardType != null">id_card_type,</if>
+            <if test="authStatus != null">auth_status,</if>
+            <if test="authType != null">auth_type,</if>
+            <if test="idCardFront != null">id_card_front,</if>
+            <if test="idCardContrary != null">id_card_contrary,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="version != null">version,</if>
+            <if test="delFlag != null">del_flag,</if>
+            <if test="checkStatus != null">check_status,</if>
+            <if test="checkOpinion != null">check_opinion,</if>
+            <if test="countryName != null">country_name,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="authId != null">#{authId},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="authTime != null">#{authTime},</if>
+            <if test="realName != null">#{realName},</if>
+            <if test="idCard != null">#{idCard},</if>
+            <if test="idCardType != null">#{idCardType},</if>
+            <if test="authStatus != null">#{authStatus},</if>
+            <if test="authType != null">#{authType},</if>
+            <if test="idCardFront != null">#{idCardFront},</if>
+            <if test="idCardContrary != null">#{idCardContrary},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="version != null">#{version},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+            <if test="checkStatus != null">#{checkStatus},</if>
+            <if test="checkOpinion != null">#{checkOpinion},</if>
+            <if test="countryName != null">#{countryName},</if>
+         </trim>
+    </insert>
+
+    <insert id="batchInsertAuthInfo">
+        insert into auth_info (auth_id,user_id,auth_time,real_name,id_card,id_card_type,auth_status,auth_type,id_card_front,
+        id_card_contrary,create_by,create_time,update_by,update_time,version,del_flag,check_status,check_opinion,country_name)
+        values
+        <foreach collection="authInfoList" item="item" separator=",">
+            (#{item.authId},#{item.userId},#{item.authTime},#{item.realName},#{item.idCard},
+            #{item.idCardType},#{item.authStatus},#{item.authType},#{item.idCardFront},#{item.idCardContrary},
+            #{item.createBy},now(),#{item.updateBy},#{item.updateTime},#{item.version},#{item.delFlag},
+            #{item.checkStatus},#{item.checkOpinion},#{item.countryName})
+        </foreach>
+    </insert>
+
+    <update id="updateAuthInfo" parameterType="com.teaching.system.api.domain.AuthInfo">
+        update auth_info
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="authTime != null">auth_time = #{authTime},</if>
+            <if test="realName != null">real_name = #{realName},</if>
+            <if test="idCard != null">id_card = #{idCard},</if>
+            <if test="idCardType != null">id_card_type = #{idCardType},</if>
+            <if test="authStatus != null">auth_status = #{authStatus},</if>
+            <if test="authType != null">auth_type = #{authType},</if>
+            <if test="idCardFront != null">id_card_front = #{idCardFront},</if>
+            <if test="idCardContrary != null">id_card_contrary = #{idCardContrary},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="version != null">version = #{version},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+            <if test="checkStatus != null">check_status = #{checkStatus},</if>
+            <if test="checkOpinion != null">check_opinion = #{checkOpinion},</if>
+            <if test="countryName != null">country_name = #{countryName},</if>
+        </trim>
+        where auth_id = #{authId}
+    </update>
+
+    <delete id="deleteAuthInfoByAuthId" parameterType="String">
+        delete from auth_info where auth_id = #{authId}
+    </delete>
+
+    <delete id="deleteAuthInfoByAuthIds" parameterType="String">
+        delete from auth_info where auth_id in
+        <foreach item="authId" collection="array" open="(" separator="," close=")">
+            #{authId}
+        </foreach>
+    </delete>
+</mapper>

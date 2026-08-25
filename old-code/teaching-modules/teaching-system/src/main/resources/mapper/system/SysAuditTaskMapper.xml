@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.system.mapper.SysAuditTaskMapper">
+
+    <resultMap type="SysAuditTask" id="SysAuditTaskResult">
+        <result property="taskId"    column="task_id"    />
+        <result property="businessTable"    column="business_table"    />
+        <result property="businessId"    column="business_id"    />
+        <result property="businessDetails"    column="business_details"    />
+        <result property="subTime"    column="sub_time"    />
+        <result property="subPer"    column="sub_per"    />
+        <result property="auditId"    column="audit_id"    />
+        <result property="auditType"    column="audit_type"    />
+        <result property="nowCheckStep"    column="now_check_step"    />
+        <result property="checkTime"    column="check_time"    />
+        <result property="checkStatus"    column="check_status"    />
+        <result property="videoIds"    column="video_ids"    />
+        <result property="checkOpinion"    column="check_opinion"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="userId"    column="user_id"    />
+        <result property="orgId"    column="org_id"    />
+        <result property="auditTitle"    column="audit_title"    />
+        <result property="auditType"    column="audit_type"    />
+        <result property="levelName"    column="level_name"    />
+        <result property="checkPer"    column="check_per"    />
+    </resultMap>
+
+    <resultMap id="SysAuditTaskAndSubInfoResult" type="SysAuditTask" extends="SysAuditTaskResult">
+        <collection property="subInfos" ofType="SysAuditTaskSubinfo" column="task_id"
+                    select="selectSysAuditTaskSubinfoBySubId"/>
+    </resultMap>
+
+    <resultMap type="SysAuditTaskSubinfo" id="SysAuditTaskSubinfoResult">
+        <result property="subId"    column="sub_id"    />
+        <result property="taskId"    column="task_id"    />
+        <result property="auditConfigId"    column="audit_config_id"    />
+        <result property="checkPer"    column="check_per"    />
+        <result property="checkTime"    column="check_time"    />
+        <result property="checkOpinion"    column="check_opinion"    />
+        <result property="checkStatus"    column="check_status"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="userId"    column="user_id"    />
+        <result property="orgId"    column="org_id"    />
+        <result property="adminIntervention"    column="admin_intervention"    />
+    </resultMap>
+
+    <sql id="selectSysAuditTaskVo">
+        select task_id, business_table, business_id, business_details, sub_time, sub_per, audit_id, now_check_step, check_time, check_status, video_ids,create_by, create_time, update_by, update_time, del_flag, user_id, org_id from sys_audit_task
+    </sql>
+    <sql id="selectSysAuditTaskVoAndType">
+        select sat.task_id, sat.business_table, sat.business_id, sat.business_details,sat.sub_time, sat.sub_per, sat.audit_id, sat.now_check_step, sat.check_time, sat.check_status,
+               sat.create_by, sat.create_time, sat.update_by, sat.update_time, sat.del_flag, sat.user_id, sat.org_id , sat.video_ids ,samc.audit_type
+        from sys_audit_task sat left join sys_audit_main_config samc on sat.audit_id = samc.audit_id
+    </sql>
+
+    <select id="selectSysAuditTaskListByUserCache" resultMap="SysAuditTaskResult">
+        select sat.task_id, sat.business_table, sat.business_id, sat.business_details,sat.sub_time, su.nick_name as sub_per, sat.audit_id, sat.now_check_step, sat.check_time,
+        sat.check_status,sat.video_ids, sat.create_by, sat.create_time, sat.update_by, sat.update_time, sat.del_flag, sat.user_id, sat.org_id,
+        samc.audit_title,samc.audit_type,sac.level_name
+        from sys_audit_task sat
+        LEFT JOIN sys_user su on su.user_id = sat.sub_per
+        LEFT JOIN sys_audit_main_config samc on samc.audit_id = sat.audit_id
+        LEFT JOIN sys_audit_config sac on sat.now_check_step = sac.config_id
+        WHERE  sat.del_flag = '0' and sat.check_status = '3'
+          <if test="auditType!=null and auditType!=''">
+              and samc.audit_type = #{auditType}
+          </if>
+        <if test="auditTitle!=null and auditTitle!=''">
+              and samc.audit_title like concat ('%',#{auditTitle},'%')
+          </if>
+        <if test="subPer!=null and subPer!=''">
+            AND (su.nick_name like concat('%',#{subPer},'%') OR su.user_name like concat('%',#{subPer},'%')
+            OR ((SELECT real_name from auth_info where user_id = sat.sub_per order by auth_time desc limit 1) like concat('%',#{subPer},'%')))
+        </if>
+          <if test="!isAdmin">
+              and  (sat.audit_id, sat.now_check_step) IN
+              <foreach item="cond" collection="conditions" open="(" separator="," close=")">
+                  (#{cond.auditId}, #{cond.configId})
+              </foreach>
+          </if>
+        order by sat.task_id desc
+    </select>
+
+    <select id="selectSysAuditTaskFinishedListAdmin" resultMap="SysAuditTaskResult">
+        select sat.task_id, sat.business_table, sat.business_id, sat.business_details,sat.sub_time,
+        IFNULL((SELECT real_name from auth_info where user_id = sat.sub_per and del_flag='0' and auth_status = '5' order by auth_time desc limit 1),IFNULL(su.nick_name,su.user_name)) as sub_per,
+               sat.audit_id,
+        sat.now_check_step, sat.check_time,
+        sat.check_status, sat.create_by, sat.create_time, sat.update_by, sat.update_time, sat.del_flag, sat.user_id,
+        sat.org_id,sat.video_ids,
+        samc.audit_title,samc.audit_type,sac.level_name
+        from sys_audit_task sat
+        LEFT JOIN sys_user su on su.user_id = sat.sub_per
+        LEFT JOIN sys_audit_main_config samc on samc.audit_id = sat.audit_id
+        LEFT JOIN sys_audit_config sac on sat.now_check_step = sac.config_id
+        WHERE sat.del_flag = '0' and sat.check_status != '3'
+        <if test="auditType!=null and auditType!=''">
+            and samc.audit_type = #{auditType}
+        </if>
+        <if test="auditTitle!=null and auditTitle!=''">
+            and samc.audit_title like concat('%', #{auditTitle} ,'%')
+        </if>
+        <if test="subPer!=null and subPer!=''">
+            AND (su.nick_name like concat('%',#{subPer},'%') OR su.user_name like concat('%',#{subPer},'%')
+                    OR ((SELECT real_name from auth_info where user_id = sat.sub_per order by auth_time desc limit 1) like concat('%',#{subPer},'%')))
+        </if>
+        <if test="checkStatus!=null and checkStatus!=''">
+            and sat.check_status = #{checkStatus}
+        </if>
+        order by sat.check_time desc,sat.task_id desc
+    </select>
+
+    <select id="selectFinishedList" resultMap="SysAuditTaskResult">
+        select
+        sat.task_id, sat.business_table, sat.business_id, sat.business_details,sat.sub_time,
+        IFNULL((SELECT real_name from auth_info where user_id = sat.sub_per and del_flag='0' and auth_status = '5' order by auth_time desc limit 1),IFNULL(su.nick_name,su.user_name)) as sub_per,
+        sat.audit_id,
+        sat.now_check_step, sat.video_ids,sats.check_time,
+        sats.check_status, sats.create_by, sats.create_time, sats.update_by, sats.update_time, sat.del_flag,
+        sat.user_id, sat.org_id,sut.nick_name as check_per,
+        sats.check_opinion,samc.audit_title,samc.audit_type,sac.level_name
+        FROM sys_audit_task_subinfo sats
+        LEFT JOIN sys_audit_task sat on sat.task_id = sats.task_id
+        LEFT JOIN sys_user su on su.user_id = sat.sub_per
+        LEFT JOIN sys_user sut on sats.check_per = sut.user_id
+        LEFT JOIN sys_audit_config sac on sats.audit_config_id = sac.config_id
+        LEFT JOIN sys_audit_main_config samc on samc.audit_id = sac.audit_id
+        where sats.del_flag = '0'
+          <if test="auditType!=null and auditType!=''">
+              and samc.audit_type = #{auditType}
+          </if>
+          <if test="auditTitle!=null and auditTitle!=''">
+              and samc.audit_title like concat('%', #{auditTitle},'%')
+          </if>
+        <if test="checkPer!=null and checkPer!='' ">
+            and sats.check_per = #{checkPer}
+        </if>
+        <if test="subPer!=null and subPer!=''">
+            AND (su.nick_name like concat('%',#{subPer},'%') OR su.user_name like concat('%',#{subPer},'%')
+            OR ((SELECT real_name from auth_info where user_id = sat.sub_per order by auth_time desc limit 1) like concat('%',#{subPer},'%')))
+        </if>
+        <if test="checkStatus!=null and checkStatus!='' ">
+            and  sats.check_status = #{checkStatus}
+        </if>
+        order by sat.check_time desc,sats.sub_id desc
+    </select>
+
+    <select id="selectSysAuditTaskList" parameterType="SysAuditTask" resultMap="SysAuditTaskResult">
+        <include refid="selectSysAuditTaskVo"/>
+        <where>
+            and del_flag = '0'
+            <if test="businessTable != null  and businessTable != ''"> and business_table = #{businessTable}</if>
+            <if test="businessId != null "> and business_id = #{businessId}</if>
+            <if test="subTime != null "> and sub_time = #{subTime}</if>
+            <if test="subPer != null  and subPer != ''"> and sub_per = #{subPer}</if>
+            <if test="auditId != null "> and audit_id = #{auditId}</if>
+            <if test="nowCheckStep != null "> and now_check_step = #{nowCheckStep}</if>
+            <if test="checkTime != null "> and check_time = #{checkTime}</if>
+            <if test="checkStatus != null  and checkStatus != ''"> and check_status = #{checkStatus}</if>
+            <if test="userId != null "> and user_id = #{userId}</if>
+            <if test="orgId != null "> and org_id = #{orgId}</if>
+        </where>
+    </select>
+
+    <select id="selectSysAuditTaskListByIds" parameterType="Long" resultMap="SysAuditTaskResult">
+        <include refid="selectSysAuditTaskVo"/>
+        where del_flag = '0' and  audit_id in
+        <foreach collection="array" item="auditId" open="(" separator="," close=")">
+            #{auditId}
+            </foreach>
+    </select>
+
+    <select id="selectSysAuditTaskByTaskId" parameterType="Long" resultMap="SysAuditTaskAndSubInfoResult">
+        <include refid="selectSysAuditTaskVo"/>
+        where task_id = #{taskId}
+    </select>
+
+    <select id="selectSysAuditTaskAndAuditTypeByTaskId" parameterType="Long" resultMap="SysAuditTaskAndSubInfoResult">
+        <include refid="selectSysAuditTaskVoAndType"/>
+        where task_id = #{taskId}
+    </select>
+
+    <select id="selectSysAuditTaskSubinfoBySubId" parameterType="Long" resultMap="SysAuditTaskSubinfoResult">
+        select sub_id, task_id, audit_config_id, check_per, check_time, check_opinion, check_status, create_by, create_time,
+               update_by, update_time, del_flag, user_id, org_id, admin_intervention
+        from sys_audit_task_subinfo
+        where task_id = #{taskId} and del_flag = '0' order by check_time asc
+    </select>
+
+    <select id="selectBusinessDetail" resultType="map">
+        select * from ${businessTable} where id = #{businessId}
+    </select>
+<!-- 修改业务表审核状态 通过表名、id -->
+    <update id="updateAuditStatusByTableAndId">
+        update ${businessTable} set check_status = #{checkStatus} where id = #{businessId}
+    </update>
+
+    <insert id="insertSysAuditTask" parameterType="SysAuditTask" useGeneratedKeys="true" keyProperty="taskId">
+        insert into sys_audit_task
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="businessTable != null">business_table,</if>
+            <if test="businessId != null">business_id,</if>
+            <if test="businessDetails != null">business_details,</if>
+            <if test="subTime != null">sub_time,</if>
+            <if test="subPer != null">sub_per,</if>
+            <if test="auditId != null">audit_id,</if>
+            <if test="nowCheckStep != null">now_check_step,</if>
+            <if test="checkTime != null">check_time,</if>
+            <if test="checkStatus != null">check_status,</if>
+            <if test="videoIds != null">video_ids,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="delFlag != null">del_flag,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="orgId != null">org_id,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="businessTable != null">#{businessTable},</if>
+            <if test="businessId != null">#{businessId},</if>
+            <if test="businessDetails != null">#{businessDetails},</if>
+            <if test="subTime != null">#{subTime},</if>
+            <if test="subPer != null">#{subPer},</if>
+            <if test="auditId != null">#{auditId},</if>
+            <if test="nowCheckStep != null">#{nowCheckStep},</if>
+            <if test="checkTime != null">#{checkTime},</if>
+            <if test="checkStatus != null">#{checkStatus},</if>
+            <if test="videoIds != null">#{videoIds},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="orgId != null">#{orgId},</if>
+        </trim>
+    </insert>
+
+    <update id="updateSysAuditTask" parameterType="SysAuditTask">
+        update sys_audit_task
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="businessTable != null">business_table = #{businessTable},</if>
+            <if test="businessId != null">business_id = #{businessId},</if>
+            <if test="businessDetails != null">business_details = #{businessDetails},</if>
+            <if test="subTime != null">sub_time = #{subTime},</if>
+            <if test="subPer != null">sub_per = #{subPer},</if>
+            <if test="auditId != null">audit_id = #{auditId},</if>
+            now_check_step = #{nowCheckStep},
+            <if test="checkTime != null">check_time = #{checkTime},</if>
+            <if test="checkStatus != null">check_status = #{checkStatus},</if>
+            <if test="videoIds != null">video_ids = #{videoIds},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="orgId != null">org_id = #{orgId},</if>
+        </trim>
+        where task_id = #{taskId}
+    </update>
+
+    <delete id="deleteSysAuditTaskByTaskId" parameterType="Long">
+        delete from sys_audit_task where task_id = #{taskId}
+    </delete>
+
+    <delete id="deleteSysAuditTaskByTaskIds" parameterType="String">
+        delete from sys_audit_task where task_id in
+        <foreach item="taskId" collection="array" open="(" separator="," close=")">
+            #{taskId}
+        </foreach>
+    </delete>
+    <select id="selectCheckOpinionByTaskId" resultType="string">
+    SELECT IFNULL(sats.check_opinion,'-') as checkOpinion
+    FROM `sys_audit_task_subinfo` sats
+    INNER JOIN sys_audit_task sat ON sats.task_id = sat.task_id
+    WHERE sats.del_flag = '0'
+    AND sat.business_table = #{tableName}
+    AND sat.business_id = #{businessId}
+    ORDER BY sats.create_time DESC
+    LIMIT 1
+    </select>
+
+    <select id="selectNextPersonName" resultType="String">
+        SELECT
+            CASE
+                WHEN sac.check_person_type = 'user' THEN
+                    (SELECT u.nick_name FROM sys_user u WHERE u.user_id = sac.check_person)
+                WHEN sac.check_person_type = 'dept' THEN
+                    (SELECT d.org_name FROM sys_org d WHERE d.org_id = SUBSTRING_INDEX(sac.check_person_org,',',-1))
+                WHEN sac.check_person_type = 'role' or sac.check_person_type = 'deptRole' THEN
+                    (SELECT r.role_name FROM sys_role r WHERE r.role_key = sac.check_person_role)
+                ELSE sac.check_person
+                END AS nextName
+        FROM sys_audit_config sac
+        WHERE sac.audit_id = #{auditId} AND sac.is_enable = '1'
+          <if test="configIds != null and configIds.size()>0">
+              AND sac.config_id NOT IN
+              <foreach collection="configIds" item="configId" open="(" separator="," close=")">
+                  #{configId}
+              </foreach>
+          </if>
+        ORDER BY sac.level_sort ASC
+            LIMIT 1
+    </select>
+
+    <select id="selectAllNodeByAuditId" resultType="java.util.Map">
+        SELECT sac.config_id as configId,sac.level_sort as levelSort,sac.audit_id as auditId,sac.check_person_type as checkPersonType
+             ,sac.check_person_org as checkPersonOrg
+             , sac.check_person_role as checkPersonRole,sac.check_person ,
+            CASE
+                WHEN sac.check_person_type = 'user' THEN
+                    u.nick_name
+                WHEN sac.check_person_type = 'dept' THEN
+                    org.org_name
+                WHEN sac.check_person_type = 'role'  THEN
+                    r.role_name
+                WHEN sac.check_person_type = 'deptRole' THEN
+                    CONCAT( org.org_name,'-',r.role_name)
+                ELSE sac.check_person
+                END AS nodeName,
+               'gray' as color
+        FROM sys_audit_config sac
+                 LEFT JOIN sys_org org on org.org_id= sac.check_person_org
+                 LEFT JOIN sys_role r on r.role_key = sac.check_person_role
+                 LEFT JOIN sys_user u on u.user_id = sac.check_person
+        WHERE sac.audit_id = #{auditId} AND sac.is_enable = '1'
+        ORDER BY sac.level_sort ASC
+    </select>
+</mapper>

@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.competition.mapper.CandidateCertInfoMapper">
+    <resultMap type="com.teaching.competition.domain.CandidateCertInfo" id="CandidateCertInfoResult">
+        <id property="candidateId" column="candidate_id" />
+        <result property="certConfigId" column="cert_config_id" />
+        <result property="userName" column="user_name" />
+        <result property="userId" column="user_id" />
+        <result property="memberId" column="member_id" />
+        <result property="phone" column="phone" />
+        <result property="email" column="email" />
+        <result property="competitionSeriesId" column="competition_series_id" />
+        <result property="competitionTrackId" column="competition_track_id" />
+        <result property="secondLevelCode" column="second_level_code" />
+        <result property="competitionName" column="competition_name" />
+        <result property="competitionTrackName" column="competition_track_name" />
+        <result property="secondLevelName" column="second_level_name" />
+        <result property="teamCode" column="team_code" />
+        <result property="teamName" column="team_name" />
+        <result property="competitionRoleName" column="competition_role_name" />
+        <result property="leaderTeacherId" column="leader_teacher_id" />
+        <result property="leaderTeacherName" column="leader_teacher_name" />
+        <result property="guideTeacherId" column="guide_teacher_id" />
+        <result property="guideTeacherName" column="guide_teacher_name" />
+        <result property="score" column="score" />
+        <result property="isCheck" column="is_check" />
+        <result property="sourceType" column="source_type" />
+        <result property="playerSources" column="player_sources" />
+        <result property="createBy" column="create_by" />
+        <result property="createTime" column="create_time" />
+        <result property="updateBy" column="update_by" />
+        <result property="updateTime" column="update_time" />
+        <result property="delFlag" column="del_flag" />
+        <result property="version" column="version" />
+        <result property="idCard" column="id_card" />
+        <result property="profession" column="profession" />
+        <result property="schoolName" column="school_name" />
+    </resultMap>
+
+    <sql id="selectCandidateCertInfoVo">
+        select candidate_id, cert_config_id, user_name,id_card, user_id, member_id, phone, email, competition_series_id, competition_track_id, second_level_code, competition_name, competition_track_name, second_level_name, team_code, team_name, competition_role_name, leader_teacher_id, leader_teacher_name, guide_teacher_id, guide_teacher_name, score, is_check, source_type, player_sources, create_by, create_time, update_by, update_time, del_flag, version from candidate_cert_info
+    </sql>
+
+    <select id="selectCandidateCertInfoById" parameterType="Long" resultMap="CandidateCertInfoResult">
+        <include refid="selectCandidateCertInfoVo" />
+        where del_flag = '0'
+        <if test="certConfigId != null">
+            and cert_config_id = #{certConfigId}
+        </if>
+        <if test="memberId != null">
+            and member_id = #{memberId}
+        </if>
+    </select>
+
+    <select id="selectCandidateCertInfoListByUser" parameterType="Map" resultMap="CandidateCertInfoResult">
+        <include refid="selectCandidateCertInfoVo"/>
+        where del_flag = '0'
+        <if test="userName != null and userName != ''">
+            and user_name = #{userName}
+        </if>
+        <if test="idCard != null and idCard != ''">
+            and id_card = #{idCard}
+        </if>
+        <if test="memberId != null">
+            and member_id = #{memberId}
+        </if>
+        <if test="certConfigId != null">
+            and cert_config_id = #{certConfigId}
+        </if>
+    </select>
+
+    <select id="selectCandidateCertInfoList" parameterType="com.teaching.competition.domain.CandidateCertInfo" resultMap="CandidateCertInfoResult">
+        select cci.candidate_id, cci.cert_config_id, cci.user_name, cci.user_id, cci.member_id, cci.phone, cci.email, cci.competition_series_id, cci.competition_track_id,
+        cci.second_level_code, cai.competition_name, cai.competition_track_name, cai.second_level_name, cci.team_code,
+        cci.team_name, cci.competition_role_name, cci.leader_teacher_id, cci.leader_teacher_name, cci.guide_teacher_id, cci.guide_teacher_name,
+        cci.is_check, cci.source_type, cci.create_by, cci.create_time, cci.update_by, cci.update_time, cci.del_flag, cci.version,
+        cci.id_card,cai.leader_teacher_id,cgi.score,cai.school_name,cai.profession
+        from candidate_cert_info cci
+        left join competition_apply_info cai on cci.member_id = cai.member_id and cai.del_flag = '0'
+        left join competition_grade_info cgi on cci.member_id = cgi.member_id and cgi.del_flag = '0'
+        where cci.del_flag = '0'
+            <if test="userName != null and userName != ''">
+                and cci.user_name like concat('%', #{userName}, '%')
+            </if>
+            <if test="userId != null">
+                and cci.user_id = #{userId}
+            </if>
+        <if test="certConfigId != null">
+            and cci.cert_config_id = #{certConfigId}
+        </if>
+            <if test="memberId != null">
+                and cci.member_id = #{memberId}
+            </if>
+        <if test="memberIds != null and memberIds!=''">
+            and cci.member_id in
+            <foreach item="item" collection="memberIds.split(',')" separator="," open="(" close=")">
+                #{item}
+            </foreach>
+        </if>
+            <if test="phone != null and phone != ''">
+                and cci.phone like concat('%', #{phone}, '%')
+            </if>
+            <if test="email != null and email != ''">
+                and cci.email like concat('%', #{email}, '%')
+            </if>
+        <if test="idCard != null and idCard != ''">
+            and cci.id_card like concat('%', #{idCard}, '%')
+        </if>
+        <if test="teamName != null and teamName != ''">
+            and cci.team_name like concat('%', #{teamName}, '%')
+        </if>
+        <if test="schoolName != null and schoolName != ''">
+            and cai.school in (select id from nationwide_college_info where school_name like concat('%', #{schoolName}, '%'))
+        </if>
+            <if test="competitionSeriesId != null">
+                and cci.competition_series_id = #{competitionSeriesId}
+            </if>
+            <if test="competitionTrackId != null and competitionTrackId != ''">
+                and cci.competition_track_id = #{competitionTrackId}
+            </if>
+            <if test="secondLevelCode != null and secondLevelCode != ''">
+                and cci.second_level_code = #{secondLevelCode}
+            </if>
+            <if test="competitionName != null and competitionName != ''">
+                and cci.competition_name like concat('%', #{competitionName}, '%')
+            </if>
+            <if test="teamCode != null and teamCode != ''">
+                and cci.team_code = #{teamCode}
+            </if>
+            <if test="competitionRoleName != null and competitionRoleName != ''">
+                and cci.competition_role_name = #{competitionRoleName}
+            </if>
+            <if test="leaderTeacherId != null">
+                and cci.leader_teacher_id = #{leaderTeacherId}
+            </if>
+            <if test="guideTeacherId != null">
+                and cci.guide_teacher_id = #{guideTeacherId}
+            </if>
+        <if test="sourceType != null and sourceType != ''">
+            and cci.source_type = #{sourceType}
+        </if>
+    </select>
+
+    <insert id="insertCandidateCertInfo" parameterType="com.teaching.competition.domain.CandidateCertInfo" useGeneratedKeys="true" keyProperty="candidateId">
+        insert into candidate_cert_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="certConfigId != null">cert_config_id,</if>
+            <if test="userName != null">user_name,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="memberId != null">member_id,</if>
+            <if test="phone != null">phone,</if>
+            <if test="email != null">email,</if>
+            <if test="competitionSeriesId != null">competition_series_id,</if>
+            <if test="competitionTrackId != null">competition_track_id,</if>
+            <if test="secondLevelCode != null">second_level_code,</if>
+            <if test="competitionName != null">competition_name,</if>
+            <if test="competitionTrackName != null">competition_track_name,</if>
+            <if test="secondLevelName != null">second_level_name,</if>
+            <if test="teamCode != null">team_code,</if>
+            <if test="teamName != null">team_name,</if>
+            <if test="competitionRoleName != null">competition_role_name,</if>
+            <if test="leaderTeacherId != null">leader_teacher_id,</if>
+            <if test="leaderTeacherName != null">leader_teacher_name,</if>
+            <if test="guideTeacherId != null">guide_teacher_id,</if>
+            <if test="guideTeacherName != null">guide_teacher_name,</if>
+            <if test="score != null">score,</if>
+            <if test="isCheck != null">is_check,</if>
+            <if test="sourceType != null">source_type,</if>
+            <if test="playerSources != null">player_sources,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="delFlag != null">del_flag,</if>
+            <if test="version != null">version,</if>
+            <if test="idCard != null">id_card,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="certConfigId != null">#{certConfigId},</if>
+            <if test="userName != null">#{userName},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="memberId != null">#{memberId},</if>
+            <if test="phone != null">#{phone},</if>
+            <if test="email != null">#{email},</if>
+            <if test="competitionSeriesId != null">#{competitionSeriesId},</if>
+            <if test="competitionTrackId != null">#{competitionTrackId},</if>
+            <if test="secondLevelCode != null">#{secondLevelCode},</if>
+            <if test="competitionName != null">#{competitionName},</if>
+            <if test="competitionTrackName != null">#{competitionTrackName},</if>
+            <if test="secondLevelName != null">#{secondLevelName},</if>
+            <if test="teamCode != null">#{teamCode},</if>
+            <if test="teamName != null">#{teamName},</if>
+            <if test="competitionRoleName != null">#{competitionRoleName},</if>
+            <if test="leaderTeacherId != null">#{leaderTeacherId},</if>
+            <if test="leaderTeacherName != null">#{leaderTeacherName},</if>
+            <if test="guideTeacherId != null">#{guideTeacherId},</if>
+            <if test="guideTeacherName != null">#{guideTeacherName},</if>
+            <if test="score != null">#{score},</if>
+            <if test="isCheck != null">#{isCheck},</if>
+            <if test="sourceType != null">#{sourceType},</if>
+            <if test="playerSources != null">#{playerSources},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+            <if test="version != null">#{version},</if>
+            <if test="idCard != null">#{idCard},</if>
+        </trim>
+    </insert>
+
+    <insert id="batchInsertCandidateCertInfo" parameterType="java.util.List">
+        insert into candidate_cert_info
+        (cert_config_id, user_name, user_id, member_id, phone, email, competition_series_id, competition_track_id,
+         second_level_code, competition_name, competition_track_name, second_level_name, team_code, team_name,
+         competition_role_name, leader_teacher_id, leader_teacher_name, guide_teacher_id, guide_teacher_name,
+         score, is_check, source_type, player_sources, create_by, create_time, update_by, update_time,id_card)
+        values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.certConfigId}, #{item.userName}, #{item.userId}, #{item.memberId}, #{item.phone}, #{item.email},
+             #{item.competitionSeriesId}, #{item.competitionTrackId}, #{item.secondLevelCode}, #{item.competitionName},
+             #{item.competitionTrackName}, #{item.secondLevelName}, #{item.teamCode}, #{item.teamName},
+             #{item.competitionRoleName}, #{item.leaderTeacherId}, #{item.leaderTeacherName}, #{item.guideTeacherId},
+             #{item.guideTeacherName}, #{item.score}, #{item.isCheck}, #{item.sourceType}, #{item.playerSources}, #{item.createBy},
+             now(), #{item.updateBy}, #{item.updateTime},#{item.idCard})
+        </foreach>
+    </insert>
+
+    <update id="updateCandidateCertInfo" parameterType="com.teaching.competition.domain.CandidateCertInfo">
+        update candidate_cert_info
+        <set>
+            <if test="certConfigId != null">cert_config_id = #{certConfigId},</if>
+            <if test="userName != null">user_name = #{userName},</if>
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="memberId != null">member_id = #{memberId},</if>
+            <if test="phone != null">phone = #{phone},</if>
+            <if test="email != null">email = #{email},</if>
+            <if test="competitionSeriesId != null">competition_series_id = #{competitionSeriesId},</if>
+            <if test="competitionTrackId != null">competition_track_id = #{competitionTrackId},</if>
+            <if test="secondLevelCode != null">second_level_code = #{secondLevelCode},</if>
+            <if test="competitionName != null">competition_name = #{competitionName},</if>
+            <if test="competitionTrackName != null">competition_track_name = #{competitionTrackName},</if>
+            <if test="secondLevelName != null">second_level_name = #{secondLevelName},</if>
+            <if test="teamCode != null">team_code = #{teamCode},</if>
+            <if test="teamName != null">team_name = #{teamName},</if>
+            <if test="competitionRoleName != null">competition_role_name = #{competitionRoleName},</if>
+            <if test="leaderTeacherId != null">leader_teacher_id = #{leaderTeacherId},</if>
+            <if test="leaderTeacherName != null">leader_teacher_name = #{leaderTeacherName},</if>
+            <if test="guideTeacherId != null">guide_teacher_id = #{guideTeacherId},</if>
+            <if test="guideTeacherName != null">guide_teacher_name = #{guideTeacherName},</if>
+            <if test="score != null">score = #{score},</if>
+            <if test="isCheck != null">is_check = #{isCheck},</if>
+            <if test="sourceType != null">source_type = #{sourceType},</if>
+            <if test="playerSources != null">player_sources = #{playerSources},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+            <if test="idCard != null">id_card = #{idCard},</if>
+            version = version+1,
+        </set>
+        where candidate_id = #{candidateId}
+    </update>
+
+    <delete id="deleteCandidateCertInfoByCertConfigId" parameterType="Long">
+        update candidate_cert_info set del_flag = '1' where cert_config_id = #{certConfigId}
+    </delete>
+
+    <delete id="deleteCandidateCertInfoById" parameterType="Long">
+        update candidate_cert_info set del_flag = '1' where candidate_id = #{candidateId}
+    </delete>
+
+    <delete id="deleteCandidateCertInfoByMemberId" parameterType="Long[]">
+        update candidate_cert_info set del_flag = '1' where member_id in
+        <foreach item="memberId" collection="array" open="(" separator="," close=")">
+            #{memberId}
+        </foreach>
+    </delete>
+
+    <delete id="deleteCandidateCertInfoByCartId" parameterType="List">
+        update candidate_cert_info set del_flag = '1' where id_card in
+        <foreach item="idCard" collection="idCardList" open="(" separator="," close=")">
+            #{idCard}
+        </foreach>
+    </delete>
+
+    <delete id="deleteCandidateCertInfoByIds" parameterType="Long[]">
+        update candidate_cert_info set del_flag = '1' where candidate_id in
+        <foreach item="candidateId" collection="array" open="(" separator="," close=")">
+            #{candidateId}
+        </foreach>
+    </delete>
+</mapper>

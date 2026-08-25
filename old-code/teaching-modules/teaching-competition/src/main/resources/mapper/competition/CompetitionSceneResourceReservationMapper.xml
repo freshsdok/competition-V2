@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.competition.mapper.CompetitionSceneResourceReservationMapper">
+
+    <resultMap type="com.teaching.competition.domain.CompetitionSceneResourceReservation"
+               id="CompetitionSceneResourceReservationResult">
+        <id property="reservationId" column="reservation_id"/>
+        <result property="slotId" column="slot_id"/>
+        <result property="scheduleResourceId" column="schedule_resource_id"/>
+        <result property="scheduleId" column="schedule_id"/>
+        <result property="resourceId" column="resource_id"/>
+        <result property="eventId" column="event_id"/>
+        <result property="competitionSeriesId" column="competition_series_id"/>
+        <result property="reservationSourceScheduleId" column="reservation_source_schedule_id"/>
+        <result property="subjectType" column="subject_type"/>
+        <result property="subjectCode" column="subject_code"/>
+        <result property="teamCode" column="team_code"/>
+        <result property="userId" column="user_id"/>
+        <result property="operatorUserId" column="operator_user_id"/>
+        <result property="operatorName" column="operator_name"/>
+        <result property="groupCode" column="group_code"/>
+        <result property="groupName" column="group_name"/>
+        <result property="occupyPeopleCount" column="occupy_people_count"/>
+        <result property="reservedDeviceCount" column="reserved_device_count"/>
+        <result property="reservedWorkstationCount" column="reserved_workstation_count"/>
+        <result property="coveredWorkstationCount" column="covered_workstation_count"/>
+        <result property="sharedOccupancySnapshot" column="shared_occupancy_snapshot"/>
+        <result property="workstationCountSnapshot" column="workstation_count_snapshot"/>
+        <result property="activeReservationKey" column="active_reservation_key"/>
+        <result property="reservationStatus" column="reservation_status"/>
+        <result property="cancelTime" column="cancel_time"/>
+        <result property="cancelReason" column="cancel_reason"/>
+        <result property="checkStatus" column="check_status"/>
+        <result property="checkUserId" column="check_user_id"/>
+        <result property="checkTime" column="check_time"/>
+        <result property="idempotencyKey" column="idempotency_key"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="deleted" column="deleted"/>
+    </resultMap>
+
+    <resultMap type="com.teaching.competition.domain.CompetitionSceneResourceReservationVO"
+               id="CompetitionSceneResourceReservationVOResult">
+        <id property="reservationId" column="reservation_id"/>
+        <result property="slotId" column="slot_id"/>
+        <result property="scheduleResourceId" column="schedule_resource_id"/>
+        <result property="scheduleId" column="schedule_id"/>
+        <result property="resourceId" column="resource_id"/>
+        <result property="eventId" column="event_id"/>
+        <result property="competitionSeriesId" column="competition_series_id"/>
+        <result property="reservationSourceScheduleId" column="reservation_source_schedule_id"/>
+        <result property="subjectType" column="subject_type"/>
+        <result property="subjectCode" column="subject_code"/>
+        <result property="teamCode" column="team_code"/>
+        <result property="userId" column="user_id"/>
+        <result property="operatorUserId" column="operator_user_id"/>
+        <result property="operatorName" column="operator_name"/>
+        <result property="groupCode" column="group_code"/>
+        <result property="groupName" column="group_name"/>
+        <result property="occupyPeopleCount" column="occupy_people_count"/>
+        <result property="reservedDeviceCount" column="reserved_device_count"/>
+        <result property="reservedWorkstationCount" column="reserved_workstation_count"/>
+        <result property="coveredWorkstationCount" column="covered_workstation_count"/>
+        <result property="sharedOccupancySnapshot" column="shared_occupancy_snapshot"/>
+        <result property="workstationCountSnapshot" column="workstation_count_snapshot"/>
+        <result property="activeReservationKey" column="active_reservation_key"/>
+        <result property="reservationStatus" column="reservation_status"/>
+        <result property="cancelTime" column="cancel_time"/>
+        <result property="cancelReason" column="cancel_reason"/>
+        <result property="checkStatus" column="check_status"/>
+        <result property="checkUserId" column="check_user_id"/>
+        <result property="checkTime" column="check_time"/>
+        <result property="idempotencyKey" column="idempotency_key"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="scheduleName" column="schedule_name"/>
+        <result property="reservationSourceScheduleName" column="reservation_source_schedule_name"/>
+        <result property="competitionName" column="competition_name"/>
+        <result property="resourceName" column="resource_name"/>
+        <result property="resourceType" column="resource_type"/>
+        <result property="brandModel" column="brand_model"/>
+        <result property="deploymentLocation" column="deployment_location"/>
+        <result property="workstationsPerDevice" column="workstations_per_device"/>
+        <result property="slotStartTime" column="slot_start_time"/>
+        <result property="slotEndTime" column="slot_end_time"/>
+        <result property="slotStatus" column="slot_status"/>
+    </resultMap>
+
+    <sql id="selectReservationBaseColumns">
+        r.reservation_id, r.slot_id, r.schedule_resource_id, r.schedule_id, r.resource_id, r.event_id,
+        r.competition_series_id, r.reservation_source_schedule_id,
+        r.subject_type, r.subject_code, r.team_code, r.user_id, r.operator_user_id,
+        r.operator_name, r.group_code, r.group_name, r.occupy_people_count,
+        r.reserved_device_count, r.reserved_workstation_count, r.covered_workstation_count,
+        r.shared_occupancy_snapshot, r.workstation_count_snapshot, r.active_reservation_key,
+        r.reservation_status,
+        r.cancel_time, r.cancel_reason, r.check_status, r.check_user_id, r.check_time,
+        r.idempotency_key, r.create_by, r.create_time, r.update_by, r.update_time, r.deleted
+    </sql>
+
+    <sql id="selectReservationVo">
+        select
+        <include refid="selectReservationBaseColumns"/>,
+        s.schedule_name, source_s.schedule_name as reservation_source_schedule_name, s.competition_name,
+        res.resource_name, res.resource_type, res.brand_model,
+        sr.deployment_location, sr.workstations_per_device,
+        sl.start_time as slot_start_time, sl.end_time as slot_end_time, sl.slot_status
+        from competition_scene_resource_reservation r
+        left join competition_scene_schedule s on r.schedule_id = s.schedule_id and s.del_flag = '0'
+        left join competition_scene_schedule source_s
+               on r.reservation_source_schedule_id = source_s.schedule_id and source_s.del_flag = '0'
+        left join competition_scene_schedule_resource sr
+               on r.schedule_resource_id = sr.schedule_resource_id and sr.deleted = 0
+        left join competition_scene_resource res on r.resource_id = res.resource_id and res.deleted = 0
+        left join competition_scene_resource_slot sl on r.slot_id = sl.slot_id and sl.deleted = 0
+    </sql>
+
+    <select id="selectCompetitionSceneResourceReservationById" parameterType="Long"
+            resultMap="CompetitionSceneResourceReservationVOResult">
+        <include refid="selectReservationVo"/>
+        where r.reservation_id = #{reservationId}
+          and r.deleted = 0
+    </select>
+
+    <select id="selectCompetitionSceneResourceReservationEntityById" parameterType="Long"
+            resultMap="CompetitionSceneResourceReservationResult">
+        select reservation_id, slot_id, schedule_resource_id, schedule_id, resource_id, event_id,
+               competition_series_id, reservation_source_schedule_id,
+               subject_type, subject_code, team_code, user_id, operator_user_id, operator_name,
+               group_code, group_name, occupy_people_count, reserved_device_count,
+               reserved_workstation_count, covered_workstation_count, shared_occupancy_snapshot,
+               workstation_count_snapshot, active_reservation_key, reservation_status, cancel_time, cancel_reason, check_status,
+               check_user_id, check_time, idempotency_key, create_by, create_time, update_by, update_time, deleted
+        from competition_scene_resource_reservation
+        where reservation_id = #{reservationId}
+          and deleted = 0
+    </select>
+
+    <select id="selectCompetitionSceneResourceReservationList"
+            parameterType="com.teaching.competition.domain.CompetitionSceneResourceReservationQuery"
+            resultMap="CompetitionSceneResourceReservationVOResult">
+        <include refid="selectReservationVo"/>
+        <where>
+            r.deleted = 0
+            <if test="reservationId != null">
+                and r.reservation_id = #{reservationId}
+            </if>
+            <if test="slotId != null">
+                and r.slot_id = #{slotId}
+            </if>
+            <if test="scheduleResourceId != null">
+                and r.schedule_resource_id = #{scheduleResourceId}
+            </if>
+            <if test="scheduleId != null">
+                and r.schedule_id = #{scheduleId}
+            </if>
+            <if test="resourceId != null">
+                and r.resource_id = #{resourceId}
+            </if>
+            <if test="eventId != null">
+                and r.event_id = #{eventId}
+            </if>
+            <if test="subjectType != null and subjectType != ''">
+                and r.subject_type = #{subjectType}
+            </if>
+            <if test="subjectCode != null and subjectCode != ''">
+                and r.subject_code = #{subjectCode}
+            </if>
+            <if test="teamCode != null and teamCode != ''">
+                and r.team_code = #{teamCode}
+            </if>
+            <if test="userId != null">
+                and r.user_id = #{userId}
+            </if>
+            <if test="operatorUserId != null">
+                and r.operator_user_id = #{operatorUserId}
+            </if>
+            <if test="reservationStatus != null and reservationStatus != ''">
+                and r.reservation_status = #{reservationStatus}
+            </if>
+        </where>
+        order by r.create_time desc, r.reservation_id desc
+    </select>
+
+    <select id="selectVisibleCompetitionSceneResourceReservationList"
+            resultMap="CompetitionSceneResourceReservationVOResult">
+        <include refid="selectReservationVo"/>
+        <where>
+            r.deleted = 0
+            <choose>
+                <when test="subjects != null and subjects.size() > 0">
+                    and
+                    <foreach collection="subjects" item="subject" open="(" close=")" separator=" or ">
+                        (r.competition_series_id = #{subject.competitionSeriesId}
+                         and r.subject_type = #{subject.subjectType}
+                         and r.subject_code = #{subject.subjectCode})
+                    </foreach>
+                </when>
+                <otherwise>
+                    and 1 = 0
+                </otherwise>
+            </choose>
+        </where>
+        order by r.create_time desc, r.reservation_id desc
+    </select>
+
+    <select id="selectEffectiveReservationBySubject" resultMap="CompetitionSceneResourceReservationVOResult">
+        <include refid="selectReservationVo"/>
+        where r.deleted = 0
+          and r.schedule_id = #{scheduleId}
+          and r.subject_type = #{subjectType}
+          and r.subject_code = #{subjectCode}
+          and r.reservation_status in ('RESERVED', 'CHECKED')
+          and sl.end_time &gt; #{now}
+        order by r.create_time desc, r.reservation_id desc
+        limit 1
+    </select>
+
+    <select id="selectEffectiveReservationByScheduleResourceAndSubject"
+            resultMap="CompetitionSceneResourceReservationVOResult">
+        <include refid="selectReservationVo"/>
+        where r.deleted = 0
+          and r.schedule_resource_id = #{scheduleResourceId}
+          and r.subject_type = #{subjectType}
+          and r.subject_code = #{subjectCode}
+          and r.reservation_status in ('RESERVED', 'CHECKED')
+          and sl.end_time &gt; #{now}
+        order by r.create_time desc, r.reservation_id desc
+        limit 1
+    </select>
+
+    <select id="selectEffectiveReservationByActiveKey" resultMap="CompetitionSceneResourceReservationVOResult">
+        <include refid="selectReservationVo"/>
+        where r.deleted = 0
+          and r.active_reservation_key = #{activeReservationKey}
+          and r.reservation_status in ('RESERVED', 'CHECKED')
+        order by r.create_time desc, r.reservation_id desc
+        limit 1
+    </select>
+
+    <select id="selectReservationByIdempotencyKey" resultMap="CompetitionSceneResourceReservationVOResult">
+        <include refid="selectReservationVo"/>
+        where r.deleted = 0
+          and r.idempotency_key = #{idempotencyKey}
+        order by r.reservation_id desc
+        limit 1
+    </select>
+
+    <select id="countEffectiveReservationBySlot" resultType="int">
+        select count(1)
+        from competition_scene_resource_reservation r
+        inner join competition_scene_resource_slot sl on r.slot_id = sl.slot_id and sl.deleted = 0
+        where r.deleted = 0
+          and r.slot_id = #{slotId}
+          and r.reservation_status in ('RESERVED', 'CHECKED')
+          and sl.end_time &gt; #{now}
+    </select>
+
+    <insert id="insertCompetitionSceneResourceReservation"
+            parameterType="com.teaching.competition.domain.CompetitionSceneResourceReservation"
+            useGeneratedKeys="true" keyProperty="reservationId">
+        insert into competition_scene_resource_reservation
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="slotId != null">slot_id,</if>
+            <if test="scheduleResourceId != null">schedule_resource_id,</if>
+            <if test="scheduleId != null">schedule_id,</if>
+            <if test="resourceId != null">resource_id,</if>
+            <if test="eventId != null">event_id,</if>
+            <if test="competitionSeriesId != null">competition_series_id,</if>
+            <if test="reservationSourceScheduleId != null">reservation_source_schedule_id,</if>
+            <if test="subjectType != null">subject_type,</if>
+            <if test="subjectCode != null">subject_code,</if>
+            <if test="teamCode != null">team_code,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="operatorUserId != null">operator_user_id,</if>
+            <if test="operatorName != null">operator_name,</if>
+            <if test="groupCode != null">group_code,</if>
+            <if test="groupName != null">group_name,</if>
+            <if test="occupyPeopleCount != null">occupy_people_count,</if>
+            <if test="reservedDeviceCount != null">reserved_device_count,</if>
+            <if test="reservedWorkstationCount != null">reserved_workstation_count,</if>
+            <if test="coveredWorkstationCount != null">covered_workstation_count,</if>
+            <if test="sharedOccupancySnapshot != null">shared_occupancy_snapshot,</if>
+            <if test="workstationCountSnapshot != null">workstation_count_snapshot,</if>
+            <if test="activeReservationKey != null">active_reservation_key,</if>
+            <if test="reservationStatus != null">reservation_status,</if>
+            <if test="cancelTime != null">cancel_time,</if>
+            <if test="cancelReason != null">cancel_reason,</if>
+            <if test="checkStatus != null">check_status,</if>
+            <if test="checkUserId != null">check_user_id,</if>
+            <if test="checkTime != null">check_time,</if>
+            <if test="idempotencyKey != null">idempotency_key,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="deleted != null">deleted,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="slotId != null">#{slotId},</if>
+            <if test="scheduleResourceId != null">#{scheduleResourceId},</if>
+            <if test="scheduleId != null">#{scheduleId},</if>
+            <if test="resourceId != null">#{resourceId},</if>
+            <if test="eventId != null">#{eventId},</if>
+            <if test="competitionSeriesId != null">#{competitionSeriesId},</if>
+            <if test="reservationSourceScheduleId != null">#{reservationSourceScheduleId},</if>
+            <if test="subjectType != null">#{subjectType},</if>
+            <if test="subjectCode != null">#{subjectCode},</if>
+            <if test="teamCode != null">#{teamCode},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="operatorUserId != null">#{operatorUserId},</if>
+            <if test="operatorName != null">#{operatorName},</if>
+            <if test="groupCode != null">#{groupCode},</if>
+            <if test="groupName != null">#{groupName},</if>
+            <if test="occupyPeopleCount != null">#{occupyPeopleCount},</if>
+            <if test="reservedDeviceCount != null">#{reservedDeviceCount},</if>
+            <if test="reservedWorkstationCount != null">#{reservedWorkstationCount},</if>
+            <if test="coveredWorkstationCount != null">#{coveredWorkstationCount},</if>
+            <if test="sharedOccupancySnapshot != null">#{sharedOccupancySnapshot},</if>
+            <if test="workstationCountSnapshot != null">#{workstationCountSnapshot},</if>
+            <if test="activeReservationKey != null">#{activeReservationKey},</if>
+            <if test="reservationStatus != null">#{reservationStatus},</if>
+            <if test="cancelTime != null">#{cancelTime},</if>
+            <if test="cancelReason != null">#{cancelReason},</if>
+            <if test="checkStatus != null">#{checkStatus},</if>
+            <if test="checkUserId != null">#{checkUserId},</if>
+            <if test="checkTime != null">#{checkTime},</if>
+            <if test="idempotencyKey != null">#{idempotencyKey},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="deleted != null">#{deleted},</if>
+        </trim>
+    </insert>
+
+    <update id="cancelCompetitionSceneResourceReservation">
+        update competition_scene_resource_reservation
+        set reservation_status = 'CANCELLED',
+            active_reservation_key = null,
+            cancel_time = now(),
+            cancel_reason = #{cancelReason},
+            update_by = #{updateBy},
+            update_time = now()
+        where reservation_id = #{reservationId}
+          and reservation_status = 'RESERVED'
+          and deleted = 0
+    </update>
+</mapper>

@@ -1,0 +1,415 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.competition.mapper.CertificateImageCacheMapper">
+    <resultMap id="CacheResult" type="com.teaching.competition.domain.CertificateImageCache">
+        <id property="cacheId" column="cache_id"/>
+        <result property="certCode" column="cert_code"/>
+        <result property="contestName" column="contest_name"/>
+        <result property="name" column="recipient_name"/>
+        <result property="session" column="session"/>
+        <result property="contestArea" column="contest_area"/>
+        <result property="runingNumYear" column="runing_num_year"/>
+        <result property="objectKey" column="object_key"/>
+        <result property="fileName" column="file_name"/>
+        <result property="mimeType" column="mime_type"/>
+        <result property="fileSize" column="file_size"/>
+        <result property="sha256" column="sha256"/>
+        <result property="cacheStatus" column="cache_status"/>
+        <result property="retryCount" column="retry_count"/>
+        <result property="lastError" column="last_error"/>
+        <result property="nextRetryTime" column="next_retry_time"/>
+        <result property="lastSyncTime" column="last_sync_time"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <resultMap id="RunResult" type="com.teaching.competition.domain.CertificateImageSyncRun">
+        <id property="runId" column="run_id"/>
+        <result property="source" column="source"/>
+        <result property="runStatus" column="run_status"/>
+        <result property="totalCount" column="total_count"/>
+        <result property="processedCount" column="processed_count"/>
+        <result property="successCount" column="success_count"/>
+        <result property="failureCount" column="failure_count"/>
+        <result property="currentCertCode" column="current_cert_code"/>
+        <result property="lastError" column="last_error"/>
+        <result property="requestsPerSecond" column="requests_per_second"/>
+        <result property="operatorId" column="operator_id"/>
+        <result property="operatorName" column="operator_name"/>
+        <result property="startTime" column="start_time"/>
+        <result property="endTime" column="end_time"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <resultMap id="ExportResult" type="com.teaching.competition.domain.CertificateExportTask">
+        <id property="taskId" column="task_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="exportScope" column="export_scope"/>
+        <result property="selectedCertCodes" column="selected_cert_codes"/>
+        <result property="taskStatus" column="task_status"/>
+        <result property="phase" column="phase"/>
+        <result property="progress" column="progress"/>
+        <result property="totalCount" column="total_count"/>
+        <result property="processedCount" column="processed_count"/>
+        <result property="successCount" column="success_count"/>
+        <result property="failureCount" column="failure_count"/>
+        <result property="zipObjectKey" column="zip_object_key"/>
+        <result property="zipFileName" column="zip_file_name"/>
+        <result property="missingCertCodes" column="missing_cert_codes"/>
+        <result property="lastError" column="last_error"/>
+        <result property="expiresAt" column="expires_at"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="finishTime" column="finish_time"/>
+    </resultMap>
+
+    <sql id="guidedOrigin">
+        SELECT uco.cert_code,
+               MAX(NULLIF(uco.competition_name, '')) AS local_contest_name,
+               MAX(NULLIF(uco.user_name, '')) AS local_name,
+               MAX(COALESCE(NULLIF(csi.competition_series, ''),
+                            NULLIF(csi.competition_series_name, ''))) AS local_session,
+               MAX(CASE WHEN uco.year REGEXP '^[0-9]{4}$' THEN CAST(uco.year AS UNSIGNED) END) AS local_year
+        FROM user_certificate_origin uco
+        LEFT JOIN competition_series_info csi
+          ON csi.competition_series_id = uco.competition_series_id
+        WHERE uco.del_flag = '0'
+          AND uco.cert_code IS NOT NULL AND uco.cert_code != ''
+          AND uco.team_code IS NOT NULL AND uco.team_code != ''
+          AND EXISTS (
+              SELECT 1 FROM competition_apply_info cai
+              WHERE cai.competition_series_id = uco.competition_series_id
+                AND cai.team_code = uco.team_code
+                AND cai.leader_teacher_id = #{userId}
+                AND cai.pay_status = 'paid'
+                AND cai.del_flag = '0'
+          )
+        GROUP BY uco.cert_code
+    </sql>
+
+    <insert id="seedAllGuidedCertificates">
+        INSERT IGNORE INTO certificate_image_cache
+            (cert_code, contest_name, recipient_name, session, runing_num_year,
+             cache_status, retry_count, create_time, update_time)
+        SELECT uco.cert_code,
+               MAX(NULLIF(uco.competition_name, '')),
+               MAX(NULLIF(uco.user_name, '')),
+               MAX(COALESCE(NULLIF(csi.competition_series, ''),
+                            NULLIF(csi.competition_series_name, ''))),
+               MAX(CASE WHEN uco.year REGEXP '^[0-9]{4}$' THEN CAST(uco.year AS UNSIGNED) END),
+               'PENDING', 0, NOW(), NOW()
+        FROM user_certificate_origin uco
+        LEFT JOIN competition_series_info csi
+          ON csi.competition_series_id = uco.competition_series_id
+        WHERE uco.del_flag = '0'
+          AND uco.cert_code IS NOT NULL AND uco.cert_code != ''
+          AND uco.team_code IS NOT NULL AND uco.team_code != ''
+          AND EXISTS (
+              SELECT 1 FROM competition_apply_info cai
+              WHERE cai.competition_series_id = uco.competition_series_id
+                AND cai.team_code = uco.team_code
+                AND cai.leader_teacher_id IS NOT NULL
+                AND cai.pay_status = 'paid'
+                AND cai.del_flag = '0'
+          )
+        GROUP BY uco.cert_code
+    </insert>
+
+    <insert id="seedGuidedCertificates">
+        INSERT IGNORE INTO certificate_image_cache
+            (cert_code, contest_name, recipient_name, session, runing_num_year,
+             cache_status, retry_count, create_time, update_time)
+        SELECT source.cert_code, source.local_contest_name, source.local_name,
+               source.local_session, source.local_year, 'PENDING', 0, NOW(), NOW()
+        FROM (<include refid="guidedOrigin"/>) source
+    </insert>
+
+    <select id="selectGuidedPage" resultMap="CacheResult">
+        SELECT cache.cache_id, source.cert_code,
+               COALESCE(cache.contest_name, source.local_contest_name) AS contest_name,
+               COALESCE(cache.recipient_name, source.local_name) AS recipient_name,
+               COALESCE(cache.session, source.local_session) AS session,
+               cache.contest_area,
+               COALESCE(cache.runing_num_year, source.local_year) AS runing_num_year,
+               cache.object_key, cache.file_name, cache.mime_type, cache.file_size, cache.sha256,
+               COALESCE(cache.cache_status, 'PENDING') AS cache_status,
+               COALESCE(cache.retry_count, 0) AS retry_count,
+               cache.last_error, cache.next_retry_time, cache.last_sync_time,
+               cache.create_time, cache.update_time
+        FROM (<include refid="guidedOrigin"/>) source
+        LEFT JOIN certificate_image_cache cache ON cache.cert_code = source.cert_code
+        <where>
+            <if test="query != null and query.keyword != null and query.keyword != ''">
+                AND (source.cert_code LIKE CONCAT('%', #{query.keyword}, '%')
+                    OR COALESCE(cache.recipient_name, source.local_name) LIKE CONCAT('%', #{query.keyword}, '%'))
+            </if>
+            <if test="query != null and query.contestName != null and query.contestName != ''">
+                AND COALESCE(cache.contest_name, source.local_contest_name) = #{query.contestName}
+            </if>
+            <if test="query != null and query.session != null and query.session != ''">
+                AND COALESCE(cache.session, source.local_session) = #{query.session}
+            </if>
+            <if test="query != null and query.contestArea != null and query.contestArea != ''">
+                AND cache.contest_area = #{query.contestArea}
+            </if>
+            <if test="query != null and query.runingNumYear != null">
+                AND COALESCE(cache.runing_num_year, source.local_year) = #{query.runingNumYear}
+            </if>
+            <if test="query != null and query.cacheStatus != null and query.cacheStatus != ''">
+                AND COALESCE(cache.cache_status, 'PENDING') = #{query.cacheStatus}
+            </if>
+        </where>
+        ORDER BY source.cert_code
+    </select>
+
+    <select id="selectGuidedContestNames" resultType="java.lang.String">
+        SELECT DISTINCT COALESCE(cache.contest_name, source.local_contest_name) value
+        FROM (<include refid="guidedOrigin"/>) source
+        LEFT JOIN certificate_image_cache cache ON cache.cert_code = source.cert_code
+        WHERE COALESCE(cache.contest_name, source.local_contest_name) IS NOT NULL
+        ORDER BY value
+    </select>
+    <select id="selectGuidedSessions" resultType="java.lang.String">
+        SELECT DISTINCT COALESCE(cache.session, source.local_session) value
+        FROM (<include refid="guidedOrigin"/>) source
+        LEFT JOIN certificate_image_cache cache ON cache.cert_code = source.cert_code
+        WHERE COALESCE(cache.session, source.local_session) IS NOT NULL
+        ORDER BY value
+    </select>
+    <select id="selectGuidedContestAreas" resultType="java.lang.String">
+        SELECT DISTINCT cache.contest_area value
+        FROM (<include refid="guidedOrigin"/>) source
+        JOIN certificate_image_cache cache ON cache.cert_code = source.cert_code
+        WHERE cache.contest_area IS NOT NULL AND cache.contest_area != ''
+        ORDER BY value
+    </select>
+    <select id="selectGuidedYears" resultType="java.lang.Integer">
+        SELECT DISTINCT COALESCE(cache.runing_num_year, source.local_year) value
+        FROM (<include refid="guidedOrigin"/>) source
+        LEFT JOIN certificate_image_cache cache ON cache.cert_code = source.cert_code
+        WHERE COALESCE(cache.runing_num_year, source.local_year) IS NOT NULL
+        ORDER BY value DESC
+    </select>
+
+    <select id="selectAuthorizedCodes" resultType="java.lang.String">
+        SELECT source.cert_code
+        FROM (<include refid="guidedOrigin"/>) source
+        WHERE source.cert_code IN
+        <foreach collection="certCodes" item="code" open="(" separator="," close=")">#{code}</foreach>
+        ORDER BY source.cert_code
+    </select>
+
+    <select id="selectAllAuthorizedCodes" resultType="java.lang.String">
+        SELECT source.cert_code FROM (<include refid="guidedOrigin"/>) source ORDER BY source.cert_code
+    </select>
+
+    <select id="selectByCertCode" resultMap="CacheResult">
+        SELECT * FROM certificate_image_cache WHERE cert_code = #{certCode}
+    </select>
+
+    <select id="selectByCertCodes" resultMap="CacheResult">
+        SELECT * FROM certificate_image_cache WHERE cert_code IN
+        <foreach collection="certCodes" item="code" open="(" separator="," close=")">#{code}</foreach>
+        ORDER BY cert_code
+    </select>
+
+    <select id="selectSyncCandidates" resultMap="CacheResult">
+        SELECT * FROM certificate_image_cache
+        WHERE cache_status != 'SUCCESS'
+          AND cache_status != 'SYNCING'
+          AND (next_retry_time IS NULL OR next_retry_time &lt;= NOW())
+        ORDER BY FIELD(cache_status, 'PENDING', 'FAILED', 'NOT_FOUND'), cache_id
+        LIMIT #{limit}
+    </select>
+
+    <select id="countSyncCandidates" resultType="long">
+        SELECT COUNT(*) FROM certificate_image_cache
+        WHERE cache_status != 'SUCCESS'
+          AND cache_status != 'SYNCING'
+          AND (next_retry_time IS NULL OR next_retry_time &lt;= NOW())
+    </select>
+
+    <select id="countPendingOrSyncing" resultType="long">
+        SELECT COUNT(*) FROM certificate_image_cache
+        WHERE cache_status IN ('PENDING', 'SYNCING')
+    </select>
+
+    <select id="selectAdminPage" resultMap="CacheResult">
+        SELECT * FROM certificate_image_cache
+        <where>
+            <if test="query != null and query.certCode != null and query.certCode != ''">
+                AND cert_code LIKE CONCAT('%', #{query.certCode}, '%')
+            </if>
+            <if test="query != null and query.name != null and query.name != ''">
+                AND recipient_name LIKE CONCAT('%', #{query.name}, '%')
+            </if>
+            <if test="query != null and query.contestName != null and query.contestName != ''">
+                AND contest_name LIKE CONCAT('%', #{query.contestName}, '%')
+            </if>
+            <if test="query != null and query.contestArea != null and query.contestArea != ''">
+                AND contest_area LIKE CONCAT('%', #{query.contestArea}, '%')
+            </if>
+            <if test="query != null and query.cacheStatus != null and query.cacheStatus != ''">
+                AND cache_status = #{query.cacheStatus}
+            </if>
+        </where>
+        ORDER BY cache_id DESC
+    </select>
+
+    <select id="selectStats" resultType="com.teaching.competition.domain.CertificateImageCacheStats">
+        SELECT COUNT(*) AS totalCount,
+               SUM(cache_status = 'SUCCESS') AS successCount,
+               SUM(cache_status = 'PENDING') AS pendingCount,
+               SUM(cache_status = 'SYNCING') AS syncingCount,
+               SUM(cache_status = 'NOT_FOUND') AS notFoundCount,
+               SUM(cache_status = 'FAILED') AS failedCount
+        FROM certificate_image_cache
+    </select>
+
+    <update id="markSyncing">
+        UPDATE certificate_image_cache
+        SET cache_status = 'SYNCING', update_time = NOW()
+        WHERE cert_code = #{certCode}
+          AND cache_status != 'SUCCESS'
+          AND cache_status != 'SYNCING'
+          AND (next_retry_time IS NULL OR next_retry_time &lt;= NOW())
+    </update>
+
+    <update id="releaseSyncing">
+        UPDATE certificate_image_cache SET cache_status = 'PENDING', update_time = NOW()
+        WHERE cert_code = #{certCode} AND cache_status = 'SYNCING'
+    </update>
+
+    <update id="markSuccess" parameterType="com.teaching.competition.domain.CertificateImageCache">
+        UPDATE certificate_image_cache
+        SET contest_name = COALESCE(#{contestName}, contest_name),
+            recipient_name = COALESCE(#{name}, recipient_name),
+            session = COALESCE(#{session}, session), contest_area = COALESCE(#{contestArea}, contest_area),
+            runing_num_year = COALESCE(#{runingNumYear}, runing_num_year), object_key = #{objectKey},
+            file_name = #{fileName}, mime_type = #{mimeType}, file_size = #{fileSize}, sha256 = #{sha256},
+            cache_status = 'SUCCESS', retry_count = 0, last_error = NULL, next_retry_time = NULL,
+            last_sync_time = NOW(), update_time = NOW()
+        WHERE cert_code = #{certCode}
+    </update>
+
+    <update id="markNotFound" parameterType="com.teaching.competition.domain.CertificateImageCache">
+        UPDATE certificate_image_cache
+        SET contest_name = COALESCE(#{contestName}, contest_name),
+            recipient_name = COALESCE(#{name}, recipient_name),
+            session = COALESCE(#{session}, session), contest_area = COALESCE(#{contestArea}, contest_area),
+            runing_num_year = COALESCE(#{runingNumYear}, runing_num_year), cache_status = 'NOT_FOUND',
+            retry_count = #{retryCount}, last_error = #{lastError}, next_retry_time = #{nextRetryTime},
+            last_sync_time = NOW(), update_time = NOW()
+        WHERE cert_code = #{certCode}
+    </update>
+
+    <update id="markFailed" parameterType="com.teaching.competition.domain.CertificateImageCache">
+        UPDATE certificate_image_cache
+        SET cache_status = 'FAILED', retry_count = #{retryCount}, last_error = #{lastError},
+            next_retry_time = #{nextRetryTime}, last_sync_time = NOW(), update_time = NOW()
+        WHERE cert_code = #{certCode}
+    </update>
+
+    <update id="recoverStaleSyncing">
+        UPDATE certificate_image_cache SET cache_status = 'PENDING', update_time = NOW()
+        WHERE cache_status = 'SYNCING' AND update_time &lt; #{staleBefore}
+    </update>
+
+    <update id="retryFailedRecords">
+        UPDATE certificate_image_cache
+        SET cache_status = 'PENDING', retry_count = 0, last_error = NULL,
+            next_retry_time = NULL, update_time = NOW()
+        WHERE cache_status IN ('FAILED', 'NOT_FOUND')
+    </update>
+
+    <update id="resetCertificate">
+        UPDATE certificate_image_cache
+        SET cache_status = 'PENDING', retry_count = 0, last_error = NULL, next_retry_time = NULL,
+            update_time = NOW()
+        WHERE cert_code = #{certCode}
+    </update>
+
+    <insert id="insertRun" parameterType="com.teaching.competition.domain.CertificateImageSyncRun"
+            useGeneratedKeys="true" keyProperty="runId">
+        INSERT INTO certificate_image_sync_run
+        (source, run_status, total_count, processed_count, success_count, failure_count,
+         requests_per_second, operator_id, operator_name, start_time, create_time, update_time)
+        VALUES (#{source}, #{runStatus}, #{totalCount}, #{processedCount}, #{successCount}, #{failureCount},
+                #{requestsPerSecond}, #{operatorId}, #{operatorName}, #{startTime}, NOW(), NOW())
+    </insert>
+
+    <update id="updateRun" parameterType="com.teaching.competition.domain.CertificateImageSyncRun">
+        UPDATE certificate_image_sync_run
+        SET run_status = #{runStatus}, total_count = #{totalCount}, processed_count = #{processedCount},
+            success_count = #{successCount}, failure_count = #{failureCount},
+            current_cert_code = #{currentCertCode}, last_error = #{lastError},
+            end_time = #{endTime}, update_time = NOW()
+        WHERE run_id = #{runId}
+    </update>
+
+    <select id="selectActiveRun" resultMap="RunResult">
+        SELECT * FROM certificate_image_sync_run
+        WHERE run_status IN ('RUNNING', 'PAUSED') ORDER BY run_id DESC LIMIT 1
+    </select>
+    <select id="selectLatestRun" resultMap="RunResult">
+        SELECT * FROM certificate_image_sync_run ORDER BY run_id DESC LIMIT 1
+    </select>
+    <select id="selectRunById" resultMap="RunResult">
+        SELECT * FROM certificate_image_sync_run WHERE run_id = #{runId}
+    </select>
+    <select id="selectRunHistory" resultMap="RunResult">
+        SELECT * FROM certificate_image_sync_run ORDER BY run_id DESC LIMIT 100
+    </select>
+    <update id="pauseRun">
+        UPDATE certificate_image_sync_run SET run_status = 'PAUSED', update_time = NOW()
+        WHERE run_id = #{runId} AND run_status = 'RUNNING'
+    </update>
+    <update id="resumeRun">
+        UPDATE certificate_image_sync_run SET run_status = 'RUNNING', update_time = NOW()
+        WHERE run_id = #{runId} AND run_status = 'PAUSED'
+    </update>
+    <update id="failInterruptedRuns">
+        UPDATE certificate_image_sync_run SET run_status = 'FAILED', last_error = #{message},
+            end_time = NOW(), update_time = NOW() WHERE run_status = 'RUNNING'
+    </update>
+
+    <insert id="insertExportTask" parameterType="com.teaching.competition.domain.CertificateExportTask">
+        INSERT INTO certificate_export_task
+        (task_id, user_id, export_scope, selected_cert_codes, task_status, phase, progress,
+         total_count, processed_count, success_count, failure_count, create_time, update_time)
+        VALUES (#{taskId}, #{userId}, #{exportScope}, #{selectedCertCodes}, #{taskStatus}, #{phase}, #{progress},
+                #{totalCount}, #{processedCount}, #{successCount}, #{failureCount}, NOW(), NOW())
+    </insert>
+
+    <update id="updateExportTask" parameterType="com.teaching.competition.domain.CertificateExportTask">
+        UPDATE certificate_export_task
+        SET task_status = #{taskStatus}, phase = #{phase}, progress = #{progress},
+            total_count = #{totalCount}, processed_count = #{processedCount}, success_count = #{successCount},
+            failure_count = #{failureCount}, zip_object_key = #{zipObjectKey}, zip_file_name = #{zipFileName},
+            missing_cert_codes = #{missingCertCodes}, last_error = #{lastError}, expires_at = #{expiresAt},
+            finish_time = #{finishTime}, update_time = NOW()
+        WHERE task_id = #{taskId}
+    </update>
+
+    <select id="selectExportTask" resultMap="ExportResult">
+        SELECT * FROM certificate_export_task WHERE task_id = #{taskId}
+    </select>
+    <select id="selectRecoverableExportTasks" resultMap="ExportResult">
+        SELECT * FROM certificate_export_task
+        WHERE task_status IN ('QUEUED', 'RESOLVING', 'PACKAGING', 'UPLOADING')
+        ORDER BY create_time LIMIT 100
+    </select>
+    <select id="selectExpiredExportTasks" resultMap="ExportResult">
+        SELECT * FROM certificate_export_task
+        WHERE expires_at IS NOT NULL AND expires_at &lt;= #{now}
+          AND task_status IN ('COMPLETED', 'PARTIAL', 'FAILED')
+        ORDER BY expires_at LIMIT #{limit}
+    </select>
+    <update id="markExportExpired">
+        UPDATE certificate_export_task SET task_status = 'EXPIRED', update_time = NOW()
+        WHERE task_id = #{taskId}
+    </update>
+</mapper>

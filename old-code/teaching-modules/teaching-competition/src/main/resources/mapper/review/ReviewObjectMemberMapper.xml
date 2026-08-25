@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.competition.review.mapper.ReviewObjectMemberMapper">
+
+    <resultMap type="com.teaching.competition.review.domain.ReviewObjectMember" id="ReviewObjectMemberResult">
+<id property="id" column="id"/>
+<result property="activityId" column="activity_id"/>
+<result property="objectId" column="object_id"/>
+<result property="userId" column="user_id"/>
+<result property="personId" column="person_id"/>
+<result property="memberName" column="member_name"/>
+<result property="memberRole" column="member_role"/>
+<result property="isPrimary" column="is_primary"/>
+<result property="phone" column="phone"/>
+<result property="email" column="email"/>
+<result property="orgName" column="org_name"/>
+<result property="certificateId" column="certificate_id"/>
+<result property="certificateCode" column="certificate_code"/>
+<result property="certificateType" column="certificate_type"/>
+<result property="sourceModule" column="source_module"/>
+<result property="sourceBizId" column="source_biz_id"/>
+<result property="sortOrder" column="sort_order"/>
+<result property="createBy" column="create_by"/>
+<result property="createTime" column="create_time"/>
+<result property="updateBy" column="update_by"/>
+<result property="updateTime" column="update_time"/>
+<result property="remark" column="remark"/>
+<result property="delFlag" column="del_flag"/>
+    </resultMap>
+
+    <sql id="selectReviewObjectMemberVo">
+        select id, activity_id, object_id, user_id, person_id, member_name, member_role, is_primary, phone, email, org_name, certificate_id, certificate_code, certificate_type, source_module, source_biz_id, sort_order, create_by, create_time, update_by, update_time, remark, del_flag
+        from review_object_member
+    </sql>
+
+    <select id="selectById" parameterType="Long" resultMap="ReviewObjectMemberResult">
+        <include refid="selectReviewObjectMemberVo"/>
+        where id = #{id} and del_flag = '0'
+    </select>
+
+    <select id="selectList" parameterType="com.teaching.competition.review.domain.ReviewObjectMember" resultMap="ReviewObjectMemberResult">
+        <include refid="selectReviewObjectMemberVo"/>
+        <where>
+    del_flag = '0'
+    <if test="activityId != null">
+        and activity_id = #{activityId}
+    </if>
+    <if test="objectId != null">
+        and object_id = #{objectId}
+    </if>
+    <if test="userId != null">
+        and user_id = #{userId}
+    </if>
+    <if test="personId != null and personId != ''">
+        and person_id = #{personId}
+    </if>
+    <if test="memberName != null and memberName != ''">
+        and member_name like concat('%', #{memberName}, '%')
+    </if>
+    <if test="memberRole != null and memberRole != ''">
+        and member_role = #{memberRole}
+    </if>
+    <if test="isPrimary != null and isPrimary != ''">
+        and is_primary = #{isPrimary}
+    </if>
+    <if test="phone != null and phone != ''">
+        and phone = #{phone}
+    </if>
+    <if test="email != null and email != ''">
+        and email = #{email}
+    </if>
+    <if test="orgName != null and orgName != ''">
+        and org_name like concat('%', #{orgName}, '%')
+    </if>
+    <if test="certificateId != null and certificateId != ''">
+        and certificate_id = #{certificateId}
+    </if>
+    <if test="certificateCode != null and certificateCode != ''">
+        and certificate_code = #{certificateCode}
+    </if>
+    <if test="certificateType != null and certificateType != ''">
+        and certificate_type = #{certificateType}
+    </if>
+    <if test="sourceModule != null and sourceModule != ''">
+        and source_module = #{sourceModule}
+    </if>
+    <if test="sourceBizId != null and sourceBizId != ''">
+        and source_biz_id = #{sourceBizId}
+    </if>
+    <if test="sortOrder != null">
+        and sort_order = #{sortOrder}
+    </if>
+        </where>
+        order by id desc
+    </select>
+
+    <insert id="insert" parameterType="com.teaching.competition.review.domain.ReviewObjectMember" useGeneratedKeys="true" keyProperty="id">
+        insert into review_object_member
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+    <if test="activityId != null">activity_id,</if>
+    <if test="objectId != null">object_id,</if>
+    <if test="userId != null">user_id,</if>
+    <if test="personId != null">person_id,</if>
+    <if test="memberName != null">member_name,</if>
+    <if test="memberRole != null">member_role,</if>
+    <if test="isPrimary != null">is_primary,</if>
+    <if test="phone != null">phone,</if>
+    <if test="email != null">email,</if>
+    <if test="orgName != null">org_name,</if>
+    <if test="certificateId != null">certificate_id,</if>
+    <if test="certificateCode != null">certificate_code,</if>
+    <if test="certificateType != null">certificate_type,</if>
+    <if test="sourceModule != null">source_module,</if>
+    <if test="sourceBizId != null">source_biz_id,</if>
+    <if test="sortOrder != null">sort_order,</if>
+    <if test="createBy != null">create_by,</if>
+    <if test="createTime != null">create_time,</if>
+    <if test="updateBy != null">update_by,</if>
+    <if test="updateTime != null">update_time,</if>
+    <if test="remark != null">remark,</if>
+    <if test="delFlag != null">del_flag,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+    <if test="activityId != null">#{activityId},</if>
+    <if test="objectId != null">#{objectId},</if>
+    <if test="userId != null">#{userId},</if>
+    <if test="personId != null">#{personId},</if>
+    <if test="memberName != null">#{memberName},</if>
+    <if test="memberRole != null">#{memberRole},</if>
+    <if test="isPrimary != null">#{isPrimary},</if>
+    <if test="phone != null">#{phone},</if>
+    <if test="email != null">#{email},</if>
+    <if test="orgName != null">#{orgName},</if>
+    <if test="certificateId != null">#{certificateId},</if>
+    <if test="certificateCode != null">#{certificateCode},</if>
+    <if test="certificateType != null">#{certificateType},</if>
+    <if test="sourceModule != null">#{sourceModule},</if>
+    <if test="sourceBizId != null">#{sourceBizId},</if>
+    <if test="sortOrder != null">#{sortOrder},</if>
+    <if test="createBy != null">#{createBy},</if>
+    <if test="createTime != null">#{createTime},</if>
+    <if test="updateBy != null">#{updateBy},</if>
+    <if test="updateTime != null">#{updateTime},</if>
+    <if test="remark != null">#{remark},</if>
+    <if test="delFlag != null">#{delFlag},</if>
+        </trim>
+    </insert>
+
+    <update id="update" parameterType="com.teaching.competition.review.domain.ReviewObjectMember">
+        update review_object_member
+        <set>
+    <if test="activityId != null">activity_id = #{activityId},</if>
+    <if test="objectId != null">object_id = #{objectId},</if>
+    <if test="userId != null">user_id = #{userId},</if>
+    <if test="personId != null">person_id = #{personId},</if>
+    <if test="memberName != null">member_name = #{memberName},</if>
+    <if test="memberRole != null">member_role = #{memberRole},</if>
+    <if test="isPrimary != null">is_primary = #{isPrimary},</if>
+    <if test="phone != null">phone = #{phone},</if>
+    <if test="email != null">email = #{email},</if>
+    <if test="orgName != null">org_name = #{orgName},</if>
+    <if test="certificateId != null">certificate_id = #{certificateId},</if>
+    <if test="certificateCode != null">certificate_code = #{certificateCode},</if>
+    <if test="certificateType != null">certificate_type = #{certificateType},</if>
+    <if test="sourceModule != null">source_module = #{sourceModule},</if>
+    <if test="sourceBizId != null">source_biz_id = #{sourceBizId},</if>
+    <if test="sortOrder != null">sort_order = #{sortOrder},</if>
+    <if test="updateBy != null">update_by = #{updateBy},</if>
+    <if test="updateTime != null">update_time = #{updateTime},</if>
+    <if test="remark != null">remark = #{remark},</if>
+        </set>
+        where id = #{id} and del_flag = '0'
+    </update>
+
+    <update id="deleteByIds">
+        update review_object_member
+        set del_flag = '1', update_by = #{updateBy}, update_time = now()
+        where id in
+        <foreach item="id" collection="ids" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+
+    <update id="deleteByObjectId">
+        update review_object_member
+        set del_flag = '1', update_by = #{updateBy}, update_time = now()
+        where activity_id = #{activityId}
+          and object_id = #{objectId}
+          and del_flag = '0'
+    </update>
+</mapper>

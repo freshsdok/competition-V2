@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.competition.mapper.CompetitionSceneSubjectOperationStateMapper">
+
+    <resultMap type="com.teaching.competition.domain.CompetitionSceneSubjectOperationState"
+               id="CompetitionSceneSubjectOperationStateResult">
+        <id property="stateId" column="state_id"/>
+        <result property="competitionSeriesId" column="competition_series_id"/>
+        <result property="scopeType" column="scope_type"/>
+        <result property="scopeRefId" column="scope_ref_id"/>
+        <result property="subjectType" column="subject_type"/>
+        <result property="subjectCode" column="subject_code"/>
+        <result property="operationType" column="operation_type"/>
+        <result property="operationStatus" column="operation_status"/>
+        <result property="operationTime" column="operation_time"/>
+        <result property="credentialId" column="credential_id"/>
+        <result property="operatorUserId" column="operator_user_id"/>
+        <result property="operatorName" column="operator_name"/>
+        <result property="delegateUserId" column="delegate_user_id"/>
+        <result property="delegateName" column="delegate_name"/>
+        <result property="delegateCredentialId" column="delegate_credential_id"/>
+        <result property="delegateRelation" column="delegate_relation"/>
+        <result property="lastLogId" column="last_log_id"/>
+        <result property="remark" column="remark"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="deleted" column="deleted"/>
+    </resultMap>
+
+    <sql id="selectStateColumns">
+        select state_id, competition_series_id, scope_type, scope_ref_id, subject_type, subject_code,
+               operation_type, operation_status, operation_time, credential_id, operator_user_id,
+               operator_name, delegate_user_id, delegate_name, delegate_credential_id, delegate_relation,
+               last_log_id, remark, create_by, create_time, update_by, update_time, deleted
+        from competition_scene_subject_operation_state
+    </sql>
+
+    <select id="selectDoneOperationState"
+            parameterType="com.teaching.competition.domain.CompetitionSceneSubjectOperationStateQuery"
+            resultMap="CompetitionSceneSubjectOperationStateResult">
+        <include refid="selectStateColumns"/>
+        where deleted = 0
+          and operation_status = 'DONE'
+          and competition_series_id = #{competitionSeriesId}
+          and scope_type = #{scopeType}
+          and scope_ref_id = #{scopeRefId}
+          and subject_type = #{subjectType}
+          and subject_code = #{subjectCode}
+          and operation_type = #{operationType}
+        order by operation_time desc, state_id desc
+        limit 1
+    </select>
+
+    <select id="selectDoneOperationStateList"
+            parameterType="com.teaching.competition.domain.CompetitionSceneSubjectOperationStateQuery"
+            resultMap="CompetitionSceneSubjectOperationStateResult">
+        <include refid="selectStateColumns"/>
+        <where>
+            deleted = 0
+            and operation_status = 'DONE'
+            <if test="competitionSeriesId != null">
+                and competition_series_id = #{competitionSeriesId}
+            </if>
+            <if test="scopeType != null and scopeType != ''">
+                and scope_type = #{scopeType}
+            </if>
+            <if test="scopeRefId != null">
+                and scope_ref_id = #{scopeRefId}
+            </if>
+            <if test="subjectType != null and subjectType != ''">
+                and subject_type = #{subjectType}
+            </if>
+            <if test="subjectCode != null and subjectCode != ''">
+                and subject_code = #{subjectCode}
+            </if>
+            <if test="operationType != null and operationType != ''">
+                and operation_type = #{operationType}
+            </if>
+            <if test="credentialId != null">
+                and credential_id = #{credentialId}
+            </if>
+        </where>
+        order by operation_time desc, state_id desc
+    </select>
+
+    <insert id="insertDoneOperationStateIfAbsent"
+            parameterType="com.teaching.competition.domain.CompetitionSceneSubjectOperationState">
+        insert into competition_scene_subject_operation_state
+        (competition_series_id, scope_type, scope_ref_id, subject_type, subject_code, operation_type,
+         operation_status, operation_time, credential_id, operator_user_id, operator_name,
+         delegate_user_id, delegate_name, delegate_credential_id, delegate_relation, last_log_id,
+         remark, create_by, create_time, update_by, update_time, deleted)
+        select #{competitionSeriesId}, #{scopeType}, #{scopeRefId}, #{subjectType}, #{subjectCode}, #{operationType},
+               'DONE', #{operationTime}, #{credentialId}, #{operatorUserId}, #{operatorName},
+               #{delegateUserId}, #{delegateName}, #{delegateCredentialId}, #{delegateRelation}, #{lastLogId},
+               #{remark}, #{createBy}, #{createTime}, #{updateBy}, #{updateTime}, 0
+        from dual
+        where not exists (
+            select 1
+            from competition_scene_subject_operation_state
+            where competition_series_id = #{competitionSeriesId}
+              and scope_type = #{scopeType}
+              and scope_ref_id = #{scopeRefId}
+              and subject_type = #{subjectType}
+              and subject_code = #{subjectCode}
+              and operation_type = #{operationType}
+              and operation_status = 'DONE'
+              and deleted = 0
+        )
+    </insert>
+
+    <update id="cancelDoneOperationState">
+        update competition_scene_subject_operation_state
+        set operation_status = 'CANCELLED',
+            update_by = #{updateBy},
+            update_time = now()
+        where deleted = 0
+          and operation_status = 'DONE'
+          and competition_series_id = #{query.competitionSeriesId}
+          and scope_type = #{query.scopeType}
+          and scope_ref_id = #{query.scopeRefId}
+          and subject_type = #{query.subjectType}
+          and subject_code = #{query.subjectCode}
+          and operation_type = #{query.operationType}
+    </update>
+
+    <update id="updateOperationStateLastLogId">
+        update competition_scene_subject_operation_state
+        set last_log_id = #{lastLogId},
+            update_by = #{updateBy},
+            update_time = now()
+        where state_id = #{stateId}
+          and deleted = 0
+    </update>
+</mapper>

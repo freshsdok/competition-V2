@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.system.mapper.ProcessedRelationMapper">
+
+    <resultMap type="com.teaching.system.domain.ProcessedRelation" id="ProcessedRelationResult">
+        <result property="id"    column="id"    />
+        <result property="managerId"    column="manager_id"    />
+        <result property="oldFileName"    column="old_file_name"    />
+        <result property="oldUrl"    column="old_url"    />
+        <result property="newFileName"    column="new_file_name"    />
+        <result property="newUrl"    column="new_url"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+        <result property="reviewStatus"    column="review_status"    />
+    </resultMap>
+
+    <sql id="selectProcessedRelationVo">
+        select id, manager_id, old_file_name, old_url, new_file_name, new_url, del_flag, create_by,
+               create_time, update_by, update_time, remark,review_status from review_processed_relation
+    </sql>
+
+    <select id="selectProcessedRelationList" parameterType="com.teaching.system.domain.ProcessedRelation" resultMap="ProcessedRelationResult">
+        <include refid="selectProcessedRelationVo"/>
+        <where>
+            <if test="managerId != null "> and manager_id = #{managerId}</if>
+            <if test="oldFileName != null  and oldFileName != ''"> and old_file_name like concat('%', #{oldFileName}, '%')</if>
+            <if test="oldUrl != null  and oldUrl != ''"> and old_url = #{oldUrl}</if>
+            <if test="newFileName != null  and newFileName != ''"> and new_file_name like concat('%', #{newFileName}, '%')</if>
+            <if test="newUrl != null  and newUrl != ''"> and new_url = #{newUrl}</if>
+        </where>
+    </select>
+
+    <select id="selectProcessedRelationById" parameterType="Long" resultMap="ProcessedRelationResult">
+        <include refid="selectProcessedRelationVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertProcessedRelation" parameterType="com.teaching.system.domain.ProcessedRelation" useGeneratedKeys="true" keyProperty="id">
+        insert into review_processed_relation
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="managerId != null">manager_id,</if>
+            <if test="oldFileName != null">old_file_name,</if>
+            <if test="oldUrl != null">old_url,</if>
+            <if test="newFileName != null">new_file_name,</if>
+            <if test="newUrl != null">new_url,</if>
+            <if test="delFlag != null">del_flag,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+            <if test="reviewStatus != null">review_status,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="managerId != null">#{managerId},</if>
+            <if test="oldFileName != null">#{oldFileName},</if>
+            <if test="oldUrl != null">#{oldUrl},</if>
+            <if test="newFileName != null">#{newFileName},</if>
+            <if test="newUrl != null">#{newUrl},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="reviewStatus != null">#{reviewStatus},</if>
+        </trim>
+    </insert>
+
+    <update id="updateProcessedRelation" parameterType="com.teaching.system.domain.ProcessedRelation">
+        update review_processed_relation
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="managerId != null">manager_id = #{managerId},</if>
+            <if test="oldFileName != null">old_file_name = #{oldFileName},</if>
+            <if test="oldUrl != null">old_url = #{oldUrl},</if>
+            <if test="newFileName != null">new_file_name = #{newFileName},</if>
+            <if test="newUrl != null">new_url = #{newUrl},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="reviewStatus != null">review_status = #{reviewStatus},</if>
+            <if test="reviewTime != null">review_time = #{reviewTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <update id="updateProcessedRelationByManagerIds" parameterType="String">
+        update review_processed_relation set del_flag = '1' where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+
+    <delete id="deleteProcessedRelationById" parameterType="Long">
+        delete from review_processed_relation where id = #{id}
+    </delete>
+
+    <delete id="deleteProcessedRelationByIds" parameterType="String">
+        delete from review_processed_relation where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <select id="selectProcessedRelationByManagerId"  resultMap="ProcessedRelationResult">
+        select id, manager_id, old_file_name, old_url, new_file_name, new_url, del_flag, create_by, create_time, update_by, update_time,
+               remark,review_status from review_processed_relation
+        where del_flag = '0' and manager_id in
+                 <foreach item="id" collection="list" open="(" separator="," close=")">
+                     #{id}
+                 </foreach>
+    </select>
+
+
+    <update id="updateReviewStatusByRelaId" parameterType="com.teaching.system.domain.ReviewTaskSpecialistRelation">
+        update review_task_specialist_relation set review_status = '1' and review_time = #{reviewTime}
+        where rela_id = #{relaId} and user_id = #{userId}
+    </update>
+
+
+    <update id="updateLastPageFlagByRelaId" parameterType="com.teaching.system.domain.ReviewTaskSpecialistRelation">
+        update review_record set last_page = #{lastPage}
+        where file_id = #{relaId} and expert_id = #{userId}
+    </update>
+</mapper>

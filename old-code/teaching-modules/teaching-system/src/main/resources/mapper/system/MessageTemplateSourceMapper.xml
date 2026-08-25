@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.system.mapper.MessageTemplateSourceMapper">
+    
+    <resultMap type="com.teaching.system.domain.MessageTemplateSource" id="MessageTemplateSourceResult">
+        <result property="id"    column="id"    />
+        <result property="msgType"    column="msg_type"    />
+        <result property="msgName"    column="msg_name"    />
+        <result property="msgCode"    column="msg_code"    />
+        <result property="attributeName"    column="attribute_name"    />
+        <result property="variableTable"    column="variable_table"    />
+        <result property="variableTableLabel"    column="variable_table_label"    />
+        <result property="variableColumn"    column="variable_column"    />
+        <result property="variableColumnLabel"    column="variable_column_label"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="remark"    column="remark"    />
+        <result property="version"    column="version"    />
+        <result property="delFlag"    column="del_flag"    />
+    </resultMap>
+
+    <resultMap type="com.teaching.system.domain.MessageTemplateSource" id="MessageTemplateSourceAllResult">
+        <result property="id"    column="id"    />
+        <result property="msgType"    column="msg_type"    />
+        <result property="msgName"    column="msg_name"    />
+        <result property="msgCode"    column="msg_code"    />
+        <result property="attributeName"    column="attribute_name"    />
+        <result property="variableTable"    column="variable_table"    />
+        <result property="variableTableLabel"    column="variable_table_label"    />
+        <result property="variableColumn"    column="variable_column"    />
+        <result property="variableColumnLabel"    column="variable_column_label"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="remark"    column="remark"    />
+        <result property="version"    column="version"    />
+        <result property="delFlag"    column="del_flag"    />
+        <collection property="messageTemplateTargetTableList" ofType="com.teaching.system.domain.MessageTemplateTargetTable" >
+            <result property="targetTable"    column="target_table"/>
+            <result property="targetTableName"    column="target_table_name"/>
+            <result property="targetColumn"    column="target_column"/>
+            <result property="targetColumnName"    column="target_column_name"/>
+            <result property="conditionColumn"    column="condition_column"/>
+            <result property="conditionColumnName"    column="condition_column_name"/>
+            <result property="conditionColumn2"    column="condition_column2"/>
+            <result property="orderNum"    column="order_num"/>
+        </collection>
+    </resultMap>
+
+    <sql id="selectMessageTemplateSourceVo">
+        select id, msg_type, msg_name, msg_code, attribute_name,variable_table, variable_table_label, variable_column, variable_column_label, create_by, create_time, update_by, remark, version, del_flag from message_template_source
+    </sql>
+
+    <select id="selectMessageTemplateSourceList" parameterType="com.teaching.system.domain.MessageTemplateSource" resultMap="MessageTemplateSourceResult">
+        <include refid="selectMessageTemplateSourceVo"/>
+        <where>  
+            <if test="msgType != null  and msgType != ''"> and msg_type = #{msgType}</if>
+            <if test="msgName != null  and msgName != ''"> and msg_name like concat('%', #{msgName}, '%')</if>
+            <if test="msgCode != null  and msgCode != ''"> and msg_code = #{msgCode}</if>
+            <if test="variableTable != null  and variableTable != ''"> and variable_table = #{variableTable}</if>
+            <if test="variableTableLabel != null  and variableTableLabel != ''"> and variable_table_label = #{variableTableLabel}</if>
+            <if test="variableColumn != null  and variableColumn != ''"> and variable_column = #{variableColumn}</if>
+            <if test="variableColumnLabel != null  and variableColumnLabel != ''"> and variable_column_label = #{variableColumnLabel}</if>
+            <if test="version != null "> and version = #{version}</if>
+        </where>
+    </select>
+
+    <select id="selectDistinctMessageTemplateSourceList" parameterType="com.teaching.system.domain.MessageTemplateSource" resultMap="MessageTemplateSourceResult">
+        select distinct msg_code, msg_type, msg_name
+        from message_template_source
+        <where>
+            <if test="msgType != null  and msgType != ''"> and msg_type = #{msgType}</if>
+            <if test="msgName != null  and msgName != ''"> and msg_name like concat('%', #{msgName}, '%')</if>
+            <if test="msgCode != null  and msgCode != ''"> and msg_code = #{msgCode}</if>
+        </where>
+    </select>
+    
+    <select id="selectMessageTemplateSourceById" parameterType="Long" resultMap="MessageTemplateSourceResult">
+        <include refid="selectMessageTemplateSourceVo"/>
+        where id = #{id}
+    </select>
+
+    <select id="selectMessageTemplateAllInfo" parameterType="String" resultMap="MessageTemplateSourceAllResult">
+        select mts.msg_type, mts.msg_name, mts.msg_code, mts.attribute_name,mts.variable_table, mts.variable_table_label,
+            mts.variable_column, mts.variable_column_label,mt.target_table, mt.target_table_name, mt.target_column, mt.target_column_name,
+            mt.condition_column, mt.condition_column_name, mt.condition_column2,mt.order_num
+        from message_template_source mts
+        left join message_template_target_table mt on mt.msg_id = mts.id
+        where mts.msg_code = #{msgCode} and mt.status = '0' order by mt.order_num
+    </select>
+
+    <select id="selectAttributeValue" parameterType="map" resultType="map">
+        SELECT
+        <choose>
+            <when test="targetColumn != null and targetColumn != ''">
+                ${targetColumn}
+            </when>
+            <otherwise>*</otherwise>
+        </choose>
+        FROM
+        ${targetTable}
+        <where>
+            <if test="targetConditionName!=null and targetConditionName!=''">
+                and ${targetConditionColumn} = #{targetConditionName}
+            </if>
+            <if test="conditionColumn2!=null and conditionColumn2!=''">
+                and ${conditionColumn2}
+            </if>
+        </where>
+    </select>
+
+    <insert id="insertMessageTemplateSource" parameterType
+        ="com.teaching.system.domain.MessageTemplateSource" useGeneratedKeys="true" keyProperty="id">
+        insert into message_template_source
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="msgType != null">msg_type,</if>
+            <if test="msgName != null">msg_name,</if>
+            <if test="msgCode != null and msgCode != ''">msg_code,</if>
+            <if test="attributeName != null and attributeName != ''">attribute_name,</if>
+            <if test="variableTable != null">variable_table,</if>
+            <if test="variableTableLabel != null">variable_table_label,</if>
+            <if test="variableColumn != null">variable_column,</if>
+            <if test="variableColumnLabel != null">variable_column_label,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="remark != null">remark,</if>
+            <if test="version != null">version,</if>
+            <if test="delFlag != null">del_flag,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="msgType != null">#{msgType},</if>
+            <if test="msgName != null">#{msgName},</if>
+            <if test="msgCode != null and msgCode != ''">#{msgCode},</if>
+            <if test="attributeName != null and attributeName != ''">#{attributeName},</if>
+            <if test="variableTable != null">#{variableTable},</if>
+            <if test="variableTableLabel != null">#{variableTableLabel},</if>
+            <if test="variableColumn != null">#{variableColumn},</if>
+            <if test="variableColumnLabel != null">#{variableColumnLabel},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="version != null">#{version},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+         </trim>
+    </insert>
+
+    <update id="updateMessageTemplateSource" parameterType="com.teaching.system.domain.MessageTemplateSource">
+        update message_template_source
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="msgType != null">msg_type = #{msgType},</if>
+            <if test="msgName != null">msg_name = #{msgName},</if>
+            <if test="msgCode != null and msgCode != ''">msg_code = #{msgCode},</if>
+            <if test="attributeName != null and attributeName != ''">attribute_name = #{attributeName},</if>
+            <if test="variableTable != null">variable_table = #{variableTable},</if>
+            <if test="variableTableLabel != null">variable_table_label = #{variableTableLabel},</if>
+            <if test="variableColumn != null">variable_column = #{variableColumn},</if>
+            <if test="variableColumnLabel != null">variable_column_label = #{variableColumnLabel},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="version != null">version = #{version},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteMessageTemplateSourceById" parameterType="Long">
+        delete from message_template_source where id = #{id}
+    </delete>
+
+    <delete id="deleteMessageTemplateSourceByIds" parameterType="String">
+        delete from message_template_source where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

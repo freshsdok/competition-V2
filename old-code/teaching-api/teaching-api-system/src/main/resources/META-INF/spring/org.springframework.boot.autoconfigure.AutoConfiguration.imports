@@ -1,0 +1,11 @@
+com.teaching.system.api.factory.RemoteUserFallbackFactory
+com.teaching.system.api.factory.RemoteLogFallbackFactory
+com.teaching.system.api.factory.RemoteFileFallbackFactory
+com.teaching.system.api.factory.RemoteOssUploadServiceFactory
+com.teaching.system.api.factory.CompetitionFallbackFactory
+com.teaching.system.api.factory.OrderServiceFactory
+com.teaching.system.api.factory.RemoteCourseServiceFactory
+com.teaching.system.api.factory.RemoteInvoiceServiceFactory
+com.teaching.system.api.factory.RemoteFlowFallbackFactory
+com.teaching.system.api.factory.RemoteWxAppFallbackFactory
+com.teaching.system.api.factory.RemoteFileReviewImportFallbackFactory

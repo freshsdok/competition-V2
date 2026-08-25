@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.competition.mapper.CompetitionCertExchangeApplyMapper">
+    <resultMap type="com.teaching.system.api.domain.CompetitionCertExchangeApply" id="CompetitionCertExchangeApplyResult">
+        <id property="applyId" column="apply_id" />
+        <result property="applyTime" column="apply_time" />
+        <result property="repayAmount" column="repay_amount" />
+        <result property="orderId" column="order_id" />
+        <result property="applyStatus" column="apply_status" />
+        <result property="ruleId" column="rule_id" />
+        <result property="rulerName" column="ruler_name" />
+        <result property="payStatus" column="pay_status" />
+        <result property="payTime" column="pay_time" />
+        <result property="userId" column="user_id" />
+        <result property="invoiceStatus" column="invoice_status" />
+        <result property="originCertName" column="origin_cert_name" />
+        <result property="originCertCode" column="origin_cert_code" />
+        <result property="originCertId" column="origin_cert_id" />
+        <result property="targetCertName" column="target_cert_name" />
+        <result property="targetCertId" column="target_cert_id" />
+        <result property="userName" column="user_name" />
+        <result property="school" column="school" />
+        <result property="idCard" column="id_card" />
+        <result property="competitionName" column="competition_name" />
+        <result property="competitionTrackName" column="competition_track_name" />
+        <result property="secondLevelName" column="second_level_name" />
+        <result property="guideTeacherName" column="guide_teacher_name" />
+        <result property="createBy" column="create_by" />
+        <result property="createTime" column="create_time" />
+        <result property="updateBy" column="update_by" />
+        <result property="updateTime" column="update_time" />
+        <result property="delFlag" column="del_flag" />
+        <result property="version" column="version" />
+        <result property="teamCode" column="team_code" />
+    </resultMap>
+
+    <sql id="selectCompetitionCertExchangeApplyVo">
+        select apply_id, apply_time, repay_amount, order_id, apply_status, rule_id, pay_status, pay_time, user_id, invoice_status, origin_cert_code, origin_cert_id, target_cert_id, create_by, create_time, update_by, update_time, del_flag, version from competition_cert_exchange_apply
+    </sql>
+
+    <select id="selectCompetitionCertExchangeApplyById" parameterType="Long" resultMap="CompetitionCertExchangeApplyResult">
+        <include refid="selectCompetitionCertExchangeApplyVo" />
+        where apply_id = #{applyId}
+    </select>
+
+    <select id="selectCompetitionCertExchangeApplyList" parameterType="com.teaching.system.api.domain.CompetitionCertExchangeApply" resultMap="CompetitionCertExchangeApplyResult">
+        select cce.apply_id, cce.apply_time, cce.repay_amount, cce.order_id, cce.apply_status, cce.rule_id,
+        cce.pay_status,cce.pay_time, cce.user_id, cce.invoice_status,cce.origin_cert_id,cce.target_cert_id,
+        cce.create_by, cce.create_time, cce.update_by, cce.update_time, cce.del_flag, cce.version,
+        cai.user_name,cai.school,cai.id_card,ccer.ruler_name,
+        cai.competition_name,cai.competition_track_name,cai.second_level_name,
+        (
+        SELECT GROUP_CONCAT(DISTINCT cait.user_name SEPARATOR '、')
+        FROM competition_apply_info cait
+        WHERE cait.team_code = cai.team_code
+        AND cait.competition_role_name = '指导教师'
+        AND cait.del_flag = '0'
+        ) AS guide_teacher_name,cai.team_code
+        from competition_cert_exchange_apply cce
+        left join competition_apply_info cai on cce.user_id = cai.user_id and cai.del_flag = '0'
+        left join competition_cert_exchange_rule ccer on cce.rule_id = ccer.rule_id and ccer.del_flag = '0'
+        where cce.del_flag = '0'
+            <if test="applyStatus != null and applyStatus != ''">
+                and cce.apply_status = #{applyStatus}
+            </if>
+            <if test="ruleId != null">
+                and cce.rule_id = #{ruleId}
+            </if>
+            <if test="payStatus != null and payStatus != ''">
+                and cce.pay_status = #{payStatus}
+            </if>
+            <if test="userId != null">
+                and cce.user_id = #{userId}
+            </if>
+            <if test="invoiceStatus != null and invoiceStatus != ''">
+                and cce.invoice_status = #{invoiceStatus}
+            </if>
+        <if test="competitionName != null and competitionName!=''">
+            and cai.competition_name like concat('%', #{competitionName}, '%')
+        </if>
+        <if test="competitionTrackName != null and competitionTrackName!=''">
+            and cai.competition_track_name like concat('%', #{competitionTrackName}, '%')
+        </if>
+        <if test="secondLevelName != null and secondLevelName!=''">
+            and cai.second_level_name like concat('%', #{secondLevelName}, '%')
+        </if>
+        <if test="userName != null and userName!=''">
+            and cai.user_name like concat('%', #{userName}, '%')
+        </if>
+        <if test="guideTeacherName != null and guideTeacherName!=''">
+            AND EXISTS (
+            SELECT 1
+            FROM competition_apply_info cait
+            WHERE cait.team_code = cai.team_code
+            AND cait.competition_role_name = '指导教师'
+            AND cait.del_flag = '0'
+            AND cait.user_name LIKE concat('%', #{guideTeacherName}, '%')
+            )
+        </if>
+        <if test="schoolName != null and schoolName!=''">
+            and cai.school in (select id from nationwide_college_info where school_name like concat('%', #{schoolName}, '%'))
+        </if>
+        order by cce.apply_time desc
+    </select>
+
+    <insert id="insertCompetitionCertExchangeApply" parameterType="com.teaching.system.api.domain.CompetitionCertExchangeApply"
+            useGeneratedKeys="true" keyProperty="applyId" keyColumn="apply_id">
+        insert into competition_cert_exchange_apply
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="applyTime != null">apply_time,</if>
+            <if test="repayAmount != null">repay_amount,</if>
+            <if test="orderId != null">order_id,</if>
+            <if test="applyStatus != null">apply_status,</if>
+            <if test="ruleId != null">rule_id,</if>
+            <if test="payStatus != null">pay_status,</if>
+            <if test="payTime != null">pay_time,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="invoiceStatus != null">invoice_status,</if>
+            <if test="originCertCode != null">origin_cert_code,</if>
+            <if test="originCertId != null">origin_cert_id,</if>
+            <if test="targetCertId != null">target_cert_id,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="delFlag != null">del_flag,</if>
+            <if test="version != null">version,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="applyTime != null">#{applyTime},</if>
+            <if test="repayAmount != null">#{repayAmount},</if>
+            <if test="orderId != null">#{orderId},</if>
+            <if test="applyStatus != null">#{applyStatus},</if>
+            <if test="ruleId != null">#{ruleId},</if>
+            <if test="payStatus != null">#{payStatus},</if>
+            <if test="payTime != null">#{payTime},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="invoiceStatus != null">#{invoiceStatus},</if>
+            <if test="originCertCode != null">#{originCertCode},</if>
+            <if test="originCertId != null">#{originCertId},</if>
+            <if test="targetCertId != null">#{targetCertId},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+            <if test="version != null">#{version},</if>
+        </trim>
+    </insert>
+
+    <update id="updateCompetitionCertExchangeApply" parameterType="com.teaching.system.api.domain.CompetitionCertExchangeApply">
+        update competition_cert_exchange_apply
+        <set>
+            <if test="applyTime != null">apply_time = #{applyTime},</if>
+            <if test="repayAmount != null">repay_amount = #{repayAmount},</if>
+            <if test="orderId != null">order_id = #{orderId},</if>
+            <if test="applyStatus != null">apply_status = #{applyStatus},</if>
+            <if test="ruleId != null">rule_id = #{ruleId},</if>
+            <if test="payStatus != null">pay_status = #{payStatus},</if>
+            <if test="payTime != null">pay_time = #{payTime},</if>
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="invoiceStatus != null">invoice_status = #{invoiceStatus},</if>
+            <if test="originCertCode != null">origin_cert_code = #{originCertCode},</if>
+            <if test="originCertId != null">origin_cert_id = #{originCertId},</if>
+            <if test="targetCertId != null">target_cert_id = #{targetCertId},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+            version = version+1,
+        </set>
+        where apply_id = #{applyId}
+    </update>
+
+    <update id="updateCompetitionCertExchangeApplyPC" parameterType="com.teaching.system.api.domain.CompetitionCertExchangeApply">
+        update competition_cert_exchange_apply
+        <set>
+            <if test="orderId != null">order_id = #{orderId},</if>
+            <if test="applyStatus != null">apply_status = #{applyStatus},</if>
+            <if test="payStatus != null">pay_status = #{payStatus},</if>
+            <if test="invoiceStatus != null">invoice_status = #{invoiceStatus},</if>
+            <if test="payTime != null">pay_time = #{payTime},</if>
+            version = version+1,
+            update_time = now(),
+        </set>
+        where rule_id = #{ruleId} and user_id = #{userId}
+    </update>
+
+    <update id="updateCompetitionCertExchangeApplyInvoiceStatus">
+        <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            update competition_cert_exchange_apply
+            <set>
+                <if test="item.invoiceStatus != null">invoice_status = #{item.invoiceStatus},</if>
+                version = version+1,
+                update_time = now(),
+            </set>
+            where order_id = #{item.orderId} and user_id = #{item.userId}
+        </foreach>
+    </update>
+
+    <delete id="deleteCompetitionCertExchangeApplyById" parameterType="Long">
+        delete from competition_cert_exchange_apply where apply_id = #{applyId}
+    </delete>
+
+    <delete id="deleteCompetitionCertExchangeApplyByIds" parameterType="Long[]">
+        delete from competition_cert_exchange_apply where apply_id in
+        <foreach item="applyId" collection="array" open="(" separator="," close=")">
+            #{applyId}
+        </foreach>
+    </delete>
+</mapper>

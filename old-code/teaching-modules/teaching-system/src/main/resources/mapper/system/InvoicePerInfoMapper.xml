@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.system.mapper.InvoicePerInfoMapper">
+    
+    <resultMap type="com.teaching.system.domain.InvoicePerInfo" id="InvoicePerInfoResult">
+        <result property="id"    column="id"    />
+        <result property="invoiceType"    column="invoice_type"    />
+        <result property="invoiceTitleType"    column="invoice_title_type"    />
+        <result property="enterpriseName"    column="enterprise_name"    />
+        <result property="enterpriseId"    column="enterprise_id"    />
+        <result property="taxpayerIdentificationNumber"    column="taxpayer_identification_number"    />
+        <result property="invoiceConternt"    column="invoice_conternt"    />
+        <result property="receiveEmail"    column="receive_email"    />
+        <result property="ramke"    column="ramke"    />
+        <result property="userId"    column="user_id"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="version"    column="version"    />
+        <result property="delFlag"    column="del_flag"    />
+    </resultMap>
+
+    <sql id="selectInvoicePerInfoVo">
+        select id, invoice_type, invoice_title_type, enterprise_name, enterprise_id, taxpayer_identification_number, invoice_conternt, receive_email, ramke,user_id,create_by, update_by, create_time, update_time, version, del_flag from invoice_per_info
+    </sql>
+
+    <select id="selectInvoicePerInfoList" parameterType="com.teaching.system.domain.InvoicePerInfo" resultMap="InvoicePerInfoResult">
+        <include refid="selectInvoicePerInfoVo"/>
+        <where>  
+            <if test="invoiceType != null  and invoiceType != ''"> and invoice_type = #{invoiceType}</if>
+            <if test="invoiceTitleType != null  and invoiceTitleType != ''"> and invoice_title_type = #{invoiceTitleType}</if>
+            <if test="enterpriseName != null  and enterpriseName != ''">
+                and enterprise_name like concat('%', #{enterpriseName}, '%')
+            </if>
+            <if test="enterpriseId != null  and enterpriseId != ''"> and enterprise_id = #{enterpriseId}</if>
+            <if test="taxpayerIdentificationNumber != null  and taxpayerIdentificationNumber != ''">
+                and taxpayer_identification_number like concat('%', #{taxpayerIdentificationNumber}, '%')
+            </if>
+            <if test="invoiceConternt != null  and invoiceConternt != ''"> and invoice_conternt = #{invoiceConternt}</if>
+            <if test="receiveEmail != null  and receiveEmail != ''"> and receive_email = #{receiveEmail}</if>
+            <if test="userId != null">
+                and user_id = #{userId}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectInvoicePerInfo" parameterType="com.teaching.system.domain.InvoicePerInfo" resultType="Map">
+        select distinct enterprise_name 'enterpriseName',
+        taxpayer_identification_number 'taxpayerIdentificationNumber'
+         from invoice_per_info
+        where del_flag = '0'
+            <if test="invoiceType != null  and invoiceType != ''"> and invoice_type = #{invoiceType}</if>
+            <if test="invoiceTitleType != null  and invoiceTitleType != ''"> and invoice_title_type = #{invoiceTitleType}</if>
+            <if test="enterpriseName != null  and enterpriseName != ''">
+                and enterprise_name like concat('%', #{enterpriseName}, '%')
+            </if>
+            <if test="enterpriseId != null  and enterpriseId != ''"> and enterprise_id = #{enterpriseId}</if>
+            <if test="taxpayerIdentificationNumber != null  and taxpayerIdentificationNumber != ''">
+                and taxpayer_identification_number like concat('%', #{taxpayerIdentificationNumber}, '%')
+            </if>
+            <if test="invoiceConternt != null  and invoiceConternt != ''"> and invoice_conternt = #{invoiceConternt}</if>
+            <if test="receiveEmail != null  and receiveEmail != ''"> and receive_email = #{receiveEmail}</if>
+            <if test="userId != null">
+                and user_id = #{userId}
+            </if>
+    </select>
+    
+    <select id="selectInvoicePerInfoById" parameterType="Long" resultMap="InvoicePerInfoResult">
+        <include refid="selectInvoicePerInfoVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertInvoicePerInfo" parameterType="com.teaching.system.domain.InvoicePerInfo">
+        insert into invoice_per_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="invoiceType != null">invoice_type,</if>
+            <if test="invoiceTitleType != null">invoice_title_type,</if>
+            <if test="enterpriseName != null">enterprise_name,</if>
+            <if test="enterpriseId != null">enterprise_id,</if>
+            <if test="taxpayerIdentificationNumber != null">taxpayer_identification_number,</if>
+            <if test="invoiceConternt != null">invoice_conternt,</if>
+            <if test="receiveEmail != null">receive_email,</if>
+            <if test="ramke != null">ramke,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="createTime != null">create_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="invoiceType != null">#{invoiceType},</if>
+            <if test="invoiceTitleType != null">#{invoiceTitleType},</if>
+            <if test="enterpriseName != null">#{enterpriseName},</if>
+            <if test="enterpriseId != null">#{enterpriseId},</if>
+            <if test="taxpayerIdentificationNumber != null">#{taxpayerIdentificationNumber},</if>
+            <if test="invoiceConternt != null">#{invoiceConternt},</if>
+            <if test="receiveEmail != null">#{receiveEmail},</if>
+            <if test="ramke != null">#{ramke},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="createTime != null">#{createTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateInvoicePerInfo" parameterType="com.teaching.system.domain.InvoicePerInfo">
+        update invoice_per_info
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="invoiceType != null">invoice_type = #{invoiceType},</if>
+            <if test="invoiceTitleType != null">invoice_title_type = #{invoiceTitleType},</if>
+            <if test="enterpriseName != null">enterprise_name = #{enterpriseName},</if>
+            <if test="enterpriseId != null">enterprise_id = #{enterpriseId},</if>
+            <if test="taxpayerIdentificationNumber != null">taxpayer_identification_number = #{taxpayerIdentificationNumber},</if>
+            <if test="invoiceConternt != null">invoice_conternt = #{invoiceConternt},</if>
+            <if test="receiveEmail != null">receive_email = #{receiveEmail},</if>
+            <if test="ramke != null">ramke = #{ramke},</if>
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            version = #{version}+1,
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteInvoicePerInfoById" parameterType="Long">
+        delete from invoice_per_info where id = #{id}
+    </delete>
+
+    <delete id="deleteInvoicePerInfoByIds" parameterType="String">
+        delete from invoice_per_info where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

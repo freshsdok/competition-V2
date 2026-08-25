@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.competition.review.mapper.ReviewResultPublishLogMapper">
+
+    <resultMap type="com.teaching.competition.review.domain.ReviewResultPublishLog" id="ReviewResultPublishLogResult">
+<id property="id" column="id"/>
+<result property="activityId" column="activity_id"/>
+<result property="roundId" column="round_id"/>
+<result property="objectId" column="object_id"/>
+<result property="publishScope" column="publish_scope"/>
+<result property="publishContent" column="publish_content"/>
+<result property="publishedBy" column="published_by"/>
+<result property="publishedTime" column="published_time"/>
+<result property="status" column="status"/>
+<result property="createBy" column="create_by"/>
+<result property="createTime" column="create_time"/>
+<result property="updateBy" column="update_by"/>
+<result property="updateTime" column="update_time"/>
+<result property="remark" column="remark"/>
+<result property="delFlag" column="del_flag"/>
+    </resultMap>
+
+    <sql id="selectReviewResultPublishLogVo">
+        select id, activity_id, round_id, object_id, publish_scope, publish_content, published_by, published_time, status, create_by, create_time, update_by, update_time, remark, del_flag
+        from review_result_publish_log
+    </sql>
+
+    <select id="selectById" parameterType="Long" resultMap="ReviewResultPublishLogResult">
+        <include refid="selectReviewResultPublishLogVo"/>
+        where id = #{id} and del_flag = '0'
+    </select>
+
+    <select id="selectList" parameterType="com.teaching.competition.review.domain.ReviewResultPublishLog" resultMap="ReviewResultPublishLogResult">
+        <include refid="selectReviewResultPublishLogVo"/>
+        <where>
+    del_flag = '0'
+    <if test="activityId != null">
+        and activity_id = #{activityId}
+    </if>
+    <if test="roundId != null">
+        and round_id = #{roundId}
+    </if>
+    <if test="objectId != null">
+        and object_id = #{objectId}
+    </if>
+    <if test="publishScope != null and publishScope != ''">
+        and publish_scope = #{publishScope}
+    </if>
+    <if test="publishContent != null and publishContent != ''">
+        and publish_content = #{publishContent}
+    </if>
+    <if test="publishedBy != null">
+        and published_by = #{publishedBy}
+    </if>
+    <if test="publishedTime != null">
+        and published_time = #{publishedTime}
+    </if>
+    <if test="status != null and status != ''">
+        and status = #{status}
+    </if>
+        </where>
+        order by id desc
+    </select>
+
+    <insert id="insert" parameterType="com.teaching.competition.review.domain.ReviewResultPublishLog" useGeneratedKeys="true" keyProperty="id">
+        insert into review_result_publish_log
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+    <if test="activityId != null">activity_id,</if>
+    <if test="roundId != null">round_id,</if>
+    <if test="objectId != null">object_id,</if>
+    <if test="publishScope != null">publish_scope,</if>
+    <if test="publishContent != null">publish_content,</if>
+    <if test="publishedBy != null">published_by,</if>
+    <if test="publishedTime != null">published_time,</if>
+    <if test="status != null">status,</if>
+    <if test="createBy != null">create_by,</if>
+    <if test="createTime != null">create_time,</if>
+    <if test="updateBy != null">update_by,</if>
+    <if test="updateTime != null">update_time,</if>
+    <if test="remark != null">remark,</if>
+    <if test="delFlag != null">del_flag,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+    <if test="activityId != null">#{activityId},</if>
+    <if test="roundId != null">#{roundId},</if>
+    <if test="objectId != null">#{objectId},</if>
+    <if test="publishScope != null">#{publishScope},</if>
+    <if test="publishContent != null">#{publishContent},</if>
+    <if test="publishedBy != null">#{publishedBy},</if>
+    <if test="publishedTime != null">#{publishedTime},</if>
+    <if test="status != null">#{status},</if>
+    <if test="createBy != null">#{createBy},</if>
+    <if test="createTime != null">#{createTime},</if>
+    <if test="updateBy != null">#{updateBy},</if>
+    <if test="updateTime != null">#{updateTime},</if>
+    <if test="remark != null">#{remark},</if>
+    <if test="delFlag != null">#{delFlag},</if>
+        </trim>
+    </insert>
+
+    <update id="update" parameterType="com.teaching.competition.review.domain.ReviewResultPublishLog">
+        update review_result_publish_log
+        <set>
+    <if test="activityId != null">activity_id = #{activityId},</if>
+    <if test="roundId != null">round_id = #{roundId},</if>
+    <if test="objectId != null">object_id = #{objectId},</if>
+    <if test="publishScope != null">publish_scope = #{publishScope},</if>
+    <if test="publishContent != null">publish_content = #{publishContent},</if>
+    <if test="publishedBy != null">published_by = #{publishedBy},</if>
+    <if test="publishedTime != null">published_time = #{publishedTime},</if>
+    <if test="status != null">status = #{status},</if>
+    <if test="updateBy != null">update_by = #{updateBy},</if>
+    <if test="updateTime != null">update_time = #{updateTime},</if>
+    <if test="remark != null">remark = #{remark},</if>
+        </set>
+        where id = #{id} and del_flag = '0'
+    </update>
+
+    <update id="deleteByIds">
+        update review_result_publish_log
+        set del_flag = '1', update_by = #{updateBy}, update_time = now()
+        where id in
+        <foreach item="id" collection="ids" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+</mapper>

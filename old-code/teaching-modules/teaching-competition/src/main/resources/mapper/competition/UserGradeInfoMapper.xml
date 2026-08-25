@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.competition.mapper.UserGradeInfoMapper">
+    
+    <resultMap type="com.teaching.competition.domain.UserGradeInfo" id="UserGradeInfoResult">
+        <result property="gradeId"    column="grade_id"    />
+        <result property="competitionSeriesId"    column="competition_series_id"    />
+        <result property="stageId"    column="stage_id"    />
+        <result property="userId"    column="user_id"    />
+        <result property="teamCode"    column="team_code"    />
+        <result property="ranks"    column="ranks"    />
+        <result property="isAward"    column="is_award"    />
+        <result property="awardsName"    column="awards_name"    />
+        <result property="certificateUrl"    column="certificate_url"    />
+        <result property="analyseResult"    column="analyse_result"    />
+        <result property="competitionName"    column="competition_name"    />
+        <result property="userName"    column="user_name"    />
+        <result property="teamName"    column="team_name"    />
+        <result property="score"    column="score"    />
+        <result property="awardsMoney"    column="awards_money"    />
+        <result property="competitionTrackName"    column="competition_track_name"    />
+        <result property="groupClassify"    column="group_classify"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="version"    column="version"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="orgId"    column="org_id"    />
+    </resultMap>
+
+    <sql id="selectUserGradeInfoVo">
+        select grade_id, competition_series_id, stage_id,user_id, team_code, ranks, is_award, awards_name, certificate_url, analyse_result, score,
+        awards_money,competition_track_name,group_classify,create_by, create_time, update_by, update_time, version, del_flag, org_id from user_grade_info
+    </sql>
+
+    <select id="selectUserGradeInfoList" parameterType="com.teaching.competition.domain.UserGradeInfo" resultMap="UserGradeInfoResult">
+        select grade_id, competition_series_id,stage_id,
+        (select competition_name from competition_main_info where
+        competition_id = (select competition_id from competition_series_info where competition_series_id = #{competitionSeriesId})) competition_name,
+        user_id,
+        (select user_name from competition_apply_info where competition_series_id  = #{competitionSeriesId}) user_name,
+        team_code,
+        (select team_name from team_manager_info where team_code = #{teamCode}) team_name,
+        ranks, is_award, awards_name,
+        certificate_url, analyse_result, score,awards_money,competition_track_name,group_classify,
+        create_by, create_time, update_by, update_time, version, del_flag, org_id
+        from user_grade_info
+        <where>  
+            <if test="competitionSeriesId != null "> and competition_series_id = #{competitionSeriesId}</if>
+            <if test="stageId != null "> and stage_id = #{stageId}</if>
+            <if test="userId != null "> and user_id = #{userId}</if>
+            <if test="teamCode != null  and teamCode != ''"> and team_code = #{teamCode}</if>
+            <if test="ranks != null  and ranks != ''"> and ranks = #{ranks}</if>
+            <if test="isAward != null  and isAward != ''"> and is_award = #{isAward}</if>
+            <if test="awardsName != null  and awardsName != ''"> and awards_name like concat('%', #{awardsName}, '%')</if>
+            <if test="certificateUrl != null  and certificateUrl != ''"> and certificate_url = #{certificateUrl}</if>
+            <if test="analyseResult != null  and analyseResult != ''"> and analyse_result = #{analyseResult}</if>
+            <if test="version != null "> and version = #{version}</if>
+            <if test="orgId != null "> and org_id = #{orgId}</if>
+        </where>
+    </select>
+    
+    <select id="selectUserGradeInfoByGradeId" parameterType="Long" resultMap="UserGradeInfoResult">
+        <include refid="selectUserGradeInfoVo"/>
+        where grade_id = #{gradeId}
+    </select>
+
+    <select id="selectUserGradeInfoNum" parameterType="com.teaching.competition.domain.UserGradeInfo" resultType="HashMap">
+        select awards_name 'awardsName', count(awards_name) as 'num' from user_grade_info
+        where is_award = '1' and competition_series_id = #{competitionSeriesId} and stage_id = #{stageId}
+        and competition_track_name = #{competitionTrackName} and group_classify = #{groupClassify}
+        group by awards_name order by awards_name
+    </select>
+
+    <insert id="insertUserGradeInfo" parameterType="com.teaching.competition.domain.UserGradeInfo" useGeneratedKeys="true" keyProperty="gradeId">
+        insert into user_grade_info
+        (competition_series_id, user_id, team_code, ranks, is_award, awards_name, certificate_url, analyse_result,
+        score, awards_money, competition_track_name,group_classify,create_by, create_time, del_flag, org_id)
+        values
+        <foreach item="item" index="index" collection="list" separator=",">
+            (#{item.competitionSeriesId},#{item.userId},#{item.teamCode},#{item.ranks},#{item.isAward},#{item.awardsName},#{item.certificateUrl},
+            #{item.analyseResult},#{item.score},#{item.awardsMoney},#{item.competitionTrackName},#{item.groupClassify},#{item.createBy},sysdate(),'0',#{item.orgId})
+        </foreach>
+    </insert>
+
+    <update id="batchUpdateUserGradeInfo">
+        update user_grade_info
+        <set>
+            <if test="list[0].isAward != null">
+                is_award = CASE
+                <foreach collection="list" item="item">
+                    WHEN grade_id = #{item.gradeId} THEN #{item.isAward}
+                </foreach>
+                ELSE is_award
+                END,
+            </if>
+            <if test="list[0].awardsName != null">
+                awards_name = CASE
+                <foreach collection="list" item="item">
+                    WHEN grade_id = #{item.gradeId} THEN #{item.awardsName}
+                </foreach>
+                ELSE awards_name
+                END,
+            </if>
+            <if test="list[0].awardsMoney != null">
+                awards_money = CASE
+                <foreach collection="list" item="item">
+                    WHEN grade_id = #{item.gradeId} THEN #{item.awardsMoney}
+                </foreach>
+                ELSE awards_money
+                END,
+            </if>
+            update_time = NOW(),
+            version = version + 1
+        </set>
+        WHERE grade_id IN
+        <foreach collection="list" item="item" open="(" separator="," close=")">
+            #{item.gradeId}
+        </foreach>
+    </update>
+
+    <delete id="deleteUserGradeInfoByGradeId" parameterType="Long">
+        delete from user_grade_info where grade_id = #{gradeId}
+    </delete>
+
+    <delete id="deleteUserGradeInfoByGradeIds" parameterType="String">
+        delete from user_grade_info where grade_id in 
+        <foreach item="gradeId" collection="array" open="(" separator="," close=")">
+            #{gradeId}
+        </foreach>
+    </delete>
+</mapper>

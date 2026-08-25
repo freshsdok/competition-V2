@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.competition.mapper.CompetitionSceneOperationLogMapper">
+
+    <resultMap type="com.teaching.competition.domain.CompetitionSceneOperationLog" id="CompetitionSceneOperationLogResult">
+        <id property="logId" column="log_id"/>
+        <result property="credentialId" column="credential_id"/>
+        <result property="scheduleId" column="schedule_id"/>
+        <result property="targetId" column="target_id"/>
+        <result property="competitionSeriesId" column="competition_series_id"/>
+        <result property="credentialNo" column="credential_no"/>
+        <result property="credentialToken" column="credential_token"/>
+        <result property="operationType" column="operation_type"/>
+        <result property="operationStage" column="operation_stage"/>
+        <result property="operationResult" column="operation_result"/>
+        <result property="resultMessage" column="result_message"/>
+        <result property="applyCheckResult" column="apply_check_result"/>
+        <result property="scheduleCheckResult" column="schedule_check_result"/>
+        <result property="identityCheckResult" column="identity_check_result"/>
+        <result property="teamCode" column="team_code"/>
+        <result property="teamName" column="team_name"/>
+        <result property="memberId" column="member_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="userName" column="user_name"/>
+        <result property="idCardSuffix" column="id_card_suffix"/>
+        <result property="competitionTrackId" column="competition_track_id"/>
+        <result property="competitionTrackName" column="competition_track_name"/>
+        <result property="secondLevelCode" column="second_level_code"/>
+        <result property="secondLevelName" column="second_level_name"/>
+        <result property="receiverName" column="receiver_name"/>
+        <result property="receiverPhone" column="receiver_phone"/>
+        <result property="receiverIdSuffix" column="receiver_id_suffix"/>
+        <result property="operatorUserId" column="operator_user_id"/>
+        <result property="operatorName" column="operator_name"/>
+        <result property="operatorPhone" column="operator_phone"/>
+        <result property="operatorOpenId" column="operator_open_id"/>
+        <result property="scanIp" column="scan_ip"/>
+        <result property="deviceInfo" column="device_info"/>
+        <result property="operationTime" column="operation_time"/>
+        <result property="requestPayload" column="request_payload"/>
+        <result property="responsePayload" column="response_payload"/>
+        <result property="applySnapshotJson" column="apply_snapshot_json"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="remark" column="remark"/>
+        <result property="version" column="version"/>
+        <result property="delFlag" column="del_flag"/>
+    </resultMap>
+
+    <sql id="selectCompetitionSceneOperationLogVo">
+        select log_id, credential_id, schedule_id, target_id, competition_series_id, credential_no,
+               credential_token, operation_type, operation_stage, operation_result, result_message,
+               apply_check_result, schedule_check_result, identity_check_result, team_code, team_name,
+               member_id, user_id, user_name, id_card_suffix, competition_track_id, competition_track_name,
+               second_level_code, second_level_name, receiver_name, receiver_phone, receiver_id_suffix,
+               operator_user_id, operator_name, operator_phone, operator_open_id, scan_ip, device_info,
+               operation_time, request_payload, response_payload, apply_snapshot_json, create_by, create_time,
+               update_by, update_time, remark, version, del_flag
+        from competition_scene_operation_log
+    </sql>
+
+    <select id="selectCompetitionSceneOperationLogList"
+            parameterType="com.teaching.competition.domain.CompetitionSceneOperationLog"
+            resultMap="CompetitionSceneOperationLogResult">
+        <include refid="selectCompetitionSceneOperationLogVo"/>
+        <where>
+            del_flag = '0'
+            <if test="credentialId != null">
+                and credential_id = #{credentialId}
+            </if>
+            <if test="scheduleId != null">
+                and schedule_id = #{scheduleId}
+            </if>
+            <if test="targetId != null">
+                and target_id = #{targetId}
+            </if>
+            <if test="competitionSeriesId != null">
+                and competition_series_id = #{competitionSeriesId}
+            </if>
+            <if test="credentialNo != null and credentialNo != ''">
+                and credential_no = #{credentialNo}
+            </if>
+            <if test="credentialToken != null and credentialToken != ''">
+                and credential_token = #{credentialToken}
+            </if>
+            <if test="operationType != null and operationType != ''">
+                and operation_type = #{operationType}
+            </if>
+            <if test="operationStage != null and operationStage != ''">
+                and operation_stage = #{operationStage}
+            </if>
+            <if test="operationResult != null and operationResult != ''">
+                and operation_result = #{operationResult}
+            </if>
+            <if test="teamCode != null and teamCode != ''">
+                and team_code = #{teamCode}
+            </if>
+            <if test="memberId != null">
+                and member_id = #{memberId}
+            </if>
+            <if test="userId != null">
+                and user_id = #{userId}
+            </if>
+            <if test="operatorUserId != null">
+                and operator_user_id = #{operatorUserId}
+            </if>
+        </where>
+        order by operation_time desc, log_id desc
+    </select>
+
+    <insert id="insertCompetitionSceneOperationLog"
+            parameterType="com.teaching.competition.domain.CompetitionSceneOperationLog"
+            useGeneratedKeys="true" keyProperty="logId">
+        insert into competition_scene_operation_log
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="credentialId != null">credential_id,</if>
+            <if test="scheduleId != null">schedule_id,</if>
+            <if test="targetId != null">target_id,</if>
+            <if test="competitionSeriesId != null">competition_series_id,</if>
+            <if test="credentialNo != null">credential_no,</if>
+            <if test="credentialToken != null">credential_token,</if>
+            <if test="operationType != null">operation_type,</if>
+            <if test="operationStage != null">operation_stage,</if>
+            <if test="operationResult != null">operation_result,</if>
+            <if test="resultMessage != null">result_message,</if>
+            <if test="applyCheckResult != null">apply_check_result,</if>
+            <if test="scheduleCheckResult != null">schedule_check_result,</if>
+            <if test="identityCheckResult != null">identity_check_result,</if>
+            <if test="teamCode != null">team_code,</if>
+            <if test="teamName != null">team_name,</if>
+            <if test="memberId != null">member_id,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="userName != null">user_name,</if>
+            <if test="idCardSuffix != null">id_card_suffix,</if>
+            <if test="competitionTrackId != null">competition_track_id,</if>
+            <if test="competitionTrackName != null">competition_track_name,</if>
+            <if test="secondLevelCode != null">second_level_code,</if>
+            <if test="secondLevelName != null">second_level_name,</if>
+            <if test="receiverName != null">receiver_name,</if>
+            <if test="receiverPhone != null">receiver_phone,</if>
+            <if test="receiverIdSuffix != null">receiver_id_suffix,</if>
+            <if test="operatorUserId != null">operator_user_id,</if>
+            <if test="operatorName != null">operator_name,</if>
+            <if test="operatorPhone != null">operator_phone,</if>
+            <if test="operatorOpenId != null">operator_open_id,</if>
+            <if test="scanIp != null">scan_ip,</if>
+            <if test="deviceInfo != null">device_info,</if>
+            <if test="operationTime != null">operation_time,</if>
+            <if test="requestPayload != null">request_payload,</if>
+            <if test="responsePayload != null">response_payload,</if>
+            <if test="applySnapshotJson != null">apply_snapshot_json,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+            <if test="version != null">version,</if>
+            <if test="delFlag != null">del_flag,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="credentialId != null">#{credentialId},</if>
+            <if test="scheduleId != null">#{scheduleId},</if>
+            <if test="targetId != null">#{targetId},</if>
+            <if test="competitionSeriesId != null">#{competitionSeriesId},</if>
+            <if test="credentialNo != null">#{credentialNo},</if>
+            <if test="credentialToken != null">#{credentialToken},</if>
+            <if test="operationType != null">#{operationType},</if>
+            <if test="operationStage != null">#{operationStage},</if>
+            <if test="operationResult != null">#{operationResult},</if>
+            <if test="resultMessage != null">#{resultMessage},</if>
+            <if test="applyCheckResult != null">#{applyCheckResult},</if>
+            <if test="scheduleCheckResult != null">#{scheduleCheckResult},</if>
+            <if test="identityCheckResult != null">#{identityCheckResult},</if>
+            <if test="teamCode != null">#{teamCode},</if>
+            <if test="teamName != null">#{teamName},</if>
+            <if test="memberId != null">#{memberId},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="userName != null">#{userName},</if>
+            <if test="idCardSuffix != null">#{idCardSuffix},</if>
+            <if test="competitionTrackId != null">#{competitionTrackId},</if>
+            <if test="competitionTrackName != null">#{competitionTrackName},</if>
+            <if test="secondLevelCode != null">#{secondLevelCode},</if>
+            <if test="secondLevelName != null">#{secondLevelName},</if>
+            <if test="receiverName != null">#{receiverName},</if>
+            <if test="receiverPhone != null">#{receiverPhone},</if>
+            <if test="receiverIdSuffix != null">#{receiverIdSuffix},</if>
+            <if test="operatorUserId != null">#{operatorUserId},</if>
+            <if test="operatorName != null">#{operatorName},</if>
+            <if test="operatorPhone != null">#{operatorPhone},</if>
+            <if test="operatorOpenId != null">#{operatorOpenId},</if>
+            <if test="scanIp != null">#{scanIp},</if>
+            <if test="deviceInfo != null">#{deviceInfo},</if>
+            <if test="operationTime != null">#{operationTime},</if>
+            <if test="requestPayload != null">#{requestPayload},</if>
+            <if test="responsePayload != null">#{responsePayload},</if>
+            <if test="applySnapshotJson != null">#{applySnapshotJson},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="version != null">#{version},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+        </trim>
+    </insert>
+</mapper>

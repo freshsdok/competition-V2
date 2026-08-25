@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.competition.mapper.CertOrgInfoMapper">
+    <resultMap type="com.teaching.competition.domain.CertOrgInfo" id="CertOrgInfoResult">
+        <id property="orgId" column="org_id" />
+        <result property="orgName" column="org_name" />
+        <result property="orgCode" column="org_code" />
+        <result property="addr" column="addr" />
+        <result property="certLinkName" column="cert_link_name" />
+        <result property="certLinkUrl" column="cert_link_url" />
+        <result property="createBy" column="create_by" />
+        <result property="createTime" column="create_time" />
+        <result property="updateBy" column="update_by" />
+        <result property="updateTime" column="update_time" />
+        <result property="delFlag" column="del_flag" />
+        <result property="version" column="version" />
+    </resultMap>
+
+    <sql id="selectCertOrgInfoVo">
+        select org_id, org_name, org_code, addr, cert_link_name, cert_link_url, create_by, create_time, update_by, update_time, del_flag, version from cert_org_info
+    </sql>
+
+    <select id="selectCertOrgInfoById" parameterType="Long" resultMap="CertOrgInfoResult">
+        <include refid="selectCertOrgInfoVo" />
+        where org_id = #{orgId}
+    </select>
+
+    <select id="selectCertOrgInfoByOrgCode" parameterType="String" resultMap="CertOrgInfoResult">
+        <include refid="selectCertOrgInfoVo" />
+        where org_code = #{orgCode}
+    </select>
+
+    <select id="selectCertOrgInfoList" parameterType="com.teaching.competition.domain.CertOrgInfo" resultMap="CertOrgInfoResult">
+        <include refid="selectCertOrgInfoVo" />
+        <where>
+            <if test="orgName != null and orgName != ''">
+                and org_name like concat('%', #{orgName}, '%')
+            </if>
+            <if test="orgCode != null and orgCode != ''">
+                and org_code = #{orgCode}
+            </if>
+            <if test="addr != null and addr != ''">
+                and addr like concat('%', #{addr}, '%')
+            </if>
+            <if test="delFlag != null and delFlag != ''">
+                and del_flag = #{delFlag}
+            </if>
+        </where>
+    </select>
+
+    <insert id="insertCertOrgInfo" parameterType="com.teaching.competition.domain.CertOrgInfo" useGeneratedKeys="true" keyProperty="orgId">
+        insert into cert_org_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="orgName != null">org_name,</if>
+            <if test="orgCode != null">org_code,</if>
+            <if test="addr != null">addr,</if>
+            <if test="certLinkName != null">cert_link_name,</if>
+            <if test="certLinkUrl != null">cert_link_url,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="delFlag != null">del_flag,</if>
+            <if test="version != null">version,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="orgName != null">#{orgName},</if>
+            <if test="orgCode != null">#{orgCode},</if>
+            <if test="addr != null">#{addr},</if>
+            <if test="certLinkName != null">#{certLinkName},</if>
+            <if test="certLinkUrl != null">#{certLinkUrl},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+            version = version+1,
+        </trim>
+    </insert>
+
+    <update id="updateCertOrgInfo" parameterType="com.teaching.competition.domain.CertOrgInfo">
+        update cert_org_info
+        <set>
+            <if test="orgName != null">org_name = #{orgName},</if>
+            <if test="orgCode != null">org_code = #{orgCode},</if>
+            <if test="addr != null">addr = #{addr},</if>
+            <if test="certLinkName != null">cert_link_name = #{certLinkName},</if>
+            <if test="certLinkUrl != null">cert_link_url = #{certLinkUrl},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+            <if test="version != null">version = #{version},</if>
+        </set>
+        where org_id = #{orgId}
+    </update>
+
+    <delete id="deleteCertOrgInfoById" parameterType="Long">
+        delete from cert_org_info where org_id = #{orgId}
+    </delete>
+
+    <delete id="deleteCertOrgInfoByIds" parameterType="Long[]">
+        delete from cert_org_info where org_id in
+        <foreach item="orgId" collection="array" open="(" separator="," close=")">
+            #{orgId}
+        </foreach>
+    </delete>
+</mapper>

@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.competition.review.mapper.ReviewRuleMapper">
+
+    <resultMap type="com.teaching.competition.review.domain.ReviewRule" id="ReviewRuleResult">
+<id property="id" column="id"/>
+<result property="activityId" column="activity_id"/>
+<result property="roundId" column="round_id"/>
+<result property="ruleName" column="rule_name"/>
+<result property="scoreMode" column="score_mode"/>
+<result property="totalScore" column="total_score"/>
+<result property="anonymousMode" column="anonymous_mode"/>
+<result property="description" column="description"/>
+<result property="enabled" column="enabled"/>
+<result property="createBy" column="create_by"/>
+<result property="createTime" column="create_time"/>
+<result property="updateBy" column="update_by"/>
+<result property="updateTime" column="update_time"/>
+<result property="remark" column="remark"/>
+<result property="delFlag" column="del_flag"/>
+    </resultMap>
+
+    <sql id="selectReviewRuleVo">
+        select id, activity_id, round_id, rule_name, score_mode, total_score, anonymous_mode, description, enabled, create_by, create_time, update_by, update_time, remark, del_flag
+        from review_rule
+    </sql>
+
+    <select id="selectById" parameterType="Long" resultMap="ReviewRuleResult">
+        <include refid="selectReviewRuleVo"/>
+        where id = #{id} and del_flag = '0'
+    </select>
+
+    <select id="selectList" parameterType="com.teaching.competition.review.domain.ReviewRule" resultMap="ReviewRuleResult">
+        <include refid="selectReviewRuleVo"/>
+        <where>
+    del_flag = '0'
+    <if test="activityId != null">
+        and activity_id = #{activityId}
+    </if>
+    <if test="roundId != null">
+        and round_id = #{roundId}
+    </if>
+    <if test="ruleName != null and ruleName != ''">
+        and rule_name like concat('%', #{ruleName}, '%')
+    </if>
+    <if test="scoreMode != null and scoreMode != ''">
+        and score_mode = #{scoreMode}
+    </if>
+    <if test="totalScore != null">
+        and total_score = #{totalScore}
+    </if>
+    <if test="anonymousMode != null and anonymousMode != ''">
+        and anonymous_mode = #{anonymousMode}
+    </if>
+    <if test="description != null and description != ''">
+        and description like concat('%', #{description}, '%')
+    </if>
+    <if test="enabled != null and enabled != ''">
+        and enabled = #{enabled}
+    </if>
+        </where>
+        order by id desc
+    </select>
+
+    <insert id="insert" parameterType="com.teaching.competition.review.domain.ReviewRule" useGeneratedKeys="true" keyProperty="id">
+        insert into review_rule
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+    <if test="activityId != null">activity_id,</if>
+    <if test="roundId != null">round_id,</if>
+    <if test="ruleName != null">rule_name,</if>
+    <if test="scoreMode != null">score_mode,</if>
+    <if test="totalScore != null">total_score,</if>
+    <if test="anonymousMode != null">anonymous_mode,</if>
+    <if test="description != null">description,</if>
+    <if test="enabled != null">enabled,</if>
+    <if test="createBy != null">create_by,</if>
+    <if test="createTime != null">create_time,</if>
+    <if test="updateBy != null">update_by,</if>
+    <if test="updateTime != null">update_time,</if>
+    <if test="remark != null">remark,</if>
+    <if test="delFlag != null">del_flag,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+    <if test="activityId != null">#{activityId},</if>
+    <if test="roundId != null">#{roundId},</if>
+    <if test="ruleName != null">#{ruleName},</if>
+    <if test="scoreMode != null">#{scoreMode},</if>
+    <if test="totalScore != null">#{totalScore},</if>
+    <if test="anonymousMode != null">#{anonymousMode},</if>
+    <if test="description != null">#{description},</if>
+    <if test="enabled != null">#{enabled},</if>
+    <if test="createBy != null">#{createBy},</if>
+    <if test="createTime != null">#{createTime},</if>
+    <if test="updateBy != null">#{updateBy},</if>
+    <if test="updateTime != null">#{updateTime},</if>
+    <if test="remark != null">#{remark},</if>
+    <if test="delFlag != null">#{delFlag},</if>
+        </trim>
+    </insert>
+
+    <update id="update" parameterType="com.teaching.competition.review.domain.ReviewRule">
+        update review_rule
+        <set>
+    <if test="activityId != null">activity_id = #{activityId},</if>
+    <if test="roundId != null">round_id = #{roundId},</if>
+    <if test="ruleName != null">rule_name = #{ruleName},</if>
+    <if test="scoreMode != null">score_mode = #{scoreMode},</if>
+    <if test="totalScore != null">total_score = #{totalScore},</if>
+    <if test="anonymousMode != null">anonymous_mode = #{anonymousMode},</if>
+    <if test="description != null">description = #{description},</if>
+    <if test="enabled != null">enabled = #{enabled},</if>
+    <if test="updateBy != null">update_by = #{updateBy},</if>
+    <if test="updateTime != null">update_time = #{updateTime},</if>
+    <if test="remark != null">remark = #{remark},</if>
+        </set>
+        where id = #{id} and del_flag = '0'
+    </update>
+
+    <update id="deleteByIds">
+        update review_rule
+        set del_flag = '1', update_by = #{updateBy}, update_time = now()
+        where id in
+        <foreach item="id" collection="ids" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+
+    <select id="countSubmittedRecordsByRuleId" resultType="int">
+        select count(1)
+        from review_record r
+        join review_round rr on rr.id = r.round_id and rr.del_flag = '0'
+        where r.del_flag = '0'
+          and r.record_status = 'SUBMITTED'
+          and (
+              rr.rule_id = #{ruleId}
+              or exists (
+                  select 1
+                  from review_rule rule_ref
+                  where rule_ref.id = #{ruleId}
+                    and rule_ref.del_flag = '0'
+                    and rule_ref.round_id = r.round_id
+              )
+          )
+    </select>
+</mapper>

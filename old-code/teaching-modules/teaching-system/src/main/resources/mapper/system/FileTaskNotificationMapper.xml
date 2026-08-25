@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.system.mapper.FileTaskNotificationMapper">
+
+    <resultMap id="FileTaskNotificationResult" type="com.teaching.system.domain.FileTaskNotification">
+        <id property="id" column="id"/>
+        <result property="fileTaskId" column="file_task_id"/>
+        <result property="targetType" column="target_type"/>
+        <result property="targetUserId" column="target_user_id"/>
+        <result property="recipientUserIds" column="recipient_user_ids"/>
+        <result property="recipientCount" column="recipient_count"/>
+        <result property="title" column="title"/>
+        <result property="content" column="content"/>
+        <result property="status" column="status"/>
+        <result property="senderUserId" column="sender_user_id"/>
+        <result property="sendTime" column="send_time"/>
+        <result property="withdrawUserId" column="withdraw_user_id"/>
+        <result property="withdrawTime" column="withdraw_time"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="senderName" column="sender_name"/>
+        <result property="withdrawUserName" column="withdraw_user_name"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="com.teaching.system.domain.FileTaskNotification"
+            useGeneratedKeys="true" keyProperty="id">
+        insert into file_task_notification (
+            file_task_id, target_type, target_user_id, recipient_user_ids, recipient_count,
+            title, content, status, sender_user_id, send_time,
+            create_by, create_time, update_by, update_time
+        ) values (
+            #{fileTaskId}, #{targetType}, #{targetUserId}, #{recipientUserIds}, #{recipientCount},
+            #{title}, #{content}, #{status}, #{senderUserId}, #{sendTime},
+            #{createBy}, #{createTime}, #{updateBy}, #{updateTime}
+        )
+    </insert>
+
+    <select id="selectAdminList" resultMap="FileTaskNotificationResult">
+        select n.id, n.file_task_id, n.target_type, n.target_user_id, n.recipient_count,
+               n.title, n.status, n.sender_user_id, n.send_time,
+               n.withdraw_user_id, n.withdraw_time,
+               coalesce(
+                   (select ai.real_name from auth_info ai
+                    where ai.user_id = n.sender_user_id and ai.del_flag = '0' and ai.auth_status = '5'
+                    order by ai.auth_time desc, ai.auth_id desc limit 1),
+                   sender.nick_name, sender.user_name
+               ) as sender_name,
+               coalesce(
+                   (select ai.real_name from auth_info ai
+                    where ai.user_id = n.withdraw_user_id and ai.del_flag = '0' and ai.auth_status = '5'
+                    order by ai.auth_time desc, ai.auth_id desc limit 1),
+                   withdrawer.nick_name, withdrawer.user_name
+               ) as withdraw_user_name
+        from file_task_notification n
+        left join sys_user sender on sender.user_id = n.sender_user_id
+        left join sys_user withdrawer on withdrawer.user_id = n.withdraw_user_id
+        where n.file_task_id = #{taskId}
+        order by n.send_time desc, n.id desc
+    </select>
+
+    <select id="selectByTaskAndId" resultMap="FileTaskNotificationResult">
+        select n.*,
+               coalesce(
+                   (select ai.real_name from auth_info ai
+                    where ai.user_id = n.sender_user_id and ai.del_flag = '0' and ai.auth_status = '5'
+                    order by ai.auth_time desc, ai.auth_id desc limit 1),
+                   sender.nick_name, sender.user_name
+               ) as sender_name,
+               coalesce(
+                   (select ai.real_name from auth_info ai
+                    where ai.user_id = n.withdraw_user_id and ai.del_flag = '0' and ai.auth_status = '5'
+                    order by ai.auth_time desc, ai.auth_id desc limit 1),
+                   withdrawer.nick_name, withdrawer.user_name
+               ) as withdraw_user_name
+        from file_task_notification n
+        left join sys_user sender on sender.user_id = n.sender_user_id
+        left join sys_user withdrawer on withdrawer.user_id = n.withdraw_user_id
+        where n.file_task_id = #{taskId}
+          and n.id = #{notificationId}
+    </select>
+
+    <update id="withdraw">
+        update file_task_notification
+        set status = 'WITHDRAWN',
+            withdraw_user_id = #{withdrawUserId},
+            withdraw_time = now(),
+            update_by = #{updateBy},
+            update_time = now()
+        where file_task_id = #{taskId}
+          and id = #{notificationId}
+          and status = 'ACTIVE'
+    </update>
+
+    <select id="selectUserList" resultMap="FileTaskNotificationResult">
+        select id, file_task_id, title, send_time
+        from file_task_notification
+        where file_task_id = #{taskId}
+          and status = 'ACTIVE'
+          and find_in_set(#{userId}, recipient_user_ids)
+        order by send_time desc, id desc
+    </select>
+
+    <select id="selectUserDetail" resultMap="FileTaskNotificationResult">
+        select id, file_task_id, title, content, send_time
+        from file_task_notification
+        where file_task_id = #{taskId}
+          and id = #{notificationId}
+          and status = 'ACTIVE'
+          and find_in_set(#{userId}, recipient_user_ids)
+    </select>
+
+    <select id="countActiveByTaskIdsAndUser"
+            resultType="com.teaching.system.domain.vo.FileTaskNotificationCountVo">
+        select file_task_id as fileTaskId, count(*) as notificationCount
+        from file_task_notification
+        where file_task_id in
+        <foreach collection="taskIds" item="taskId" open="(" separator="," close=")">
+            #{taskId}
+        </foreach>
+          and status = 'ACTIVE'
+          and find_in_set(#{userId}, recipient_user_ids)
+        group by file_task_id
+    </select>
+</mapper>

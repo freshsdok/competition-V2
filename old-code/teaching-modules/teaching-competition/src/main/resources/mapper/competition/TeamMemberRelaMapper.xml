@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.competition.mapper.TeamMemberRelaMapper">
+
+    <resultMap type="com.teaching.system.api.domain.TeamMemberRela" id="TeamMemberRelaResult">
+        <result property="relaId"    column="rela_id"    />
+        <result property="teamCode"    column="team_code"    />
+        <result property="checkStatus"    column="check_status"    />
+        <result property="teamRole"    column="team_role"    />
+        <result property="userName"    column="user_name"    />
+        <result property="fee"    column="fee"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="version"    column="version"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="userId"    column="user_id"    />
+        <result property="orgId"    column="org_id"    />
+        <result property="instructor"    column="instructor"    />
+        <result property="instructorPhone"    column="instructor_phone"    />
+        <result property="instructorEmail"    column="instructor_email"    />
+    </resultMap>
+
+    <sql id="selectTeamMemberRelaVo">
+        select rela_id, team_code, check_status,team_role,user_name,create_by, create_time, update_by, update_time, version, del_flag, user_id, org_id,instructor,instructor_phone,instructor_email from team_member_rela
+    </sql>
+
+    <select id="selectTeamMemberRelaList" parameterType="com.teaching.system.api.domain.TeamMemberRela" resultMap="TeamMemberRelaResult">
+        select a.rela_id, a.team_code,a.check_status,a.team_role,a.user_name,a.create_by,a.instructor,a.instructor_phone,a.instructor_email,
+        a.create_time, a.update_by, a.update_time, a.version, a.del_flag, a.user_id, a.org_id
+        from team_member_rela a
+        where a.del_flag = '0'
+<!--        <choose>-->
+<!--            <when test="checkStatus != null and checkStatus != ''">-->
+<!--                and a.check_status = #{checkStatus}-->
+<!--            </when>-->
+<!--            <otherwise>-->
+<!--                and a.check_status not in ('3')-->
+<!--            </otherwise>-->
+<!--        </choose>-->
+            <if test="teamCode != null  and teamCode != ''"> and a.team_code = #{teamCode}</if>
+            <if test="userId != null "> and a.user_id = #{userId}</if>
+            <if test="orgId != null "> and a.org_id = #{orgId}</if>
+    </select>
+
+    <select id="selectTeamMemberRelaByRelaId" resultMap="TeamMemberRelaResult">
+        <include refid="selectTeamMemberRelaVo"/>
+        where user_id = #{userId} and del_flag = '0' and team_code = #{teamCode} and check_status not in ('3')
+    </select>
+    <select id="selectTeamMemberRelaCountByTeamCode" resultType="java.lang.Integer">
+        select count(1) from team_member_rela where del_flag = '0' and team_code = #{teamCode}
+        <if test="teamRole!=null and teamRole!=''">
+            and team_role in
+            <foreach collection="teamRole.split(',')" item="item" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+    </select>
+
+    <select id="queryTeamMemberInvoiceStatus" parameterType="com.teaching.system.api.domain.TeamMemberRela" resultMap="TeamMemberRelaResult">
+        select DISTINCT a.rela_id, a.team_code,a.check_status,a.team_role,a.user_name,a.create_by,a.instructor,
+        a.instructor_phone,a.instructor_email,d.fee,
+        a.create_time, a.update_by, a.update_time, a.version, a.del_flag, a.user_id, a.org_id
+        from team_member_rela a
+        left join competition_apply_info b on a.team_code = b.team_code
+        left join competition_track_config c on b.second_level_code = c.second_level_code
+        left join competition_config d on d.competition_track_config_id = c.competition_track_config_id
+        where a.del_flag = '0'
+        <if test="teamRole!=null and teamRole!=''">
+            and a.team_role != #{teamRole}
+        </if>
+        <if test="teamCodes != null and teamCodes!=''">
+            and a.team_code in
+            <foreach item="item" collection="teamCodes.split(',')" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        <if test="relaIds!=null and relaIds!=''">
+            and a.rela_id in
+            <foreach item="item" collection="relaIds.split(',')" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+    </select>
+
+    <select id="selectUserTeamStatus" parameterType="com.teaching.competition.domain.CompetitionApplyAllStatus" resultType="com.teaching.competition.domain.CompetitionApplyAllStatus">
+        select b.competition_series_id 'competitionSeriesId', a.user_id 'userId',
+        b.team_leader_id 'teamLeaderId',a.team_code 'teamCode',b.team_name 'teamName'
+        from team_member_rela a
+        left join team_manager_info b on a.team_code = b.team_code
+        where a.del_flag = '0'
+        and a.check_status = '2'
+        <if test="userId != null "> and a.user_id = #{userId}</if>
+        <if test="competitionSeriesId != null "> and b.competition_series_id = #{competitionSeriesId}</if>
+    </select>
+
+    <insert id="insertTeamMemberRela" parameterType="com.teaching.system.api.domain.TeamMemberRela" useGeneratedKeys="true" keyProperty="relaId">
+        insert into team_member_rela
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="teamCode != null">team_code,</if>
+            <if test="checkStatus != null">check_status,</if>
+            <if test="teamRole != null">team_role,</if>
+            <if test="userName != null">user_name,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="version != null">version,</if>
+            <if test="delFlag != null">del_flag,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="orgId != null">org_id,</if>
+            <if test="instructor != null">instructor,</if>
+            <if test="instructorPhone != null">instructor_phone,</if>
+            <if test="instructorEmail != null">instructor_email,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="teamCode != null">#{teamCode},</if>
+            <if test="checkStatus != null">#{checkStatus},</if>
+            <if test="teamRole != null">#{teamRole},</if>
+            <if test="userName != null">#{userName},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="version != null">#{version},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="orgId != null">#{orgId},</if>
+            <if test="instructor != null">#{instructor},</if>
+            <if test="instructorPhone != null">#{instructorPhone},</if>
+            <if test="instructorEmail != null">#{instructorEmail},</if>
+         </trim>
+    </insert>
+    <insert id="batchInsertTeamMemberRela">
+        insert into team_member_rela (team_code, check_status, team_role,user_name,create_by, create_time, update_by, update_time, version, del_flag, user_id, org_id, instructor, instructor_phone, instructor_email)
+        values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.teamCode}, #{item.checkStatus}, #{item.teamRole},#{item.userName},#{item.createBy}, sysdate(), #{item.updateBy}, #{item.updateTime},
+            #{item.version}, #{item.delFlag}, #{item.userId}, #{item.orgId},
+            #{item.instructor}, #{item.instructorPhone}, #{item.instructorEmail})
+        </foreach>
+    </insert>
+
+    <update id="updateTeamMemberRela" parameterType="com.teaching.system.api.domain.TeamMemberRela">
+        update team_member_rela
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="teamCode != null">team_code = #{teamCode},</if>
+            <if test="checkStatus != null">check_status = #{checkStatus},</if>
+            <if test="teamRole != null">team_role = #{teamRole},</if>
+            <if test="userName != null">user_name = #{userName},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            version = version+1,
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="orgId != null">org_id = #{orgId},</if>
+            <if test="instructor != null">instructor = #{instructor},</if>
+            <if test="instructorPhone != null">instructor_phone = #{instructorPhone},</if>
+            <if test="instructorEmail != null">instructor_email = #{instructorEmail},</if>
+        </trim>
+        <where>
+            <if test="relaId!=null">
+                and rela_id = #{relaId}
+            </if>
+            <if test="userId!=null">
+                and user_id = #{userId}
+            </if>
+            <if test="userName!=null and userName!=''">
+                and user_name = #{userName}
+            </if>
+            <if test="teamCode!=null and teamCode!=''">
+                and team_code = #{teamCode}
+            </if>
+        </where>
+    </update>
+
+    <update id="updateTeamMemberRelaByUserName" parameterType="com.teaching.system.api.domain.TeamMemberRela">
+        update team_member_rela
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="userName != null">user_name = #{userNameNew},</if>
+            <if test="instructorNew != null">instructor = #{instructorNew},</if>
+            <if test="instructorPhoneNew != null">instructor_phone = #{instructorPhoneNew},</if>
+            <if test="instructorEmailNew != null">instructor_email = #{instructorEmailNew},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            version = version+1,
+        </trim>
+        <where>
+            <if test="userName!=null and userName!=''">
+                and user_name = #{userName}
+            </if>
+            <if test="teamCode!=null and teamCode!=''">
+                and team_code = #{teamCode}
+            </if>
+        </where>
+    </update>
+
+    <update id="updateTeamMemberRelaUserId" parameterType="com.teaching.system.api.domain.TeamMemberRela">
+        update team_member_rela
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            version = version+1,
+        </trim>
+        <where>
+            <if test="userName!=null and userName!=''">
+                and user_name = #{userName}
+            </if>
+            <if test="teamCode!=null and teamCode!=''">
+                and team_code = #{teamCode}
+            </if>
+        </where>
+    </update>
+
+    <update id="updateTeamStatus">
+        update team_member_rela
+        <set>
+            <if test="list[0].checkStatus != null">
+                check_status = CASE
+                <foreach collection="list" item="item">
+                    WHEN team_code = #{item.teamCode} THEN #{item.checkStatus}
+                </foreach>
+                ELSE check_status
+                END,
+            </if>
+        </set>
+        WHERE user_id IN
+        <foreach collection="list" item="item" open="(" separator="," close=")">
+            #{item.userId}
+        </foreach>
+    </update>
+
+    <update id="bindTeacherContestantUser">
+        update team_member_rela
+        set user_id = #{userId}, update_time = sysdate()
+        where team_code = #{teamCode} and team_role = '队长' and user_id is null and del_flag = '0'
+    </update>
+
+    <delete id="deleteTeamMemberRelaByTeamCodeAndUserName" parameterType="String">
+        update team_member_rela set del_flag = '1' where team_code = #{teamCode} and user_name = #{userName}
+    </delete>
+
+    <delete id="deleteTeamMemberRelaByTeamCode" parameterType="String">
+        update team_member_rela set del_flag = '1' where team_code = #{teamCode}
+    </delete>
+
+    <delete id="deleteRetaTeamMemberRelaByTeamCode" parameterType="String">
+        update team_member_rela set del_flag = '2' where team_code = #{teamCode} and del_flag = '0'
+    </delete>
+
+    <delete id="deleteTeamMemberRelaByRelaId" parameterType="Long">
+        delete from team_member_rela where rela_id = #{relaId}
+    </delete>
+
+    <delete id="deleteTeamMemberRelaByTeamCodes">
+        delete from team_member_rela where team_code in
+        <foreach item="teamCode" collection="teamCodes" open="(" separator="," close=")">
+            #{teamCode}
+        </foreach>
+    </delete>
+</mapper>

@@ -1,0 +1,461 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.system.mapper.ReviewTaskInfoMapper">
+
+    <resultMap type="com.teaching.system.domain.ReviewTaskInfo" id="ReviewTaskInfoResult">
+        <result property="reviewId" column="review_id"/>
+        <result property="fileUploadManagerId" column="file_upload_manager_id"/>
+        <result property="reviewName" column="review_name"/>
+        <result property="reviewStartTime" column="review_start_time"/>
+        <result property="reviewEndTime" column="review_end_time"/>
+        <result property="reviewDesc" column="review_desc"/>
+        <result property="reviewGroupId" column="review_group_id"/>
+        <result property="referenceDocument" column="reference_document"/>
+        <result property="distributeStatus" column="distribute_status"/>
+        <result property="competitionSeriesId"    column="competition_series_id"    />
+        <result property="competitionName"    column="competition_name"    />
+        <result property="competitionStageId"    column="competition_stage_id"    />
+        <result property="competitionStageName"    column="competition_stage_name"    />
+        <result property="competitionTrackName"    column="competition_track_name"    />
+        <result property="competitionTrackCode"    column="competition_track_code"    />
+        <result property="secondLevelCode"    column="second_level_code"    />
+        <result property="secondLevelName"    column="second_level_name"    />
+        <result property="userName"    column="user_name"    />
+        <result property="fileInfo"    column="file_info"    />
+        <result property="leaderTeacherId"    column="leader_teacher_id"    />
+        <result property="leaderTeacherName"    column="leader_teacher_name"    />
+        <result property="teamCode"    column="team_code"    />
+        <result property="teamName"    column="team_name"    />
+        <result property="schoolId"    column="school_id"    />
+        <result property="schoolName"    column="school_name"/>
+        <result property="province"    column="province"/>
+        <result property="provinceCode"    column="province_code"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="version" column="version"/>
+        <result property="delFlag" column="del_flag"/>
+        <collection property="reviewTaskAllotGroupRelationList"
+                    ofType="com.teaching.system.domain.ReviewTaskAllotGroupRelation"
+                    column="review_id"
+                    select="com.teaching.system.mapper.ReviewTaskAllotGroupRelationMapper.selectReviewTaskAllotGroupRelationByReviewId"/>
+        <collection property="reviewTaskSpecialistRelationList"
+                    ofType="com.teaching.system.domain.ReviewTaskSpecialistRelation"
+                    column="review_id"
+                    select="com.teaching.system.mapper.ReviewTaskSpecialistRelationMapper.selectReviewTaskSpecialistRelationByReviewId"/>
+    </resultMap>
+
+
+    <resultMap type="com.teaching.system.domain.vo.ExpertReviewInfo" id="ExpertReviewInfo">
+        <result property="processedId" column="processed_id"/>
+        <result property="relaId" column="rela_id"/>
+        <result property="reviewId" column="review_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="reviewName" column="review_name"/>
+        <result property="reviewStartTime" column="review_start_time"/>
+        <result property="reviewEndTime" column="review_end_time"/>
+        <result property="reviewStatus" column="review_status"/>
+        <result property="competitionName" column="competition_name"/>
+        <result property="competitionTrackName"    column="competition_track_name"    />
+        <result property="secondLevelName"    column="second_level_name"    />
+        <result property="newFileName"    column="new_file_name"    />
+    </resultMap>
+
+    <sql id="selectReviewTaskInfoVo">
+        select review_id, file_upload_manager_id, review_name, review_start_time, review_end_time, review_desc,
+        review_group_id, reference_document, distribute_status, create_by, create_time, update_by, update_time,
+        version, del_flag
+        from review_task_info
+    </sql>
+
+    <select id="selectReviewTaskInfoList" parameterType="com.teaching.system.domain.ReviewTaskInfo"
+            resultMap="ReviewTaskInfoResult">
+        <include refid="selectReviewTaskInfoVo"/>
+        <where>
+            del_flag = '0'
+            <if test="fileUploadManagerId != null">
+                and file_upload_manager_id = #{fileUploadManagerId}
+            </if>
+            <if test="reviewName != null and reviewName != ''">
+                and review_name like concat('%', #{reviewName}, '%')
+            </if>
+            <if test="reviewStartTime != null">
+                and review_start_time &gt;= #{reviewStartTime}
+            </if>
+            <if test="reviewEndTime != null">
+                and review_end_time &lt;= #{reviewEndTime}
+            </if>
+            <if test="reviewDesc != null and reviewDesc != ''">
+                and review_desc like concat('%', #{reviewDesc}, '%')
+            </if>
+            <if test="reviewGroupId != null and reviewGroupId != ''">
+                and review_group_id like concat('%', #{reviewGroupId}, '%')
+            </if>
+            <if test="distributeStatus != null and distributeStatus != ''">
+                and distribute_status = #{distributeStatus}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectFileUploadReviewTaskList" parameterType="com.teaching.system.domain.ReviewTaskInfo" resultMap="ReviewTaskInfoResult">
+        select fur.id as file_upload_manager_id, fur.user_id,fur.file_task_name as review_name,
+        (select real_name from auth_info where user_id = fur.user_id AND auth_status = '5' order by auth_time desc limit 1) user_name,
+        fur.leader_teacher_id,fur.file_info,
+        (select real_name from auth_info where user_id = fur.leader_teacher_id AND auth_status = '5' order by auth_time desc limit 1) as leader_teacher_name,
+        fur.team_code, fur.team_name,
+        cai.competition_series_id, cai.competition_name,fur.competition_stage_id, fur.competition_stage_name,
+        cai.competition_track_name, cai.competition_track_id as competition_track_code,
+        cai.second_level_code, cai.second_level_name,cai.school as school_id,
+        rti.review_id, rti.review_start_time, rti.review_end_time, rti.review_desc,
+        rti.review_group_id, rti.reference_document, rti.create_by, rti.create_time, rti.update_by, rti.update_time,
+        rti.version, rti.del_flag,rti.distribute_status
+<!--        CASE-->
+<!--        WHEN EXISTS (-->
+<!--        SELECT 1-->
+<!--        FROM review_task_specialist_relation rtsr-->
+<!--        WHERE rtsr.review_id = rti.review_id-->
+<!--        AND rtsr.del_flag = '0'-->
+<!--        ) THEN '1'-->
+<!--        ELSE '0'-->
+<!--        END AS distribute_status-->
+        from file_upload_manager fur
+        left join review_task_info rti on fur.id = rti.file_upload_manager_id and rti.del_flag = '0'
+        <!-- 任务紧急暂不使用远程跨服务调用 -->
+        left join competition_apply_info cai on fur.user_id = cai.user_id and fur.team_code = cai.team_code
+        <where>
+            <!-- 本次任务评审只适用于队长，老师的作品评审需求未明确 -段飞虎 -->
+            and fur.del_flag = '0' and cai.competition_role_name = '队长'
+            <if test="reviewName != null  and reviewName != ''">
+                and rti.review_name like concat('%', #{reviewName}, '%')
+            </if>
+            <if test="competitionSeriesId != null ">
+                and cai.competition_series_id = #{competitionSeriesId}
+            </if>
+            <if test="competitionName != null  and competitionName != ''">
+                and cai.competition_name like concat('%', #{competitionName}, '%')
+            </if>
+            <if test="competitionTrackName != null  and competitionTrackName != ''">
+                and cai.competition_track_name like concat('%', #{competitionTrackName}, '%')
+            </if>
+            <if test="competitionTrackCode != null  and competitionTrackCode != ''">
+                and cai.competition_track_id = #{competitionTrackCode}
+            </if>
+            <if test="secondLevelCode != null  and secondLevelCode != ''">
+                and cai.second_level_code = #{secondLevelCode}
+            </if>
+            <if test="secondLevelName != null  and secondLevelName != ''">
+                and cai.second_level_name like concat('%', #{secondLevelName}, '%')
+            </if>
+            <if test="competitionTrackQuery != null  and competitionTrackQuery != ''">
+                and (cai.second_level_name like concat('%', #{competitionTrackQuery}, '%')
+                or cai.competition_track_name like concat('%', #{competitionTrackQuery}, '%'))
+            </if>
+            <if test="province != null  and province != ''">
+                and cai.school in
+                (select id from nationwide_college_info where
+                province in
+                <foreach collection="province.split(',')" item="item" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+                )
+            </if>
+            <if test="taskGroupId != null  and taskGroupId != ''">
+                and rti.review_id in (select review_id from review_task_allot_group_relation
+                where review_group_id = #{taskGroupId})
+            </if>
+            <!-- 学校队长带队老师 -->
+            <if test="keyWords != null  and keyWords != ''">
+                and (fur.leader_teacher_id in (select user_id from auth_info
+                where real_name like concat('%', #{keyWords}, '%'))
+                or fur.user_id in (select user_id from auth_info
+                where real_name like concat('%', #{keyWords}, '%'))
+                or cai.school in (select id from nationwide_college_info where school_name like concat('%', #{keyWords}, '%')))
+            </if>
+            <!-- 分配未分配 -->
+            <if test="distributeStatus != null and distributeStatus != ''">
+                and rti.distribute_status = #{distributeStatus}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectReviewTaskInfoByReviewId" parameterType="Long" resultMap="ReviewTaskInfoResult">
+        select fur.id as file_upload_manager_id, fur.user_id,fur.file_task_name as review_name,
+        (select real_name from auth_info where user_id = fur.user_id AND auth_status = '5' order by auth_time desc limit 1) user_name,
+        fur.leader_teacher_id, fur.team_code, fur.team_name,fur.file_info,
+        (select real_name from auth_info where user_id = fur.leader_teacher_id AND auth_status = '5' order by auth_time desc limit 1) as leader_teacher_name,
+        cai.competition_series_id, cai.competition_name,fur.competition_stage_id, fur.competition_stage_name,
+        cai.competition_track_name, cai.competition_track_id as competition_track_code,
+        cai.second_level_code, cai.second_level_name,cai.school as school_id,
+        rti.review_id, rti.review_name, rti.review_start_time, rti.review_end_time, rti.review_desc,
+        rti.review_group_id, rti.reference_document, rti.create_by, rti.create_time, rti.update_by, rti.update_time,
+        rti.version, rti.del_flag,
+        CASE
+        WHEN EXISTS (
+        SELECT 1
+        FROM review_task_specialist_relation rtsr
+        WHERE rtsr.review_id = rti.review_id
+        AND rtsr.del_flag = '0'
+        ) THEN '1'
+        ELSE '0'
+        END AS distribute_status
+        from file_upload_manager fur
+        left join review_task_info rti on fur.id = rti.file_upload_manager_id and rti.del_flag = '0'
+        <!-- 任务紧急暂不使用远程跨服务调用 -->
+        left join competition_apply_info cai on fur.user_id = cai.user_id and fur.team_code = cai.team_code
+        where rti.review_id = #{reviewId} and rti.del_flag = '0' and cai.competition_role_name = '队长'
+    </select>
+
+    <select id="selectReviewTaskInfoByUserId" parameterType="Long" resultMap="ReviewTaskInfoResult">
+        select fur.id as file_upload_manager_id, fur.user_id,fur.file_task_name as review_name,
+        (select real_name from auth_info where user_id = fur.user_id AND auth_status = '5' order by auth_time desc limit 1) user_name,
+        fur.leader_teacher_id, fur.team_code, fur.team_name,fur.file_info,
+        (select real_name from auth_info where user_id = fur.leader_teacher_id AND auth_status = '5' order by auth_time desc limit 1) as leader_teacher_name,
+        cai.competition_series_id, cai.competition_name,fur.competition_stage_id, fur.competition_stage_name,
+        cai.competition_track_name, cai.competition_track_id as competition_track_code,
+        cai.second_level_code, cai.second_level_name,cai.school as school_id,
+        rti.review_id, rti.review_start_time, rti.review_end_time, rti.review_desc,
+        rti.review_group_id, rti.reference_document, rti.create_by, rti.create_time, rti.update_by, rti.update_time,
+        rti.version, rti.del_flag,nci.school_name,nci.province,nci.province_code,
+        CASE
+        WHEN EXISTS (
+        SELECT 1
+        FROM review_task_specialist_relation rtsr
+        WHERE rtsr.review_id = rti.review_id
+        AND rtsr.del_flag = '0'
+        ) THEN '1'
+        ELSE '0'
+        END AS distribute_status
+        from review_task_info rti
+        inner join file_upload_manager fur on fur.id = rti.file_upload_manager_id
+<!--        inner join review_task_specialist_relation rtsr on rtsr.review_id = rti.review_id-->
+        left join competition_apply_info cai on fur.user_id = cai.user_id and fur.team_code = cai.team_code
+        left join nationwide_college_info nci on cai.school = nci.id
+        where EXISTS (
+        SELECT 1
+        FROM review_task_specialist_relation rtsr
+        WHERE rtsr.review_id = rti.review_id
+        AND rtsr.user_id = #{userId}
+        AND rtsr.del_flag = '0'
+        ) and rti.del_flag = '0'
+    </select>
+
+    <insert id="insertReviewTaskInfo" parameterType="com.teaching.system.domain.ReviewTaskInfo"
+            useGeneratedKeys="true" keyProperty="reviewId">
+        insert into review_task_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="fileUploadManagerId != null">file_upload_manager_id,</if>
+            <if test="reviewName != null">review_name,</if>
+            <if test="reviewStartTime != null">review_start_time,</if>
+            <if test="reviewEndTime != null">review_end_time,</if>
+            <if test="reviewDesc != null">review_desc,</if>
+            <if test="reviewGroupId != null">review_group_id,</if>
+            <if test="referenceDocument != null">reference_document,</if>
+            <if test="distributeStatus != null">distribute_status,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="version != null">version,</if>
+            <if test="delFlag != null">del_flag,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="fileUploadManagerId != null">#{fileUploadManagerId},</if>
+            <if test="reviewName != null">#{reviewName},</if>
+            <if test="reviewStartTime != null">#{reviewStartTime},</if>
+            <if test="reviewEndTime != null">#{reviewEndTime},</if>
+            <if test="reviewDesc != null">#{reviewDesc},</if>
+            <if test="reviewGroupId != null">#{reviewGroupId},</if>
+            <if test="referenceDocument != null">#{referenceDocument},</if>
+            <if test="distributeStatus != null">#{distributeStatus},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="version != null">#{version},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+        </trim>
+    </insert>
+
+    <insert id="batchInsertReviewTaskInfo" useGeneratedKeys="true" keyProperty="reviewId">
+        insert into review_task_info (file_upload_manager_id, review_name, review_start_time, review_end_time,
+        review_desc, review_group_id, reference_document, create_by, create_time, update_by,
+        update_time) values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.fileUploadManagerId}, #{item.reviewName}, #{item.reviewStartTime}, #{item.reviewEndTime},
+            #{item.reviewDesc}, #{item.reviewGroupId}, #{item.referenceDocument},
+            #{item.createBy}, #{item.createTime}, #{item.updateBy}, #{item.updateTime})
+        </foreach>
+    </insert>
+
+    <update id="updateReviewTaskInfo" parameterType="com.teaching.system.domain.ReviewTaskInfo">
+        update review_task_info
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="fileUploadManagerId != null">file_upload_manager_id = #{fileUploadManagerId},</if>
+            <if test="reviewName != null">review_name = #{reviewName},</if>
+            <if test="reviewStartTime != null">review_start_time = #{reviewStartTime},</if>
+            <if test="reviewEndTime != null">review_end_time = #{reviewEndTime},</if>
+            <if test="reviewDesc != null">review_desc = #{reviewDesc},</if>
+            <if test="reviewGroupId != null">review_group_id = #{reviewGroupId},</if>
+            <if test="referenceDocument != null">reference_document = #{referenceDocument},</if>
+            <if test="distributeStatus != null">distribute_status = #{distributeStatus},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="version != null">version = #{version},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+        </trim>
+        where review_id = #{reviewId}
+    </update>
+
+    <update id="batchUpdateReviewTaskInfo">
+        <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            update review_task_info
+            <trim prefix="SET" suffixOverrides=",">
+                <if test="item.fileUploadManagerId != null">file_upload_manager_id = #{item.fileUploadManagerId},</if>
+                <if test="item.reviewName != null">review_name = #{item.reviewName},</if>
+                <if test="item.reviewStartTime != null">review_start_time = #{item.reviewStartTime},</if>
+                <if test="item.reviewEndTime != null">review_end_time = #{item.reviewEndTime},</if>
+                <if test="item.reviewDesc != null">review_desc = #{item.reviewDesc},</if>
+                <if test="item.reviewGroupId != null">review_group_id = #{item.reviewGroupId},</if>
+                <choose>
+                    <when test="item.referenceDocument != null and item.referenceDocument!=''">
+                        reference_document = #{item.referenceDocument},
+                    </when>
+                    <when test="item.referenceDocument == ''">
+                        reference_document = NULL,
+                    </when>
+                </choose>
+                <if test="item.distributeStatus != null">distribute_status = #{item.distributeStatus},</if>
+                <if test="item.createBy != null">create_by = #{item.createBy},</if>
+                <if test="item.createTime != null">create_time = #{item.createTime},</if>
+                <if test="item.updateBy != null">update_by = #{item.updateBy},</if>
+                update_time = now(),
+                version = version+1,
+            </trim>
+            where review_id = #{item.reviewId}
+        </foreach>
+    </update>
+
+    <delete id="deleteReviewTaskInfoByReviewId" parameterType="Long">
+        update review_task_info set del_flag = '2' where review_id = #{reviewId}
+    </delete>
+
+    <delete id="deleteReviewTaskInfoByReviewIds">
+        update review_task_info set del_flag = '2' where review_id in
+        <foreach collection="array" item="reviewId" open="(" separator="," close=")">
+            #{reviewId}
+        </foreach>
+    </delete>
+
+    <delete id="deleteReviewTaskAllotGroupRelationByReviewIds">
+        update review_task_allot_group_relation set del_flag = '2' where review_id in
+        <foreach collection="array" item="reviewId" open="(" separator="," close=")">
+            #{reviewId}
+        </foreach>
+    </delete>
+
+    <delete id="deleteReviewTaskSpecialistRelationByReviewIds">
+        update review_task_specialist_relation set del_flag = '2' where review_id in
+        <foreach collection="array" item="reviewId" open="(" separator="," close=")">
+            #{reviewId}
+        </foreach>
+    </delete>
+
+    <insert id="batchReviewTaskAllotGroupRelation">
+        insert into review_task_allot_group_relation (review_group_id, review_id, create_by, create_time, update_by,
+        update_time, version, del_flag) values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.reviewGroupId}, #{item.reviewId}, #{item.createBy}, #{item.createTime}, #{item.updateBy},
+            #{item.updateTime}, #{item.version}, #{item.delFlag})
+        </foreach>
+    </insert>
+
+    <insert id="batchReviewTaskSpecialistRelation">
+        insert into review_task_specialist_relation (review_id, user_id, allot_status, review_status, create_by,
+        create_time, update_by, update_time, version, del_flag) values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.reviewId}, #{item.userId}, #{item.allotStatus}, #{item.reviewStatus}, #{item.createBy},
+            #{item.createTime}, #{item.updateBy}, #{item.updateTime}, #{item.version}, #{item.delFlag})
+        </foreach>
+    </insert>
+
+    <select id="selectExpertList" parameterType="com.teaching.system.domain.vo.ExpertReviewInfo" resultMap="ExpertReviewInfo">
+        SELECT
+            a.rela_id ,
+            a.review_id,
+            a.user_id,
+            IFNULL(rr.review_status,'0')as review_status,
+            b.review_start_time,
+            b.review_end_time,
+            c.id as processed_id,
+            c.new_file_name,
+            e.competition_name ,e.competition_track_name ,e.second_level_name
+        FROM review_task_specialist_relation a
+            LEFT JOIN review_task_info b ON a.review_id = b.review_id AND b.del_flag = '0'
+            LEFT JOIN review_processed_relation c ON b.file_upload_manager_id = c.manager_id AND c.del_flag = '0'
+            LEFT JOIN file_upload_manager d ON c.manager_id = d.id AND d.del_flag = '0'
+            LEFT JOIN competition_apply_info e ON e.team_code = d.team_code and e.user_id = d.user_id
+            LEFT JOIN review_record rr on rr.del_flag = '0' and rr.expert_id = a.user_id and rr.file_id = c.id
+        WHERE  a.del_flag = '0'  AND a.user_id = #{userId}
+        <if test="processedStr != null and processedStr !=''">
+            AND c.id = #{processedStr}
+        </if>
+        <if test="newFileName != null and newFileName != ''">
+            AND c.new_file_name like CONCAT('%', #{newFileName}, '%')
+        </if>
+        <if test="competitionName != null and competitionName != ''">
+            AND e.competition_name like CONCAT('%', #{competitionName}, '%')
+        </if>
+        <if test="competitionTrackName != null and competitionTrackName != ''">
+            AND ( e.competition_track_name like CONCAT('%', #{competitionTrackName}, '%') or e.second_level_name like CONCAT('%', #{competitionTrackName}, '%') )
+        </if>
+        <if test="reviewStatus !=null and reviewStatus != '' and reviewStatus == '1'.toString()">
+            AND rr.review_status = '1'
+        </if>
+        <if test="reviewStatus !=null and reviewStatus != '' and reviewStatus == '0'.toString()">
+            AND (rr.review_status = '0' or rr.review_status is null)
+        </if>
+        ORDER BY c.id
+    </select>
+
+    <select id="selectTaskInfoByProcessedId" resultType="java.util.Map">
+        SELECT c.id,c.new_file_name as newFileName,c.new_url as newUrl,b.review_start_time as reviewStartTime,
+               b.review_end_time as reviewEndTime,b.review_desc as reviewDesc,b.reference_document as referenceDocument,
+               IFNULL(rr.last_page,'') as lastPage,rr.review_time as reviewTime,IFNULL(rr.review_status,'0')as review_status,
+               e.competition_name ,e.competition_track_name ,e.second_level_name
+        FROM review_processed_relation c
+              LEFT JOIN review_task_info b ON b.file_upload_manager_id = c.manager_id
+              LEFT JOIN review_processed_relation cc ON b.file_upload_manager_id = cc.manager_id AND cc.del_flag = '0'
+              LEFT JOIN file_upload_manager d ON cc.manager_id = d.id AND d.del_flag = '0'
+              LEFT JOIN competition_apply_info e ON e.team_code = d.team_code AND e.user_id = d.user_id
+                LEFT JOIN review_record rr ON rr.del_flag = '0' AND rr.expert_id = #{expertId} AND rr.file_id = c.id
+                WHERE c.id = #{reviewId}
+    </select>
+
+
+    <select id="selectTaskInfoByRelationId" resultType="java.util.Map">
+        SELECT  review_id as reviewId, file_upload_manager_id as fileUploadManagerId,
+                review_start_time as reviewStartTime, review_end_time as reviewEndTime
+        FROM review_task_info rti
+                 JOIN review_processed_relation rpr
+                      ON rti.file_upload_manager_id = rpr.manager_id
+        WHERE rpr.id = #{relationId}
+    </select>
+    <!-- ,IFNULL(rr.review_status,'0')as reviewStatus LEFT JOIN review_record rr ON rr.del_flag = '0' AND rr.expert_id = #{expertId} AND rr.file_id = rpr.id -->
+
+    <select id="selectExpertIdsByProcessedId" resultType="java.lang.Long">
+        SELECT c.user_id
+        FROM review_processed_relation a
+                 JOIN review_task_info b
+                      ON b.file_upload_manager_id = a.manager_id
+                          AND b.del_flag = '0'
+                 JOIN review_task_specialist_relation c
+                      ON c.review_id = b.review_id
+                          AND c.del_flag = '0'
+        WHERE a.id = #{processedId} AND c.user_id = #{expertId} AND a.del_flag = '0'
+    </select>
+</mapper>

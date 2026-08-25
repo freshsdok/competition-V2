@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.system.mapper.WechatIntegrationMapper">
+    
+    <resultMap type="WechatIntegration" id="WechatIntegrationResult">
+        <result property="id"            column="id"            />
+        <result property="userId"        column="user_id"       />
+        <result property="wxOpenId"      column="wx_open_id"   />
+        <result property="nickName"      column="nick_name"    />
+        <result property="bindTime"      column="bind_time"    />
+        <result property="status"        column="status"       />
+        <result property="lastActivTime"  column="last_activ_time" />
+        <result property="createBy"      column="create_by"    />
+        <result property="createTime"     column="create_time"   />
+        <result property="updateBy"      column="update_by"    />
+        <result property="updateTime"     column="update_time"   />
+        <result property="version"       column="version"      />
+        <result property="delFlag"       column="del_flag"     />
+    </resultMap>
+    
+    <sql id="selectWechatIntegrationVo">
+        select id, user_id, wx_open_id, nick_name, bind_time, status, last_activ_time, 
+               create_by, create_time, update_by, update_time, version, del_flag 
+        from wechat_integration
+    </sql>
+    
+    <select id="selectWechatIntegrationById" parameterType="Long" resultMap="WechatIntegrationResult">
+        <include refid="selectWechatIntegrationVo"/>
+        where id = #{id} and del_flag = '0'
+    </select>
+    
+    <select id="selectWechatIntegrationList" parameterType="WechatIntegration" resultMap="WechatIntegrationResult">
+        <include refid="selectWechatIntegrationVo"/>
+        <where>
+            del_flag = '0'
+            <!-- 关键词搜索：匹配用户ID/微信OpenID/昵称 -->
+            <if test="params.keyword != null and params.keyword != ''">
+                AND (
+                    user_id like concat('%', #{params.keyword}, '%')
+                    OR wx_open_id like concat('%', #{params.keyword}, '%')
+                    OR nick_name like concat('%', #{params.keyword}, '%')
+                )
+            </if>
+            <if test="userId != null">
+                AND user_id = #{userId}
+            </if>
+            <if test="wxOpenId != null and wxOpenId != ''">
+                AND wx_open_id = #{wxOpenId}
+            </if>
+            <if test="nickName != null and nickName != ''">
+                AND nick_name like concat('%', #{nickName}, '%')
+            </if>
+            <if test="status != null and status != ''">
+                AND status = #{status}
+            </if>
+            <if test="statusList != null and statusList != ''">
+                AND status IN
+                <foreach collection="statusList.split(',')" item="item" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="params.beginBindTime != null and params.beginBindTime != ''"><!-- 绑定开始时间检索 -->
+                AND date_format(bind_time,'%y%m%d') &gt;= date_format(#{params.beginBindTime},'%y%m%d')
+            </if>
+            <if test="params.endBindTime != null and params.endBindTime != ''"><!-- 绑定结束时间检索 -->
+                AND date_format(bind_time,'%y%m%d') &lt;= date_format(#{params.endBindTime},'%y%m%d')
+            </if>
+            <if test="params.beginActivTime != null and params.beginActivTime != ''"><!-- 最后活跃开始时间检索 -->
+                AND date_format(last_activ_time,'%y%m%d') &gt;= date_format(#{params.beginActivTime},'%y%m%d')
+            </if>
+            <if test="params.endActivTime != null and params.endActivTime != ''"><!-- 最后活跃结束时间检索 -->
+                AND date_format(last_activ_time,'%y%m%d') &lt;= date_format(#{params.endActivTime},'%y%m%d')
+            </if>
+        </where>
+        order by bind_time desc
+    </select>
+    
+    <insert id="insertWechatIntegration" parameterType="WechatIntegration" useGeneratedKeys="true" keyProperty="id">
+        insert into wechat_integration (
+            <if test="userId != null">user_id,</if>
+            <if test="wxOpenId != null and wxOpenId != ''">wx_open_id,</if>
+            <if test="nickName != null and nickName != ''">nick_name,</if>
+            <if test="bindTime != null">bind_time,</if>
+            <if test="status != null and status != ''">status,</if>
+            <if test="lastActivTime != null">last_activ_time,</if>
+            <if test="createBy != null and createBy != ''">create_by,</if>
+            create_time,
+            version,
+            del_flag
+        ) values (
+            <if test="userId != null">#{userId},</if>
+            <if test="wxOpenId != null and wxOpenId != ''">#{wxOpenId},</if>
+            <if test="nickName != null and nickName != ''">#{nickName},</if>
+            <if test="bindTime != null">#{bindTime},</if>
+            <if test="status != null and status != ''">#{status},</if>
+            <if test="lastActivTime != null">#{lastActivTime},</if>
+            <if test="createBy != null and createBy != ''">#{createBy},</if>
+            sysdate(),
+            0,
+            '0'
+        )
+    </insert>
+     
+    <update id="updateWechatIntegration" parameterType="WechatIntegration">
+        update wechat_integration 
+        <set>
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="wxOpenId != null and wxOpenId != ''">wx_open_id = #{wxOpenId},</if>
+            <if test="nickName != null and nickName != ''">nick_name = #{nickName},</if>
+            <if test="bindTime != null">bind_time = #{bindTime},</if>
+            <if test="status != null and status != ''">status = #{status},</if>
+            <if test="lastActivTime != null">last_activ_time = #{lastActivTime},</if>
+            <if test="updateBy != null and updateBy != ''">update_by = #{updateBy},</if>
+            update_time = sysdate(),
+            version = version + 1
+        </set>
+        where id = #{id}
+    </update>
+    
+    
+    <delete id="deleteWechatIntegrationById" parameterType="Long">
+        update wechat_integration set del_flag = '1' where id = #{id}
+    </delete>
+    
+    <delete id="deleteWechatIntegrationByIds" parameterType="Long">
+        update wechat_integration set del_flag = '1' where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+    <update id="resetWechatIntegrationQuery">
+        <!-- 重置查询条件，这里可以根据实际需求实现 -->
+        select 1
+    </update>
+    
+</mapper>

@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.system.mapper.SysAuditLogMapper">
+    
+    <resultMap type="SysAuditLog" id="SysAuditLogResult">
+        <result property="auditId"          column="audit_id"          />
+        <result property="auditType"        column="audit_type"        />
+        <result property="auditCategory"    column="audit_category"    />
+        <result property="riskLevel"        column="risk_level"        />
+        <result property="eventName"        column="event_name"        />
+        <result property="eventDesc"        column="event_desc"        />
+        <result property="userId"           column="user_id"           />
+        <result property="userName"         column="user_name"         />
+        <result property="userType"         column="user_type"         />
+        <result property="deptName"         column="dept_name"         />
+        <result property="operationType"    column="operation_type"    />
+        <result property="operationModule"  column="operation_module"  />
+        <result property="operationMethod"  column="operation_method"  />
+        <result property="requestUrl"       column="request_url"       />
+        <result property="requestMethod"    column="request_method"    />
+        <result property="requestParam"     column="request_param"     />
+        <result property="responseResult"   column="response_result"   />
+        <result property="ipAddress"        column="ip_address"        />
+        <result property="ipLocation"       column="ip_location"       />
+        <result property="browser"          column="browser"           />
+        <result property="os"               column="os"                />
+        <result property="deviceType"       column="device_type"       />
+        <result property="userAgent"        column="user_agent"        />
+        <result property="isAbnormal"       column="is_abnormal"       />
+        <result property="abnormalReason"   column="abnormal_reason"   />
+        <result property="dataId"           column="data_id"           />
+        <result property="dataType"         column="data_type"         />
+        <result property="oldValue"         column="old_value"         />
+        <result property="newValue"         column="new_value"         />
+        <result property="auditStatus"      column="audit_status"      />
+        <result property="auditBy"          column="audit_by"          />
+        <result property="auditTime"        column="audit_time"        />
+        <result property="auditRemark"      column="audit_remark"      />
+        <result property="operationTime"    column="operation_time"    />
+        <result property="costTime"         column="cost_time"         />
+        <result property="createTime"       column="create_time"       />
+    </resultMap>
+    
+    <sql id="selectAuditLogVo">
+        select audit_id, audit_type, audit_category, risk_level, event_name, event_desc,
+               user_id, user_name, user_type, dept_name, operation_type, operation_module,
+               operation_method, request_url, request_method, request_param, response_result,
+               ip_address, ip_location, browser, os, device_type, user_agent,
+               is_abnormal, abnormal_reason, data_id, data_type, old_value, new_value,
+               audit_status, audit_by, audit_time, audit_remark, operation_time, cost_time, create_time
+        from sys_audit_log
+    </sql>
+    
+    <select id="selectAuditLogById" parameterType="Long" resultMap="SysAuditLogResult">
+        <include refid="selectAuditLogVo"/>
+        where audit_id = #{auditId}
+    </select>
+    
+    <select id="selectAuditLogList" parameterType="SysAuditLog" resultMap="SysAuditLogResult">
+        <include refid="selectAuditLogVo"/>
+        <where>
+            <!-- 关键词搜索：匹配事件名称/用户名/IP地址 -->
+            <if test="params.keyword != null and params.keyword != ''">
+                AND (
+                    event_name like concat('%', #{params.keyword}, '%')
+                    OR user_name like concat('%', #{params.keyword}, '%')
+                    OR ip_address like concat('%', #{params.keyword}, '%')
+                )
+            </if>
+            <if test="auditType != null and auditType != ''">
+                AND audit_type = #{auditType}
+            </if>
+            <if test="auditTypeList != null and auditTypeList != ''">
+                AND audit_type IN
+                <foreach collection="auditTypeList.split(',')" item="item" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="auditCategory != null and auditCategory != ''">
+                AND audit_category = #{auditCategory}
+            </if>
+            <if test="riskLevel != null and riskLevel != ''">
+                AND risk_level = #{riskLevel}
+            </if>
+            <if test="eventName != null and eventName != ''">
+                AND event_name like concat('%', #{eventName}, '%')
+            </if>
+            <if test="userName != null and userName != ''">
+                AND user_name like concat('%', #{userName}, '%')
+            </if>
+            <if test="operationType != null and operationType != ''">
+                AND operation_type = #{operationType}
+            </if>
+            <if test="operationTypeList != null and operationTypeList != ''">
+                AND operation_type IN
+                <foreach collection="operationTypeList.split(',')" item="item" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="operationModule != null and operationModule != ''">
+                AND operation_module like concat('%', #{operationModule}, '%')
+            </if>
+            <if test="operationModuleList != null and operationModuleList != ''">
+                AND operation_module IN
+                <foreach collection="operationModuleList.split(',')" item="item" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="ipAddress != null and ipAddress != ''">
+                AND ip_address like concat('%', #{ipAddress}, '%')
+            </if>
+            <if test="browser != null and browser != ''">
+                AND browser like concat('%', #{browser}, '%')
+            </if>
+            <if test="isAbnormal != null and isAbnormal != ''">
+                AND is_abnormal = #{isAbnormal}
+            </if>
+            <if test="isAbnormalList != null and isAbnormalList != ''">
+                AND is_abnormal IN
+                <foreach collection="isAbnormalList.split(',')" item="item" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="auditStatus != null and auditStatus != ''">
+                AND audit_status = #{auditStatus}
+            </if>
+            <if test="auditStatusList != null and auditStatusList != ''">
+                AND audit_status IN
+                <foreach collection="auditStatusList.split(',')" item="item" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="params.beginTime != null and params.beginTime != ''"><!-- 开始时间检索 -->
+                AND date_format(operation_time,'%y%m%d') &gt;= date_format(#{params.beginTime},'%y%m%d')
+            </if>
+            <if test="params.endTime != null and params.endTime != ''"><!-- 结束时间检索 -->
+                AND date_format(operation_time,'%y%m%d') &lt;= date_format(#{params.endTime},'%y%m%d')
+            </if>
+        </where>
+        order by operation_time desc
+    </select>
+    
+    <insert id="insertAuditLog" parameterType="SysAuditLog">
+        insert into sys_audit_log (
+            <if test="auditType != null and auditType != ''">audit_type,</if>
+            <if test="auditCategory != null and auditCategory != ''">audit_category,</if>
+            <if test="riskLevel != null and riskLevel != ''">risk_level,</if>
+            <if test="eventName != null and eventName != ''">event_name,</if>
+            <if test="eventDesc != null and eventDesc != ''">event_desc,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="userName != null and userName != ''">user_name,</if>
+            <if test="userType != null and userType != ''">user_type,</if>
+            <if test="deptName != null and deptName != ''">dept_name,</if>
+            <if test="operationType != null and operationType != ''">operation_type,</if>
+            <if test="operationModule != null and operationModule != ''">operation_module,</if>
+            <if test="operationMethod != null and operationMethod != ''">operation_method,</if>
+            <if test="requestUrl != null and requestUrl != ''">request_url,</if>
+            <if test="requestMethod != null and requestMethod != ''">request_method,</if>
+            <if test="requestParam != null and requestParam != ''">request_param,</if>
+            <if test="responseResult != null and responseResult != ''">response_result,</if>
+            <if test="ipAddress != null and ipAddress != ''">ip_address,</if>
+            <if test="ipLocation != null and ipLocation != ''">ip_location,</if>
+            <if test="browser != null and browser != ''">browser,</if>
+            <if test="os != null and os != ''">os,</if>
+            <if test="deviceType != null and deviceType != ''">device_type,</if>
+            <if test="userAgent != null and userAgent != ''">user_agent,</if>
+            <if test="isAbnormal != null and isAbnormal != ''">is_abnormal,</if>
+            <if test="abnormalReason != null and abnormalReason != ''">abnormal_reason,</if>
+            <if test="dataId != null and dataId != ''">data_id,</if>
+            <if test="dataType != null and dataType != ''">data_type,</if>
+            <if test="oldValue != null and oldValue != ''">old_value,</if>
+            <if test="newValue != null and newValue != ''">new_value,</if>
+            <if test="auditStatus != null and auditStatus != ''">audit_status,</if>
+            <if test="operationTime != null">operation_time,</if>
+            <if test="costTime != null">cost_time,</if>
+            create_time
+        ) values (
+            <if test="auditType != null and auditType != ''">#{auditType},</if>
+            <if test="auditCategory != null and auditCategory != ''">#{auditCategory},</if>
+            <if test="riskLevel != null and riskLevel != ''">#{riskLevel},</if>
+            <if test="eventName != null and eventName != ''">#{eventName},</if>
+            <if test="eventDesc != null and eventDesc != ''">#{eventDesc},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="userName != null and userName != ''">#{userName},</if>
+            <if test="userType != null and userType != ''">#{userType},</if>
+            <if test="deptName != null and deptName != ''">#{deptName},</if>
+            <if test="operationType != null and operationType != ''">#{operationType},</if>
+            <if test="operationModule != null and operationModule != ''">#{operationModule},</if>
+            <if test="operationMethod != null and operationMethod != ''">#{operationMethod},</if>
+            <if test="requestUrl != null and requestUrl != ''">#{requestUrl},</if>
+            <if test="requestMethod != null and requestMethod != ''">#{requestMethod},</if>
+            <if test="requestParam != null and requestParam != ''">#{requestParam},</if>
+            <if test="responseResult != null and responseResult != ''">#{responseResult},</if>
+            <if test="ipAddress != null and ipAddress != ''">#{ipAddress},</if>
+            <if test="ipLocation != null and ipLocation != ''">#{ipLocation},</if>
+            <if test="browser != null and browser != ''">#{browser},</if>
+            <if test="os != null and os != ''">#{os},</if>
+            <if test="deviceType != null and deviceType != ''">#{deviceType},</if>
+            <if test="userAgent != null and userAgent != ''">#{userAgent},</if>
+            <if test="isAbnormal != null and isAbnormal != ''">#{isAbnormal},</if>
+            <if test="abnormalReason != null and abnormalReason != ''">#{abnormalReason},</if>
+            <if test="dataId != null and dataId != ''">#{dataId},</if>
+            <if test="dataType != null and dataType != ''">#{dataType},</if>
+            <if test="oldValue != null and oldValue != ''">#{oldValue},</if>
+            <if test="newValue != null and newValue != ''">#{newValue},</if>
+            <if test="auditStatus != null and auditStatus != ''">#{auditStatus},</if>
+            <if test="operationTime != null">#{operationTime},</if>
+            <if test="costTime != null">#{costTime},</if>
+            sysdate()
+        )
+    </insert>
+    
+    <update id="updateAuditLog" parameterType="SysAuditLog">
+        update sys_audit_log 
+        <set>
+            <if test="auditStatus != null and auditStatus != ''">audit_status = #{auditStatus},</if>
+            <if test="auditBy != null and auditBy != ''">audit_by = #{auditBy},</if>
+            <if test="auditTime != null">audit_time = #{auditTime},</if>
+            <if test="auditRemark != null">audit_remark = #{auditRemark},</if>
+        </set>
+        where audit_id = #{auditId}
+    </update>
+    
+    <delete id="deleteAuditLogById" parameterType="Long">
+        delete from sys_audit_log where audit_id = #{auditId}
+    </delete>
+    
+    <delete id="deleteAuditLogByIds" parameterType="Long">
+        delete from sys_audit_log where audit_id in 
+        <foreach item="auditId" collection="array" open="(" separator="," close=")">
+            #{auditId}
+        </foreach>
+    </delete>
+    
+    <delete id="cleanAuditLog">
+        truncate table sys_audit_log
+    </delete>
+    
+    <select id="countByAuditType" resultType="map">
+        select audit_type as name, count(*) as value
+        from sys_audit_log
+        group by audit_type
+        order by value desc
+    </select>
+    
+    <select id="countByRiskLevel" resultType="map">
+        select risk_level as name, count(*) as value
+        from sys_audit_log
+        group by risk_level
+        order by field(risk_level, 'CRITICAL', 'HIGH', 'MEDIUM', 'LOW')
+    </select>
+    
+    <select id="countAbnormalBehavior" resultType="map">
+        select 
+            DATE_FORMAT(operation_time, '%Y-%m-%d') as date,
+            count(*) as count
+        from sys_audit_log
+        where is_abnormal = '1'
+        and operation_time >= DATE_SUB(CURDATE(), INTERVAL 30 DAY)
+        group by DATE_FORMAT(operation_time, '%Y-%m-%d')
+        order by date
+    </select>
+    
+</mapper>

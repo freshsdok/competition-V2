@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.system.mapper.ReviewTaskAllotGroupRelationMapper">
+
+    <resultMap type="com.teaching.system.domain.ReviewTaskAllotGroupRelation"
+               id="ReviewTaskAllotGroupRelationResult">
+        <result property="relationId" column="relation_id"/>
+        <result property="reviewGroupId" column="review_group_id"/>
+        <result property="allotGroupName" column="allot_group_name"/>
+        <result property="reviewId" column="review_id"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="version" column="version"/>
+        <result property="delFlag" column="del_flag"/>
+    </resultMap>
+
+    <sql id="selectReviewTaskAllotGroupRelationVo">
+        select relation_id, review_group_id, review_id, create_by, create_time, update_by, update_time, version,
+        del_flag
+        from review_task_allot_group_relation
+    </sql>
+
+    <select id="selectReviewTaskAllotGroupRelationList"
+            parameterType="com.teaching.system.domain.ReviewTaskAllotGroupRelation"
+            resultMap="ReviewTaskAllotGroupRelationResult">
+        select tagr.relation_id, tagr.review_group_id, tagr.review_id, tagr.create_by, tagr.create_time, tagr.update_by, tagr.update_time, tagr.version,
+        tagr.del_flag,tag.allot_group_name
+        from review_task_allot_group_relation tagr
+        left join review_task_allot_group tag on tag.review_group_id = tagr.review_group_id
+        <where>
+            del_flag = '0'
+            <if test="reviewGroupId != null">
+                and review_group_id = #{reviewGroupId}
+            </if>
+            <if test="reviewId != null">
+                and review_id = #{reviewId}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectReviewTaskAllotGroupRelationByRelationId" parameterType="Long"
+            resultMap="ReviewTaskAllotGroupRelationResult">
+        <include refid="selectReviewTaskAllotGroupRelationVo"/>
+        where relation_id = #{relationId} and del_flag = '0'
+    </select>
+
+    <select id="selectReviewTaskAllotGroupRelationByReviewGroupId" parameterType="Long"
+            resultMap="ReviewTaskAllotGroupRelationResult">
+        select tagr.relation_id, tagr.review_group_id, tagr.review_id, tagr.create_by, tagr.create_time, tagr.update_by, tagr.update_time, tagr.version,
+        tagr.del_flag,tag.allot_group_name
+        from review_task_allot_group_relation tagr
+        left join review_task_allot_group tag on tag.review_group_id = tagr.review_group_id
+        where tagr.review_group_id = #{reviewGroupId} and tagr.del_flag = '0'
+    </select>
+
+    <select id="selectReviewTaskAllotGroupRelationByReviewId" parameterType="Long"
+            resultMap="ReviewTaskAllotGroupRelationResult">
+        select tagr.relation_id, tagr.review_group_id, tagr.review_id, tagr.create_by, tagr.create_time, tagr.update_by, tagr.update_time, tagr.version,
+        tagr.del_flag,tag.allot_group_name
+        from review_task_allot_group_relation tagr
+        left join review_task_allot_group tag on tag.review_group_id = tagr.review_group_id
+        where tagr.review_id = #{reviewId} and tagr.del_flag = '0'
+    </select>
+
+
+    <insert id="insertReviewTaskAllotGroupRelation"
+            parameterType="com.teaching.system.domain.ReviewTaskAllotGroupRelation" useGeneratedKeys="true"
+            keyProperty="relationId">
+        insert into review_task_allot_group_relation
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="reviewGroupId != null">review_group_id,</if>
+            <if test="reviewId != null">review_id,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="version != null">version,</if>
+            <if test="delFlag != null">del_flag,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="reviewGroupId != null">#{reviewGroupId},</if>
+            <if test="reviewId != null">#{reviewId},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="version != null">#{version},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+        </trim>
+    </insert>
+
+    <update id="updateReviewTaskAllotGroupRelation"
+            parameterType="com.teaching.system.domain.ReviewTaskAllotGroupRelation">
+        update review_task_allot_group_relation
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="reviewGroupId != null">review_group_id = #{reviewGroupId},</if>
+            <if test="reviewId != null">review_id = #{reviewId},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="version != null">version = #{version},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+        </trim>
+        where relation_id = #{relationId}
+    </update>
+
+    <delete id="deleteReviewTaskAllotGroupRelationByRelationId" parameterType="Long">
+        update review_task_allot_group_relation set del_flag = '1' where relation_id = #{relationId}
+    </delete>
+
+    <delete id="deleteReviewTaskAllotGroupRelationByRelationIds">
+        update review_task_allot_group_relation set del_flag = '1' where relation_id in
+        <foreach collection="array" item="relationId" open="(" separator="," close=")">
+            #{relationId}
+        </foreach>
+    </delete>
+
+    <delete id="deleteReviewTaskAllotGroupRelationByReviewId" parameterType="Long">
+        update review_task_allot_group_relation set del_flag = '1' where review_id = #{reviewId}
+    </delete>
+
+    <delete id="deleteReviewTaskAllotGroupRelationByReviewIdAndReviewGroupId" parameterType="Long">
+        update review_task_allot_group_relation set del_flag = '1' where review_id = #{reviewId}
+        and review_group_id = #{reviewGroupId}
+    </delete>
+</mapper>

@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.course.mapper.CourseRecommendInfoMapper">
+
+    <resultMap type="CourseRecommendInfo" id="CourseRecommendInfoResult">
+        <result property="remdId" column="remd_id"/>
+        <result property="remdName" column="remd_name"/>
+        <result property="type" column="type"/>
+        <result property="weight" column="weight"/>
+        <result property="displayStartTime" column="display_start_time"/>
+        <result property="displayEndTime" column="display_end_time"/>
+        <result property="targetUserGroup" column="target_user_group"/>
+        <result property="courseNum" column="course_num"/>
+        <result property="status" column="status"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="version" column="version"/>
+        <result property="delFlag" column="del_flag"/>
+        <result property="userId" column="user_id"/>
+        <result property="orgId" column="org_id"/>
+    </resultMap>
+
+    <resultMap id="CourseRecommendInfoCourseRecommendRelaResult" type="CourseRecommendInfo"
+               extends="CourseRecommendInfoResult">
+        <collection property="courseRecommendRelaList" ofType="CourseRecommendRela" column="remd_id"
+                    select="selectCourseRecommendRelaList"/>
+    </resultMap>
+
+    <resultMap type="CourseRecommendRela" id="CourseRecommendRelaResult">
+        <result property="id" column="id"/>
+        <result property="remdId" column="remd_id"/>
+        <result property="courseId" column="course_id"/>
+        <result property="sort" column="sort"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="version" column="version"/>
+        <result property="delFlag" column="del_flag"/>
+        <result property="userId" column="user_id"/>
+        <result property="orgId" column="org_id"/>
+    </resultMap>
+
+    <sql id="selectCourseRecommendInfoVo">
+        select remd_id,
+               remd_name,
+               type,
+               weight,
+               display_start_time,
+               display_end_time,
+               target_user_group,
+               status,
+               course_num,
+               create_by,
+               create_time,
+               update_by,
+               update_time,
+               version,
+               del_flag,
+               user_id,
+               org_id
+        from course_recommend_info
+    </sql>
+
+    <select id="selectCourseRecommendInfoList" parameterType="CourseRecommendInfo"
+            resultMap="CourseRecommendInfoResult">
+        <include refid="selectCourseRecommendInfoVo"/>
+        <where>
+            AND del_flag = '0'
+            <if test="remdName != null  and remdName != ''">and remd_name like concat('%', #{remdName}, '%')</if>
+            <if test="type != null  and type != ''">and type = #{type}</if>
+            <if test="weight != null ">and weight = #{weight}</if>
+            <if test="displayStartTime != null  and displayStartTime != ''">
+            and display_start_time =  #{displayStartTime}
+            </if>
+            <if test="displayEndTime != null  and displayEndTime != ''">
+            and display_end_time = #{displayEndTime}
+            </if>
+            <if test="params.nowTime != null  and params.nowTime != ''">
+                and #{params.nowTime} BETWEEN display_start_time AND display_end_time
+            </if>
+            <if test="params.courseNumStr != null">
+                and  course_num &gt;= #{courseNum}
+            </if>
+            <if test="params.courseNumEnd != null">
+                and  course_num &lt;= #{courseNum}
+            </if>
+            <if test="targetUserGroup != null  and targetUserGroup != ''">and target_user_group = #{targetUserGroup}
+            </if>
+            <if test="status != null  and status != ''">and status = #{status}</if>
+            <if test="version != null ">and version = #{version}</if>
+            <if test="userId != null ">and user_id = #{userId}</if>
+            <if test="orgId != null ">and org_id = #{orgId}</if>
+        </where>
+        order by weight ,create_time desc
+    </select>
+
+    <select id="selectCourseRecommendInfoByRemdId" parameterType="Long"
+            resultMap="CourseRecommendInfoCourseRecommendRelaResult">
+        select remd_id,
+               remd_name,
+               type,
+               weight,
+               display_start_time,
+               display_end_time,
+               target_user_group,
+               status,
+               course_num,
+               create_by,
+               create_time,
+               update_by,
+               update_time,
+               version,
+               del_flag,
+               user_id,
+               org_id
+        from course_recommend_info
+        where remd_id = #{remdId}
+    </select>
+
+    <select id="selectCourseRecommendRelaList" resultMap="CourseRecommendRelaResult">
+        select id,
+               remd_id,
+               course_id,
+               sort,
+               create_by,
+               create_time,
+               update_by,
+               update_time,
+               version,
+               del_flag,
+               user_id,
+               org_id
+        from course_recommend_rela
+        where remd_id = #{remd_id} and del_flag = '0'
+    </select>
+
+    <insert id="insertCourseRecommendInfo" parameterType="CourseRecommendInfo" useGeneratedKeys="true"
+            keyProperty="remdId">
+        insert into course_recommend_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="remdName != null and remdName != ''">remd_name,</if>
+            <if test="type != null and type != ''">type,</if>
+            <if test="weight != null">weight,</if>
+            <if test="displayStartTime != null">display_start_time,</if>
+            <if test="displayEndTime != null">display_end_time,</if>
+            <if test="targetUserGroup != null">target_user_group,</if>
+            <if test="status != null">status,</if>
+            <if test="courseNum != null">course_num,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="version != null">version,</if>
+            <if test="delFlag != null">del_flag,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="orgId != null">org_id,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="remdName != null and remdName != ''">#{remdName},</if>
+            <if test="type != null and type != ''">#{type},</if>
+            <if test="weight != null">#{weight},</if>
+            <if test="displayStartTime != null">#{displayStartTime},</if>
+            <if test="displayEndTime != null">#{displayEndTime},</if>
+            <if test="targetUserGroup != null">#{targetUserGroup},</if>
+            <if test="status != null">#{status},</if>
+            <if test="courseNum != null">#{courseNum},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="version != null">#{version},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="orgId != null">#{orgId},</if>
+        </trim>
+    </insert>
+
+    <update id="updateCourseRecommendInfo" parameterType="CourseRecommendInfo">
+        update course_recommend_info
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="remdName != null and remdName != ''">remd_name = #{remdName},</if>
+            <if test="type != null and type != ''">type = #{type},</if>
+            <if test="weight != null">weight = #{weight},</if>
+            <if test="displayStartTime != null">display_start_time = #{displayStartTime},</if>
+            <if test="displayEndTime != null">display_end_time = #{displayEndTime},</if>
+            <if test="targetUserGroup != null">target_user_group = #{targetUserGroup},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="courseNum != null">course_num = #{courseNum},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            update_time = sysdate(),
+            version = version + 1,
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="orgId != null">org_id = #{orgId},</if>
+        </trim>
+        where remd_id = #{remdId}
+    </update>
+
+    <delete id="deleteCourseRecommendInfoByRemdId" parameterType="Long">
+        delete
+        from course_recommend_info
+        where remd_id = #{remdId}
+    </delete>
+
+    <delete id="deleteCourseRecommendInfoByRemdIds" parameterType="String">
+        delete from course_recommend_info where remd_id in
+        <foreach item="remdId" collection="array" open="(" separator="," close=")">
+            #{remdId}
+        </foreach>
+    </delete>
+
+    <delete id="deleteCourseRecommendRelaByRemdIds" parameterType="String">
+        delete from course_recommend_rela where remd_id in
+        <foreach item="remdId" collection="array" open="(" separator="," close=")">
+            #{remdId}
+        </foreach>
+    </delete>
+
+    <delete id="deleteCourseRecommendRelaByRemdId" parameterType="Long">
+        delete
+        from course_recommend_rela
+        where remd_id = #{remdId}
+    </delete>
+
+    <!-- 批量删除关联关系 -->
+    <delete id="batchDeleteCourseRecommendRelaByIds">
+        DELETE FROM course_recommend_rela
+        WHERE id IN
+        <foreach collection="list" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <insert id="batchCourseRecommendRela">
+        insert into course_recommend_rela( id, remd_id, course_id, sort, create_by, create_time, update_by, update_time,
+         del_flag, user_id, org_id) values
+        <foreach item="item" index="index" collection="list" separator=",">
+            ( #{item.id}, #{item.remdId}, #{item.courseId}, #{item.sort}, #{item.createBy}, #{item.createTime},
+            #{item.updateBy}, #{item.updateTime}, '0', #{item.userId}, #{item.orgId})
+        </foreach>
+    </insert>
+
+    <update id="batchUpdateCourseRecommendRela">
+    UPDATE course_recommend_rela
+    <set>
+        <if test="list[0].remdId != null">
+            remd_Id = CASE
+                <foreach collection="list" item="item">
+                    WHEN id = #{item.id} THEN #{item.remdId}
+                </foreach>
+                ELSE remd_Id
+            END,
+        </if>
+        <if test="list[0].courseId != null">
+            course_id = CASE
+                <foreach collection="list" item="item">
+                    WHEN id = #{item.id} THEN #{item.courseId}
+                </foreach>
+                ELSE course_id
+            END,
+        </if>
+        <if test="list[0].sort != null">
+            sort = CASE
+                <foreach collection="list" item="item">
+                    WHEN id = #{item.id} THEN #{item.sort}
+                </foreach>
+                ELSE sort
+            END,
+        </if>
+        <if test="list[0].updateBy != null">
+            update_by = CASE
+                <foreach collection="list" item="item">
+                    WHEN id = #{item.id} THEN #{item.updateBy}
+                </foreach>
+                ELSE update_by
+            END,
+        </if>
+        <if test="list[0].userId != null || list[0].orgId != null">
+            user_id = CASE
+                <foreach collection="list" item="item">
+                    WHEN id = #{item.id} THEN #{item.userId}
+                </foreach>
+                ELSE user_id
+            END,
+            org_id = CASE
+                <foreach collection="list" item="item">
+                    WHEN id = #{item.id} THEN #{item.orgId}
+                </foreach>
+                ELSE org_id
+            END,
+        </if>
+        update_time = NOW(),
+        version = version + 1
+    </set>
+    WHERE id IN
+    <foreach collection="list" item="item" open="(" separator="," close=")">
+        #{item.id}
+    </foreach>
+</update>
+
+    <update id="updateCourseRecommendRela">
+        UPDATE course_recommend_rela
+        SET
+        <if test="remdId != null">remd_id = #{remdId},</if>
+        <if test="courseId != null">course_id = #{courseId},</if>
+        <if test="sort != null">sort = #{sort},</if>
+        <if test="userId != null">user_id = #{userId},</if>
+        <if test="orgId != null">org_id = #{orgId},</if>
+        update_by = #{updateBy},
+        update_time = NOW(),
+        version = version + 1
+        WHERE id = #{id}
+    </update>
+
+    <!-- 根据推荐ID查询关联关系 -->
+    <select id="selectCourseRecommendRelaByRemdId" resultType="com.teaching.course.domain.CourseRecommendRela">
+        SELECT id, remd_id, course_id, sort, del_flag,
+               user_id, org_id, create_by, create_time,
+               update_by, update_time, version
+        FROM course_recommend_rela
+        WHERE remd_id = #{remdId}
+    </select>
+</mapper>

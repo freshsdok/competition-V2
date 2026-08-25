@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.competition.mapper.UserCertificateOriginMapper">
+    <resultMap type="com.teaching.system.api.domain.UserCertificateOrigin" id="UserCertificateOriginResult">
+        <id property="certId" column="cert_id" />
+        <result property="certCode" column="cert_code" />
+        <result property="certName" column="cert_name" />
+        <result property="certUrl" column="cert_url" />
+        <result property="issuanceDate" column="issuance_date" />
+        <result property="certPeriod" column="cert_period" />
+        <result property="acquireWay" column="acquire_way" />
+        <result property="competitionSeriesId" column="competition_series_id" />
+        <result property="competitionStageId" column="competition_stage_id" />
+        <result property="competitionTrackId" column="competition_track_id" />
+        <result property="secondLevelCode" column="second_level_code" />
+        <result property="competitionSeriesName" column="competition_series_name" />
+        <result property="competitionName" column="competition_name" />
+        <result property="competitionTrackName" column="competition_track_name" />
+        <result property="secondLevelName" column="second_level_name" />
+        <result property="courseId" column="course_id" />
+        <result property="trainingProgramId" column="training_program_id" />
+        <result property="certExchangeId" column="cert_exchange_id" />
+        <result property="certConfigId" column="cert_config_id" />
+        <result property="certStatus" column="cert_status" />
+        <result property="teamCode" column="team_code" />
+        <result property="awardsName" column="awards_name" />
+        <result property="awardsNameDesc" column="awards_name_desc" />
+        <result property="year" column="year" />
+        <result property="orgCode" column="org_code" />
+        <result property="userId" column="user_id" />
+        <result property="player" column="player" />
+        <result property="userName" column="user_name" />
+        <result property="idCard" column="id_card" />
+        <result property="guideTeacher" column="guide_teacher" />
+        <result property="school" column="school" />
+        <result property="schoolName" column="school_name" />
+        <result property="yearLimit" column="year_limit" />
+        <result property="createBy" column="create_by" />
+        <result property="createTime" column="create_time" />
+        <result property="updateBy" column="update_by" />
+        <result property="updateTime" column="update_time" />
+        <result property="delFlag" column="del_flag" />
+        <result property="version" column="version" />
+    </resultMap>
+
+    <sql id="selectUserCertificateOriginVo">
+        select cert_id, cert_code, cert_name, cert_url, issuance_date, cert_period, acquire_way, competition_series_id,
+        competition_stage_id, competition_track_id, second_level_code,competition_name,course_id,
+        training_program_id, cert_exchange_id, second_level_name,
+        cert_config_id, cert_status, team_code, awards_name, awards_name_desc, year, org_code, user_id, player, user_name,
+        id_card, guide_teacher, school, school_name, year_limit, create_by, create_time, update_by, update_time, del_flag, version
+        from user_certificate_origin
+    </sql>
+
+    <select id="selectUserCertificateOriginById" parameterType="Long" resultMap="UserCertificateOriginResult">
+        <include refid="selectUserCertificateOriginVo" />
+        where cert_id = #{certId}
+    </select>
+
+    <select id="selectUserCertificateOriginByStageId" parameterType="com.teaching.system.api.domain.UserCertificateOrigin" resultMap="UserCertificateOriginResult">
+        <include refid="selectUserCertificateOriginVo" />
+        where del_flag = '0'
+        <if test="competitionStageId!=null and competitionStageId!=''">
+            and competition_stage_id = #{competitionStageId}
+        </if>
+        <if test="competitionSeriesId!=null and competitionSeriesId!=''">
+            and competition_series_id = #{competitionSeriesId}
+        </if>
+        <if test="awardsName!=null and awardsName!=''">
+            and awards_name = #{awardsName}
+        </if>
+        <if test="userName!=null and userName!=''">
+            and FIND_IN_SET(#{userName},player)
+        </if>
+    </select>
+
+    <select id="selectUserCertificateOriginByCetCode" parameterType="List" resultMap="UserCertificateOriginResult">
+        <include refid="selectUserCertificateOriginVo" />
+        where cert_code in
+        <foreach item="item" collection="certCodeList" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="selectUserCertificateOriginByIdCard" parameterType="Object" resultMap="UserCertificateOriginResult">
+        <include refid="selectUserCertificateOriginVo" />
+        where id_card = #{idCard} and cert_id = #{certId}
+    </select>
+
+    <!--
+      下载授权只认报名表中的 leader_teacher_id。只取已缴费团队，并按证书编号去重；
+      教师证书和单位证书没有有效 team_code，因此不会进入负责人学生证书压缩包。
+    -->
+    <select id="selectGuidedCertificateCodes" resultType="java.lang.String">
+        SELECT uco.cert_code
+        FROM user_certificate_origin uco
+        WHERE uco.del_flag = '0'
+          AND uco.cert_code IS NOT NULL
+          AND uco.cert_code != ''
+          AND uco.team_code IS NOT NULL
+          AND uco.team_code != ''
+          AND EXISTS (
+              SELECT 1
+              FROM competition_apply_info cai
+              WHERE cai.competition_series_id = uco.competition_series_id
+                AND cai.team_code = uco.team_code
+                AND cai.leader_teacher_id = #{userId}
+                AND cai.pay_status = 'paid'
+                AND cai.del_flag = '0'
+          )
+        GROUP BY uco.cert_code
+        ORDER BY MAX(uco.competition_series_id), uco.cert_code
+    </select>
+
+    <select id="countGuidedCertificateTeams" resultType="long">
+        SELECT COUNT(*)
+        FROM (
+            SELECT uco.competition_series_id, uco.team_code
+            FROM user_certificate_origin uco
+            WHERE uco.del_flag = '0'
+              AND uco.cert_code IS NOT NULL
+              AND uco.cert_code != ''
+              AND uco.team_code IS NOT NULL
+              AND uco.team_code != ''
+              AND EXISTS (
+                  SELECT 1
+                  FROM competition_apply_info cai
+                  WHERE cai.competition_series_id = uco.competition_series_id
+                    AND cai.team_code = uco.team_code
+                    AND cai.leader_teacher_id = #{userId}
+                    AND cai.pay_status = 'paid'
+                    AND cai.del_flag = '0'
+              )
+            GROUP BY uco.competition_series_id, uco.team_code
+        ) guided_team
+    </select>
+
+    <select id="selectUserCertificateOriginList" parameterType="com.teaching.system.api.domain.UserCertificateOrigin" resultMap="UserCertificateOriginResult">
+        <include refid="selectUserCertificateOriginVo"/>
+        <where>
+            <if test="certCode != null and certCode != ''">
+                and cert_code = #{certCode}
+            </if>
+            <if test="certName != null and certName != ''">
+                and cert_name like concat('%', #{certName}, '%')
+            </if>
+            <if test="acquireWay != null and acquireWay != ''">
+                and acquire_way = #{acquireWay}
+            </if>
+            <if test="competitionSeriesId != null">
+                and competition_series_id = #{competitionSeriesId}
+            </if>
+            <if test="competitionTrackId != null and competitionTrackId != ''">
+                and competition_track_id = #{competitionTrackId}
+            </if>
+            <if test="secondLevelCode != null and secondLevelCode != ''">
+                and second_level_code = #{secondLevelCode}
+            </if>
+            <if test="courseId != null">
+                and course_id = #{courseId}
+            </if>
+            <if test="trainingProgramId != null">
+                and training_program_id = #{trainingProgramId}
+            </if>
+            <if test="certStatus != null and certStatus != ''">
+                and cert_status = #{certStatus}
+            </if>
+            <if test="teamCode != null and teamCode != ''">
+                and team_code = #{teamCode}
+            </if>
+            <if test="awardsName != null and awardsName != ''">
+                and awards_name = #{awardsName}
+            </if>
+            <if test="year != null and year != ''">
+                and year = #{year}
+            </if>
+            <if test="orgCode != null and orgCode != ''">
+                and org_code = #{orgCode}
+            </if>
+            <if test="player != null and player != ''">
+                and player like concat('%', #{player}, '%')
+            </if>
+            <if test="userName != null and userName != ''">
+                and user_name like concat('%', #{userName}, '%')
+            </if>
+            <if test="idCard != null and idCard != ''">
+                and id_card = #{idCard}
+            </if>
+            <if test="guideTeacher != null and guideTeacher != ''">
+                and guide_teacher like concat('%', #{guideTeacher}, '%')
+            </if>
+            <if test="schoolName != null and schoolName != ''">
+                and school_name like concat('%', #{schoolName}, '%')
+            </if>
+        </where>
+    </select>
+
+    <insert id="insertUserCertificateOrigin" parameterType="com.teaching.system.api.domain.UserCertificateOrigin" useGeneratedKeys="true" keyProperty="certId">
+        insert into user_certificate_origin
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="certCode != null">cert_code,</if>
+            <if test="certName != null">cert_name,</if>
+            <if test="certUrl != null">cert_url,</if>
+            <if test="issuanceDate != null">issuance_date,</if>
+            <if test="certPeriod != null">cert_period,</if>
+            <if test="acquireWay != null">acquire_way,</if>
+            <if test="competitionSeriesId != null">competition_series_id,</if>
+            <if test="competitionStageId != null">competition_stage_id,</if>
+            <if test="competitionTrackId != null">competition_track_id,</if>
+            <if test="secondLevelCode != null">second_level_code,</if>
+            <if test="courseId != null">course_id,</if>
+            <if test="trainingProgramId != null">training_program_id,</if>
+            <if test="certExchangeId != null">cert_exchange_id,</if>
+            <if test="certConfigId != null">cert_config_id,</if>
+            <if test="certStatus != null">cert_status,</if>
+            <if test="teamCode != null">team_code,</if>
+            <if test="awardsName != null">awards_name,</if>
+            <if test="awardsNameDesc != null">awards_name_desc,</if>
+            <if test="year != null">year,</if>
+            <if test="orgCode != null">org_code,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="player != null">player,</if>
+            <if test="userName != null">user_name,</if>
+            <if test="idCard != null">id_card,</if>
+            <if test="guideTeacher != null">guide_teacher,</if>
+            <if test="school != null">school,</if>
+            <if test="schoolName != null">school_name,</if>
+            <if test="yearLimit != null">year_limit,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="delFlag != null">del_flag,</if>
+            <if test="version != null">version,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="certCode != null">#{certCode},</if>
+            <if test="certName != null">#{certName},</if>
+            <if test="certUrl != null">#{certUrl},</if>
+            <if test="issuanceDate != null">#{issuanceDate},</if>
+            <if test="certPeriod != null">#{certPeriod},</if>
+            <if test="acquireWay != null">#{acquireWay},</if>
+            <if test="competitionSeriesId != null">#{competitionSeriesId},</if>
+            <if test="competitionStageId != null">#{competitionStageId},</if>
+            <if test="competitionTrackId != null">#{competitionTrackId},</if>
+            <if test="secondLevelCode != null">#{secondLevelCode},</if>
+            <if test="courseId != null">#{courseId},</if>
+            <if test="trainingProgramId != null">#{trainingProgramId},</if>
+            <if test="certExchangeId != null">#{certExchangeId},</if>
+            <if test="certConfigId != null">#{certConfigId},</if>
+            <if test="certStatus != null">#{certStatus},</if>
+            <if test="teamCode != null">#{teamCode},</if>
+            <if test="awardsName != null">#{awardsName},</if>
+            <if test="awardsNameDesc != null">#{awardsNameDesc},</if>
+            <if test="year != null">#{year},</if>
+            <if test="orgCode != null">#{orgCode},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="player != null">#{player},</if>
+            <if test="userName != null">#{userName},</if>
+            <if test="idCard != null">#{idCard},</if>
+            <if test="guideTeacher != null">#{guideTeacher},</if>
+            <if test="school != null">#{school},</if>
+            <if test="schoolName != null">#{schoolName},</if>
+            <if test="yearLimit != null">#{yearLimit},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+            <if test="version != null">#{version},</if>
+        </trim>
+    </insert>
+
+    <update id="updateUserCertificateOrigin" parameterType="com.teaching.system.api.domain.UserCertificateOrigin">
+        update user_certificate_origin
+        <set>
+            <if test="certCode != null">cert_code = #{certCode},</if>
+            <if test="certName != null">cert_name = #{certName},</if>
+            <if test="certUrl != null">cert_url = #{certUrl},</if>
+            <if test="issuanceDate != null">issuance_date = #{issuanceDate},</if>
+            <if test="certPeriod != null">cert_period = #{certPeriod},</if>
+            <if test="acquireWay != null">acquire_way = #{acquireWay},</if>
+            <if test="competitionSeriesId != null">competition_series_id = #{competitionSeriesId},</if>
+            <if test="competitionStageId != null">competition_stage_id = #{competitionStageId},</if>
+            <if test="competitionTrackId != null">competition_track_id = #{competitionTrackId},</if>
+            <if test="secondLevelCode != null">second_level_code = #{secondLevelCode},</if>
+            <if test="courseId != null">course_id = #{courseId},</if>
+            <if test="trainingProgramId != null">training_program_id = #{trainingProgramId},</if>
+            <if test="certExchangeId != null">cert_exchange_id = #{certExchangeId},</if>
+            <if test="certConfigId != null">cert_config_id = #{certConfigId},</if>
+            <if test="certStatus != null">cert_status = #{certStatus},</if>
+            <if test="teamCode != null">team_code = #{teamCode},</if>
+            <if test="awardsName != null">awards_name = #{awardsName},</if>
+            <if test="awardsNameDesc != null">awards_name_desc = #{awardsNameDesc},</if>
+            <if test="year != null">year = #{year},</if>
+            <if test="orgCode != null">org_code = #{orgCode},</if>
+            <if test="player != null">player = #{player},</if>
+            <if test="userName != null">user_name = #{userName},</if>
+            <if test="idCard != null">id_card = #{idCard},</if>
+            <if test="guideTeacher != null">guide_teacher = #{guideTeacher},</if>
+            <if test="school != null">school = #{school},</if>
+            <if test="schoolName != null">school_name = #{schoolName},</if>
+            <if test="yearLimit != null">year_limit = #{yearLimit},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+            version = version+1,
+        </set>
+        where cert_id = #{certId} and user_id = #{userId} and competition_series_id = #{competitionSeriesId}
+    </update>
+
+    <delete id="deleteUserCertificateOriginById" parameterType="com.teaching.system.api.domain.UserCertificateOrigin">
+        update user_certificate_origin set del_flag = '1' where cert_id = #{certId} and user_id = #{userId} and competition_series_id = #{competitionSeriesId}
+    </delete>
+
+    <delete id="deleteUserCertificateOriginByIds" parameterType="Long[]">
+        update user_certificate_origin set del_flag = '1' where cert_id in
+        <foreach item="certId" collection="array" open="(" separator="," close=")">
+            #{certId}
+        </foreach>
+    </delete>
+</mapper>

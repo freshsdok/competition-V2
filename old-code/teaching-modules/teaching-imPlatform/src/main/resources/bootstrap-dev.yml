@@ -1,0 +1,31 @@
+# Tomcat
+server:
+  port: 8888
+
+# Spring
+spring:
+  application:
+    # 应用名称
+    name: im-platform
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
+  cloud:
+    nacos:
+      discovery:
+        # 服务注册地址
+        server-addr: 127.0.0.1:8848
+        namespace: 4bc34c5b-b51f-4847-bf0b-a9f4e6486749
+      config:
+        # 配置中心地址
+        server-addr: 127.0.0.1:8848
+        namespace: 4bc34c5b-b51f-4847-bf0b-a9f4e6486749
+        # 配置文件格式
+        file-extension: yml
+        # 共享配置
+        shared-configs:
+          - application-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}

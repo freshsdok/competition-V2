@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.competition.review.mapper.ReviewSubmissionPermissionMapper">
+
+    <resultMap type="com.teaching.competition.review.domain.ReviewSubmissionPermission" id="ReviewSubmissionPermissionResult">
+<id property="id" column="id"/>
+<result property="activityId" column="activity_id"/>
+<result property="objectId" column="object_id"/>
+<result property="userId" column="user_id"/>
+<result property="orgId" column="org_id"/>
+<result property="permissionType" column="permission_type"/>
+<result property="status" column="status"/>
+<result property="sourceModule" column="source_module"/>
+<result property="sourceBizId" column="source_biz_id"/>
+<result property="grantedBy" column="granted_by"/>
+<result property="grantedTime" column="granted_time"/>
+<result property="usedTime" column="used_time"/>
+<result property="createBy" column="create_by"/>
+<result property="createTime" column="create_time"/>
+<result property="updateBy" column="update_by"/>
+<result property="updateTime" column="update_time"/>
+<result property="remark" column="remark"/>
+<result property="delFlag" column="del_flag"/>
+    </resultMap>
+
+    <sql id="selectReviewSubmissionPermissionVo">
+        select id, activity_id, object_id, user_id, org_id, permission_type, status, source_module, source_biz_id, granted_by, granted_time, used_time, create_by, create_time, update_by, update_time, remark, del_flag
+        from review_submission_permission
+    </sql>
+
+    <select id="selectById" parameterType="Long" resultMap="ReviewSubmissionPermissionResult">
+        <include refid="selectReviewSubmissionPermissionVo"/>
+        where id = #{id} and del_flag = '0'
+    </select>
+
+    <select id="selectList" parameterType="com.teaching.competition.review.domain.ReviewSubmissionPermission" resultMap="ReviewSubmissionPermissionResult">
+        <include refid="selectReviewSubmissionPermissionVo"/>
+        <where>
+    del_flag = '0'
+    <if test="activityId != null">
+        and activity_id = #{activityId}
+    </if>
+    <if test="objectId != null">
+        and object_id = #{objectId}
+    </if>
+    <if test="userId != null">
+        and user_id = #{userId}
+    </if>
+    <if test="orgId != null">
+        and org_id = #{orgId}
+    </if>
+    <if test="permissionType != null and permissionType != ''">
+        and permission_type = #{permissionType}
+    </if>
+    <if test="status != null and status != ''">
+        and status = #{status}
+    </if>
+    <if test="sourceModule != null and sourceModule != ''">
+        and source_module = #{sourceModule}
+    </if>
+    <if test="sourceBizId != null and sourceBizId != ''">
+        and source_biz_id = #{sourceBizId}
+    </if>
+    <if test="grantedBy != null">
+        and granted_by = #{grantedBy}
+    </if>
+    <if test="grantedTime != null">
+        and granted_time = #{grantedTime}
+    </if>
+    <if test="usedTime != null">
+        and used_time = #{usedTime}
+    </if>
+        </where>
+        order by id desc
+    </select>
+
+    <insert id="insert" parameterType="com.teaching.competition.review.domain.ReviewSubmissionPermission" useGeneratedKeys="true" keyProperty="id">
+        insert into review_submission_permission
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+    <if test="activityId != null">activity_id,</if>
+    <if test="objectId != null">object_id,</if>
+    <if test="userId != null">user_id,</if>
+    <if test="orgId != null">org_id,</if>
+    <if test="permissionType != null">permission_type,</if>
+    <if test="status != null">status,</if>
+    <if test="sourceModule != null">source_module,</if>
+    <if test="sourceBizId != null">source_biz_id,</if>
+    <if test="grantedBy != null">granted_by,</if>
+    <if test="grantedTime != null">granted_time,</if>
+    <if test="usedTime != null">used_time,</if>
+    <if test="createBy != null">create_by,</if>
+    <if test="createTime != null">create_time,</if>
+    <if test="updateBy != null">update_by,</if>
+    <if test="updateTime != null">update_time,</if>
+    <if test="remark != null">remark,</if>
+    <if test="delFlag != null">del_flag,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+    <if test="activityId != null">#{activityId},</if>
+    <if test="objectId != null">#{objectId},</if>
+    <if test="userId != null">#{userId},</if>
+    <if test="orgId != null">#{orgId},</if>
+    <if test="permissionType != null">#{permissionType},</if>
+    <if test="status != null">#{status},</if>
+    <if test="sourceModule != null">#{sourceModule},</if>
+    <if test="sourceBizId != null">#{sourceBizId},</if>
+    <if test="grantedBy != null">#{grantedBy},</if>
+    <if test="grantedTime != null">#{grantedTime},</if>
+    <if test="usedTime != null">#{usedTime},</if>
+    <if test="createBy != null">#{createBy},</if>
+    <if test="createTime != null">#{createTime},</if>
+    <if test="updateBy != null">#{updateBy},</if>
+    <if test="updateTime != null">#{updateTime},</if>
+    <if test="remark != null">#{remark},</if>
+    <if test="delFlag != null">#{delFlag},</if>
+        </trim>
+    </insert>
+
+    <update id="update" parameterType="com.teaching.competition.review.domain.ReviewSubmissionPermission">
+        update review_submission_permission
+        <set>
+    <if test="activityId != null">activity_id = #{activityId},</if>
+    <if test="objectId != null">object_id = #{objectId},</if>
+    <if test="userId != null">user_id = #{userId},</if>
+    <if test="orgId != null">org_id = #{orgId},</if>
+    <if test="permissionType != null">permission_type = #{permissionType},</if>
+    <if test="status != null">status = #{status},</if>
+    <if test="sourceModule != null">source_module = #{sourceModule},</if>
+    <if test="sourceBizId != null">source_biz_id = #{sourceBizId},</if>
+    <if test="grantedBy != null">granted_by = #{grantedBy},</if>
+    <if test="grantedTime != null">granted_time = #{grantedTime},</if>
+    <if test="usedTime != null">used_time = #{usedTime},</if>
+    <if test="updateBy != null">update_by = #{updateBy},</if>
+    <if test="updateTime != null">update_time = #{updateTime},</if>
+    <if test="remark != null">remark = #{remark},</if>
+        </set>
+        where id = #{id} and del_flag = '0'
+    </update>
+
+    <update id="deleteByIds">
+        update review_submission_permission
+        set del_flag = '1', update_by = #{updateBy}, update_time = now()
+        where id in
+        <foreach item="id" collection="ids" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+
+    <update id="deleteByObjectId">
+        update review_submission_permission
+        set del_flag = '1', update_by = #{updateBy}, update_time = now()
+        where activity_id = #{activityId}
+          and object_id = #{objectId}
+          and del_flag = '0'
+    </update>
+</mapper>

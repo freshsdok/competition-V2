@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.system.mapper.NotificationReceiverMapper">
+
+    <resultMap id="NotificationReceiverResult" type="NotificationReceiver">
+        <result property="id"             column="id"/>
+        <result property="notificationId" column="notification_id"/>
+        <result property="toUserId"       column="to_user_id"/>
+        <result property="isRead"         column="is_read"/>
+        <result property="readTime"       column="read_time"/>
+        <result property="orgId"          column="org_id"/>
+        <result property="delFlag"        column="del_flag"/>
+        <result property="createBy"       column="create_by"/>
+        <result property="createTime"     column="create_time"/>
+        <result property="updateBy"       column="update_by"/>
+        <result property="updateTime"     column="update_time"/>
+        <result property="receiveTime"    column="receive_time"/>
+    </resultMap>
+
+    <sql id="selectNotificationReceiverVo">
+        select id, notification_id, to_user_id, is_read, read_time, org_id, del_flag,
+               create_by, create_time, update_by, update_time, receive_time
+        from notification_receiver
+    </sql>
+
+    <select id="selectNotificationReceiverById" parameterType="Long" resultMap="NotificationReceiverResult">
+        <include refid="selectNotificationReceiverVo"/>
+        where id = #{id}
+    </select>
+
+    <select id="selectNotificationReceiverList" parameterType="NotificationReceiver" resultMap="NotificationReceiverResult">
+        <include refid="selectNotificationReceiverVo"/>
+        <where>
+            <if test="notificationId != null">
+                and notification_id = #{notificationId}
+            </if>
+            <if test="toUserId != null">
+                and to_user_id = #{toUserId}
+            </if>
+            <if test="isRead != null and isRead != ''">
+                and is_read = #{isRead}
+            </if>
+            <if test="orgId != null">
+                and org_id = #{orgId}
+            </if>
+            <!-- 仅查询未删除数据 -->
+            and del_flag = '0'
+        </where>
+    </select>
+
+    <insert id="insertNotificationReceiver" parameterType="NotificationReceiver" useGeneratedKeys="true" keyProperty="id">
+        insert into notification_receiver
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="notificationId != null">notification_id,</if>
+            <if test="toUserId != null">to_user_id,</if>
+            <if test="isRead != null and isRead != ''">is_read,</if>
+            <if test="readTime != null">read_time,</if>
+            <if test="orgId != null">org_id,</if>
+            <if test="delFlag != null and delFlag != ''">del_flag,</if>
+            <if test="createBy != null and createBy != ''">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null and updateBy != ''">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="receiveTime != null">receive_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="notificationId != null">#{notificationId},</if>
+            <if test="toUserId != null">#{toUserId},</if>
+            <if test="isRead != null and isRead != ''">#{isRead},</if>
+            <if test="readTime != null">#{readTime},</if>
+            <if test="orgId != null">#{orgId},</if>
+            <if test="delFlag != null and delFlag != ''">#{delFlag},</if>
+            <if test="createBy != null and createBy != ''">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null and updateBy != ''">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="receiveTime != null">#{receiveTime},</if>
+        </trim>
+    </insert>
+
+    <!-- 首次阅读/标记时插入（防重复），del_flag、is_read 由参数指定 -->
+    <insert id="insertReadIfAbsent" parameterType="NotificationReceiver">
+        insert into notification_receiver(notification_id, to_user_id, is_read, read_time, org_id, del_flag, create_by, create_time, receive_time)
+        select #{notificationId}, #{toUserId},
+               <choose><when test="isRead != null and isRead != ''">#{isRead}</when><otherwise>'1'</otherwise></choose>,
+               <choose><when test="isRead != null and isRead == '1'">sysdate()</when><otherwise>null</otherwise></choose>,
+               #{orgId},
+               <choose><when test="delFlag != null and delFlag != ''">#{delFlag}</when><otherwise>'0'</otherwise></choose>,
+               #{createBy}, sysdate(), sysdate()
+        from dual
+        where not exists (
+            select 1
+            from notification_receiver
+            where notification_id = #{notificationId}
+              and to_user_id = #{toUserId}
+        )
+    </insert>
+
+    <!-- 按接收人批量更新删除标识（收件箱全部删除） -->
+    <update id="updateDelFlagByToUserId">
+        update notification_receiver
+        set del_flag = #{delFlag}
+        where to_user_id = #{toUserId} and (del_flag is null or del_flag != #{delFlag})
+    </update>
+
+    <update id="updateNotificationReceiver" parameterType="NotificationReceiver">
+        update notification_receiver
+        <trim prefix="set" suffixOverrides=",">
+            <if test="notificationId != null">notification_id = #{notificationId},</if>
+            <if test="toUserId != null">to_user_id = #{toUserId},</if>
+            <if test="isRead != null and isRead != ''">is_read = #{isRead},</if>
+            <if test="readTime != null">read_time = #{readTime},</if>
+            <if test="orgId != null">org_id = #{orgId},</if>
+            <if test="delFlag != null and delFlag != ''">del_flag = #{delFlag},</if>
+            <if test="createBy != null and createBy != ''">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null and updateBy != ''">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="receiveTime != null">receive_time = #{receiveTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteNotificationReceiverById" parameterType="Long">
+        delete from notification_receiver where id = #{id}
+    </delete>
+
+    <delete id="deleteNotificationReceiverByIds" parameterType="Long">
+        delete from notification_receiver where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>
+

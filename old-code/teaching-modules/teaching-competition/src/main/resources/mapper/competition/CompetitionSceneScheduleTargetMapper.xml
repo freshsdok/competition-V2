@@ -1,0 +1,434 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.competition.mapper.CompetitionSceneScheduleTargetMapper">
+
+    <resultMap type="com.teaching.competition.domain.CompetitionSceneScheduleTarget" id="CompetitionSceneScheduleTargetResult">
+        <id property="targetId" column="target_id"/>
+        <result property="scheduleId" column="schedule_id"/>
+        <result property="competitionSeriesId" column="competition_series_id"/>
+        <result property="credentialType" column="credential_type"/>
+        <result property="configDimension" column="config_dimension"/>
+        <result property="targetKey" column="target_key"/>
+        <result property="targetSource" column="target_source"/>
+        <result property="targetType" column="target_type"/>
+        <result property="reviewObjectId" column="review_object_id"/>
+        <result property="targetName" column="target_name"/>
+        <result property="teamCode" column="team_code"/>
+        <result property="teamName" column="team_name"/>
+        <result property="memberId" column="member_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="userName" column="user_name"/>
+        <result property="phone" column="phone"/>
+        <result property="email" column="email"/>
+        <result property="idCardType" column="id_card_type"/>
+        <result property="idCardHash" column="id_card_hash"/>
+        <result property="idCardSuffix" column="id_card_suffix"/>
+        <result property="certificateCode" column="certificate_code"/>
+        <result property="school" column="school"/>
+        <result property="schoolName" column="school_name"/>
+        <result property="orgId" column="org_id"/>
+        <result property="orgName" column="org_name"/>
+        <result property="competitionRoleName" column="competition_role_name"/>
+        <result property="competitionTrackId" column="competition_track_id"/>
+        <result property="competitionTrackName" column="competition_track_name"/>
+        <result property="secondLevelCode" column="second_level_code"/>
+        <result property="secondLevelName" column="second_level_name"/>
+        <result property="leaderTeacherId" column="leader_teacher_id"/>
+        <result property="leaderTeacher" column="leader_teacher"/>
+        <result property="guideTeacher" column="guide_teacher"/>
+        <result property="seatNo" column="seat_no"/>
+        <result property="sequenceNo" column="sequence_no"/>
+        <result property="waitingGroupCode" column="waiting_group_code"/>
+        <result property="waitingGroupName" column="waiting_group_name"/>
+        <result property="targetSnapshotJson" column="target_snapshot_json"/>
+        <result property="matchStatus" column="match_status"/>
+        <result property="sourceModule" column="source_module"/>
+        <result property="sourceBizType" column="source_biz_type"/>
+        <result property="sourceBizId" column="source_biz_id"/>
+        <result property="status" column="status"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="remark" column="remark"/>
+        <result property="version" column="version"/>
+        <result property="delFlag" column="del_flag"/>
+    </resultMap>
+
+    <resultMap type="com.teaching.competition.domain.CompetitionSceneResourceSlotGroupScope"
+               id="CompetitionSceneResourceGroupOptionResult">
+        <result property="allowedGroupCode" column="allowed_group_code"/>
+        <result property="allowedGroupName" column="allowed_group_name"/>
+    </resultMap>
+
+    <sql id="selectCompetitionSceneScheduleTargetVo">
+        select target_id, schedule_id, competition_series_id, credential_type, config_dimension, target_key,
+               target_source, target_type, review_object_id, target_name, team_code, team_name, member_id,
+               user_id, user_name, phone, email, id_card_type,
+               id_card_hash, id_card_suffix, certificate_code, school, school_name, org_id, org_name, competition_role_name,
+               competition_track_id, competition_track_name, second_level_code, second_level_name,
+               leader_teacher_id, leader_teacher, guide_teacher, seat_no, sequence_no, waiting_group_code, waiting_group_name,
+               target_snapshot_json, match_status, source_module, source_biz_type, source_biz_id, status, create_by, create_time, update_by, update_time,
+               remark, version, del_flag
+        from competition_scene_schedule_target
+    </sql>
+
+    <select id="selectCompetitionSceneScheduleTargetById" parameterType="Long"
+            resultMap="CompetitionSceneScheduleTargetResult">
+        <include refid="selectCompetitionSceneScheduleTargetVo"/>
+        where target_id = #{targetId} and del_flag = '0'
+    </select>
+
+    <select id="selectCompetitionSceneScheduleTargetByScheduleId" parameterType="Long"
+            resultMap="CompetitionSceneScheduleTargetResult">
+        <include refid="selectCompetitionSceneScheduleTargetVo"/>
+        where schedule_id = #{scheduleId} and del_flag = '0'
+        order by case when sequence_no is null then 1 else 0 end,
+                 sequence_no asc, create_time asc, target_id asc
+    </select>
+
+    <select id="selectCompetitionSceneScheduleTargetByScheduleIdAndTargetKey"
+            resultMap="CompetitionSceneScheduleTargetResult">
+        <include refid="selectCompetitionSceneScheduleTargetVo"/>
+        where schedule_id = #{scheduleId} and target_key = #{targetKey}
+        order by target_id desc
+        limit 1
+    </select>
+
+    <select id="selectCompetitionSceneScheduleTargetByIds" resultMap="CompetitionSceneScheduleTargetResult">
+        <include refid="selectCompetitionSceneScheduleTargetVo"/>
+        where del_flag = '0' and target_id in
+        <foreach item="targetId" collection="targetIds" open="(" separator="," close=")">
+            #{targetId}
+        </foreach>
+    </select>
+
+    <select id="selectCompetitionSceneScheduleTargetList"
+            parameterType="com.teaching.competition.domain.CompetitionSceneScheduleTarget"
+            resultMap="CompetitionSceneScheduleTargetResult">
+        <include refid="selectCompetitionSceneScheduleTargetVo"/>
+        <where>
+            del_flag = '0'
+            <if test="scheduleId != null">
+                and schedule_id = #{scheduleId}
+            </if>
+            <if test="competitionSeriesId != null">
+                and competition_series_id = #{competitionSeriesId}
+            </if>
+            <if test="credentialType != null and credentialType != ''">
+                and credential_type = #{credentialType}
+            </if>
+            <if test="configDimension != null and configDimension != ''">
+                and config_dimension = #{configDimension}
+            </if>
+            <if test="targetKey != null and targetKey != ''">
+                and target_key = #{targetKey}
+            </if>
+            <if test="targetType != null and targetType != ''">
+                and target_type = #{targetType}
+            </if>
+            <if test="reviewObjectId != null">
+                and review_object_id = #{reviewObjectId}
+            </if>
+            <if test="targetName != null and targetName != ''">
+                and target_name like concat('%', #{targetName}, '%')
+            </if>
+            <if test="teamCode != null and teamCode != ''">
+                and team_code = #{teamCode}
+            </if>
+            <if test="teamName != null and teamName != ''">
+                and team_name like concat('%', #{teamName}, '%')
+            </if>
+            <if test="memberId != null">
+                and member_id = #{memberId}
+            </if>
+            <if test="userId != null">
+                and user_id = #{userId}
+            </if>
+            <if test="userName != null and userName != ''">
+                and user_name like concat('%', #{userName}, '%')
+            </if>
+            <if test="certificateCode != null and certificateCode != ''">
+                and certificate_code = #{certificateCode}
+            </if>
+            <if test="competitionRoleName != null and competitionRoleName != ''">
+                and competition_role_name = #{competitionRoleName}
+            </if>
+            <if test="competitionTrackId != null and competitionTrackId != ''">
+                and competition_track_id = #{competitionTrackId}
+            </if>
+            <if test="secondLevelCode != null and secondLevelCode != ''">
+                and second_level_code = #{secondLevelCode}
+            </if>
+            <if test="status != null and status != ''">
+                and status = #{status}
+            </if>
+            <if test="matchStatus != null and matchStatus != ''">
+                and match_status = #{matchStatus}
+            </if>
+        </where>
+        order by case when sequence_no is null then 1 else 0 end,
+                 sequence_no asc, create_time asc, target_id asc
+    </select>
+
+    <select id="selectDistinctGroupOptions" resultMap="CompetitionSceneResourceGroupOptionResult">
+        select distinct second_level_code as allowed_group_code,
+               case
+                   when second_level_name is null or second_level_name = '' then second_level_code
+                   else second_level_name
+               end as allowed_group_name
+        from competition_scene_schedule_target
+        <where>
+            del_flag = '0'
+            and second_level_code is not null
+            and second_level_code != ''
+            <if test="scheduleId != null">
+                and schedule_id = #{scheduleId}
+            </if>
+            <if test="competitionSeriesId != null">
+                and competition_series_id = #{competitionSeriesId}
+            </if>
+        </where>
+        order by allowed_group_name asc, allowed_group_code asc
+    </select>
+
+    <insert id="insertCompetitionSceneScheduleTarget"
+            parameterType="com.teaching.competition.domain.CompetitionSceneScheduleTarget"
+            useGeneratedKeys="true" keyProperty="targetId">
+        insert into competition_scene_schedule_target
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="scheduleId != null">schedule_id,</if>
+            <if test="competitionSeriesId != null">competition_series_id,</if>
+            <if test="credentialType != null">credential_type,</if>
+            <if test="configDimension != null">config_dimension,</if>
+            <if test="targetKey != null">target_key,</if>
+            <if test="targetSource != null">target_source,</if>
+            <if test="targetType != null">target_type,</if>
+            <if test="reviewObjectId != null">review_object_id,</if>
+            <if test="targetName != null">target_name,</if>
+            <if test="teamCode != null">team_code,</if>
+            <if test="teamName != null">team_name,</if>
+            <if test="memberId != null">member_id,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="userName != null">user_name,</if>
+            <if test="phone != null">phone,</if>
+            <if test="email != null">email,</if>
+            <if test="idCardType != null">id_card_type,</if>
+            <if test="idCardHash != null">id_card_hash,</if>
+            <if test="idCardSuffix != null">id_card_suffix,</if>
+            <if test="certificateCode != null">certificate_code,</if>
+            <if test="school != null">school,</if>
+            <if test="schoolName != null">school_name,</if>
+            <if test="orgId != null">org_id,</if>
+            <if test="orgName != null">org_name,</if>
+            <if test="competitionRoleName != null">competition_role_name,</if>
+            <if test="competitionTrackId != null">competition_track_id,</if>
+            <if test="competitionTrackName != null">competition_track_name,</if>
+            <if test="secondLevelCode != null">second_level_code,</if>
+            <if test="secondLevelName != null">second_level_name,</if>
+            <if test="leaderTeacherId != null">leader_teacher_id,</if>
+            <if test="leaderTeacher != null">leader_teacher,</if>
+            <if test="guideTeacher != null">guide_teacher,</if>
+            <if test="seatNo != null">seat_no,</if>
+            <if test="sequenceNo != null">sequence_no,</if>
+            <if test="waitingGroupCode != null">waiting_group_code,</if>
+            <if test="waitingGroupName != null">waiting_group_name,</if>
+            <if test="targetSnapshotJson != null">target_snapshot_json,</if>
+            <if test="matchStatus != null">match_status,</if>
+            <if test="sourceModule != null">source_module,</if>
+            <if test="sourceBizType != null">source_biz_type,</if>
+            <if test="sourceBizId != null">source_biz_id,</if>
+            <if test="status != null">status,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+            <if test="version != null">version,</if>
+            <if test="delFlag != null">del_flag,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="scheduleId != null">#{scheduleId},</if>
+            <if test="competitionSeriesId != null">#{competitionSeriesId},</if>
+            <if test="credentialType != null">#{credentialType},</if>
+            <if test="configDimension != null">#{configDimension},</if>
+            <if test="targetKey != null">#{targetKey},</if>
+            <if test="targetSource != null">#{targetSource},</if>
+            <if test="targetType != null">#{targetType},</if>
+            <if test="reviewObjectId != null">#{reviewObjectId},</if>
+            <if test="targetName != null">#{targetName},</if>
+            <if test="teamCode != null">#{teamCode},</if>
+            <if test="teamName != null">#{teamName},</if>
+            <if test="memberId != null">#{memberId},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="userName != null">#{userName},</if>
+            <if test="phone != null">#{phone},</if>
+            <if test="email != null">#{email},</if>
+            <if test="idCardType != null">#{idCardType},</if>
+            <if test="idCardHash != null">#{idCardHash},</if>
+            <if test="idCardSuffix != null">#{idCardSuffix},</if>
+            <if test="certificateCode != null">#{certificateCode},</if>
+            <if test="school != null">#{school},</if>
+            <if test="schoolName != null">#{schoolName},</if>
+            <if test="orgId != null">#{orgId},</if>
+            <if test="orgName != null">#{orgName},</if>
+            <if test="competitionRoleName != null">#{competitionRoleName},</if>
+            <if test="competitionTrackId != null">#{competitionTrackId},</if>
+            <if test="competitionTrackName != null">#{competitionTrackName},</if>
+            <if test="secondLevelCode != null">#{secondLevelCode},</if>
+            <if test="secondLevelName != null">#{secondLevelName},</if>
+            <if test="leaderTeacherId != null">#{leaderTeacherId},</if>
+            <if test="leaderTeacher != null">#{leaderTeacher},</if>
+            <if test="guideTeacher != null">#{guideTeacher},</if>
+            <if test="seatNo != null">#{seatNo},</if>
+            <if test="sequenceNo != null">#{sequenceNo},</if>
+            <if test="waitingGroupCode != null">#{waitingGroupCode},</if>
+            <if test="waitingGroupName != null">#{waitingGroupName},</if>
+            <if test="targetSnapshotJson != null">#{targetSnapshotJson},</if>
+            <if test="matchStatus != null">#{matchStatus},</if>
+            <if test="sourceModule != null">#{sourceModule},</if>
+            <if test="sourceBizType != null">#{sourceBizType},</if>
+            <if test="sourceBizId != null">#{sourceBizId},</if>
+            <if test="status != null">#{status},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="version != null">#{version},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+        </trim>
+    </insert>
+
+    <update id="restoreCompetitionSceneScheduleTarget"
+            parameterType="com.teaching.competition.domain.CompetitionSceneScheduleTarget">
+        update competition_scene_schedule_target
+        <set>
+            <if test="scheduleId != null">schedule_id = #{scheduleId},</if>
+            <if test="competitionSeriesId != null">competition_series_id = #{competitionSeriesId},</if>
+            <if test="credentialType != null">credential_type = #{credentialType},</if>
+            <if test="configDimension != null">config_dimension = #{configDimension},</if>
+            <if test="targetKey != null">target_key = #{targetKey},</if>
+            <if test="targetSource != null">target_source = #{targetSource},</if>
+            <if test="targetType != null">target_type = #{targetType},</if>
+            <if test="reviewObjectId != null">review_object_id = #{reviewObjectId},</if>
+            <if test="targetName != null">target_name = #{targetName},</if>
+            <if test="teamCode != null">team_code = #{teamCode},</if>
+            <if test="teamName != null">team_name = #{teamName},</if>
+            <if test="memberId != null">member_id = #{memberId},</if>
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="userName != null">user_name = #{userName},</if>
+            <if test="phone != null">phone = #{phone},</if>
+            <if test="email != null">email = #{email},</if>
+            <if test="idCardType != null">id_card_type = #{idCardType},</if>
+            <if test="idCardHash != null">id_card_hash = #{idCardHash},</if>
+            <if test="idCardSuffix != null">id_card_suffix = #{idCardSuffix},</if>
+            <if test="certificateCode != null">certificate_code = #{certificateCode},</if>
+            <if test="school != null">school = #{school},</if>
+            <if test="schoolName != null">school_name = #{schoolName},</if>
+            <if test="orgId != null">org_id = #{orgId},</if>
+            <if test="orgName != null">org_name = #{orgName},</if>
+            <if test="competitionRoleName != null">competition_role_name = #{competitionRoleName},</if>
+            <if test="competitionTrackId != null">competition_track_id = #{competitionTrackId},</if>
+            <if test="competitionTrackName != null">competition_track_name = #{competitionTrackName},</if>
+            <if test="secondLevelCode != null">second_level_code = #{secondLevelCode},</if>
+            <if test="secondLevelName != null">second_level_name = #{secondLevelName},</if>
+            <if test="leaderTeacherId != null">leader_teacher_id = #{leaderTeacherId},</if>
+            <if test="leaderTeacher != null">leader_teacher = #{leaderTeacher},</if>
+            <if test="guideTeacher != null">guide_teacher = #{guideTeacher},</if>
+            <if test="seatNo != null">seat_no = #{seatNo},</if>
+            <if test="sequenceNo != null">sequence_no = #{sequenceNo},</if>
+            <if test="waitingGroupCode != null">waiting_group_code = #{waitingGroupCode},</if>
+            <if test="waitingGroupName != null">waiting_group_name = #{waitingGroupName},</if>
+            <if test="targetSnapshotJson != null">target_snapshot_json = #{targetSnapshotJson},</if>
+            <if test="matchStatus != null">match_status = #{matchStatus},</if>
+            <if test="sourceModule != null">source_module = #{sourceModule},</if>
+            <if test="sourceBizType != null">source_biz_type = #{sourceBizType},</if>
+            <if test="sourceBizId != null">source_biz_id = #{sourceBizId},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            del_flag = '0',
+            version = version + 1,
+        </set>
+        where target_id = #{targetId} and del_flag != '0'
+    </update>
+
+    <update id="updateCompetitionSceneScheduleTarget"
+            parameterType="com.teaching.competition.domain.CompetitionSceneScheduleTarget">
+        update competition_scene_schedule_target
+        <set>
+            <if test="competitionSeriesId != null">competition_series_id = #{competitionSeriesId},</if>
+            <if test="credentialType != null">credential_type = #{credentialType},</if>
+            <if test="configDimension != null">config_dimension = #{configDimension},</if>
+            <if test="targetKey != null">target_key = #{targetKey},</if>
+            <if test="targetSource != null">target_source = #{targetSource},</if>
+            <if test="targetType != null">target_type = #{targetType},</if>
+            <if test="reviewObjectId != null">review_object_id = #{reviewObjectId},</if>
+            <if test="targetName != null">target_name = #{targetName},</if>
+            <if test="teamCode != null">team_code = #{teamCode},</if>
+            <if test="teamName != null">team_name = #{teamName},</if>
+            <if test="memberId != null">member_id = #{memberId},</if>
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="userName != null">user_name = #{userName},</if>
+            <if test="phone != null">phone = #{phone},</if>
+            <if test="email != null">email = #{email},</if>
+            <if test="idCardType != null">id_card_type = #{idCardType},</if>
+            <if test="idCardHash != null">id_card_hash = #{idCardHash},</if>
+            <if test="idCardSuffix != null">id_card_suffix = #{idCardSuffix},</if>
+            <if test="certificateCode != null">certificate_code = #{certificateCode},</if>
+            <if test="school != null">school = #{school},</if>
+            <if test="schoolName != null">school_name = #{schoolName},</if>
+            <if test="orgId != null">org_id = #{orgId},</if>
+            <if test="orgName != null">org_name = #{orgName},</if>
+            <if test="competitionRoleName != null">competition_role_name = #{competitionRoleName},</if>
+            <if test="competitionTrackId != null">competition_track_id = #{competitionTrackId},</if>
+            <if test="competitionTrackName != null">competition_track_name = #{competitionTrackName},</if>
+            <if test="secondLevelCode != null">second_level_code = #{secondLevelCode},</if>
+            <if test="secondLevelName != null">second_level_name = #{secondLevelName},</if>
+            <if test="leaderTeacherId != null">leader_teacher_id = #{leaderTeacherId},</if>
+            <if test="leaderTeacher != null">leader_teacher = #{leaderTeacher},</if>
+            <if test="guideTeacher != null">guide_teacher = #{guideTeacher},</if>
+            <if test="seatNo != null">seat_no = #{seatNo},</if>
+            <if test="sequenceNo != null">sequence_no = #{sequenceNo},</if>
+            <if test="waitingGroupCode != null">waiting_group_code = #{waitingGroupCode},</if>
+            <if test="waitingGroupName != null">waiting_group_name = #{waitingGroupName},</if>
+            <if test="targetSnapshotJson != null">target_snapshot_json = #{targetSnapshotJson},</if>
+            <if test="matchStatus != null">match_status = #{matchStatus},</if>
+            <if test="sourceModule != null">source_module = #{sourceModule},</if>
+            <if test="sourceBizType != null">source_biz_type = #{sourceBizType},</if>
+            <if test="sourceBizId != null">source_biz_id = #{sourceBizId},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            version = version + 1,
+        </set>
+        where target_id = #{targetId} and del_flag = '0'
+    </update>
+
+    <update id="updateCompetitionSceneScheduleTargetSequence">
+        update competition_scene_schedule_target
+        set sequence_no = #{sequenceNo},
+            update_by = #{updateBy},
+            update_time = now(),
+            version = version + 1
+        where schedule_id = #{scheduleId}
+          and target_id = #{targetId}
+          and del_flag = '0'
+    </update>
+
+    <update id="deleteCompetitionSceneScheduleTargetByIds">
+        update competition_scene_schedule_target
+        set del_flag = '1', update_by = #{updateBy}, update_time = now(), version = version + 1
+        where target_id in
+        <foreach item="targetId" collection="targetIds" open="(" separator="," close=")">
+            #{targetId}
+        </foreach>
+    </update>
+</mapper>

@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.system.mapper.SysErrorLogMapper">
+    
+    <resultMap type="SysErrorLog" id="SysErrorLogResult">
+        <result property="errorId"          column="error_id"          />
+        <result property="errorCode"        column="error_code"        />
+        <result property="errorType"        column="error_type"        />
+        <result property="errorLevel"       column="error_level"       />
+        <result property="errorMessage"     column="error_message"     />
+        <result property="exceptionClass"   column="exception_class"   />
+        <result property="exceptionMethod"  column="exception_method"  />
+        <result property="stackTrace"       column="stack_trace"       />
+        <result property="requestUrl"       column="request_url"       />
+        <result property="requestMethod"    column="request_method"    />
+        <result property="requestParam"     column="request_param"     />
+        <result property="userAgent"        column="user_agent"        />
+        <result property="operName"         column="oper_name"         />
+        <result property="operIp"           column="oper_ip"           />
+        <result property="browser"          column="browser"           />
+        <result property="os"               column="os"                />
+        <result property="status"           column="status"            />
+        <result property="handleBy"         column="handle_by"         />
+        <result property="handleTime"       column="handle_time"       />
+        <result property="handleRemark"     column="handle_remark"     />
+        <result property="errorTime"        column="error_time"        />
+        <result property="createTime"       column="create_time"       />
+    </resultMap>
+    
+    <sql id="selectErrorLogVo">
+        select error_id, error_code, error_type, error_level, error_message, 
+               exception_class, exception_method, stack_trace, request_url, request_method, 
+               request_param, user_agent, oper_name, oper_ip, browser, os, 
+               status, handle_by, handle_time, handle_remark, error_time, create_time
+        from sys_error_log
+    </sql>
+    
+    <select id="selectErrorLogById" parameterType="Long" resultMap="SysErrorLogResult">
+        <include refid="selectErrorLogVo"/>
+        where error_id = #{errorId}
+    </select>
+    
+    <select id="selectErrorLogList" parameterType="SysErrorLog" resultMap="SysErrorLogResult">
+        <include refid="selectErrorLogVo"/>
+        <where>
+            <!-- 关键词搜索：匹配错误编码/错误消息/异常类名/操作人员 -->
+            <if test="params.keyword != null and params.keyword != ''">
+                AND (
+                    error_code like concat('%', #{params.keyword}, '%')
+                    OR error_message like concat('%', #{params.keyword}, '%')
+                    OR exception_class like concat('%', #{params.keyword}, '%')
+                    OR oper_name like concat('%', #{params.keyword}, '%')
+                )
+            </if>
+            <if test="errorCode != null and errorCode != ''">
+                AND error_code like concat('%', #{errorCode}, '%')
+            </if>
+            <if test="errorType != null and errorType != ''">
+                AND error_type = #{errorType}
+            </if>
+            <if test="errorTypeList != null and errorTypeList != ''">
+                AND error_type IN
+                <foreach collection="errorTypeList" item="item" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="errorLevel != null and errorLevel != ''">
+                AND error_level = #{errorLevel}
+            </if>
+            <if test="errorMessage != null and errorMessage != ''">
+                AND error_message like concat('%', #{errorMessage}, '%')
+            </if>
+            <if test="exceptionClass != null and exceptionClass != ''">
+                AND exception_class like concat('%', #{exceptionClass}, '%')
+            </if>
+            <if test="operName != null and operName != ''">
+                AND oper_name like concat('%', #{operName}, '%')
+            </if>
+            <if test="operIp != null and operIp != ''">
+                AND oper_ip like concat('%', #{operIp}, '%')
+            </if>
+            <if test="browser != null and browser != ''">
+                AND browser like concat('%', #{browser}, '%')
+            </if>
+            <if test="status != null and status != ''">
+                AND status = #{status}
+            </if>
+            <if test="statusList != null and statusList != ''">
+                AND status IN
+                <foreach collection="statusList" item="item" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="params.beginTime != null and params.beginTime != ''"><!-- 开始时间检索 -->
+                AND date_format(error_time,'%y%m%d') &gt;= date_format(#{params.beginTime},'%y%m%d')
+            </if>
+            <if test="params.endTime != null and params.endTime != ''"><!-- 结束时间检索 -->
+                AND date_format(error_time,'%y%m%d') &lt;= date_format(#{params.endTime},'%y%m%d')
+            </if>
+        </where>
+        order by error_time desc
+    </select>
+    
+    <insert id="insertErrorLog" parameterType="SysErrorLog">
+        insert into sys_error_log (
+            <if test="errorCode != null and errorCode != ''">error_code,</if>
+            <if test="errorType != null and errorType != ''">error_type,</if>
+            <if test="errorLevel != null and errorLevel != ''">error_level,</if>
+            <if test="errorMessage != null and errorMessage != ''">error_message,</if>
+            <if test="exceptionClass != null and exceptionClass != ''">exception_class,</if>
+            <if test="exceptionMethod != null and exceptionMethod != ''">exception_method,</if>
+            <if test="stackTrace != null and stackTrace != ''">stack_trace,</if>
+            <if test="requestUrl != null and requestUrl != ''">request_url,</if>
+            <if test="requestMethod != null and requestMethod != ''">request_method,</if>
+            <if test="requestParam != null and requestParam != ''">request_param,</if>
+            <if test="userAgent != null and userAgent != ''">user_agent,</if>
+            <if test="operName != null and operName != ''">oper_name,</if>
+            <if test="operIp != null and operIp != ''">oper_ip,</if>
+            <if test="browser != null and browser != ''">browser,</if>
+            <if test="os != null and os != ''">os,</if>
+            <if test="status != null and status != ''">status,</if>
+            <if test="errorTime != null">error_time,</if>
+            create_time
+        ) values (
+            <if test="errorCode != null and errorCode != ''">#{errorCode},</if>
+            <if test="errorType != null and errorType != ''">#{errorType},</if>
+            <if test="errorLevel != null and errorLevel != ''">#{errorLevel},</if>
+            <if test="errorMessage != null and errorMessage != ''">#{errorMessage},</if>
+            <if test="exceptionClass != null and exceptionClass != ''">#{exceptionClass},</if>
+            <if test="exceptionMethod != null and exceptionMethod != ''">#{exceptionMethod},</if>
+            <if test="stackTrace != null and stackTrace != ''">#{stackTrace},</if>
+            <if test="requestUrl != null and requestUrl != ''">#{requestUrl},</if>
+            <if test="requestMethod != null and requestMethod != ''">#{requestMethod},</if>
+            <if test="requestParam != null and requestParam != ''">#{requestParam},</if>
+            <if test="userAgent != null and userAgent != ''">#{userAgent},</if>
+            <if test="operName != null and operName != ''">#{operName},</if>
+            <if test="operIp != null and operIp != ''">#{operIp},</if>
+            <if test="browser != null and browser != ''">#{browser},</if>
+            <if test="os != null and os != ''">#{os},</if>
+            <if test="status != null and status != ''">#{status},</if>
+            <if test="errorTime != null">#{errorTime},</if>
+            sysdate()
+        )
+    </insert>
+    
+    <update id="updateErrorLog" parameterType="SysErrorLog">
+        update sys_error_log 
+        <set>
+            <if test="status != null and status != ''">status = #{status},</if>
+            <if test="handleBy != null and handleBy != ''">handle_by = #{handleBy},</if>
+            <if test="handleTime != null">handle_time = #{handleTime},</if>
+            <if test="handleRemark != null">handle_remark = #{handleRemark},</if>
+        </set>
+        where error_id = #{errorId}
+    </update>
+    
+    <delete id="deleteErrorLogById" parameterType="Long">
+        delete from sys_error_log where error_id = #{errorId}
+    </delete>
+    
+    <delete id="deleteErrorLogByIds" parameterType="Long">
+        delete from sys_error_log where error_id in 
+        <foreach item="errorId" collection="array" open="(" separator="," close=")">
+            #{errorId}
+        </foreach>
+    </delete>
+    
+    <delete id="cleanErrorLog">
+        truncate table sys_error_log
+    </delete>
+    
+</mapper>

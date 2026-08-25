@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.competition.review.mapper.ReviewRecordMapper">
+
+    <resultMap type="com.teaching.competition.review.domain.ReviewRecord" id="ReviewRecordResult">
+<id property="id" column="id"/>
+<result property="activityId" column="activity_id"/>
+<result property="roundId" column="round_id"/>
+<result property="objectId" column="object_id"/>
+<result property="assignmentId" column="assignment_id"/>
+<result property="reviewerId" column="reviewer_id"/>
+<result property="reviewerUserId" column="reviewer_user_id"/>
+<result property="recordStatus" column="record_status"/>
+<result property="totalScore" column="total_score"/>
+<result property="grade" column="grade"/>
+<result property="recommendation" column="recommendation"/>
+<result property="commentText" column="comment_text"/>
+<result property="submittedTime" column="submitted_time"/>
+<result property="returnedTime" column="returned_time"/>
+<result property="lockedTime" column="locked_time"/>
+<result property="invalidTime" column="invalid_time"/>
+<result property="invalidReason" column="invalid_reason"/>
+<result property="createBy" column="create_by"/>
+<result property="createTime" column="create_time"/>
+<result property="updateBy" column="update_by"/>
+<result property="updateTime" column="update_time"/>
+<result property="remark" column="remark"/>
+<result property="delFlag" column="del_flag"/>
+    </resultMap>
+
+    <sql id="selectReviewRecordVo">
+        select id, activity_id, round_id, object_id, assignment_id, reviewer_id, reviewer_user_id, record_status, total_score, grade, recommendation, comment_text, submitted_time, returned_time, locked_time, invalid_time, invalid_reason, create_by, create_time, update_by, update_time, remark, del_flag
+        from review_record
+    </sql>
+
+    <select id="selectById" parameterType="Long" resultMap="ReviewRecordResult">
+        <include refid="selectReviewRecordVo"/>
+        where id = #{id} and del_flag = '0'
+    </select>
+
+    <select id="selectList" parameterType="com.teaching.competition.review.domain.ReviewRecord" resultMap="ReviewRecordResult">
+        <include refid="selectReviewRecordVo"/>
+        <where>
+    del_flag = '0'
+    <if test="activityId != null">
+        and activity_id = #{activityId}
+    </if>
+    <if test="roundId != null">
+        and round_id = #{roundId}
+    </if>
+    <if test="objectId != null">
+        and object_id = #{objectId}
+    </if>
+    <if test="assignmentId != null">
+        and assignment_id = #{assignmentId}
+    </if>
+    <if test="reviewerId != null">
+        and reviewer_id = #{reviewerId}
+    </if>
+    <if test="reviewerUserId != null">
+        and reviewer_user_id = #{reviewerUserId}
+    </if>
+    <if test="recordStatus != null and recordStatus != ''">
+        and record_status = #{recordStatus}
+    </if>
+    <if test="totalScore != null">
+        and total_score = #{totalScore}
+    </if>
+    <if test="grade != null and grade != ''">
+        and grade = #{grade}
+    </if>
+    <if test="recommendation != null and recommendation != ''">
+        and recommendation = #{recommendation}
+    </if>
+    <if test="commentText != null and commentText != ''">
+        and comment_text like concat('%', #{commentText}, '%')
+    </if>
+    <if test="submittedTime != null">
+        and submitted_time = #{submittedTime}
+    </if>
+    <if test="returnedTime != null">
+        and returned_time = #{returnedTime}
+    </if>
+    <if test="lockedTime != null">
+        and locked_time = #{lockedTime}
+    </if>
+    <if test="invalidTime != null">
+        and invalid_time = #{invalidTime}
+    </if>
+    <if test="invalidReason != null and invalidReason != ''">
+        and invalid_reason = #{invalidReason}
+    </if>
+        </where>
+        order by id desc
+    </select>
+
+    <insert id="insert" parameterType="com.teaching.competition.review.domain.ReviewRecord" useGeneratedKeys="true" keyProperty="id">
+        insert into review_record
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+    <if test="activityId != null">activity_id,</if>
+    <if test="roundId != null">round_id,</if>
+    <if test="objectId != null">object_id,</if>
+    <if test="assignmentId != null">assignment_id,</if>
+    <if test="reviewerId != null">reviewer_id,</if>
+    <if test="reviewerUserId != null">reviewer_user_id,</if>
+    <if test="recordStatus != null">record_status,</if>
+    <if test="totalScore != null">total_score,</if>
+    <if test="grade != null">grade,</if>
+    <if test="recommendation != null">recommendation,</if>
+    <if test="commentText != null">comment_text,</if>
+    <if test="submittedTime != null">submitted_time,</if>
+    <if test="returnedTime != null">returned_time,</if>
+    <if test="lockedTime != null">locked_time,</if>
+    <if test="invalidTime != null">invalid_time,</if>
+    <if test="invalidReason != null">invalid_reason,</if>
+    <if test="createBy != null">create_by,</if>
+    <if test="createTime != null">create_time,</if>
+    <if test="updateBy != null">update_by,</if>
+    <if test="updateTime != null">update_time,</if>
+    <if test="remark != null">remark,</if>
+    <if test="delFlag != null">del_flag,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+    <if test="activityId != null">#{activityId},</if>
+    <if test="roundId != null">#{roundId},</if>
+    <if test="objectId != null">#{objectId},</if>
+    <if test="assignmentId != null">#{assignmentId},</if>
+    <if test="reviewerId != null">#{reviewerId},</if>
+    <if test="reviewerUserId != null">#{reviewerUserId},</if>
+    <if test="recordStatus != null">#{recordStatus},</if>
+    <if test="totalScore != null">#{totalScore},</if>
+    <if test="grade != null">#{grade},</if>
+    <if test="recommendation != null">#{recommendation},</if>
+    <if test="commentText != null">#{commentText},</if>
+    <if test="submittedTime != null">#{submittedTime},</if>
+    <if test="returnedTime != null">#{returnedTime},</if>
+    <if test="lockedTime != null">#{lockedTime},</if>
+    <if test="invalidTime != null">#{invalidTime},</if>
+    <if test="invalidReason != null">#{invalidReason},</if>
+    <if test="createBy != null">#{createBy},</if>
+    <if test="createTime != null">#{createTime},</if>
+    <if test="updateBy != null">#{updateBy},</if>
+    <if test="updateTime != null">#{updateTime},</if>
+    <if test="remark != null">#{remark},</if>
+    <if test="delFlag != null">#{delFlag},</if>
+        </trim>
+    </insert>
+
+    <update id="update" parameterType="com.teaching.competition.review.domain.ReviewRecord">
+        update review_record
+        <set>
+    <if test="activityId != null">activity_id = #{activityId},</if>
+    <if test="roundId != null">round_id = #{roundId},</if>
+    <if test="objectId != null">object_id = #{objectId},</if>
+    <if test="assignmentId != null">assignment_id = #{assignmentId},</if>
+    <if test="reviewerId != null">reviewer_id = #{reviewerId},</if>
+    <if test="reviewerUserId != null">reviewer_user_id = #{reviewerUserId},</if>
+    <if test="recordStatus != null">record_status = #{recordStatus},</if>
+    <if test="totalScore != null">total_score = #{totalScore},</if>
+    <if test="grade != null">grade = #{grade},</if>
+    <if test="recommendation != null">recommendation = #{recommendation},</if>
+    <if test="commentText != null">comment_text = #{commentText},</if>
+    <if test="submittedTime != null">submitted_time = #{submittedTime},</if>
+    <if test="returnedTime != null">returned_time = #{returnedTime},</if>
+    <if test="lockedTime != null">locked_time = #{lockedTime},</if>
+    <if test="invalidTime != null">invalid_time = #{invalidTime},</if>
+    <if test="invalidReason != null">invalid_reason = #{invalidReason},</if>
+    <if test="updateBy != null">update_by = #{updateBy},</if>
+    <if test="updateTime != null">update_time = #{updateTime},</if>
+    <if test="remark != null">remark = #{remark},</if>
+        </set>
+        where id = #{id} and del_flag = '0'
+    </update>
+
+    <update id="deleteByIds">
+        update review_record
+        set del_flag = '1', update_by = #{updateBy}, update_time = now()
+        where id in
+        <foreach item="id" collection="ids" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+</mapper>

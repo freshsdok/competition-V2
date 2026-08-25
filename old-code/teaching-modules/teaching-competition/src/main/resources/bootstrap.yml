@@ -1,0 +1,19 @@
+# Spring
+spring:
+  profiles:
+    # 环境配置
+   active: dev
+    # 测试
+#    active: test
+    #备案
+#    active: filing
+#   active: cluster
+
+review:
+  preview:
+    enabled: true
+    cache-dir: ${file.path:/tmp}/review-preview
+    temp-dir: ${file.path:/tmp}/review-preview-temp
+    libreoffice-path: libreoffice
+    max-text-preview-size: 1048576
+    convert-timeout-seconds: 60

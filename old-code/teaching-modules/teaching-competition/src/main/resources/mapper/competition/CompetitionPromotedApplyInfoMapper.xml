@@ -1,0 +1,581 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.competition.mapper.CompetitionPromotedApplyInfoMapper">
+
+    <resultMap type="com.teaching.competition.domain.CompetitionPromotedApplyInfo" id="CompetitionPromotedApplyInfoResult">
+        <result property="applyId"    column="apply_id"    />
+        <result property="competitionSeriesId"    column="competition_series_id"    />
+        <result property="competitionName"    column="competition_name"    />
+        <result property="userId"    column="user_id"    />
+        <result property="teamCode"    column="team_code"    />
+        <result property="teamName"    column="team_name"    />
+        <result property="userName"    column="user_name"    />
+        <result property="employeeCode"    column="employee_code"    />
+        <result property="idCard"    column="id_card"    />
+        <result property="phone"    column="phone"    />
+        <result property="email"    column="email"    />
+        <result property="orgId"    column="org_id"    />
+        <result property="profession"    column="profession"    />
+        <result property="classInfo"    column="class_info"    />
+        <result property="guideTeacher"    column="guide_teacher"    />
+        <result property="guideTeacherPhone"    column="guide_teacher_phone"    />
+        <result property="guideTeacherEmail"    column="guide_teacher_email"    />
+        <result property="registrationTime"    column="registration_time"    />
+        <result property="payStatus"    column="pay_status"    />
+        <result property="competitionTrackName"    column="competition_track_name"    />
+        <result property="competitionTrackId"    column="competition_track_id"    />
+        <result property="competitionTrackType"    column="competition_track_type"    />
+        <result property="secondLevelCode"    column="second_level_code"    />
+        <result property="secondLevelName"    column="second_level_name"    />
+        <result property="leaderTeacherId"    column="leader_teacher_id"    />
+        <result property="school"    column="school"    />
+        <result property="province"    column="province"    />
+        <result property="nationality"    column="nationality"    />
+        <result property="schoolName"    column="school_name"    />
+        <result property="provinceName"    column="province_name"    />
+        <result property="nationalityName"    column="nationality_name"    />
+        <result property="sex"    column="sex"    />
+        <result property="competitionRoleName"    column="competition_role_name"    />
+        <result property="invoiceStatus"    column="invoice_status"    />
+        <result property="idCardType"    column="id_card_type"    />
+        <result property="teamSort"    column="team_sort"    />
+        <result property="applyStatus"    column="apply_status"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="version"    column="version"    />
+        <result property="delFlag"    column="del_flag"    />
+    </resultMap>
+
+    <resultMap type="com.teaching.competition.domain.CompetitionPromotedApplyInfo" id="CompetitionPromotedApplyAndPromotedInfoResult">
+        <result property="competitionSeriesId"    column="competition_series_id"    />
+        <result property="competitionName"    column="competition_name"    />
+        <result property="teamCode"    column="team_code"    />
+        <result property="teamName"    column="team_name"    />
+        <result property="schoolName"    column="school_name"    />
+        <result property="competitionTrackName"    column="competition_track_name"    />
+        <result property="applyStatus"    column="apply_status"    />
+        <collection property="promotedPlayerInfoList" ofType="com.teaching.competition.domain.PromotedPlayerInfo"
+                    column="{teamCode=team_code,competitionSeriesId=competition_series_id}" select="selectPromotedPlayerInfos"/>
+    </resultMap>
+
+    <resultMap type="com.teaching.competition.domain.CompetitionPromotedApplyPcInfo" id="CompetitionPromotedApplyAndPromotedInfoPcResult">
+        <result property="competitionSeriesId"    column="competition_series_id"    />
+        <result property="competitionName"    column="competition_name"    />
+        <result property="teamCode"    column="team_code"    />
+        <result property="teamName"    column="team_name"    />
+        <result property="schoolName"    column="school_name"    />
+        <result property="competitionTrackName"    column="competition_track_name"    />
+        <result property="applyStatus"    column="apply_status"    />
+        <result property="registrationTime"    column="registration_time"    />
+        <collection property="promotedPlayerInfoList" ofType="com.teaching.competition.domain.PromotedPlayerInfo"
+                    column="{teamCode=team_code,competitionSeriesId=competition_series_id}" select="selectPromotedPlayerInfos"/>
+    </resultMap>
+
+    <resultMap type="com.teaching.competition.domain.PromotedPlayerInfo" id="PromotedPlayerInfoResult">
+        <result property="applyId"    column="apply_id"    />
+        <result property="userId"    column="user_id"    />
+        <result property="competitionRoleName"    column="competition_role_name"    />
+        <result property="userName"    column="user_name"    />
+        <result property="teamSort"    column="team_sort"    />
+        <result property="idCard"    column="id_card"    />
+        <result property="phone"    column="phone"    />
+        <result property="email"    column="email"    />
+        <result property="teamSort"    column="team_sort"    />
+        <result property="sex"    column="sex"    />
+        <result property="registrationTime"    column="registration_time"    />
+    </resultMap>
+
+    <resultMap type="com.teaching.competition.domain.CompetitionPromotedApplyInfo" id="CompetitionPromotedApplyAndPromotedInfoResultAll">
+        <result property="competitionSeriesId"    column="competition_series_id"    />
+        <result property="competitionName"    column="competition_name"    />
+        <result property="fee"    column="fee"    />
+        <result property="teamCode"    column="team_code"    />
+        <result property="teamName"    column="team_name"    />
+        <result property="schoolName"    column="school_name"    />
+        <result property="competitionTrackName"    column="competition_track_name"    />
+        <result property="applyStatus"    column="apply_status"    />
+        <collection property="promotedPlayerInfoList" ofType="com.teaching.competition.domain.PromotedPlayerInfo">
+            <result property="applyId"    column="apply_id"    />
+            <result property="userId"    column="user_id"    />
+            <result property="competitionRoleName"    column="competition_role_name"    />
+            <result property="userName"    column="user_name"    />
+            <result property="teamSort"    column="team_sort"    />
+            <result property="idCard"    column="id_card"    />
+            <result property="phone"    column="phone"    />
+            <result property="email"    column="email"    />
+            <result property="employeeCode"    column="employee_code"    />
+            <result property="orgId"    column="org_id"    />
+            <result property="profession"    column="profession"    />
+            <result property="classInfo"    column="class_info"    />
+            <result property="guideTeacher"    column="guide_teacher"    />
+            <result property="guideTeacherPhone"    column="guide_teacher_phone"    />
+            <result property="guideTeacherEmail"    column="guide_teacher_email"    />
+            <result property="registrationTime"    column="registration_time"    />
+            <result property="payStatus"    column="pay_status"    />
+            <result property="competitionTrackId"    column="competition_track_id"    />
+            <result property="competitionTrackType"    column="competition_track_type"    />
+            <result property="secondLevelCode"    column="second_level_code"    />
+            <result property="secondLevelName"    column="second_level_name"    />
+            <result property="leaderTeacherId"    column="leader_teacher_id"    />
+            <result property="school"    column="school"    />
+            <result property="province"    column="province"    />
+            <result property="nationality"    column="nationality"    />
+            <result property="provinceName"    column="province_name"    />
+            <result property="nationalityName"    column="nationality_name"    />
+            <result property="sex"    column="sex"    />
+            <result property="invoiceStatus"    column="invoice_status"    />
+            <result property="idCardType"    column="id_card_type"    />
+            <result property="createBy"    column="create_by"    />
+            <result property="createTime"    column="create_time"    />
+            <result property="updateBy"    column="update_by"    />
+            <result property="updateTime"    column="update_time"    />
+            <result property="version"    column="version"    />
+            <result property="delFlag"    column="del_flag"    />
+        </collection>
+    </resultMap>
+
+    <sql id="selectCompetitionPromotedApplyInfoVo">
+        select apply_id, competition_series_id, competition_name, user_id, team_code, team_name, user_name, employee_code, id_card, phone, email, org_id, profession, class_info, guide_teacher, guide_teacher_phone, guide_teacher_email, registration_time, pay_status, competition_track_name, competition_track_id, competition_track_type, second_level_code, second_level_name, leader_teacher_id, school, province, nationality, school_name, province_name, nationality_name, sex, competition_role_name, invoice_status, id_card_type, team_sort, apply_status, create_by, create_time, update_by, update_time, version, del_flag from competition_promoted_apply_info
+    </sql>
+
+    <select id="selectCompetitionPromotedApplyInfoList" parameterType="com.teaching.competition.domain.CompetitionPromotedApplyInfo" resultMap="CompetitionPromotedApplyInfoResult">
+        <include refid="selectCompetitionPromotedApplyInfoVo"/>
+        <where>
+            AND del_flag = '0'
+            <if test="competitionSeriesId != null "> and competition_series_id = #{competitionSeriesId}</if>
+            <if test="competitionName != null  and competitionName != ''"> and competition_name like concat('%', #{competitionName}, '%')</if>
+            <if test="userId != null "> and user_id = #{userId}</if>
+            <if test="teamCode != null  and teamCode != ''"> and team_code = #{teamCode}</if>
+            <if test="teamName != null  and teamName != ''"> and team_name like concat('%', #{teamName}, '%')</if>
+            <if test="userName != null  and userName != ''"> and user_name like concat('%', #{userName}, '%')</if>
+            <if test="employeeCode != null  and employeeCode != ''"> and employee_code = #{employeeCode}</if>
+            <if test="idCard != null  and idCard != ''"> and id_card = #{idCard}</if>
+            <if test="phone != null  and phone != ''"> and phone = #{phone}</if>
+            <if test="email != null  and email != ''"> and email = #{email}</if>
+            <if test="orgId != null "> and org_id = #{orgId}</if>
+            <if test="profession != null  and profession != ''"> and profession = #{profession}</if>
+            <if test="classInfo != null  and classInfo != ''"> and class_info = #{classInfo}</if>
+            <if test="guideTeacher != null  and guideTeacher != ''"> and guide_teacher = #{guideTeacher}</if>
+            <if test="guideTeacherPhone != null  and guideTeacherPhone != ''"> and guide_teacher_phone = #{guideTeacherPhone}</if>
+            <if test="guideTeacherEmail != null  and guideTeacherEmail != ''"> and guide_teacher_email = #{guideTeacherEmail}</if>
+            <if test="registrationTime != null "> and registration_time = #{registrationTime}</if>
+            <if test="payStatus != null  and payStatus != ''"> and pay_status = #{payStatus}</if>
+            <if test="competitionTrackName != null  and competitionTrackName != ''"> and competition_track_name like concat('%', #{competitionTrackName}, '%')</if>
+            <if test="competitionTrackId != null  and competitionTrackId != ''"> and competition_track_id = #{competitionTrackId}</if>
+            <if test="competitionTrackType != null  and competitionTrackType != ''"> and competition_track_type = #{competitionTrackType}</if>
+            <if test="secondLevelCode != null  and secondLevelCode != ''"> and second_level_code = #{secondLevelCode}</if>
+            <if test="secondLevelName != null  and secondLevelName != ''"> and second_level_name like concat('%', #{secondLevelName}, '%')</if>
+            <if test="leaderTeacherId != null "> and leader_teacher_id = #{leaderTeacherId}</if>
+            <if test="school != null  and school != ''"> and school = #{school}</if>
+            <if test="province != null  and province != ''"> and province = #{province}</if>
+            <if test="nationality != null  and nationality != ''"> and nationality = #{nationality}</if>
+            <if test="schoolName != null  and schoolName != ''"> and school_name like concat('%', #{schoolName}, '%')</if>
+            <if test="provinceName != null  and provinceName != ''"> and province_name like concat('%', #{provinceName}, '%')</if>
+            <if test="nationalityName != null  and nationalityName != ''"> and nationality_name like concat('%', #{nationalityName}, '%')</if>
+            <if test="sex != null  and sex != ''"> and sex = #{sex}</if>
+            <if test="competitionRoleName != null  and competitionRoleName != ''"> and competition_role_name like concat('%', #{competitionRoleName}, '%')</if>
+            <if test="invoiceStatus != null  and invoiceStatus != ''"> and invoice_status = #{invoiceStatus}</if>
+            <if test="idCardType != null  and idCardType != ''"> and id_card_type = #{idCardType}</if>
+            <if test="teamSort != null "> and team_sort = #{teamSort}</if>
+            <if test="applyStatus != null  and applyStatus != ''"> and apply_status = #{applyStatus}</if>
+            <if test="version != null "> and version = #{version}</if>
+        </where>
+        order by competition_series_id ,team_code,competition_role_name desc,team_sort
+    </select>
+
+    <select id="selectCompetitionPromotedApplyInfoByTeamCodesAndSeriesId" parameterType="Long" resultMap="CompetitionPromotedApplyInfoResult">
+        <include refid="selectCompetitionPromotedApplyInfoVo"/>
+        where del_flag = '0' AND competition_series_id = #{competitionSeriesId} AND team_code in
+        <foreach item="teamCode" collection="teamCodes" open="(" separator="," close=")">
+            #{teamCode}
+        </foreach>
+        order by apply_id
+    </select>
+
+    <select id="selectCompetitionPromotedInfosByApplyId" parameterType="Long" resultMap="CompetitionPromotedApplyInfoResult">
+        SELECT a.*
+        FROM competition_promoted_apply_info a,
+        competition_promoted_apply_info b
+        WHERE b.apply_id =  #{applyId}
+        AND a.del_flag = '0'
+        AND a.team_code = b.team_code
+        AND a.competition_series_id = b.competition_series_id
+    </select>
+
+    <select id="selectCompetitionPromotedApplyInfoByApplyId" parameterType="Long" resultMap="CompetitionPromotedApplyInfoResult">
+        <include refid="selectCompetitionPromotedApplyInfoVo"/>
+        where apply_id = #{applyId}
+    </select>
+
+    <select id="getCompetitionPromotedTeamNum" parameterType="Long" resultType="Integer">
+        select count(distinct team_code) from competition_promoted_apply_info
+        where competition_series_id = #{competitionSeriesId}
+        <if test="leaderTeacherId != null"> and leader_teacher_id = #{leaderTeacherId}</if>
+        and del_flag = '0'
+    </select>
+
+    <select id="getCompetitionPromotedIsApplyInfoTeamNum" parameterType="Long" resultType="Integer">
+        select count(distinct team_code) from competition_promoted_apply_info
+        where competition_series_id = #{competitionSeriesId}
+        <if test="leaderTeacherId != null"> and leader_teacher_id = #{leaderTeacherId}</if>
+        and del_flag = '0' and apply_status = '1'
+    </select>
+
+    <select id="selectExistTeamCodes" parameterType="Long" resultType="java.lang.String">
+        select distinct team_code from competition_promoted_apply_info
+        where del_flag = '0' and competition_series_id = #{competitionSeriesId}
+    </select>
+
+    <insert id="insertCompetitionPromotedApplyInfo" parameterType="com.teaching.competition.domain.CompetitionPromotedApplyInfo" useGeneratedKeys="true" keyProperty="applyId">
+        insert into competition_promoted_apply_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="competitionSeriesId != null">competition_series_id,</if>
+            <if test="competitionName != null">competition_name,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="teamCode != null">team_code,</if>
+            <if test="teamName != null">team_name,</if>
+            <if test="userName != null">user_name,</if>
+            <if test="employeeCode != null">employee_code,</if>
+            <if test="idCard != null">id_card,</if>
+            <if test="phone != null">phone,</if>
+            <if test="email != null">email,</if>
+            <if test="orgId != null">org_id,</if>
+            <if test="profession != null">profession,</if>
+            <if test="classInfo != null">class_info,</if>
+            <if test="guideTeacher != null">guide_teacher,</if>
+            <if test="guideTeacherPhone != null">guide_teacher_phone,</if>
+            <if test="guideTeacherEmail != null">guide_teacher_email,</if>
+            <if test="registrationTime != null">registration_time,</if>
+            <if test="payStatus != null">pay_status,</if>
+            <if test="competitionTrackName != null">competition_track_name,</if>
+            <if test="competitionTrackId != null">competition_track_id,</if>
+            <if test="competitionTrackType != null">competition_track_type,</if>
+            <if test="secondLevelCode != null">second_level_code,</if>
+            <if test="secondLevelName != null">second_level_name,</if>
+            <if test="leaderTeacherId != null">leader_teacher_id,</if>
+            <if test="school != null">school,</if>
+            <if test="province != null">province,</if>
+            <if test="nationality != null">nationality,</if>
+            <if test="schoolName != null">school_name,</if>
+            <if test="provinceName != null">province_name,</if>
+            <if test="nationalityName != null">nationality_name,</if>
+            <if test="sex != null">sex,</if>
+            <if test="competitionRoleName != null">competition_role_name,</if>
+            <if test="invoiceStatus != null">invoice_status,</if>
+            <if test="idCardType != null">id_card_type,</if>
+            <if test="teamSort != null">team_sort,</if>
+            <if test="applyStatus != null">apply_status,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="version != null">version,</if>
+            <if test="delFlag != null">del_flag,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="competitionSeriesId != null">#{competitionSeriesId},</if>
+            <if test="competitionName != null">#{competitionName},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="teamCode != null">#{teamCode},</if>
+            <if test="teamName != null">#{teamName},</if>
+            <if test="userName != null">#{userName},</if>
+            <if test="employeeCode != null">#{employeeCode},</if>
+            <if test="idCard != null">#{idCard},</if>
+            <if test="phone != null">#{phone},</if>
+            <if test="email != null">#{email},</if>
+            <if test="orgId != null">#{orgId},</if>
+            <if test="profession != null">#{profession},</if>
+            <if test="classInfo != null">#{classInfo},</if>
+            <if test="guideTeacher != null">#{guideTeacher},</if>
+            <if test="guideTeacherPhone != null">#{guideTeacherPhone},</if>
+            <if test="guideTeacherEmail != null">#{guideTeacherEmail},</if>
+            <if test="registrationTime != null">#{registrationTime},</if>
+            <if test="payStatus != null">#{payStatus},</if>
+            <if test="competitionTrackName != null">#{competitionTrackName},</if>
+            <if test="competitionTrackId != null">#{competitionTrackId},</if>
+            <if test="competitionTrackType != null">#{competitionTrackType},</if>
+            <if test="secondLevelCode != null">#{secondLevelCode},</if>
+            <if test="secondLevelName != null">#{secondLevelName},</if>
+            <if test="leaderTeacherId != null">#{leaderTeacherId},</if>
+            <if test="school != null">#{school},</if>
+            <if test="province != null">#{province},</if>
+            <if test="nationality != null">#{nationality},</if>
+            <if test="schoolName != null">#{schoolName},</if>
+            <if test="provinceName != null">#{provinceName},</if>
+            <if test="nationalityName != null">#{nationalityName},</if>
+            <if test="sex != null">#{sex},</if>
+            <if test="competitionRoleName != null">#{competitionRoleName},</if>
+            <if test="invoiceStatus != null">#{invoiceStatus},</if>
+            <if test="idCardType != null">#{idCardType},</if>
+            <if test="teamSort != null">#{teamSort},</if>
+            <if test="applyStatus != null">#{applyStatus},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="version != null">#{version},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+        </trim>
+    </insert>
+
+    <insert id="batchInsertCompetitionPromotedApplyInfo">
+        insert into competition_promoted_apply_info (competition_series_id, competition_name, user_id, team_code, team_name,
+        user_name, employee_code, id_card, phone, email, org_id, profession, class_info, guide_teacher,
+        guide_teacher_phone, guide_teacher_email, pay_status, competition_track_name,
+        competition_track_id, competition_track_type, second_level_code, second_level_name, leader_teacher_id,
+        school, province, nationality, school_name, province_name, nationality_name, sex, competition_role_name,
+        invoice_status, id_card_type, team_sort, create_by, create_time)
+        values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.competitionSeriesId}, #{item.competitionName}, #{item.userId}, #{item.teamCode}, #{item.teamName},
+            #{item.userName}, #{item.employeeCode}, #{item.idCard}, #{item.phone}, #{item.email}, #{item.orgId}, #{item.profession}, #{item.classInfo}, #{item.guideTeacher}, #{item.guideTeacherPhone}, #{item.guideTeacherEmail}, #{item.payStatus}, #{item.competitionTrackName}, #{item.competitionTrackId}, #{item.competitionTrackType}, #{item.secondLevelCode}, #{item.secondLevelName}, #{item.leaderTeacherId}, #{item.school}, #{item.province}, #{item.nationality}, #{item.schoolName}, #{item.provinceName}, #{item.nationalityName}, #{item.sex}, #{item.competitionRoleName}, #{item.invoiceStatus}, #{item.idCardType},
+            #{item.teamSort}, #{item.createBy}, now())
+        </foreach>
+    </insert>
+
+    <update id="updateCompetitionPromotedApplyInfo" parameterType="com.teaching.competition.domain.CompetitionPromotedApplyInfo">
+        update competition_promoted_apply_info
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="competitionSeriesId != null">competition_series_id = #{competitionSeriesId},</if>
+            <if test="competitionName != null">competition_name = #{competitionName},</if>
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="teamCode != null">team_code = #{teamCode},</if>
+            <if test="teamName != null">team_name = #{teamName},</if>
+            <if test="userName != null">user_name = #{userName},</if>
+            <if test="employeeCode != null">employee_code = #{employeeCode},</if>
+            <if test="idCard != null">id_card = #{idCard},</if>
+            <if test="phone != null">phone = #{phone},</if>
+            <if test="email != null">email = #{email},</if>
+            <if test="orgId != null">org_id = #{orgId},</if>
+            <if test="profession != null">profession = #{profession},</if>
+            <if test="classInfo != null">class_info = #{classInfo},</if>
+            <if test="guideTeacher != null">guide_teacher = #{guideTeacher},</if>
+            <if test="guideTeacherPhone != null">guide_teacher_phone = #{guideTeacherPhone},</if>
+            <if test="guideTeacherEmail != null">guide_teacher_email = #{guideTeacherEmail},</if>
+            <if test="registrationTime != null">registration_time = #{registrationTime},</if>
+            <if test="payStatus != null">pay_status = #{payStatus},</if>
+            <if test="competitionTrackName != null">competition_track_name = #{competitionTrackName},</if>
+            <if test="competitionTrackId != null">competition_track_id = #{competitionTrackId},</if>
+            <if test="competitionTrackType != null">competition_track_type = #{competitionTrackType},</if>
+            <if test="secondLevelCode != null">second_level_code = #{secondLevelCode},</if>
+            <if test="secondLevelName != null">second_level_name = #{secondLevelName},</if>
+            <if test="leaderTeacherId != null">leader_teacher_id = #{leaderTeacherId},</if>
+            <if test="school != null">school = #{school},</if>
+            <if test="province != null">province = #{province},</if>
+            <if test="nationality != null">nationality = #{nationality},</if>
+            <if test="schoolName != null">school_name = #{schoolName},</if>
+            <if test="provinceName != null">province_name = #{provinceName},</if>
+            <if test="nationalityName != null">nationality_name = #{nationalityName},</if>
+            <if test="sex != null">sex = #{sex},</if>
+            <if test="competitionRoleName != null">competition_role_name = #{competitionRoleName},</if>
+            <if test="invoiceStatus != null">invoice_status = #{invoiceStatus},</if>
+            <if test="idCardType != null">id_card_type = #{idCardType},</if>
+            <if test="teamSort != null">team_sort = #{teamSort},</if>
+            <if test="applyStatus != null">apply_status = #{applyStatus},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="version != null">version = #{version},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+        </trim>
+        where apply_id = #{applyId}
+    </update>
+
+    <delete id="deleteCompetitionPromotedApplyInfoByApplyId" parameterType="Long">
+        delete from competition_promoted_apply_info where apply_id = #{applyId}
+    </delete>
+
+    <delete id="deleteCompetitionPromotedApplyInfoByApplyIds" parameterType="String">
+        delete from competition_promoted_apply_info where apply_id in
+        <foreach item="applyId" collection="array" open="(" separator="," close=")">
+            #{applyId}
+        </foreach>
+    </delete>
+
+    <select id="countCompetitionPromotedApplyInfoList" parameterType="Long" resultType="Integer">
+        select COUNT(distinct team_code)  from competition_promoted_apply_info
+        where competition_series_id = #{competitionSeriesId} AND del_flag = '0'
+    </select>
+
+    <select id="selectPromotedPlayerInfoListByCompetitionSeries"  parameterType="com.teaching.competition.domain.CompetitionPromotedApplyInfo" resultMap="CompetitionPromotedApplyAndPromotedInfoResult">
+        SELECT distinct
+        competition_series_id,competition_name,team_code,team_name,school_name,competition_track_name,apply_status
+        FROM competition_promoted_apply_info
+        where competition_series_id = #{competitionSeriesId} AND del_flag = '0'
+        <if test="teamCode !=null and teamCode != ''">
+            AND team_code = #{teamCode}
+        </if>
+        <if test="leaderTeacherId != null">
+            AND leader_teacher_id = #{leaderTeacherId}
+        </if>
+        <if test="schoolName !=null and schoolName != ''">
+            AND school_name like concat('%', #{schoolName},'%')
+        </if>
+        <if test="competitionTrackName != null and competitionTrackName != ''">
+            AND competition_track_name like concat('%', #{competitionTrackName},'%')
+        </if>
+        <if test="userName != null  and userName != ''">
+            and team_code in (select team_code from competition_promoted_apply_info
+            where user_name like concat('%', #{userName}, '%') and del_flag = '0'
+            and competition_role_name != '指导教师')
+        </if>
+        <if test="guideTeacher != null  and guideTeacher != ''">
+            and team_code in (select team_code from competition_promoted_apply_info
+            where guide_teacher like concat('%', #{guideTeacher}, '%') and del_flag = '0')
+        </if>
+        ORDER BY team_code
+    </select>
+
+    <select id="selectPromotedPlayerInfoListByCompetitionSeriesPc"  parameterType="com.teaching.competition.domain.CompetitionPromotedApplyInfo" resultMap="CompetitionPromotedApplyAndPromotedInfoPcResult">
+        SELECT distinct
+        date_format(registration_time,'%Y-%m-%d') as registration_time,competition_series_id,competition_name,team_code,team_name,school_name,competition_track_name
+        FROM competition_promoted_apply_info
+        where competition_series_id = #{competitionSeriesId} AND del_flag = '0'
+        <if test="teamCode !=null and teamCode != ''">
+            AND team_code = #{teamCode}
+        </if>
+        <if test="leaderTeacherId != null">
+            AND leader_teacher_id = #{leaderTeacherId}
+        </if>
+        <if test="schoolName !=null and schoolName != ''">
+            AND school_name like concat('%', #{schoolName},'%')
+        </if>
+        <if test="competitionTrackName != null and competitionTrackName != ''">
+            AND competition_track_name like concat('%', #{competitionTrackName},'%')
+        </if>
+        <if test="userName != null  and userName != ''">
+            and team_code in (select team_code from competition_promoted_apply_info
+            where user_name like concat('%', #{userName}, '%') and del_flag = '0'
+            and competition_role_name != '指导教师')
+        </if>
+        <if test="guideTeacher != null  and guideTeacher != ''">
+            and team_code in (select team_code from competition_promoted_apply_info
+            where guide_teacher like concat('%', #{guideTeacher}, '%') and del_flag = '0')
+        </if>
+        ORDER BY team_code
+    </select>
+
+    <select id="selectPromotedPlayerInfos" resultMap="PromotedPlayerInfoResult">
+        SELECT apply_id,user_id,competition_role_name,user_name,team_sort,phone,id_card,email,employee_code,registration_time,sex
+        FROM competition_promoted_apply_info
+        where competition_series_id = #{competitionSeriesId} AND team_code = #{teamCode} AND del_flag = '0'
+    </select>
+
+    <select id="selectPromotedPlayerAllInfoListByCompetitionSeries"  resultMap="CompetitionPromotedApplyAndPromotedInfoResultAll">
+        SELECT
+        apply_id,competition_series_id,competition_name,team_code,team_name,school_name,competition_track_name,apply_status,
+        user_id,competition_role_name,user_name,team_sort,phone,id_card,email,employee_code,
+        org_id,profession,class_info,guide_teacher,guide_teacher_phone,guide_teacher_email,registration_time,pay_status,
+        competition_track_id,competition_track_type,second_level_code,second_level_name,leader_teacher_id,school,province,
+        nationality,province_name,nationality_name,sex,invoice_status,id_card_type,create_by,create_time,update_by,update_time,version,del_flag
+        FROM competition_promoted_apply_info
+        where competition_series_id = #{competitionSeriesId} AND del_flag = '0'  and team_code in
+        <foreach item="teamCode" collection="teamCodes" open="(" separator="," close=")">
+            #{teamCode}
+        </foreach>
+        ORDER BY team_code,team_sort,apply_id
+    </select>
+
+    <!-- 根据team_code逻辑删除 -->
+    <update id="logicalDelCompetitionPromotedApplyInfoByTeamCodes" >
+        update competition_promoted_apply_info set del_flag = '1',update_time = NOW()
+        where del_flag = '0' and team_code in
+        <foreach item="teamCode" collection="array" open="(" separator="," close=")">
+            #{teamCode}
+        </foreach>
+    </update>
+
+    <select id="selectApplyInfoByCompetitionSeriesIdAndTeamCode" resultType="String">
+        select apply_status from competition_promoted_apply_info
+        where del_flag = '0'  and competition_series_id = #{competitionSeriesId} and team_code = #{teamCode} and apply_status = '0'
+        limit 1
+    </select>
+
+    <update id="logicalDelCompetitionPromotedApplyInfoByTeamCodeAndCompetitionSeriesId">
+        update competition_promoted_apply_info set del_flag = '1',update_time = NOW(),update_by = #{updateBy}
+        where del_flag = '0'  and competition_series_id = #{competitionSeriesId} and team_code = #{teamCode} and apply_status = '0'
+    </update>
+
+    <update id="logicalDelCompetitionPromotedApplyInfoByCompetitionSeriesId">
+        update competition_promoted_apply_info set del_flag = '1'
+        where del_flag = '0'  and competition_series_id = #{competitionSeriesId} and apply_status = '0'
+    </update>
+
+    <!-- 根据apply_id修改team_sort 批量 -->
+    <update id="updateCompetitionPromotedApplyInfos" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" separator=";">
+            update competition_promoted_apply_info
+            set team_sort = #{item.teamSort},update_time = NOW(),update_by = #{item.updateBy}
+            where apply_id = #{item.applyId}
+        </foreach>
+    </update>
+
+    <!-- 根据apply_id逻辑删除 -->
+    <delete id="logicalDeleteCompetitionPromotedApplyInfoByApplyIds">
+        update competition_promoted_apply_info set del_flag = '1',update_time = NOW(),update_by = #{updateBy}
+        where del_flag = '0' and apply_id in
+        <foreach item="applyId" collection="applyIds" open="(" separator="," close=")">
+            #{applyId}
+        </foreach>
+    </delete>
+
+    <!-- 根据apply_id修改guide_teacher 批量  -->
+    <update id="updateCompetitionPromotedApplyInfoGuideTeacher" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" separator=";">
+            update competition_promoted_apply_info
+            set guide_teacher = #{item.userName},user_name = #{item.userName},update_time = NOW(),update_by = #{item.updateBy}
+            where apply_id = #{item.applyId}
+        </foreach>
+    </update>
+
+    <!--批量新增-->
+    <insert id="insertCompetitionPromotedApplyInfos" parameterType="java.util.List">
+        insert into competition_promoted_apply_info
+        (
+        competition_series_id,
+        competition_name,
+        team_code,
+        team_name,
+        user_name,
+        guide_teacher,
+        competition_role_name,
+        school,
+        school_name,
+        competition_track_name,
+        competition_track_id, competition_track_type,
+        second_level_code, second_level_name,
+        registration_time,leader_teacher_id,
+        pay_status,
+        team_sort,
+        create_by,
+        create_time
+        )
+        values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.competitionSeriesId}, #{item.competitionName}, #{item.teamCode}, #{item.teamName}, #{item.userName}, #{item.guideTeacher},
+            #{item.competitionRoleName}, #{item.school}, #{item.schoolName}, #{item.competitionTrackName},
+            #{item.competitionTrackId}, #{item.competitionTrackType}, #{item.secondLevelCode}, #{item.secondLevelName},
+            #{item.registrationTime}, #{item.leaderTeacherId},#{item.payStatus}, #{item.teamSort},#{item.createBy},NOW())
+        </foreach>
+    </insert>
+
+    <update id="updateApplyStatusByCompetitionAndTeamCodeBatch">
+        update competition_promoted_apply_info
+        set apply_status = #{applyStatus},update_time = NOW(),update_by = #{updateBy}
+        where del_flag = '0' and competition_series_id = #{competitionSeriesId} and team_code in
+        <foreach item="teamCode" collection="teamCodes" open="(" separator="," close=")">
+            #{teamCode}
+        </foreach>
+    </update>
+
+    <update id="updateApplyStatusByCompetitionAndTeamCode">
+        update competition_promoted_apply_info
+        set apply_status = #{applyStatus},update_time = NOW(),update_by = #{updateBy},team_code = #{newTeamCode},registration_time =  sysdate()
+        where del_flag = '0' and competition_series_id = #{competitionSeriesId} and team_code = #{oldTeamCode}
+    </update>
+</mapper>

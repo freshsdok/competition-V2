@@ -1,0 +1,2 @@
+com.teaching.common.log.service.AsyncLogService
+com.teaching.common.log.aspect.LogAspect

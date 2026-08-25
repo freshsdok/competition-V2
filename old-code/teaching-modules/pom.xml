@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>com.teaching</groupId>
+        <artifactId>teaching</artifactId>
+        <version>3.6.6</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <modules>
+        <module>teaching-system</module>
+        <module>teaching-gen</module>
+        <module>teaching-job</module>
+        <module>teaching-file</module>
+        <module>teaching-imPlatform</module>
+        <module>teaching-imServer</module>
+        <module>teaching-competition</module>
+        <module>teaching-content</module>
+        <module>teaching-course</module>
+        <module>teaching-flowable</module>
+        <module>teaching-wxApp</module>
+    </modules>
+
+    <artifactId>teaching-modules</artifactId>
+    <packaging>pom</packaging>
+
+    <description>
+        teaching-modules业务模块
+    </description>
+
+</project>

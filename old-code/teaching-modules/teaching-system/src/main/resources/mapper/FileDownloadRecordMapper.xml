@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.system.mapper.FileDownloadRecordMapper">
+
+    <resultMap type="FileDownloadRecord" id="FileDownloadRecordResult">
+        <result property="id"    column="id"    />
+        <result property="userId"    column="user_id"    />
+        <result property="userName"    column="user_name"    />
+        <result property="nickName"    column="nick_name"    />
+        <result property="taskId"    column="task_id"    />
+        <result property="taskName"    column="task_name"    />
+        <result property="fileTaskId"    column="file_task_id"    />
+        <result property="fileTaskName"    column="file_task_name"    />
+        <result property="fileName"    column="file_name"    />
+        <result property="downloadTime"    column="download_time"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectFileDownloadRecordVo">
+        select fdr.id, fdr.user_id, fdr.user_name,
+               IFNULL((select real_name from auth_info where user_id = fdr.user_id and del_flag = '0' and `auth_status` = '5' order by auth_time desc limit 1),su.`nick_name` )as nick_name,
+               fdr.task_id,ft.task_name,fdr.file_task_id, fdr.file_task_name, fdr.file_name, fdr.download_time, fdr.del_flag,
+               fdr.create_by, fdr.create_time, fdr.update_by, fdr.update_time, fdr.remark
+                from file_download_record fdr
+                LEFT JOIN file_task ft ON ft.id = fdr.task_id
+                LEFT JOIN sys_user su ON fdr.user_id = su.user_id
+    </sql>
+
+    <select id="selectFileDownloadRecordList" parameterType="FileDownloadRecord" resultMap="FileDownloadRecordResult">
+        <include refid="selectFileDownloadRecordVo"/>
+        <where>
+            and fdr.del_flag = '0'
+            <if test="userId != null "> and fdr.user_id = #{userId}</if>
+            <if test="userName != null  and userName != ''"> and fdr.user_name like concat('%', #{userName}, '%')</if>
+            <if test="nickName != null  and nickName != ''">
+                AND ((select real_name from auth_info where user_id = fdr.user_id and del_flag = '0' and `auth_status` = '5' order by auth_time desc limit 1) like  concat('%', #{nickName}, '%')
+                OR su.nick_name like  concat('%', #{nickName}, '%'))
+             </if>
+            <if test="fileTaskId != null "> and fdr.file_task_id = #{fileTaskId}</if>
+            <if test="fileTaskName != null  and fileTaskName != ''"> and fdr.file_task_name like concat('%', #{fileTaskName}, '%')</if>
+            <if test="fileName != null  and fileName != ''"> and fdr.file_name like concat('%', #{fileName}, '%')</if>
+            <if test="createBy != null  and createBy != ''"> and fdr.create_by like concat('%', #{createBy}, '%')</if>
+            <if test="downloadTime != null "> and fdr.download_time = #{downloadTime}</if>
+            <if test="params.beginTime != null and params.beginTime != ''">
+                and fdr.create_time &gt;= #{params.beginTime}
+            </if>
+            <if test="params.endTime != null and params.endTime != ''">
+                and fdr.create_time &lt;= #{params.endTime}
+            </if>
+            <if test="taskName != null and taskName !=''"> and ft.task_name like concat('%', #{taskName}, '%')</if>
+        </where>
+        order by fdr.create_time desc
+    </select>
+
+    <select id="selectFileDownloadRecordList1" parameterType="FileDownloadRecord" resultMap="FileDownloadRecordResult">
+        SELECT
+            fdr.id, fdr.user_id, fdr.user_name,
+            COALESCE(auth.real_name, su.nick_name) AS nick_name,
+            fdr.task_id, ft.task_name, fdr.file_task_id, fdr.file_task_name,
+            fdr.file_name, fdr.download_time, fdr.del_flag,
+            fdr.create_by, fdr.create_time, fdr.update_by, fdr.update_time, fdr.remark
+        FROM file_download_record fdr
+                 LEFT JOIN file_task ft ON ft.id = fdr.task_id
+                 LEFT JOIN sys_user su ON fdr.user_id = su.user_id
+                 LEFT JOIN (
+            SELECT user_id, real_name
+            FROM (
+                     SELECT user_id, real_name,
+                            ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY auth_time DESC) AS rn
+                     FROM auth_info
+                     WHERE del_flag = '0' AND auth_status = '5'
+                 ) t
+            WHERE rn = 1
+        ) auth ON auth.user_id = fdr.user_id
+        <where>
+            and fdr.del_flag = '0'
+            <if test="userId != null "> and fdr.user_id = #{userId}</if>
+            <if test="userName != null  and userName != ''"> and fdr.user_name like concat('%', #{userName}, '%')</if>
+            <if test="nickName != null  and nickName != ''">
+                AND (
+                COALESCE(auth.real_name, su.nick_name) LIKE concat('%', #{nickName}, '%')
+                )
+            </if>
+            <if test="fileTaskId != null "> and fdr.file_task_id = #{fileTaskId}</if>
+            <if test="fileTaskName != null  and fileTaskName != ''"> and fdr.file_task_name like concat('%', #{fileTaskName}, '%')</if>
+            <if test="fileName != null  and fileName != ''"> and fdr.file_name like concat('%', #{fileName}, '%')</if>
+            <if test="createBy != null  and createBy != ''"> and fdr.create_by like concat('%', #{createBy}, '%')</if>
+            <if test="downloadTime != null "> and fdr.download_time = #{downloadTime}</if>
+            <if test="params.beginTime != null and params.beginTime != ''">
+                and fdr.create_time &gt;= #{params.beginTime}
+            </if>
+            <if test="params.endTime != null and params.endTime != ''">
+                and fdr.create_time &lt;= #{params.endTime}
+            </if>
+            <if test="taskName != null and taskName !=''"> and ft.task_name like concat('%', #{taskName}, '%')</if>
+        </where>
+        order by fdr.create_time desc
+    </select>
+
+    <select id="selectFileDownloadRecordById" parameterType="Long" resultMap="FileDownloadRecordResult">
+        <include refid="selectFileDownloadRecordVo"/>
+        where fdr.id = #{id}
+    </select>
+
+    <insert id="insertFileDownloadRecord" parameterType="FileDownloadRecord" useGeneratedKeys="true" keyProperty="id">
+        insert into file_download_record
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">user_id,</if>
+            <if test="userName != null">user_name,</if>
+            <if test="taskId != null">task_id,</if>
+            <if test="fileTaskId != null">file_task_id,</if>
+            <if test="fileTaskName != null">file_task_name,</if>
+            <if test="fileName != null">file_name,</if>
+            <if test="downloadTime != null">download_time,</if>
+            <if test="delFlag != null">del_flag,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">#{userId},</if>
+            <if test="userName != null">#{userName},</if>
+            <if test="taskId != null">#{taskId},</if>
+            <if test="fileTaskId != null">#{fileTaskId},</if>
+            <if test="fileTaskName != null">#{fileTaskName},</if>
+            <if test="fileName != null">#{fileName},</if>
+            <if test="downloadTime != null">#{downloadTime},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+        </trim>
+    </insert>
+
+    <update id="updateFileDownloadRecord" parameterType="FileDownloadRecord">
+        update file_download_record
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="userName != null">user_name = #{userName},</if>
+            <if test="taskId != null">task_id = #{taskId},</if>
+            <if test="fileTaskId != null">file_task_id = #{fileTaskId},</if>
+            <if test="fileTaskName != null">file_task_name = #{fileTaskName},</if>
+            <if test="fileName != null">file_name = #{fileName},</if>
+            <if test="downloadTime != null">download_time = #{downloadTime},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteFileDownloadRecordById" parameterType="Long">
+        delete from file_download_record where id = #{id}
+    </delete>
+
+    <delete id="deleteFileDownloadRecordByIds" parameterType="String">
+        delete from file_download_record where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

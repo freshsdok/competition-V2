@@ -1,0 +1,45 @@
+# Tomcat
+server:
+  port: 9281
+
+# Spring
+spring:
+  application:
+    # 应用名称
+    name: teaching-wxApp
+  cloud:
+    nacos:
+      discovery:
+        # 服务注册地址
+        server-addr: 172.22.215.111:8848
+        namespace: 10e03e86-54ad-4bfb-ac57-5a05d437e2e6
+      config:
+        # 配置中心地址
+        server-addr: 172.22.215.111:8848
+        namespace: 10e03e86-54ad-4bfb-ac57-5a05d437e2e6
+        # 配置文件格式
+        file-extension: yml
+        # 共享配置
+        shared-configs:
+          - application-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
+  mail:
+    host: smtpdm.aliyun.com
+    port: 465
+    username: notice@ksup.cn
+    password: UCftsFsuQCshn4h2A
+    from: 2217056@qq.com
+    ssl:
+      enable: true
+    properties:
+      mail:
+        smtp:
+          auth: true
+          ssl:
+            enable: true
+            socketFactory:
+              class: javax.net.ssl.SSLSocketFactory
+              fallback: false
+              port: 465
+          timeout: 5000
+          connectiontimeout: 5000
+          writetimeout: 5000

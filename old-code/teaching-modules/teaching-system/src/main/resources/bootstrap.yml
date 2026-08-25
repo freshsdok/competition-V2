@@ -1,0 +1,14 @@
+# Spring
+spring:
+  profiles:
+    # 环境配置
+#    active: dev
+    # 测试
+    active: test
+#   active: cluster
+
+# 仅信任明确配置的反向代理。Docker 默认链路为 Nginx -> Gateway -> System；
+# 其他环境通过 SECURITY_PC_LOGIN_TRUSTED_PROXIES 覆盖为实际代理主机/IP/网段。
+security:
+  pc-login:
+    trusted-proxies: ${SECURITY_PC_LOGIN_TRUSTED_PROXIES:127.0.0.1;::1;teaching-gateway;teaching-nginx}

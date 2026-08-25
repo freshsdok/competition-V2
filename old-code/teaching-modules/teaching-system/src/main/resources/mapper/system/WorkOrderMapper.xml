@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.system.mapper.WorkOrderMapper">
+
+    <resultMap type="WorkOrder" id="WorkOrderResult">
+        <result property="orderId"    column="order_id"    />
+        <result property="orderSourceId"    column="order_source_id"    />
+        <result property="orderSource"    column="order_source"    />
+        <result property="orderContent"    column="order_content"    />
+        <result property="emergencyLevel"    column="emergency_level"    />
+        <result property="orderDealStatus"    column="order_deal_status"    />
+        <result property="dealPern"    column="deal_pern"    />
+        <result property="replyContent"    column="reply_content"    />
+        <result property="createUser"    column="create_user"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="version"    column="version"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="userId"    column="user_id"    />
+        <result property="orgId"    column="org_id"    />
+    </resultMap>
+
+    <resultMap id="WorkOrderWorkOrderTransferResult" type="WorkOrder" extends="WorkOrderResult">
+        <collection property="workOrderTransferList" ofType="WorkOrderTransfer" column="order_id" select="selectWorkOrderTransferList" />
+    </resultMap>
+
+    <resultMap type="WorkOrderTransfer" id="WorkOrderTransferResult">
+        <result property="id"    column="id"    />
+        <result property="orderId"    column="order_id"    />
+        <result property="transfer"    column="transfer"    />
+        <result property="recipient"    column="recipient"    />
+        <result property="transferTime"    column="transfer_time"    />
+    </resultMap>
+
+    <sql id="selectWorkOrderVo">
+        select order_id, order_source_id, order_source, order_content, emergency_level, order_deal_status, deal_pern, reply_content, create_user, create_by, create_time, update_by, update_time, version, del_flag, user_id, org_id from work_order
+    </sql>
+
+    <select id="selectWorkOrderList" parameterType="WorkOrder" resultMap="WorkOrderResult">
+        <include refid="selectWorkOrderVo"/>
+        <where>
+            and del_flag = '0'
+            <if test="orderSourceId != null  and orderSourceId != ''"> and order_source_id = #{orderSourceId}</if>
+            <if test="orderSource != null  and orderSource != ''"> and order_source = #{orderSource}</if>
+            <if test="orderContent != null  and orderContent != ''"> and order_content = #{orderContent}</if>
+            <if test="emergencyLevel != null  and emergencyLevel != ''"> and emergency_level = #{emergencyLevel}</if>
+            <if test="orderDealStatus != null  and orderDealStatus != ''"> and order_deal_status = #{orderDealStatus}</if>
+            <if test="dealPern != null "> and deal_pern = #{dealPern}</if>
+            <if test="replyContent != null  and replyContent != ''"> and reply_content = #{replyContent}</if>
+            <if test="createUser != null "> and create_user = #{createUser}</if>
+            <if test="version != null "> and version = #{version}</if>
+            <if test="userId != null "> and user_id = #{userId}</if>
+            <if test="orgId != null "> and org_id = #{orgId}</if>
+        </where>
+    </select>
+
+    <select id="selectWorkOrderListTransferToMe" parameterType="WorkOrder" resultMap="WorkOrderResult">
+        SELECT
+        wot.order_id,
+        wot.transfer_time as create_time,
+        wo.order_source_id,
+        wo.order_source,
+        wo.order_content,
+        wo.emergency_level,
+        wo.order_deal_status,
+        wo.deal_pern,
+        wo.reply_content,
+        wo.create_user,
+        wo.create_by,
+        wo.update_by,
+        wo.update_time,
+        wo.version,
+        wo.del_flag,
+        wo.user_id,
+        wo.org_id
+        FROM work_order_transfer wot
+        LEFT JOIN work_order wo ON wo.org_id = wot.order_id
+        WHERE wo.del_flag = '0'
+        <if test="orderSourceId != null  and orderSourceId != ''"> and wo.order_source_id = #{orderSourceId}</if>
+        <if test="orderSource != null  and orderSource != ''"> and wo.order_source = #{orderSource}</if>
+        <if test="orderContent != null  and orderContent != ''"> and wo.order_content = #{orderContent}</if>
+        <if test="emergencyLevel != null  and emergencyLevel != ''"> and wo.emergency_level = #{emergencyLevel}</if>
+        <if test="orderDealStatus != null  and orderDealStatus != ''"> and wo.order_deal_status = #{orderDealStatus}</if>
+        <if test="dealPern != null "> and wo.deal_pern = #{dealPern}</if>
+        <if test="replyContent != null  and replyContent != ''"> and wo.reply_content = #{replyContent}</if>
+        <if test="createUser != null "> and wo.create_user = #{createUser}</if>
+        <if test="version != null "> and wo.version = #{version}</if>
+        <if test="userId != null "> and wo.user_id = #{userId}</if>
+        <if test="orgId != null "> and wo.org_id = #{orgId}</if>
+        and wot.recipient in
+        <foreach item="recipient" collection="recipients" open="(" separator="," close=")">
+            #{recipient}
+        </foreach>
+        GROUP BY wot.order_id
+    </select>
+
+    <select id="selectWorkOrderByOrderId" parameterType="Long" resultMap="WorkOrderWorkOrderTransferResult">
+        select order_id, order_source_id, order_source, order_content, emergency_level, order_deal_status, deal_pern, reply_content, create_user, create_by, create_time, update_by, update_time, version, del_flag, user_id, org_id
+        from work_order
+        where order_id = #{orderId}
+    </select>
+
+    <select id="selectWorkOrderTransferList" resultMap="WorkOrderTransferResult">
+        select id, order_id, transfer, recipient, transfer_time
+        from work_order_transfer
+        where order_id = #{order_id}
+    </select>
+
+    <insert id="insertWorkOrder" parameterType="WorkOrder" useGeneratedKeys="true" keyProperty="orderId">
+        insert into work_order
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="orderSourceId != null">order_source_id,</if>
+            <if test="orderSource != null and orderSource != ''">order_source,</if>
+            <if test="orderContent != null">order_content,</if>
+            <if test="emergencyLevel != null">emergency_level,</if>
+            <if test="orderDealStatus != null">order_deal_status,</if>
+            <if test="dealPern != null">deal_pern,</if>
+            <if test="replyContent != null">reply_content,</if>
+            <if test="createUser != null">create_user,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="version != null">version,</if>
+            <if test="delFlag != null">del_flag,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="orgId != null">org_id,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="orderSourceId != null">#{orderSourceId},</if>
+            <if test="orderSource != null and orderSource != ''">#{orderSource},</if>
+            <if test="orderContent != null">#{orderContent},</if>
+            <if test="emergencyLevel != null">#{emergencyLevel},</if>
+            <if test="orderDealStatus != null">#{orderDealStatus},</if>
+            <if test="dealPern != null">#{dealPern},</if>
+            <if test="replyContent != null">#{replyContent},</if>
+            <if test="createUser != null">#{createUser},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="version != null">#{version},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="orgId != null">#{orgId},</if>
+        </trim>
+    </insert>
+
+    <update id="updateWorkOrder" parameterType="WorkOrder">
+        update work_order
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="orderSourceId != null">order_source_id = #{orderSourceId},</if>
+            <if test="orderSource != null and orderSource != ''">order_source = #{orderSource},</if>
+            <if test="orderContent != null">order_content = #{orderContent},</if>
+            <if test="emergencyLevel != null">emergency_level = #{emergencyLevel},</if>
+            <if test="orderDealStatus != null">order_deal_status = #{orderDealStatus},</if>
+            <if test="dealPern != null">deal_pern = #{dealPern},</if>
+            <if test="replyContent != null">reply_content = #{replyContent},</if>
+            <if test="createUser != null">create_user = #{createUser},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            version = version +1,
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="orgId != null">org_id = #{orgId},</if>
+        </trim>
+        where order_id = #{orderId}
+    </update>
+
+    <delete id="deleteWorkOrderByOrderId" parameterType="Long">
+        delete from work_order where order_id = #{orderId}
+    </delete>
+
+    <delete id="deleteWorkOrderByOrderIds" parameterType="String">
+        delete from work_order where order_id in
+        <foreach item="orderId" collection="array" open="(" separator="," close=")">
+            #{orderId}
+        </foreach>
+    </delete>
+
+    <delete id="deleteWorkOrderTransferByOrderIds" parameterType="String">
+        delete from work_order_transfer where order_id in
+        <foreach item="orderId" collection="array" open="(" separator="," close=")">
+            #{orderId}
+        </foreach>
+    </delete>
+
+    <delete id="deleteWorkOrderTransferByOrderId" parameterType="Long">
+        delete from work_order_transfer where order_id = #{orderId}
+    </delete>
+
+    <insert id="batchWorkOrderTransfer">
+        insert into work_order_transfer( id, order_id, transfer, recipient, transfer_time) values
+        <foreach item="item" index="index" collection="list" separator=",">
+            ( #{item.id}, #{item.orderId}, #{item.transfer}, #{item.recipient}, #{item.transferTime})
+        </foreach>
+    </insert>
+
+    <insert id="insertWorkOrderTransfer" parameterType="WorkOrderTransfer" useGeneratedKeys="true" keyProperty="id">
+        insert into work_order_transfer
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="orderId != null">order_id,</if>
+            <if test="transfer != null">transfer,</if>
+            <if test="recipient != null and recipient != ''">recipient,</if>
+            <if test="transferTime != null">transfer_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="orderId != null">#{orderId},</if>
+            <if test="transfer != null">#{transfer},</if>
+            <if test="recipient != null and recipient != ''">#{recipient},</if>
+            <if test="transferTime != null">#{transferTime},</if>
+        </trim>
+    </insert>
+</mapper>

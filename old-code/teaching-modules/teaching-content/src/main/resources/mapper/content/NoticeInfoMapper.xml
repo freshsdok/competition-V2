@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.content.mapper.NoticeInfoMapper">
+
+    <resultMap type="NoticeInfo" id="NoticeInfoResult">
+        <result property="noticeId" column="notice_id"/>
+        <result property="noticeTitle" column="notice_title"/>
+        <result property="noticeContent" column="notice_content"/>
+        <result property="noticeAbstract" column="notice_abstract"/>
+        <result property="noticeType" column="notice_type"/>
+        <result property="noticeStatus" column="notice_status"/>
+        <result property="noticeImage" column="notice_image"/>
+        <result property="noticeAuthor" column="notice_author"/>
+        <result property="publishTime" column="publish_time"/>
+        <result property="checkStatus" column="check_status"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="version" column="version"/>
+        <result property="delFlag" column="del_flag"/>
+        <result property="userId" column="user_id"/>
+        <result property="orgId" column="org_id"/>
+    </resultMap>
+
+    <resultMap type="com.teaching.content.domain.vo.PublicNoticeInfo" id="PublicNoticeInfoResult">
+        <id property="noticeId" column="notice_id"/>
+        <result property="noticeTitle" column="notice_title"/>
+        <result property="noticeContent" column="notice_content"/>
+        <result property="noticeAbstract" column="notice_abstract"/>
+        <result property="noticeType" column="notice_type"/>
+        <result property="noticeImage" column="notice_image"/>
+        <result property="noticeAuthor" column="notice_author"/>
+        <result property="publishTime" column="publish_time"/>
+    </resultMap>
+
+    <sql id="selectPublicNoticeInfoVo">
+        select notice_id,
+               notice_title,
+               notice_content,
+               notice_abstract,
+               notice_type,
+               notice_image,
+               notice_author,
+               publish_time
+        from notice_info
+    </sql>
+
+    <sql id="selectNoticeInfoVo">
+        select notice_id,
+               notice_title,
+               notice_content,
+               notice_abstract,
+               notice_type,
+               notice_status,
+               notice_image,
+               notice_author,
+               publish_time,
+               check_status,
+               create_by,
+               create_time,
+               update_by,
+               update_time,
+               version,
+               del_flag,
+               user_id,
+               org_id
+        from notice_info
+    </sql>
+
+    <select id="selectNoticeInfoList" parameterType="NoticeInfo" resultMap="NoticeInfoResult">
+        <include refid="selectNoticeInfoVo"/>
+        <where>
+            and del_flag = '0'
+            <if test="noticeTitle != null and noticeTitle != ''">
+                and notice_title like concat('%', #{noticeTitle}, '%')
+            </if>
+            <if test="noticeContent != null and noticeContent != ''">
+                and notice_content like concat('%', #{noticeContent}, '%')
+            </if>
+            <if test="noticeType != null and noticeType != ''">
+                and notice_type = #{noticeType}
+            </if>
+            <if test="noticeStatus != null and noticeStatus != ''">
+                and notice_status = #{noticeStatus}
+            </if>
+            <if test="noticeAuthor != null and noticeAuthor != ''">
+                and notice_author like concat('%', #{noticeAuthor}, '%')
+            </if>
+            <if test="checkStatus != null and checkStatus != ''">
+                and check_status = #{checkStatus}
+            </if>
+            <if test="userId != null">
+                and user_id = #{userId}
+            </if>
+            <if test="orgId != null">
+                and org_id = #{orgId}
+            </if>
+            <if test="params.beginPublishTime != null and params.beginPublishTime != ''">
+                and date_format(publish_time,'%y%m%d') &gt;= date_format(#{params.beginPublishTime},'%y%m%d')
+            </if>
+            <if test="params.endPublishTime != null and params.endPublishTime != ''">
+                and date_format(publish_time,'%y%m%d') &lt;= date_format(#{params.endPublishTime},'%y%m%d')
+            </if>
+        </where>
+        <choose>
+            <when test="params.orderScene == 'createOnly'">
+                order by create_time desc
+            </when>
+            <otherwise>
+                order by (case when publish_time is not null then publish_time else create_time end) desc,
+                create_time desc
+            </otherwise>
+        </choose>
+    </select>
+
+    <select id="selectNoticeInfoByNoticeId" parameterType="Long" resultMap="NoticeInfoResult">
+        <include refid="selectNoticeInfoVo"/>
+        where notice_id = #{noticeId}
+    </select>
+
+    <select id="selectPublicNoticeInfoByNoticeId"
+            parameterType="Long"
+            resultMap="PublicNoticeInfoResult">
+        <include refid="selectPublicNoticeInfoVo"/>
+        where notice_id = #{noticeId}
+          and del_flag = '0'
+          and notice_status = '6'
+          and publish_time is not null
+          and publish_time &lt;= now()
+    </select>
+
+    <select id="selectPublicNoticeInfoList"
+            parameterType="com.teaching.content.domain.query.PublicNoticeQuery"
+            resultMap="PublicNoticeInfoResult">
+        <include refid="selectPublicNoticeInfoVo"/>
+        <where>
+            and del_flag = '0'
+            and notice_status = '6'
+            and publish_time is not null
+            and publish_time &lt;= now()
+            <if test="noticeTitle != null and noticeTitle != ''">
+                and notice_title like concat('%', #{noticeTitle}, '%')
+            </if>
+            <if test="noticeType != null and noticeType != ''">
+                and notice_type = #{noticeType}
+            </if>
+            <if test="noticeAuthor != null and noticeAuthor != ''">
+                and notice_author like concat('%', #{noticeAuthor}, '%')
+            </if>
+        </where>
+        order by publish_time desc
+    </select>
+
+    <insert id="insertNoticeInfo" parameterType="NoticeInfo" useGeneratedKeys="true" keyProperty="noticeId">
+        insert into notice_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="noticeTitle != null and noticeTitle != ''">notice_title,</if>
+            <if test="noticeContent != null">notice_content,</if>
+            <if test="noticeAbstract != null">notice_abstract,</if>
+            <if test="noticeType != null">notice_type,</if>
+            <if test="noticeStatus != null">notice_status,</if>
+            <if test="noticeImage != null">notice_image,</if>
+            <if test="noticeAuthor != null">notice_author,</if>
+            <if test="publishTime != null">publish_time,</if>
+            <if test="checkStatus != null">check_status,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="version != null">version,</if>
+            <if test="delFlag != null">del_flag,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="orgId != null">org_id,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="noticeTitle != null and noticeTitle != ''">#{noticeTitle},</if>
+            <if test="noticeContent != null">#{noticeContent},</if>
+            <if test="noticeAbstract != null">#{noticeAbstract},</if>
+            <if test="noticeType != null">#{noticeType},</if>
+            <if test="noticeStatus != null">#{noticeStatus},</if>
+            <if test="noticeImage != null">#{noticeImage},</if>
+            <if test="noticeAuthor != null">#{noticeAuthor},</if>
+            <if test="publishTime != null">#{publishTime},</if>
+            <if test="checkStatus != null">#{checkStatus},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="version != null">#{version},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="orgId != null">#{orgId},</if>
+        </trim>
+    </insert>
+
+    <update id="updateNoticeInfo" parameterType="NoticeInfo">
+        update notice_info
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="noticeTitle != null and noticeTitle != ''">notice_title = #{noticeTitle},</if>
+            <if test="noticeContent != null">notice_content = #{noticeContent},</if>
+            <if test="noticeAbstract != null">notice_abstract = #{noticeAbstract},</if>
+            <if test="noticeType != null">notice_type = #{noticeType},</if>
+            <if test="noticeStatus != null">notice_status = #{noticeStatus},</if>
+            <if test="noticeImage != null">notice_image = #{noticeImage},</if>
+            <if test="noticeAuthor != null">notice_author = #{noticeAuthor},</if>
+            <if test="publishTime != null">publish_time = #{publishTime},</if>
+            <if test="checkStatus != null">check_status = #{checkStatus},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="version != null">version = #{version},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="orgId != null">org_id = #{orgId},</if>
+        </trim>
+        where notice_id = #{noticeId}
+    </update>
+
+    <update id="updateNoticeStatus" parameterType="NoticeInfo">
+        update notice_info
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="noticeStatus != null and noticeStatus != ''">notice_status = #{noticeStatus},</if>
+            <if test="checkStatus != null and checkStatus != ''">check_status = #{checkStatus},</if>
+            <if test="publishTime != null">publish_time = #{publishTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where notice_id = #{noticeId}
+    </update>
+
+    <delete id="deleteNoticeInfoByNoticeId" parameterType="Long">
+        update notice_info set del_flag = '2' where notice_id = #{noticeId}
+    </delete>
+
+    <delete id="deleteNoticeInfoByNoticeIds" parameterType="String">
+        update notice_info set del_flag = '2' where notice_id in
+        <foreach item="noticeId" collection="array" open="(" separator="," close=")">
+            #{noticeId}
+        </foreach>
+    </delete>
+</mapper>

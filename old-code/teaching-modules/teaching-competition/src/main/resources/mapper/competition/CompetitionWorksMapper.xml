@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.competition.mapper.CompetitionWorksMapper">
+    
+    <resultMap type="com.teaching.competition.domain.CompetitionWorks" id="CompetitionWorksResult">
+        <result property="worksId"    column="works_id"    />
+        <result property="competitionSeriesId"    column="competition_series_id"    />
+        <result property="stageId"    column="stage_id"    />
+        <result property="worksName"    column="works_name"    />
+        <result property="worksUrl"    column="works_url"    />
+        <result property="worksScore"    column="works_score"    />
+        <result property="userId"    column="user_id"    />
+        <result property="teamCode"    column="team_code"    />
+        <result property="worksRank"    column="works_rank"    />
+        <result property="worksDesc"    column="works_desc"    />
+        <result property="worksStatus"    column="works_status"    />
+        <result property="isAdvance"    column="is_advance"    />
+        <result property="certificateUrl"    column="certificate_url"    />
+        <result property="competitionName"    column="competition_name"    />
+        <result property="userName"    column="user_name"    />
+        <result property="teamName"    column="team_name"    />
+        <result property="groupClassify"    column="group_classify"    />
+        <result property="competitionTrackName"    column="competition_track_name"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="version"    column="version"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="orgId"    column="org_id"    />
+    </resultMap>
+
+    <sql id="selectCompetitionWorksVo">
+        select works_id, competition_series_id, stage_id, works_name, works_url, works_score,is_advance,certificate_url,
+        user_id, team_code, works_rank, works_desc, works_status,competition_track_name,group_classify,create_by, create_time, update_by, update_time, version, del_flag, org_id
+        from competition_works
+    </sql>
+
+    <select id="selectCompetitionWorksList" parameterType="com.teaching.competition.domain.CompetitionWorks" resultMap="CompetitionWorksResult">
+        select a.works_id, a.competition_series_id, (select competition_name from competition_main_info where
+        competition_id = (select competition_id from competition_series_info where competition_series_id = a.competition_series_id)) competition_name,
+        a.stage_id, a.works_name, a.works_url, a.works_score,a.is_advance,a.certificate_url,a.user_id, a.team_code, a.works_rank, a.works_desc,
+        a.works_status,a.competition_track_name, a.group_classify,a.create_by, a.create_time, a.update_by, a.update_time, a.version, a.del_flag, a.org_id
+        from competition_works a
+        where a.del_flag = '0'
+            <if test="competitionSeriesId != null "> and a.competition_series_id = #{competitionSeriesId}</if>
+            <if test="stageId != null  and stageId != ''">
+                and a.stage_id = #{stageId}
+            </if>
+            <if test="worksName != null  and worksName != ''"> and a.works_name like concat('%', #{worksName}, '%')</if>
+            <if test="worksUrl != null  and worksUrl != ''"> and a.works_url = #{worksUrl}</if>
+            <if test="worksScore != null  and worksScore != ''"> and a.works_score = #{worksScore}</if>
+            <if test="userId != null "> and a.user_id = #{userId}</if>
+            <if test="teamCode != null  and teamCode != ''"> and a.team_code = #{teamCode}</if>
+            <if test="worksRank != null  and worksRank != ''"> and a.works_rank = #{worksRank}</if>
+            <if test="isAdvance != null  and isAdvance != ''"> and a.is_advance = #{isAdvance}</if>
+            <if test="competitionTrackName != null  and competitionTrackName != ''">
+                and a.competition_track_name = #{competitionTrackName}
+            </if>
+            <if test="groupClassify != null and groupClassify!=''">
+                and a.group_classify = #{groupClassify}
+            </if>
+            <if test="orgId != null "> and a.org_id = #{orgId}</if>
+            <if test="isWorksScore != null and isWorksScore != '' and isWorksScore == '1'.toString()">
+                and a.works_score is null
+            </if>
+            <if test="isWorksScore != null and isWorksScore != '' and isWorksScore == '2'.toString()">
+                and a.works_score is not null
+            </if>
+            <if test="worksIds!=null and worksIds!=''">
+                AND works_id IN
+                <foreach collection="worksIds.split(',')" item="item" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <!-- 数据范围过滤 -->
+            ${params.dataScope}
+            order by a.works_score desc
+    </select>
+
+    <select id="selectCompetitionWorksScore" parameterType="com.teaching.competition.domain.CompetitionWorks" resultMap="CompetitionWorksResult">
+        <include refid="selectCompetitionWorksVo"/>
+        where works_score is not null and del_flag = '0' and is_advance is null
+        <if test="competitionSeriesId != null ">
+            and competition_series_id = #{competitionSeriesId}
+        </if>
+        <if test="stageId != null  and stageId != ''">
+            and stage_id = #{stageId}
+        </if>
+        order by works_score desc
+    </select>
+
+    <select id="selectCompetitionWorksAdvanceScore" parameterType="Long" resultType="Map">
+        select sum(works_score) 'worksScore',user_id 'userId',org_id 'orgId' from competition_works
+        where competition_series_id = #{competitionSeriesId}
+        group by user_id order by works_score desc
+    </select>
+
+    <select id="selectCompetitionList" parameterType="com.teaching.competition.domain.CompetitionWorks" resultMap="CompetitionWorksResult">
+        select competition_series_id,
+        (select competition_name from competition_main_info where
+        competition_id = (select competition_id from competition_series_info where competition_series_id = #{competitionSeriesId})) competition_name,
+        stage_id, works_score,is_advance,
+        certificate_url,user_id,
+        (select user_name from competition_apply_info where competition_series_id  = #{competitionSeriesId}) user_name,
+        team_code,
+        (select team_name from team_manager_info where team_code = #{teamCode}) team_name,
+        works_rank
+        from competition_works
+        <where>
+            <if test="competitionSeriesId != null "> and competition_series_id = #{competitionSeriesId}</if>
+            <if test="isAdvance != null  and isAdvance != ''"> and is_advance = #{isAdvance}</if>
+        </where>
+    </select>
+    
+    <select id="selectCompetitionWorksByWorksId" parameterType="Long" resultMap="CompetitionWorksResult">
+        select a.works_id, a.competition_series_id, (select competition_name from competition_main_info where
+        competition_id = (select competition_id from competition_series_info where competition_series_id = #{competitionSeriesId})) competition_name,
+        a.stage_id, a.works_name, a.works_url, a.works_score,a.is_advance,a.certificate_url,a.user_id, a.team_code, a.works_rank, a.works_desc,
+        a.works_status, a.competition_track_name, a.group_classify,a.create_by, a.create_time, a.update_by, a.update_time, a.version, a.del_flag, a.org_id
+        from competition_works a
+        where a.del_flag = '0'
+        and a.works_id = #{worksId}
+    </select>
+
+    <select id="selectCompetitionWorksByUserId" parameterType="com.teaching.competition.domain.CompetitionWorks" resultMap="CompetitionWorksResult">
+        <include refid="selectCompetitionWorksVo"/>
+        where user_id = #{userId}
+        and stage_id = #{stageId}
+        and competition_series_id = #{competitionSeriesId}
+    </select>
+
+    <insert id="insertCompetitionWorks" parameterType="com.teaching.competition.domain.CompetitionWorks"
+            useGeneratedKeys="true" keyProperty="worksId" keyColumn="works_id">
+        insert into competition_works
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="competitionSeriesId != null">competition_series_id,</if>
+            <if test="stageId != null">stage_id,</if>
+            <if test="worksName != null">works_name,</if>
+            <if test="worksUrl != null">works_url,</if>
+            <if test="worksScore != null">works_score,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="teamCode != null">team_code,</if>
+            <if test="worksRank != null">works_rank,</if>
+            <if test="worksDesc != null">works_desc,</if>
+            <if test="worksStatus != null">works_status,</if>
+            <if test="isAdvance != null">is_advance,</if>
+            <if test="certificateUrl != null">create_by,</if>
+            <if test="competitionTrackName != null">competition_track_name,</if>
+            <if test="groupClassify != null">group_classify,</if>
+            <if test="createBy != null">certificate_url,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="version != null">version,</if>
+            <if test="delFlag != null">del_flag,</if>
+            <if test="orgId != null">org_id,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="competitionSeriesId != null">#{competitionSeriesId},</if>
+            <if test="stageId != null">#{stageId},</if>
+            <if test="worksName != null">#{worksName},</if>
+            <if test="worksUrl != null">#{worksUrl},</if>
+            <if test="worksScore != null">#{worksScore},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="teamCode != null">#{teamCode},</if>
+            <if test="worksRank != null">#{worksRank},</if>
+            <if test="worksDesc != null">#{worksDesc},</if>
+            <if test="worksStatus != null">#{worksStatus},</if>
+            <if test="isAdvance != null">#{isAdvance},</if>
+            <if test="certificateUrl != null">#{certificateUrl},</if>
+            <if test="competitionTrackName != null">#{competitionTrackName},</if>
+            <if test="groupClassify != null">#{groupClassify},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="version != null">#{version},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+            <if test="orgId != null">#{orgId},</if>
+         </trim>
+    </insert>
+
+    <update id="updateCompetitionWorks" parameterType="com.teaching.competition.domain.CompetitionWorks">
+        update competition_works
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="competitionSeriesId != null">competition_series_id = #{competitionSeriesId},</if>
+            <if test="stageId != null">stage_id = #{stageId},</if>
+            <if test="worksName != null">works_name = #{worksName},</if>
+            <if test="worksUrl != null">works_url = #{worksUrl},</if>
+            <if test="worksScore != null">works_score = #{worksScore},</if>
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="teamCode != null">team_code = #{teamCode},</if>
+            <if test="worksRank != null">works_rank = #{worksRank},</if>
+            <if test="worksDesc != null">works_desc = #{worksDesc},</if>
+            <if test="worksStatus != null">works_status = #{worksStatus},</if>
+            <if test="isAdvance != null">is_advance = #{isAdvance},</if>
+            <if test="certificateUrl != null">certificate_url = #{certificateUrl},</if>
+            <if test="competitionTrackName != null">competition_track_name = #{competitionTrackName},</if>
+            <if test="groupClassify != null">group_classify = #{groupClassify},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            version = version+1,
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+            <if test="orgId != null">org_id = #{orgId},</if>
+        </trim>
+        where works_id = #{worksId}
+    </update>
+
+    <update id="batchUpdateCompetitionWorks">
+        update competition_works
+        <set>
+            <if test="list[0].worksScore != null">
+                works_score = CASE
+                <foreach collection="list" item="item">
+                    WHEN works_id = #{item.worksId} THEN #{item.worksScore}
+                </foreach>
+                ELSE works_score
+                END,
+            </if>
+            <if test="list[0].isAdvance != null">
+                is_advance = CASE
+                <foreach collection="list" item="item">
+                    WHEN works_id = #{item.worksId} THEN #{item.isAdvance}
+                </foreach>
+                ELSE is_advance
+                END,
+            </if>
+            <if test="list[0].worksRank != null">
+                works_rank = CASE
+                <foreach collection="list" item="item">
+                    WHEN works_id = #{item.worksId} THEN #{item.worksRank}
+                </foreach>
+                ELSE works_rank
+                END,
+            </if>
+            update_time = NOW(),
+            version = version + 1
+        </set>
+        WHERE works_id IN
+        <foreach collection="list" item="item" open="(" separator="," close=")">
+            #{item.worksId}
+        </foreach>
+    </update>
+
+    <delete id="deleteCompetitionWorksByWorksId" parameterType="Long">
+        delete from competition_works where works_id = #{worksId}
+    </delete>
+
+    <delete id="deleteCompetitionWorksByWorksIds" parameterType="String">
+        delete from competition_works where works_id in 
+        <foreach item="worksId" collection="array" open="(" separator="," close=")">
+            #{worksId}
+        </foreach>
+    </delete>
+</mapper>

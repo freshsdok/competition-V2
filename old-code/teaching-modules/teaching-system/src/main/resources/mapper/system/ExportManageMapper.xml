@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.system.mapper.ExportManageMapper">
+
+    <resultMap type="com.teaching.system.domain.ExportManage" id="ExportManageResult">
+        <result property="id"    column="id"    />
+        <result property="title"    column="title"    />
+        <result property="startTime"    column="start_time"    />
+        <result property="endTime"    column="end_time"    />
+        <result property="userId"    column="user_id"    />
+        <result property="userName"    column="user_name"    />
+        <result property="status"    column="status"    />
+        <result property="size"    column="size"    />
+        <result property="fileUrl"    column="file_url"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectExportManageVo">
+        select id, title, start_time, end_time, user_id, user_name, status, size, file_url, del_flag, create_by, create_time, update_by, update_time, remark from export_manage
+    </sql>
+
+    <select id="selectExportManageList" parameterType="com.teaching.system.domain.ExportManage" resultMap="ExportManageResult">
+        <include refid="selectExportManageVo"/>
+        <where>
+            and del_flag = '0'
+            <if test="title != null  and title != ''"> and title like concat('%', #{title}, '%')</if>
+            <if test="startTime != null "> and start_time = #{startTime}</if>
+            <if test="endTime != null "> and end_time = #{endTime}</if>
+            <if test="userId != null "> and user_id = #{userId}</if>
+            <if test="userName != null  and userName != ''"> and user_name like concat('%', #{userName}, '%')</if>
+            <if test="status != null  and status != ''"> and status = #{status}</if>
+            <if test="size != null  and size != ''"> and size = #{size}</if>
+            <if test="fileUrl != null  and fileUrl != ''"> and file_url = #{fileUrl}</if>
+            <if test="status != null and status!= ''">and status =#{status}</if>
+            <if test="createStartTime!=null">
+                and create_time >= #{createStartTime}
+            </if>
+            <if test="createEndTime!=null">
+                and create_time &lt;= #{createEndTime}
+            </if>
+        </where>
+        order by create_time desc
+    </select>
+
+    <select id="selectExportManageById" parameterType="Long" resultMap="ExportManageResult">
+        <include refid="selectExportManageVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertExportManage" parameterType="com.teaching.system.domain.ExportManage" useGeneratedKeys="true" keyProperty="id">
+        insert into export_manage
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="title != null">title,</if>
+            <if test="startTime != null">start_time,</if>
+            <if test="endTime != null">end_time,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="userName != null">user_name,</if>
+            <if test="status != null">status,</if>
+            <if test="size != null">size,</if>
+            <if test="fileUrl != null">file_url,</if>
+            <if test="delFlag != null">del_flag,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="title != null">#{title},</if>
+            <if test="startTime != null">#{startTime},</if>
+            <if test="endTime != null">#{endTime},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="userName != null">#{userName},</if>
+            <if test="status != null">#{status},</if>
+            <if test="size != null">#{size},</if>
+            <if test="fileUrl != null">#{fileUrl},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+         </trim>
+    </insert>
+
+    <update id="updateExportManage" parameterType="com.teaching.system.domain.ExportManage">
+        update export_manage
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="title != null">title = #{title},</if>
+            <if test="startTime != null">start_time = #{startTime},</if>
+            <if test="endTime != null">end_time = #{endTime},</if>
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="userName != null">user_name = #{userName},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="size != null">size = #{size},</if>
+            <if test="fileUrl != null">file_url = #{fileUrl},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteExportManageById" parameterType="Long">
+        delete from export_manage where id = #{id}
+    </delete>
+
+    <delete id="deleteExportManageByIds" parameterType="String">
+        delete from export_manage where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

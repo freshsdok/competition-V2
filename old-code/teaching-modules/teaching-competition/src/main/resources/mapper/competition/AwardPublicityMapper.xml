@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.competition.mapper.AwardPublicityMapper">
+
+    <resultMap type="com.teaching.competition.domain.AwardPublicity" id="AwardPublicityResult">
+        <result property="id"    column="id"    />
+        <result property="competitionSeriesId"    column="competition_series_id"    />
+        <result property="competitionName"    column="competition_name"    />
+        <result property="expirationTime"    column="expiration_time"    />
+        <result property="tipInfo"    column="tip_info"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="status"    column="status"    />
+    </resultMap>
+
+    <sql id="selectAwardPublicityVo">
+        select id, competition_series_id, competition_name, expiration_time, tip_info, create_by, create_time, update_by, update_time, del_flag from award_publicity
+    </sql>
+    <sql id="selectAwardPublicityVoWithStatus">
+        SELECT id, competition_series_id, competition_name, expiration_time, create_by, create_time, update_by, update_time, del_flag ,
+        CASE
+        WHEN expiration_time IS NULL THEN '未开始'
+        WHEN expiration_time > NOW() THEN '公示中'
+        ELSE '已结束'
+        END AS `status`
+        FROM award_publicity
+    </sql>
+
+    <select id="selectAwardPublicityList" parameterType="com.teaching.competition.domain.AwardPublicity" resultMap="AwardPublicityResult">
+        <include refid="selectAwardPublicityVo"/>
+        <where>
+            AND del_flag = '0'
+            <if test="competitionSeriesId != null "> and competition_series_id = #{competitionSeriesId}</if>
+            <if test="competitionName != null  and competitionName != ''"> and competition_name like concat('%', #{competitionName}, '%')</if>
+            <if test="expirationTime != null "> and expiration_time = #{expirationTime}</if>
+            <if test="tipInfo != null  and tipInfo != ''"> and tip_info = #{tipInfo}</if>
+            <if test="createBy != null and createBy != ''"> and create_by like concat('%',#{createBy},'%') </if>
+            <if test="params.beginTime != null and params.beginTime != ''"><!-- 开始时间检索 -->
+                and date_format(create_time,'%Y%m%d') &gt;= date_format(#{params.beginTime},'%Y%m%d')
+            </if>
+            <if test="params.endTime != null and params.endTime != ''"><!-- 结束时间检索 -->
+                and date_format(create_time,'%Y%m%d') &lt;= date_format(#{params.endTime},'%Y%m%d')
+            </if>
+        </where>
+        order by id desc
+    </select>
+
+    <select id="selectAwardPublicityByLeaderTeacherId" parameterType="Long" resultMap="AwardPublicityResult">
+        SELECT
+        ap.id,
+        ap.competition_series_id,
+        ap.competition_name,
+        ap.expiration_time,
+        ap.tip_info,
+        ap.create_by,
+        ap.create_time,
+        ap.update_by,
+        ap.update_time,
+        ap.del_flag
+        FROM award_publicity ap
+<!--        INNER JOIN (-->
+<!--        SELECT DISTINCT-->
+<!--        competition_series_id-->
+<!--        FROM competition_apply_info-->
+<!--        WHERE leader_teacher_id = #{userId}-->
+<!--        AND del_flag = '0'-->
+<!--        AND pay_status = 'paid'-->
+<!--        ) cai ON ap.competition_series_id = cai.competition_series_id-->
+        WHERE ap.del_flag = '0' and ap.expiration_time is not null
+        order by ap.create_time desc
+    </select>
+
+    <select id="selectAwardPublicityById" parameterType="Long" resultMap="AwardPublicityResult">
+        <include refid="selectAwardPublicityVoWithStatus"/>
+        WHERE del_flag = '0' and id = #{id}
+    </select>
+
+    <insert id="insertAwardPublicity" parameterType="com.teaching.competition.domain.AwardPublicity" useGeneratedKeys="true" keyProperty="id">
+        insert into award_publicity
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="competitionSeriesId != null">competition_series_id,</if>
+            <if test="competitionName != null">competition_name,</if>
+            <if test="expirationTime != null">expiration_time,</if>
+            <if test="tipInfo != null">tip_info,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="delFlag != null">del_flag,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="competitionSeriesId != null">#{competitionSeriesId},</if>
+            <if test="competitionName != null">#{competitionName},</if>
+            <if test="expirationTime != null">#{expirationTime},</if>
+            <if test="tipInfo != null">#{tipInfo},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+        </trim>
+    </insert>
+
+    <insert id="insertAwardPublicityBatch" parameterType="java.util.List">
+        insert into award_publicity (competition_series_id, competition_name, create_by, create_time)
+        values
+            <foreach item="item" index="index" collection="list" separator=",">
+                (#{item.competitionSeriesId}, #{item.competitionName}, #{item.createBy}, #{item.createTime})
+            </foreach>
+    </insert>
+
+    <update id="updateAwardPublicity" parameterType="com.teaching.competition.domain.AwardPublicity">
+        update award_publicity
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="competitionSeriesId != null">competition_series_id = #{competitionSeriesId},</if>
+            <if test="competitionName != null">competition_name = #{competitionName},</if>
+            expiration_time = #{expirationTime},
+            <if test="tipInfo != null">tip_info = #{tipInfo},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <update id="updateAwardPublicityTipInfo" parameterType="com.teaching.competition.domain.AwardPublicity">
+        update award_publicity set tip_info = #{tipInfo},update_time = #{updateTime},update_by = #{updateBy} where id = #{id}
+    </update>
+
+    <update id="updateAwardPublicityUpdateInfo" parameterType="com.teaching.competition.domain.AwardPublicity">
+        update award_publicity set update_time = #{updateTime},update_by = #{updateBy} where id = #{id}
+    </update>
+
+    <delete id="deleteAwardPublicityById" parameterType="Long">
+        delete from award_publicity where id = #{id}
+    </delete>
+
+    <delete id="deleteAwardPublicityByIds" parameterType="String">
+        delete from award_publicity where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <update id="batchLogicDeleteByTeamCodes">
+        update award_publicity set del_flag = '1',update_time = now(),update_by = #{updateBy} where del_flag = '0' and id in
+        <foreach item="id" collection="ids" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+</mapper>

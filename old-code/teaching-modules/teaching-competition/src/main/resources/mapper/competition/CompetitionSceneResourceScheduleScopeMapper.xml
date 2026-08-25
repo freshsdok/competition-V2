@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.competition.mapper.CompetitionSceneResourceScheduleScopeMapper">
+
+    <resultMap type="com.teaching.competition.domain.CompetitionSceneResourceScheduleScope"
+               id="CompetitionSceneResourceScheduleScopeResult">
+        <id property="scopeId" column="scope_id"/>
+        <result property="scheduleResourceId" column="schedule_resource_id"/>
+        <result property="resourceId" column="resource_id"/>
+        <result property="allowedScheduleId" column="allowed_schedule_id"/>
+        <result property="sourceType" column="source_type"/>
+        <result property="enabled" column="enabled"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="deleted" column="deleted"/>
+        <result property="allowedScheduleName" column="allowed_schedule_name"/>
+    </resultMap>
+
+    <sql id="selectScopeColumns">
+        select ss.scope_id, ss.schedule_resource_id, ss.resource_id, ss.allowed_schedule_id, ss.source_type,
+               ss.enabled, ss.create_by, ss.create_time, ss.update_by, ss.update_time, ss.deleted,
+               s.schedule_name as allowed_schedule_name
+        from competition_scene_resource_schedule_scope ss
+        left join competition_scene_schedule s
+               on ss.allowed_schedule_id = s.schedule_id and s.del_flag = '0'
+    </sql>
+
+    <select id="selectByScheduleResourceId" resultMap="CompetitionSceneResourceScheduleScopeResult">
+        <include refid="selectScopeColumns"/>
+        where ss.schedule_resource_id = #{scheduleResourceId}
+          and ss.deleted = 0
+        order by ss.scope_id asc
+    </select>
+
+    <select id="selectAllowedScheduleIds" resultType="Long">
+        select allowed_schedule_id
+        from competition_scene_resource_schedule_scope
+        where schedule_resource_id = #{scheduleResourceId}
+          and enabled = 1
+          and deleted = 0
+        order by scope_id asc
+    </select>
+
+    <select id="selectEnabledScope" resultMap="CompetitionSceneResourceScheduleScopeResult">
+        <include refid="selectScopeColumns"/>
+        where ss.schedule_resource_id = #{scheduleResourceId}
+          and ss.allowed_schedule_id = #{allowedScheduleId}
+          and ss.enabled = 1
+          and ss.deleted = 0
+        order by ss.scope_id desc
+        limit 1
+    </select>
+
+    <select id="countEnabledScope" resultType="int">
+        select count(1)
+        from competition_scene_resource_schedule_scope
+        where schedule_resource_id = #{scheduleResourceId}
+          and allowed_schedule_id = #{allowedScheduleId}
+          and enabled = 1
+          and deleted = 0
+    </select>
+
+    <insert id="insertScope"
+            parameterType="com.teaching.competition.domain.CompetitionSceneResourceScheduleScope"
+            useGeneratedKeys="true" keyProperty="scopeId">
+        insert into competition_scene_resource_schedule_scope
+        (schedule_resource_id, resource_id, allowed_schedule_id, source_type, enabled,
+         create_by, create_time, update_by, update_time, deleted)
+        values
+        (#{scheduleResourceId}, #{resourceId}, #{allowedScheduleId}, #{sourceType}, #{enabled},
+         #{createBy}, #{createTime}, #{updateBy}, #{updateTime}, #{deleted})
+    </insert>
+
+    <update id="logicalDeleteManualBind">
+        update competition_scene_resource_schedule_scope
+        set deleted = 1,
+            enabled = 0,
+            update_by = #{updateBy},
+            update_time = now()
+        where schedule_resource_id = #{scheduleResourceId}
+          and allowed_schedule_id = #{allowedScheduleId}
+          and source_type = 'MANUAL_BIND'
+          and deleted = 0
+    </update>
+</mapper>

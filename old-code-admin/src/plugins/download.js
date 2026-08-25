@@ -5,7 +5,7 @@ import { getToken } from '@/utils/auth'
 import errorCode from '@/utils/errorCode'
 import { blobValidate } from '@/utils/ruoyi'
 
-const baseURL = import.meta.env.VITE_APP_BASE_API
+const baseURL = import.meta.env.VITE_APP_BASE_API || "/dev-api"
 let downloadLoadingInstance
 
 export default {
@@ -42,4 +42,3 @@ export default {
     ElMessage.error(errMsg)
   }
 }
-

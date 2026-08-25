@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.content.mapper.ContentBannerInfoMapper">
+
+    <resultMap type="ContentBannerInfo" id="ContentBannerInfoResult">
+        <result property="id" column="id"/>
+        <result property="bannerName" column="banner_name"/>
+        <result property="bannerUrl" column="banner_url"/>
+        <result property="bannerModule" column="banner_module"/>
+        <result property="bannerLogotype" column="banner_logotype"/>
+        <result property="bannerDesc" column="banner_desc"/>
+        <result property="sortNum" column="sort_num"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="delFlag" column="del_flag"/>
+        <result property="remark" column="remark"/>
+        <result property="userId" column="user_id"/>
+        <result property="orgId" column="org_id"/>
+    </resultMap>
+
+    <sql id="selectContentBannerInfoVo">
+        select id,
+               banner_name,
+               banner_url,
+               banner_module,
+               banner_logotype,
+               banner_desc,
+               create_by,
+               create_time,
+               update_by,
+               update_time,
+               del_flag,
+               remark,
+               user_id,
+               org_id,
+               sort_num
+        from content_banner_info
+    </sql>
+
+    <!-- 查询bannerName,bannerUrl  pc页面使用 -->
+    <select id="selectContentBannerInfoListByPc" parameterType="ContentBannerInfo" resultType="java.util.Map">
+        SELECT banner_name AS bannerName,banner_url AS bannerUrl FROM content_banner_info
+        <where>
+            AND del_flag = '0'
+            <if test="bannerName != null  and bannerName != ''">AND banner_name LIKE concat('%', #{bannerName}, '%')
+            </if>
+            <if test="bannerUrl != null  and bannerUrl != ''">AND banner_url LIKE concat('%', #{bannerUrl}, '%')</if>
+            <if test="bannerModule != null  and bannerModule != ''">AND banner_module = #{bannerModule}</if>
+            <if test="bannerLogotype != null  and bannerLogotype != ''">AND banner_logotype = #{bannerLogotype}</if>
+            <if test="bannerDesc != null  and bannerDesc != ''">AND banner_desc LIKE concat('%',#{bannerDesc},'%') </if>
+        </where>
+        ORDER BY banner_module ,sort_num ,create_time
+        <if test="number != null and number > 0">
+            LIMIT #{number}
+        </if>
+    </select>
+
+    <select id="selectContentBannerInfoList" parameterType="ContentBannerInfo" resultMap="ContentBannerInfoResult">
+        <include refid="selectContentBannerInfoVo"/>
+        <where>
+            and del_flag = '0'
+            <if test="bannerName != null  and bannerName != ''">and banner_name like concat('%', #{bannerName}, '%')
+            </if>
+            <if test="bannerUrl != null  and bannerUrl != ''">and banner_url like concat('%', #{bannerUrl}, '%')</if>
+            <if test="bannerModule != null  and bannerModule != ''">and banner_module = #{bannerModule}</if>
+            <if test="bannerLogotype != null  and bannerLogotype != ''">and banner_logotype = #{bannerLogotype}</if>
+            <if test="sortNum != null  and sortNum != ''">and sort_num = #{sortNum}</if>
+            <if test="bannerDesc != null  and bannerDesc != ''">and banner_desc like concat('%',#{bannerDesc},'%') </if>
+        </where>
+        order by banner_module ,sort_num ,create_time
+    </select>
+
+    <select id="selectContentBannerInfoById" parameterType="Long" resultMap="ContentBannerInfoResult">
+        <include refid="selectContentBannerInfoVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertContentBannerInfo" parameterType="ContentBannerInfo" useGeneratedKeys="true" keyProperty="id">
+        insert into content_banner_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="bannerName != null">banner_name,</if>
+            <if test="bannerUrl != null and bannerUrl != ''">banner_url,</if>
+            <if test="bannerModule != null">banner_module,</if>
+            <if test="bannerLogotype != null">banner_logotype,</if>
+            <if test="bannerDesc != null">banner_desc,</if>
+            <if test="sortNum != null">sort_num,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="delFlag != null">del_flag,</if>
+            <if test="remark != null">remark,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="orgId != null">org_id,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="bannerName != null">#{bannerName},</if>
+            <if test="bannerUrl != null and bannerUrl != ''">#{bannerUrl},</if>
+            <if test="bannerModule != null">#{bannerModule},</if>
+            <if test="bannerLogotype != null">#{bannerLogotype},</if>
+            <if test="bannerDesc != null">#{bannerDesc},</if>
+            <if test="sortNum != null">#{sortNum},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="orgId != null">#{orgId},</if>
+        </trim>
+    </insert>
+
+    <update id="updateContentBannerInfo" parameterType="ContentBannerInfo">
+        update content_banner_info
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="bannerName != null">banner_name = #{bannerName},</if>
+            <if test="bannerUrl != null and bannerUrl != ''">banner_url = #{bannerUrl},</if>
+            <if test="bannerModule != null">banner_module = #{bannerModule},</if>
+            <if test="bannerLogotype != null">banner_logotype = #{bannerLogotype},</if>
+            <if test="bannerDesc != null">banner_desc = #{bannerDesc},</if>
+            <if test="sortNum != null">sort_num = #{sortNum},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="orgId != null">org_id = #{orgId},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteContentBannerInfoById" parameterType="Long">
+        delete
+        from content_banner_info
+        where id = #{id}
+    </delete>
+
+    <delete id="deleteContentBannerInfoByIds" parameterType="String">
+        delete from content_banner_info where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

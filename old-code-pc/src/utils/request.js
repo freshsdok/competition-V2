@@ -25,14 +25,14 @@ const authWhitelist = [
 ];
 
 axios.defaults.headers["Content-Type"] = "application/json;charset=utf-8";
+const baseURL = import.meta.env.VITE_APP_BASE_API || "/dev-api";
 // 创建axios实例
 const service = axios.create({
   // axios中请求配置有baseURL选项，表示请求URL公共部分
-  baseURL: import.meta.env.VITE_APP_BASE_API,
+  baseURL,
   // 超时 (设置超时为5分钟, 部分导出较慢)
   timeout: 1000 * 60 * 5, // 请求超时时间
 });
-console.log(import.meta.env.VITE_APP_BASE_API);
 // request拦截器
 service.interceptors.request.use(
   (config) => {

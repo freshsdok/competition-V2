@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.competition.mapper.CertPlayerInfoMapper">
+    <resultMap type="com.teaching.competition.domain.CertPlayerInfo" id="CertPlayerInfoResult">
+        <id property="relaId" column="rela_id" />
+        <result property="userId" column="user_id" />
+        <result property="memberId" column="member_id" />
+        <result property="teamCode" column="team_code" />
+        <result property="certId" column="cert_id" />
+        <result property="createBy" column="create_by" />
+        <result property="createTime" column="create_time" />
+        <result property="updateBy" column="update_by" />
+        <result property="updateTime" column="update_time" />
+        <result property="delFlag" column="del_flag" />
+        <result property="version" column="version" />
+    </resultMap>
+
+    <sql id="selectCertPlayerInfoVo">
+        select rela_id, user_id, member_id, team_code, cert_id, create_by, create_time, update_by, update_time, del_flag, version from cert_player_info
+    </sql>
+
+    <select id="selectCertPlayerInfoById" parameterType="Long" resultMap="CertPlayerInfoResult">
+        <include refid="selectCertPlayerInfoVo" />
+        where del_flag = '0' and rela_id = #{relaId}
+    </select>
+
+    <select id="selectCertPlayerInfoList" parameterType="com.teaching.competition.domain.CertPlayerInfo" resultMap="CertPlayerInfoResult">
+        select rela_id, user_id, member_id, team_code, cert_id, create_by, create_time, update_by, update_time,
+        del_flag, version from cert_player_info
+        where del_flag = '0'
+            <if test="userId != null">
+                and user_id = #{userId}
+            </if>
+            <if test="memberId != null">
+                and member_id = #{memberId}
+            </if>
+            <if test="teamCode != null and teamCode != ''">
+                and team_code = #{teamCode}
+            </if>
+            <if test="certId != null">
+                and cert_id = #{certId}
+            </if>
+    </select>
+
+    <insert id="insertCertPlayerInfo" parameterType="com.teaching.competition.domain.CertPlayerInfo" useGeneratedKeys="true" keyProperty="relaId">
+        insert into cert_player_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">user_id,</if>
+            <if test="memberId != null">member_id,</if>
+            <if test="teamCode != null">team_code,</if>
+            <if test="certId != null">cert_id,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="delFlag != null">del_flag,</if>
+            <if test="version != null">version,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">#{userId},</if>
+            <if test="memberId != null">#{memberId},</if>
+            <if test="teamCode != null">#{teamCode},</if>
+            <if test="certId != null">#{certId},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+            <if test="version != null">#{version},</if>
+        </trim>
+    </insert>
+
+    <insert id="batchInsertCertPlayerInfo" parameterType="java.util.List">
+        insert into cert_player_info
+        (user_id, member_id, team_code, cert_id, create_by, create_time, update_by, update_time)
+        values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.userId}, #{item.memberId}, #{item.teamCode}, #{item.certId}, #{item.createBy},
+             now(), #{item.updateBy}, #{item.updateTime})
+        </foreach>
+    </insert>
+
+    <update id="updateCertPlayerInfo" parameterType="com.teaching.competition.domain.CertPlayerInfo">
+        update cert_player_info
+        <set>
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="memberId != null">member_id = #{memberId},</if>
+            <if test="teamCode != null">team_code = #{teamCode},</if>
+            <if test="certId != null">cert_id = #{certId},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+            version = version+1,
+        </set>
+        where rela_id = #{relaId}
+    </update>
+
+    <delete id="deleteCertPlayerInfoById" parameterType="Long">
+        delete from cert_player_info where rela_id = #{relaId}
+    </delete>
+
+    <delete id="deleteCertPlayerInfoByIds" parameterType="Long[]">
+        delete from cert_player_info where rela_id in
+        <foreach item="relaId" collection="array" open="(" separator="," close=")">
+            #{relaId}
+        </foreach>
+    </delete>
+</mapper>

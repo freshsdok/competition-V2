@@ -1,0 +1,498 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.course.mapper.CourseInfoMapper">
+<!-- 课程 -->
+    <resultMap type="CourseInfo" id="CourseInfoResult">
+        <result property="courseId" column="course_id"/>
+        <result property="courseCode" column="course_code"/>
+        <result property="schoolCode" column="school_code"/>
+        <result property="collegeCode" column="college_code"/>
+        <result property="name" column="name"/>
+        <result property="classifyId" column="classify_id"/>
+        <result property="classifyName" column="classify_Name"/>
+        <result property="teacher" column="teacher"/>
+        <result property="creditHour" column="credit_hour"/>
+        <result property="studyScore" column="study_score"/>
+        <result property="price" column="price"/>
+        <result property="difficultyLevel" column="difficulty_level"/>
+        <result property="checkStatus" column="check_status"/>
+        <result property="applyReason" column="apply_reason"/>
+        <result property="publishStatus" column="publish_status"/>
+        <result property="publishTime" column="publish_time"/>
+        <result property="details" column="details"/>
+        <result property="coverImage" column="cover_image"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="version" column="version"/>
+        <result property="delFlag" column="del_flag"/>
+        <result property="userId" column="user_id"/>
+        <result property="orgId" column="org_id"/>
+    </resultMap>
+
+    <resultMap id="CourseInfoCourseChapterInfoResult" type="CourseInfo" extends="CourseInfoResult">
+        <collection property="courseChapterInfoList" ofType="CourseChapterInfo" column="course_id"
+                    select="selectCourseChapterInfoList"/>
+    </resultMap>
+    <resultMap id="CourseInfoCourseChapterInfoAndVideoResult" type="CourseInfo" extends="CourseInfoResult">
+        <collection property="courseChapterInfoList" ofType="CourseChapterInfo" column="course_id"
+                    select="selectCourseChapterInfoAndVideosList"/>
+    </resultMap>
+<!-- 章节不带视频 -->
+    <resultMap type="CourseChapterInfo" id="CourseChapterInfoResult">
+        <result property="chapterId" column="chapter_id"/>
+        <result property="chapterCode" column="chapter_code"/>
+        <result property="chapterName" column="chapter_name"/>
+        <result property="chapterNum" column="chapter_num"/>
+        <result property="courseId" column="course_id"/>
+        <result property="description" column="description"/>
+        <result property="creditHour" column="credit_hour"/>
+        <result property="isFree" column="is_free"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="version" column="version"/>
+        <result property="delFlag" column="del_flag"/>
+        <result property="userId" column="user_id"/>
+        <result property="orgId" column="org_id"/>
+    </resultMap>
+    <!-- 章节带视频 -->
+    <resultMap type="CourseChapterInfo" id="CourseChapterInfoResultAndVideos">
+        <result property="chapterId" column="chapter_id"/>
+        <result property="chapterCode" column="chapter_code"/>
+        <result property="chapterName" column="chapter_name"/>
+        <result property="chapterNum" column="chapter_num"/>
+        <result property="courseId" column="course_id"/>
+        <result property="courseName" column="course_name"/>
+        <result property="description" column="description"/>
+        <result property="creditHour" column="credit_hour"/>
+        <result property="isFree" column="is_free"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="version" column="version"/>
+        <result property="delFlag" column="del_flag"/>
+        <result property="userId" column="user_id"/>
+        <result property="orgId" column="org_id"/>
+        <collection property="chapterVideoList" ofType="CourseChapterVideo" >
+            <result property="videoId" column="video_id"/>
+            <result property="videoName" column="video_name"/>
+            <result property="videoFile" column="video_file"/>
+            <result property="videoNum" column="video_num"/>
+            <result property="videoDuration" column="video_duration"/>
+            <result property="isFree" column="is_free"/>
+            <result property="expenses" column="expenses"/>
+            <result property="checkStatus" column="check_status"/>
+            <result property="applyReason" column="apply_reason"/>
+        </collection>
+    </resultMap>
+<!-- 课程带分类名称 -->
+    <sql id="selectCourseInfoVo">
+        select ci.course_id,
+               ci.course_code,
+               ci.school_code,
+               ci.college_code,
+               ci.name,
+               ci.classify_id,
+               ci.teacher,
+               ci.credit_hour,
+               ci.study_score,
+               ci.price,
+               ci.difficulty_level,
+               ci.check_status,
+               ci.apply_reason,
+               ci.publish_status,
+               ci.publish_time,
+               ci.details,
+               ci.cover_image,
+               ci.create_by,
+               ci.create_time,
+               ci.update_by,
+               ci.update_time,
+               ci.version,
+               ci.del_flag,
+               ci.user_id,
+               ci.org_id,
+               cci.classify_name
+        from course_info ci
+        left join course_classify_info cci on ci.classify_id = cci.classify_id
+    </sql>
+
+    <select id="selectCourseInfoList" parameterType="CourseInfo" resultMap="CourseInfoCourseChapterInfoResult">
+        <include refid="selectCourseInfoVo"/>
+        <where>
+            and ci.del_flag = '0' and cci.del_flag = '0'
+            <if test="courseCode != null  and courseCode != ''">and ci.course_code = #{courseCode}</if>
+            <if test="schoolCode != null  and schoolCode != ''">and ci.school_code = #{schoolCode}</if>
+            <if test="collegeCode != null  and collegeCode != ''">and ci.college_code = #{collegeCode}</if>
+            <if test="name != null  and name != ''">and ci.name like concat('%', #{name}, '%')</if>
+            <if test="classifyId != null">and ci.classify_id = #{classifyId}</if>
+            <if test="teacher != null  and teacher != ''">and ci.teacher = #{teacher}</if>
+            <if test="creditHour != null  and creditHour != ''">and ci.credit_hour = #{creditHour}</if>
+            <if test="studyScore != null  and studyScore != ''">and ci.study_score = #{studyScore}</if>
+            <if test="price != null  and price != ''">and ci.price = #{price}</if>
+            <if test="difficultyLevel != null  and difficultyLevel != ''">and ci.difficulty_level = #{difficultyLevel}</if>
+            <if test="checkStatus != null  and checkStatus != ''">and ci.check_status = #{checkStatus}</if>
+            <if test="applyReason != null  and applyReason != ''">and ci.apply_reason = #{applyReason}</if>
+            <if test="publishStatus != null  and publishStatus != ''">and ci.publish_status = #{publishStatus}</if>
+            <if test="publishTime != null ">and ci.publish_time = #{publishTime}</if>
+            <if test="details != null  and details != ''">and ci.details = #{details}</if>
+            <if test="coverImage != null  and coverImage != ''">and ci.cover_image = #{coverImage}</if>
+            <if test="version != null ">and ci.version = #{version}</if>
+            <if test="userId != null ">and ci.user_id = #{userId}</if>
+            <if test="orgId != null ">and ci.org_id = #{orgId}</if>
+        </where>
+        order by ci.create_time desc
+    </select>
+<!-- 课程带分类名称详情 -->
+    <select id="selectCourseInfoByCourseId" parameterType="Long" resultMap="CourseInfoCourseChapterInfoAndVideoResult">
+        select ci.course_id,
+               ci.course_code,
+               ci.school_code,
+               ci.college_code,
+               ci.name,
+               ci.classify_id,
+               ci.teacher,
+               ci.credit_hour,
+               ci.study_score,
+               ci.price,
+               ci.difficulty_level,
+               ci.check_status,
+               ci.apply_reason,
+               ci.publish_status,
+               ci.publish_time,
+               ci.details,
+               ci.cover_image,
+               ci.create_by,
+               ci.create_time,
+               ci.update_by,
+               ci.update_time,
+               ci.version,
+               ci.del_flag,
+               ci.user_id,
+               ci.org_id,
+               cci.classify_name
+        from course_info ci
+                 left join course_classify_info cci on ci.classify_id = cci.classify_id
+        where ci.course_id = #{courseId} and cci.del_flag = '0'
+    </select>
+<!--章节详情带视频-->
+    <select id="selectCourseChapterInfoAndVideosList" resultMap="CourseChapterInfoResultAndVideos">
+        select cchi.chapter_id,
+               cchi.chapter_code,
+               cchi.chapter_name,
+               cchi.chapter_num,
+               cchi.course_id,
+               cchi.description,
+               cchi.credit_hour,
+               cchi.is_free,
+               cchi.create_by,
+               cchi.create_time,
+               cchi.update_by,
+               cchi.update_time,
+               cchi.version,
+               cchi.del_flag,
+               cchi.user_id,
+               cchi.org_id,
+               ccvi.video_id,
+               ccvi.video_name,
+               ccvi.video_file,
+               ccvi.video_num,
+               ccvi.video_duration,
+               ccvi.is_free,
+               ccvi.expenses
+        from course_chapter_info cchi
+        left join course_chapter_video ccvi on cchi.chapter_id = ccvi.chapter_id
+        where cchi.course_id = #{courseId} and cchi.del_flag = '0' and ccvi.del_flag = '0'
+    </select>
+    <!--章节详情不带视频-->
+    <select id="selectCourseChapterInfoList" resultMap="CourseChapterInfoResult">
+        select chapter_id,
+               chapter_code,
+               chapter_name,
+               chapter_num,
+               course_id,
+               description,
+               credit_hour,
+               is_free,
+               create_by,
+               create_time,
+               update_by,
+               update_time,
+               version,
+               del_flag,
+               user_id,
+               org_id
+        from course_chapter_info
+        where course_id = #{courseId} and del_flag = '0'
+    </select>
+
+    <insert id="insertCourseInfo" parameterType="CourseInfo" useGeneratedKeys="true" keyProperty="courseId">
+        insert into course_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="courseId != null">course_id,</if>
+            <if test="courseCode != null and courseCode != ''">course_code,</if>
+            <if test="schoolCode != null">school_code,</if>
+            <if test="collegeCode != null">college_code,</if>
+            <if test="name != null">name,</if>
+            <if test="classifyId != null">classify_id,</if>
+            <if test="teacher != null">teacher,</if>
+            <if test="creditHour != null">credit_hour,</if>
+            <if test="studyScore != null">study_score,</if>
+            <if test="price != null">price,</if>
+            <if test="difficultyLevel != null and difficultyLevel != ''">difficulty_level,</if>
+            <if test="checkStatus != null">check_status,</if>
+            <if test="applyReason != null">apply_reason,</if>
+            <if test="publishStatus != null">publish_status,</if>
+            <if test="publishTime != null">publish_time,</if>
+            <if test="details != null">details,</if>
+            <if test="coverImage != null">cover_image,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="version != null">version,</if>
+            <if test="delFlag != null">del_flag,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="orgId != null">org_id,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="courseId != null">#{courseId},</if>
+            <if test="courseCode != null and courseCode != ''">#{courseCode},</if>
+            <if test="schoolCode != null">#{schoolCode},</if>
+            <if test="collegeCode != null">#{collegeCode},</if>
+            <if test="name != null">#{name},</if>
+            <if test="classifyId != null and classifyId != ''">#{classifyId},</if>
+            <if test="teacher != null">#{teacher},</if>
+            <if test="creditHour != null">#{creditHour},</if>
+            <if test="studyScore != null">#{studyScore},</if>
+            <if test="price != null">#{price},</if>
+            <if test="difficultyLevel != null and difficultyLevel != ''">#{difficultyLevel},</if>
+            <if test="checkStatus != null">#{checkStatus},</if>
+            <if test="applyReason != null">#{applyReason},</if>
+            <if test="publishStatus != null">#{publishStatus},</if>
+            <if test="publishTime != null">#{publishTime},</if>
+            <if test="details != null">#{details},</if>
+            <if test="coverImage != null">#{coverImage},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="version != null">#{version},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="orgId != null">#{orgId},</if>
+        </trim>
+    </insert>
+
+    <update id="updateCourseInfo" parameterType="CourseInfo">
+        update course_info
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="courseCode != null and courseCode != ''">course_code = #{courseCode},</if>
+            <if test="schoolCode != null">school_code = #{schoolCode},</if>
+            <if test="collegeCode != null">college_code = #{collegeCode},</if>
+            <if test="name != null">name = #{name},</if>
+            <if test="classifyId != null">classify_id = #{classifyId},</if>
+            <if test="teacher != null">teacher = #{teacher},</if>
+            <if test="creditHour != null">credit_hour = #{creditHour},</if>
+            <if test="studyScore != null">study_score = #{studyScore},</if>
+            <if test="price != null">price = #{price},</if>
+            <if test="difficultyLevel != null and difficultyLevel != ''">difficulty_level = #{difficultyLevel},</if>
+            <if test="checkStatus != null">check_status = #{checkStatus},</if>
+            <if test="applyReason != null">apply_reason = #{applyReason},</if>
+            <if test="publishStatus != null">publish_status = #{publishStatus},</if>
+            <if test="publishTime != null">publish_time = #{publishTime},</if>
+            <if test="details != null">details = #{details},</if>
+            <if test="coverImage != null">cover_image = #{coverImage},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="version != null">version = #{version},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="orgId != null">org_id = #{orgId},</if>
+        </trim>
+        where course_id = #{courseId}
+    </update>
+
+    <delete id="deleteCourseInfoByCourseId" parameterType="Long">
+        delete
+        from course_info
+        where course_id = #{courseId}
+    </delete>
+
+    <delete id="deleteCourseInfoByCourseIds" parameterType="String">
+        delete from course_info where course_id in
+        <foreach item="courseId" collection="array" open="(" separator="," close=")">
+            #{courseId}
+        </foreach>
+    </delete>
+
+    <delete id="deleteCourseChapterInfoByCourseIds" parameterType="String">
+        delete from course_chapter_info where course_id in
+        <foreach item="courseId" collection="array" open="(" separator="," close=")">
+            #{courseId}
+        </foreach>
+    </delete>
+
+    <delete id="deleteCourseChapterInfoByCourseId" parameterType="Long">
+        delete
+        from course_chapter_info
+        where course_id = #{courseId}
+    </delete>
+
+    <select id="selectCourseChapterInfoByCourseId" parameterType="Long" resultMap="CourseChapterInfoResult">
+    </select>
+
+    <insert id="batchCourseChapterInfo">
+        insert into course_chapter_info(  chapter_code, chapter_name, chapter_num, course_id, description,
+        credit_hour, is_free, create_by, create_time, update_by, update_time, version, del_flag, user_id, org_id) values
+        <foreach item="item" index="index" collection="list" separator=",">
+            (  #{item.chapterCode}, #{item.chapterName}, #{item.chapterNum}, #{item.courseId},
+            #{item.description}, #{item.creditHour}, #{item.isFree}, #{item.createBy}, #{item.createTime},
+            #{item.updateBy}, #{item.updateTime}, #{item.version}, #{item.delFlag}, #{item.userId}, #{item.orgId})
+        </foreach>
+    </insert>
+
+    <!-- 批量删除关联关系 -->
+    <delete id="batchDeleteCourseChapterInfoByIds">
+        DELETE FROM course_chapter_info
+        WHERE chapter_id IN
+        <foreach collection="list" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <insert id="insertCourseChapterInfo" parameterType="CourseChapterInfo" useGeneratedKeys="true" keyProperty="chapterId">
+        insert into course_chapter_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="chapterId != null">chapter_id,</if>
+            <if test="chapterCode != null">chapter_code,</if>
+            <if test="chapterName != null">chapter_name,</if>
+            <if test="chapterNum != null">chapter_num,</if>
+            <if test="courseId != null">course_id,</if>
+            <if test="description != null">description,</if>
+            <if test="creditHour != null">credit_hour,</if>
+            <if test="isFree != null">is_free,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="version != null">version,</if>
+            <if test="delFlag != null">del_flag,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="orgId != null">org_id,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="chapterId != null">#{chapterId},</if>
+            <if test="chapterCode != null">#{chapterCode},</if>
+            <if test="chapterName != null">#{chapterName},</if>
+            <if test="chapterNum != null">#{chapterNum},</if>
+            <if test="courseId != null">#{courseId},</if>
+            <if test="description != null">#{description},</if>
+            <if test="creditHour != null">#{creditHour},</if>
+            <if test="isFree != null">#{isFree},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="version != null">#{version},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="orgId != null">#{orgId},</if>
+        </trim>
+    </insert>
+
+    <update id="updateCourseChapterInfo" parameterType="CourseChapterInfo">
+        update course_chapter_info
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="chapterCode != null">chapter_code = #{chapterCode},</if>
+            <if test="chapterName != null">chapter_name = #{chapterName},</if>
+            <if test="chapterNum != null">chapter_num = #{chapterNum},</if>
+            <if test="courseId != null">course_id = #{courseId},</if>
+            <if test="description != null">description = #{description},</if>
+            <if test="creditHour != null">credit_hour = #{creditHour},</if>
+            <if test="isFree != null">is_free = #{isFree},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            version = version + 1,
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="orgId != null">org_id = #{orgId},</if>
+        </trim>
+        where chapter_id = #{chapterId}
+    </update>
+
+    <select id="hasUsedByClassifyId" resultType="Integer">
+        select count(1)
+        from course_info
+        where del_flag = '0' and classify_id = #{classifyId}
+    </select>
+    <!-- 通过章节id 更新章节学时 -->
+    <update id="updateChapterCreditHourByChapterId" parameterType="Long">
+        UPDATE course_chapter_info cci
+        SET credit_hour = (
+            SELECT ROUND(SUM(video_duration) / 3600, 2)
+            FROM course_chapter_video
+            WHERE del_flag = '0' AND chapter_id = 1
+        )
+        WHERE chapter_id = #{chapterId}
+    </update>
+
+    <!-- 通过章节id 更新课程学时 -->
+    <update id="updateCourseCreditHourByChapterId" parameterType="Long">
+        UPDATE course_info ci
+        SET credit_hour = (
+            SELECT SUM(nullif(credit_hour,0))
+            FROM course_chapter_info
+            WHERE del_flag = '0'
+              AND course_id = ci.course_id
+        )
+        WHERE EXISTS (
+            SELECT 1
+            FROM course_chapter_info
+            WHERE chapter_id = #{chapterId}
+              AND course_id = ci.course_id
+        )
+    </update>
+
+    <!--章节详情带视频-->
+    <select id="selectChapterAndVideoInfoByChapterId" resultMap="CourseChapterInfoResultAndVideos">
+        select cchi.chapter_id,
+               cchi.chapter_code,
+               cchi.chapter_name,
+               cchi.chapter_num,
+               cchi.course_id,
+               ci.`name` AS course_name,
+               cchi.description,
+               cchi.credit_hour,
+               cchi.is_free,
+               cchi.create_by,
+               cchi.create_time,
+               cchi.update_by,
+               cchi.update_time,
+               cchi.version,
+               cchi.del_flag,
+               cchi.user_id,
+               cchi.org_id,
+               ccvi.video_id,
+               ccvi.video_name,
+               ccvi.video_file,
+               ccvi.video_num,
+               ccvi.video_duration,
+               ccvi.is_free,
+               ccvi.expenses
+        FROM course_chapter_info cchi
+                 LEFT JOIN course_chapter_video ccvi on cchi.chapter_id = ccvi.chapter_id
+                 LEFT JOIN course_info ci ON ci.course_id = cchi.course_id
+        WHERE cchi.chapter_id = #{chapterId} AND cchi.del_flag = '0' AND ccvi.del_flag = '0' AND ccvi.check_status = '3'
+    </select>
+</mapper>

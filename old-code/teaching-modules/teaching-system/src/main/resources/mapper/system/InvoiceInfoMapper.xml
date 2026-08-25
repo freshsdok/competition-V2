@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.system.mapper.InvoiceInfoMapper">
+    
+    <resultMap type="com.teaching.system.domain.InvoiceInfo" id="InvoiceInfoResult">
+        <result property="id"    column="id"    />
+        <result property="orderId"    column="order_id"    />
+        <result property="invoiceNum"    column="invoice_num"    />
+        <result property="invoiceCode"    column="invoice_code"    />
+        <result property="invoiceType"    column="invoice_type"    />
+        <result property="buyerName"    column="buyer_name"    />
+        <result property="buyerTaxNum"    column="buyer_tax_num"    />
+        <result property="enterpriseName"    column="enterprise_name"    />
+        <result property="taxCode"    column="tax_code"    />
+        <result property="addr"    column="addr"    />
+        <result property="phone"    column="phone"    />
+        <result property="bankAccount"    column="bank_account"    />
+        <result property="issuedStatus"    column="issued_status"    />
+        <result property="issuedTime"    column="issued_time"    />
+        <result property="checkStatus"    column="check_status"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="version"    column="version"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="userId"    column="user_id"    />
+        <result property="orgId"    column="org_id"    />
+        <result property="salerTaxNum"    column="saler_tax_num"    />
+        <result property="salerTel"    column="saler_tel"    />
+        <result property="salerAddress"    column="saler_address"    />
+        <result property="invoiceDate"    column="invoice_date"    />
+        <result property="clerk"    column="clerk"    />
+        <result property="buyerPhone"    column="buyer_phone"    />
+        <result property="buyerEmail"    column="buyer_email"    />
+        <result property="invoiceClass"    column="invoice_class"    />
+        <result property="callBackUrl"    column="call_back_url"    />
+        <result property="invoiceSerialNum"    column="invoice_serial_num"    />
+        <result property="cUrl"    column="c_url"    />
+        <result property="cJpgUrl"    column="c_jpg_url"    />
+        <result property="invoiceContent"    column="invoice_content"    />
+        <result property="remark"    column="remark"    />
+        <result property="failReason" column="fail_reason"/>
+        <result property="amount" column="amount"/>
+        <result property="userName" column="user_name"/>
+    </resultMap>
+
+    <sql id="selectInvoiceInfoVo">
+        select id, order_id, invoice_num, invoice_code, invoice_type, buyer_name, buyer_tax_num, enterprise_name, tax_code, addr, phone, bank_account,
+               issued_status, issued_time, check_status, create_by, create_time, update_by, update_time, version, del_flag, user_id, org_id, saler_tax_num,
+               saler_tel, saler_address, invoice_date, clerk, buyer_phone, buyer_email, invoice_class, call_back_url, invoice_serial_num, c_url, c_jpg_url,
+               invoice_content,remark,fail_reason,amount from invoice_info
+    </sql>
+
+    <select id="selectInvoiceInfoList" parameterType="com.teaching.system.domain.InvoiceInfo" resultMap="InvoiceInfoResult">
+<!--        <include refid="selectInvoiceInfoVo"/>-->
+        select i.*,a.real_name as user_name,u.school_name as schoolName from invoice_info i
+        left join auth_info a on i.user_id = a.user_id and a.`del_flag` =0 and `auth_status` =5
+        left join sys_user u on i.user_id = u.user_id
+        where i.del_flag = 0
+        <if test="orderId != null  and orderId != ''"> and i.order_id = #{orderId}</if>
+        <if test="invoiceNum != null  and invoiceNum != ''"> and i.invoice_num like concat('%',#{invoiceNum},'%') </if>
+        <if test="invoiceCode != null  and invoiceCode != ''"> and i.invoice_code = #{invoiceCode}</if>
+        <if test="invoiceType != null  and invoiceType != ''"> and i.invoice_type = #{invoiceType}</if>
+        <if test="buyerName != null  and buyerName != ''"> and i.buyer_name like concat('%', #{buyerName}, '%')</if>
+        <if test="buyerTaxNum != null  and buyerTaxNum != ''"> and i.buyer_tax_num like concat('%',#{buyerTaxNum},'%') </if>
+        <if test="enterpriseName != null  and enterpriseName != ''"> and i.enterprise_name like concat('%', #{enterpriseName}, '%')</if>
+        <if test="taxCode != null  and taxCode != ''"> and i.tax_code = #{taxCode}</if>
+        <if test="addr != null  and addr != ''"> and i.addr = #{addr}</if>
+        <if test="phone != null  and phone != ''"> and i.phone = #{phone}</if>
+        <if test="bankAccount != null  and bankAccount != ''"> and i.bank_account = #{bankAccount}</if>
+        <if test="issuedStatus != null  and issuedStatus != ''"> and i.issued_status = #{issuedStatus}</if>
+        <if test="issuedTime != null "> and i.issued_time = #{issuedTime}</if>
+        <if test="checkStatus != null  and checkStatus != ''"> and i.check_status = #{checkStatus}</if>
+        <if test="version != null "> and i.version = #{version}</if>
+        <if test="userId != null "> and i.user_id = #{userId}</if>
+        <if test="orgId != null "> and i.org_id = #{orgId}</if>
+        <if test="salerTaxNum != null  and salerTaxNum != ''"> and i.saler_tax_num = #{salerTaxNum}</if>
+        <if test="salerTel != null  and salerTel != ''"> and i.saler_tel = #{salerTel}</if>
+        <if test="salerAddress != null  and salerAddress != ''"> and i.saler_address = #{salerAddress}</if>
+        <if test="invoiceDate != null  and invoiceDate != ''"> and i.invoice_date = #{invoiceDate}</if>
+        <if test="clerk != null  and clerk != ''"> and i.clerk = #{clerk}</if>
+        <if test="buyerPhone != null  and buyerPhone != ''"> and i.buyer_phone = #{buyerPhone}</if>
+        <if test="buyerEmail != null  and buyerEmail != ''"> and i.buyer_email like concat('%',#{buyerEmail},'%') </if>
+        <if test="invoiceClass != null  and invoiceClass != ''"> and i.invoice_class = #{invoiceClass}</if>
+        <if test="callBackUrl != null  and callBackUrl != ''"> and i.call_back_url = #{callBackUrl}</if>
+        <if test="invoiceSerialNum != null  and invoiceSerialNum != ''"> and i.invoice_serial_num = #{invoiceSerialNum}</if>
+        <if test="cUrl != null  and cUrl != ''"> and i.c_url = #{cUrl}</if>
+        <if test="cJpgUrl != null  and cJpgUrl != ''"> and i.c_jpg_url = #{cJpgUrl}</if>
+        <if test="invoiceContent !=null">and i.invoice_content = #{invoiceContent}</if>
+        <if test="remark !=null">and i.remark like concat('%',#{remark},'%')</if>
+        <if test="failReason != null  and failReason != ''"> and i.fail_reason = #{failReason}</if>
+        <if test="userName!=null and userName!=''">and a.real_name like concat('%',#{userName},'%')</if>
+        <if test="schoolName!=null and schoolName!=''">and u.school_name like concat('%',#{schoolName},'%')</if>
+        <if test="invoiceGoodsCode != null and invoiceGoodsCode!=''">and i.invoice_content like concat('%',#{invoiceGoodsCode},'%')</if>
+        <if test="feeType != null and feeType!=''">and i.invoice_content like concat('%',#{feeType},'%')</if>
+        <if test="applyStartTime!=null">
+            and i.issued_time >= #{applyStartTime}
+        </if>
+        <if test="applyEndTime!=null">
+            and i.issued_time &lt;= #{applyEndTime}
+        </if>
+        <if test="amountStart!=null ">
+            and i.amount &gt;= #{amountStart}
+        </if>
+        <if test="amountEnd!=null ">
+            and i.amount &lt;= #{amountEnd}
+        </if>
+        order by create_time desc
+    </select>
+    
+    <select id="selectInvoiceInfoById" parameterType="Long" resultMap="InvoiceInfoResult">
+        <include refid="selectInvoiceInfoVo"/>
+        where id = #{id}
+    </select>
+
+
+    <insert id="insertInvoiceInfo" parameterType="com.teaching.system.domain.InvoiceInfo" useGeneratedKeys="true" keyProperty="id">
+        insert into invoice_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="orderId != null and orderId != ''">order_id,</if>
+            <if test="invoiceNum != null">invoice_num,</if>
+            <if test="invoiceCode != null">invoice_code,</if>
+            <if test="invoiceType != null">invoice_type,</if>
+            <if test="buyerName != null">buyer_name,</if>
+            <if test="buyerTaxNum != null">buyer_tax_num,</if>
+            <if test="enterpriseName != null">enterprise_name,</if>
+            <if test="taxCode != null">tax_code,</if>
+            <if test="addr != null">addr,</if>
+            <if test="phone != null">phone,</if>
+            <if test="bankAccount != null">bank_account,</if>
+            <if test="issuedStatus != null">issued_status,</if>
+            <if test="issuedTime != null">issued_time,</if>
+            <if test="checkStatus != null">check_status,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="version != null">version,</if>
+            <if test="delFlag != null">del_flag,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="orgId != null">org_id,</if>
+            <if test="salerTaxNum != null">saler_tax_num,</if>
+            <if test="salerTel != null">saler_tel,</if>
+            <if test="salerAddress != null">saler_address,</if>
+            <if test="invoiceDate != null">invoice_date,</if>
+            <if test="clerk != null">clerk,</if>
+            <if test="buyerPhone != null">buyer_phone,</if>
+            <if test="buyerEmail != null">buyer_email,</if>
+            <if test="invoiceClass != null">invoice_class,</if>
+            <if test="callBackUrl != null">call_back_url,</if>
+            <if test="invoiceSerialNum != null">invoice_serial_num,</if>
+            <if test="cUrl != null">c_url,</if>
+            <if test="cJpgUrl != null">c_jpg_url,</if>
+            <if test="invoiceContent !=null">invoice_content,</if>
+            <if test="remark !=null">remark,</if>
+            <if test="failReason != null">fail_reason,</if>
+            <if test="amount!=null"> amount,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="orderId != null and orderId != ''">#{orderId},</if>
+            <if test="invoiceNum != null">#{invoiceNum},</if>
+            <if test="invoiceCode != null">#{invoiceCode},</if>
+            <if test="invoiceType != null">#{invoiceType},</if>
+            <if test="buyerName != null">#{buyerName},</if>
+            <if test="buyerTaxNum != null">#{buyerTaxNum},</if>
+            <if test="enterpriseName != null">#{enterpriseName},</if>
+            <if test="taxCode != null">#{taxCode},</if>
+            <if test="addr != null">#{addr},</if>
+            <if test="phone != null">#{phone},</if>
+            <if test="bankAccount != null">#{bankAccount},</if>
+            <if test="issuedStatus != null">#{issuedStatus},</if>
+            <if test="issuedTime != null">#{issuedTime},</if>
+            <if test="checkStatus != null">#{checkStatus},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="version != null">#{version},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="orgId != null">#{orgId},</if>
+            <if test="salerTaxNum != null">#{salerTaxNum},</if>
+            <if test="salerTel != null">#{salerTel},</if>
+            <if test="salerAddress != null">#{salerAddress},</if>
+            <if test="invoiceDate != null">#{invoiceDate},</if>
+            <if test="clerk != null">#{clerk},</if>
+            <if test="buyerPhone != null">#{buyerPhone},</if>
+            <if test="buyerEmail != null">#{buyerEmail},</if>
+            <if test="invoiceClass != null">#{invoiceClass},</if>
+            <if test="callBackUrl != null">#{callBackUrl},</if>
+            <if test="invoiceSerialNum != null">#{invoiceSerialNum},</if>
+            <if test="cUrl != null">#{cUrl},</if>
+            <if test="cJpgUrl != null">#{cJpgUrl},</if>
+            <if test="invoiceContent !=null">#{invoiceContent},</if>
+            <if test="remark !=null"> #{remark},</if>
+            <if test="failReason != null">#{failReason},</if>
+            <if test="amount!=null"> #{amount},</if>
+         </trim>
+    </insert>
+
+    <update id="updateInvoiceInfo" parameterType="com.teaching.system.domain.InvoiceInfo">
+        update invoice_info
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="orderId != null and orderId != ''">order_id = #{orderId},</if>
+            <if test="invoiceNum != null">invoice_num = #{invoiceNum},</if>
+            <if test="invoiceCode != null">invoice_code = #{invoiceCode},</if>
+            <if test="invoiceType != null">invoice_type = #{invoiceType},</if>
+            <if test="buyerName != null">buyer_name = #{buyerName},</if>
+            <if test="buyerTaxNum != null">buyer_tax_num = #{buyerTaxNum},</if>
+            <if test="enterpriseName != null">enterprise_name = #{enterpriseName},</if>
+            <if test="taxCode != null">tax_code = #{taxCode},</if>
+            <if test="addr != null">addr = #{addr},</if>
+            <if test="phone != null">phone = #{phone},</if>
+            <if test="bankAccount != null">bank_account = #{bankAccount},</if>
+            <if test="issuedStatus != null">issued_status = #{issuedStatus},</if>
+            <if test="issuedTime != null">issued_time = #{issuedTime},</if>
+            <if test="checkStatus != null">check_status = #{checkStatus},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="version != null">version = #{version},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="orgId != null">org_id = #{orgId},</if>
+            <if test="salerTaxNum != null">saler_tax_num = #{salerTaxNum},</if>
+            <if test="salerTel != null">saler_tel = #{salerTel},</if>
+            <if test="salerAddress != null">saler_address = #{salerAddress},</if>
+            <if test="invoiceDate != null">invoice_date = #{invoiceDate},</if>
+            <if test="clerk != null">clerk = #{clerk},</if>
+            <if test="buyerPhone != null">buyer_phone = #{buyerPhone},</if>
+            <if test="buyerEmail != null">buyer_email = #{buyerEmail},</if>
+            <if test="invoiceClass != null">invoice_class = #{invoiceClass},</if>
+            <if test="callBackUrl != null">call_back_url = #{callBackUrl},</if>
+            <if test="invoiceSerialNum != null">invoice_serial_num = #{invoiceSerialNum},</if>
+            <if test="cUrl != null">c_url = #{cUrl},</if>
+            <if test="cJpgUrl != null">c_jpg_url = #{cJpgUrl},</if>
+            <if test="invoiceContent !=null">invoice_content = #{invoiceContent},</if>
+            <if test="remark !=null">remark = #{remark},</if>
+            <if test="failReason != null">fail_reason = #{failReason},</if>
+            <if test="amount!=null"> amount = #{amount},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteInvoiceInfoById" parameterType="Long">
+        delete from invoice_info where id = #{id}
+    </delete>
+
+    <delete id="deleteInvoiceInfoByIds" parameterType="String">
+        delete from invoice_info where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <select id="selectInvoiceInfoByOrderId" resultMap="InvoiceInfoResult">
+        <include refid="selectInvoiceInfoVo"/>
+        where order_id = #{orderId}
+    </select>
+    <select id="selectInvoiceInfoBySerialNo" resultMap="InvoiceInfoResult">
+        <include refid="selectInvoiceInfoVo"/>
+        where invoice_serial_num = #{serialNo}
+    </select>
+
+<!--    状态非开票成功，且未删除的开票信息，进行同步-->
+    <select id="syncInvoiceResult" resultMap="InvoiceInfoResult">
+        <include refid="selectInvoiceInfoVo"/>
+        where del_flag = 0 and issued_status != '1'
+    </select>
+</mapper>

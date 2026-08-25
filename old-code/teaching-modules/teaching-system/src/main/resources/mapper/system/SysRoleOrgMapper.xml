@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.system.mapper.SysRoleOrgMapper">
+    
+    <resultMap type="com.teaching.system.domain.SysRoleOrg" id="SysRoleOrgResult">
+        <result property="roleId"    column="role_id"    />
+        <result property="orgId"    column="org_id"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="version"    column="version"    />
+        <result property="delFlag"    column="del_flag"    />
+    </resultMap>
+
+    <sql id="selectSysRoleOrgVo">
+        select role_id, org_id, create_by, create_time, update_by, update_time, version, del_flag from sys_role_org
+    </sql>
+
+    <select id="selectSysRoleOrgList" parameterType="com.teaching.system.domain.SysRoleOrg" resultMap="SysRoleOrgResult">
+        <include refid="selectSysRoleOrgVo"/>
+        <where>  
+            <if test="roleId != null "> and role_id = #{roleId}</if>
+            <if test="orgId != null "> and org_id = #{orgId}</if>
+            <if test="version != null "> and version = #{version}</if>
+        </where>
+    </select>
+    
+    <select id="selectSysRoleOrgByRoleId" parameterType="Long" resultMap="SysRoleOrgResult">
+        <include refid="selectSysRoleOrgVo"/>
+        where role_id = #{roleId}
+    </select>
+
+    <insert id="insertSysRoleOrg" parameterType="com.teaching.system.domain.SysRoleOrg">
+        insert into sys_role_org
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="roleId != null">role_id,</if>
+            <if test="orgId != null">org_id,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="version != null">version,</if>
+            <if test="delFlag != null">del_flag,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="roleId != null">#{roleId},</if>
+            <if test="orgId != null">#{orgId},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="version != null">#{version},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+         </trim>
+    </insert>
+
+    <insert id="batchRoleOrg">
+        insert into sys_role_org(role_id, orgId) values
+        <foreach item="item" index="index" collection="list" separator=",">
+            (#{item.roleId},#{item.orgId})
+        </foreach>
+    </insert>
+
+    <update id="updateSysRoleOrg" parameterType="com.teaching.system.domain.SysRoleOrg">
+        update sys_role_org
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="orgId != null">org_id = #{orgId},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="version != null">version = #{version},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+        </trim>
+        where role_id = #{roleId}
+    </update>
+
+    <delete id="deleteSysRoleOrgByRoleId" parameterType="Long">
+        delete from sys_role_org where role_id = #{roleId}
+    </delete>
+
+    <delete id="deleteSysRoleOrgByRoleIds" parameterType="Long">
+        delete from sys_role_org where role_id in 
+        <foreach item="roleId" collection="array" open="(" separator="," close=")">
+            #{roleId}
+        </foreach>
+    </delete>
+</mapper>

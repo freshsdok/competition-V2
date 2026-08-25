@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.content.mapper.ComponentDataSourceRelaMapper">
+
+    <resultMap type="com.teaching.system.api.domain.ComponentDataSourceRela" id="ComponentDataSourceRelaResult">
+        <result property="relaId" column="rela_id"/>
+        <result property="pageId" column="page_id"/>
+        <result property="componentId" column="component_id"/>
+        <result property="dataId" column="data_id"/>
+        <result property="delFlag" column="del_flag"/>
+    </resultMap>
+
+    <sql id="selectComponentDataSourceRelaVo">
+        select rela_id, page_id, component_id, data_id, del_flag
+        from component_data_source_rela
+    </sql>
+
+    <select id="selectComponentDataSourceRelaList" parameterType="com.teaching.system.api.domain.ComponentDataSourceRela"
+            resultMap="ComponentDataSourceRelaResult">
+        <include refid="selectComponentDataSourceRelaVo"/>
+        <where>
+            and del_flag = '0'
+            <if test="pageId != null ">and page_id = #{pageId}</if>
+            <if test="componentId != null  and componentId != ''">and component_id = #{componentId}</if>
+            <if test="dataId != null ">and data_id = #{dataId}</if>
+        </where>
+    </select>
+
+    <select id="selectComponentDataSourceRelaByRelaId" parameterType="Long" resultMap="ComponentDataSourceRelaResult">
+        <include refid="selectComponentDataSourceRelaVo"/>
+        where rela_id = #{relaId}
+    </select>
+
+    <select id="selectComponentDataSourceRelaByPageId" parameterType="Long" resultMap="ComponentDataSourceRelaResult">
+        <include refid="selectComponentDataSourceRelaVo"/>
+        where page_id = #{pageId}
+    </select>
+
+    <select id="selectDataSourceUrlByPageId" parameterType="Long" resultType="map">
+        select cdsr.component_id as componentId, ds.interface_url as interfaceUrl
+        from component_data_source_rela cdsr
+                 LEFT JOIN data_source_info ds on cdsr.data_id = ds.data_id
+        where page_id = #{pageId}
+    </select>
+
+    <insert id="insertComponentDataSourceRela" parameterType="com.teaching.system.api.domain.ComponentDataSourceRela" useGeneratedKeys="true"
+            keyProperty="relaId">
+        insert into component_data_source_rela
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pageId != null">page_id,</if>
+            <if test="componentId != null and componentId != ''">component_id,</if>
+            <if test="dataId != null">data_id,</if>
+            <if test="delFlag != null">del_flag,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="pageId != null">#{pageId},</if>
+            <if test="componentId != null and componentId != ''">#{componentId},</if>
+            <if test="dataId != null">#{dataId},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+        </trim>
+    </insert>
+    <!-- 批量新增 -->
+    <insert id="insertComponentDataSourceRelaBatch" parameterType="java.util.List">
+        insert into component_data_source_rela (page_id, component_id, data_id)
+        values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.pageId}, #{item.componentId}, #{item.dataId})
+        </foreach>
+    </insert>
+
+    <update id="updateComponentDataSourceRela" parameterType="com.teaching.system.api.domain.ComponentDataSourceRela">
+        update component_data_source_rela
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="pageId != null">page_id = #{pageId},</if>
+            <if test="componentId != null and componentId != ''">component_id = #{componentId},</if>
+            <if test="dataId != null">data_id = #{dataId},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+        </trim>
+        where rela_id = #{relaId}
+    </update>
+
+    <delete id="deleteComponentDataSourceRelaByPageId" parameterType="Long">
+        delete
+        from component_data_source_rela
+        where page_id = #{pageId}
+    </delete>
+
+    <delete id="deleteComponentDataSourceRelaByPageIds" parameterType="Long">
+        delete
+        from component_data_source_rela
+        where page_id in
+        <foreach item="pageId" collection="array" open="(" separator="," close=")">
+            #{pageId}
+        </foreach>
+    </delete>
+
+    <delete id="deleteComponentDataSourceRelaByRelaId" parameterType="Long">
+        delete
+        from component_data_source_rela
+        where rela_id = #{relaId}
+    </delete>
+
+    <delete id="deleteComponentDataSourceRelaByRelaIds" parameterType="String">
+        delete from component_data_source_rela where rela_id in
+        <foreach item="relaId" collection="array" open="(" separator="," close=")">
+            #{relaId}
+        </foreach>
+    </delete>
+    <!-- 检查组件是否被引用 -->
+    <select id="checkComponentDataSourceRelaByComponentId" parameterType="String" resultType="int">
+        select count(1) from component_data_source_rela where del_flag = '0' and component_id in
+        <foreach item="componentId" collection="array" open="(" separator="," close=")">
+            #{componentId}
+        </foreach>
+    </select>
+    <!-- 检查数据源是否被引用 -->
+    <select id="checkComponentDataSourceRelaByDataIds" parameterType="Long" resultType="int">
+        select count(1) from component_data_source_rela where del_flag = '0' and data_id in
+        <foreach item="dataId" collection="array" open="(" separator="," close=")">
+            #{dataId}
+        </foreach>
+    </select>
+</mapper>

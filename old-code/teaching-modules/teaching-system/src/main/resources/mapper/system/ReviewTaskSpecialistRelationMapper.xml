@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.system.mapper.ReviewTaskSpecialistRelationMapper">
+
+    <resultMap type="com.teaching.system.domain.ReviewTaskSpecialistRelation"
+               id="ReviewTaskSpecialistRelationResult">
+        <result property="relaId" column="rela_id"/>
+        <result property="reviewId" column="review_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="userName" column="user_name"/>
+        <result property="allotStatus" column="allot_status"/>
+        <result property="reviewStatus" column="review_status"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="version" column="version"/>
+        <result property="delFlag" column="del_flag"/>
+    </resultMap>
+
+    <sql id="selectReviewTaskSpecialistRelationVo">
+        select rela_id, review_id, user_id, allot_status, review_status, create_by, create_time, update_by,
+        update_time, version, del_flag
+        from review_task_specialist_relation
+    </sql>
+
+    <select id="selectReviewTaskSpecialistRelationList"
+            parameterType="com.teaching.system.domain.ReviewTaskSpecialistRelation"
+            resultMap="ReviewTaskSpecialistRelationResult">
+        select rtsr.rela_id, rtsr.review_id, rtsr.user_id,
+        (select real_name from auth_info where user_id = rtsr.user_id AND auth_status = '5' order by auth_time desc limit 1) user_name,
+        rtsr.allot_status, rtsr.review_status, rtsr.create_by, rtsr.create_time, rtsr.update_by,
+        rtsr.update_time, rtsr.version, rtsr.del_flag
+        from review_task_specialist_relation rtsr
+        <where>
+            rtsr.del_flag = '0'
+            <if test="reviewId != null">
+                and rtsr.review_id = #{reviewId}
+            </if>
+            <if test="userId != null">
+                and rtsr.user_id = #{userId}
+            </if>
+            <if test="allotStatus != null and allotStatus != ''">
+                and rtsr.allot_status = #{allotStatus}
+            </if>
+            <if test="reviewStatus != null and reviewStatus != ''">
+                and rtsr.review_status = #{reviewStatus}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectReviewTaskSpecialistRelationByRelaId" parameterType="Long"
+            resultMap="ReviewTaskSpecialistRelationResult">
+        <include refid="selectReviewTaskSpecialistRelationVo"/>
+        where rela_id = #{relaId} and del_flag = '0'
+    </select>
+
+    <select id="selectReviewTaskSpecialistRelationByReviewId" parameterType="Long"
+            resultMap="ReviewTaskSpecialistRelationResult">
+        select rtsr.rela_id, rtsr.review_id, rtsr.user_id,
+        COALESCE(
+        (SELECT real_name
+        FROM auth_info
+        WHERE user_id = (
+        SELECT COALESCE(NULLIF(su.sys_user_id, ''), rtsr.user_id)
+        FROM sys_user su
+        WHERE su.user_id = rtsr.user_id
+        LIMIT 1
+        )
+        AND auth_status = '5'
+        ORDER BY auth_time DESC
+        LIMIT 1),
+        (SELECT real_name
+        FROM auth_info
+        WHERE user_id = rtsr.user_id
+        AND auth_status = '5'
+        ORDER BY auth_time DESC
+        LIMIT 1),
+        (SELECT nick_name
+        FROM sys_user
+        WHERE user_id = rtsr.user_id
+        LIMIT 1)
+        ) AS user_name,
+        rtsr.allot_status, rtsr.review_status, rtsr.create_by, rtsr.create_time, rtsr.update_by,
+        rtsr.update_time, rtsr.version, rtsr.del_flag
+        from review_task_specialist_relation rtsr
+        where review_id = #{reviewId} and del_flag = '0'
+    </select>
+
+
+    <insert id="insertReviewTaskSpecialistRelation"
+            parameterType="com.teaching.system.domain.ReviewTaskSpecialistRelation" useGeneratedKeys="true"
+            keyProperty="relaId">
+        insert into review_task_specialist_relation
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="reviewId != null">review_id,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="allotStatus != null">allot_status,</if>
+            <if test="reviewStatus != null">review_status,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="version != null">version,</if>
+            <if test="delFlag != null">del_flag,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="reviewId != null">#{reviewId},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="allotStatus != null">#{allotStatus},</if>
+            <if test="reviewStatus != null">#{reviewStatus},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="version != null">#{version},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+        </trim>
+    </insert>
+
+    <insert id="batchInsertReviewTaskSpecialistRelation">
+        insert into review_task_specialist_relation (review_id, user_id, allot_status, review_status, create_by,
+        create_time, update_by, update_time) values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.reviewId}, #{item.userId}, #{item.allotStatus}, #{item.reviewStatus}, #{item.createBy},
+            NOW(), #{item.updateBy}, #{item.updateTime})
+        </foreach>
+    </insert>
+
+    <update id="updateReviewTaskSpecialistRelation"
+            parameterType="com.teaching.system.domain.ReviewTaskSpecialistRelation">
+        update review_task_specialist_relation
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="reviewId != null">review_id = #{reviewId},</if>
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="allotStatus != null">allot_status = #{allotStatus},</if>
+            <if test="reviewStatus != null">review_status = #{reviewStatus},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="version != null">version = #{version},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+        </trim>
+        where rela_id = #{relaId}
+    </update>
+
+    <update id="batchUpdateReviewTaskSpecialistRelation">
+        <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            update review_task_specialist_relation
+            <trim prefix="SET" suffixOverrides=",">
+                <if test="item.reviewId != null">review_id = #{item.reviewId},</if>
+                <if test="item.userId != null">user_id = #{item.userId},</if>
+                <if test="item.allotStatus != null">allot_status = #{item.allotStatus},</if>
+                <if test="item.reviewStatus != null">review_status = #{item.reviewStatus},</if>
+                <if test="item.createBy != null">create_by = #{item.createBy},</if>
+                <if test="item.createTime != null">create_time = #{item.createTime},</if>
+                <if test="item.updateBy != null">update_by = #{item.updateBy},</if>
+                update_time = NOW(),
+                version = version +1,
+            </trim>
+            where rela_id = #{item.relaId}
+        </foreach>
+    </update>
+
+    <delete id="deleteReviewTaskSpecialistRelationByRelaId" parameterType="Long">
+        update review_task_specialist_relation set del_flag = '1' where rela_id = #{relaId}
+    </delete>
+
+    <delete id="deleteReviewTaskSpecialistRelationByRelaIds">
+        update review_task_specialist_relation set del_flag = '1' where rela_id in
+        <foreach collection="array" item="relaId" open="(" separator="," close=")">
+            #{relaId}
+        </foreach>
+    </delete>
+
+    <delete id="deleteReviewTaskSpecialistRelationByReviewId" parameterType="Long">
+        update review_task_specialist_relation set del_flag = '1' where review_id = #{reviewId}
+    </delete>
+
+    <delete id="deleteReviewTaskSpecialistRelationByUserId">
+        update review_task_specialist_relation set del_flag = '1' where user_id = #{userId} and review_id = #{reviewId}
+    </delete>
+</mapper>

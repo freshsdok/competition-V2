@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.system.mapper.IdentityInfoMapper">
+
+    <resultMap type="com.teaching.system.api.domain.IdentityInfo" id="IdentityInfoResult">
+        <result property="authId"    column="auth_id"    />
+        <result property="userId"    column="user_id"    />
+        <result property="teamLeader"    column="team_leader"    />
+        <result property="school"    column="school"    />
+        <result property="schoolName"    column="school_name"    />
+        <result property="isForeignStudent"    column="is_foreign_student"    />
+        <result property="specialty"    column="specialty"    />
+        <result property="enrollmentYear"    column="enrollment_year"    />
+        <result property="studentCardId"    column="student_card_id"    />
+        <result property="institute"    column="institute"    />
+        <result property="orgId"    column="org_id"    />
+        <result property="position"    column="position"    />
+        <result property="employeeCode"    column="employee_code"    />
+        <result property="jobTime"    column="job_time"    />
+        <result property="workCardUrl"    column="work_card_url"    />
+        <result property="post"    column="post"    />
+        <result property="apprDocNumber"    column="appr_doc_number"    />
+        <result property="creditIdent"    column="credit_ident"    />
+        <result property="schoolCertUrl"    column="school_cert_url"    />
+        <result property="bussLicenseNum"    column="buss_license_num"    />
+        <result property="legalPersName"    column="legal_pers_name"    />
+        <result property="legalIdCard"    column="legal_id_card"    />
+        <result property="bussLicenseUrl"    column="buss_license_url"    />
+        <result property="certificationType"    column="certification_type"    />
+        <result property="realName"    column="real_name"    />
+        <result property="idCard"    column="id_card"    />
+        <result property="studentCardName"    column="student_card_name"    />
+        <result property="workCardName"    column="work_card_name"    />
+        <result property="schoolCertName"    column="school_cert_name"    />
+        <result property="bussLicenseName"    column="buss_license_name"    />
+        <result property="checkStatus"    column="check_status"    />
+        <result property="companyName"    column="company_name"    />
+        <result property="identityTime"    column="identity_time"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="version"    column="version"    />
+        <result property="delFlag"    column="del_flag"    />
+    </resultMap>
+
+    <sql id="selectIdentityInfoVo">
+        select auth_id, user_id, school, specialty, enrollment_year, student_card_id, institute, org_id, position, employee_code, team_leader,
+               job_time, work_card_url, post, appr_doc_number, credit_ident, school_cert_url, buss_license_num, legal_pers_name, is_foreign_student,
+               legal_id_card, buss_license_url, certification_type, identity_time, create_by, create_time, update_by, update_time, version, del_flag from identity_info
+    </sql>
+
+    <select id="selectIdentityInfoList" parameterType="com.teaching.system.api.domain.IdentityInfo" resultMap="IdentityInfoResult">
+        select a.auth_id, a.user_id, a.school, a.specialty, a.enrollment_year, a.student_card_id, a.institute, a.org_id, a.position,a.team_leader,
+        a.employee_code, a.job_time, a.work_card_url, a.post, a.appr_doc_number, a.credit_ident, a.school_cert_url, a.buss_license_num,
+        a.legal_pers_name, a.legal_id_card, a.buss_license_url, a.certification_type,a.student_card_name,a.work_card_name,a.school_cert_name,
+        a.buss_license_name,a.check_status, a.company_name,a.is_foreign_student,(select real_name from auth_info where user_id = a.user_id order by auth_time desc limit 1) real_name,
+        (select id_card from auth_info where user_id = a.user_id order by auth_time desc limit 1) id_card,
+        a.identity_time,a.create_by, a.create_time, a.update_by, a.update_time, a.version, a.del_flag
+        from identity_info a
+        where a.del_flag = '0'
+            <if test="userId != null ">
+                and a.user_id = #{userId}
+            </if>
+        <if test="checkStatus != null and checkStatus !=''">
+            and a.check_status = #{checkStatus}
+        </if>
+        <if test="certificationType != null and certificationType !=''">
+            and a.certification_type = #{certificationType}
+        </if>
+        <!-- 数据范围过滤 -->
+        ${params.dataScope}
+        order by a.identity_time desc
+    </select>
+
+    <select id="selectIdentityInfoByAuthId" resultMap="IdentityInfoResult">
+        select a.auth_id, a.user_id, a.school, nci.school_name,a.specialty, a.enrollment_year, a.student_card_id, a.institute, a.org_id, a.position,a.team_leader,
+        a.employee_code, a.job_time, a.work_card_url, a.post, a.appr_doc_number, a.credit_ident, a.school_cert_url, a.buss_license_num,
+        a.legal_pers_name, a.legal_id_card, a.buss_license_url, a.certification_type,a.student_card_name,a.work_card_name,a.school_cert_name,
+        a.buss_license_name,a.check_status, a.company_name,a.is_foreign_student,(select real_name from auth_info where user_id = a.user_id order by auth_time desc limit 1) real_name,
+        (select id_card from auth_info where user_id = a.user_id order by auth_time desc limit 1) id_card,a.identity_time,
+        a.create_by, a.create_time, a.update_by, a.update_time, a.version, a.del_flag
+        from identity_info a
+        LEFT JOIN nationwide_college_info nci on nci.id = a.school
+        where a.del_flag = '0'
+        <if test="authId != null">
+            and a.auth_id = #{authId}
+        </if>
+        <if test="certificationType != null">
+            and a.certification_type = #{certificationType} and a.check_status not in ('6')
+        </if>
+        <if test="userId!=null">
+            and a.user_id = #{userId}
+        </if>
+    </select>
+
+    <select id="checkIdentityInfo" resultType="Integer">
+        select count(1) from identity_info
+        where user_id = #{userId} and del_flag = '0'
+        <if test="checkStatus != null and checkStatus !=''">
+            and check_status = #{checkStatus}
+        </if>
+    </select>
+
+    <insert id="insertIdentityInfo" parameterType="com.teaching.system.api.domain.IdentityInfo" useGeneratedKeys="true"
+            keyProperty="authId" keyColumn="auth_id">
+        insert into identity_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">user_id,</if>
+            <if test="teamLeader != null">team_leader,</if>
+            <if test="school != null">school,</if>
+            <if test="isForeignStudent != null">is_foreign_student,</if>
+            <if test="specialty != null">specialty,</if>
+            <if test="enrollmentYear != null">enrollment_year,</if>
+            <if test="studentCardId != null">student_card_id,</if>
+            <if test="institute != null">institute,</if>
+            <if test="orgId != null">org_id,</if>
+            <if test="position != null">position,</if>
+            <if test="employeeCode != null">employee_code,</if>
+            <if test="jobTime != null">job_time,</if>
+            <if test="workCardUrl != null">work_card_url,</if>
+            <if test="post != null">post,</if>
+            <if test="apprDocNumber != null">appr_doc_number,</if>
+            <if test="creditIdent != null">credit_ident,</if>
+            <if test="schoolCertUrl != null">school_cert_url,</if>
+            <if test="bussLicenseNum != null">buss_license_num,</if>
+            <if test="legalPersName != null">legal_pers_name,</if>
+            <if test="legalIdCard != null">legal_id_card,</if>
+            <if test="bussLicenseUrl != null">buss_license_url,</if>
+            <if test="certificationType != null">certification_type,</if>
+            <if test="studentCardName != null">student_card_name,</if>
+            <if test="workCardName != null">work_card_name,</if>
+            <if test="schoolCertName != null">school_cert_name,</if>
+            <if test="bussLicenseName != null">buss_license_name,</if>
+            <if test="checkStatus != null">check_status,</if>
+            <if test="companyName != null">company_name,</if>
+            <if test="identityTime != null">identity_time,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="version != null">version,</if>
+            <if test="delFlag != null">del_flag,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">#{userId},</if>
+            <if test="teamLeader != null">#{teamLeader},</if>
+            <if test="school != null">#{school},</if>
+            <if test="isForeignStudent != null">#{isForeignStudent},</if>
+            <if test="specialty != null">#{specialty},</if>
+            <if test="enrollmentYear != null">#{enrollmentYear},</if>
+            <if test="studentCardId != null">#{studentCardId},</if>
+            <if test="institute != null">#{institute},</if>
+            <if test="orgId != null">#{orgId},</if>
+            <if test="position != null">#{position},</if>
+            <if test="employeeCode != null">#{employeeCode},</if>
+            <if test="jobTime != null">#{jobTime},</if>
+            <if test="workCardUrl != null">#{workCardUrl},</if>
+            <if test="post != null">#{post},</if>
+            <if test="apprDocNumber != null">#{apprDocNumber},</if>
+            <if test="creditIdent != null">#{creditIdent},</if>
+            <if test="schoolCertUrl != null">#{schoolCertUrl},</if>
+            <if test="bussLicenseNum != null">#{bussLicenseNum},</if>
+            <if test="legalPersName != null">#{legalPersName},</if>
+            <if test="legalIdCard != null">#{legalIdCard},</if>
+            <if test="bussLicenseUrl != null">#{bussLicenseUrl},</if>
+            <if test="certificationType != null">#{certificationType},</if>
+            <if test="studentCardName != null">#{studentCardName},</if>
+            <if test="workCardName != null">#{workCardName},</if>
+            <if test="schoolCertName != null">#{schoolCertName},</if>
+            <if test="bussLicenseName != null">#{bussLicenseName},</if>
+            <if test="checkStatus != null">#{checkStatus},</if>
+            <if test="companyName != null">#{companyName},</if>
+            <if test="identityTime != null">#{identityTime},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="version != null">#{version},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+         </trim>
+    </insert>
+
+    <insert id="batchInsertIdentityInfo">
+        insert into identity_info (user_id, school, specialty, enrollment_year, student_card_id, institute, org_id, position, employee_code, team_leader,
+        job_time, work_card_url, post, appr_doc_number, credit_ident, school_cert_url, buss_license_num, legal_pers_name, is_foreign_student,
+        legal_id_card, buss_license_url, certification_type, check_status,identity_time, create_by, create_time, update_by, update_time)
+        values
+        <foreach item="item" index="index" collection="identityInfoList" separator=",">
+            (#{item.userId}, #{item.school}, #{item.specialty}, #{item.enrollmentYear}, #{item.studentCardId}, #{item.institute}, #{item.orgId}, #{item.position}, #{item.employeeCode}, #{item.teamLeader},
+            #{item.jobTime}, #{item.workCardUrl}, #{item.post}, #{item.apprDocNumber}, #{item.creditIdent}, #{item.schoolCertUrl}, #{item.bussLicenseNum},
+            #{item.legalPersName}, #{item.isForeignStudent}, #{item.legalIdCard}, #{item.bussLicenseUrl}, #{item.certificationType},#{item.checkStatus}, now(), #{item.createBy}, now(), #{item.updateBy}, #{item.updateTime})
+        </foreach>
+    </insert>
+
+    <update id="updateIdentityInfo" parameterType="com.teaching.system.api.domain.IdentityInfo">
+        update identity_info
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="school != null">school = #{school},</if>
+            <if test="isForeignStudent != null">is_foreign_student = #{isForeignStudent},</if>
+            <if test="teamLeader != null">team_leader = #{teamLeader},</if>
+            <if test="specialty != null">specialty = #{specialty},</if>
+            <if test="enrollmentYear != null">enrollment_year = #{enrollmentYear},</if>
+            <if test="studentCardId != null">student_card_id = #{studentCardId},</if>
+            <if test="institute != null">institute = #{institute},</if>
+            <if test="orgId != null">org_id = #{orgId},</if>
+            <if test="position != null">position = #{position},</if>
+            <if test="employeeCode != null">employee_code = #{employeeCode},</if>
+            <if test="jobTime != null">job_time = #{jobTime},</if>
+            <if test="workCardUrl != null">work_card_url = #{workCardUrl},</if>
+            <if test="post != null">post = #{post},</if>
+            <if test="apprDocNumber != null">appr_doc_number = #{apprDocNumber},</if>
+            <if test="creditIdent != null">credit_ident = #{creditIdent},</if>
+            <if test="schoolCertUrl != null">school_cert_url = #{schoolCertUrl},</if>
+            <if test="bussLicenseNum != null">buss_license_num = #{bussLicenseNum},</if>
+            <if test="legalPersName != null">legal_pers_name = #{legalPersName},</if>
+            <if test="legalIdCard != null">legal_id_card = #{legalIdCard},</if>
+            <if test="bussLicenseUrl != null">buss_license_url = #{bussLicenseUrl},</if>
+            <if test="certificationType != null">certification_type = #{certificationType},</if>
+            <if test="studentCardName != null">student_card_name = #{studentCardName},</if>
+            <if test="workCardName != null">work_card_name = #{workCardName},</if>
+            <if test="schoolCertName != null">school_cert_name = #{schoolCertName},</if>
+            <if test="bussLicenseName != null">buss_license_name = #{bussLicenseName},</if>
+            <if test="checkStatus != null">check_status = #{checkStatus},</if>
+            <if test="companyName != null">company_name = #{companyName},</if>
+            <if test="identityTime != null">identity_time = #{identityTime},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            version = version+1,
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+        </trim>
+        <where>
+            <if test="authId!=null">
+                and auth_id = #{authId}
+            </if>
+            <if test="userId != null">
+                and user_id = #{userId}
+            </if>
+        </where>
+    </update>
+
+    <delete id="deleteIdentityInfoByAuthId" parameterType="Long">
+        delete from identity_info where auth_id = #{authId}
+    </delete>
+
+    <delete id="deleteIdentityInfoByAuthIds" parameterType="String">
+        delete from identity_info where auth_id in
+        <foreach item="authId" collection="array" open="(" separator="," close=")">
+            #{authId}
+        </foreach>
+    </delete>
+
+    <!-- 查询审核中的身份认证信息 -->
+    <select id="selectInfoByUserAndType"  resultMap="IdentityInfoResult">
+        <include refid="selectIdentityInfoVo"/>
+        where user_id = #{userId} and certification_type = #{certificationType} and check_status ='3' and del_flag = '0'
+    </select>
+
+    <select id="selectTeacherNameBySchoolId" resultType="java.util.Map">
+        SELECT (SELECT real_name FROM auth_info WHERE user_id = i.user_id AND auth_status = '5' ORDER BY auth_time DESC limit 1 )AS realName
+        ,DATE_FORMAT(i.identity_time,'%Y-%m-%d') AS identityTime
+        FROM identity_info  i
+        where i.del_flag='0' AND check_status ='6' AND i.school = #{schoolId} AND i.certification_type = 'teacher'
+        ORDER BY i.identity_time ASC
+    </select>
+</mapper>

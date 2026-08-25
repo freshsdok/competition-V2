@@ -1,0 +1,25 @@
+# Tomcat
+server:
+  port: 9216
+
+# Spring
+spring:
+  application:
+    # 应用名称
+    name: teaching-content
+  cloud:
+    nacos:
+      discovery:
+        # 服务注册地址
+        server-addr: 172.22.215.113:8848,172.22.215.112:8848
+        namespace: 315d5d91-7b6a-4227-96ab-fdf7fbb9d928
+      config:
+        # 配置中心地址
+        server-addr: 172.22.215.113:8848,172.22.215.112:8848
+        namespace: 315d5d91-7b6a-4227-96ab-fdf7fbb9d928
+        # 配置文件格式
+        file-extension: yml
+        # 共享配置
+        shared-configs:
+          - application-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
+

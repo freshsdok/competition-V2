@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.system.mapper.FileUploadRecordMapper">
+
+    <resultMap type="com.teaching.system.domain.FileUploadRecord" id="FileUploadRecordResult">
+        <result property="id"    column="id"    />
+        <result property="fileTaskId"    column="file_task_id"    />
+        <result property="fileTaskName"    column="file_task_name"    />
+        <result property="userId"    column="user_id"    />
+        <result property="userName"    column="user_name"    />
+        <result property="userGroupIds"    column="user_group_ids"    />
+        <result property="competitionSeriesId"    column="competition_series_id"    />
+        <result property="competitionName"    column="competition_name"    />
+        <result property="competitionStageId"    column="competition_stage_id"    />
+        <result property="competitionStageName"    column="competition_stage_name"    />
+        <result property="competitionTrackName"    column="competition_track_name"    />
+        <result property="competitionTrackCode"    column="competition_track_code"    />
+        <result property="secondLevelCode"    column="second_level_code"    />
+        <result property="secondLevelName"    column="second_level_name"    />
+        <result property="leaderTeacherId"    column="leader_teacher_id"    />
+        <result property="teamCode"    column="team_code"    />
+        <result property="teamName"    column="team_name"    />
+        <result property="guideTeacher"    column="guide_teacher"    />
+        <result property="uploadTime"    column="upload_time"    />
+        <result property="totalSize"    column="total_size"    />
+        <result property="fileInfo"    column="file_info"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+        <result property="uploadOperationType"    column="upload_operation_type"/>
+        <result property="orgId"    column="org_id"    />
+    </resultMap>
+
+    <sql id="selectFileUploadRecordVo">
+        select id, file_task_id, file_task_name, user_id,
+        user_group_ids, competition_series_id, competition_name,competition_stage_id,competition_stage_name,
+        competition_track_name, competition_track_code, second_level_code, second_level_name, leader_teacher_id, team_code, team_name,
+        guide_teacher, upload_time, total_size, file_info, del_flag, create_by, create_time, update_by, update_time, remark,upload_operation_type, org_id from file_upload_record
+    </sql>
+
+    <select id="selectFileUploadRecordList" parameterType="com.teaching.system.domain.FileUploadRecord" resultMap="FileUploadRecordResult">
+        select fur.id, fur.file_task_id, fur.file_task_name, fur.user_id,
+        (select real_name from auth_info where user_id = fur.user_id AND auth_status = '5' order by auth_time desc limit 1) user_name,
+        fur.user_group_ids, fur.competition_series_id, fur.competition_name,fur.competition_stage_id, fur.competition_stage_name,
+        fur.competition_track_name, fur.competition_track_code, fur.second_level_code, fur.second_level_name, fur.leader_teacher_id, fur.team_code, fur.team_name,
+        fur.guide_teacher, fur.upload_time, fur.total_size, fur.file_info, fur.del_flag, fur.create_by, fur.create_time, fur.update_by, fur.update_time, fur.remark,fur.upload_operation_type, fur.org_id
+        from file_upload_record fur
+        <where>
+            and fur.del_flag = '0'
+            <if test="fileTaskId != null "> and fur.file_task_id = #{fileTaskId}</if>
+            <if test="fileTaskName != null  and fileTaskName != ''"> and fur.file_task_name like concat('%', #{fileTaskName}, '%')</if>
+            <if test="competitionSeriesId != null "> and fur.competition_series_id = #{competitionSeriesId}</if>
+            <if test="competitionName != null  and competitionName != ''">
+<!--                and FIND_IN_SET(#{competitionName},fur.competition_name)-->
+                and fur.competition_name like concat('%', #{competitionName}, '%')
+            </if>
+            <if test="competitionTrackName != null  and competitionTrackName != ''">
+<!--                and FIND_IN_SET(#{competitionTrackName},fur.competition_track_name)-->
+                and fur.competition_track_name like concat('%', #{competitionTrackName}, '%')
+            </if>
+            <if test="competitionTrackCode != null  and competitionTrackCode != ''"> and competition_track_code = #{competitionTrackCode}</if>
+            <if test="secondLevelCode != null  and secondLevelCode != ''">
+                and fur.second_level_code = #{secondLevelCode}
+            </if>
+            <if test="secondLevelName != null  and secondLevelName != ''">
+<!--                and FIND_IN_SET(#{secondLevelName},fur.second_level_name)-->
+                and fur.second_level_name like concat('%', #{secondLevelName}, '%')
+            </if>
+            <if test="leaderTeacherId != null ">
+                and fur.leader_teacher_id = #{leaderTeacherId}
+            </if>
+            <if test="leaderTeacherName != null and leaderTeacherName!=''">
+                and fur.leader_teacher_id IN
+                (select distinct user_id from auth_info where real_name like concat('%', #{leaderTeacherName}, '%') AND auth_status = '5')
+            </if>
+            <if test="teamCode != null  and teamCode != ''">
+                and fur.team_code = #{teamCode}
+            </if>
+            <if test="teamName != null  and teamName != ''">
+<!--                and FIND_IN_SET(#{teamName},fur.team_name)-->
+                and fur.team_name like concat('%', #{teamName}, '%')
+            </if>
+            <if test="guideTeacher != null  and guideTeacher != ''">
+<!--                and FIND_IN_SET(#{guideTeacher},fur.guide_teacher)-->
+                and fur.guide_teacher like concat('%', #{guideTeacher}, '%')
+            </if>
+            <if test="uploadTimeStart != null ">
+                and fur.upload_time >= #{uploadTimeStart}
+            </if>
+            <if test="uploadTimeEnd != null ">
+                and fur.upload_time &lt;= #{uploadTimeEnd}
+            </if>
+            <if test="userName != null and userName!=''">
+                and fur.user_id in (select distinct user_id from auth_info where auth_status = '5' and real_name like concat('%', #{userName}, '%'))
+            </if>
+            <if test="totalSize != null "> and fur.total_size = #{totalSize}</if>
+            <if test="fileInfo != null  and fileInfo != ''"> and fur.file_info = #{fileInfo}</if>
+            <if test="userId != null">
+                and fur.user_id = #{userId}
+            </if>
+            <if test="userGroupIds != null">
+                and fur.user_group_ids = #{userGroupIds}
+            </if>
+            <if test="uploadOperationType != null and uploadOperationType!=''">
+                and fur.upload_operation_type = #{uploadOperationType}
+            </if>
+            <if test="uploadOperationTypePC != null and uploadOperationTypePC!=''">
+                and fur.upload_operation_type != #{uploadOperationTypePC}
+            </if>
+        </where>
+        order by fur.upload_time desc
+    </select>
+
+    <select id="selectFileUploadRecordListByUser" parameterType="com.teaching.system.domain.FileUploadRecord" resultMap="FileUploadRecordResult">
+        select fur.id, fur.file_task_id, fur.file_task_name, fur.user_id,
+        (select real_name from auth_info where user_id = fur.user_id AND auth_status = '5' order by auth_time desc limit 1) user_name,
+        fur.user_group_ids, fur.competition_series_id, fur.competition_name,fur.competition_stage_id, fur.competition_stage_name,
+        fur.competition_track_name, fur.competition_track_code, fur.second_level_code, fur.second_level_name, fur.leader_teacher_id, fur.team_code, fur.team_name,
+        fur.guide_teacher, fur.upload_time, fur.total_size, fur.file_info, fur.del_flag, fur.create_by, fur.create_time, fur.update_by, fur.update_time, fur.remark,fur.upload_operation_type, fur.org_id
+        from file_upload_record fur
+        <where>
+            <if test="fileTaskId != null ">
+                and fur.file_task_id = #{fileTaskId}
+            </if>
+            <if test="userId != null">
+                and fur.user_id = #{userId}
+            </if>
+        </where>
+        order by fur.create_time desc limit 1
+    </select>
+
+    <select id="selectFileUploadRecordById" parameterType="Long" resultMap="FileUploadRecordResult">
+        <include refid="selectFileUploadRecordVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertFileUploadRecord" parameterType="com.teaching.system.domain.FileUploadRecord" useGeneratedKeys="true" keyProperty="id">
+        insert into file_upload_record
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="fileTaskId != null">file_task_id,</if>
+            <if test="fileTaskName != null">file_task_name,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="userGroupIds != null">user_group_ids,</if>
+            <if test="competitionSeriesId != null">competition_series_id,</if>
+            <if test="competitionName != null">competition_name,</if>
+            <if test="competitionStageId != null">competition_stage_id,</if>
+            <if test="competitionStageName != null">competition_stage_name,</if>
+            <if test="competitionTrackName != null">competition_track_name,</if>
+            <if test="competitionTrackCode != null">competition_track_code,</if>
+            <if test="secondLevelCode != null">second_level_code,</if>
+            <if test="secondLevelName != null">second_level_name,</if>
+            <if test="leaderTeacherId != null">leader_teacher_id,</if>
+            <if test="teamCode != null">team_code,</if>
+            <if test="teamName != null">team_name,</if>
+            <if test="guideTeacher != null">guide_teacher,</if>
+            <if test="uploadTime != null">upload_time,</if>
+            <if test="totalSize != null">total_size,</if>
+            <if test="fileInfo != null">file_info,</if>
+            <if test="delFlag != null">del_flag,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+            <if test="uploadOperationType != null">upload_operation_type,</if>
+            <if test="orgId != null">org_id,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="fileTaskId != null">#{fileTaskId},</if>
+            <if test="fileTaskName != null">#{fileTaskName},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="userGroupIds != null">#{userGroupIds},</if>
+            <if test="competitionSeriesId != null">#{competitionSeriesId},</if>
+            <if test="competitionName != null">#{competitionName},</if>
+            <if test="competitionStageId != null">#{competitionStageId},</if>
+            <if test="competitionStageName != null">#{competitionStageName},</if>
+            <if test="competitionTrackName != null">#{competitionTrackName},</if>
+            <if test="competitionTrackCode != null">#{competitionTrackCode},</if>
+            <if test="secondLevelCode != null">#{secondLevelCode},</if>
+            <if test="secondLevelName != null">#{secondLevelName},</if>
+            <if test="leaderTeacherId != null">#{leaderTeacherId},</if>
+            <if test="teamCode != null">#{teamCode},</if>
+            <if test="teamName != null">#{teamName},</if>
+            <if test="guideTeacher != null">#{guideTeacher},</if>
+            <if test="uploadTime != null">#{uploadTime},</if>
+            <if test="totalSize != null">#{totalSize},</if>
+            <if test="fileInfo != null">#{fileInfo},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="uploadOperationType != null">#{uploadOperationType},</if>
+            <if test="orgId != null">#{orgId},</if>
+        </trim>
+    </insert>
+
+    <update id="updateFileUploadRecord" parameterType="com.teaching.system.domain.FileUploadRecord">
+        update file_upload_record
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="fileTaskId != null">file_task_id = #{fileTaskId},</if>
+            <if test="fileTaskName != null">file_task_name = #{fileTaskName},</if>
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="userGroupIds != null">user_group_ids = #{userGroupIds},</if>
+            <if test="competitionSeriesId != null">competition_series_id = #{competitionSeriesId},</if>
+            <if test="competitionName != null">competition_name = #{competitionName},</if>
+            <if test="competitionStageId != null">competition_stage_id = #{competitionStageId},</if>
+            <if test="competitionStageName != null">competition_stage_name = #{competitionStageName},</if>
+            <if test="competitionTrackName != null">competition_track_name = #{competitionTrackName},</if>
+            <if test="competitionTrackCode != null">competition_track_code = #{competitionTrackCode},</if>
+            <if test="secondLevelCode != null">second_level_code = #{secondLevelCode},</if>
+            <if test="secondLevelName != null">second_level_name = #{secondLevelName},</if>
+            <if test="leaderTeacherId != null">leader_teacher_id = #{leaderTeacherId},</if>
+            <if test="teamCode != null">team_code = #{teamCode},</if>
+            <if test="teamName != null">team_name = #{teamName},</if>
+            <if test="guideTeacher != null">guide_teacher = #{guideTeacher},</if>
+            <if test="uploadTime != null">upload_time = #{uploadTime},</if>
+            <if test="totalSize != null">total_size = #{totalSize},</if>
+            <if test="fileInfo != null">file_info = #{fileInfo},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="uploadOperationType != null">upload_operation_type = #{uploadOperationType},</if>
+            <if test="orgId != null">org_id = #{orgId},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteFileUploadRecordById" parameterType="Long">
+        delete from file_upload_record where id = #{id}
+    </delete>
+
+    <delete id="deleteFileUploadRecordByIds" parameterType="String">
+        delete from file_upload_record where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

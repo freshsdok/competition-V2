@@ -1,0 +1,25 @@
+# Tomcat
+server:
+  port: 9205
+
+# Spring
+spring:
+  application:
+    # 应用名称
+    name: teaching-competition
+  cloud:
+    nacos:
+      discovery:
+        # 服务注册地址
+        server-addr: 172.22.215.111:8848
+        namespace: d55d997c-cb7f-4468-8f6c-18d5456cb84e
+      config:
+        # 配置中心地址
+        server-addr: 172.22.215.111:8848
+        namespace: d55d997c-cb7f-4468-8f6c-18d5456cb84e
+        # 配置文件格式
+        file-extension: yml
+        # 共享配置
+        shared-configs:
+          - application-dev.${spring.cloud.nacos.config.file-extension}
+

@@ -1,0 +1,2188 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.competition.mapper.CompetitionApplyInfoMapper">
+
+    <resultMap type="com.teaching.system.api.domain.CompetitionApplyInfo" id="CompetitionApplyInfoResult">
+        <result property="memberId" column="member_id"/>
+        <result property="competitionSeriesId" column="competition_series_id"/>
+        <result property="competitionName" column="competition_name"/>
+        <result property="competitionType" column="competition_type"/>
+        <result property="userId" column="user_id"/>
+        <result property="teamCode" column="team_code"/>
+        <result property="teamSort" column="team_sort"/>
+        <result property="userName" column="user_name"/>
+        <result property="employeeCode" column="employee_code"/>
+        <result property="idCard" column="id_card"/>
+        <result property="phone" column="phone"/>
+        <result property="email" column="email"/>
+        <result property="orgId" column="org_id"/>
+        <result property="orgName" column="org_name"/>
+        <result property="companyName" column="company_name"/>
+        <result property="orgNameSnapshot" column="org_name_snapshot"/>
+        <result property="profession" column="profession"/>
+        <result property="classInfo" column="class_info"/>
+        <result property="guideTeacher" column="guide_teacher"/>
+        <result property="registrationTime" column="registration_time"/>
+        <result property="checkStatus" column="check_status"/>
+        <result property="realNameAuthStatus" column="real_name_auth_status"/>
+        <result property="payStatus" column="pay_status"/>
+        <result property="teamName" column="team_name"/>
+        <result property="joinType" column="join_type"/>
+        <result property="gapScore" column="gap_score"/>
+        <result property="competitionTrackName" column="competition_track_name"/>
+        <result property="competitionTrackId" column="competition_track_id"/>
+        <result property="competitionTrackType" column="competition_track_type"/>
+        <result property="secondLevelCode" column="second_level_code"/>
+        <result property="secondLevelName" column="second_level_name"/>
+        <result property="guideTeacherPhone" column="guide_teacher_phone"/>
+        <result property="guideTeacherEmail" column="guide_teacher_email"/>
+        <result property="leaderTeacherId" column="leader_teacher_id"/>
+        <result property="leaderTeacher" column="leader_teacher"/>
+        <result property="leaderTeacherPhone" column="leader_teacher_phone"/>
+        <result property="school" column="school"/>
+        <result property="schoolName" column="school_name"/>
+        <result property="province" column="province"/>
+        <result property="provinceName" column="province_name"/>
+        <result property="competitionQuestion" column="competition_question"/>
+        <result property="nationality" column="nationality"/>
+        <result property="nationalityName" column="nationality_name"/>
+        <result property="department" column="department"/>
+        <result property="departmentName" column="department_name"/>
+        <result property="sex" column="sex"/>
+        <result property="competitionRoleName" column="competition_role_name"/>
+        <result property="invoiceStatus" column="invoice_status"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="version" column="version"/>
+        <result property="delFlag" column="del_flag"/>
+        <result property="idCardType" column="id_card_type"/>
+        <result property="changeUpdateTime" column="latest_change_time"/>
+        <result property="retiredFlag" column="retired_flag"/>
+    </resultMap>
+
+    <resultMap type="com.teaching.competition.domain.CertCompetitionApplyInfo" id="CertCompetitionApplyInfoResult">
+        <result property="memberId" column="member_id"/>
+        <result property="competitionSeriesId" column="competition_series_id"/>
+        <result property="competitionName" column="competition_name"/>
+        <result property="competitionType" column="competition_type"/>
+        <result property="userId" column="user_id"/>
+        <result property="teamCode" column="team_code"/>
+        <result property="teamSort" column="team_sort"/>
+        <result property="userName" column="user_name"/>
+        <result property="employeeCode" column="employee_code"/>
+        <result property="idCard" column="id_card"/>
+        <result property="phone" column="phone"/>
+        <result property="email" column="email"/>
+        <result property="orgId" column="org_id"/>
+        <result property="orgName" column="org_name"/>
+        <result property="profession" column="profession"/>
+        <result property="classInfo" column="class_info"/>
+        <result property="guideTeacher" column="guide_teacher"/>
+        <result property="registrationTime" column="registration_time"/>
+        <result property="checkStatus" column="check_status"/>
+        <result property="realNameAuthStatus" column="real_name_auth_status"/>
+        <result property="payStatus" column="pay_status"/>
+        <result property="teamName" column="team_name"/>
+        <result property="joinType" column="join_type"/>
+        <result property="gapScore" column="gap_score"/>
+        <result property="competitionTrackName" column="competition_track_name"/>
+        <result property="competitionTrackId" column="competition_track_id"/>
+        <result property="competitionTrackType" column="competition_track_type"/>
+        <result property="secondLevelCode" column="second_level_code"/>
+        <result property="secondLevelName" column="second_level_name"/>
+        <result property="guideTeacherPhone" column="guide_teacher_phone"/>
+        <result property="guideTeacherEmail" column="guide_teacher_email"/>
+        <result property="leaderTeacherId" column="leader_teacher_id"/>
+        <result property="leaderTeacher" column="leader_teacher"/>
+        <result property="leaderTeacherPhone" column="leader_teacher_phone"/>
+        <result property="school" column="school"/>
+        <result property="schoolName" column="school_name"/>
+        <result property="province" column="province"/>
+        <result property="provinceName" column="province_name"/>
+        <result property="competitionQuestion" column="competition_question"/>
+        <result property="nationality" column="nationality"/>
+        <result property="nationalityName" column="nationality_name"/>
+        <result property="department" column="department"/>
+        <result property="departmentName" column="department_name"/>
+        <result property="sex" column="sex"/>
+        <result property="competitionRoleName" column="competition_role_name"/>
+        <result property="invoiceStatus" column="invoice_status"/>
+        <result property="isSelect" column="is_select"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="version" column="version"/>
+        <result property="delFlag" column="del_flag"/>
+        <result property="idCardType" column="id_card_type"/>
+        <result property="changeUpdateTime" column="latest_change_time"/>
+        <result property="retiredFlag" column="retired_flag"/>
+        <result property="userScore" column="user_score"/>
+        <result property="sourceType" column="source_type"/>
+        <result property="ranking" column="ranking" />
+    </resultMap>
+
+    <sql id="selectCompetitionApplyInfoVo">
+        select member_id, competition_series_id, user_id, team_code, team_sort, team_name,user_name, employee_code, id_card, phone, email, org_id,
+        company_name, org_name_snapshot,
+        profession, class_info, guide_teacher, registration_time, check_status, real_name_auth_status, pay_status,competition_name,
+        join_type,gap_score,competition_track_name,competition_track_id,competition_track_type,second_level_code,second_level_name,
+        guide_teacher_phone,guide_teacher_email,leader_teacher_id,leader_teacher,leader_teacher_phone,school,school_name,
+        province,province_name,competition_question,nationality,nationality_name,department,department_name,sex,invoice_status,
+        create_by, create_time, update_by, update_time, version, del_flag,competition_role_name,id_card_type
+        from competition_apply_info
+    </sql>
+
+    <select id="selectCompetitionApplyInfoList" parameterType="com.teaching.system.api.domain.CompetitionApplyInfo"
+            resultMap="CompetitionApplyInfoResult">
+        select a.member_id,a.competition_series_id, a.competition_name,d.competition_type,
+        a.user_id, a.team_code, a.team_sort, a.user_name, a.employee_code, a.id_card, a.phone, a.email, a.org_id,
+        (select org_name from sys_org where org_id = a.org_id) as org_name,
+        a.profession, a.class_info, a.guide_teacher, a.registration_time, a.check_status, a.real_name_auth_status,
+        IFNULL(a.pay_status,'0') pay_status,
+        a.team_name, a.join_type,a.gap_score,a.competition_track_name,a.competition_track_id,a.competition_track_type,
+        a.second_level_code,a.second_level_name,a.sex,
+        a.guide_teacher_phone,a.guide_teacher_email,a.leader_teacher_id,a.leader_teacher,a.leader_teacher_phone,a.school,a.school_name,
+        a.province,a.province_name,a.competition_question,a.nationality,a.nationality_name,a.department,a.department_name,a.competition_role_name,
+        a.invoice_status,a.create_by, a.create_time, a.update_by, a.update_time, a.version, a.del_flag,a.id_card_type
+        from competition_apply_info a
+        left join team_manager_info c on a.team_code = c.team_code
+        left join (select a.competition_name,b.competition_series_id,b.competition_type from competition_main_info a left join
+        competition_series_info b on a.competition_id = b.competition_id) d on a.competition_series_id = d.competition_series_id
+        where a.del_flag = '0'
+        <if test="competitionName != null and competitionName != ''">
+            and a.competition_name like concat('%', #{competitionName}, '%')
+        </if>
+        <if test="competitionType != null and competitionType != ''">
+            and a.competition_series_id in (select b.competition_series_id from competition_main_info a left join
+            competition_series_info b on a.competition_id = b.competition_id
+            where b.competition_type = #{competitionType})
+        </if>
+        <if test="competitionSeriesId != null and competitionSeriesId != ''">
+            and a.competition_series_id = #{competitionSeriesId}
+        </if>
+        <if test="userName != null  and userName != ''">and a.user_name like concat('%', #{userName}, '%')</if>
+        <if test="employeeCode != null  and employeeCode != ''">and a.employee_code like concat('%', #{employeeCode},
+            '%')
+        </if>
+        <if test="idCard != null  and idCard != ''">and a.id_card like concat('%', #{idCard}, '%')</if>
+        <if test="phone != null  and phone != ''">and a.phone like concat('%', #{phone}, '%')</if>
+        <if test="email != null  and email != ''">and a.email like concat('%', #{email}, '%')</if>
+        <if test="profession != null  and profession != ''">
+            and a.profession = #{profession}
+        </if>
+        <if test="classInfo != null  and classInfo != ''">
+            and a.class_info = #{classInfo}
+        </if>
+        <if test="guideTeacher != null  and guideTeacher != ''">
+            and a.guide_teacher like concat('%', #{guideTeacher}, '%')
+        </if>
+        <if test="teacherIdList != null">
+            and a.leader_teacher_id in
+            <foreach item="item" collection="teacherIdList" separator="," open="(" close=")">
+                #{item}
+            </foreach>
+        </if>
+        <if test="registrationStartTime != null ">
+            and a.registration_time >= #{registrationStartTime}
+        </if>
+        <if test="registrationEndTime != null ">
+            and a.registration_time &lt;= #{registrationEndTime}
+        </if>
+        <if test="checkStatus != null  and checkStatus != ''">
+            and a.check_status = #{checkStatus}
+        </if>
+        <if test="realNameAuthStatus != null  and realNameAuthStatus != ''">
+            and a.real_name_auth_status = #{realNameAuthStatus}
+        </if>
+        <if test="payStatus != null and payStatus != '' and payStatus != '0'.toString()">
+            and a.pay_status = #{payStatus}
+        </if>
+        <if test="payStatus != null  and payStatus != '' and payStatus == '0'.toString()">
+            and a.pay_status is null
+        </if>
+        <if test="competitionTrackId != null  and competitionTrackId != ''">
+            and a.competition_track_id = #{competitionTrackId}
+        </if>
+        <if test="secondLevelCode != null  and secondLevelCode != ''">
+            and a.second_level_code = #{secondLevelCode}
+        </if>
+        <if test="competitionRoleNameReq != null and competitionRoleNameReq != ''">
+            AND a.competition_role_name in
+            <foreach item="item" collection="competitionRoleNameReq.split(',')" separator="," open="(" close=")">
+                #{item}
+            </foreach>
+        </if>
+        <if test="competitionRoleName != null and competitionRoleName != ''">
+            AND a.competition_role_name != #{competitionRoleName}
+        </if>
+        <if test="competitionTrackName != null  and competitionTrackName != ''">
+            and a.competition_track_name like concat('%', #{competitionTrackName}, '%')
+        </if>
+        <if test="secondLevelName != null  and secondLevelName != ''">
+            and a.second_level_name like concat('%', #{secondLevelName}, '%')
+        </if>
+        <if test="teamName != null and teamName != ''">
+            and a.team_code in (select team_code from team_manager_info where team_name like concat('%', #{teamName}, '%'))
+        </if>
+        <if test="orgName != null and orgName != ''">
+            and a.org_id in (select org_id from sys_org where org_name like concat('%', #{orgName}, '%'))
+        </if>
+        <!-- 数据范围过滤 -->
+<!--        ${params.dataScope}-->
+        order by a.registration_time desc
+    </select>
+
+    <select id="selectCompetitionApplyInfoListByImportIdCard" parameterType="com.teaching.system.api.domain.CompetitionApplyInfo"
+            resultMap="CompetitionApplyInfoResult">
+        select a.member_id,a.competition_series_id, a.competition_name,
+        a.user_id, a.team_code, a.team_sort, a.user_name, a.employee_code, a.id_card, a.phone, a.email, a.org_id,
+        a.profession, a.class_info, a.guide_teacher, a.registration_time, a.check_status, a.real_name_auth_status,
+        a.team_name, a.join_type,a.gap_score,a.competition_track_name,a.competition_track_id,a.competition_track_type,
+        a.second_level_code,a.second_level_name,a.sex,
+        a.guide_teacher_phone,a.guide_teacher_email,a.leader_teacher_id,a.leader_teacher,a.leader_teacher_phone,a.school,a.school_name,
+        a.province,a.province_name,a.competition_question,a.nationality,a.nationality_name,a.department,a.department_name,a.competition_role_name,
+        a.invoice_status,a.create_by, a.create_time, a.update_by, a.update_time, a.version, a.del_flag,a.id_card_type
+        from competition_apply_info a
+        where a.del_flag = '0' and a.pay_status = 'paid'
+        <if test="competitionSeriesId != null">
+            and a.competition_series_id = #{competitionSeriesId}
+        </if>
+        <if test="competitionTrackId != null  and competitionTrackId != ''">
+            and a.competition_track_id = #{competitionTrackId}
+        </if>
+        <if test="secondLevelCode != null  and secondLevelCode != ''">
+            and a.second_level_code = #{secondLevelCode}
+        </if>
+        <if test="idCard != null  and idCard != ''">
+            and a.id_card = #{idCard}
+        </if>
+        <if test="userId != null  and userId != ''">
+            and a.user_id = #{userId}
+        </if>
+    </select>
+
+    <select id="selectCertCompetitionApplyInfoList" parameterType="com.teaching.competition.domain.CertCompetitionApplyInfo"
+            resultMap="CertCompetitionApplyInfoResult">
+        select a.member_id,a.competition_series_id, a.competition_name,d.competition_type,
+        a.user_id, a.team_code, a.team_sort, a.user_name, a.employee_code, a.id_card, a.phone, a.email, a.org_id,
+        (select org_name from sys_org where org_id = a.org_id) as org_name,
+        a.profession, a.class_info, a.guide_teacher, a.registration_time, a.check_status, a.real_name_auth_status,
+        IFNULL(a.pay_status,'0') pay_status,
+        a.team_name, a.join_type,a.gap_score,a.competition_track_name,a.competition_track_id,a.competition_track_type,
+        a.second_level_code,a.second_level_name,a.sex,
+        a.guide_teacher_phone,a.guide_teacher_email,a.leader_teacher_id,a.leader_teacher,a.leader_teacher_phone,a.school,a.school_name,
+        a.province,a.province_name,a.competition_question,a.nationality,a.nationality_name,a.department,a.department_name,a.competition_role_name,
+        a.invoice_status,a.create_by, a.create_time, a.update_by, a.update_time, a.version, a.del_flag,a.id_card_type,cgi.score as user_score,
+        'competition' as source_type,
+        CASE
+        WHEN cci.member_id IS NOT NULL THEN TRUE
+        ELSE FALSE
+        END AS is_select
+        from competition_apply_info a
+        left join team_manager_info c on a.team_code = c.team_code
+        left join (select a.competition_name,b.competition_series_id,b.competition_type from competition_main_info a left join
+        competition_series_info b on a.competition_id = b.competition_id) d on a.competition_series_id = d.competition_series_id
+        left join competition_grade_info cgi on a.member_id = cgi.member_id and cgi.del_flag = '0'
+        left join candidate_cert_info cci on a.member_id = cci.member_id and cci.del_flag = '0'
+        <if test="certConfigId != null">
+            and cci.cert_config_id = #{certConfigId}
+        </if>
+        where a.del_flag = '0'
+        <if test="competitionName != null and competitionName != ''">
+            and a.competition_name like concat('%', #{competitionName}, '%')
+        </if>
+        <if test="competitionSeriesId != null and competitionSeriesId != ''">
+            and a.competition_series_id = #{competitionSeriesId}
+        </if>
+        <if test="userName != null  and userName != ''">and a.user_name like concat('%', #{userName}, '%')</if>
+        <if test="idCard != null  and idCard != ''">and a.id_card like concat('%', #{idCard}, '%')</if>
+        <if test="phone != null  and phone != ''">and a.phone like concat('%', #{phone}, '%')</if>
+        <if test="email != null  and email != ''">and a.email like concat('%', #{email}, '%')</if>
+        <if test="profession != null  and profession != ''">
+            and a.profession = #{profession}
+        </if>
+        <if test="classInfo != null  and classInfo != ''">
+            and a.class_info = #{classInfo}
+        </if>
+        <if test="guideTeacherName != null  and guideTeacherName != ''">
+            and a.guide_teacher like concat('%', #{guideTeacherName}, '%')
+        </if>
+        <if test="teacherIdList != null">
+            and a.leader_teacher_id in
+            <foreach item="item" collection="teacherIdList" separator="," open="(" close=")">
+                #{item}
+            </foreach>
+        </if>
+        <if test="registrationStartTime != null ">
+            and a.registration_time >= #{registrationStartTime}
+        </if>
+        <if test="registrationEndTime != null ">
+            and a.registration_time &lt;= #{registrationEndTime}
+        </if>
+        <if test="payStatus != null and payStatus != ''">
+            and a.pay_status = #{payStatus}
+        </if>
+        <if test="competitionTrackId != null  and competitionTrackId != ''">
+            and a.competition_track_id = #{competitionTrackId}
+        </if>
+        <if test="secondLevelCode != null  and secondLevelCode != ''">
+            and a.second_level_code = #{secondLevelCode}
+        </if>
+        <if test="competitionRoleNameReq != null and competitionRoleNameReq != ''">
+            AND a.competition_role_name in
+            <foreach item="item" collection="competitionRoleNameReq.split(',')" separator="," open="(" close=")">
+                #{item}
+            </foreach>
+        </if>
+        <if test="competitionTrackName != null  and competitionTrackName != ''">
+            and a.competition_track_name like concat('%', #{competitionTrackName}, '%')
+        </if>
+        <if test="secondLevelName != null  and secondLevelName != ''">
+            and a.second_level_name like concat('%', #{secondLevelName}, '%')
+        </if>
+        <if test="teamName != null and teamName != ''">
+            and a.team_code in (select team_code from team_manager_info where team_name like concat('%', #{teamName}, '%'))
+        </if>
+        <choose>
+            <when test="filterConditions!=null">
+                <if test="filterConditions.userScore != null and filterConditions.userScore!='' and filterConditions.conditions == '1'.toString()">
+                    and CAST(cgi.score AS DECIMAL(10,2)) > #{filterConditions.userScore}
+                </if>
+                <if test="filterConditions.userScore != null and filterConditions.userScore!='' and filterConditions.conditions == '2'.toString()">
+                    and CAST(cgi.score AS DECIMAL(10,2)) &lt; #{filterConditions.userScore}
+                </if>
+                <if test="filterConditions.userScore != null and filterConditions.userScore!='' and filterConditions.conditions == '3'.toString()">
+                    and CAST(cgi.score AS DECIMAL(10,2)) = #{filterConditions.userScore}
+                </if>
+                <if test="filterConditions.userScoreStart != null and filterConditions.userScoreEnd!=null and filterConditions.conditions == '4'.toString()">
+                    and CAST(cgi.score AS DECIMAL(10,2)) >= #{filterConditions.userScoreStart} and CAST(cgi.score AS DECIMAL(10,2)) &lt;= #{filterConditions.userScoreEnd}
+                </if>
+                <if test="filterConditions.topN != null and filterConditions.topN != '' and filterConditions.ranking =='1'.toString()">
+                    and a.member_id IN (
+                    select member_id
+                    from (
+                    select
+                    member_id,
+                    dense_rank() over (
+                    order by cast(score as DECIMAL(10, 2)) desc
+                    ) as dr
+                    from competition_grade_info
+                    where del_flag = '0'
+                    ) t
+                    where t.dr > CAST(#{filterConditions.topN} AS DECIMAL(10,0))
+                    )
+                </if>
+                <if test="filterConditions.topN != null and filterConditions.topN != '' and filterConditions.ranking =='2'.toString()">
+                    and a.member_id IN (
+                    select member_id
+                    from (
+                    select
+                    member_id,
+                    dense_rank() over (
+                    order by cast(score as DECIMAL(10, 2)) desc
+                    ) as dr
+                    from competition_grade_info
+                    where del_flag = '0'
+                    ) t
+                    where t.dr &lt; CAST(#{filterConditions.topN} AS DECIMAL(10,0))
+                    )
+                </if>
+                <if test="filterConditions.topN != null and filterConditions.topN != '' and filterConditions.ranking =='3'.toString()">
+                    and a.member_id IN (
+                    select member_id
+                    from (
+                    select
+                    member_id,
+                    dense_rank() over (
+                    order by cast(score as DECIMAL(10, 2)) desc
+                    ) as dr
+                    from competition_grade_info
+                    where del_flag = '0'
+                    ) t
+                    where t.dr = CAST(#{filterConditions.topN} AS DECIMAL(10,0))
+                    )
+                </if>
+                <if test="filterConditions.lowN != null and filterConditions.topN != null and filterConditions.ranking =='4'.toString()">
+                    and a.member_id IN (
+                    select member_id
+                    from (
+                    select
+                    member_id,
+                    dense_rank() over (
+                    order by cast(score as DECIMAL(10, 2)) desc
+                    ) as dr
+                    from competition_grade_info
+                    where del_flag = '0'
+                    ) t
+                    where t.dr >= CAST(#{filterConditions.topN} AS DECIMAL(10,0)) AND t.dr &lt;= CAST(#{filterConditions.lowN} AS DECIMAL(10,0))
+                    )
+                </if>
+                order by CASE
+                WHEN cci.member_id IS NOT NULL THEN 0
+                ELSE 1
+                END,cgi.score desc,a.member_id desc
+            </when>
+            <otherwise>
+                order by CASE
+                WHEN cci.member_id IS NOT NULL THEN 0
+                ELSE 1
+                END,a.registration_time desc,a.member_id desc
+            </otherwise>
+        </choose>
+    </select>
+
+    <select id="selectCertCompetitionApplyInfoList2" parameterType="com.teaching.competition.domain.CertCompetitionApplyInfo"
+            resultMap="CertCompetitionApplyInfoResult">
+        WITH all_grades AS (
+        SELECT
+        competition_series_id,
+        member_id,
+        DENSE_RANK() OVER (ORDER BY CAST(score AS DECIMAL(10,2)) DESC) as full_ranking
+        FROM competition_grade_info
+        WHERE del_flag = '0'
+        )
+        select a.member_id,a.competition_series_id, a.competition_name,d.competition_type,
+        a.user_id, a.team_code, a.team_sort, a.user_name, a.employee_code, a.id_card, a.phone, a.email, a.org_id,
+        (select org_name from sys_org where org_id = a.org_id) as org_name,
+        a.profession, a.class_info, a.guide_teacher, a.registration_time, a.check_status, a.real_name_auth_status,
+        IFNULL(a.pay_status,'0') pay_status,
+        a.team_name, a.join_type,a.gap_score,a.competition_track_name,a.competition_track_id,a.competition_track_type,
+        a.second_level_code,a.second_level_name,a.sex,
+        a.guide_teacher_phone,a.guide_teacher_email,a.leader_teacher_id,a.leader_teacher,a.leader_teacher_phone,a.school,a.school_name,
+        a.province,a.province_name,a.competition_question,a.nationality,a.nationality_name,a.department,a.department_name,a.competition_role_name,
+        a.invoice_status,a.create_by, a.create_time, a.update_by, a.update_time, a.version, a.del_flag,a.id_card_type,cgi.score as user_score,
+        'competition' as source_type,
+        CASE
+        WHEN cci.member_id IS NOT NULL THEN TRUE
+        ELSE FALSE
+        END AS is_select,
+        ag.full_ranking as ranking
+        from competition_apply_info a
+        LEFT JOIN all_grades ag ON ag.competition_series_id = a.competition_series_id and ag.member_id = a.member_id
+        left join team_manager_info c on a.team_code = c.team_code
+        left join (select a.competition_name,b.competition_series_id,b.competition_type from competition_main_info a left join
+        competition_series_info b on a.competition_id = b.competition_id) d on a.competition_series_id = d.competition_series_id
+        left join competition_grade_info cgi on a.member_id = cgi.member_id and cgi.del_flag = '0'
+        left join candidate_cert_info cci on a.member_id = cci.member_id and cci.del_flag = '0'
+        <if test="certConfigId != null">
+            and cci.cert_config_id = #{certConfigId}
+        </if>
+        where a.del_flag = '0'
+        <if test="competitionName != null and competitionName != ''">
+            and a.competition_name like concat('%', #{competitionName}, '%')
+        </if>
+        <if test="competitionSeriesId != null and competitionSeriesId != ''">
+            and a.competition_series_id = #{competitionSeriesId}
+        </if>
+        <if test="userName != null  and userName != ''">and a.user_name like concat('%', #{userName}, '%')</if>
+        <if test="idCard != null  and idCard != ''">and a.id_card like concat('%', #{idCard}, '%')</if>
+        <if test="phone != null  and phone != ''">and a.phone like concat('%', #{phone}, '%')</if>
+        <if test="email != null  and email != ''">and a.email like concat('%', #{email}, '%')</if>
+        <if test="profession != null  and profession != ''">
+            and a.profession = #{profession}
+        </if>
+        <if test="classInfo != null  and classInfo != ''">
+            and a.class_info = #{classInfo}
+        </if>
+        <if test="guideTeacherName != null  and guideTeacherName != ''">
+            and a.guide_teacher like concat('%', #{guideTeacherName}, '%')
+        </if>
+        <if test="teacherIdList != null">
+            and a.leader_teacher_id in
+            <foreach item="item" collection="teacherIdList" separator="," open="(" close=")">
+                #{item}
+            </foreach>
+        </if>
+        <if test="registrationStartTime != null ">
+            and a.registration_time >= #{registrationStartTime}
+        </if>
+        <if test="registrationEndTime != null ">
+            and a.registration_time &lt;= #{registrationEndTime}
+        </if>
+        <if test="payStatus != null and payStatus != ''">
+            and a.pay_status = #{payStatus}
+        </if>
+        <if test="competitionTrackId != null  and competitionTrackId != ''">
+            and a.competition_track_id = #{competitionTrackId}
+        </if>
+        <if test="secondLevelCode != null  and secondLevelCode != ''">
+            and a.second_level_code = #{secondLevelCode}
+        </if>
+        <if test="competitionRoleNameReq != null and competitionRoleNameReq != ''">
+            AND a.competition_role_name in
+            <foreach item="item" collection="competitionRoleNameReq.split(',')" separator="," open="(" close=")">
+                #{item}
+            </foreach>
+        </if>
+        <if test="competitionTrackName != null  and competitionTrackName != ''">
+            and a.competition_track_name like concat('%', #{competitionTrackName}, '%')
+        </if>
+        <if test="secondLevelName != null  and secondLevelName != ''">
+            and a.second_level_name like concat('%', #{secondLevelName}, '%')
+        </if>
+        <if test="teamName != null and teamName != ''">
+            and a.team_code in (select team_code from team_manager_info where team_name like concat('%', #{teamName}, '%'))
+        </if>
+        <choose>
+            <!-- 按成绩 conditions（1>、2<、3=、4区间），userScoreStart，userScoreEnd -->
+            <when test="filterConditions != null and filterConditions.conditions != null">
+                <if test="filterConditions.userScore != null and filterConditions.userScore!='' and filterConditions.conditions == '1'.toString()">
+                    and CAST(cgi.score AS DECIMAL(10,2)) > #{filterConditions.userScore}
+                </if>
+                <if test="filterConditions.userScore != null and filterConditions.userScore!='' and filterConditions.conditions == '2'.toString()">
+                    and CAST(cgi.score AS DECIMAL(10,2)) &lt; #{filterConditions.userScore}
+                </if>
+                <if test="filterConditions.userScore != null and filterConditions.userScore!='' and filterConditions.conditions == '3'.toString()">
+                    and CAST(cgi.score AS DECIMAL(10,2)) = #{filterConditions.userScore}
+                </if>
+                <if test="filterConditions.conditions == '4'.toString()">
+                    <choose>
+                        <when test="filterConditions.userScoreStart != null and filterConditions.userScoreStart!='' and filterConditions.userScoreEnd != null and filterConditions.userScoreEnd!=''">
+                            and CAST(cgi.score AS DECIMAL(10,2)) >= #{filterConditions.userScoreStart} and CAST(cgi.score AS DECIMAL(10,2)) &lt;= #{filterConditions.userScoreEnd}
+                        </when>
+                        <when test="filterConditions.userScoreStart != null and filterConditions.userScoreStart!=''">
+                            and CAST(cgi.score AS DECIMAL(10,2)) >= #{filterConditions.userScoreStart}
+                        </when>
+                        <when test="filterConditions.userScoreEnd != null and filterConditions.userScoreEnd!=''">
+                            and CAST(cgi.score AS DECIMAL(10,2)) &lt;= #{filterConditions.userScoreEnd}
+                        </when>
+                    </choose>
+                </if>
+            </when>
+            <!-- 按排名 ranking（1>、2<、3=、4区间），topN，lowN -->
+            <when test="filterConditions != null and filterConditions.ranking != null">
+                <if test="filterConditions.topN != null and filterConditions.topN != '' and filterConditions.ranking =='1'.toString()">
+                    and cgi.grade_id IN (
+                    select grade_id
+                    from (
+                    select
+                    grade_id,
+                    dense_rank() over (
+                    order by cast(score as DECIMAL(10, 2)) desc
+                    ) as dr
+                    from competition_grade_info
+                    where del_flag = '0'
+                    ) t
+                    where t.dr > CAST(#{filterConditions.topN} AS DECIMAL(10,0))
+                    )
+                </if>
+                <if test="filterConditions.topN != null and filterConditions.topN != '' and filterConditions.ranking =='2'.toString()">
+                    and cgi.grade_id IN (
+                    select grade_id
+                    from (
+                    select
+                    grade_id,
+                    dense_rank() over (
+                    order by cast(score as DECIMAL(10, 2)) desc
+                    ) as dr
+                    from competition_grade_info
+                    where del_flag = '0'
+                    ) t
+                    where t.dr &lt; CAST(#{filterConditions.topN} AS DECIMAL(10,0))
+                    )
+                </if>
+                <if test="filterConditions.topN != null and filterConditions.topN != '' and filterConditions.ranking =='3'.toString()">
+                    and cgi.grade_id IN (
+                    select grade_id
+                    from (
+                    select
+                    grade_id,
+                    dense_rank() over (
+                    order by cast(score as DECIMAL(10, 2)) desc
+                    ) as dr
+                    from competition_grade_info
+                    where del_flag = '0'
+                    ) t
+                    where t.dr = CAST(#{filterConditions.topN} AS DECIMAL(10,0))
+                    )
+                </if>
+                <if test="filterConditions.ranking =='4'.toString()">
+                    <choose>
+                        <when test="filterConditions.lowN != null and filterConditions.topN != null and filterConditions.lowN != '' and filterConditions.topN != ''">
+                            and cgi.grade_id IN (
+                            select grade_id
+                            from (
+                            select
+                            grade_id,
+                            dense_rank() over (
+                            order by cast(score as DECIMAL(10, 2)) desc
+                            ) as dr
+                            from competition_grade_info
+                            where del_flag = '0'
+                            ) t
+                            where t.dr >= CAST(#{filterConditions.topN} AS DECIMAL(10,0)) AND t.dr &lt;= CAST(#{filterConditions.lowN} AS DECIMAL(10,0))
+                            )
+                        </when>
+                        <when test="filterConditions.topN != null and filterConditions.topN != ''">
+                            and cgi.grade_id IN (
+                            select grade_id
+                            from (
+                            select
+                            grade_id,
+                            dense_rank() over (
+                            order by cast(score as DECIMAL(10, 2)) desc
+                            ) as dr
+                            from competition_grade_info
+                            where del_flag = '0'
+                            ) t
+                            where t.dr >= CAST(#{filterConditions.topN} AS DECIMAL(10,0))
+                            )
+                        </when>
+                        <when test="filterConditions.lowN != null and filterConditions.lowN != ''">
+                            and cgi.grade_id IN (
+                            select grade_id
+                            from (
+                            select
+                            grade_id,
+                            dense_rank() over (
+                            order by cast(score as DECIMAL(10, 2)) desc
+                            ) as dr
+                            from competition_grade_info
+                            where del_flag = '0'
+                            ) t
+                            where t.dr &lt;= CAST(#{filterConditions.lowN} AS DECIMAL(10,0))
+                            )
+                        </when>
+                    </choose>
+                </if>
+            </when>
+        </choose>
+        order by CAST(cgi.score AS DECIMAL(10,2)) desc,a.member_id
+    </select>
+
+    <select id="selectCompetitionApplyInfoListByIdCard" parameterType="Map" resultMap="CompetitionApplyInfoResult">
+        <include refid="selectCompetitionApplyInfoVo"/>
+        where del_flag = '0' and user_name = #{userName} and id_card = #{idCard} and pay_status = 'paid'
+        <if test="competitionSeriesId != null">
+            and competition_series_id = #{competitionSeriesId}
+        </if>
+        <if test="competitionTrackId != null  and competitionTrackId != ''">
+            and competition_track_id = #{competitionTrackId}
+        </if>
+        <if test="secondLevelCode != null  and secondLevelCode != ''">
+            and second_level_code = #{secondLevelCode}
+        </if>
+    </select>
+
+    <select id="selectExportCompetitionApplyInfoList" parameterType="com.teaching.system.api.domain.CompetitionApplyInfo"
+            resultMap="CompetitionApplyInfoResult">
+        select a.member_id,a.competition_series_id, a.competition_name,d.competition_type,
+        a.user_id, a.team_code, a.team_sort, a.user_name, a.employee_code, a.id_card, a.phone, a.email, a.org_id,
+        (select org_name from sys_org where org_id = a.org_id) as org_name,
+        a.profession, a.class_info, a.guide_teacher, a.registration_time, a.check_status, a.real_name_auth_status,
+        IFNULL(a.pay_status,'0') pay_status,
+        a.team_name, a.join_type,a.gap_score,a.competition_track_name,a.competition_track_id,a.competition_track_type,
+        a.second_level_code,a.second_level_name,a.sex,
+        a.guide_teacher_phone,a.guide_teacher_email,a.leader_teacher_id,a.leader_teacher,a.leader_teacher_phone,a.school,a.school_name,
+        a.province,a.province_name,a.competition_question,a.nationality,a.nationality_name,a.department,a.department_name,a.competition_role_name,
+        a.invoice_status,a.create_by, a.create_time, a.update_by, a.update_time, a.version,
+        CASE
+        WHEN a.del_flag = '2' THEN '已退赛'
+        ELSE null
+        END AS retired_flag,
+        a.id_card_type,cl.latest_change_time
+        from competition_apply_info a
+        left join team_manager_info c on a.team_code = c.team_code
+        left join (select a.competition_name,b.competition_series_id,b.competition_type from competition_main_info a left join
+        competition_series_info b on a.competition_id = b.competition_id) d on a.competition_series_id = d.competition_series_id
+        left join (select team_id,max(change_time) latest_change_time from change_log where del_flag = '0' group by team_id) cl
+        on a.team_code = cl.team_id
+        where (a.del_flag = '0' or a.del_flag='2')
+        <if test="competitionName != null and competitionName != ''">
+            and a.competition_name like concat('%', #{competitionName}, '%')
+        </if>
+        <if test="competitionType != null and competitionType != ''">
+            and a.competition_series_id in (select b.competition_series_id from competition_main_info a left join
+            competition_series_info b on a.competition_id = b.competition_id
+            where b.competition_type = #{competitionType})
+        </if>
+        <if test="competitionSeriesId != null and competitionSeriesId != ''">
+            and a.competition_series_id = #{competitionSeriesId}
+        </if>
+        <if test="userName != null  and userName != ''">and a.user_name like concat('%', #{userName}, '%')</if>
+        <if test="employeeCode != null  and employeeCode != ''">and a.employee_code like concat('%', #{employeeCode},
+            '%')
+        </if>
+        <if test="idCard != null  and idCard != ''">and a.id_card like concat('%', #{idCard}, '%')</if>
+        <if test="phone != null  and phone != ''">and a.phone like concat('%', #{phone}, '%')</if>
+        <if test="email != null  and email != ''">and a.email like concat('%', #{email}, '%')</if>
+        <if test="profession != null  and profession != ''">
+            and a.profession = #{profession}
+        </if>
+        <if test="classInfo != null  and classInfo != ''">
+            and a.class_info = #{classInfo}
+        </if>
+        <if test="guideTeacher != null  and guideTeacher != ''">
+            and a.guide_teacher like concat('%', #{guideTeacher}, '%')
+        </if>
+        <if test="teacherIdList != null">
+            and a.leader_teacher_id in
+            <foreach item="item" collection="teacherIdList" separator="," open="(" close=")">
+                #{item}
+            </foreach>
+        </if>
+        <if test="registrationStartTime != null ">
+            and a.registration_time >= #{registrationStartTime}
+        </if>
+        <if test="registrationEndTime != null ">
+            and a.registration_time &lt;= #{registrationEndTime}
+        </if>
+        <if test="checkStatus != null  and checkStatus != ''">
+            and a.check_status = #{checkStatus}
+        </if>
+        <if test="realNameAuthStatus != null  and realNameAuthStatus != ''">
+            and a.real_name_auth_status = #{realNameAuthStatus}
+        </if>
+        <if test="payStatus != null and payStatus != '' and payStatus != '0'.toString()">
+            and a.pay_status = #{payStatus}
+        </if>
+        <if test="payStatus != null  and payStatus != '' and payStatus == '0'.toString()">
+            and a.pay_status is null
+        </if>
+        <if test="competitionTrackId != null  and competitionTrackId != ''">
+            and a.competition_track_id = #{competitionTrackId}
+        </if>
+        <if test="secondLevelCode != null  and secondLevelCode != ''">
+            and a.second_level_code = #{secondLevelCode}
+        </if>
+        <if test="competitionRoleNameReq != null and competitionRoleNameReq != ''">
+            AND a.competition_role_name in
+            <foreach item="item" collection="competitionRoleNameReq.split(',')" separator="," open="(" close=")">
+                #{item}
+            </foreach>
+        </if>
+        <if test="competitionRoleName != null and competitionRoleName != ''">
+            AND a.competition_role_name != #{competitionRoleName}
+        </if>
+        <if test="competitionTrackName != null  and competitionTrackName != ''">
+            and a.competition_track_name like concat('%', #{competitionTrackName}, '%')
+        </if>
+        <if test="secondLevelName != null  and secondLevelName != ''">
+            and a.second_level_name like concat('%', #{secondLevelName}, '%')
+        </if>
+        <if test="teamName != null and teamName != ''">
+            and a.team_code in (select team_code from team_manager_info where team_name like concat('%', #{teamName}, '%'))
+        </if>
+        <if test="orgName != null and orgName != ''">
+            and a.org_id in (select org_id from sys_org where org_name like concat('%', #{orgName}, '%'))
+        </if>
+        <!-- 数据范围过滤 -->
+        order by a.team_code desc,a.member_id
+    </select>
+
+    <select id="selectExportCompetitionApplyInfoAwardsList" parameterType="com.teaching.system.api.domain.CompetitionApplyInfo"
+            resultMap="CompetitionApplyInfoResult">
+        select a.member_id,a.competition_series_id, a.competition_name,d.competition_type,
+        a.user_id, a.team_code, a.team_sort, a.user_name, a.employee_code, a.id_card, a.phone, a.email, a.org_id,
+        (select org_name from sys_org where org_id = a.org_id) as org_name,
+        a.profession, a.class_info, a.guide_teacher, a.registration_time, a.check_status, a.real_name_auth_status,
+        IFNULL(a.pay_status,'0') pay_status,
+        ad.team_name, a.join_type,a.gap_score,a.competition_track_name,a.competition_track_id,a.competition_track_type,
+        a.second_level_code,a.second_level_name,a.sex,
+        a.guide_teacher_phone,a.guide_teacher_email,a.leader_teacher_id,a.leader_teacher,a.leader_teacher_phone,a.school,ad.school_name,
+        a.province,a.province_name,a.competition_question,a.nationality,a.nationality_name,a.department,a.department_name,a.competition_role_name,
+        a.invoice_status,a.create_by, a.create_time, a.update_by, a.update_time, a.version,
+        CASE
+        WHEN a.del_flag = '2' THEN '已退赛'
+        ELSE null
+        END AS retired_flag,
+        a.id_card_type,cl.latest_change_time
+        from competition_apply_info a
+        INNER JOIN award_details ad ON a.team_code = ad.team_code and ad.del_flag = '0'
+        left join team_manager_info c on a.team_code = c.team_code
+        left join (select a.competition_name,b.competition_series_id,b.competition_type from competition_main_info a left join
+        competition_series_info b on a.competition_id = b.competition_id) d on a.competition_series_id = d.competition_series_id
+        left join (select team_id,max(change_time) latest_change_time from change_log where del_flag = '0' group by team_id) cl
+        on a.team_code = cl.team_id
+        where (a.del_flag = '0' or a.del_flag='2')
+        <if test="competitionName != null and competitionName != ''">
+            and a.competition_name like concat('%', #{competitionName}, '%')
+        </if>
+        <if test="userName != null  and userName != ''">and a.user_name like concat('%', #{userName}, '%')</if>
+        <if test="employeeCode != null  and employeeCode != ''">and a.employee_code like concat('%', #{employeeCode},
+            '%')
+        </if>
+        <if test="leaderTeacherId != null">
+            and a.leader_teacher_id = #{leaderTeacherId}
+        </if>
+        <if test="payStatus != null and payStatus != '' and payStatus != '0'.toString()">
+            and a.pay_status = #{payStatus}
+        </if>
+        <if test="payStatus != null  and payStatus != '' and payStatus == '0'.toString()">
+            and a.pay_status is null
+        </if>
+        <if test="competitionTrackId != null  and competitionTrackId != ''">
+            and a.competition_track_id = #{competitionTrackId}
+        </if>
+        <if test="secondLevelCode != null  and secondLevelCode != ''">
+            and a.second_level_code = #{secondLevelCode}
+        </if>
+        <if test="competitionRoleName != null and competitionRoleName != ''">
+            AND a.competition_role_name != #{competitionRoleName}
+        </if>
+        <if test="competitionTrackName != null  and competitionTrackName != ''">
+            and a.competition_track_name like concat('%', #{competitionTrackName}, '%')
+        </if>
+        <if test="secondLevelName != null  and secondLevelName != ''">
+            and a.second_level_name like concat('%', #{secondLevelName}, '%')
+        </if>
+        <if test="awardsName != null  and awardsName != ''">
+            and ad.awards_name like concat('%', #{awardsName}, '%')
+        </if>
+        <if test="schoolName != null  and schoolName != ''">
+            and ad.school_name like concat('%', #{schoolName}, '%')
+        </if>
+        <if test="awardPublicityId != null">
+            and ad.award_publicity_id = #{awardPublicityId}
+        </if>
+        <if test="teamName != null  and teamName != ''">
+            and ad.team_name like concat('%', #{teamName}, '%')
+        </if>
+        <if test="teamCode != null  and teamCode != ''">
+            and ad.team_code like concat('%', #{teamCode}, '%')
+        </if>
+        <if test="userName != null  and userName != ''">
+            and a.user_name like concat('%', #{userName}, '%')
+            and a.competition_role_name != '指导教师'
+        </if>
+        <if test="guiderTeacherName != null  and guiderTeacherName != ''">
+            and a.team_code in (select team_code from competition_apply_info where guide_teacher like concat('%', #{guiderTeacherName}, '%'))
+        </if>
+        <if test="competitionTrackName != null  and competitionTrackName != ''">
+            and (a.competition_track_name like concat('%', #{competitionTrackName}, '%')
+            or a.second_level_name like concat('%', #{competitionTrackName}, '%')
+            or a.competition_name like concat('%', #{competitionTrackName}, '%'))
+        </if>
+        <!-- 数据范围过滤 -->
+<!--        order by a.team_code desc,a.team_sort-->
+        order by ad.id,a.team_sort
+    </select>
+
+    <select id="selectCompetitionApplyInfoListPC" parameterType="com.teaching.system.api.domain.CompetitionApplyInfo"
+            resultMap="CompetitionApplyInfoResult">
+        select a.member_id,a.competition_series_id, a.competition_name,d.competition_type,
+        a.user_id, a.team_code, a.team_sort, a.user_name, a.employee_code, a.id_card, a.phone, a.email, a.org_id,
+        (select org_name from sys_org where org_id = a.org_id) as org_name,
+        a.profession, a.class_info, a.guide_teacher, a.registration_time, a.check_status, a.real_name_auth_status,
+        IFNULL(a.pay_status,'0') pay_status,
+        a.team_name, a.join_type,a.gap_score,a.competition_track_name,a.competition_track_id,a.competition_track_type,
+        a.second_level_code,a.second_level_name,a.sex,
+        a.guide_teacher_phone,a.guide_teacher_email,a.leader_teacher_id,a.leader_teacher,a.leader_teacher_phone,a.school,a.school_name,
+        a.province,a.province_name,a.competition_question,a.nationality,a.nationality_name,a.department,a.department_name,a.competition_role_name,
+        a.invoice_status,a.create_by, a.create_time, a.update_by, a.update_time, a.version, a.del_flag,a.id_card_type
+        from competition_apply_info a
+        left join team_manager_info c on a.team_code = c.team_code
+        left join (select a.competition_name,b.competition_series_id,b.competition_type from competition_main_info a left join
+        competition_series_info b on a.competition_id = b.competition_id) d on a.competition_series_id = d.competition_series_id
+        where a.del_flag = '0'
+        <if test="competitionName != null and competitionName != ''">
+            and a.competition_name like concat('%', #{competitionName}, '%')
+        </if>
+        <if test="competitionType != null and competitionType != ''">
+            and a.competition_series_id in (select b.competition_series_id from competition_main_info a left join
+            competition_series_info b on a.competition_id = b.competition_id
+            where b.competition_type = #{competitionType})
+        </if>
+        <if test="competitionSeriesId != null and competitionSeriesId != ''">
+            and a.competition_series_id = #{competitionSeriesId}
+        </if>
+        <if test="userName != null  and userName != ''">and a.user_name like concat('%', #{userName}, '%')</if>
+        <if test="employeeCode != null  and employeeCode != ''">and a.employee_code like concat('%', #{employeeCode},
+            '%')
+        </if>
+        <if test="idCard != null  and idCard != ''">
+            and a.id_card = #{idCard}
+        </if>
+        <if test="phone != null  and phone != ''">and a.phone like concat('%', #{phone}, '%')</if>
+        <if test="email != null  and email != ''">and a.email like concat('%', #{email}, '%')</if>
+        <if test="profession != null  and profession != ''">
+            and a.profession = #{profession}
+        </if>
+        <if test="classInfo != null  and classInfo != ''">
+            and a.class_info = #{classInfo}
+        </if>
+        <if test="guideTeacher != null  and guideTeacher != ''">
+            and a.guide_teacher like concat('%', #{guideTeacher}, '%')
+        </if>
+        <if test="teacherIdList != null">
+            and a.leader_teacher_id in
+            <foreach item="item" collection="teacherIdList" separator="," open="(" close=")">
+                #{item}
+            </foreach>
+        </if>
+        <if test="registrationStartTime != null ">
+            and a.registration_time >= #{registrationStartTime}
+        </if>
+        <if test="registrationEndTime != null ">
+            and a.registration_time &lt;= #{registrationEndTime}
+        </if>
+        <if test="checkStatus != null  and checkStatus != ''">
+            and a.check_status = #{checkStatus}
+        </if>
+        <if test="realNameAuthStatus != null  and realNameAuthStatus != ''">
+            and a.real_name_auth_status = #{realNameAuthStatus}
+        </if>
+        <if test="payStatus != null and payStatus != '' and payStatus != '0'.toString()">
+            and a.pay_status = #{payStatus}
+        </if>
+        <if test="payStatus != null  and payStatus != '' and payStatus == '0'.toString()">
+            and a.pay_status is null
+        </if>
+        <if test="competitionTrackId != null  and competitionTrackId != ''">
+            and a.competition_track_id = #{competitionTrackId}
+        </if>
+        <if test="secondLevelCode != null  and secondLevelCode != ''">
+            and a.second_level_code = #{secondLevelCode}
+        </if>
+        <if test="competitionRoleNameReq != null and competitionRoleNameReq != ''">
+            AND a.competition_role_name in
+            <foreach item="item" collection="competitionRoleNameReq.split(',')" separator="," open="(" close=")">
+                #{item}
+            </foreach>
+        </if>
+        <if test="competitionRoleName != null and competitionRoleName != ''">
+            AND a.competition_role_name != #{competitionRoleName}
+        </if>
+        <if test="competitionTrackName != null  and competitionTrackName != ''">
+            and a.competition_track_name like concat('%', #{competitionTrackName}, '%')
+        </if>
+        <if test="secondLevelName != null  and secondLevelName != ''">
+            and a.second_level_name like concat('%', #{secondLevelName}, '%')
+        </if>
+        <if test="teamName != null and teamName != ''">
+            and a.team_code in (select team_code from team_manager_info where team_name like concat('%', #{teamName}, '%'))
+        </if>
+        <if test="orgName != null and orgName != ''">
+            and a.org_id in (select org_id from sys_org where org_name like concat('%', #{orgName}, '%'))
+        </if>
+        <!-- 数据范围过滤 -->
+        <!--        ${params.dataScope}-->
+        order by a.registration_time desc
+    </select>
+
+    <select id="selectCompetitionApplyInfoListByTeamCode" parameterType="Map" resultMap="CompetitionApplyInfoResult">
+        <include refid="selectCompetitionApplyInfoVo"/>
+        where del_flag = '0'
+            <if test="memberIds != null and memberIds != ''">
+                and member_id in
+                <foreach item="item" collection="memberIds.split(',')" separator="," open="(" close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="teamCodes != null and teamCodes !=''">
+                and team_code in
+                <foreach item="item" collection="teamCodes.split(',')" separator="," open="(" close=")">
+                    #{item}
+                </foreach>
+            </if>
+    </select>
+
+    <select id="selectCompetitionApplyTeamCode" parameterType="String" resultMap="CompetitionApplyInfoResult">
+        <include refid="selectCompetitionApplyInfoVo"/>
+        where del_flag = '0' and team_code = #{teamCode}
+        order by CASE competition_role_name
+        WHEN '指导老师' THEN 2
+        WHEN '队长'     THEN 1
+        WHEN '队员'     THEN 1
+        ELSE 4
+        END,team_sort
+    </select>
+
+    <select id="selectDefenseScheduleApplyCandidates" resultMap="CompetitionApplyInfoResult">
+        <include refid="selectCompetitionApplyInfoVo"/>
+        where del_flag = '0'
+          and competition_series_id = #{competitionSeriesId}
+          and trim(team_name) = #{teamName}
+          and trim(user_name) = #{leaderName}
+          and (
+              trim(school_name) = #{orgName}
+              or org_id in (select org_id from sys_org where trim(org_name) = #{orgName})
+          )
+        order by team_code, team_sort
+    </select>
+
+    <select id="selectCompetitionApplyNum" parameterType="Long" resultType="java.lang.Integer">
+        select count(1) from competition_apply_info
+        where competition_series_id = #{competitionSeriesId} and del_flag = '0' and check_status != '5'
+    </select>
+
+    <select id="selectMaxMemberId" resultType="integer">
+        select max(member_id) from competition_apply_info
+    </select>
+
+    <select id="selectCompetitionApplyInfoByMemberId" parameterType="Long" resultMap="CompetitionApplyInfoResult">
+        select a.member_id,a.competition_series_id, a.competition_name,d.competition_type,
+        a.user_id, a.user_name, a.employee_code, a.id_card, phone, a.email, a.org_id,
+        a.company_name, a.org_name_snapshot,
+        (select org_name from sys_org where org_id = a.org_id) as org_name,
+        a.profession, a.class_info, a.guide_teacher, a.registration_time, a.check_status, a.real_name_auth_status,
+        a.pay_status, a.team_code, a.team_sort, a.team_name, a.join_type,a.gap_score,a.competition_track_name,a.competition_track_id,a.competition_track_type,a.second_level_code,a.second_level_name,
+        a.guide_teacher_phone,a.guide_teacher_email,a.leader_teacher_id,a.leader_teacher,a.leader_teacher_phone,a.school,a.school_name,
+        a.province,a.province_name,a.competition_question,a.nationality,a.nationality_name,a.department,a.department_name,a.sex,a.invoice_status,
+        a.competition_role_name,a.create_by, a.create_time, a.update_by, a.update_time, a.version, a.del_flag,a.id_card_type
+        from competition_apply_info a
+        left join team_manager_info c on a.team_code = c.team_code
+        left join (select a.competition_name,b.competition_series_id,b.competition_type from competition_main_info a left join
+        competition_series_info b on a.competition_id = b.competition_id) d on a.competition_series_id = d.competition_series_id
+        where a.del_flag = '0'
+        and a.member_id = #{memberId}
+    </select>
+
+    <select id="selectCompetitionApplyInfoByExitPayStatus" parameterType="Long" resultType="integer">
+        select count(1) from competition_apply_info
+        where del_flag = '0' and competition_series_id = #{competitionSeriesId} and leader_teacher_id = #{leaderTeacherId}
+    </select>
+
+    <select id="selectApplyInfoCompetitionId" parameterType="Long" resultType="String">
+        select distinct team_code from competition_apply_info
+        where del_flag = '0' and competition_series_id = #{competitionSeriesId} and pay_status = 'paid'
+    </select>
+
+    <select id="selectCompetitionApplyInfoByPayStatus" resultMap="CompetitionApplyInfoResult">
+        <include refid="selectCompetitionApplyInfoVo"/>
+        where del_flag = '0'
+    </select>
+
+    <select id="queryTeamMemberInvoiceStatus" parameterType="com.teaching.system.api.domain.CompetitionApplyInfo" resultMap="CompetitionApplyInfoResult">
+        select distinct a.member_id, a.competition_series_id, a.user_id, a.team_code, a.team_sort, a.team_name,a.user_name, a.employee_code, a.id_card, a.phone, a.email, a.org_id,
+        a.company_name, a.org_name_snapshot,
+        a.profession, a.class_info, a.guide_teacher, a.registration_time, a.check_status, a.real_name_auth_status, a.pay_status,a.competition_name,
+        a.join_type,a.gap_score,a.competition_track_name,a.competition_track_id,a.competition_track_type,a.second_level_code,a.second_level_name,
+        a.guide_teacher_phone,a.guide_teacher_email,a.leader_teacher_id,a.leader_teacher,a.leader_teacher_phone,a.school,a.school_name,
+        a.province,province_name,a.competition_question,a.nationality,a.nationality_name,a.department,a.department_name,a.sex,a.invoice_status,
+        a.competition_role_name,c.fee
+        from competition_apply_info a
+        left join competition_track_config b on a.second_level_code = b.second_level_code
+        left join competition_config c on b.competition_track_config_id = c.competition_track_config_id
+        where a.del_flag = '0' and a.pay_status = 'paid'
+        <if test="memberIds!=null and memberIds!=''">
+            and a.member_id in
+            <foreach collection="memberIds.split(',')" item="memberId" open="(" separator=","  close=")">
+                #{memberId}
+            </foreach>
+        </if>
+        <if test="competitionRoleName != null and competitionRoleName != ''">
+            AND a.competition_role_name != #{competitionRoleName}
+        </if>
+        <if test="teamCodes != null and teamCodes!=''">
+            and a.team_code in
+            <foreach item="item" collection="teamCodes.split(',')" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+    </select>
+
+    <select id="selectCompetitionApplyInfoByNullUserId" parameterType="com.teaching.system.api.domain.CompetitionApplyInfo" resultMap="CompetitionApplyInfoResult">
+        <include refid="selectCompetitionApplyInfoVo"/>
+        where del_flag = '0' and user_id is null and id_card is not null
+        <if test="payStatus != null and payStatus != ''">
+            and pay_status = #{payStatus}
+        </if>
+        <if test="competitionRoleName != null and competitionRoleName != ''">
+            AND competition_role_name != #{competitionRoleName}
+        </if>
+        order by registration_time
+    </select>
+
+    <select id="selectCompetitionApplyInfoByUserId" parameterType="com.teaching.system.api.domain.CompetitionApplyInfo" resultMap="CompetitionApplyInfoResult">
+        <include refid="selectCompetitionApplyInfoVo"/>
+        where del_flag = '0'
+            <if test="userId!=null">
+                and user_id = #{userId}
+            </if>
+            <if test="competitionSeriesId!=null">
+                and competition_series_id = #{competitionSeriesId}
+            </if>
+        <if test="competitionTrackId!=null and competitionTrackId!=''">
+            and competition_track_id = #{competitionTrackId}
+        </if>
+        <if test="secondLevelCode!=null and secondLevelCode!=''">
+            and second_level_code = #{secondLevelCode}
+        </if>
+            <if test="teamCode!=null and teamCode!=''">
+                and team_code = #{teamCode}
+            </if>
+            <if test="checkStatus != null and checkStatus != ''">
+                and check_status = #{checkStatus}
+            </if>
+            <if test="checkStatusContain != null and checkStatusContain!=''">
+                and check_status not in ('5')
+            </if>
+            order by registration_time desc limit 1
+    </select>
+
+    <select id="selectTeacherContestantActiveRegistration" resultMap="CompetitionApplyInfoResult">
+        <include refid="selectCompetitionApplyInfoVo"/>
+        where del_flag = '0'
+          and id_card = #{idCard}
+          and competition_series_id = #{competitionSeriesId}
+          and competition_track_id = #{competitionTrackId}
+          and check_status not in ('5')
+          and (pay_status is null or pay_status != #{excludedPayStatus})
+        order by registration_time desc
+        limit 1
+    </select>
+
+    <select id="selectUnboundTeacherContestantsByPhone" resultMap="CompetitionApplyInfoResult">
+        <include refid="selectCompetitionApplyInfoVo"/>
+        where del_flag = '0'
+          and user_id is null
+          and phone = #{phone}
+          and competition_track_name = '教师赛'
+          and competition_role_name != '指导教师'
+          and check_status not in ('5')
+          and (pay_status is null or pay_status != 'cancelled')
+        order by registration_time desc
+    </select>
+
+    <update id="bindTeacherContestantUser">
+        update competition_apply_info
+        set user_id = #{userId}, update_time = sysdate()
+        where member_id = #{memberId} and user_id is null and del_flag = '0'
+    </update>
+
+    <select id="selectTeamApplyInfoList" parameterType="String" resultMap="CompetitionApplyInfoResult">
+        <include refid="selectCompetitionApplyInfoVo"/>
+        where del_flag = '0'
+        <if test="teamCodeList != null and teamCodeList.size()>0">
+            AND team_code in
+            <foreach collection="teamCodeList" item="teamCode" open=" (" close=")" separator=",">
+                #{teamCode}
+            </foreach>
+        </if>
+    </select>
+
+    <select id="selectCompetitionApplyByUserId" parameterType="Long" resultType="com.teaching.competition.domain.UserCompetitionApplyInfo">
+        select distinct  a.competition_series_id 'competitionSeriesId',
+        a.competition_name 'competitionName',
+        b.competition_id 'competitionId',
+        b.competition_type 'competitionType',
+        b.competition_desc 'competitionDesc',
+        b.competition_image_name 'competitionImageName',
+        b.competition_image 'competitionImage',
+        b.check_status 'checkStatus'
+        from
+        competition_apply_info a
+        left join competition_series_info b on a.competition_series_id = b.competition_series_id
+        where (a.user_id = #{userId} or a.leader_teacher_id = #{userId}) and a.del_flag = '0' and a.check_status not in ('5')
+    </select>
+
+    <insert id="insertCompetitionApplyInfo" parameterType="com.teaching.system.api.domain.CompetitionApplyInfo" useGeneratedKeys="true"
+            keyColumn="member_id" keyProperty="memberId">
+        insert into competition_apply_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="competitionSeriesId != null">competition_series_id,</if>
+            <if test="competitionName != null">competition_name,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="teamCode != null and teamCode!=''">team_code,</if>
+            <if test="teamSort != null">team_sort,</if>
+            <if test="teamName != null and teamName!=''">team_name,</if>
+            <if test="userName != null">user_name,</if>
+            <if test="employeeCode != null">employee_code,</if>
+            <if test="idCard != null">id_card,</if>
+            <if test="phone != null">phone,</if>
+            <if test="email != null">email,</if>
+            <if test="orgId != null">org_id,</if>
+            <if test="profession != null">profession,</if>
+            <if test="classInfo != null">class_info,</if>
+            <if test="guideTeacher != null">guide_teacher,</if>
+            <if test="registrationTime != null">registration_time,</if>
+            <if test="checkStatus != null">check_status,</if>
+            <if test="realNameAuthStatus != null">real_name_auth_status,</if>
+            <if test="payStatus != null">pay_status,</if>
+            <if test="joinType != null">join_type,</if>
+            <if test="gapScore != null">gap_score,</if>
+            <if test="competitionTrackName != null">competition_track_name,</if>
+            <if test="competitionTrackId != null">competition_track_id,</if>
+            <if test="competitionTrackType != null">competition_track_type,</if>
+            <if test="secondLevelCode != null">second_level_code,</if>
+            <if test="secondLevelName != null">second_level_name,</if>
+            <if test="guideTeacherPhone != null">guide_teacher_phone,</if>
+            <if test="guideTeacherEmail != null">guide_teacher_email,</if>
+            <if test="leaderTeacherId != null">leader_teacher_id,</if>
+            <if test="leaderTeacher != null">leader_teacher,</if>
+            <if test="leaderTeacherPhone != null">leader_teacher_phone,</if>
+            <if test="school != null">school,</if>
+            <if test="schoolName != null">school_name,</if>
+            <if test="province != null">province,</if>
+            <if test="provinceName != null">province_name,</if>
+            <if test="competitionQuestion != null">competition_question,</if>
+            <if test="nationality != null">nationality,</if>
+            <if test="nationalityName != null">nationality_name,</if>
+            <if test="department != null">department,</if>
+            <if test="departmentName != null">department_name,</if>
+            <if test="sex != null">sex,</if>
+            <if test="invoiceStatus != null">invoice_status,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="version != null">version,</if>
+            <if test="delFlag != null">del_flag,</if>
+            <if test="idCardType != null">id_card_type,</if>
+            <if test="competitionRoleName != null">competition_role_name,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="competitionSeriesId != null">#{competitionSeriesId},</if>
+            <if test="competitionName != null">#{competitionName},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="teamCode != null and teamCode!=''">#{teamCode},</if>
+            <if test="teamSort != null">#{teamSort},</if>
+            <if test="teamName != null">#{teamName},</if>
+            <if test="userName != null">#{userName},</if>
+            <if test="employeeCode != null">#{employeeCode},</if>
+            <if test="idCard != null">#{idCard},</if>
+            <if test="phone != null">#{phone},</if>
+            <if test="email != null">#{email},</if>
+            <if test="orgId != null">#{orgId},</if>
+            <if test="profession != null">#{profession},</if>
+            <if test="classInfo != null">#{classInfo},</if>
+            <if test="guideTeacher != null">#{guideTeacher},</if>
+            <if test="registrationTime != null">#{registrationTime},</if>
+            <if test="checkStatus != null">#{checkStatus},</if>
+            <if test="realNameAuthStatus != null">#{realNameAuthStatus},</if>
+            <if test="payStatus != null">#{payStatus},</if>
+            <if test="joinType != null">#{joinType},</if>
+            <if test="gapScore != null">#{gapScore},</if>
+            <if test="competitionTrackName != null">#{competitionTrackName},</if>
+            <if test="competitionTrackId != null">#{competitionTrackId},</if>
+            <if test="competitionTrackType != null">#{competitionTrackType},</if>
+            <if test="secondLevelCode != null">#{secondLevelCode},</if>
+            <if test="secondLevelName != null">#{secondLevelName},</if>
+            <if test="guideTeacherPhone != null">#{guideTeacherPhone},</if>
+            <if test="guideTeacherEmail != null">#{guideTeacherEmail},</if>
+            <if test="leaderTeacherId != null">#{leaderTeacherId},</if>
+            <if test="leaderTeacher != null">#{leaderTeacher},</if>
+            <if test="leaderTeacherPhone != null">#{leaderTeacherPhone},</if>
+            <if test="school != null">#{school},</if>
+            <if test="schoolName != null">#{schoolName},</if>
+            <if test="province != null">#{province},</if>
+            <if test="competitionQuestion != null">#{competitionQuestion},</if>
+            <if test="nationality != null">#{nationality},</if>
+            <if test="nationalityName != null">#{nationalityName},</if>
+            <if test="department != null">#{department},</if>
+            <if test="departmentName != null">#{departmentName},</if>
+            <if test="sex != null">#{sex},</if>
+            <if test="invoiceStatus != null">#{invoiceStatus},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="version != null">#{version},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+            <if test="idCardType != null">#{idCardType},</if>
+            <if test="competitionRoleName != null">#{competitionRoleName},</if>
+        </trim>
+    </insert>
+
+    <insert id="batchInsertCompetitionApplyInfo">
+        insert into competition_apply_info (competition_series_id, competition_name,user_id, team_code, team_sort, team_name,user_name, employee_code, id_card, phone, email, org_id,company_name,org_name_snapshot,
+        profession, class_info, guide_teacher, registration_time, check_status, real_name_auth_status,pay_status,
+        join_type,gap_score,competition_track_name,competition_track_id,competition_track_type,second_level_code,second_level_name,
+        guide_teacher_phone,guide_teacher_email,leader_teacher_id,leader_teacher,leader_teacher_phone,school,school_name,
+        province,province_name,competition_question,nationality,nationality_name,department,department_name,sex,invoice_status,
+        competition_role_name,create_by, create_time, update_by, update_time, del_flag,id_card_type)
+        values
+        <foreach item="item" collection="list" separator="," index="index">
+            (#{item.competitionSeriesId}, #{item.competitionName},#{item.userId}, #{item.teamCode}, #{item.teamSort}, #{item.teamName},#{item.userName}, #{item.employeeCode}, #{item.idCard}, #{item.phone}, #{item.email}, #{item.orgId},#{item.companyName},#{item.orgNameSnapshot},
+            #{item.profession}, #{item.classInfo}, #{item.guideTeacher}, sysdate(), #{item.checkStatus}, #{item.realNameAuthStatus},#{item.payStatus},
+            #{item.joinType},#{item.gapScore},#{item.competitionTrackName},#{item.competitionTrackId},#{item.competitionTrackType},#{item.secondLevelCode},#{item.secondLevelName},
+            #{item.guideTeacherPhone},#{item.guideTeacherEmail},#{item.leaderTeacherId},#{item.leaderTeacher},#{item.leaderTeacherPhone},#{item.school},#{item.schoolName},
+            #{item.province},#{item.provinceName},#{item.competitionQuestion},#{item.nationality},#{item.nationalityName},#{item.department},#{item.departmentName},#{item.sex},
+            #{item.invoiceStatus},#{item.competitionRoleName},#{item.createBy}, sysdate(), #{item.updateBy}, #{item.updateTime}, #{item.delFlag},#{item.idCardType}
+            )
+        </foreach>
+    </insert>
+
+    <update id="updateCompetitionApplyInfo" parameterType="com.teaching.system.api.domain.CompetitionApplyInfo">
+        update competition_apply_info
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="competitionSeriesId != null">competition_series_id = #{competitionSeriesId},</if>
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="teamCode != null and teamCode!=''">team_code = #{teamCode},</if>
+            <if test="teamSort != null">team_sort = #{teamSort},</if>
+            <if test="userName != null">user_name = #{userName},</if>
+            <if test="employeeCode != null">employee_code = #{employeeCode},</if>
+            <if test="idCard != null">id_card = #{idCard},</if>
+            <if test="phone != null">phone = #{phone},</if>
+            <if test="email != null">email = #{email},</if>
+            <if test="orgId != null">org_id = #{orgId},</if>
+            <if test="companyName != null">company_name = #{companyName},</if>
+            <if test="orgNameSnapshot != null">org_name_snapshot = #{orgNameSnapshot},</if>
+            <if test="profession != null">profession = #{profession},</if>
+            <if test="classInfo != null">class_info = #{classInfo},</if>
+            <if test="guideTeacher != null">guide_teacher = #{guideTeacher},</if>
+            <if test="registrationTime != null">registration_time = #{registrationTime},</if>
+            <if test="checkStatus != null">check_status = #{checkStatus},</if>
+            <if test="realNameAuthStatus != null">real_name_auth_status = #{realNameAuthStatus},</if>
+            <if test="payStatus != null">pay_status = #{payStatus},</if>
+            <if test="joinType != null">join_type = #{joinType},</if>
+            <if test="gapScore != null">gap_score = #{gapScore},</if>
+            <if test="competitionTrackName != null">competition_track_name = #{competitionTrackName},</if>
+            <if test="competitionTrackId != null">competition_track_id = #{competitionTrackId},</if>
+            <if test="competitionTrackType != null">competition_track_type = #{competitionTrackType},</if>
+            <if test="secondLevelCode != null">second_level_code = #{secondLevelCode},</if>
+            <if test="secondLevelName != null">second_level_name = #{secondLevelName},</if>
+            <if test="guideTeacherPhone != null">guide_teacher_phone = #{guideTeacherPhone},</if>
+            <if test="guideTeacherEmail != null">guide_teacher_email = #{guideTeacherEmail},</if>
+            <if test="leaderTeacherId != null">leader_teacher_id = #{leaderTeacherId},</if>
+            <if test="leaderTeacher != null">leader_teacher = #{leaderTeacher},</if>
+            <if test="leaderTeacherPhone != null">leader_teacher_phone = #{leaderTeacherPhone},</if>
+            <if test="leaderTeacherPhone != null">leader_teacher_phone = #{leaderTeacherPhone},</if>
+            <if test="school != null">school = #{school},</if>
+            <if test="schoolName != null">school_name = #{schoolName},</if>
+            <if test="province != null">province = #{province},</if>
+            <if test="competitionQuestion != null">competition_question = #{competitionQuestion},</if>
+            <if test="nationality != null">nationality = #{nationality},</if>
+            <if test="nationalityName != null">nationality_name = #{nationalityName},</if>
+            <if test="department != null">department = #{department},</if>
+            <if test="departmentName != null">department_name = #{departmentName},</if>
+            <if test="sex != null">create_by = #{sex},</if>
+            <if test="competitionRoleName != null">competition_role_name = #{competitionRoleName},</if>
+            <if test="invoiceStatus != null">invoice_status = #{invoiceStatus},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            version = version+1,
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+        </trim>
+        where member_id = #{memberId}
+    </update>
+
+    <update id="batchUpdateCompetitionApplyInfo">
+        <foreach collection="list" item="item" separator=";">
+            update competition_apply_info
+            <trim prefix="SET" suffixOverrides=",">
+                <if test="item.teamSort != null">team_sort = #{item.teamSort},</if>
+                <if test="item.userName != null">user_name = #{item.userName},</if>
+                <if test="item.phone != null">phone = #{item.phone},</if>
+                <if test="item.email != null">email = #{item.email},</if>
+                <if test="item.guideTeacher != null">guide_teacher = #{item.guideTeacher},</if>
+                <if test="item.guideTeacherPhone != null">guide_teacher_phone = #{item.guideTeacherPhone},</if>
+                <if test="item.guideTeacherEmail != null">guide_teacher_email = #{item.guideTeacherEmail},</if>
+                <if test="item.leaderTeacherId != null">leader_teacher_id = #{item.leaderTeacherId},</if>
+                <if test="item.leaderTeacher != null">leader_teacher = #{item.leaderTeacher},</if>
+                <if test="item.leaderTeacherPhone != null">leader_teacher_phone = #{item.leaderTeacherPhone},</if>
+                <if test="item.updateBy != null">update_by = #{item.updateBy},</if>
+                update_time = now(),
+                version = version+1,
+            </trim>
+            where member_id = #{item.memberId}
+        </foreach>
+    </update>
+
+    <update id="batchUpdateCompetitionApplyInfoTeamSort">
+        <foreach collection="list" item="item" separator=";">
+            update competition_apply_info
+            <trim prefix="SET" suffixOverrides=",">
+                <if test="item.teamSort != null">team_sort = #{item.teamSort},</if>
+            </trim>
+            where member_id = #{item.memberId}
+        </foreach>
+    </update>
+
+    <update id="updatePayStatus">
+        update competition_apply_info
+        <set>
+            <if test="list[0].payStatus != null">
+                pay_status = CASE
+                <foreach collection="list" item="item">
+                    WHEN member_id = #{item.memberId} THEN #{item.payStatus}
+                </foreach>
+                ELSE pay_status
+                END,
+            </if>
+            <if test="list[0].invoiceStatus != null">
+                invoice_status = CASE
+                <foreach collection="list" item="item">
+                    WHEN member_id = #{item.memberId} THEN #{item.invoiceStatus}
+                </foreach>
+                ELSE invoice_status
+                END,
+            </if>
+            update_time = sysdate(),
+            version = version+1,
+        </set>
+        WHERE member_id IN
+        <foreach collection="list" item="item" open="(" separator="," close=")">
+            #{item.memberId}
+        </foreach>
+    </update>
+
+    <update id="updateUserId">
+        update competition_apply_info
+        <set>
+            <if test="list[0].userId != null">
+                user_id = CASE
+                <foreach collection="list" item="item">
+                    WHEN id_card = #{item.idCard} THEN #{item.userId}
+                </foreach>
+                ELSE user_id
+                END,
+            </if>
+            update_time = sysdate(),
+            version = version+1,
+        </set>
+        WHERE id_card IN
+        <foreach collection="list" item="item" open="(" separator="," close=")">
+            #{item.idCard}
+        </foreach>
+    </update>
+
+    <update id="updateSecondLevel">
+        update competition_apply_info
+        <set>
+            <if test="list[0].secondLevelCode != null">
+                second_level_code = CASE
+                <foreach collection="list" item="item">
+                    WHEN member_id = #{item.memberId} THEN #{item.secondLevelCode}
+                </foreach>
+                ELSE second_level_code
+                END,
+            </if>
+            <if test="list[0].secondLevelName != null">
+                second_level_name = CASE
+                <foreach collection="list" item="item">
+                    WHEN member_id = #{item.memberId} THEN #{item.secondLevelName}
+                </foreach>
+                ELSE second_level_name
+                END,
+            </if>
+            update_time = sysdate(),
+            version = version+1,
+        </set>
+        WHERE member_id IN
+        <foreach collection="list" item="item" open="(" separator="," close=")">
+            #{item.memberId}
+        </foreach>
+    </update>
+
+    <delete id="deleteCompetitionApplyInfoByTeamCode" parameterType="String">
+        update competition_apply_info set del_flag = '1' where team_code = #{teamCode}
+    </delete>
+
+    <delete id="deleteRetaCompetitionApplyInfoByTeamCode" parameterType="String">
+        update competition_apply_info set del_flag = '2' where team_code = #{teamCode} and del_flag = '0'
+    </delete>
+
+    <delete id="deleteCompetitionApplyInfoByMemberId" parameterType="Long">
+        update competition_apply_info set del_flag = '1' where member_id = #{memberId}
+    </delete>
+
+    <delete id="deleteCompetitionApplyInfoByCompetitionSeriesId" parameterType="Long">
+        delete from competition_apply_info where competition_series_id = #{competitionSeriesId}
+    </delete>
+
+    <delete id="deleteCompetitionApplyInfoByMemberIds" parameterType="String">
+        update competition_apply_info set del_flag = '1' where member_id in
+        <foreach item="memberId" collection="array" open="(" separator="," close=")">
+            #{memberId}
+        </foreach>
+    </delete>
+
+
+    <resultMap id="TeamCompetitionInfoMap" type="com.teaching.system.api.domain.CompetitionApplyInfoVO">
+        <!-- 主信息映射 -->
+        <result property="fee" column="fee"/>
+        <result property="teamCode" column="team_code"/>
+        <result property="teamName" column="team_name"/>
+        <result property="competitionName" column="competition_name"/>
+        <result property="competitionTrackName" column="competition_track_name"/>
+        <result property="secondLevelName" column="second_level_name"/>
+        <result property="competitionSeriesId" column="competition_series_id"/>
+        <!-- 子信息映射（一对多关系） -->
+        <collection property="registrationInfoList" ofType="com.teaching.system.api.domain.RegistrationInfo">
+            <result property="memberId" column="member_id"/>
+            <result property="competitionRoleName" column="competition_role_name"/>
+            <result property="competitionType" column="competition_type"/>
+            <result property="userId" column="user_id"/>
+            <result property="userName" column="user_name"/>
+            <result property="employeeCode" column="employee_code"/>
+            <result property="idCard" column="id_card"/>
+            <result property="phone" column="phone"/>
+            <result property="email" column="email"/>
+            <result property="orgId" column="org_id"/>
+            <result property="orgName" column="org_name"/>
+            <result property="profession" column="profession"/>
+            <result property="classInfo" column="class_info"/>
+            <result property="guideTeacher" column="guide_teacher"/>
+            <result property="registrationTime" column="registration_time"/>
+            <result property="checkStatus" column="check_status"/>
+            <result property="realNameAuthStatus" column="real_name_auth_status"/>
+            <result property="payStatus" column="pay_status"/>
+            <result property="teamName" column="team_name"/>
+            <result property="joinType" column="join_type"/>
+            <result property="gapScore" column="gap_score"/>
+            <result property="competitionTrackId" column="competition_track_id"/>
+            <result property="competitionTrackType" column="competition_track_type"/>
+            <result property="secondLevelCode" column="second_level_code"/>
+            <result property="guideTeacherPhone" column="guide_teacher_phone"/>
+            <result property="guideTeacherEmail" column="guide_teacher_email"/>
+            <result property="leaderTeacherId" column="leader_teacher_id"/>
+            <result property="leaderTeacher" column="leader_teacher"/>
+            <result property="leaderTeacherPhone" column="leader_teacher_phone"/>
+            <result property="school" column="school"/>
+            <result property="schoolName" column="school_name"/>
+            <result property="province" column="province"/>
+            <result property="provinceName" column="province_name"/>
+            <result property="competitionQuestion" column="competition_question"/>
+            <result property="nationality" column="nationality"/>
+            <result property="nationalityName" column="nationality_name"/>
+            <result property="department" column="department"/>
+            <result property="departmentName" column="department_name"/>
+            <result property="sex" column="sex"/>
+            <result property="createBy" column="create_by"/>
+            <result property="createTime" column="create_time"/>
+            <result property="updateBy" column="update_by"/>
+            <result property="updateTime" column="update_time"/>
+            <result property="version" column="version"/>
+            <result property="delFlag" column="del_flag"/>
+        </collection>
+    </resultMap>
+
+    <select id="selectTeamCompetitionInfo" parameterType="com.teaching.system.api.domain.RegistrationInfo"  resultMap="TeamCompetitionInfoMap">
+        SELECT
+            cai.member_id, cai.competition_series_id, cai.user_id, cai.team_code,cai.team_name, cai.user_name, cai.employee_code, cai.id_card, cai.phone, cai.email, cai.org_id,cai.competition_name,
+            cai.profession, cai.class_info, cai.guide_teacher, cai.registration_time, cai.check_status, cai.real_name_auth_status, cai.pay_status,cai.competition_role_name,
+            cai.join_type,cai.gap_score,cai.competition_track_name,cai.competition_track_id,cai.competition_track_type,cai.second_level_code,cai.second_level_name,
+            cai.guide_teacher_phone,cai.guide_teacher_email,cai.leader_teacher_id,cai.leader_teacher,cai.leader_teacher_phone,cai.school,cai.school_name,
+            cai.province,cai.province_name,cai.competition_question,cai.nationality,cai.nationality_name,cai.department,cai.department_name,cai.sex,
+            cai.invoice_status,cai.create_by, cai.create_time, cai.update_by, cai.update_time, cai.version, cai.del_flag,cc.fee
+        FROM
+            competition_apply_info cai
+                LEFT JOIN
+            competition_track_config ctc ON ctc.second_level_code = cai.second_level_code AND ctc.del_flag = '0'
+                LEFT JOIN
+            competition_config cc ON cc.competition_track_config_id = ctc.competition_track_config_id AND cc.del_flag = '0'
+        WHERE cai.del_flag = '0' AND
+            cai.competition_series_id = #{competitionSeriesId} AND cai.leader_teacher_id = #{leaderTeacherId}
+          AND cai.pay_status is null
+    </select>
+
+    <update id="delApplyInfoByTeamCode">
+        update competition_apply_info set
+            update_by = #{updateBy},
+            update_time =sysdate(),
+            del_flag = '1'
+        where pay_status is null AND leader_teacher_id = #{updateBy} AND team_code in
+        <foreach item="item" collection="teamCode.split(',')" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+
+    <update id="delApplyInfoByTeamCodes">
+        update competition_apply_info set
+            update_by = #{updateBy},
+            update_time =sysdate(),
+            del_flag = '1'
+        where pay_status is null AND leader_teacher_id = #{updateBy} AND team_code in
+        <foreach item="teamCode" collection="teamCodes" open="(" separator="," close=")">
+            #{teamCode}
+        </foreach>
+    </update>
+
+    <select id="selectTeamCompetitionInfoByTeamCodes" resultMap="TeamCompetitionInfoMap">
+        SELECT
+        cai.member_id, cai.competition_series_id, cai.user_id, cai.team_code,cai.team_name, cai.user_name, cai.employee_code,
+        cai.id_card, cai.phone, cai.email, cai.org_id,cai.competition_name,
+        cai.profession, cai.class_info, cai.guide_teacher, cai.registration_time, cai.check_status,
+        cai.real_name_auth_status, cai.pay_status,cai.competition_role_name,
+        cai.join_type,cai.gap_score,cai.competition_track_name,cai.competition_track_id,cai.competition_track_type,cai.second_level_code,cai.second_level_name,
+        cai.guide_teacher_phone,cai.guide_teacher_email,cai.leader_teacher_id,cai.leader_teacher,cai.leader_teacher_phone,cai.school,cai.school_name,
+        cai.province,cai.province_name,cai.competition_question,cai.nationality,cai.nationality_name,cai.department,cai.department_name,cai.sex,
+        cai.invoice_status,cai.create_by, cai.create_time, cai.update_by, cai.update_time, cai.version, cai.del_flag,cc.fee
+        FROM
+        competition_apply_info cai
+        LEFT JOIN
+        competition_track_config ctc ON ctc.second_level_code = cai.second_level_code AND ctc.del_flag = '0'
+        LEFT JOIN
+        competition_config cc ON cc.competition_track_config_id = ctc.competition_track_config_id  AND cc.del_flag = '0'
+        WHERE cai.del_flag = '0'
+          <if test="competitionSeriesId != null and competitionSeriesId !=''">
+              AND cai.competition_series_id = #{competitionSeriesId}
+          </if>
+          AND cai.leader_teacher_id = #{leaderTeacherId}
+          AND cai.pay_status is null
+          <if test="teamCodeList != null and teamCodeList.size()>0">
+              AND cai.team_code IN
+              <foreach collection="teamCodeList" item="teamCode" open=" (" close=")" separator=",">
+                  #{teamCode}
+              </foreach>
+          </if>
+    </select>
+
+    <select id="selectTeamCompetitionInfoByTeamCodesForOrder" resultMap="TeamCompetitionInfoMap">
+        SELECT
+        cai.competition_series_id, cai.user_id, cai.team_code,cai.team_name, cai.user_name, cai.employee_code,
+        cai.id_card, cai.phone, cai.email, cai.org_id,cai.competition_name,
+        cai.profession, cai.class_info, cai.guide_teacher, cai.registration_time, cai.check_status,
+        cai.real_name_auth_status, cai.pay_status,cai.competition_role_name,
+        cai.join_type,cai.gap_score,cai.competition_track_name,cai.competition_track_id,cai.competition_track_type,cai.second_level_code,cai.second_level_name,
+        cai.guide_teacher_phone,cai.guide_teacher_email,cai.leader_teacher_id,cai.leader_teacher,cai.leader_teacher_phone,cai.school,cai.school_name,
+        cai.province,cai.province_name,cai.competition_question,cai.nationality,cai.nationality_name,cai.department,cai.department_name,cai.sex,cai.invoice_status,cai.del_flag,cc.fee
+        FROM
+        competition_apply_info cai
+        LEFT JOIN
+        competition_track_config ctc ON ctc.second_level_code = cai.second_level_code AND ctc.del_flag = '0'
+        LEFT JOIN
+        competition_config cc ON cc.competition_track_config_id = ctc.competition_track_config_id AND cc.del_flag = '0'
+<!--        WHERE cai.del_flag = '0'-->
+        <where>
+            AND (cai.del_flag = '0' or cai.del_flag = '2')
+          <if test="competitionSeriesId != null and competitionSeriesId !=''">
+              AND cai.competition_series_id = #{competitionSeriesId}
+          </if>
+          <if test="leaderTeacherId != null and leaderTeacherId !=''">
+              AND cai.leader_teacher_id = #{leaderTeacherId}
+          </if>
+          <if test="teamCodeList != null and teamCodeList.size()>0">
+              AND cai.team_code IN
+              <foreach collection="teamCodeList" item="teamCode" open=" (" close=")" separator=",">
+                  #{teamCode}
+              </foreach>
+          </if>
+        </where>
+    </select>
+
+    <update id="updateTeamPayStatusByTeamCodes" parameterType="java.util.Map">
+        update competition_apply_info set
+        pay_status = #{payStatus},
+        update_by = #{leaderTeacherId},
+        update_time =sysdate()
+        <where>
+            <if test="leaderTeacherId != null and leaderTeacherId !=''">
+                AND leader_teacher_id = #{leaderTeacherId}
+            </if>
+            <if test="competitionSeriesId != null and competitionSeriesId !=''">
+                AND competition_series_id = #{competitionSeriesId}
+            </if>
+            <if test="teamCodeList != null and teamCodeList.size()>0">
+                AND team_code in
+                <foreach collection="teamCodeList" item="teamCode" open=" (" close=")" separator=",">
+                    #{teamCode}
+                </foreach>
+            </if>
+        </where>
+
+    </update>
+
+
+    <select id="selectCompetitionApplyInfos" resultMap="CompetitionApplyInfoResult">
+        <include refid="selectCompetitionApplyInfoVo"/>
+        WHERE del_flag='0' AND competition_track_id = #{competitionTrackId} AND (pay_status != 'cancelled' OR pay_status IS NULL)
+        <if test="competitionRoleName != null and competitionRoleName !='' and competitionRoleName.equals('student')">
+            AND competition_role_name !='指导教师'
+        </if>
+    </select>
+    <resultMap type="com.teaching.competition.domain.TeamManagerInfoRes" id="TeamManagerInfoResult">
+        <result property="teamCode" column="team_code"/>
+        <result property="teamName" column="team_name"/>
+        <result property="competitionTrackName" column="competition_track_name"/>
+        <result property="secondLevelName" column="second_level_name"/>
+        <result property="registrationTime" column="registration_time"/>
+    </resultMap>
+
+    <select id="selectTeamManagerInfoListForExport" parameterType="com.teaching.system.api.domain.CompetitionApplyInfo" resultMap="TeamManagerInfoResult">
+        SELECT
+        DISTINCT a.team_code,
+        a.team_name,
+        a.competition_track_name,
+        a.second_level_name,
+        a.registration_time
+        FROM
+        competition_apply_info a
+        left join (select a.competition_name,b.competition_series_id,b.competition_type from competition_main_info a left join
+        competition_series_info b on a.competition_id = b.competition_id) d on a.competition_series_id = d.competition_series_id
+        WHERE a.del_flag = '0' AND a.team_code IS NOT NULL AND a.team_code != ''
+        <if test="competitionName != null and competitionName != ''">
+            AND a.competition_name LIKE concat('%', #{competitionName}, '%')
+        </if>
+        <if test="competitionRoleName != null and competitionRoleName != ''">
+            AND a.competition_role_name != #{competitionRoleName}
+        </if>
+        <if test="competitionType != null and competitionType != ''">
+            AND a.competition_series_id in (select b.competition_series_id from competition_main_info a left join
+            competition_series_info b on a.competition_id = b.competition_id
+            where b.competition_type = #{competitionType})
+        </if>
+        <if test="userName != null  and userName != ''">
+            AND a.team_code IN (SELECT team_code FROM competition_apply_info WHERE user_name LIKE concat('%', #{userName}, '%'))
+        </if>
+        <if test="checkStatus != null  and checkStatus != ''">
+            AND a.check_status = #{checkStatus}
+        </if>
+        <if test="payStatus != null  and payStatus != ''">
+            AND a.pay_status = #{payStatus}
+        </if>
+        <if test="competitionTrackId != null  and competitionTrackId != ''">
+            AND a.competition_track_id = #{competitionTrackId}
+        </if>
+        <if test="secondLevelCode != null  and secondLevelCode != ''">
+            AND a.second_level_code = #{secondLevelCode}
+        </if>
+        <if test="teamName != null and teamName != ''">
+            AND a.team_name LIKE concat('%', #{teamName}, '%')
+        </if>
+        <if test="orgName != null and orgName != ''">
+            AND a.org_id in (select org_id from sys_org where org_name like concat('%', #{orgName}, '%'))
+        </if>
+        order by a.registration_time desc
+    </select>
+
+    <select id="selectCompetitionApplyInfoByPayStatusForUserGroup" resultMap="CompetitionApplyInfoResult">
+        <include refid="selectCompetitionApplyInfoVo"/>
+        where del_flag = '0' and check_status = '4' and pay_status = 'paid' and (user_id = #{userId} or leader_teacher_id = #{userId})
+    </select>
+
+    <select id="selectCompetitionApplyInfoListByUserId" parameterType="java.util.Map" resultMap="CompetitionApplyInfoResult">
+        <include refid="selectCompetitionApplyInfoVo"/>
+        where pay_status = 'paid' and del_flag = '0'
+            <if test="userId != null and userId != ''">
+                AND (
+                user_id = #{userId}
+                OR leader_teacher_id = #{userId}
+                OR (
+                leader_teacher_id != #{userId}
+                AND (
+                team_code IN (
+                SELECT team_code
+                FROM competition_apply_info
+                WHERE del_flag = '0'
+                AND pay_status = 'paid'
+                AND user_id = #{userId}
+                )
+                )
+                )
+                )
+            </if>
+        <if test="hasValidCondition">
+            AND
+            <trim prefix="(" suffix=")" prefixOverrides="OR">
+                <if test="competitionSeriesIds != null and !competitionSeriesIds.isEmpty()">
+                    OR competition_series_id IN
+                    <foreach collection="competitionSeriesIds" item="seriesId" open="(" close=")" separator=",">
+                        #{seriesId}
+                    </foreach>
+                </if>
+                <if test="competitionTrackIds != null and !competitionTrackIds.isEmpty()">
+                    OR competition_track_id IN
+                    <foreach collection="competitionTrackIds" item="trackId" open="(" close=")" separator=",">
+                        #{trackId}
+                    </foreach>
+                </if>
+                <if test="secondLevelCode != null and !secondLevelCode.isEmpty()">
+                    OR second_level_code IN
+                    <foreach collection="secondLevelCode" item="level" open="(" close=")" separator=",">
+                        #{level}
+                    </foreach>
+                </if>
+            </trim>
+        </if>
+    </select>
+
+    <select id="selectCompetitionApplyInfoListByPCUserId" parameterType="java.util.Map" resultMap="CompetitionApplyInfoResult">
+        <include refid="selectCompetitionApplyInfoVo"/>
+<!--        where pay_status = 'paid'-->
+        <where>
+            <choose>
+                <when test="operationStatus !=null and operationStatus.equals('retired')">
+                    and del_flag = '2'
+                </when>
+                <otherwise>
+                    and del_flag = '0'
+                </otherwise>
+            </choose>
+            <if test="teamCodeList != null and teamCodeList != ''">
+                and team_code IN
+                <foreach collection="teamCodeList.split(',')" item="teamCode" open="(" close=")" separator=",">
+                    #{teamCode}
+                </foreach>
+            </if>
+            order by CASE competition_role_name
+            WHEN '指导老师' THEN 2
+            WHEN '队长'     THEN 1
+            WHEN '队员'     THEN 1
+            ELSE 4
+            END,
+            team_sort
+        </where>
+    </select>
+
+    <select id="selectCompetitionApplyInfoListByUserTeamCode" parameterType="java.util.Map" resultMap="CompetitionApplyInfoResult">
+        <include refid="selectCompetitionApplyInfoVo"/>
+        where  del_flag = '0'
+<!--            and pay_status = 'paid'-->
+<!--        <if test="userId != null and userId != ''">-->
+<!--            and (user_id = #{userId} or leader_teacher_id = #{userId})-->
+<!--        </if>-->
+        <if test="teamCode != null and teamCode != ''">
+            and team_code = #{teamCode}
+        </if>
+    </select>
+
+    <select id="selectCertCompetitionApplyInfoListByUserTeamCode" parameterType="java.util.Map" resultMap="CompetitionApplyInfoResult">
+        <include refid="selectCompetitionApplyInfoVo"/>
+        where  del_flag = '0' and pay_status = 'paid'
+        <!--        <if test="userId != null and userId != ''">-->
+        <!--            and (user_id = #{userId} or leader_teacher_id = #{userId})-->
+        <!--        </if>-->
+        <if test="teamCode != null and teamCode != ''">
+            and team_code = #{teamCode}
+        </if>
+        <if test="competitionSeriesId != null">
+            AND competition_series_id = #{competitionSeriesId}
+        </if>
+        <if test="competitionTrackId != null  and competitionTrackId != ''">
+            AND competition_track_id = #{competitionTrackId}
+        </if>
+        <if test="secondLevelCode != null  and secondLevelCode != ''">
+            AND second_level_code = #{secondLevelCode}
+        </if>
+    </select>
+    <select id="selectCertCompetitionApplyInfoListByUserTeamCodeANoTeacher" parameterType="java.util.Map" resultMap="CompetitionApplyInfoResult">
+        <include refid="selectCompetitionApplyInfoVo"/>
+        WHERE  del_flag = '0'
+        AND team_code = #{teamCode}
+        AND pay_status = 'paid'
+            AND competition_series_id = #{competitionSeriesId}
+            AND competition_role_name != '指导教师'
+        ORDER BY team_sort
+    </select>
+
+    <!-- certificationTypes只有两个（student、teacher） -->
+
+    <select id="selectStudentInfoByCompetitions" parameterType="java.util.Map" resultType="java.lang.Long">
+        SELECT DISTINCT cai.user_id AS userId
+        FROM competition_apply_info cai
+        WHERE cai.del_flag = '0'
+          AND cai.check_status = '4'
+          AND cai.pay_status = 'paid'
+          AND EXISTS (
+            SELECT 1
+            FROM identity_info i
+            WHERE i.user_id = cai.user_id
+              AND i.del_flag = '0'
+              AND i.check_status = '6'
+              AND i.certification_type = 'student'
+            )
+        <if test="hasValidCondition">
+            AND
+            <trim prefix="(" suffix=")" prefixOverrides="OR">
+                <if test="competitionSeriesIds != null and !competitionSeriesIds.isEmpty()">
+                    OR cai.competition_series_id IN
+                    <foreach collection="competitionSeriesIds" item="seriesId" open="(" close=")" separator=",">
+                        #{seriesId}
+                    </foreach>
+                </if>
+                <if test="competitionTrackIds != null and !competitionTrackIds.isEmpty()">
+                    OR cai.competition_track_id IN
+                    <foreach collection="competitionTrackIds" item="trackId" open="(" close=")" separator=",">
+                        #{trackId}
+                    </foreach>
+                </if>
+                <if test="secondLevelCode != null and !secondLevelCode.isEmpty()">
+                    OR cai.second_level_code IN
+                    <foreach collection="secondLevelCode" item="level" open="(" close=")" separator=",">
+                        #{level}
+                    </foreach>
+                </if>
+            </trim>
+        </if>
+    </select>
+
+    <select id="selectTeacherInfoByCompetitions" parameterType="java.util.Map" resultType="java.lang.Long">
+        SELECT DISTINCT cai.leader_teacher_id AS userId
+        FROM competition_apply_info cai
+        WHERE cai.del_flag = '0'
+        AND cai.check_status = '4'
+        AND cai.pay_status = 'paid'
+            AND EXISTS (
+            SELECT 1
+            FROM identity_info i
+            WHERE i.user_id = cai.leader_teacher_id
+            AND i.del_flag = '0'
+            AND i.check_status = '6'
+            AND i.certification_type = 'teacher'
+            )
+        <if test="hasValidCondition">
+            AND
+            <trim prefix="(" suffix=")" prefixOverrides="OR">
+                <if test="competitionSeriesIds != null and !competitionSeriesIds.isEmpty()">
+                    OR cai.competition_series_id IN
+                    <foreach collection="competitionSeriesIds" item="seriesId" open="(" close=")" separator=",">
+                        #{seriesId}
+                    </foreach>
+                </if>
+                <if test="competitionTrackIds != null and !competitionTrackIds.isEmpty()">
+                    OR cai.competition_track_id IN
+                    <foreach collection="competitionTrackIds" item="trackId" open="(" close=")" separator=",">
+                        #{trackId}
+                    </foreach>
+                </if>
+                <if test="secondLevelCode != null and !secondLevelCode.isEmpty()">
+                    OR cai.second_level_code IN
+                    <foreach collection="secondLevelCode" item="level" open="(" close=")" separator=",">
+                        #{level}
+                    </foreach>
+                </if>
+            </trim>
+        </if>
+    </select>
+
+    <select id="selectInfoByCompetitions" parameterType="java.util.Map" resultType="java.lang.Long">
+        SELECT DISTINCT cai.leader_teacher_id AS userId
+        FROM competition_apply_info cai
+        WHERE cai.del_flag = '0'
+        AND cai.check_status = '4'
+        AND cai.pay_status = 'paid'
+        AND cai.leader_teacher_id IS NOT NULL
+        <if test="hasValidCondition">
+            AND
+            <trim prefix="(" suffix=")" prefixOverrides="OR">
+                <if test="competitionSeriesIds != null and !competitionSeriesIds.isEmpty()">
+                    OR cai.competition_series_id IN
+                    <foreach collection="competitionSeriesIds" item="seriesId" open="(" close=")" separator=",">
+                        #{seriesId}
+                    </foreach>
+                </if>
+                <if test="competitionTrackIds != null and !competitionTrackIds.isEmpty()">
+                    OR cai.competition_track_id IN
+                    <foreach collection="competitionTrackIds" item="trackId" open="(" close=")" separator=",">
+                        #{trackId}
+                    </foreach>
+                </if>
+                <if test="secondLevelCode != null and !secondLevelCode.isEmpty()">
+                    OR cai.second_level_code IN
+                    <foreach collection="secondLevelCode" item="level" open="(" close=")" separator=",">
+                        #{level}
+                    </foreach>
+                </if>
+            </trim>
+        </if>
+        UNION ALL
+        SELECT DISTINCT cai.user_id AS userId
+        FROM competition_apply_info cai
+        WHERE cai.del_flag = '0'
+        AND cai.check_status = '4'
+        AND cai.pay_status = 'paid'
+        AND cai.user_id IS NOT NULL
+        <if test="hasValidCondition">
+            AND
+            <trim prefix="(" suffix=")" prefixOverrides="OR">
+                <if test="competitionSeriesIds != null and !competitionSeriesIds.isEmpty()">
+                    OR cai.competition_series_id IN
+                    <foreach collection="competitionSeriesIds" item="seriesId" open="(" close=")" separator=",">
+                        #{seriesId}
+                    </foreach>
+                </if>
+                <if test="competitionTrackIds != null and !competitionTrackIds.isEmpty()">
+                    OR cai.competition_track_id IN
+                    <foreach collection="competitionTrackIds" item="trackId" open="(" close=")" separator=",">
+                        #{trackId}
+                    </foreach>
+                </if>
+                <if test="secondLevelCode != null and !secondLevelCode.isEmpty()">
+                    OR cai.second_level_code IN
+                    <foreach collection="secondLevelCode" item="level" open="(" close=")" separator=",">
+                        #{level}
+                    </foreach>
+                </if>
+            </trim>
+        </if>
+    </select>
+
+    <select id="selectAllUserInfoByCompetitions" parameterType="java.util.Map" resultMap="CompetitionApplyInfoResult">
+        select member_id, competition_series_id, user_id, team_code, team_sort, team_name,user_name, employee_code, id_card, phone, email, org_id,
+        profession, class_info, guide_teacher, registration_time, check_status, real_name_auth_status, pay_status,competition_name,
+        join_type,gap_score,competition_track_name,competition_track_id,competition_track_type,second_level_code,second_level_name,
+        guide_teacher_phone,guide_teacher_email,leader_teacher_id,leader_teacher,leader_teacher_phone,school,school_name,
+        province,province_name,competition_question,nationality,nationality_name,department,department_name,sex,invoice_status,
+        create_by, create_time, update_by, update_time, version, del_flag,competition_role_name,id_card_type
+        from competition_apply_info
+        WHERE del_flag = '0'
+        AND check_status = '4'
+        AND pay_status = 'paid'
+        AND leader_teacher_id IS NOT NULL
+        <if test="competitionRoleName != null and !competitionRoleName.isEmpty()">
+            and competition_role_name IN
+            <foreach collection="competitionRoleName" item="level" open="(" close=")" separator=",">
+                #{level}
+            </foreach>
+        </if>
+        <if test="hasValidCondition">
+            AND
+            <trim prefix="(" suffix=")" prefixOverrides="OR">
+                <if test="competitionSeriesIds != null and !competitionSeriesIds.isEmpty()">
+                    OR competition_series_id IN
+                    <foreach collection="competitionSeriesIds" item="seriesId" open="(" close=")" separator=",">
+                        #{seriesId}
+                    </foreach>
+                </if>
+                <if test="competitionTrackIds != null and !competitionTrackIds.isEmpty()">
+                    OR competition_track_id IN
+                    <foreach collection="competitionTrackIds" item="trackId" open="(" close=")" separator=",">
+                        #{trackId}
+                    </foreach>
+                </if>
+                <if test="secondLevelCode != null and !secondLevelCode.isEmpty()">
+                    OR second_level_code IN
+                    <foreach collection="secondLevelCode" item="level" open="(" close=")" separator=",">
+                        #{level}
+                    </foreach>
+                </if>
+            </trim>
+        </if>
+    </select>
+
+    <select id="selectApplyInfoByUsrIdAndCompetitionId" resultMap="CompetitionApplyInfoResult">
+        SELECT a.*
+        FROM competition_apply_info a
+                 JOIN (
+            SELECT DISTINCT team_code
+            FROM competition_apply_info
+            WHERE del_flag = '0'
+              AND user_id = #{userId}
+              AND competition_series_id = #{competitionSeriesId}
+        ) b ON a.team_code = b.team_code
+        WHERE a.del_flag = '0'
+    </select>
+
+    <select id="selectCompetitionApplyInfoListByCompetitionSeriesId"  resultMap="CompetitionApplyInfoResult">
+        <include refid="selectCompetitionApplyInfoVo"/>
+        where del_flag = '0'   and pay_status = 'paid' and competition_role_name != '指导教师' and competition_series_id = #{seriesId}
+    </select>
+
+    <select id="selectCertificateImportApplicants" resultMap="CompetitionApplyInfoResult">
+        <include refid="selectCompetitionApplyInfoVo"/>
+        where del_flag = '0' and pay_status = 'paid' and competition_series_id = #{seriesId}
+    </select>
+
+    <select id="selectCertificateImportCompetitionInfo"
+            resultType="com.teaching.competition.domain.CertificateImportCompetitionInfo">
+        SELECT csi.competition_series_id AS competitionSeriesId,
+               csi.competition_series_name AS competitionSeriesName,
+               cmi.competition_id AS competitionId,
+               cmi.competition_name AS competitionName
+        FROM competition_series_info csi
+        INNER JOIN competition_main_info cmi
+                ON cmi.competition_id = csi.competition_id
+               AND cmi.del_flag = '0'
+        WHERE csi.competition_series_id = #{seriesId}
+          AND csi.del_flag = '0'
+        LIMIT 1
+    </select>
+
+    <select id="selectUniqueVerifiedUsersByIdCards" resultMap="CompetitionApplyInfoResult">
+        SELECT TRIM(ai.id_card) AS id_card,
+               MAX(ai.user_id) AS user_id,
+               MAX(ai.real_name) AS user_name
+        FROM auth_info ai
+        INNER JOIN sys_user su
+                ON su.user_id = ai.user_id
+               AND su.del_flag = '0'
+        WHERE ai.del_flag = '0'
+          AND ai.auth_status = '5'
+          AND ai.user_id IS NOT NULL
+          AND ai.id_card IN
+          <foreach collection="idCards" item="idCard" open="(" separator="," close=")">
+              #{idCard}
+          </foreach>
+        GROUP BY TRIM(ai.id_card)
+        HAVING COUNT(DISTINCT ai.user_id) = 1
+    </select>
+
+    <select id="selectUniqueActiveUsersByPhones" resultMap="CompetitionApplyInfoResult">
+        SELECT TRIM(su.phonenumber) AS phone,
+               MAX(su.user_id) AS user_id,
+               MAX(su.nick_name) AS user_name
+        FROM sys_user su
+        WHERE su.del_flag = '0'
+          AND su.status = '0'
+          AND su.user_id IS NOT NULL
+          AND su.phonenumber IN
+          <foreach collection="phones" item="phone" open="(" separator="," close=")">
+              #{phone}
+          </foreach>
+        GROUP BY TRIM(su.phonenumber)
+        HAVING COUNT(DISTINCT su.user_id) = 1
+    </select>
+
+    <select id="selectActiveUsersByIds" resultMap="CompetitionApplyInfoResult">
+        SELECT su.user_id,
+               COALESCE(MAX(CASE WHEN ai.auth_status = '5' AND ai.del_flag = '0' THEN ai.real_name END), su.nick_name) AS user_name,
+               MAX(CASE WHEN ai.auth_status = '5' AND ai.del_flag = '0' THEN ai.id_card END) AS id_card,
+               su.phonenumber AS phone,
+               su.school,
+               su.school_name
+        FROM sys_user su
+        LEFT JOIN auth_info ai ON ai.user_id = su.user_id
+        WHERE su.del_flag = '0'
+          AND su.status = '0'
+          AND su.user_id IN
+          <foreach collection="userIds" item="userId" open="(" separator="," close=")">
+              #{userId}
+          </foreach>
+        GROUP BY su.user_id, su.nick_name, su.phonenumber, su.school, su.school_name
+    </select>
+
+    <select id="selectVerifiedUsersByRealNames" resultMap="CompetitionApplyInfoResult">
+        SELECT DISTINCT ai.user_id,
+               ai.real_name AS user_name,
+               ai.id_card,
+               su.phonenumber AS phone,
+               su.school,
+               su.school_name
+        FROM auth_info ai
+        INNER JOIN sys_user su
+                ON su.user_id = ai.user_id
+               AND su.del_flag = '0'
+               AND su.status = '0'
+        WHERE ai.del_flag = '0'
+          AND ai.auth_status = '5'
+          AND ai.user_id IS NOT NULL
+          AND ai.real_name IN
+          <foreach collection="realNames" item="realName" open="(" separator="," close=")">
+              #{realName}
+          </foreach>
+    </select>
+
+    <select id="selectTeamNameAndSchoolNameByTeamCodes" resultType="java.util.Map">
+        SELECT DISTINCT team_code as teamCode,team_name as teamName,school_name as schoolName FROM competition_apply_info
+        WHERE del_flag = '0' AND pay_status = 'paid' AND competition_role_name !='指导教师'  AND  team_code in
+        <foreach collection="teamCodes" item="teamCode" open="(" close=")" separator=",">
+            #{teamCode}
+        </foreach>
+    </select>
+
+    <select id="selectCandidateCertInfoListFromAwards" parameterType="java.util.Map" resultMap="CompetitionApplyInfoResult">
+        select cai.member_id, cai.competition_series_id, cai.user_id, cai.team_code, cai.team_sort, cai.team_name,cai.user_name, cai.employee_code,
+        cai.id_card, cai.phone, cai.email, cai.org_id,
+        cai.profession, cai.class_info, cai.guide_teacher, cai.registration_time, cai.check_status, cai.real_name_auth_status,
+        cai.pay_status,cai.competition_name,
+        cai.join_type,cai.gap_score,cai.competition_track_name,cai.competition_track_id,cai.competition_track_type,cai.second_level_code,cai.second_level_name,
+        cai.guide_teacher_phone,cai.guide_teacher_email,cai.leader_teacher_id,cai.leader_teacher,cai.leader_teacher_phone,cai.school,cai.school_name,
+        cai.province,cai.province_name,cai.competition_question,cai.nationality,cai.nationality_name,cai.department,cai.department_name,sex,cai.invoice_status,
+        cai.create_by, cai.create_time, cai.update_by, cai.update_time, cai.version, cai.del_flag,cai.competition_role_name,cai.id_card_type
+        from competition_apply_info cai
+        where cai.del_flag = '0'
+<!--        and NOT EXISTS (select 1 from candidate_cert_info cci where cai.team_code= cci.team_code and cci.cert_config_id = #{certConfigId})-->
+        <if test="competitionSeriesId != null">
+            and cai.competition_series_id = #{competitionSeriesId}
+        </if>
+        <if test="competitionTrackId != null and competitionTrackId != ''">
+            and cai.competition_track_id = #{competitionTrackId}
+        </if>
+        <if test="secondLevelCode != null and secondLevelCode != ''">
+            and cai.second_level_code = #{secondLevelCode}
+        </if>
+        and exists (select 1 from award_details ad
+        where cai.team_code= ad.team_code and ad.awards_name in (select dict_label from sys_dict_data where dict_type = 'awards_name'
+        and dict_value = #{awardsName}))
+    </select>
+</mapper>

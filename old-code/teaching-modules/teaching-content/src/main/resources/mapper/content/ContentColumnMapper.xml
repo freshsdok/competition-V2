@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.content.mapper.ContentColumnMapper">
+
+    <resultMap type="ContentColumn" id="ContentColumnResult">
+        <result property="columnId" column="column_id"/>
+        <result property="columnName" column="column_name"/>
+        <result property="columnCode" column="column_code"/>
+        <result property="parentId" column="parent_id"/>
+        <result property="parentName" column="parent_name"/>
+        <result property="columnType" column="column_type"/>
+        <result property="menuId" column="menu_id"/>
+        <result property="columnDesc" column="column_desc"/>
+        <result property="columnImage" column="column_image"/>
+        <result property="orderNum" column="order_num"/>
+        <result property="status" column="status"/>
+        <result property="isTop" column="is_top"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="remark" column="remark"/>
+        <result property="delFlag" column="del_flag"/>
+    </resultMap>
+
+    <sql id="selectContentColumnVo">
+        select cc.column_id,
+               cc.column_name,
+               cc.column_code,
+               cc.parent_id,
+               ccp.column_name as parent_name,
+               cc.column_type,
+               cc.menu_id,
+               cc.column_desc,
+               cc.column_image,
+               cc.order_num,
+               cc.status,
+               cc.is_top,
+               cc.create_by,
+               cc.create_time,
+               cc.update_by,
+               cc.update_time,
+               cc.remark,
+               cc.del_flag
+        from content_column cc
+        left join content_column ccp on ccp.column_id = cc.parent_id
+    </sql>
+
+    <select id="selectContentColumnList" parameterType="ContentColumn" resultMap="ContentColumnResult">
+        <include refid="selectContentColumnVo"/>
+        <where>
+            cc.del_flag = '0'
+            <if test="columnName != null and columnName != ''">
+                and cc.column_name like concat('%', #{columnName}, '%')
+            </if>
+            <if test="columnCode != null and columnCode != ''">
+                and cc.column_code like concat('%', #{columnCode}, '%')
+            </if>
+            <if test="parentId != null">
+                and cc.parent_id = #{parentId}
+            </if>
+            <if test="columnType != null and columnType != ''">
+                and cc.column_type = #{columnType}
+            </if>
+            <if test="menuId != null">
+                and cc.menu_id = #{menuId}
+            </if>
+            <if test="status != null and status != ''">
+                and cc.status = #{status}
+            </if>
+        </where>
+        order by cc.parent_id, cc.order_num, cc.create_time desc
+    </select>
+
+    <select id="selectContentColumnByColumnId" parameterType="Long" resultMap="ContentColumnResult">
+        <include refid="selectContentColumnVo"/>
+        where cc.column_id = #{columnId} and cc.del_flag = '0'
+    </select>
+
+    <select id="selectContentColumnByMenuId" parameterType="Long" resultMap="ContentColumnResult">
+        <include refid="selectContentColumnVo"/>
+        where cc.menu_id = #{menuId} and cc.del_flag = '0' and cc.status = '0'
+        limit 1
+    </select>
+
+    <select id="checkContentColumnByMenuId" resultType="Integer">
+        select count(1) from content_column cc
+        left join content_column ccp on ccp.column_id = cc.parent_id
+        where cc.menu_id = #{menuId} and cc.del_flag = '0' and cc.status = '0'
+        <if test="columnType!=null and columnType!=''">
+            and cc.column_type = #{columnType}
+        </if>
+    </select>
+
+    <select id="selectContentColumnListByParentId" parameterType="Long" resultMap="ContentColumnResult">
+        <include refid="selectContentColumnVo"/>
+        where cc.parent_id = #{parentId} and cc.del_flag = '0' and cc.status = '0'
+        order by cc.order_num, cc.create_time desc
+    </select>
+
+    <select id="selectContentColumnTree" parameterType="ContentColumn" resultMap="ContentColumnResult">
+        <include refid="selectContentColumnVo"/>
+        <where>
+            cc.del_flag = '0'
+            <if test="columnName != null and columnName != ''">
+                and cc.column_name like concat('%', #{columnName}, '%')
+            </if>
+            <if test="columnType != null and columnType != ''">
+                and cc.column_type = #{columnType}
+            </if>
+            <if test="status != null and status != ''">
+                and cc.status = #{status}
+            </if>
+        </where>
+        order by cc.parent_id, cc.order_num, cc.create_time desc
+    </select>
+
+    <insert id="insertContentColumn" parameterType="ContentColumn" useGeneratedKeys="true" keyProperty="columnId">
+        insert into content_column
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="columnName != null and columnName != ''">column_name,</if>
+            <if test="columnCode != null">column_code,</if>
+            <if test="parentId != null">parent_id,</if>
+            <if test="columnType != null and columnType != ''">column_type,</if>
+            <if test="menuId != null">menu_id,</if>
+            <if test="columnDesc != null">column_desc,</if>
+            <if test="columnImage != null">column_image,</if>
+            <if test="orderNum != null">order_num,</if>
+            <if test="status != null">status,</if>
+            <if test="isTop != null">is_top,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="remark != null">remark,</if>
+            <if test="delFlag != null">del_flag,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="columnName != null and columnName != ''">#{columnName},</if>
+            <if test="columnCode != null">#{columnCode},</if>
+            <if test="parentId != null">#{parentId},</if>
+            <if test="columnType != null and columnType != ''">#{columnType},</if>
+            <if test="menuId != null">#{menuId},</if>
+            <if test="columnDesc != null">#{columnDesc},</if>
+            <if test="columnImage != null">#{columnImage},</if>
+            <if test="orderNum != null">#{orderNum},</if>
+            <if test="status != null">#{status},</if>
+            <if test="isTop != null">#{isTop},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+        </trim>
+    </insert>
+
+    <update id="updateContentColumn" parameterType="ContentColumn">
+        update content_column
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="columnName != null and columnName != ''">column_name = #{columnName},</if>
+            <if test="columnCode != null">column_code = #{columnCode},</if>
+            <if test="parentId != null">parent_id = #{parentId},</if>
+            <if test="columnType != null and columnType != ''">column_type = #{columnType},</if>
+            <if test="menuId != null">menu_id = #{menuId},</if>
+            <if test="columnDesc != null">column_desc = #{columnDesc},</if>
+            <if test="columnImage != null">column_image = #{columnImage},</if>
+            <if test="orderNum != null">order_num = #{orderNum},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="isTop != null">is_top = #{isTop},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where column_id = #{columnId}
+    </update>
+
+    <delete id="deleteContentColumnByColumnId" parameterType="Long">
+        update content_column set del_flag = '2' where column_id = #{columnId}
+    </delete>
+
+    <delete id="deleteContentColumnByColumnIds" parameterType="String">
+        update content_column set del_flag = '2' where column_id in
+        <foreach item="columnId" collection="array" open="(" separator="," close=")">
+            #{columnId}
+        </foreach>
+    </delete>
+
+    <select id="hasChildByColumnId" parameterType="Long" resultType="Integer">
+        select count(1) from content_column
+        where parent_id = #{columnId} and del_flag = '0'
+    </select>
+
+</mapper>
+
+

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.competition.mapper.CompetitionTitleNoticeMapper">
+    <resultMap type="com.teaching.competition.domain.CompetitionTitleNotice" id="CompetitionTitleNoticeResult">
+        <id property="noticeId" column="notice_id" />
+        <result property="explainContent" column="explain_content" />
+        <result property="code" column="code" />
+        <result property="hint" column="hint" />
+        <result property="createBy" column="create_by" />
+        <result property="createTime" column="create_time" />
+        <result property="updateBy" column="update_by" />
+        <result property="updateTime" column="update_time" />
+        <result property="delFlag" column="del_flag" />
+        <result property="version" column="version" />
+    </resultMap>
+
+    <sql id="selectCompetitionTitleNoticeVo">
+        select notice_id, explain_content, code, hint, create_by, create_time, update_by, update_time, del_flag, version from competition_title_notice
+    </sql>
+
+    <select id="selectCompetitionTitleNoticeById" parameterType="Long" resultMap="CompetitionTitleNoticeResult">
+        <include refid="selectCompetitionTitleNoticeVo" />
+        where notice_id = #{noticeId}
+    </select>
+
+    <select id="selectCompetitionTitleNoticeList" parameterType="com.teaching.competition.domain.CompetitionTitleNotice" resultMap="CompetitionTitleNoticeResult">
+        <include refid="selectCompetitionTitleNoticeVo" />
+        <where>
+            <if test="code != null">
+                and code = #{code}
+            </if>
+            <if test="delFlag != null and delFlag != ''">
+                and del_flag = #{delFlag}
+            </if>
+        </where>
+    </select>
+
+    <insert id="insertCompetitionTitleNotice" parameterType="com.teaching.competition.domain.CompetitionTitleNotice" useGeneratedKeys="true" keyProperty="noticeId">
+        insert into competition_title_notice
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="explainContent != null">explain_content,</if>
+            <if test="code != null">code,</if>
+            <if test="hint != null">hint,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="delFlag != null">del_flag,</if>
+            <if test="version != null">version,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="explainContent != null">#{explainContent},</if>
+            <if test="code != null">#{code},</if>
+            <if test="hint != null">#{hint},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+            <if test="version != null">#{version},</if>
+        </trim>
+    </insert>
+
+    <update id="updateCompetitionTitleNotice" parameterType="com.teaching.competition.domain.CompetitionTitleNotice">
+        update competition_title_notice
+        <set>
+            <if test="explainContent != null">explain_content = #{explainContent},</if>
+            <if test="code != null">code = #{code},</if>
+            <if test="hint != null">hint = #{hint},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+            version = version+1,
+        </set>
+        where notice_id = #{noticeId}
+    </update>
+
+    <delete id="deleteCompetitionTitleNoticeById" parameterType="Long">
+        delete from competition_title_notice where notice_id = #{noticeId}
+    </delete>
+
+    <delete id="deleteCompetitionTitleNoticeByIds" parameterType="Long[]">
+        delete from competition_title_notice where notice_id in
+        <foreach item="noticeId" collection="array" open="(" separator="," close=")">
+            #{noticeId}
+        </foreach>
+    </delete>
+</mapper>

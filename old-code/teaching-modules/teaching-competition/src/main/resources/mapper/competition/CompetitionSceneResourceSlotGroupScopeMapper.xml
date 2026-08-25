@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.competition.mapper.CompetitionSceneResourceSlotGroupScopeMapper">
+
+    <resultMap type="com.teaching.competition.domain.CompetitionSceneResourceSlotGroupScope"
+               id="CompetitionSceneResourceSlotGroupScopeResult">
+        <id property="id" column="id"/>
+        <result property="slotId" column="slot_id"/>
+        <result property="scheduleResourceId" column="schedule_resource_id"/>
+        <result property="allowedGroupCode" column="allowed_group_code"/>
+        <result property="allowedGroupName" column="allowed_group_name"/>
+        <result property="enabled" column="enabled"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="deleted" column="deleted"/>
+    </resultMap>
+
+    <sql id="selectGroupScopeColumns">
+        select id, slot_id, schedule_resource_id, allowed_group_code, allowed_group_name,
+               enabled, create_by, create_time, update_by, update_time, deleted
+        from competition_scene_resource_slot_group_scope
+    </sql>
+
+    <select id="selectBySlotId" resultMap="CompetitionSceneResourceSlotGroupScopeResult">
+        <include refid="selectGroupScopeColumns"/>
+        where slot_id = #{slotId}
+          and deleted = 0
+        order by id asc
+    </select>
+
+    <select id="selectByScheduleResourceId" resultMap="CompetitionSceneResourceSlotGroupScopeResult">
+        <include refid="selectGroupScopeColumns"/>
+        where schedule_resource_id = #{scheduleResourceId}
+          and deleted = 0
+        order by slot_id asc, id asc
+    </select>
+
+    <select id="countEnabledBySlotId" resultType="int">
+        select count(1)
+        from competition_scene_resource_slot_group_scope
+        where slot_id = #{slotId}
+          and enabled = 1
+          and deleted = 0
+    </select>
+
+    <select id="countAllowedGroup" resultType="int">
+        select count(1)
+        from competition_scene_resource_slot_group_scope
+        where slot_id = #{slotId}
+          and allowed_group_code = #{groupCode}
+          and enabled = 1
+          and deleted = 0
+    </select>
+
+    <update id="logicalDeleteBySlotId">
+        update competition_scene_resource_slot_group_scope
+        set deleted = 1,
+            enabled = 0,
+            update_by = #{updateBy},
+            update_time = now()
+        where slot_id = #{slotId}
+          and deleted = 0
+    </update>
+
+    <insert id="insertScope"
+            parameterType="com.teaching.competition.domain.CompetitionSceneResourceSlotGroupScope"
+            useGeneratedKeys="true" keyProperty="id">
+        insert into competition_scene_resource_slot_group_scope
+        (slot_id, schedule_resource_id, allowed_group_code, allowed_group_name, enabled,
+         create_by, create_time, update_by, update_time, deleted)
+        values
+        (#{slotId}, #{scheduleResourceId}, #{allowedGroupCode}, #{allowedGroupName}, #{enabled},
+         #{createBy}, #{createTime}, #{updateBy}, #{updateTime}, #{deleted})
+    </insert>
+
+    <insert id="batchInsertScopes">
+        insert into competition_scene_resource_slot_group_scope
+        (slot_id, schedule_resource_id, allowed_group_code, allowed_group_name, enabled,
+         create_by, create_time, update_by, update_time, deleted)
+        values
+        <foreach item="scope" collection="scopes" separator=",">
+            (#{scope.slotId}, #{scope.scheduleResourceId}, #{scope.allowedGroupCode},
+             #{scope.allowedGroupName}, #{scope.enabled}, #{scope.createBy}, #{scope.createTime},
+             #{scope.updateBy}, #{scope.updateTime}, #{scope.deleted})
+        </foreach>
+    </insert>
+</mapper>
+

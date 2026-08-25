@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.competition.mapper.CertExchangeRuleDetailMapper">
+    <resultMap type="com.teaching.competition.domain.CertExchangeRuleDetail" id="CertExchangeRuleDetailResult">
+        <id property="detailId" column="detail_id" />
+        <result property="ruleId" column="rule_id" />
+        <result property="originCertConfigId" column="origin_cert_config_id" />
+        <result property="originCertCode" column="origin_cert_code" />
+        <result property="originCertName" column="origin_cert_name" />
+        <result property="originCertScore" column="origin_cert_score" />
+        <result property="targetCertConfigId" column="target_cert_config_id" />
+        <result property="targetCertCode" column="target_cert_code" />
+        <result property="targetCertName" column="target_cert_name" />
+        <result property="targetCertScore" column="target_cert_score" />
+        <result property="ruleStatus" column="rule_status" />
+        <result property="year" column="year" />
+        <result property="originYearLimit" column="origin_year_limit" />
+        <result property="sort" column="sort" />
+        <result property="createBy" column="create_by" />
+        <result property="createTime" column="create_time" />
+        <result property="updateBy" column="update_by" />
+        <result property="updateTime" column="update_time" />
+        <result property="delFlag" column="del_flag" />
+        <result property="version" column="version" />
+    </resultMap>
+
+    <sql id="selectCertExchangeRuleDetailVo">
+        select detail_id, rule_id, origin_cert_config_id, origin_cert_code, origin_cert_name, origin_cert_score, target_cert_config_id, target_cert_code, target_cert_name, target_cert_score, rule_status, year, origin_year_limit, sort, create_by, create_time, update_by, update_time, del_flag, version from cert_exchange_rule_detail
+    </sql>
+
+    <select id="selectCertExchangeRuleDetailById" parameterType="Long" resultMap="CertExchangeRuleDetailResult">
+        <include refid="selectCertExchangeRuleDetailVo" />
+        where detail_id = #{detailId}
+    </select>
+
+    <select id="selectCertExchangeRuleDetailList" parameterType="com.teaching.competition.domain.CertExchangeRuleDetail" resultMap="CertExchangeRuleDetailResult">
+        <include refid="selectCertExchangeRuleDetailVo" />
+        <where>
+            <if test="ruleId != null">
+                and rule_id = #{ruleId}
+            </if>
+            <if test="originCertCode != null and originCertCode != ''">
+                and origin_cert_code = #{originCertCode}
+            </if>
+            <if test="originCertName != null and originCertName != ''">
+                and origin_cert_name like concat('%', #{originCertName}, '%')
+            </if>
+            <if test="targetCertConfigId != null">
+                and target_cert_config_id = #{targetCertConfigId}
+            </if>
+            <if test="targetCertName != null and targetCertName != ''">
+                and target_cert_name like concat('%', #{targetCertName}, '%')
+            </if>
+            <if test="ruleStatus != null and ruleStatus != ''">
+                and rule_status = #{ruleStatus}
+            </if>
+            <if test="year != null and year != ''">
+                and year = #{year}
+            </if>
+            <if test="delFlag != null and delFlag != ''">
+                and del_flag = #{delFlag}
+            </if>
+        </where>
+    </select>
+
+    <insert id="insertCertExchangeRuleDetail" parameterType="com.teaching.competition.domain.CertExchangeRuleDetail" useGeneratedKeys="true" keyProperty="detailId">
+        insert into cert_exchange_rule_detail
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="ruleId != null">rule_id,</if>
+            <if test="originCertConfigId != null">origin_cert_config_id,</if>
+            <if test="originCertCode != null">origin_cert_code,</if>
+            <if test="originCertName != null">origin_cert_name,</if>
+            <if test="originCertScore != null">origin_cert_score,</if>
+            <if test="targetCertConfigId != null">target_cert_config_id,</if>
+            <if test="targetCertCode != null">target_cert_code,</if>
+            <if test="targetCertName != null">target_cert_name,</if>
+            <if test="targetCertScore != null">target_cert_score,</if>
+            <if test="ruleStatus != null">rule_status,</if>
+            <if test="year != null">year,</if>
+            <if test="originYearLimit != null">origin_year_limit,</if>
+            <if test="sort != null">sort,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="delFlag != null">del_flag,</if>
+            <if test="version != null">version,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="ruleId != null">#{ruleId},</if>
+            <if test="originCertConfigId != null">#{originCertConfigId},</if>
+            <if test="originCertCode != null">#{originCertCode},</if>
+            <if test="originCertName != null">#{originCertName},</if>
+            <if test="originCertScore != null">#{originCertScore},</if>
+            <if test="targetCertConfigId != null">#{targetCertConfigId},</if>
+            <if test="targetCertCode != null">#{targetCertCode},</if>
+            <if test="targetCertName != null">#{targetCertName},</if>
+            <if test="targetCertScore != null">#{targetCertScore},</if>
+            <if test="ruleStatus != null">#{ruleStatus},</if>
+            <if test="year != null">#{year},</if>
+            <if test="originYearLimit != null">#{originYearLimit},</if>
+            <if test="sort != null">#{sort},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+            <if test="version != null">#{version},</if>
+        </trim>
+    </insert>
+
+    <insert id="batchInsertCertExchangeRuleDetail" parameterType="java.util.List">
+        insert into cert_exchange_rule_detail (rule_id, origin_cert_config_id, origin_cert_code, origin_cert_name, origin_cert_score, target_cert_config_id, target_cert_code,
+        target_cert_name, target_cert_score, rule_status, year, origin_year_limit, sort, create_by, create_time, update_by, update_time)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.ruleId}, #{item.originCertConfigId}, #{item.originCertCode}, #{item.originCertName}, #{item.originCertScore}, #{item.targetCertConfigId}, #{item.targetCertCode},
+            #{item.targetCertName}, #{item.targetCertScore}, #{item.ruleStatus}, #{item.year}, #{item.originYearLimit}, #{item.sort}, #{item.createBy},
+            now(), #{item.updateBy}, #{item.updateTime})
+        </foreach>
+    </insert>
+
+    <update id="updateCertExchangeRuleDetail" parameterType="com.teaching.competition.domain.CertExchangeRuleDetail">
+        update cert_exchange_rule_detail
+        <set>
+            <if test="ruleId != null">rule_id = #{ruleId},</if>
+            <if test="originCertConfigId != null">origin_cert_config_id = #{originCertConfigId},</if>
+            <if test="originCertCode != null">origin_cert_code = #{originCertCode},</if>
+            <if test="originCertName != null">origin_cert_name = #{originCertName},</if>
+            <if test="originCertScore != null">origin_cert_score = #{originCertScore},</if>
+            <if test="targetCertConfigId != null">target_cert_config_id = #{targetCertConfigId},</if>
+            <if test="targetCertCode != null">target_cert_code = #{targetCertCode},</if>
+            <if test="targetCertName != null">target_cert_name = #{targetCertName},</if>
+            <if test="targetCertScore != null">target_cert_score = #{targetCertScore},</if>
+            <if test="ruleStatus != null">rule_status = #{ruleStatus},</if>
+            <if test="year != null">year = #{year},</if>
+            <if test="originYearLimit != null">origin_year_limit = #{originYearLimit},</if>
+            <if test="sort != null">sort = #{sort},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+            version = version+1,
+        </set>
+        where detail_id = #{detailId}
+    </update>
+
+    <delete id="deleteCertExchangeRuleDetailByRulerId" parameterType="Long">
+        update cert_exchange_rule_detail set del_flag = '1' where rule_id = #{ruleId}
+    </delete>
+
+    <delete id="deleteCertExchangeRuleDetailById" parameterType="Long">
+        update cert_exchange_rule_detail set del_flag = '1' where detail_id = #{detailId}
+    </delete>
+
+    <delete id="deleteCertExchangeRuleDetailByIds" parameterType="Long[]">
+        update cert_exchange_rule_detail set del_flag = '1' where detail_id in
+        <foreach item="detailId" collection="array" open="(" separator="," close=")">
+            #{detailId}
+        </foreach>
+    </delete>
+</mapper>

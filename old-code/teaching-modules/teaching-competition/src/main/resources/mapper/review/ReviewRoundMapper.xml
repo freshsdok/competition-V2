@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.competition.review.mapper.ReviewRoundMapper">
+
+    <resultMap type="com.teaching.competition.review.domain.ReviewRound" id="ReviewRoundResult">
+<id property="id" column="id"/>
+<result property="activityId" column="activity_id"/>
+<result property="roundName" column="round_name"/>
+<result property="roundNo" column="round_no"/>
+<result property="roundType" column="round_type"/>
+<result property="startTime" column="start_time"/>
+<result property="endTime" column="end_time"/>
+<result property="ruleId" column="rule_id"/>
+<result property="status" column="status"/>
+<result property="description" column="description"/>
+<result property="createBy" column="create_by"/>
+<result property="createTime" column="create_time"/>
+<result property="updateBy" column="update_by"/>
+<result property="updateTime" column="update_time"/>
+<result property="remark" column="remark"/>
+<result property="delFlag" column="del_flag"/>
+    </resultMap>
+
+    <sql id="selectReviewRoundVo">
+        select id, activity_id, round_name, round_no, round_type, start_time, end_time, rule_id, status, description, create_by, create_time, update_by, update_time, remark, del_flag
+        from review_round
+    </sql>
+
+    <select id="selectById" parameterType="Long" resultMap="ReviewRoundResult">
+        <include refid="selectReviewRoundVo"/>
+        where id = #{id} and del_flag = '0'
+    </select>
+
+    <select id="selectList" parameterType="com.teaching.competition.review.domain.ReviewRound" resultMap="ReviewRoundResult">
+        <include refid="selectReviewRoundVo"/>
+        <where>
+    del_flag = '0'
+    <if test="activityId != null">
+        and activity_id = #{activityId}
+    </if>
+    <if test="roundName != null and roundName != ''">
+        and round_name like concat('%', #{roundName}, '%')
+    </if>
+    <if test="roundNo != null">
+        and round_no = #{roundNo}
+    </if>
+    <if test="roundType != null and roundType != ''">
+        and round_type = #{roundType}
+    </if>
+    <if test="startTime != null">
+        and start_time = #{startTime}
+    </if>
+    <if test="endTime != null">
+        and end_time = #{endTime}
+    </if>
+    <if test="ruleId != null">
+        and rule_id = #{ruleId}
+    </if>
+    <if test="status != null and status != ''">
+        and status = #{status}
+    </if>
+    <if test="description != null and description != ''">
+        and description like concat('%', #{description}, '%')
+    </if>
+        </where>
+        order by id desc
+    </select>
+
+    <insert id="insert" parameterType="com.teaching.competition.review.domain.ReviewRound" useGeneratedKeys="true" keyProperty="id">
+        insert into review_round
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+    <if test="activityId != null">activity_id,</if>
+    <if test="roundName != null">round_name,</if>
+    <if test="roundNo != null">round_no,</if>
+    <if test="roundType != null">round_type,</if>
+    <if test="startTime != null">start_time,</if>
+    <if test="endTime != null">end_time,</if>
+    <if test="ruleId != null">rule_id,</if>
+    <if test="status != null">status,</if>
+    <if test="description != null">description,</if>
+    <if test="createBy != null">create_by,</if>
+    <if test="createTime != null">create_time,</if>
+    <if test="updateBy != null">update_by,</if>
+    <if test="updateTime != null">update_time,</if>
+    <if test="remark != null">remark,</if>
+    <if test="delFlag != null">del_flag,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+    <if test="activityId != null">#{activityId},</if>
+    <if test="roundName != null">#{roundName},</if>
+    <if test="roundNo != null">#{roundNo},</if>
+    <if test="roundType != null">#{roundType},</if>
+    <if test="startTime != null">#{startTime},</if>
+    <if test="endTime != null">#{endTime},</if>
+    <if test="ruleId != null">#{ruleId},</if>
+    <if test="status != null">#{status},</if>
+    <if test="description != null">#{description},</if>
+    <if test="createBy != null">#{createBy},</if>
+    <if test="createTime != null">#{createTime},</if>
+    <if test="updateBy != null">#{updateBy},</if>
+    <if test="updateTime != null">#{updateTime},</if>
+    <if test="remark != null">#{remark},</if>
+    <if test="delFlag != null">#{delFlag},</if>
+        </trim>
+    </insert>
+
+    <update id="update" parameterType="com.teaching.competition.review.domain.ReviewRound">
+        update review_round
+        <set>
+    <if test="activityId != null">activity_id = #{activityId},</if>
+    <if test="roundName != null">round_name = #{roundName},</if>
+    <if test="roundNo != null">round_no = #{roundNo},</if>
+    <if test="roundType != null">round_type = #{roundType},</if>
+    <if test="startTime != null">start_time = #{startTime},</if>
+    <if test="endTime != null">end_time = #{endTime},</if>
+    <if test="ruleId != null">rule_id = #{ruleId},</if>
+    <if test="status != null">status = #{status},</if>
+    <if test="description != null">description = #{description},</if>
+    <if test="updateBy != null">update_by = #{updateBy},</if>
+    <if test="updateTime != null">update_time = #{updateTime},</if>
+    <if test="remark != null">remark = #{remark},</if>
+        </set>
+        where id = #{id} and del_flag = '0'
+    </update>
+
+    <update id="deleteByIds">
+        update review_round
+        set del_flag = '1', update_by = #{updateBy}, update_time = now()
+        where id in
+        <foreach item="id" collection="ids" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+</mapper>

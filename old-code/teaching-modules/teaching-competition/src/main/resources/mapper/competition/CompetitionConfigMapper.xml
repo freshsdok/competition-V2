@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.competition.mapper.CompetitionConfigMapper">
+    
+    <resultMap type="com.teaching.system.api.domain.CompetitionConfig" id="CompetitionConfigResult">
+        <result property="configId"    column="config_id"    />
+        <result property="competitionTrackConfigId"    column="competition_track_config_id"    />
+        <result property="joinType"    column="join_type"    />
+        <result property="isTeacherNess"    column="is_teacher_ness"    />
+        <result property="minPernNum"    column="min_pern_num"    />
+        <result property="maxPernNum"    column="max_pern_num"    />
+        <result property="minTeacherNum"    column="min_teacher_num"    />
+        <result property="maxTeacherNum"    column="max_teacher_num"    />
+        <result property="teamRule"    column="team_rule"    />
+        <result property="isRealNameAuth"    column="is_real_name_auth"    />
+        <result property="isStudent"    column="is_student"    />
+        <result property="classRequest"    column="class_request"    />
+        <result property="professionRequest"    column="profession_request"    />
+        <result property="lowestGpa"    column="lowest_gpa"    />
+        <result property="applyStartTime"    column="apply_start_time"    />
+        <result property="applyEndTime"    column="apply_end_time"    />
+        <result property="worksSubmitWay"    column="works_submit_way"    />
+        <result property="worksFormat"    column="works_format"    />
+        <result property="worksFormatSize"    column="works_format_size"    />
+        <result property="worksSubmitDate"    column="works_submit_date"    />
+        <result property="worksSubmitExplain"    column="works_submit_explain"    />
+        <result property="fee"    column="fee"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="version"    column="version"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="userId"    column="user_id"    />
+        <result property="orgId"    column="org_id"    />
+    </resultMap>
+
+    <sql id="selectCompetitionConfigVo">
+        select config_id, competition_track_config_id,join_type, is_teacher_ness, min_pern_num, max_pern_num, min_teacher_num, max_teacher_num, team_rule, is_real_name_auth, is_student, class_request, profession_request, lowest_gpa, apply_start_time, apply_end_time, works_submit_way, works_format, works_format_size, works_submit_date, works_submit_explain, fee,create_by, create_time, update_by, update_time, version, del_flag, user_id, org_id from competition_config
+    </sql>
+
+    <select id="selectCompetitionConfigList" parameterType="Long" resultMap="CompetitionConfigResult">
+        <include refid="selectCompetitionConfigVo"/>
+        <where>  
+            <if test="competitionTrackConfigId != null ">
+                and competition_track_config_id = #{competitionTrackConfigId}
+            </if>
+        </where>
+    </select>
+    
+    <select id="selectCompetitionConfigByConfigId" parameterType="Long" resultMap="CompetitionConfigResult">
+        <include refid="selectCompetitionConfigVo"/>
+        where config_id = #{configId}
+    </select>
+
+    <select id="selectCompetitionConfigByTrackConfigId" parameterType="Long" resultMap="CompetitionConfigResult">
+        <include refid="selectCompetitionConfigVo"/>
+        where competition_track_config_id = #{competitionTrackConfigId}
+    </select>
+
+    <insert id="insertCompetitionConfig" parameterType="com.teaching.system.api.domain.CompetitionConfig" useGeneratedKeys="true"
+            keyProperty="configId" keyColumn="config_id">
+        insert into competition_config
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="competitionTrackConfigId != null">competition_track_config_id,</if>
+            <if test="joinType != null">join_type,</if>
+            <if test="isTeacherNess != null">is_teacher_ness,</if>
+            <if test="minPernNum != null">min_pern_num,</if>
+            <if test="maxPernNum != null">max_pern_num,</if>
+            <if test="minTeacherNum != null">min_teacher_num,</if>
+            <if test="maxTeacherNum != null">max_teacher_num,</if>
+            <if test="teamRule != null">team_rule,</if>
+            <if test="isRealNameAuth != null">is_real_name_auth,</if>
+            <if test="isStudent != null">is_student,</if>
+            <if test="isNationalityStudent != null">is_nationality_student,</if>
+            <if test="classRequest != null">class_request,</if>
+            <if test="professionRequest != null">profession_request,</if>
+            <if test="lowestGpa != null">lowest_gpa,</if>
+            <if test="applyStartTime != null">apply_start_time,</if>
+            <if test="applyEndTime != null">apply_end_time,</if>
+            <if test="worksSubmitWay != null">works_submit_way,</if>
+            <if test="worksFormat != null">works_format,</if>
+            <if test="worksFormatSize != null">works_format_size,</if>
+            <if test="worksSubmitDate != null">works_submit_date,</if>
+            <if test="worksSubmitExplain != null">works_submit_explain,</if>
+            <if test="fee != null">fee,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="version != null">version,</if>
+            <if test="delFlag != null">del_flag,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="orgId != null">org_id,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="competitionTrackConfigId != null">#{competitionTrackConfigId},</if>
+            <if test="joinType != null">#{joinType},</if>
+            <if test="isTeacherNess != null">#{isTeacherNess},</if>
+            <if test="minPernNum != null">#{minPernNum},</if>
+            <if test="maxPernNum != null">#{maxPernNum},</if>
+            <if test="minTeacherNum != null">#{minTeacherNum},</if>
+            <if test="maxTeacherNum != null">#{maxTeacherNum},</if>
+            <if test="teamRule != null">#{teamRule},</if>
+            <if test="isRealNameAuth != null">#{isRealNameAuth},</if>
+            <if test="isStudent != null">#{isStudent},</if>
+            <if test="isNationalityStudent != null">#{isNationalityStudent},</if>
+            <if test="classRequest != null">#{classRequest},</if>
+            <if test="professionRequest != null">#{professionRequest},</if>
+            <if test="lowestGpa != null">#{lowestGpa},</if>
+            <if test="applyStartTime != null">#{applyStartTime},</if>
+            <if test="applyEndTime != null">#{applyEndTime},</if>
+            <if test="worksSubmitWay != null">#{worksSubmitWay},</if>
+            <if test="worksFormat != null">#{worksFormat},</if>
+            <if test="worksFormatSize != null">#{worksFormatSize},</if>
+            <if test="worksSubmitDate != null">#{worksSubmitDate},</if>
+            <if test="worksSubmitExplain != null">#{worksSubmitExplain},</if>
+            <if test="fee != null">#{fee},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="version != null">#{version},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="orgId != null">#{orgId},</if>
+         </trim>
+    </insert>
+
+    <update id="updateCompetitionConfig" parameterType="com.teaching.system.api.domain.CompetitionConfig">
+        update competition_config
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="joinType != null">join_type = #{joinType},</if>
+            <if test="isTeacherNess != null">is_teacher_ness = #{isTeacherNess},</if>
+            <if test="minPernNum != null">min_pern_num = #{minPernNum},</if>
+            <if test="maxPernNum != null">max_pern_num = #{maxPernNum},</if>
+            <if test="minTeacherNum != null">min_teacher_num = #{minTeacherNum},</if>
+            <if test="maxTeacherNum != null">max_teacher_num = #{maxTeacherNum},</if>
+            <if test="teamRule != null">team_rule = #{teamRule},</if>
+            <if test="isRealNameAuth != null">is_real_name_auth = #{isRealNameAuth},</if>
+            <if test="isStudent != null">is_student = #{isStudent},</if>
+            <if test="isNationalityStudent != null">is_nationality_student = #{isNationalityStudent},</if>
+            <if test="classRequest != null">class_request = #{classRequest},</if>
+            <if test="professionRequest != null">profession_request = #{professionRequest},</if>
+            <if test="lowestGpa != null">lowest_gpa = #{lowestGpa},</if>
+            <if test="applyStartTime != null">apply_start_time = #{applyStartTime},</if>
+            <if test="applyEndTime != null">apply_end_time = #{applyEndTime},</if>
+            <if test="worksSubmitWay != null">works_submit_way = #{worksSubmitWay},</if>
+            <if test="worksFormat != null">works_format = #{worksFormat},</if>
+            <if test="worksFormatSize != null">works_format_size = #{worksFormatSize},</if>
+            <if test="worksSubmitDate != null">works_submit_date = #{worksSubmitDate},</if>
+            <if test="worksSubmitExplain != null">works_submit_explain = #{worksSubmitExplain},</if>
+            <if test="fee != null">fee = #{fee},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            version = version+1,
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="orgId != null">org_id = #{orgId},</if>
+        </trim>
+        where competition_track_config_id = #{competitionTrackConfigId}
+    </update>
+
+    <delete id="deleteCompetitionConfigByConfigId" parameterType="Long">
+        update competition_config set del_flag = '1',update_time = now(),version = version+1 where competition_track_config_id = #{competitionTrackConfigId}
+    </delete>
+
+    <delete id="deleteCompetitionConfigByConfigIds" parameterType="String">
+        update competition_config set del_flag = '1',update_time = now(),version = version+1 where competition_track_config_id in
+        <foreach item="competitionTrackConfigId" collection="array" open="(" separator="," close=")">
+            #{competitionTrackConfigId}
+        </foreach>
+    </delete>
+</mapper>

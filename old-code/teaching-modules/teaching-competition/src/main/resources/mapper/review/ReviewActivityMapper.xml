@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.competition.review.mapper.ReviewActivityMapper">
+
+    <resultMap type="com.teaching.competition.review.domain.ReviewActivity" id="ReviewActivityResult">
+<id property="id" column="id"/>
+<result property="activityName" column="activity_name"/>
+<result property="activityCode" column="activity_code"/>
+<result property="activityType" column="activity_type"/>
+<result property="sourceModule" column="source_module"/>
+<result property="sourceBizType" column="source_biz_type"/>
+<result property="objectType" column="object_type"/>
+<result property="submissionMode" column="submission_mode"/>
+<result property="submitStartTime" column="submit_start_time"/>
+<result property="submitDeadline" column="submit_deadline"/>
+<result property="reviewStartTime" column="review_start_time"/>
+<result property="reviewEndTime" column="review_end_time"/>
+<result property="anonymousMode" column="anonymous_mode"/>
+<result property="resultPublishMode" column="result_publish_mode"/>
+<result property="status" column="status"/>
+<result property="description" column="description"/>
+<result property="createBy" column="create_by"/>
+<result property="createTime" column="create_time"/>
+<result property="updateBy" column="update_by"/>
+<result property="updateTime" column="update_time"/>
+<result property="remark" column="remark"/>
+<result property="delFlag" column="del_flag"/>
+    </resultMap>
+
+    <sql id="selectReviewActivityVo">
+        select id, activity_name, activity_code, activity_type, source_module, source_biz_type, object_type, submission_mode, submit_start_time, submit_deadline, review_start_time, review_end_time, anonymous_mode, result_publish_mode, status, description, create_by, create_time, update_by, update_time, remark, del_flag
+        from review_activity
+    </sql>
+
+    <select id="selectById" parameterType="Long" resultMap="ReviewActivityResult">
+        <include refid="selectReviewActivityVo"/>
+        where id = #{id} and del_flag = '0'
+    </select>
+
+    <select id="selectList" parameterType="com.teaching.competition.review.domain.ReviewActivity" resultMap="ReviewActivityResult">
+        <include refid="selectReviewActivityVo"/>
+        <where>
+    del_flag = '0'
+    <if test="activityName != null and activityName != ''">
+        and activity_name like concat('%', #{activityName}, '%')
+    </if>
+    <if test="activityCode != null and activityCode != ''">
+        and activity_code = #{activityCode}
+    </if>
+    <if test="activityType != null and activityType != ''">
+        and activity_type = #{activityType}
+    </if>
+    <if test="sourceModule != null and sourceModule != ''">
+        and source_module = #{sourceModule}
+    </if>
+    <if test="sourceBizType != null and sourceBizType != ''">
+        and source_biz_type = #{sourceBizType}
+    </if>
+    <if test="objectType != null and objectType != ''">
+        and object_type = #{objectType}
+    </if>
+    <if test="submissionMode != null and submissionMode != ''">
+        and submission_mode = #{submissionMode}
+    </if>
+    <if test="submitStartTime != null">
+        and submit_start_time = #{submitStartTime}
+    </if>
+    <if test="submitDeadline != null">
+        and submit_deadline = #{submitDeadline}
+    </if>
+    <if test="reviewStartTime != null">
+        and review_start_time = #{reviewStartTime}
+    </if>
+    <if test="reviewEndTime != null">
+        and review_end_time = #{reviewEndTime}
+    </if>
+    <if test="anonymousMode != null and anonymousMode != ''">
+        and anonymous_mode = #{anonymousMode}
+    </if>
+    <if test="resultPublishMode != null and resultPublishMode != ''">
+        and result_publish_mode = #{resultPublishMode}
+    </if>
+    <if test="status != null and status != ''">
+        and status = #{status}
+    </if>
+    <if test="description != null and description != ''">
+        and description like concat('%', #{description}, '%')
+    </if>
+        </where>
+        order by id desc
+    </select>
+
+    <insert id="insert" parameterType="com.teaching.competition.review.domain.ReviewActivity" useGeneratedKeys="true" keyProperty="id">
+        insert into review_activity
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+    <if test="activityName != null">activity_name,</if>
+    <if test="activityCode != null">activity_code,</if>
+    <if test="activityType != null">activity_type,</if>
+    <if test="sourceModule != null">source_module,</if>
+    <if test="sourceBizType != null">source_biz_type,</if>
+    <if test="objectType != null">object_type,</if>
+    <if test="submissionMode != null">submission_mode,</if>
+    <if test="submitStartTime != null">submit_start_time,</if>
+    <if test="submitDeadline != null">submit_deadline,</if>
+    <if test="reviewStartTime != null">review_start_time,</if>
+    <if test="reviewEndTime != null">review_end_time,</if>
+    <if test="anonymousMode != null">anonymous_mode,</if>
+    <if test="resultPublishMode != null">result_publish_mode,</if>
+    <if test="status != null">status,</if>
+    <if test="description != null">description,</if>
+    <if test="createBy != null">create_by,</if>
+    <if test="createTime != null">create_time,</if>
+    <if test="updateBy != null">update_by,</if>
+    <if test="updateTime != null">update_time,</if>
+    <if test="remark != null">remark,</if>
+    <if test="delFlag != null">del_flag,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+    <if test="activityName != null">#{activityName},</if>
+    <if test="activityCode != null">#{activityCode},</if>
+    <if test="activityType != null">#{activityType},</if>
+    <if test="sourceModule != null">#{sourceModule},</if>
+    <if test="sourceBizType != null">#{sourceBizType},</if>
+    <if test="objectType != null">#{objectType},</if>
+    <if test="submissionMode != null">#{submissionMode},</if>
+    <if test="submitStartTime != null">#{submitStartTime},</if>
+    <if test="submitDeadline != null">#{submitDeadline},</if>
+    <if test="reviewStartTime != null">#{reviewStartTime},</if>
+    <if test="reviewEndTime != null">#{reviewEndTime},</if>
+    <if test="anonymousMode != null">#{anonymousMode},</if>
+    <if test="resultPublishMode != null">#{resultPublishMode},</if>
+    <if test="status != null">#{status},</if>
+    <if test="description != null">#{description},</if>
+    <if test="createBy != null">#{createBy},</if>
+    <if test="createTime != null">#{createTime},</if>
+    <if test="updateBy != null">#{updateBy},</if>
+    <if test="updateTime != null">#{updateTime},</if>
+    <if test="remark != null">#{remark},</if>
+    <if test="delFlag != null">#{delFlag},</if>
+        </trim>
+    </insert>
+
+    <update id="update" parameterType="com.teaching.competition.review.domain.ReviewActivity">
+        update review_activity
+        <set>
+    <if test="activityName != null">activity_name = #{activityName},</if>
+    <if test="activityCode != null">activity_code = #{activityCode},</if>
+    <if test="activityType != null">activity_type = #{activityType},</if>
+    <if test="sourceModule != null">source_module = #{sourceModule},</if>
+    <if test="sourceBizType != null">source_biz_type = #{sourceBizType},</if>
+    <if test="objectType != null">object_type = #{objectType},</if>
+    <if test="submissionMode != null">submission_mode = #{submissionMode},</if>
+    <if test="submitStartTime != null">submit_start_time = #{submitStartTime},</if>
+    <if test="submitDeadline != null">submit_deadline = #{submitDeadline},</if>
+    <if test="reviewStartTime != null">review_start_time = #{reviewStartTime},</if>
+    <if test="reviewEndTime != null">review_end_time = #{reviewEndTime},</if>
+    <if test="anonymousMode != null">anonymous_mode = #{anonymousMode},</if>
+    <if test="resultPublishMode != null">result_publish_mode = #{resultPublishMode},</if>
+    <if test="status != null">status = #{status},</if>
+    <if test="description != null">description = #{description},</if>
+    <if test="updateBy != null">update_by = #{updateBy},</if>
+    <if test="updateTime != null">update_time = #{updateTime},</if>
+    <if test="remark != null">remark = #{remark},</if>
+        </set>
+        where id = #{id} and del_flag = '0'
+    </update>
+
+    <update id="deleteByIds">
+        update review_activity
+        set del_flag = '1', update_by = #{updateBy}, update_time = now()
+        where id in
+        <foreach item="id" collection="ids" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+</mapper>

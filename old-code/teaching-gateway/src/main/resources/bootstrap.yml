@@ -1,0 +1,38 @@
+# Spring
+spring:
+  profiles:
+    # 环境配置
+#    active: dev
+    # 测试
+    active: test
+    #备案
+#    active: filing
+#   active: cluster
+
+# 接口文档默认关闭；开发、测试环境如需使用，必须在对应环境显式开启。
+springdoc:
+  api-docs:
+    enabled: false
+  swagger-ui:
+    enabled: false
+
+# Actuator 默认仅启用 health，且不返回组件详情。
+# 高敏端点同时有代码级过滤，不能被 Nacos 的 include=* 重新暴露。
+management:
+  endpoints:
+    enabled-by-default: false
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      enabled: true
+      show-details: never
+    env:
+      enabled: false
+    configprops:
+      enabled: false
+    heapdump:
+      enabled: false
+    threaddump:
+      enabled: false

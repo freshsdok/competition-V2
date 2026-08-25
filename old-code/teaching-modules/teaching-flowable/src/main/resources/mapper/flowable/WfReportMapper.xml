@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.flowable.mapper.WfReportMapper">
+
+    <resultMap type="com.teaching.flowable.domain.WfReport" id="WfReportResult">
+        <result property="lcVersion" column="lc_version"/>
+        <result property="deptName" column="dept_name"/>
+        <result property="lcKey" column="lc_key"/>
+        <result property="lcName" column="lc_name"/>
+        <result property="defId" column="def_id"/>
+        <result property="instId" column="inst_id"/>
+        <result property="nodeName" column="node_name"/>
+        <result property="assigneeName" column="assignee_name"/>
+        <result property="startTime" column="start_time"/>
+        <result property="endTime" column="end_time"/>
+        <result property="duration" column="duration"/>
+    </resultMap>
+
+    <!-- 不合并节点 -->
+    <select id="selectReportList" resultMap="WfReportResult">
+        SELECT ahv.text_ as dept_name,
+        a.lc_version, a.lc_name, a.lc_key, a.def_id, a.inst_id,
+        aht.name_ as node_name, u.nick_name as assignee_name,
+        aht.START_TIME_ as start_time, aht.END_TIME_ as end_time,
+        aht.DURATION_ as duration
+        FROM (
+        SELECT t.PROC_INST_ID_ as inst_id,
+        DEF.VERSION_ as lc_version,
+        rp.name_ as lc_name, rp.key_ as lc_key,
+        t.PROC_DEF_ID_ as def_id
+        FROM ACT_HI_taskinst t
+        JOIN ACT_HI_VARINST RES ON RES.PROC_INST_ID_ = t.PROC_INST_ID_
+        AND RES.NAME_ = 'processStatus'
+        AND res.text_ = 'completed'
+        JOIN ACT_RE_PROCDEF rp ON rp.id_ = t.PROC_DEF_ID_
+        <if test="lcKey !=null and lcKey !=''">
+            AND rp.key_ = #{lcKey}
+        </if>
+        <if test="instId != null and instId != ''">
+            AND t.PROC_INST_ID_ = #{instId}
+        </if>
+        JOIN ACT_RE_PROCDEF DEF ON t.PROC_DEF_ID_ = DEF.ID_
+        GROUP BY t.PROC_INST_ID_, rp.name_, rp.key_, t.PROC_DEF_ID_
+        ) a
+        LEFT JOIN ACT_HI_taskinst aht ON aht.PROC_INST_ID_ = a.inst_id AND aht.DURATION_ IS NOT NULL
+        LEFT JOIN sys_user u ON u.user_id = aht.assignee_
+        LEFT JOIN act_hi_varinst ahv ON ahv.PROC_INST_ID_ = a.inst_id
+        AND ahv.TASK_ID_ IS NULL
+        AND ahv.name_ = 'deptNameNew'
+        <where>
+            <if test="deptName != null and deptName != ''">
+                and ahv.text_ like concat('%',#{deptName},'%')
+            </if>
+            <if test="assigneeName != null and assigneeName != ''">
+                and u.nick_name like concat('%',#{assigneeName},'%')
+            </if>
+            <if test="nodeName != null and nodeName != ''">
+                and aht.name_ like concat('%',#{nodeName},'%')
+            </if>
+        </where>
+        ORDER BY a.inst_id, aht.START_TIME_
+    </select>
+
+
+    <resultMap type="com.teaching.flowable.domain.WfReport" id="WfReportResult1">
+        <result property="lcVersion" column="lc_version"/>
+        <result property="deptName" column="dept_name"/>
+        <result property="lcKey" column="lc_key"/>
+        <result property="lcName" column="lc_name"/>
+        <result property="defId" column="def_id"/>
+        <result property="instId" column="inst_id"/>
+        <collection property="nodeList" ofType="com.teaching.flowable.domain.WfReportNode">
+            <result property="nodeName" column="node_name"/>
+            <result property="assigneeName" column="assignee_name"/>
+            <result property="startTime" column="start_time"/>
+            <result property="endTime" column="end_time"/>
+            <result property="duration" column="duration"/>
+        </collection>
+    </resultMap>
+
+    <!-- 合并节点 -->
+    <select id="selectReportDetail" parameterType="com.teaching.flowable.domain.WfReport" resultMap="WfReportResult1">
+        SELECT ahv.text_ as dept_name,
+        a.lc_version, a.lc_name, a.lc_key, a.def_id, a.inst_id,
+        aht.name_ as node_name, u.nick_name as assignee_name,
+        aht.START_TIME_ as start_time, aht.END_TIME_ as end_time,
+        aht.DURATION_ as duration
+        FROM (
+        SELECT t.PROC_INST_ID_ as inst_id,
+        DEF.VERSION_ as lc_version,
+        rp.name_ as lc_name, rp.key_ as lc_key,
+        t.PROC_DEF_ID_ as def_id
+        FROM ACT_HI_taskinst t
+        JOIN ACT_HI_VARINST RES ON RES.PROC_INST_ID_ = t.PROC_INST_ID_
+        AND RES.NAME_ = 'processStatus'
+        AND res.text_ = 'completed'
+        JOIN ACT_RE_PROCDEF rp ON rp.id_ = t.PROC_DEF_ID_
+        <if test="lcKey !=null and lcKey !=''">
+            AND rp.key_ = #{lcKey}
+        </if>
+        JOIN ACT_RE_PROCDEF DEF ON t.PROC_DEF_ID_ = DEF.ID_
+        GROUP BY t.PROC_INST_ID_, rp.name_, rp.key_, t.PROC_DEF_ID_
+        ) a
+        LEFT JOIN ACT_HI_taskinst aht ON aht.PROC_INST_ID_ = a.inst_id
+        LEFT JOIN sys_user u ON u.user_id = aht.assignee_
+        LEFT JOIN act_hi_varinst ahv ON ahv.PROC_INST_ID_ = a.inst_id
+        AND ahv.TASK_ID_ IS NULL
+        AND ahv.name_ = 'deptNameNew'
+        <where>
+            <if test="deptName != null and deptName != ''">
+                and ahv.text_ like concat('%',#{deptName},'%')
+            </if>
+        </where>
+        ORDER BY a.inst_id, aht.START_TIME_
+    </select>
+
+    <!-- 流程名称及key -->
+    <select id="selectFlowModel" resultType="map">
+        SELECT RES.id_ as modelId, res.name_ as modelName, res.key_ as modelKey
+        from ACT_RE_MODEL RES
+        WHERE RES.VERSION_ = (select max(VERSION_)
+                              from ACT_RE_MODEL
+                              where KEY_ = RES.KEY_)
+        order by RES.CREATE_TIME_ desc
+    </select>
+    <!-- 本月发起的数量-->
+    <select id="countThisMonthStarted" resultType="long">
+        SELECT COUNT(*)  FROM ACT_HI_PROCINST
+            WHERE DATE_FORMAT(START_TIME_,'%Y-%m')  = DATE_FORMAT(CURDATE(),'%Y-%m')
+    </select>
+</mapper>

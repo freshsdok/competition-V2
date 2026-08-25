@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.competition.mapper.CompetitionMainInfoMapper">
+
+    <resultMap type="com.teaching.system.api.domain.CompetitionMainInfo" id="CompetitionMainInfoResult">
+        <result property="competitionId" column="competition_id"/>
+        <result property="competitionCode" column="competition_code"/>
+        <result property="competitionName" column="competition_name"/>
+        <result property="competitionSeriesId" column="competition_series_id"/>
+        <result property="competitionSeriesName" column="competition_series_name"/>
+        <result property="competitionType" column="competition_type"/>
+        <result property="competitionDesc" column="competition_desc"/>
+        <result property="enterpriseId" column="enterprise_id"/>
+        <result property="enterpriseName" column="enterprise_name"/>
+        <result property="organizer" column="organizer"/>
+        <result property="checkStatus" column="check_status"/>
+        <result property="competitionStartTime" column="competition_start_time"/>
+        <result property="competitionEndTime" column="competition_end_time"/>
+        <result property="competitionStatus" column="competition_status"/>
+        <result property="bonusNum" column="bonus_num"/>
+        <result property="competitionNumber" column="competition_number"/>
+        <result property="competitionExtension" column="competition_extension"/>
+        <result property="competitionStatus" column="competition_status"/>
+        <result property="competitionImageName" column="competition_image_name"/>
+        <result property="competitionImage" column="competition_image"/>
+        <result property="publishPerson" column="publish_person"/>
+        <result property="publishTime" column="publish_time"/>
+        <result property="publishPersonName" column="publish_person_name"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="version" column="version"/>
+        <result property="delFlag" column="del_flag"/>
+    </resultMap>
+
+    <resultMap type="com.teaching.system.api.domain.CompetitionDetailInfo" id="CompetitionDetailInfoResult">
+        <result property="competitionId" column="competition_id"/>
+        <result property="competitionCode" column="competition_code"/>
+        <result property="competitionName" column="competition_name"/>
+        <result property="competitionSeriesId" column="competition_series_id"/>
+        <result property="competitionSeriesName" column="competition_series_name"/>
+        <result property="competitionType" column="competition_type"/>
+        <result property="competitionDesc" column="competition_desc"/>
+        <result property="organizer" column="organizer"/>
+        <result property="checkStatus" column="check_status"/>
+        <result property="competitionImageName" column="competition_image_name"/>
+        <result property="competitionImage" column="competition_image"/>
+        <result property="competitionNumber" column="competition_number"/>
+        <result property="enterpriseId" column="enterprise_id"/>
+        <result property="competitionStartTime" column="competition_start_time"/>
+        <result property="competitionEndTime" column="competition_end_time"/>
+        <result property="competitionExtension" column="competition_extension"/>
+        <result property="competitionStatus" column="competition_status"/>
+        <result property="publishPerson" column="publish_person"/>
+        <result property="publishTime" column="publish_time"/>
+        <result property="publishPersonName" column="publish_person_name"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="version" column="version"/>
+        <result property="delFlag" column="del_flag"/>
+        <collection property="competitionSeriesInfoList" ofType="com.teaching.system.api.domain.CompetitionSeriesInfo" column="competition_id"
+                select="selectCompetitionSeriesInfoResult">
+        </collection>
+    </resultMap>
+
+    <resultMap type="com.teaching.system.api.domain.CompetitionSeriesInfo" id="CompetitionSeriesInfoResult">
+        <result property="competitionSeriesId"    column="competition_series_id"    />
+        <result property="competitionId"    column="competition_id"    />
+        <result property="competitionSeriesName"    column="competition_series_name"    />
+        <result property="competitionSeries"    column="competition_series"    />
+        <result property="competitionStatus"    column="competition_status"    />
+        <result property="competitionType"    column="competition_type"    />
+        <result property="competitionDesc"    column="competition_desc"    />
+        <result property="competitionImage"    column="competition_image"    />
+        <result property="competitionStartTime"    column="competition_start_time"    />
+        <result property="competitionEndTime"    column="competition_end_time"    />
+        <result property="checkStatus"    column="check_status"    />
+        <result property="competitionNumber"    column="competition_number"    />
+        <result property="enterpriseId"    column="enterprise_id"    />
+        <result property="noticeTitle"    column="notice_title"    />
+        <result property="noticeTime"    column="notice_time"    />
+        <result property="noticeContent"    column="notice_content"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="version"    column="version"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="userId"    column="user_id"    />
+        <result property="orgId"    column="org_id"    />
+    </resultMap>
+
+    <sql id="selectCompetitionMainInfoVo">
+        select competition_id, competition_code, competition_name, organizer, create_by, create_time, update_by,
+        update_time
+        from competition_main_info
+    </sql>
+
+    <select id="selectCompetitionMainInfoList"
+            parameterType="com.teaching.system.api.domain.CompetitionMainInfoReq"
+            resultMap="CompetitionMainInfoResult">
+        select a.competition_id, a.competition_code, a.competition_name, a.organizer,
+        b.competition_series_id, b.competition_series_name, b.competition_type, b.competition_desc, b.check_status,b.competition_image,b.competition_image_name,
+        b.competition_number, b.enterprise_id, b.competition_start_time, b.competition_end_time, b.competition_status,b.competition_extension,
+        b.publish_person,(select user_name from sys_user where user_id = b.publish_person) publish_person_name, b.publish_time,b.notice_title,b.notice_time,b.notice_content,
+        a.create_by, a.create_time, a.update_by, a.update_time
+        from competition_main_info a
+        left join competition_series_info b on a.competition_id = b.competition_id
+        where a.del_flag = '0' and b.del_flag = '0'
+            <if test="competitionType != null  and competitionType != ''">
+                and b.competition_type = #{competitionType}
+            </if>
+            <if test="competitionName != null  and competitionName != ''">
+                and a.competition_name like concat('%', #{competitionName}, '%')
+            </if>
+        <if test="competitionSeriesName != null  and competitionSeriesName != ''">
+            and b.competition_series_name like concat('%', #{competitionSeriesName}, '%')
+        </if>
+            <if test="organizer != null  and organizer != ''">
+                and a.organizer like concat('%', #{organizer}, '%')
+            </if>
+            <if test="enterpriseName != null  and enterpriseName != ''">
+                and b.competition_series_id in
+                (select competition_series_id from competition_enterprise_rela f
+                left join sponsoring_enterprise_info c on f.enterprise_id = c.enterprise_id
+                where c.enterprise_name like concat('%', #{enterpriseName}, '%'))
+            </if>
+        <if test="checkStatus != null  and checkStatus != ''">
+            and b.check_status in
+            <foreach collection="checkStatus.split(',')" item="item" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+            <if test="bonusNumStart != null  and bonusNumStart != ''">
+                and b.competition_series_id in
+                (select competition_series_id from  competition_awards_config d where d.bonus_num >= #{bonusNumStart})
+            </if>
+            <if test="bonusNumEnd != null  and bonusNumEnd != ''">
+                and b.competition_series_id in
+                (select competition_series_id from  competition_awards_config d where d.bonus_num &lt;= #{bonusNumEnd})
+            </if>
+            <if test="competitionStartTime != null">
+                and b.competition_start_time >= #{competitionStartTime}
+            </if>
+            <if test="competitionEndTime != null">
+                and b.competition_end_time &lt;= #{competitionEndTime}
+            </if>
+        <!-- 数据范围过滤 -->
+        ${params.dataScope}
+        order by a.create_time desc
+    </select>
+
+    <select id="selectCompetitionSeriesInfoResult" parameterType="Long" resultMap="CompetitionSeriesInfoResult">
+        select competition_series_id, competition_id, competition_series_name, competition_series, competition_status, competition_type,
+        competition_desc, competition_image, competition_start_time, competition_end_time, check_status, competition_number,
+        enterprise_id, notice_title,notice_time,notice_content,create_by, create_time, update_by, update_time, version, del_flag, user_id, org_id
+        from competition_series_info
+        where del_flag = '0' and competition_id = #{competitionId}
+    </select>
+
+    <select id="checkCompetitionName" parameterType="String" resultType="Integer">
+        select count(1) from competition_series_info a
+        left join competition_main_info c on a.competition_id = c.competition_id
+        where c.del_flag = '0' and a.del_flag = '0' and a.competition_series_name = #{competitionSeriesName}
+        and c.competition_name = #{competitionName}
+    </select>
+
+    <select id="selectCompetitionDetailInfoByCompetitionId"
+            parameterType="com.teaching.system.api.domain.CompetitionMainInfoReq"
+            resultMap="CompetitionDetailInfoResult">
+        select a.competition_id, a.competition_code, a.competition_name, a.organizer,
+        b.competition_series_id, b.competition_series_name, b.competition_type, b.competition_desc, b.check_status,b.competition_image,b.competition_image_name,
+        b.competition_number, b.enterprise_id, b.competition_start_time, b.competition_end_time, b.competition_status,b.competition_extension,
+        b.publish_person,(select user_name from sys_user where user_id = b.publish_person) publish_person_name, b.publish_time,b.notice_title,b.notice_time,b.notice_content,
+        a.create_by, a.create_time, a.update_by, a.update_time
+        from competition_main_info a
+        left join competition_series_info b on a.competition_id = b.competition_id
+        where a.del_flag = '0' and b.del_flag = '0'
+        <if test="competitionId != null">
+            and a.competition_id = #{competitionId}
+        </if>
+        <if test="competitionName != null and competitionName!=''">
+            and a.competition_name like concat('%', #{competitionName}, '%')
+        </if>
+        <if test="competitionSeriesId!=null">
+            and b.competition_series_id = #{competitionSeriesId}
+        </if>
+        <if test="checkStatus != null  and checkStatus != ''">
+            and b.check_status in
+            <foreach collection="checkStatus.split(',')" item="item" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        <if test="competitionType != null  and competitionType != ''">
+            and b.competition_type = #{competitionType}
+        </if>
+        <if test="competitionStartTime != null">
+            and b.competition_start_time >= #{competitionStartTime}
+        </if>
+        <if test="competitionEndTime != null">
+            and b.competition_end_time &lt;= #{competitionEndTime}
+        </if>
+        <if test="competitionCodes!=null and competitionCodes !=''">
+            and a.competition_code in
+            <foreach collection="competitionCodes.split(',')" item="item" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        order by b.competition_start_time desc
+    </select>
+
+    <select id="selectCompetitionSeriesInfoByCompetitionName" parameterType="String" resultMap="CompetitionDetailInfoResult">
+        select competition_id, competition_code, competition_name, organizer, create_by, create_time, update_by,
+        update_time
+        from competition_main_info
+        <where>
+            <if test="competitionName != null and competitionName!=''">
+                and competition_name like concat('%', #{competitionName}, '%')
+            </if>
+        </where>
+    </select>
+
+    <select id="selectCompetitionInfoByCompetitionName" parameterType="String" resultMap="CompetitionMainInfoResult">
+        <include refid="selectCompetitionMainInfoVo"/>
+        <where>
+            <if test="competitionName != null and competitionName!=''">
+                and competition_name = #{competitionName}
+            </if>
+        </where>
+    </select>
+
+    <insert id="insertCompetitionMainInfo" useGeneratedKeys="true" keyProperty="competitionId" keyColumn="competition_id"
+            parameterType="com.teaching.system.api.domain.CompetitionMainInfo">
+        insert into competition_main_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="competitionId != null">competition_id,</if>
+            <if test="competitionCode != null">competition_code,</if>
+            <if test="competitionName != null">competition_name,</if>
+            <if test="organizer != null">organizer,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="version != null">version,</if>
+            <if test="delFlag != null">del_flag,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="orgId != null">org_id,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="competitionId != null">#{competitionId},</if>
+            <if test="competitionCode != null">#{competitionCode},</if>
+            <if test="competitionName != null">#{competitionName},</if>
+            <if test="organizer != null">#{organizer},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="version != null">#{version},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="orgId != null">#{orgId},</if>
+        </trim>
+    </insert>
+
+    <update id="updateCompetitionMainInfo" parameterType="com.teaching.system.api.domain.CompetitionMainInfo">
+        update competition_main_info
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="competitionCode != null">competition_code = #{competitionCode},</if>
+            <if test="competitionName != null">competition_name = #{competitionName},</if>
+            <if test="organizer != null">organizer = #{organizer},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            version = version+1,
+        </trim>
+        where competition_id = #{competitionId}
+    </update>
+
+    <delete id="deleteCompetitionMainInfoByCompetitionId" parameterType="Long">
+        update competition_main_info set del_flag = '1',update_time = now(),version = version+1 where competition_id = #{competitionId}
+    </delete>
+
+    <delete id="deleteCompetitionMainInfoByCompetitionIds" parameterType="String">
+        update competition_main_info set del_flag = '1',update_time = now(),version = version+1 where competition_id in
+        <foreach item="competitionId" collection="array" open="(" separator="," close=")">
+            #{competitionId}
+        </foreach>
+    </delete>
+</mapper>

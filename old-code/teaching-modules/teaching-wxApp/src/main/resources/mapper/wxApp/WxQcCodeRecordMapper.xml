@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.wxApp.mapper.WxQcCodeRecordMapper">
+
+    <resultMap type="com.teaching.wxApp.domain.WxQcCodeRecord" id="WxQcCodeRecordResult">
+        <result property="recordId" column="record_id"/>
+        <result property="codeConfigId" column="code_config_id"/>
+        <result property="school" column="school"/>
+        <result property="schoolName" column="school_name"/>
+        <result property="examinationHall" column="examination_hall"/>
+        <result property="examTime" column="exam_time"/>
+        <result property="codeStatus" column="code_status"/>
+        <result property="userId" column="user_id"/>
+        <result property="codeBase64" column="code_base64"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="remark" column="remark"/>
+        <result property="version" column="version"/>
+        <result property="delFlag" column="del_flag"/>
+    </resultMap>
+
+    <sql id="selectWxQcCodeRecordVo">
+        select record_id,
+               code_config_id,
+               school,
+               school_name,
+               examination_hall,
+               exam_time,
+               code_status,
+               user_id,
+               code_base64,
+               create_by,
+               create_time,
+               update_by,
+               update_time,
+               remark,
+               version,
+               del_flag
+        from wx_qc_code_record
+    </sql>
+
+    <sql id="selectWxQcCodeRecordVoNoBase">
+        select record_id,
+               code_config_id,
+               school,
+               school_name,
+               examination_hall,
+               exam_time,
+               code_status,
+               user_id,
+               create_by,
+               create_time,
+               update_by,
+               update_time,
+               remark,
+               version,
+               del_flag
+        from wx_qc_code_record
+    </sql>
+
+    <select id="selectWxQcCodeRecordList" parameterType="com.teaching.wxApp.domain.WxQcCodeRecord"
+            resultMap="WxQcCodeRecordResult">
+        <include refid="selectWxQcCodeRecordVoNoBase"/>
+        <where>
+            and del_flag = '0'
+            <if test="codeConfigId != null">
+                and code_config_id = #{codeConfigId}
+            </if>
+            <if test="school != null">
+                and school = #{school}
+            </if>
+            <if test="schoolName != null and schoolName != ''">
+                and school_name like concat('%', #{schoolName}, '%')
+            </if>
+            <if test="examinationHall != null and examinationHall != ''">
+                and examination_hall like concat('%', #{examinationHall}, '%')
+            </if>
+            <if test="examTime != null">
+                and exam_time = #{examTime}
+            </if>
+            <if test="codeStatus != null and codeStatus != ''">
+                and code_status = #{codeStatus}
+            </if>
+            <if test="userId != null">
+                and user_id = #{userId}
+            </if>
+            <if test="codeBase64 != null and codeBase64 != ''">
+                and code_base64 = #{codeBase64}
+            </if>
+            <if test="version != null">
+                and version = #{version}
+            </if>
+        </where>
+        order by create_time desc
+    </select>
+
+    <select id="selectWxQcCodeRecordInfosList" parameterType="com.teaching.wxApp.domain.WxQcCodeRecord"
+            resultMap="WxQcCodeRecordResult">
+        <include refid="selectWxQcCodeRecordVo"/>
+        <where>
+            and del_flag = '0'
+            <if test="codeConfigId != null">
+                and code_config_id = #{codeConfigId}
+            </if>
+            <if test="school != null">
+                and school = #{school}
+            </if>
+            <if test="schoolName != null and schoolName != ''">
+                and school_name like concat('%', #{schoolName}, '%')
+            </if>
+            <if test="examinationHall != null and examinationHall != ''">
+                and examination_hall like concat('%', #{examinationHall}, '%')
+            </if>
+            <if test="examTime != null">
+                and exam_time = #{examTime}
+            </if>
+            <if test="codeStatus != null and codeStatus != ''">
+                and code_status = #{codeStatus}
+            </if>
+            <if test="userId != null">
+                and user_id = #{userId}
+            </if>
+            <if test="codeBase64 != null and codeBase64 != ''">
+                and code_base64 = #{codeBase64}
+            </if>
+            <if test="version != null">
+                and version = #{version}
+            </if>
+        </where>
+        order by create_time desc
+    </select>
+
+    <select id="selectWxQcCodeRecordByRecordId" parameterType="Long" resultMap="WxQcCodeRecordResult">
+        <include refid="selectWxQcCodeRecordVo"/>
+        where record_id = #{recordId}
+    </select>
+    <select id="selectWxQcCodeBaseByRecordId" parameterType="Long" resultType="java.util.Map">
+        select code_base64 as codeBase64
+        from wx_qc_code_record
+        where record_id = #{recordId}
+    </select>
+
+    <insert id="insertWxQcCodeRecord" parameterType="com.teaching.wxApp.domain.WxQcCodeRecord" useGeneratedKeys="true"
+            keyProperty="recordId">
+        insert into wx_qc_code_record
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="codeConfigId != null">code_config_id,</if>
+            <if test="school != null">school,</if>
+            <if test="schoolName != null">school_name,</if>
+            <if test="examinationHall != null">examination_hall,</if>
+            <if test="examTime != null">exam_time,</if>
+            <if test="codeStatus != null">code_status,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="codeBase64 != null">code_base64,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+            <if test="version != null">version,</if>
+            <if test="delFlag != null">del_flag,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="codeConfigId != null">#{codeConfigId},</if>
+            <if test="school != null">#{school},</if>
+            <if test="schoolName != null">#{schoolName},</if>
+            <if test="examinationHall != null">#{examinationHall},</if>
+            <if test="examTime != null">#{examTime},</if>
+            <if test="codeStatus != null">#{codeStatus},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="codeBase64 != null">#{codeBase64},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="version != null">#{version},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+        </trim>
+    </insert>
+
+    <update id="updateWxQcCodeRecord" parameterType="com.teaching.wxApp.domain.WxQcCodeRecord">
+        update wx_qc_code_record
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="codeConfigId != null">code_config_id = #{codeConfigId},</if>
+            <if test="school != null">school = #{school},</if>
+            <if test="schoolName != null">school_name = #{schoolName},</if>
+            <if test="examinationHall != null">examination_hall = #{examinationHall},</if>
+            <if test="examTime != null">exam_time = #{examTime},</if>
+            <if test="codeStatus != null">code_status = #{codeStatus},</if>
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="codeBase64 != null">code_base64 = #{codeBase64},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="version != null">version = #{version},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+        </trim>
+        where record_id = #{recordId}
+    </update>
+
+    <delete id="deleteWxQcCodeRecordByRecordId" parameterType="Long">
+        update wx_qc_code_record
+        set del_flag = '2'
+        where record_id = #{recordId}
+    </delete>
+
+    <delete id="deleteWxQcCodeRecordByRecordIds">
+        update wx_qc_code_record
+        set del_flag = '2'
+        where record_id in
+        <foreach collection="array" item="recordId" open="(" separator="," close=")">
+            #{recordId}
+        </foreach>
+    </delete>
+
+    <select id="selectWxQcCodeRecordListByCodeConfigId" parameterType="Long" resultMap="WxQcCodeRecordResult">
+        <include refid="selectWxQcCodeRecordVo"/>
+        where code_config_id = #{codeConfigId}
+        and del_flag = '0'
+    </select>
+
+    <select id="selectRecordAndConfig" resultType="java.util.Map">
+        SELECT cr.school_name as schoolName,cr.examination_hall as examinationHall,
+               cc.`code_config_name` as codeConfigName, cc.`competition_series_id` as competitionSeriesId,
+               cc.`user_group_ids` as userGroupIds, cc.`success_hint_title` as sucessHintTitle,
+               cc.`success_hint_desc` as sucessHintDesc, cc.`examination_hall_ruler` as examinationHallRuler,
+               cc.`examination_hall_promise` as examinationHallPromise, cc.`improper_title` as improperTitle,
+               cc.`improper_desc` as improperDesc,  cc.`version`,cc.code_config_id as codeConfigId,cc.not_me_msg as notMeMsg
+        FROM `wx_qc_code_record`cr
+                 LEFT JOIN wx_qc_code_config cc on cc.code_config_id = cr.code_config_id
+        WHERE cr.record_id = #{id} and cr.del_flag = '0'
+    </select>
+</mapper>

@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.competition.mapper.CompetitionSceneScheduleMapper">
+
+    <resultMap type="com.teaching.competition.domain.CompetitionSceneSchedule" id="CompetitionSceneScheduleResult">
+        <id property="scheduleId" column="schedule_id"/>
+        <result property="scheduleName" column="schedule_name"/>
+        <result property="competitionSeriesId" column="competition_series_id"/>
+        <result property="competitionName" column="competition_name"/>
+        <result property="competitionStageId" column="competition_stage_id"/>
+        <result property="competitionStageName" column="competition_stage_name"/>
+        <result property="competitionTrackId" column="competition_track_id"/>
+        <result property="competitionTrackName" column="competition_track_name"/>
+        <result property="secondLevelCode" column="second_level_code"/>
+        <result property="secondLevelName" column="second_level_name"/>
+        <result property="credentialType" column="credential_type"/>
+        <result property="configDimension" column="config_dimension"/>
+        <result property="reportStartTime" column="report_start_time"/>
+        <result property="reportEndTime" column="report_end_time"/>
+        <result property="reportLocation" column="report_location"/>
+        <result property="contestStartTime" column="contest_start_time"/>
+        <result property="contestEndTime" column="contest_end_time"/>
+        <result property="contestLocation" column="contest_location"/>
+        <result property="contestRoom" column="contest_room"/>
+        <result property="waitingStartTime" column="waiting_start_time"/>
+        <result property="waitingEndTime" column="waiting_end_time"/>
+        <result property="waitingLocation" column="waiting_location"/>
+        <result property="waitingGroupCode" column="waiting_group_code"/>
+        <result property="waitingGroupName" column="waiting_group_name"/>
+        <result property="materialLocation" column="material_location"/>
+        <result property="notice" column="notice"/>
+        <result property="status" column="status"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="remark" column="remark"/>
+        <result property="version" column="version"/>
+        <result property="delFlag" column="del_flag"/>
+    </resultMap>
+
+    <sql id="selectCompetitionSceneScheduleVo">
+        select schedule_id, schedule_name, competition_series_id, competition_name, competition_stage_id,
+               competition_stage_name, competition_track_id, competition_track_name, second_level_code,
+               second_level_name, credential_type, config_dimension, report_start_time, report_end_time,
+               report_location, contest_start_time, contest_end_time, contest_location, contest_room,
+               waiting_start_time, waiting_end_time, waiting_location, waiting_group_code, waiting_group_name,
+               material_location, notice, status, create_by, create_time, update_by, update_time, remark,
+               version, del_flag
+        from competition_scene_schedule
+    </sql>
+
+    <select id="selectCompetitionSceneScheduleById" parameterType="Long" resultMap="CompetitionSceneScheduleResult">
+        <include refid="selectCompetitionSceneScheduleVo"/>
+        where schedule_id = #{scheduleId} and del_flag = '0'
+    </select>
+
+    <select id="selectCompetitionSceneScheduleList" parameterType="com.teaching.competition.domain.CompetitionSceneSchedule"
+            resultMap="CompetitionSceneScheduleResult">
+        <include refid="selectCompetitionSceneScheduleVo"/>
+        <where>
+            del_flag = '0'
+            <if test="scheduleName != null and scheduleName != ''">
+                and schedule_name like concat('%', #{scheduleName}, '%')
+            </if>
+            <if test="competitionSeriesId != null">
+                and competition_series_id = #{competitionSeriesId}
+            </if>
+            <if test="competitionName != null and competitionName != ''">
+                and competition_name like concat('%', #{competitionName}, '%')
+            </if>
+            <if test="competitionStageId != null and competitionStageId != ''">
+                and competition_stage_id = #{competitionStageId}
+            </if>
+            <if test="competitionTrackId != null and competitionTrackId != ''">
+                and competition_track_id = #{competitionTrackId}
+            </if>
+            <if test="secondLevelCode != null and secondLevelCode != ''">
+                and second_level_code = #{secondLevelCode}
+            </if>
+            <if test="credentialType != null and credentialType != ''">
+                and credential_type = #{credentialType}
+            </if>
+            <if test="configDimension != null and configDimension != ''">
+                and config_dimension = #{configDimension}
+            </if>
+            <if test="status != null and status != ''">
+                and status = #{status}
+            </if>
+        </where>
+        order by contest_start_time asc, report_start_time asc, schedule_id desc
+    </select>
+
+    <insert id="insertCompetitionSceneSchedule"
+            parameterType="com.teaching.competition.domain.CompetitionSceneSchedule"
+            useGeneratedKeys="true" keyProperty="scheduleId">
+        insert into competition_scene_schedule
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="scheduleName != null">schedule_name,</if>
+            <if test="competitionSeriesId != null">competition_series_id,</if>
+            <if test="competitionName != null">competition_name,</if>
+            <if test="competitionStageId != null">competition_stage_id,</if>
+            <if test="competitionStageName != null">competition_stage_name,</if>
+            <if test="competitionTrackId != null">competition_track_id,</if>
+            <if test="competitionTrackName != null">competition_track_name,</if>
+            <if test="secondLevelCode != null">second_level_code,</if>
+            <if test="secondLevelName != null">second_level_name,</if>
+            <if test="credentialType != null">credential_type,</if>
+            <if test="configDimension != null">config_dimension,</if>
+            <if test="reportStartTime != null">report_start_time,</if>
+            <if test="reportEndTime != null">report_end_time,</if>
+            <if test="reportLocation != null">report_location,</if>
+            <if test="contestStartTime != null">contest_start_time,</if>
+            <if test="contestEndTime != null">contest_end_time,</if>
+            <if test="contestLocation != null">contest_location,</if>
+            <if test="contestRoom != null">contest_room,</if>
+            <if test="waitingStartTime != null">waiting_start_time,</if>
+            <if test="waitingEndTime != null">waiting_end_time,</if>
+            <if test="waitingLocation != null">waiting_location,</if>
+            <if test="waitingGroupCode != null">waiting_group_code,</if>
+            <if test="waitingGroupName != null">waiting_group_name,</if>
+            <if test="materialLocation != null">material_location,</if>
+            <if test="notice != null">notice,</if>
+            <if test="status != null">status,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+            <if test="version != null">version,</if>
+            <if test="delFlag != null">del_flag,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="scheduleName != null">#{scheduleName},</if>
+            <if test="competitionSeriesId != null">#{competitionSeriesId},</if>
+            <if test="competitionName != null">#{competitionName},</if>
+            <if test="competitionStageId != null">#{competitionStageId},</if>
+            <if test="competitionStageName != null">#{competitionStageName},</if>
+            <if test="competitionTrackId != null">#{competitionTrackId},</if>
+            <if test="competitionTrackName != null">#{competitionTrackName},</if>
+            <if test="secondLevelCode != null">#{secondLevelCode},</if>
+            <if test="secondLevelName != null">#{secondLevelName},</if>
+            <if test="credentialType != null">#{credentialType},</if>
+            <if test="configDimension != null">#{configDimension},</if>
+            <if test="reportStartTime != null">#{reportStartTime},</if>
+            <if test="reportEndTime != null">#{reportEndTime},</if>
+            <if test="reportLocation != null">#{reportLocation},</if>
+            <if test="contestStartTime != null">#{contestStartTime},</if>
+            <if test="contestEndTime != null">#{contestEndTime},</if>
+            <if test="contestLocation != null">#{contestLocation},</if>
+            <if test="contestRoom != null">#{contestRoom},</if>
+            <if test="waitingStartTime != null">#{waitingStartTime},</if>
+            <if test="waitingEndTime != null">#{waitingEndTime},</if>
+            <if test="waitingLocation != null">#{waitingLocation},</if>
+            <if test="waitingGroupCode != null">#{waitingGroupCode},</if>
+            <if test="waitingGroupName != null">#{waitingGroupName},</if>
+            <if test="materialLocation != null">#{materialLocation},</if>
+            <if test="notice != null">#{notice},</if>
+            <if test="status != null">#{status},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="version != null">#{version},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+        </trim>
+    </insert>
+
+    <update id="updateCompetitionSceneSchedule"
+            parameterType="com.teaching.competition.domain.CompetitionSceneSchedule">
+        update competition_scene_schedule
+        <set>
+            <if test="scheduleName != null">schedule_name = #{scheduleName},</if>
+            <if test="competitionSeriesId != null">competition_series_id = #{competitionSeriesId},</if>
+            <if test="competitionName != null">competition_name = #{competitionName},</if>
+            <if test="competitionStageId != null">competition_stage_id = #{competitionStageId},</if>
+            <if test="competitionStageName != null">competition_stage_name = #{competitionStageName},</if>
+            <if test="competitionTrackId != null">competition_track_id = #{competitionTrackId},</if>
+            <if test="competitionTrackName != null">competition_track_name = #{competitionTrackName},</if>
+            <if test="secondLevelCode != null">second_level_code = #{secondLevelCode},</if>
+            <if test="secondLevelName != null">second_level_name = #{secondLevelName},</if>
+            <if test="credentialType != null">credential_type = #{credentialType},</if>
+            <if test="configDimension != null">config_dimension = #{configDimension},</if>
+            <if test="reportStartTime != null">report_start_time = #{reportStartTime},</if>
+            <if test="reportEndTime != null">report_end_time = #{reportEndTime},</if>
+            <if test="reportLocation != null">report_location = #{reportLocation},</if>
+            <if test="contestStartTime != null">contest_start_time = #{contestStartTime},</if>
+            <if test="contestEndTime != null">contest_end_time = #{contestEndTime},</if>
+            <if test="contestLocation != null">contest_location = #{contestLocation},</if>
+            <if test="contestRoom != null">contest_room = #{contestRoom},</if>
+            <if test="waitingStartTime != null">waiting_start_time = #{waitingStartTime},</if>
+            <if test="waitingEndTime != null">waiting_end_time = #{waitingEndTime},</if>
+            <if test="waitingLocation != null">waiting_location = #{waitingLocation},</if>
+            <if test="waitingGroupCode != null">waiting_group_code = #{waitingGroupCode},</if>
+            <if test="waitingGroupName != null">waiting_group_name = #{waitingGroupName},</if>
+            <if test="materialLocation != null">material_location = #{materialLocation},</if>
+            <if test="notice != null">notice = #{notice},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            version = version + 1,
+        </set>
+        where schedule_id = #{scheduleId} and del_flag = '0'
+    </update>
+
+    <update id="deleteCompetitionSceneScheduleByIds">
+        update competition_scene_schedule
+        set del_flag = '1', update_by = #{updateBy}, update_time = now(), version = version + 1
+        where schedule_id in
+        <foreach item="scheduleId" collection="scheduleIds" open="(" separator="," close=")">
+            #{scheduleId}
+        </foreach>
+    </update>
+</mapper>

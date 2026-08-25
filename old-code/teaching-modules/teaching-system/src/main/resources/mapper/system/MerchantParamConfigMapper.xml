@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.system.mapper.MerchantParamConfigMapper">
+    
+    <resultMap type="com.teaching.system.domain.MerchantParamConfig" id="MerchantParamConfigResult">
+        <result property="id"    column="id"    />
+        <result property="merName"    column="mer_name"    />
+        <result property="merId"    column="mer_id"    />
+        <result property="feeUserId"    column="fee_user_id"    />
+        <result property="termId"    column="term_id"    />
+        <result property="payValidTime"    column="pay_valid_time"    />
+        <result property="payAppId"    column="pay_app_id"    />
+        <result property="payAppSecret"    column="pay_app_secret"    />
+        <result property="payPrivateKey"    column="pay_private_key"    />
+        <result property="payPublicKey"    column="pay_public_key"    />
+        <result property="invoiceAppKey"    column="invoice_app_key"    />
+        <result property="invoiceAppSecret"    column="invoice_app_secret"    />
+        <result property="invoiceAccessToken" column="invoice_access_token"/>
+        <result property="taxNum"    column="tax_num"    />
+        <result property="extension"    column="extension"    />
+        <result property="taxRate"    column="tax_rate"    />
+        <result property="clerk"    column="clerk"    />
+        <result property="checker"    column="checker"    />
+        <result property="bank"    column="bank"    />
+        <result property="account"    column="account"    />
+        <result property="address"    column="address"    />
+        <result property="workScope"    column="work_scope"    />
+        <result property="invoiceContent"    column="invoice_content"    />
+        <result property="status"    column="status"    />
+        <result property="remark"    column="remark"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="version"    column="version"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="userId"    column="user_id"    />
+        <result property="orgId"    column="org_id"    />
+    </resultMap>
+
+    <sql id="selectMerchantParamConfigVo">
+        select id, mer_name, mer_id, fee_user_id, term_id, pay_valid_time, pay_app_id, pay_app_secret, pay_private_key, pay_public_key, invoice_app_key, invoice_app_secret,invoice_access_token, tax_num, extension, tax_rate, clerk, checker, bank, account, address, work_scope, invoice_content, status, remark, create_by, create_time, update_by, update_time, version, del_flag, user_id, org_id from merchant_param_config
+    </sql>
+
+    <select id="selectMerchantParamConfigList" parameterType="com.teaching.system.domain.MerchantParamConfig" resultMap="MerchantParamConfigResult">
+        <include refid="selectMerchantParamConfigVo"/>
+        <where>
+            del_flag = 0  <!-- 添加逻辑删除标志 -->
+            <if test="merName != null  and merName != ''"> and mer_name like concat('%', #{merName}, '%')</if>
+            <if test="merId != null  and merId != ''"> and mer_id = #{merId}</if>
+            <if test="feeUserId != null  and feeUserId != ''"> and fee_user_id = #{feeUserId}</if>
+            <if test="termId != null  and termId != ''"> and term_id = #{termId}</if>
+            <if test="payValidTime != null "> and pay_valid_time = #{payValidTime}</if>
+            <if test="payAppId != null  and payAppId != ''"> and pay_app_id = #{payAppId}</if>
+            <if test="payAppSecret != null  and payAppSecret != ''"> and pay_app_secret = #{payAppSecret}</if>
+            <if test="payPrivateKey != null  and payPrivateKey != ''"> and pay_private_key = #{payPrivateKey}</if>
+            <if test="payPublicKey != null  and payPublicKey != ''"> and pay_public_key = #{payPublicKey}</if>
+            <if test="invoiceAppKey != null  and invoiceAppKey != ''"> and invoice_app_key = #{invoiceAppKey}</if>
+            <if test="invoiceAppSecret != null  and invoiceAppSecret != ''"> and invoice_app_secret = #{invoiceAppSecret}</if>
+            <if test="invoiceAccessToken != null  and invoiceAccessToken != ''"> and invoice_access_token = #{invoiceAccessToken}</if>
+            <if test="taxNum != null  and taxNum != ''"> and tax_num = #{taxNum}</if>
+            <if test="extension != null  and extension != ''"> and extension = #{extension}</if>
+            <if test="taxRate != null "> and tax_rate = #{taxRate}</if>
+            <if test="clerk != null  and clerk != ''"> and clerk = #{clerk}</if>
+            <if test="checker != null  and checker != ''"> and checker = #{checker}</if>
+            <if test="bank != null  and bank != ''"> and bank = #{bank}</if>
+            <if test="account != null  and account != ''"> and account = #{account}</if>
+            <if test="address != null  and address != ''"> and address = #{address}</if>
+            <if test="workScope != null  and workScope != ''"> and work_scope = #{workScope}</if>
+            <if test="invoiceContent != null  and invoiceContent != ''"> and invoice_content = #{invoiceContent}</if>
+            <if test="status != null "> and status = #{status}</if>
+            <if test="version != null "> and version = #{version}</if>
+            <if test="userId != null "> and user_id = #{userId}</if>
+            <if test="orgId != null "> and org_id = #{orgId}</if>
+        </where>
+    </select>
+    
+    <select id="selectMerchantParamConfigById" parameterType="Long" resultMap="MerchantParamConfigResult">
+        <include refid="selectMerchantParamConfigVo"/>
+        where id = #{id} and del_flag = 0
+    </select>
+    <select id="selectWorkingConfigList" resultMap="MerchantParamConfigResult">
+        <include refid="selectMerchantParamConfigVo"/>
+        where del_flag = 0 and status = 1
+        order by create_time desc
+    </select>
+    <select id="selectMerchantParamConfigByMerId" resultMap="MerchantParamConfigResult">
+        <include refid="selectMerchantParamConfigVo"/>
+        where mer_id = #{merId} and del_flag = 0
+    </select>
+    <select id="selectMerchantParamConfigByTaxNum" resultMap="MerchantParamConfigResult">
+        <include refid="selectMerchantParamConfigVo"/>
+         where tax_num = #{taxNum} and del_flag = 0
+    </select>
+
+    <insert id="insertMerchantParamConfig" parameterType="com.teaching.system.domain.MerchantParamConfig" useGeneratedKeys="true" keyProperty="id">
+        insert into merchant_param_config
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="merName != null">mer_name,</if>
+            <if test="merId != null">mer_id,</if>
+            <if test="feeUserId != null">fee_user_id,</if>
+            <if test="termId != null">term_id,</if>
+            <if test="payValidTime != null">pay_valid_time,</if>
+            <if test="payAppId != null">pay_app_id,</if>
+            <if test="payAppSecret != null">pay_app_secret,</if>
+            <if test="payPrivateKey != null">pay_private_key,</if>
+            <if test="payPublicKey != null">pay_public_key,</if>
+            <if test="invoiceAppKey != null">invoice_app_key,</if>
+            <if test="invoiceAppSecret != null">invoice_app_secret,</if>
+            <if test="invoiceAccessToken != null">invoice_access_token,</if>
+            <if test="taxNum != null">tax_num,</if>
+            <if test="extension != null">extension,</if>
+            <if test="taxRate != null">tax_rate,</if>
+            <if test="clerk != null">clerk,</if>
+            <if test="checker != null">checker,</if>
+            <if test="bank != null">bank,</if>
+            <if test="account != null">account,</if>
+            <if test="address != null">address,</if>
+            <if test="workScope != null">work_scope,</if>
+            <if test="invoiceContent != null">invoice_content,</if>
+            <if test="status != null">status,</if>
+            <if test="remark != null">remark,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="version != null">version,</if>
+            <if test="delFlag != null">del_flag,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="orgId != null">org_id,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="merName != null">#{merName},</if>
+            <if test="merId != null">#{merId},</if>
+            <if test="feeUserId != null">#{feeUserId},</if>
+            <if test="termId != null">#{termId},</if>
+            <if test="payValidTime != null">#{payValidTime},</if>
+            <if test="payAppId != null">#{payAppId},</if>
+            <if test="payAppSecret != null">#{payAppSecret},</if>
+            <if test="payPrivateKey != null">#{payPrivateKey},</if>
+            <if test="payPublicKey != null">#{payPublicKey},</if>
+            <if test="invoiceAppKey != null">#{invoiceAppKey},</if>
+            <if test="invoiceAppSecret != null">#{invoiceAppSecret},</if>
+            <if test="invoiceAccessToken != null">#{invoiceAccessToken},</if>
+            <if test="taxNum != null">#{taxNum},</if>
+            <if test="extension != null">#{extension},</if>
+            <if test="taxRate != null">#{taxRate},</if>
+            <if test="clerk != null">#{clerk},</if>
+            <if test="checker != null">#{checker},</if>
+            <if test="bank != null">#{bank},</if>
+            <if test="account != null">#{account},</if>
+            <if test="address != null">#{address},</if>
+            <if test="workScope != null">#{workScope},</if>
+            <if test="invoiceContent != null">#{invoiceContent},</if>
+            <if test="status != null">#{status},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="version != null">#{version},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="orgId != null">#{orgId},</if>
+         </trim>
+    </insert>
+
+    <update id="updateMerchantParamConfig" parameterType="com.teaching.system.domain.MerchantParamConfig">
+        update merchant_param_config
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="merName != null">mer_name = #{merName},</if>
+            <if test="merId != null">mer_id = #{merId},</if>
+            <if test="feeUserId != null">fee_user_id = #{feeUserId},</if>
+            <if test="termId != null">term_id = #{termId},</if>
+            <if test="payValidTime != null">pay_valid_time = #{payValidTime},</if>
+            <if test="payAppId != null">pay_app_id = #{payAppId},</if>
+            <if test="payAppSecret != null">pay_app_secret = #{payAppSecret},</if>
+            <if test="payPrivateKey != null">pay_private_key = #{payPrivateKey},</if>
+            <if test="payPublicKey != null">pay_public_key = #{payPublicKey},</if>
+            <if test="invoiceAppKey != null">invoice_app_key = #{invoiceAppKey},</if>
+            <if test="invoiceAppSecret != null">invoice_app_secret = #{invoiceAppSecret},</if>
+            <if test="invoiceAccessToken != null">invoice_access_token = #{invoiceAccessToken},</if>
+            <if test="taxNum != null">tax_num = #{taxNum},</if>
+            <if test="extension != null">extension = #{extension},</if>
+            <if test="taxRate != null">tax_rate = #{taxRate},</if>
+            <if test="clerk != null">clerk = #{clerk},</if>
+            <if test="checker != null">checker = #{checker},</if>
+            <if test="bank != null">bank = #{bank},</if>
+            <if test="account != null">account = #{account},</if>
+            <if test="address != null">address = #{address},</if>
+            <if test="workScope != null">work_scope = #{workScope},</if>
+            <if test="invoiceContent != null">invoice_content = #{invoiceContent},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="version != null">version = #{version},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="orgId != null">org_id = #{orgId},</if>
+        </trim>
+        where id = #{id}
+    </update>
+    <update id="changeStatus">
+        update merchant_param_config set status = #{status} where id = #{id} and del_flag = 0
+    </update>
+
+    <delete id="deleteMerchantParamConfigById" parameterType="Long">
+        delete from merchant_param_config where id = #{id} and del_flag = 0
+    </delete>
+
+    <update id="deleteMerchantParamConfigByIds" parameterType="String">
+        update merchant_param_config set del_flag = 1 where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+         and del_flag = 0
+    </update>
+
+    <select id="merSelect" resultType="Map">
+        select mer_id,mer_name from merchant_param_config where del_flag = 0
+    </select>
+</mapper>

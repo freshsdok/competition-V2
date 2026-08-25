@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.system.mapper.ReviewGroupSpecialistRelationMapper">
+
+    <resultMap type="com.teaching.system.domain.ReviewGroupSpecialistRelation"
+               id="ReviewGroupSpecialistRelationResult">
+        <result property="groupRelaId" column="group_rela_id"/>
+        <result property="groupId" column="group_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="userName" column="user_name"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="version" column="version"/>
+        <result property="delFlag" column="del_flag"/>
+    </resultMap>
+
+    <sql id="selectReviewGroupSpecialistRelationVo">
+        select group_rela_id, group_id, user_id, create_by, create_time, update_by, update_time, version, del_flag
+        from review_group_specialist_relation
+    </sql>
+
+    <select id="selectReviewGroupSpecialistRelationList"
+            parameterType="com.teaching.system.domain.ReviewGroupSpecialistRelation"
+            resultMap="ReviewGroupSpecialistRelationResult">
+        <include refid="selectReviewGroupSpecialistRelationVo"/>
+        <where>
+            del_flag = '0'
+            <if test="groupId != null">
+                and group_id = #{groupId}
+            </if>
+            <if test="userId != null">
+                and user_id = #{userId}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectReviewGroupSpecialistRelationByGroupRelaId" parameterType="Long"
+            resultMap="ReviewGroupSpecialistRelationResult">
+        <include refid="selectReviewGroupSpecialistRelationVo"/>
+        where group_rela_id = #{groupRelaId} and del_flag = '0'
+    </select>
+
+    <select id="selectReviewGroupSpecialistRelationByGroupId" parameterType="Long"
+            resultMap="ReviewGroupSpecialistRelationResult">
+        select rgsr.group_rela_id, rgsr.group_id, rgsr.user_id,
+        COALESCE(
+        (SELECT real_name
+        FROM auth_info
+        WHERE user_id = (
+        SELECT COALESCE(NULLIF(su.sys_user_id, ''), rgsr.user_id)
+        FROM sys_user su
+        WHERE su.user_id = rgsr.user_id
+        LIMIT 1
+        )
+        AND auth_status = '5'
+        ORDER BY auth_time DESC
+        LIMIT 1),
+        (SELECT real_name
+        FROM auth_info
+        WHERE user_id = rgsr.user_id
+        AND auth_status = '5'
+        ORDER BY auth_time DESC
+        LIMIT 1),
+        (SELECT nick_name
+        FROM sys_user
+        WHERE user_id = rgsr.user_id
+        LIMIT 1)
+        ) AS user_name, rgsr.create_by, rgsr.create_time, rgsr.update_by, rgsr.update_time, rgsr.version, rgsr.del_flag
+        from review_group_specialist_relation rgsr
+        where rgsr.group_id = #{groupId} and rgsr.del_flag = '0'
+    </select>
+
+    <select id="selectReviewGroupSpecialistRelationByGroupIds" parameterType="List"
+            resultMap="ReviewGroupSpecialistRelationResult">
+        select rgsr.group_rela_id, rgsr.group_id, rgsr.user_id,
+        (select real_name from auth_info where user_id = rgsr.user_id AND auth_status = '5' order by auth_time desc limit 1) user_name
+        ,rgsr.create_by, rgsr.create_time, rgsr.update_by, rgsr.update_time, rgsr.version, rgsr.del_flag
+        from review_group_specialist_relation rgsr
+        where rgsr.del_flag = '0' and
+        rgsr.group_id in
+        <foreach collection="groupIdList" item="groupId" open="(" separator="," close=")">
+            #{groupId}
+        </foreach>
+    </select>
+
+    <insert id="insertReviewGroupSpecialistRelation"
+            parameterType="com.teaching.system.domain.ReviewGroupSpecialistRelation" useGeneratedKeys="true"
+            keyProperty="groupRelaId">
+        insert into review_group_specialist_relation
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="groupId != null">group_id,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="version != null">version,</if>
+            <if test="delFlag != null">del_flag,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="groupId != null">#{groupId},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="version != null">#{version},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+        </trim>
+    </insert>
+
+    <update id="updateReviewGroupSpecialistRelation"
+            parameterType="com.teaching.system.domain.ReviewGroupSpecialistRelation">
+        update review_group_specialist_relation
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="groupId != null">group_id = #{groupId},</if>
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="version != null">version = #{version},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+        </trim>
+        where group_rela_id = #{groupRelaId}
+    </update>
+
+    <delete id="deleteReviewGroupSpecialistRelationByGroupRelaId" parameterType="Long">
+        update review_group_specialist_relation set del_flag = '2' where group_rela_id = #{groupRelaId}
+    </delete>
+
+    <delete id="deleteReviewGroupSpecialistRelationByGroupRelaIds">
+        update review_group_specialist_relation set del_flag = '2' where group_rela_id in
+        <foreach collection="array" item="groupRelaId" open="(" separator="," close=")">
+            #{groupRelaId}
+        </foreach>
+    </delete>
+</mapper>

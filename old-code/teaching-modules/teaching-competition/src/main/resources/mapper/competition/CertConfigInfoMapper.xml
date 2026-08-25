@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.competition.mapper.CertConfigInfoMapper">
+    <resultMap type="com.teaching.system.api.domain.CertConfigInfo" id="CertConfigInfoResult">
+        <id property="certConfigId" column="cert_config_id" />
+        <result property="certConfigName" column="cert_config_name" />
+        <result property="certSource" column="cert_source" />
+        <result property="competitionSeriesId" column="competition_series_id" />
+        <result property="competitionStageId" column="competition_stage_id" />
+        <result property="competitionTrackId" column="competition_track_id" />
+        <result property="secondLevelCode" column="second_level_code" />
+        <result property="courseId" column="course_id" />
+        <result property="trainingProgramId" column="training_program_id" />
+        <result property="certPeriodType" column="cert_period_type" />
+        <result property="certPeriodTime" column="cert_period_time" />
+        <result property="certManagerRole" column="cert_manager_role" />
+        <result property="certStatus" column="cert_status" />
+        <result property="certLinkName" column="cert_link_name" />
+        <result property="certLinkUrl" column="cert_link_url" />
+        <result property="orgCode" column="org_code" />
+        <result property="awardsName" column="awards_name" />
+        <result property="year" column="year" />
+        <result property="isCompetition" column="is_competition" />
+        <result property="isCourse" column="is_course" />
+        <result property="isTrainingProgram" column="is_training_program" />
+        <result property="competitionSeriesName" column="competition_series_name" />
+        <result property="competitionName" column="competition_name" />
+        <result property="competitionId" column="competition_id" />
+        <result property="competitionTrackName" column="competition_track_name" />
+        <result property="secondLevelName" column="second_level_name" />
+        <result property="competitionStageName" column="competition_stage_name" />
+        <result property="createBy" column="create_by" />
+        <result property="createTime" column="create_time" />
+        <result property="updateBy" column="update_by" />
+        <result property="updateTime" column="update_time" />
+        <result property="delFlag" column="del_flag" />
+        <result property="version" column="version" />
+    </resultMap>
+
+    <sql id="selectCertConfigInfoVo">
+        select cert_config_id, cert_config_name, cert_source, competition_series_id, competition_stage_id, competition_track_id, second_level_code, course_id, training_program_id, cert_period_type, cert_period_time, cert_manager_role, cert_status, cert_link_name, cert_link_url, org_code, awards_name, year, is_competition, is_course, is_training_program, create_by, create_time, update_by, update_time, del_flag, version from cert_config_info
+    </sql>
+
+    <select id="selectCertConfigInfoById" parameterType="Long" resultMap="CertConfigInfoResult">
+        select cci.cert_config_id, cci.cert_config_name, cci.cert_source, cci.competition_series_id, cci.competition_track_id, cci.second_level_code, cci.course_id,
+        cci.training_program_id, cci.cert_period_type, cci.cert_period_time, cci.cert_manager_role, cci.cert_status, cci.cert_link_name,
+        cci.cert_link_url, cci.org_code, cci.awards_name, cci.is_competition, cci.is_course, cci.is_training_program,cci.year,
+        cci.create_by, cci.create_time, cci.update_by,cci. update_time, cci.del_flag, cci.version,cci.competition_stage_id,
+        csi.competition_series_name,csi.competition_name,cti.competition_track_name,ctc.second_level_name
+        from cert_config_info cci
+        left join (select a.competition_series_id, a.competition_series_name,b.competition_name from competition_series_info a
+        left join competition_main_info b on a.competition_id = b.competition_id) csi on cci.competition_series_id = csi.competition_series_id
+        left join competition_track_info cti on cci.competition_track_id = cti.competition_track_id
+        left join competition_track_config ctc on cci.second_level_code = ctc.second_level_code
+        where cci.del_flag = '0' and cci.cert_config_id = #{certConfigId}
+    </select>
+
+    <select id="selectCertConfigInfoByIds" parameterType="Long" resultMap="CertConfigInfoResult">
+        select cci.cert_config_id, cci.cert_config_name, cci.cert_source, cci.competition_series_id, cci.competition_track_id, cci.second_level_code, cci.course_id,
+        cci.training_program_id, cci.cert_period_type, cci.cert_period_time, cci.cert_manager_role, cci.cert_status, cci.cert_link_name,
+        cci.cert_link_url, cci.org_code, cci.awards_name, cci.is_competition, cci.is_course, cci.is_training_program,cci.year,
+        cci.create_by, cci.create_time, cci.update_by,cci. update_time, cci.del_flag, cci.version,cci.competition_stage_id,ctcf.stage_name as competition_stage_name,
+        csi.competition_series_name,csi.competition_name,cti.competition_track_name,ctc.second_level_name
+        from cert_config_info cci
+        left join (select a.competition_series_id, a.competition_series_name,b.competition_name from competition_series_info a
+        left join competition_main_info b on a.competition_id = b.competition_id) csi on cci.competition_series_id = csi.competition_series_id
+        left join competition_track_info cti on cci.competition_track_id = cti.competition_track_id
+        left join competition_track_config ctc on cci.second_level_code = ctc.second_level_code
+        left join competition_stage_config ctcf on cci.competition_stage_id = ctcf.stage_id
+        where cci.del_flag = '0' and cci.cert_config_id in
+        <foreach item="item" collection="certConfigIdList" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="selectCertConfigInfoByName" parameterType="String" resultMap="CertConfigInfoResult">
+        select cci.cert_config_id, cci.cert_config_name, cci.cert_source, cci.competition_series_id, cci.competition_track_id, cci.second_level_code, cci.course_id,
+        cci.training_program_id, cci.cert_period_type, cci.cert_period_time, cci.cert_manager_role, cci.cert_status, cci.cert_link_name,
+        cci.cert_link_url, cci.org_code, cci.awards_name, cci.is_competition, cci.is_course, cci.is_training_program,cci.year,
+        cci.create_by, cci.create_time, cci.update_by,cci. update_time, cci.del_flag, cci.version,cci.competition_stage_id,ctcf.stage_name as competition_stage_name,
+        csi.competition_series_name,csi.competition_name,cti.competition_track_name,ctc.second_level_name
+        from cert_config_info cci
+        left join (select a.competition_series_id, a.competition_series_name,b.competition_name from competition_series_info a
+        left join competition_main_info b on a.competition_id = b.competition_id) csi on cci.competition_series_id = csi.competition_series_id
+        left join competition_track_info cti on cci.competition_track_id = cti.competition_track_id
+        left join competition_track_config ctc on cci.second_level_code = ctc.second_level_code
+        left join competition_stage_config ctcf on cci.competition_stage_id = ctcf.stage_id
+        where cci.del_flag = '0' and cert_config_name = #{certConfigName}
+    </select>
+
+    <select id="selectCertConfigInfoList" parameterType="com.teaching.system.api.domain.CertConfigInfo" resultMap="CertConfigInfoResult">
+        select cci.cert_config_id, cci.cert_config_name, cci.cert_source, cci.competition_series_id, cci.competition_track_id, cci.second_level_code, cci.course_id,
+        cci.training_program_id, cci.cert_period_type, cci.cert_period_time, cci.cert_manager_role, cci.cert_status, cci.cert_link_name,
+        cci.cert_link_url, cci.org_code, cci.awards_name, cci.is_competition, cci.is_course, cci.is_training_program,cci.year,
+        cci.create_by, cci.create_time, cci.update_by,cci. update_time, cci.del_flag, cci.version,cci.competition_stage_id,ctcf.stage_name as competition_stage_name,
+        csi.competition_series_name,csi.competition_name,csi.competition_id,cti.competition_track_name,ctc.second_level_name
+        from cert_config_info cci
+        left join (select a.competition_series_id, a.competition_series_name,b.competition_name,b.competition_id from competition_series_info a
+        left join competition_main_info b on a.competition_id = b.competition_id) csi on cci.competition_series_id = csi.competition_series_id
+        left join competition_track_info cti on cci.competition_track_id = cti.competition_track_id
+        left join competition_track_config ctc on cci.second_level_code = ctc.second_level_code
+        left join competition_stage_config ctcf on cci.competition_stage_id = ctcf.stage_id
+        where cci.del_flag = '0'
+            <if test="certConfigName != null and certConfigName != ''">
+                and cci.cert_config_name like concat('%', #{certConfigName}, '%')
+            </if>
+            <if test="certSource != null and certSource != ''">
+                and cci.cert_source = #{certSource}
+            </if>
+            <if test="competitionStageId != null and competitionStageId != ''">
+                and ctcf.stage_id = #{competitionStageId}
+            </if>
+        <if test="certManagerRole != null and certManagerRole != ''">
+            and FIND_IN_SET(#{certManagerRole},cci.cert_manager_role)
+        </if>
+        <if test="competitionName != null and competitionName!=''">
+            and cci.competition_series_id in (select a.competition_series_id from competition_series_info a
+            left join competition_main_info b on a.competition_id = b.competition_id where b.competition_name like concat('%', #{competitionName}, '%'))
+        </if>
+        <if test="competitionStageName != null and competitionStageName!=''">
+            and cci.competition_stage_id in (select stage_id from competition_stage_config where stage_name like concat('%', #{competitionStageName}, '%'))
+        </if>
+        <if test="competitionSeriesName != null and competitionSeriesName!=''">
+            and cci.competition_series_id in (select competition_series_id from competition_series_info where competition_series_name like concat('%', #{competitionSeriesName}, '%'))
+        </if>
+        <if test="competitionTrackName != null and competitionTrackName != ''">
+            and cci.competition_track_id in (select competition_track_id from competition_track_info where competition_track_name like concat('%', #{competitionTrackName}, '%'))
+        </if>
+        <if test="secondLevelName != null and secondLevelName != ''">
+            and cci.second_level_code in (select second_level_code from competition_track_config where second_level_name like concat('%', #{secondLevelName}, '%')
+        </if>
+            <if test="competitionSeriesId != null">
+                and cci.competition_series_id = #{competitionSeriesId}
+            </if>
+            <if test="competitionTrackId != null and competitionTrackId != ''">
+                and cci.competition_track_id = #{competitionTrackId}
+            </if>
+            <if test="secondLevelCode != null and secondLevelCode != ''">
+                and cci.second_level_code = #{secondLevelCode}
+            </if>
+            <if test="certStatus != null and certStatus != ''">
+                and cci.cert_status = #{certStatus}
+            </if>
+        <if test="orgCode != null and orgCode != ''">
+            and cci.org_code = #{orgCode}
+        </if>
+        order by cci.create_time desc
+    </select>
+
+    <insert id="insertCertConfigInfo" parameterType="com.teaching.system.api.domain.CertConfigInfo" useGeneratedKeys="true" keyProperty="certConfigId">
+        insert into cert_config_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="certConfigName != null">cert_config_name,</if>
+            <if test="certSource != null">cert_source,</if>
+            <if test="competitionSeriesId != null">competition_series_id,</if>
+            <if test="competitionStageId != null">competition_stage_id,</if>
+            <if test="competitionTrackId != null">competition_track_id,</if>
+            <if test="secondLevelCode != null">second_level_code,</if>
+            <if test="courseId != null">course_id,</if>
+            <if test="trainingProgramId != null">training_program_id,</if>
+            <if test="certPeriodType != null">cert_period_type,</if>
+            <if test="certPeriodTime != null">cert_period_time,</if>
+            <if test="certManagerRole != null">cert_manager_role,</if>
+            <if test="certStatus != null">cert_status,</if>
+            <if test="certLinkName != null">cert_link_name,</if>
+            <if test="certLinkUrl != null">cert_link_url,</if>
+            <if test="orgCode != null">org_code,</if>
+            <if test="awardsName != null">awards_name,</if>
+            <if test="year != null">year,</if>
+            <if test="isCompetition != null">is_competition,</if>
+            <if test="isCourse != null">is_course,</if>
+            <if test="isTrainingProgram != null">is_training_program,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="delFlag != null">del_flag,</if>
+            <if test="version != null">version,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="certConfigName != null">#{certConfigName},</if>
+            <if test="certSource != null">#{certSource},</if>
+            <if test="competitionSeriesId != null">#{competitionSeriesId},</if>
+            <if test="competitionStageId != null">#{competitionStageId},</if>
+            <if test="competitionTrackId != null">#{competitionTrackId},</if>
+            <if test="secondLevelCode != null">#{secondLevelCode},</if>
+            <if test="courseId != null">#{courseId},</if>
+            <if test="trainingProgramId != null">#{trainingProgramId},</if>
+            <if test="certPeriodType != null">#{certPeriodType},</if>
+            <if test="certPeriodTime != null">#{certPeriodTime},</if>
+            <if test="certManagerRole != null">#{certManagerRole},</if>
+            <if test="certStatus != null">#{certStatus},</if>
+            <if test="certLinkName != null">#{certLinkName},</if>
+            <if test="certLinkUrl != null">#{certLinkUrl},</if>
+            <if test="orgCode != null">#{orgCode},</if>
+            <if test="awardsName != null">#{awardsName},</if>
+            <if test="year != null">#{year},</if>
+            <if test="isCompetition != null">#{isCompetition},</if>
+            <if test="isCourse != null">#{isCourse},</if>
+            <if test="isTrainingProgram != null">#{isTrainingProgram},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+            <if test="version != null">#{version},</if>
+        </trim>
+    </insert>
+
+    <update id="updateCertConfigInfo" parameterType="com.teaching.system.api.domain.CertConfigInfo">
+        update cert_config_info
+        <set>
+            <if test="certConfigName != null">cert_config_name = #{certConfigName},</if>
+            <if test="certSource != null">cert_source = #{certSource},</if>
+            <if test="competitionSeriesId != null">competition_series_id = #{competitionSeriesId},</if>
+            competition_stage_id = #{competitionStageId},
+            competition_track_id = #{competitionTrackId},
+            second_level_code = #{secondLevelCode},
+            <if test="courseId != null">course_id = #{courseId},</if>
+            <if test="trainingProgramId != null">training_program_id = #{trainingProgramId},</if>
+            <if test="certPeriodType != null">cert_period_type = #{certPeriodType},</if>
+            <if test="certPeriodTime != null">cert_period_time = #{certPeriodTime},</if>
+            <if test="certManagerRole != null">cert_manager_role = #{certManagerRole},</if>
+            <if test="certStatus != null">cert_status = #{certStatus},</if>
+            <if test="certLinkName != null">cert_link_name = #{certLinkName},</if>
+            <if test="certLinkUrl != null">cert_link_url = #{certLinkUrl},</if>
+            <if test="orgCode != null">org_code = #{orgCode},</if>
+            <if test="awardsName != null">awards_name = #{awardsName},</if>
+            <if test="year != null">year = #{year},</if>
+            <if test="isCompetition != null">is_competition = #{isCompetition},</if>
+            <if test="isCourse != null">is_course = #{isCourse},</if>
+            <if test="isTrainingProgram != null">is_training_program = #{isTrainingProgram},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+            version = version+1,
+        </set>
+        where cert_config_id = #{certConfigId}
+    </update>
+
+    <delete id="deleteCertConfigInfoById" parameterType="Long">
+        update cert_config_info set del_flag = '1' where cert_config_id = #{certConfigId}
+    </delete>
+
+    <delete id="deleteCertConfigInfoByIds" parameterType="Long[]">
+        update cert_config_info set del_flag = '1' where cert_config_id in
+        <foreach item="certConfigId" collection="array" open="(" separator="," close=")">
+            #{certConfigId}
+        </foreach>
+    </delete>
+</mapper>

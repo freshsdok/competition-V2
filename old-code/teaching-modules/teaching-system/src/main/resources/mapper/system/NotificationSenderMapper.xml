@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.system.mapper.NotificationSenderMapper">
+
+    <resultMap id="NotificationSenderResult" type="NotificationSender">
+        <result property="id"           column="id"/>
+        <result property="senderUserId" column="sender_user_id"/>
+        <result property="content"      column="content"/>
+        <result property="messageType"  column="message_type"/>
+        <result property="relatedId"    column="related_id"/>
+        <result property="relatedType"  column="related_type"/>
+        <result property="title"        column="title"/>
+        <result property="isBroadcast"  column="is_broadcast"/>
+        <result property="receiverUserIds"  column="receiver_user_ids"/>
+        <result property="sendTime"     column="send_time"/>
+        <result property="createBy"     column="create_by"/>
+        <result property="createTime"   column="create_time"/>
+        <result property="updateBy"     column="update_by"/>
+        <result property="updateTime"   column="update_time"/>
+        <result property="delFlag"      column="del_flag"/>
+        <result property="orgId"        column="org_id"/>
+    </resultMap>
+
+    <resultMap id="NotificationInboxResult" type="com.teaching.system.domain.NotificationInbox">
+        <result property="id"           column="id"/>
+        <result property="senderUserId" column="sender_user_id"/>
+        <result property="content"      column="content"/>
+        <result property="messageType"  column="message_type"/>
+        <result property="relatedId"    column="related_id"/>
+        <result property="relatedType"  column="related_type"/>
+        <result property="title"        column="title"/>
+        <result property="isBroadcast"  column="is_broadcast"/>
+        <result property="receiverUserIds"  column="receiver_user_ids"/>
+        <result property="sendTime"     column="send_time"/>
+        <result property="delFlag"      column="del_flag"/>
+        <result property="orgId"        column="org_id"/>
+        <result property="isRead"       column="is_read"/>
+        <result property="readTime"     column="read_time"/>
+    </resultMap>
+
+    <sql id="selectNotificationSenderVo">
+        select id, sender_user_id, content, message_type, related_id, related_type, title,
+               is_broadcast, receiver_user_ids, send_time, create_by, create_time, update_by, update_time, del_flag, org_id
+        from notification_sender
+    </sql>
+
+    <sql id="selectInboxVo">
+        select ns.id, ns.sender_user_id, ns.content, ns.message_type, ns.related_id, ns.related_type, ns.title,
+               ns.is_broadcast, ns.receiver_user_ids, ns.send_time, ns.del_flag, ns.org_id,
+               case when nr.id is null then '0' else '1' end as is_read,
+               nr.read_time as read_time
+        from notification_sender ns
+        left join notification_receiver nr
+               on nr.notification_id = ns.id
+              and nr.to_user_id = #{userId}
+              and nr.del_flag = '0'
+    </sql>
+
+    <select id="selectNotificationSenderById" parameterType="Long" resultMap="NotificationSenderResult">
+        <include refid="selectNotificationSenderVo"/>
+        where id = #{id}
+    </select>
+
+    <select id="selectNotificationSenderList" parameterType="NotificationSender" resultMap="NotificationSenderResult">
+        <include refid="selectNotificationSenderVo"/>
+        <where>
+            <if test="senderUserId != null">
+                and sender_user_id = #{senderUserId}
+            </if>
+            <if test="messageType != null and messageType != ''">
+                and message_type = #{messageType}
+            </if>
+            <if test="title != null and title != ''">
+                and title like concat('%', #{title}, '%')
+            </if>
+            <if test="isBroadcast != null and isBroadcast != ''">
+                and is_broadcast = #{isBroadcast}
+            </if>
+            <if test="orgId != null">
+                and org_id = #{orgId}
+            </if>
+            <!-- 仅查询未删除数据 -->
+            and del_flag = '0'
+        </where>
+    </select>
+
+    <!-- 当前用户未读：发送表存在，但接收表不存在 -->
+    <select id="selectUnreadForUser" resultMap="NotificationSenderResult">
+        <include refid="selectNotificationSenderVo"/>
+        <where>
+            and del_flag = '0'
+            <if test="orgId != null">
+                and (org_id = #{orgId} or org_id is null)
+            </if>
+            and (
+                is_broadcast = 1
+                or (receiver_user_ids is not null and receiver_user_ids != '' and find_in_set(#{userId}, receiver_user_ids))
+            )
+            and not exists (
+                select 1
+                from notification_receiver nr
+                where nr.notification_id = notification_sender.id
+                  and nr.to_user_id = #{userId}
+            )
+        </where>
+        order by send_time desc
+    </select>
+
+    <!-- 当前用户可见的详情（广播 或 接收人列表包含该用户） -->
+    <select id="selectVisibleById" resultMap="NotificationSenderResult">
+        <include refid="selectNotificationSenderVo"/>
+        <where>
+            and id = #{id}
+            and del_flag = '0'
+            <if test="orgId != null">
+                and (org_id = #{orgId} or org_id is null)
+            </if>
+            and (
+                is_broadcast = 1
+                or (receiver_user_ids is not null and receiver_user_ids != '' and find_in_set(#{userId}, receiver_user_ids))
+            )
+        </where>
+    </select>
+
+    <!-- 已读收件箱：接收表存在 -->
+    <select id="selectReadInboxForUser" resultMap="NotificationInboxResult">
+        <include refid="selectInboxVo"/>
+        <where>
+            and ns.del_flag = '0'
+            <if test="orgId != null">
+                and (ns.org_id = #{orgId} or ns.org_id is null)
+            </if>
+            and (
+                ns.is_broadcast = 1
+                or (ns.receiver_user_ids is not null and ns.receiver_user_ids != '' and find_in_set(#{userId}, ns.receiver_user_ids))
+            )
+            and nr.id is not null
+        </where>
+        order by nr.read_time desc, ns.send_time desc
+    </select>
+
+    <!--
+      全部收件箱：isRead 仅用于筛选，结果中的 is_read 由 left join 接收表得出（发送表无 is_read 字段）。
+      不传/空/all = 全部（已读+未读）；1 = 仅接收表有记录（已读）；0 = 仅发送表有、接收表无（未读）。
+      不展示已删除（仅存在 del_flag=1 的接收记录的不展示）。
+    -->
+    <select id="selectAllInboxForUser" resultMap="NotificationInboxResult">
+        <include refid="selectInboxVo"/>
+        <where>
+            and ns.del_flag = '0'
+            <if test="orgId != null">
+                and (ns.org_id = #{orgId} or ns.org_id is null)
+            </if>
+            and (
+                ns.is_broadcast = 1
+                or (ns.receiver_user_ids is not null and ns.receiver_user_ids != '' and find_in_set(#{userId}, ns.receiver_user_ids))
+            )
+            <!-- 不展示已删除：仅当（无接收记录）或（存在未删除的接收记录）时展示 -->
+            and (nr.id is not null or not exists (
+                select 1 from notification_receiver nr2
+                where nr2.notification_id = ns.id and nr2.to_user_id = #{userId}
+            ))
+            <!-- isRead=1：只展示接收表有记录的（已读） -->
+            <if test="isRead != null and isRead != '' and isRead != 'all' and (isRead == '1' or isRead == 1)">
+                and nr.id is not null
+            </if>
+            <!-- isRead=0：只展示仅存在于发送表、不存在于接收表的（未读） -->
+            <if test="isRead != null and isRead != '' and isRead != 'all' and (isRead == '0' or isRead == 0)">
+                and nr.id is null
+            </if>
+            <if test="title != null and title != ''">
+                and ns.title like concat('%', #{title}, '%')
+            </if>
+        </where>
+        order by ns.send_time desc
+    </select>
+
+    <insert id="insertNotificationSender" parameterType="NotificationSender" useGeneratedKeys="true" keyProperty="id">
+        insert into notification_sender (
+            sender_user_id,
+            content,
+            message_type,
+            related_id,
+            related_type,
+            title,
+            is_broadcast,
+            receiver_user_ids,
+            send_time,
+            create_by,
+            create_time,
+            update_by,
+            update_time,
+            del_flag,
+            org_id
+        ) values (
+            <choose><when test="senderUserId != null">#{senderUserId}</when><otherwise>0</otherwise></choose>,
+            <choose><when test="content != null">#{content}</when><otherwise>''</otherwise></choose>,
+            <choose><when test="messageType != null and messageType != ''">#{messageType}</when><otherwise>''</otherwise></choose>,
+            #{relatedId},
+            <choose><when test="relatedType != null and relatedType != ''">#{relatedType}</when><otherwise>''</otherwise></choose>,
+            <choose><when test="title != null and title != ''">#{title}</when><otherwise>''</otherwise></choose>,
+            <choose><when test="isBroadcast != null and isBroadcast != ''">#{isBroadcast}</when><otherwise>'0'</otherwise></choose>,
+            <choose><when test="receiverUserIds != null and receiverUserIds != ''">#{receiverUserIds}</when><otherwise>''</otherwise></choose>,
+            <choose><when test="sendTime != null">#{sendTime}</when><otherwise>now()</otherwise></choose>,
+            <choose><when test="createBy != null and createBy != ''">#{createBy}</when><otherwise>''</otherwise></choose>,
+            <choose><when test="createTime != null">#{createTime}</when><otherwise>now()</otherwise></choose>,
+            <choose><when test="updateBy != null and updateBy != ''">#{updateBy}</when><otherwise>''</otherwise></choose>,
+            <choose><when test="updateTime != null">#{updateTime}</when><otherwise>now()</otherwise></choose>,
+            <choose><when test="delFlag != null and delFlag != ''">#{delFlag}</when><otherwise>'0'</otherwise></choose>,
+            #{orgId}
+        )
+    </insert>
+
+    <update id="updateNotificationSender" parameterType="NotificationSender">
+        update notification_sender
+        <trim prefix="set" suffixOverrides=",">
+            <if test="senderUserId != null">sender_user_id = #{senderUserId},</if>
+            <if test="content != null">content = #{content},</if>
+            <if test="messageType != null and messageType != ''">message_type = #{messageType},</if>
+            <if test="relatedId != null">related_id = #{relatedId},</if>
+            <if test="relatedType != null and relatedType != ''">related_type = #{relatedType},</if>
+            <if test="title != null and title != ''">title = #{title},</if>
+            <if test="isBroadcast != null and isBroadcast != ''">is_broadcast = #{isBroadcast},</if>
+            <if test="receiverUserIds != null">receiver_user_ids = #{receiverUserIds},</if>
+            <if test="sendTime != null">send_time = #{sendTime},</if>
+            <if test="createBy != null and createBy != ''">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null and updateBy != ''">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="delFlag != null and delFlag != ''">del_flag = #{delFlag},</if>
+            <if test="orgId != null">org_id = #{orgId},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteNotificationSenderById" parameterType="Long">
+        delete from notification_sender where id = #{id}
+    </delete>
+
+    <delete id="deleteNotificationSenderByIds" parameterType="Long">
+        delete from notification_sender where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>
+

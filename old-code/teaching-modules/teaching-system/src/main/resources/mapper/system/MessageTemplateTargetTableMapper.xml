@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.system.mapper.MessageTemplateTargetTableMapper">
+    
+    <resultMap type="com.teaching.system.domain.MessageTemplateTargetTable" id="MessageTemplateTargetTableResult">
+        <result property="id"    column="id"    />
+        <result property="msgId"    column="msg_id"    />
+        <result property="targetTable"    column="target_table"    />
+        <result property="targetTableName"    column="target_table_name"    />
+        <result property="targetColumn"    column="target_column"    />
+        <result property="targetColumnName"    column="target_column_name"    />
+        <result property="conditionColumn"    column="condition_column"    />
+        <result property="conditionColumnName"    column="condition_column_name"    />
+        <result property="orderNum"    column="order_num"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+        <result property="version"    column="version"    />
+        <result property="delFlag"    column="del_flag"    />
+    </resultMap>
+
+    <sql id="selectMessageTemplateTargetTableVo">
+        select id, msg_id, target_table, target_table_name, target_column, target_column_name, condition_column, condition_column_name, order_num, create_by, create_time, update_by, update_time, remark, version, del_flag from message_template_target_table
+    </sql>
+
+    <select id="selectMessageTemplateTargetTableList" parameterType="com.teaching.system.domain.MessageTemplateTargetTable" resultMap="MessageTemplateTargetTableResult">
+        <include refid="selectMessageTemplateTargetTableVo"/>
+        <where>  
+            <if test="msgId != null "> and msg_id = #{msgId}</if>
+            <if test="targetTable != null  and targetTable != ''"> and target_table = #{targetTable}</if>
+            <if test="targetTableName != null  and targetTableName != ''"> and target_table_name like concat('%', #{targetTableName}, '%')</if>
+            <if test="targetColumn != null  and targetColumn != ''"> and target_column = #{targetColumu}</if>
+            <if test="targetColumnName != null  and targetColumnName != ''"> and target_column_name like concat('%', #{targetColumuName}, '%')</if>
+            <if test="conditionColumn != null  and conditionColumn != ''"> and condition_column = #{conditionColumn}</if>
+            <if test="conditionColumnName != null  and conditionColumnName != ''"> and condition_column_name like concat('%', #{conditionColumnName}, '%')</if>
+            <if test="orderNum != null "> and order_num = #{orderNum}</if>
+            <if test="version != null "> and version = #{version}</if>
+        </where>
+    </select>
+    
+    <select id="selectMessageTemplateTargetTableById" parameterType="Long" resultMap="MessageTemplateTargetTableResult">
+        <include refid="selectMessageTemplateTargetTableVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertMessageTemplateTargetTable" parameterType="com.teaching.system.domain.MessageTemplateTargetTable" useGeneratedKeys="true" keyProperty="id">
+        insert into message_template_target_table
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="msgId != null">msg_id,</if>
+            <if test="targetTable != null">target_table,</if>
+            <if test="targetTableName != null">target_table_name,</if>
+            <if test="targetColumn != null">target_column,</if>
+            <if test="targetColumnName != null">target_column_name,</if>
+            <if test="conditionColumn != null">condition_column,</if>
+            <if test="conditionColumnName != null">condition_column_name,</if>
+            <if test="orderNum != null">order_num,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+            <if test="version != null">version,</if>
+            <if test="delFlag != null">del_flag,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="msgId != null">#{msgId},</if>
+            <if test="targetTable != null">#{targetTable},</if>
+            <if test="targetTableName != null">#{targetTableName},</if>
+            <if test="targetColumn != null">#{targetColumn},</if>
+            <if test="targetColumnName != null">#{targetColumnName},</if>
+            <if test="conditionColumn != null">#{conditionColumn},</if>
+            <if test="conditionColumnName != null">#{conditionColumnName},</if>
+            <if test="orderNum != null">#{orderNum},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="version != null">#{version},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+         </trim>
+    </insert>
+
+    <update id="updateMessageTemplateTargetTable" parameterType="com.teaching.system.domain.MessageTemplateTargetTable">
+        update message_template_target_table
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="msgId != null">msg_id = #{msgId},</if>
+            <if test="targetTable != null">target_table = #{targetTable},</if>
+            <if test="targetTableName != null">target_table_name = #{targetTableName},</if>
+            <if test="targetColumn != null">target_column = #{targetColumn},</if>
+            <if test="targetColumnName != null">target_column_name = #{targetColumnName},</if>
+            <if test="conditionColumn != null">condition_column = #{conditionColumn},</if>
+            <if test="conditionColumnName != null">condition_column_name = #{conditionColumnName},</if>
+            <if test="orderNum != null">order_num = #{orderNum},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="version != null">version = #{version},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteMessageTemplateTargetTableById" parameterType="Long">
+        delete from message_template_target_table where id = #{id}
+    </delete>
+
+    <delete id="deleteMessageTemplateTargetTableByIds" parameterType="String">
+        delete from message_template_target_table where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

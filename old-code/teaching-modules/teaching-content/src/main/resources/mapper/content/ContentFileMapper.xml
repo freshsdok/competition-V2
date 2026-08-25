@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.content.mapper.ContentFileMapper">
+
+    <resultMap type="ContentFile" id="ContentFileResult">
+        <result property="fileId" column="file_id"/>
+        <result property="columnId" column="column_id"/>
+        <result property="fileName" column="file_name"/>
+        <result property="fileUrl" column="file_url"/>
+        <result property="fileType" column="file_type"/>
+        <result property="fileSize" column="file_size"/>
+        <result property="orderNum" column="order_num"/>
+        <result property="status" column="status"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="remark" column="remark"/>
+        <result property="delFlag" column="del_flag"/>
+    </resultMap>
+
+    <sql id="selectContentFileVo">
+        select file_id,
+               column_id,
+               file_name,
+               file_url,
+               file_type,
+               file_size,
+               order_num,
+               status,
+               create_by,
+               create_time,
+               update_by,
+               update_time,
+               remark,
+               del_flag
+        from content_file
+    </sql>
+
+    <select id="selectContentFileList" parameterType="ContentFile" resultMap="ContentFileResult">
+        <include refid="selectContentFileVo"/>
+        <where>
+            del_flag = '0'
+            <if test="columnId != null">
+                and column_id = #{columnId}
+            </if>
+            <if test="fileName != null and fileName != ''">
+                and file_name like concat('%', #{fileName}, '%')
+            </if>
+            <if test="fileType != null and fileType != ''">
+                and file_type = #{fileType}
+            </if>
+            <if test="status != null and status != ''">
+                and status = #{status}
+            </if>
+        </where>
+        order by order_num, create_time desc
+    </select>
+
+    <select id="selectContentFileByFileId" parameterType="Long" resultMap="ContentFileResult">
+        <include refid="selectContentFileVo"/>
+        where file_id = #{fileId} and del_flag = '0'
+    </select>
+
+    <select id="selectContentFileListByColumnId" parameterType="Long" resultMap="ContentFileResult">
+        <include refid="selectContentFileVo"/>
+        where column_id = #{columnId} and del_flag = '0' and status = '0'
+        order by order_num, create_time desc
+    </select>
+
+    <insert id="insertContentFile" parameterType="ContentFile" useGeneratedKeys="true" keyProperty="fileId">
+        insert into content_file
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="columnId != null">column_id,</if>
+            <if test="fileName != null and fileName != ''">file_name,</if>
+            <if test="fileUrl != null and fileUrl != ''">file_url,</if>
+            <if test="fileType != null">file_type,</if>
+            <if test="fileSize != null">file_size,</if>
+            <if test="orderNum != null">order_num,</if>
+            <if test="status != null">status,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="remark != null">remark,</if>
+            <if test="delFlag != null">del_flag,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="columnId != null">#{columnId},</if>
+            <if test="fileName != null and fileName != ''">#{fileName},</if>
+            <if test="fileUrl != null and fileUrl != ''">#{fileUrl},</if>
+            <if test="fileType != null">#{fileType},</if>
+            <if test="fileSize != null">#{fileSize},</if>
+            <if test="orderNum != null">#{orderNum},</if>
+            <if test="status != null">#{status},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+        </trim>
+    </insert>
+
+    <update id="updateContentFile" parameterType="ContentFile">
+        update content_file
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="columnId != null">column_id = #{columnId},</if>
+            <if test="fileName != null and fileName != ''">file_name = #{fileName},</if>
+            <if test="fileUrl != null and fileUrl != ''">file_url = #{fileUrl},</if>
+            <if test="fileType != null">file_type = #{fileType},</if>
+            <if test="fileSize != null">file_size = #{fileSize},</if>
+            <if test="orderNum != null">order_num = #{orderNum},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where file_id = #{fileId}
+    </update>
+
+    <delete id="deleteContentFileByFileId" parameterType="Long">
+        update content_file set del_flag = '2' where file_id = #{fileId}
+    </delete>
+
+    <delete id="deleteContentFileByFileIds" parameterType="String">
+        update content_file set del_flag = '2' where file_id in
+        <foreach item="fileId" collection="array" open="(" separator="," close=")">
+            #{fileId}
+        </foreach>
+    </delete>
+
+</mapper>
+
+

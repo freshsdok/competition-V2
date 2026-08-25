@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.competition.mapper.UserCertificateHistoryMapper">
+
+    <resultMap type="com.teaching.competition.domain.UserCertificateHistory" id="UserCertificateHistoryResult">
+        <result property="certId"    column="cert_id"    />
+        <result property="certCode"    column="cert_code"    />
+        <result property="certName"    column="cert_name"    />
+        <result property="certUrl"    column="cert_url"    />
+        <result property="issuanceDate"    column="issuance_date"    />
+        <result property="certPeriod"    column="cert_period"    />
+        <result property="acquireWay"    column="acquire_way"    />
+        <result property="competitionSeriesId"    column="competition_series_id"    />
+        <result property="competitionStageId"    column="competition_stage_id"    />
+        <result property="competitionTrackId"    column="competition_track_id"    />
+        <result property="secondLevelCode"    column="second_level_code"    />
+        <result property="competitionName"    column="competition_name"    />
+        <result property="competitionTrackName"    column="competition_track_name"    />
+        <result property="secondLevelName"    column="second_level_name"    />
+        <result property="courseId"    column="course_id"    />
+        <result property="trainingProgramId"    column="training_program_id"    />
+        <result property="certExchangeId"    column="cert_exchange_id"    />
+        <result property="certConfigId"    column="cert_config_id"    />
+        <result property="certStatus"    column="cert_status"    />
+        <result property="teamCode"    column="team_code"    />
+        <result property="awardsName"    column="awards_name"    />
+        <result property="awardsNameDesc"    column="awards_name_desc"    />
+        <result property="year"    column="year"    />
+        <result property="orgCode"    column="org_code"    />
+        <result property="userId"    column="user_id"    />
+        <result property="userName"    column="user_name"    />
+        <result property="idCard"    column="id_card"    />
+        <result property="player"    column="player"    />
+        <result property="yearLimit"    column="year_limit"    />
+        <result property="guideTeacher"    column="guide_teacher"    />
+        <result property="school"    column="school"    />
+        <result property="schoolName"    column="school_name"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="version"    column="version"    />
+        <result property="phone"    column="phone"    />
+    </resultMap>
+
+    <sql id="selectUserCertificateHistoryVo">
+        select cert_id, cert_code, cert_name, cert_url, issuance_date, cert_period, acquire_way, competition_series_id, competition_stage_id, competition_track_id, second_level_code, competition_name, competition_track_name, second_level_name, course_id, training_program_id, cert_exchange_id, cert_config_id, cert_status, team_code, awards_name, awards_name_desc, year, org_code, user_id, user_name, id_card, player, year_limit, guide_teacher, school, school_name, create_time, update_time, create_by, update_by, del_flag, version, phone from user_certificate_history
+    </sql>
+
+    <select id="selectUserCertificateHistoryList" parameterType="com.teaching.competition.domain.UserCertificateHistory" resultMap="UserCertificateHistoryResult">
+        <include refid="selectUserCertificateHistoryVo"/>
+        <where>
+            <if test="certCode != null  and certCode != ''"> and cert_code = #{certCode}</if>
+            <if test="certName != null  and certName != ''"> and cert_name like concat('%', #{certName}, '%')</if>
+            <if test="acquireWay != null  and acquireWay != ''"> and acquire_way = #{acquireWay}</if>
+            <if test="competitionSeriesId != null"> and competition_series_id = #{competitionSeriesId}</if>
+            <if test="competitionName != null  and competitionName != ''"> and competition_name like concat('%', #{competitionName}, '%')</if>
+            <if test="awardsName != null  and awardsName != ''"> and awards_name like concat('%', #{awardsName}, '%')</if>
+            <if test="schoolName != null  and schoolName != ''"> and school_name like concat('%', #{schoolName}, '%')</if>
+            <if test="userName != null  and userName != ''">
+                and (player like concat('%', #{userName}, '%') or guide_teacher like concat('%', #{userName}, '%'))
+            </if>
+            and del_flag = '0'
+        </where>
+        order by cert_id desc
+    </select>
+
+    <select id="selectUserCertificateHistoryById" parameterType="Long" resultMap="UserCertificateHistoryResult">
+        <include refid="selectUserCertificateHistoryVo"/>
+        where cert_id = #{certId}
+    </select>
+
+    <insert id="insertUserCertificateHistory" parameterType="com.teaching.competition.domain.UserCertificateHistory" useGeneratedKeys="true" keyProperty="certId">
+        insert into user_certificate_history
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="certCode != null">cert_code,</if>
+            <if test="certName != null">cert_name,</if>
+            <if test="certUrl != null">cert_url,</if>
+            <if test="issuanceDate != null">issuance_date,</if>
+            <if test="certPeriod != null">cert_period,</if>
+            <if test="acquireWay != null">acquire_way,</if>
+            <if test="competitionSeriesId != null">competition_series_id,</if>
+            <if test="competitionStageId != null">competition_stage_id,</if>
+            <if test="competitionTrackId != null">competition_track_id,</if>
+            <if test="secondLevelCode != null">second_level_code,</if>
+            <if test="competitionName != null">competition_name,</if>
+            <if test="competitionTrackName != null">competition_track_name,</if>
+            <if test="secondLevelName != null">second_level_name,</if>
+            <if test="courseId != null">course_id,</if>
+            <if test="trainingProgramId != null">training_program_id,</if>
+            <if test="certExchangeId != null">cert_exchange_id,</if>
+            <if test="certConfigId != null">cert_config_id,</if>
+            <if test="certStatus != null">cert_status,</if>
+            <if test="teamCode != null">team_code,</if>
+            <if test="awardsName != null">awards_name,</if>
+            <if test="awardsNameDesc != null">awards_name_desc,</if>
+            <if test="year != null">year,</if>
+            <if test="orgCode != null">org_code,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="userName != null">user_name,</if>
+            <if test="idCard != null">id_card,</if>
+            <if test="player != null">player,</if>
+            <if test="yearLimit != null">year_limit,</if>
+            <if test="guideTeacher != null">guide_teacher,</if>
+            <if test="school != null">school,</if>
+            <if test="schoolName != null">school_name,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="delFlag != null">del_flag,</if>
+            <if test="version != null">version,</if>
+            <if test="phone != null">phone,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="certCode != null">#{certCode},</if>
+            <if test="certName != null">#{certName},</if>
+            <if test="certUrl != null">#{certUrl},</if>
+            <if test="issuanceDate != null">#{issuanceDate},</if>
+            <if test="certPeriod != null">#{certPeriod},</if>
+            <if test="acquireWay != null">#{acquireWay},</if>
+            <if test="competitionSeriesId != null">#{competitionSeriesId},</if>
+            <if test="competitionStageId != null">#{competitionStageId},</if>
+            <if test="competitionTrackId != null">#{competitionTrackId},</if>
+            <if test="secondLevelCode != null">#{secondLevelCode},</if>
+            <if test="competitionName != null">#{competitionName},</if>
+            <if test="competitionTrackName != null">#{competitionTrackName},</if>
+            <if test="secondLevelName != null">#{secondLevelName},</if>
+            <if test="courseId != null">#{courseId},</if>
+            <if test="trainingProgramId != null">#{trainingProgramId},</if>
+            <if test="certExchangeId != null">#{certExchangeId},</if>
+            <if test="certConfigId != null">#{certConfigId},</if>
+            <if test="certStatus != null">#{certStatus},</if>
+            <if test="teamCode != null">#{teamCode},</if>
+            <if test="awardsName != null">#{awardsName},</if>
+            <if test="awardsNameDesc != null">#{awardsNameDesc},</if>
+            <if test="year != null">#{year},</if>
+            <if test="orgCode != null">#{orgCode},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="userName != null">#{userName},</if>
+            <if test="idCard != null">#{idCard},</if>
+            <if test="player != null">#{player},</if>
+            <if test="yearLimit != null">#{yearLimit},</if>
+            <if test="guideTeacher != null">#{guideTeacher},</if>
+            <if test="school != null">#{school},</if>
+            <if test="schoolName != null">#{schoolName},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+            <if test="version != null">#{version},</if>
+            <if test="phone != null">#{phone},</if>
+        </trim>
+    </insert>
+
+    <update id="updateUserCertificateHistory" parameterType="com.teaching.competition.domain.UserCertificateHistory">
+        update user_certificate_history
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="certCode != null">cert_code = #{certCode},</if>
+            <if test="certName != null">cert_name = #{certName},</if>
+            <if test="certUrl != null">cert_url = #{certUrl},</if>
+            <if test="issuanceDate != null">issuance_date = #{issuanceDate},</if>
+            <if test="certPeriod != null">cert_period = #{certPeriod},</if>
+            <if test="acquireWay != null">acquire_way = #{acquireWay},</if>
+            <if test="competitionSeriesId != null">competition_series_id = #{competitionSeriesId},</if>
+            <if test="competitionStageId != null">competition_stage_id = #{competitionStageId},</if>
+            <if test="competitionTrackId != null">competition_track_id = #{competitionTrackId},</if>
+            <if test="secondLevelCode != null">second_level_code = #{secondLevelCode},</if>
+            <if test="competitionName != null">competition_name = #{competitionName},</if>
+            <if test="competitionTrackName != null">competition_track_name = #{competitionTrackName},</if>
+            <if test="secondLevelName != null">second_level_name = #{secondLevelName},</if>
+            <if test="courseId != null">course_id = #{courseId},</if>
+            <if test="trainingProgramId != null">training_program_id = #{trainingProgramId},</if>
+            <if test="certExchangeId != null">cert_exchange_id = #{certExchangeId},</if>
+            <if test="certConfigId != null">cert_config_id = #{certConfigId},</if>
+            <if test="certStatus != null">cert_status = #{certStatus},</if>
+            <if test="teamCode != null">team_code = #{teamCode},</if>
+            <if test="awardsName != null">awards_name = #{awardsName},</if>
+            <if test="awardsNameDesc != null">awards_name_desc = #{awardsNameDesc},</if>
+            <if test="year != null">year = #{year},</if>
+            <if test="orgCode != null">org_code = #{orgCode},</if>
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="userName != null">user_name = #{userName},</if>
+            <if test="idCard != null">id_card = #{idCard},</if>
+            <if test="player != null">player = #{player},</if>
+            <if test="yearLimit != null">year_limit = #{yearLimit},</if>
+            <if test="guideTeacher != null">guide_teacher = #{guideTeacher},</if>
+            <if test="school != null">school = #{school},</if>
+            <if test="schoolName != null">school_name = #{schoolName},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+            version = version + 1,
+            <if test="phone != null">phone = #{phone},</if>
+        </trim>
+        where cert_id = #{certId}
+    </update>
+
+    <delete id="deleteUserCertificateHistoryById" parameterType="Long">
+        delete from user_certificate_history where cert_id = #{certId}
+    </delete>
+
+    <delete id="deleteUserCertificateHistoryByIds" parameterType="String">
+        delete from user_certificate_history where cert_id in
+        <foreach collection="array" item="certId" open="(" separator="," close=")">
+            #{certId}
+        </foreach>
+    </delete>
+</mapper>

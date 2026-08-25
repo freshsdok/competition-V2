@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.system.mapper.FileTaskMapper">
+
+    <resultMap type="com.teaching.system.domain.FileTask" id="FileTaskResult">
+        <result property="id"    column="id"    />
+        <result property="taskName"    column="task_name"    />
+        <result property="userGroupIds"    column="user_group_ids"    />
+        <result property="taskStatus"    column="task_status"/>
+        <result property="delFlag"    column="del_flag"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <resultMap id="selectFileTaskConfigResult" type="com.teaching.system.domain.FileTask" extends="FileTaskResult">
+        <collection property="fileTaskConfigList" ofType="com.teaching.system.domain.FileTaskConfig" column="id" select="selectFileTaskConfigList" />
+    </resultMap>
+
+    <resultMap type="com.teaching.system.domain.FileTaskConfig" id="FileTaskConfigResult">
+        <result property="id"    column="config_id"    />
+        <result property="taskId"    column="task_id"    />
+        <result property="taskType"    column="task_type"    />
+        <result property="fileName"    column="file_name"    />
+        <result property="fileSize"    column="file_size"    />
+        <result property="uploadStart"    column="upload_start"    />
+        <result property="uploadEnd"    column="upload_end"    />
+        <result property="tempFileName"    column="temp_file_name"    />
+        <result property="tempFile"    column="temp_file"    />
+        <result property="fileType"    column="file_type"    />
+        <result property="annoucement"    column="annoucement"    />
+        <result property="isPerminate"    column="is_perminate"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectFileTaskVo">
+        select id, task_name, user_group_ids, task_status,del_flag, create_by, create_time, update_by, update_time, remark,version from file_task
+    </sql>
+
+    <select id="selectFileTaskList" parameterType="com.teaching.system.domain.FileTask" resultMap="selectFileTaskConfigResult">
+        select ft.id, ft.task_name, ft.user_group_ids,
+        ft.del_flag, ft.create_by, ft.create_time, ft.update_by, ft.update_time, ft.remark,ft.task_status
+        from file_task ft
+        where ft.del_flag = '0'
+            <if test="taskName != null  and taskName != ''"> and ft.task_name like concat('%', #{taskName}, '%')</if>
+            <if test="userGroupIds != null  and userGroupIds != ''">
+                and
+                <foreach collection="userGroupIds.split(',')" item="item" separator="OR" open="(" close=")" >
+                    FIND_IN_SET(#{item},ft.user_group_ids)
+                </foreach>
+            </if>
+<!--            <if test="userGroupName != null  and userGroupName != ''">-->
+<!--                and FIND_IN_SET(ft.user_group_ids,(select id from sys_user_group where name like concat('%', #{userGroupName}, '%'))-->
+<!--            </if>-->
+        <if test="taskStatus != null  and taskStatus != ''">
+            and ft.task_status = #{taskStatus}
+        </if>
+        <if test="taskType != null  and taskType != ''">
+            and ft.id in (select task_id from file_task_config where task_type = #{taskType})
+        </if>
+        <if test="createTimeStart != null">
+            and ft.create_time >= #{createTimeStart}
+        </if>
+        <if test="createTimeEnd != null">
+            and ft.create_time &lt;= #{createTimeEnd}
+        </if>
+        order by ft.create_time desc
+    </select>
+
+    <select id="selectFileTaskById" parameterType="Long" resultMap="FileTaskResult">
+        select ft.id, ft.task_name, ft.user_group_ids,
+        ft.del_flag, ft.create_by, ft.create_time, ft.update_by, ft.update_time, ft.remark,ft.task_status
+        from file_task ft
+        left join file_task_config ftc on ft.id = ftc.task_id
+        where ftc.id = #{id} and ft.del_flag = '0'
+    </select>
+
+    <select id="selectFileTaskByTaskId" parameterType="Long" resultMap="FileTaskResult">
+        select ft.id, ft.task_name, ft.user_group_ids,
+        ft.del_flag, ft.create_by, ft.create_time, ft.update_by, ft.update_time, ft.remark,ft.task_status
+        from file_task ft
+        where ft.id = #{id} and ft.del_flag = '0'
+    </select>
+
+    <select id="selectFileTaskByIds" resultMap="FileTaskResult">
+        select ft.id, ft.task_name, ft.user_group_ids,
+        ft.del_flag, ft.create_by, ft.create_time, ft.update_by, ft.update_time, ft.remark,ft.task_status
+        from file_task ft
+        where del_flag = '0'
+         and task_status = '2'
+         and id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
+
+    <select id="selectFileTaskConfigList" parameterType="Long" resultMap="FileTaskConfigResult">
+        select id as config_id, task_id, task_type, file_name, file_size, upload_start, upload_end, temp_file_name,temp_file, file_type, annoucement,
+        is_perminate,del_flag, create_by, create_time, update_by, update_time, remark
+        from file_task_config
+        where task_id = #{id} and del_flag = '0'
+    </select>
+
+    <insert id="insertFileTask" parameterType="com.teaching.system.domain.FileTask"
+            useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        insert into file_task
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="taskName != null and taskName != ''">task_name,</if>
+            <if test="userGroupIds != null">user_group_ids,</if>
+            <if test="taskStatus != null">task_status,</if>
+            <if test="delFlag != null">del_flag,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="taskName != null and taskName != ''">#{taskName},</if>
+            <if test="userGroupIds != null">#{userGroupIds},</if>
+            <if test="taskStatus != null">#{taskStatus},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+         </trim>
+    </insert>
+
+    <update id="updateFileTask" parameterType="com.teaching.system.domain.FileTask">
+        update file_task
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="taskName != null and taskName != ''">task_name = #{taskName},</if>
+            <if test="userGroupIds != null">user_group_ids = #{userGroupIds},</if>
+            <if test="taskStatus != null">task_status = #{taskStatus},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+            version  = version + 1,
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteFileTaskById" parameterType="Long">
+        delete from file_task where id = #{id}
+    </delete>
+
+    <delete id="deleteFileTaskByIds" parameterType="String">
+        update file_task set  del_flag = '1' where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <select id="selectTaskByUserGroupIds" resultType="Long">
+        SELECT count(id) FROM file_task WHERE del_flag = '0' AND
+                    <foreach collection="array" item="groupId" open="(" separator="or" close=")">
+                         FIND_IN_SET(#{groupId},user_group_ids)
+                    </foreach>
+    </select>
+</mapper>

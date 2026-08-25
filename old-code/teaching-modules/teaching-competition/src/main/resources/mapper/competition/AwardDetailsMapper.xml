@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.competition.mapper.AwardDetailsMapper">
+
+    <resultMap type="com.teaching.competition.domain.AwardDetails" id="AwardDetailsResult">
+        <result property="id"    column="id"    />
+        <result property="awardPublicityId"    column="award_publicity_id"    />
+        <result property="teamCode"    column="team_code"    />
+        <result property="teamName"    column="team_name"    />
+        <result property="schoolName"    column="school_name"    />
+        <result property="awardsName"    column="awards_name"    />
+        <result property="schoolId"    column="school_id"    />
+        <result property="competitionSeriesId"    column="competition_series_id"    />
+        <result property="competitionTrackId"    column="competition_track_id"    />
+        <result property="secondLevelCode"    column="second_level_code"    />
+        <result property="competitionName"    column="competition_name"    />
+        <result property="competitionTrackName"    column="competition_track_name"    />
+        <result property="secondLevelName"    column="second_level_name"    />
+        <result property="competitionRoleName"    column="competition_role_name"    />
+        <result property="payTime"    column="pay_time"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="delFlag"    column="del_flag"    />
+        <collection property="playerList" ofType="com.teaching.competition.domain.AwardPlayerInfo"
+                    column="team_code" select="selectCompetitionApplyInfoByTeamCode"/>
+        <collection property="guiderTeacherList" ofType="com.teaching.competition.domain.AwardPlayerInfo"
+                    column="team_code" select="selectCompetitionApplyInfoTeacherByTeamCode"/>
+    </resultMap>
+
+    <resultMap type="com.teaching.competition.domain.AwardPlayerInfo" id="CompetitionApplyInfoDetailResult">
+        <result property="memberId" column="member_id" />
+        <result property="teamCode" column="team_code" />
+        <result property="userName" column="user_name" />
+        <result property="userId" column="user_id" />
+        <result property="phone" column="phone" />
+        <result property="email" column="email" />
+        <result property="teamSort" column="team_sort" />
+    </resultMap>
+
+    <sql id="selectAwardDetailsVo">
+        select id, award_publicity_id, team_code, team_name, school_name, awards_name, create_by, create_time, update_by, update_time, del_flag from award_details
+    </sql>
+
+    <select id="selectAwardDetailsList" parameterType="com.teaching.competition.domain.AwardDetails" resultMap="AwardDetailsResult">
+        <include refid="selectAwardDetailsVo"/>
+        <where>
+            <if test="awardPublicityId != null "> and award_publicity_id = #{awardPublicityId}</if>
+            <if test="teamCode != null  and teamCode != ''"> and team_code = #{teamCode}</if>
+            <if test="awardsName != null  and awardsName != ''"> and awards_name like concat('%', #{awardsName}, '%')</if>
+        </where>
+        order by id desc
+    </select>
+
+    <select id="selectAwardDetailsById" parameterType="Long" resultMap="AwardDetailsResult">
+        <include refid="selectAwardDetailsVo"/>
+        where id = #{id}
+    </select>
+
+    <select id="selectAwardDetailsSum" parameterType="Long" resultType="Integer">
+        select count(1) from award_details
+        where del_flag = '0' and award_publicity_id = #{awardPublicityId}
+    </select>
+
+<!--    <select id="selectAwardDetailsCompetitionApplyInfoList_COUNT" parameterType="com.teaching.competition.domain.AwardDetails" resultType="int">-->
+<!--        select count(1)-->
+<!--        from award_details ad-->
+<!--        inner JOIN (-->
+<!--        SELECT *,-->
+<!--        ROW_NUMBER() OVER (PARTITION BY team_code ORDER BY member_id DESC) AS rn-->
+<!--        FROM competition_apply_info where del_flag = '0'-->
+<!--        <if test="userId!=null">-->
+<!--            and leader_teacher_id = #{userId}-->
+<!--        </if>-->
+<!--        ) cai ON ad.team_code = cai.team_code AND cai.rn = 1-->
+<!--        where ad.del_flag = '0'-->
+<!--        <if test="awardPublicityId != null "> and ad.award_publicity_id = #{awardPublicityId}</if>-->
+<!--        <if test="teamCode != null  and teamCode != ''"> and ad.team_code = #{teamCode}</if>-->
+<!--        <if test="awardsName != null  and awardsName != ''"> and ad.awards_name like concat('%', #{awardsName}, '%')</if>-->
+<!--        <if test="teamName != null  and teamName != ''">-->
+<!--            and ad.team_name like concat('%', #{teamName}, '%')-->
+<!--        </if>-->
+<!--        <if test="schoolName != null  and schoolName != ''">-->
+<!--            and ad.school_name like concat('%', #{schoolName}, '%')-->
+<!--        </if>-->
+<!--        <if test="userName != null  and userName != ''">-->
+<!--            and ad.team_code in (select team_code from competition_apply_info-->
+<!--            where user_name like concat('%', #{userName}, '%') and del_flag = '0' and pay_status = 'paid'-->
+<!--            and competition_role_name != '指导教师')-->
+<!--        </if>-->
+<!--        <if test="guiderTeacherName != null  and guiderTeacherName != ''">-->
+<!--            and ad.team_code in (select team_code from competition_apply_info-->
+<!--            where guide_teacher like concat('%', #{guiderTeacherName}, '%') and del_flag = '0' and pay_status = 'paid')-->
+<!--        </if>-->
+<!--        <if test="competitionTrackName != null  and competitionTrackName != ''">-->
+<!--            and (cai.competition_track_name like concat('%', #{competitionTrackName}, '%')-->
+<!--            or cai.second_level_name like concat('%', #{competitionTrackName}, '%')-->
+<!--            or cai.competition_name like concat('%', #{competitionTrackName}, '%'))-->
+<!--        </if>-->
+<!--    </select>-->
+
+    <select id="selectAwardDetailsCompetitionApplyInfoList" parameterType="com.teaching.competition.domain.AwardDetails" resultMap="AwardDetailsResult">
+        select ad.id, ad.award_publicity_id, ad.team_code, ad.team_name, ad.school_name, ad.awards_name,
+        cai.competition_series_id, cai.competition_track_id, cai.second_level_code, cai.competition_name,
+        cai.competition_track_name, cai.second_level_name, cai.school as school_id,
+        ad.create_by, ad.create_time, ad.update_by, ad.update_time, ad.del_flag
+        from award_details ad
+        inner JOIN (
+        SELECT member_id,competition_series_id, competition_track_id, second_level_code, competition_name,
+        competition_track_name, second_level_name, school,team_code,
+        ROW_NUMBER() OVER (PARTITION BY team_code ORDER BY member_id DESC) AS rn
+        FROM competition_apply_info where del_flag = '0'
+        <if test="userId!=null">
+            and leader_teacher_id = #{userId}
+        </if>
+        ) cai ON ad.team_code = cai.team_code AND cai.rn = 1
+<!--        LEFT JOIN (-->
+<!--        SELECT-->
+<!--        commodity_id,-->
+<!--        pay_time,-->
+<!--        ROW_NUMBER() OVER (-->
+<!--        PARTITION BY commodity_id-->
+<!--        ORDER BY pay_time DESC-->
+<!--        ) AS rn-->
+<!--        FROM order_info-->
+<!--        WHERE del_flag = '0'-->
+<!--        AND pay_order_id IS NULL-->
+<!--        AND last_order = 1-->
+<!--        AND pay_status = 'paid'-->
+<!--        ) oi-->
+<!--        ON FIND_IN_SET(ad.team_code, oi.commodity_id)-->
+<!--        AND oi.rn = 1-->
+        where ad.del_flag = '0'
+            <if test="awardPublicityId != null "> and ad.award_publicity_id = #{awardPublicityId}</if>
+            <if test="teamCode != null  and teamCode != ''"> and ad.team_code = #{teamCode}</if>
+            <if test="awardsName != null  and awardsName != ''"> and ad.awards_name like concat('%', #{awardsName}, '%')</if>
+            <if test="teamName != null  and teamName != ''">
+                and ad.team_name like concat('%', #{teamName}, '%')
+            </if>
+        <if test="schoolName != null  and schoolName != ''">
+            and cai.school in (select id from nationwide_college_info where school_name like concat('%', #{schoolName}, '%'))
+        </if>
+        <if test="userName != null  and userName != ''">
+            and ad.team_code in (select team_code from competition_apply_info
+            where user_name like concat('%', #{userName}, '%') and del_flag = '0' and pay_status = 'paid'
+            and competition_role_name != '指导教师')
+        </if>
+        <if test="guiderTeacherName != null  and guiderTeacherName != ''">
+            and ad.team_code in (select team_code from competition_apply_info
+            where guide_teacher like concat('%', #{guiderTeacherName}, '%') and del_flag = '0' and pay_status = 'paid')
+        </if>
+        <if test="competitionTrackName != null  and competitionTrackName != ''">
+            and (cai.competition_track_name like concat('%', #{competitionTrackName}, '%')
+                or cai.second_level_name like concat('%', #{competitionTrackName}, '%')
+            or cai.competition_name like concat('%', #{competitionTrackName}, '%'))
+        </if>
+        order by ad.id
+<!--        ,oi.pay_time desc-->
+    </select>
+
+    <select id="selectCompetitionApplyInfoByTeamCode" parameterType="String" resultMap="CompetitionApplyInfoDetailResult">
+        select cai.member_id,cai.team_code, cai.user_name, cai.team_sort ,cai.user_id, cai.phone, cai.email
+        from competition_apply_info cai
+        where cai.team_code = #{teamCode} and cai.competition_role_name != '指导教师' and cai.del_flag = '0'
+        order by cai.team_sort
+    </select>
+
+    <select id="selectCompetitionApplyInfoTeacherByTeamCode" parameterType="String" resultMap="CompetitionApplyInfoDetailResult">
+        select cai.member_id,cai.team_code, cai.user_name, cai.team_sort ,cai.user_id, cai.phone, cai.email
+        from competition_apply_info cai
+        where cai.team_code = #{teamCode} and cai.competition_role_name = '指导教师' and cai.del_flag = '0'
+        order by cai.team_sort
+    </select>
+
+    <insert id="insertAwardDetails" parameterType="com.teaching.competition.domain.AwardDetails" useGeneratedKeys="true" keyProperty="id">
+        insert into award_details
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="awardPublicityId != null">award_publicity_id,</if>
+            <if test="teamCode != null">team_code,</if>
+            <if test="teamName != null">team_name,</if>
+            <if test="schoolName != null">school_name,</if>
+            <if test="awardsName != null">awards_name,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="delFlag != null">del_flag,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="awardPublicityId != null">#{awardPublicityId},</if>
+            <if test="teamCode != null">#{teamCode},</if>
+            <if test="teamName != null">#{teamName},</if>
+            <if test="schoolName != null">#{schoolName},</if>
+            <if test="awardsName != null">#{awardsName},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+        </trim>
+    </insert>
+
+    <update id="updateAwardDetails" parameterType="com.teaching.competition.domain.AwardDetails">
+        update award_details
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="awardPublicityId != null">award_publicity_id = #{awardPublicityId},</if>
+            <if test="teamCode != null">team_code = #{teamCode},</if>
+            <if test="teamName != null">team_name = #{teamName},</if>
+            <if test="awardsName != null">awards_name = #{awardsName},</if>
+            <if test="competitionSeriesId != null">competition_series_id = #{competitionSeriesId},</if>
+            <if test="competitionTrackId != null">competition_track_id = #{competitionTrackId},</if>
+            <if test="secondLevelCode != null">second_level_code = #{secondLevelCode},</if>
+            <if test="competitionName != null">competition_name = #{competitionName},</if>
+            <if test="competitionTrackName != null">competition_track_name = #{competitionTrackName},</if>
+            <if test="secondLevelName != null">second_level_name = #{secondLevelName},</if>
+            <if test="schoolName != null">school_name = #{schoolName},</if>
+            <if test="schoolId != null">school_id = #{schoolId},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <update id="batchUpdateAwardDetails">
+        <foreach collection="list" item="item" separator=";">
+            update award_details
+            <trim prefix="SET" suffixOverrides=",">
+                <if test="item.teamName != null">team_name = #{item.teamName},</if>
+                <if test="item.awardsName != null">awards_name = #{item.awardsName},</if>
+                <if test="item.schoolName != null">school_name = #{item.schoolName},</if>
+                <if test="item.updateBy != null">update_by = #{item.updateBy},</if>
+                update_time = now(),
+            </trim>
+            where id = #{item.id}
+        </foreach>
+    </update>
+
+    <delete id="deleteAwardDetailsById" parameterType="Long">
+        update award_details set del_flag = '1' where id = #{id}
+    </delete>
+
+    <delete id="deleteAwardDetailsByIds" parameterType="String">
+        update award_details set del_flag = '1' where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <!-- 批量新增 -->
+    <insert id="insertAwardDetailsBatch" parameterType="java.util.List">
+        insert into award_details (award_publicity_id, team_code, awards_name, create_by, create_time,team_name,school_name,import_type)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.awardPublicityId}, #{item.teamCode}, #{item.awardsName}, #{item.createBy}, #{item.createTime},#{item.teamName},#{item.schoolName},#{item.importType})
+        </foreach>
+    </insert>
+
+    <!-- 根据多个 team_code 批量删除（物理删除） -->
+    <delete id="batchDeleteByTeamCodes" parameterType="java.util.List">
+        DELETE FROM award_details
+        WHERE team_code IN
+        <foreach collection="list" item="code" open="(" separator="," close=")">
+            #{code}
+        </foreach>
+    </delete>
+
+    <!-- 逻辑删除：将 del_flag 置为 '1'，同时记录更新人和更新时间 -->
+    <update id="batchLogicDeleteByTeamCodes">
+        UPDATE award_details
+        SET del_flag = '1',
+        update_by = #{updateBy},
+        update_time = NOW()
+        WHERE del_flag = '0'
+          <if test="awardPublicityId != null">
+              AND award_publicity_id = #{awardPublicityId}
+          </if>
+          AND team_code IN
+        <foreach collection="teamCodes" item="code" open="(" separator="," close=")">
+            #{code}
+        </foreach>
+    </update>
+
+    <update id="batchLogicDeleteByAwardPublicityId">
+        UPDATE award_details
+        SET del_flag = '1',
+        update_by = #{updateBy},
+        update_time = NOW()
+        WHERE del_flag = '0'
+        AND award_publicity_id IN
+        <foreach collection="awardPublicityIds" item="publicityId" open="(" separator="," close=")">
+            #{publicityId}
+        </foreach>
+    </update>
+</mapper>

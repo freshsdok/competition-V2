@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.competition.mapper.ChangeLogMapper">
+
+    <resultMap type="com.teaching.system.api.domain.ChangeLog" id="ChangeLogResult">
+        <result property="id"    column="id"    />
+        <result property="teamId"    column="team_id"    />
+        <result property="teamName"    column="team_name"    />
+        <result property="memberId"    column="member_id"    />
+        <result property="operatorUserId"    column="operator_user_id"    />
+        <result property="changeType"    column="change_type"    />
+        <result property="changeTime"    column="change_time"    />
+        <result property="oldData"    column="old_data"    />
+        <result property="newData"    column="new_data"    />
+        <result property="changeDetails"    column="change_details"    />
+        <result property="result"    column="result"    />
+        <result property="ipAddress"    column="ip_address"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="version"    column="version"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="userId"    column="user_id"    />
+        <result property="orgId"    column="org_id"    />
+    </resultMap>
+
+    <sql id="selectChangeLogVo">
+        select tmi.team_name,cl.id, cl.team_id, cl.member_id, cl.operator_user_id, cl.change_type, cl.change_time, cl.old_data, cl.new_data, cl.change_details, cl.result, cl.ip_address,
+               cl.create_by, cl.create_time, cl.update_by, cl.update_time, cl.version, cl.del_flag, cl.user_id, cl.org_id from change_log cl
+                    LEFT JOIN team_manager_info tmi on tmi.team_code = cl.team_id
+    </sql>
+
+    <select id="selectChangeLogList" parameterType="com.teaching.system.api.domain.ChangeLog" resultMap="ChangeLogResult">
+        <include refid="selectChangeLogVo"/>
+        <where>
+            and cl.del_flag = '0'
+            <if test="teamId != null  and teamId != ''"> and cl.team_id = #{teamId}</if>
+            <if test="memberId != null "> and cl.member_id = #{memberId}</if>
+            <if test="operatorUserId != null "> and cl.operator_user_id = #{operatorUserId}</if>
+            <if test="changeType != null  and changeType != ''"> and cl.change_type = #{changeType}</if>
+            <if test="changeTime != null "> and cl.change_time = #{changeTime}</if>
+            <if test="params.beginTime != null and params.beginTime != ''"><!-- 开始时间检索 -->
+                and date_format(cl.change_time,'%Y%m%d') &gt;= date_format(#{params.beginTime},'%Y%m%d')
+            </if>
+            <if test="params.endTime != null and params.endTime != ''"><!-- 结束时间检索 -->
+                AND date_format(cl.change_time,'%y%m%d') &lt;= date_format(#{params.endTime},'%y%m%d')
+            </if>
+            <if test="oldData != null  and oldData != ''"> and cl.old_data = #{oldData}</if>
+            <if test="newData != null  and newData != ''"> and cl.new_data = #{newData}</if>
+            <if test="changeDetails != null  and changeDetails != ''"> and cl.change_details = #{changeDetails}</if>
+            <if test="result != null  and result != ''"> and cl.result = #{result}</if>
+            <if test="ipAddress != null  and ipAddress != ''"> and cl.ip_address = #{ipAddress}</if>
+            <if test="version != null "> and cl.version = #{version}</if>
+            <if test="userId != null "> and cl.user_id = #{userId}</if>
+            <if test="orgId != null "> and cl.org_id = #{orgId}</if>
+            <if test="createBy != null "> and cl.create_by like concat('%',#{createBy},'%')</if>
+            <if test="teamName != null "> and tmi.team_name like concat('%',#{teamName},'%')</if>
+        </where>
+        order by cl.create_time desc
+    </select>
+
+    <select id="selectChangeLogListByTeamCode" parameterType="String" resultMap="ChangeLogResult">
+        <include refid="selectChangeLogVo"/>
+        where cl.team_id = #{teamCode} order by cl.create_time desc
+    </select>
+
+    <select id="selectChangeLogListByMemberId" parameterType="Long" resultMap="ChangeLogResult">
+        <include refid="selectChangeLogVo"/>
+        where cl.member_id = #{memberId} order by cl.create_time desc
+    </select>
+
+    <select id="selectChangeLogById" parameterType="Long" resultMap="ChangeLogResult">
+        <include refid="selectChangeLogVo"/>
+        where cl.id = #{id}
+    </select>
+
+    <insert id="insertChangeLog" parameterType="com.teaching.system.api.domain.ChangeLog" useGeneratedKeys="true" keyProperty="id">
+        insert into change_log
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="teamId != null and teamId != ''">team_id,</if>
+            <if test="memberId != null">member_id,</if>
+            <if test="operatorUserId != null">operator_user_id,</if>
+            <if test="changeType != null and changeType != ''">change_type,</if>
+            <if test="changeTime != null">change_time,</if>
+            <if test="oldData != null and oldData != ''">old_data,</if>
+            <if test="newData != null and newData != ''">new_data,</if>
+            <if test="changeDetails != null">change_details,</if>
+            <if test="result != null">result,</if>
+            <if test="ipAddress != null">ip_address,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="version != null">version,</if>
+            <if test="delFlag != null">del_flag,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="orgId != null">org_id,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="teamId != null and teamId != ''">#{teamId},</if>
+            <if test="memberId != null">#{memberId},</if>
+            <if test="operatorUserId != null">#{operatorUserId},</if>
+            <if test="changeType != null and changeType != ''">#{changeType},</if>
+            <if test="changeTime != null">#{changeTime},</if>
+            <if test="oldData != null and oldData != ''">#{oldData},</if>
+            <if test="newData != null and newData != ''">#{newData},</if>
+            <if test="changeDetails != null">#{changeDetails},</if>
+            <if test="result != null">#{result},</if>
+            <if test="ipAddress != null">#{ipAddress},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="version != null">#{version},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="orgId != null">#{orgId},</if>
+        </trim>
+    </insert>
+
+    <update id="updateChangeLog" parameterType="com.teaching.system.api.domain.ChangeLog">
+        update change_log
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="teamId != null and teamId != ''">team_id = #{teamId},</if>
+            <if test="memberId != null">member_id = #{memberId},</if>
+            <if test="operatorUserId != null">operator_user_id = #{operatorUserId},</if>
+            <if test="changeType != null and changeType != ''">change_type = #{changeType},</if>
+            <if test="changeTime != null">change_time = #{changeTime},</if>
+            <if test="oldData != null and oldData != ''">old_data = #{oldData},</if>
+            <if test="newData != null and newData != ''">new_data = #{newData},</if>
+            <if test="changeDetails != null">change_details = #{changeDetails},</if>
+            <if test="result != null">result = #{result},</if>
+            <if test="ipAddress != null">ip_address = #{ipAddress},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="version != null">version = #{version},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="orgId != null">org_id = #{orgId},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteChangeLogById" parameterType="Long">
+        delete from change_log where id = #{id}
+    </delete>
+
+    <delete id="deleteChangeLogByIds" parameterType="String">
+        delete from change_log where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

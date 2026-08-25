@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.competition.mapper.CompetitionSceneResourceSlotMapper">
+
+    <resultMap type="com.teaching.competition.domain.CompetitionSceneResourceSlot" id="CompetitionSceneResourceSlotResult">
+        <id property="slotId" column="slot_id"/>
+        <result property="scheduleResourceId" column="schedule_resource_id"/>
+        <result property="scheduleId" column="schedule_id"/>
+        <result property="resourceId" column="resource_id"/>
+        <result property="eventId" column="event_id"/>
+        <result property="startTime" column="start_time"/>
+        <result property="endTime" column="end_time"/>
+        <result property="workstationCount" column="workstation_count"/>
+        <result property="totalDeviceCount" column="total_device_count"/>
+        <result property="totalWorkstationCount" column="total_workstation_count"/>
+        <result property="deviceCapacity" column="device_capacity"/>
+        <result property="reservedDeviceCount" column="reserved_device_count"/>
+        <result property="remainingDeviceCount" column="remaining_device_count"/>
+        <result property="workstationCapacity" column="workstation_capacity"/>
+        <result property="reservedWorkstationCount" column="reserved_workstation_count"/>
+        <result property="remainingWorkstationCount" column="remaining_workstation_count"/>
+        <result property="slotStatus" column="slot_status"/>
+        <result property="version" column="version"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="deleted" column="deleted"/>
+    </resultMap>
+
+    <resultMap type="com.teaching.competition.domain.CompetitionSceneResourceSlotVO" id="CompetitionSceneResourceSlotVOResult">
+        <id property="slotId" column="slot_id"/>
+        <result property="scheduleResourceId" column="schedule_resource_id"/>
+        <result property="scheduleId" column="schedule_id"/>
+        <result property="resourceId" column="resource_id"/>
+        <result property="eventId" column="event_id"/>
+        <result property="startTime" column="start_time"/>
+        <result property="endTime" column="end_time"/>
+        <result property="workstationCount" column="workstation_count"/>
+        <result property="totalDeviceCount" column="total_device_count"/>
+        <result property="totalWorkstationCount" column="total_workstation_count"/>
+        <result property="deviceCapacity" column="device_capacity"/>
+        <result property="reservedDeviceCount" column="reserved_device_count"/>
+        <result property="remainingDeviceCount" column="remaining_device_count"/>
+        <result property="workstationCapacity" column="workstation_capacity"/>
+        <result property="reservedWorkstationCount" column="reserved_workstation_count"/>
+        <result property="remainingWorkstationCount" column="remaining_workstation_count"/>
+        <result property="slotStatus" column="slot_status"/>
+        <result property="version" column="version"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="resourceName" column="resource_name"/>
+        <result property="resourceType" column="resource_type"/>
+        <result property="deploymentLocation" column="deployment_location"/>
+        <result property="workstationsPerDevice" column="workstations_per_device"/>
+    </resultMap>
+
+    <sql id="selectCompetitionSceneResourceSlotVo">
+        select sl.slot_id, sl.schedule_resource_id, sl.schedule_id, sl.resource_id, sl.event_id,
+               sl.start_time, sl.end_time, sl.workstation_count, sl.total_device_count,
+               sl.total_workstation_count, sl.device_capacity, sl.reserved_device_count,
+               sl.remaining_device_count, sl.workstation_capacity, sl.reserved_workstation_count,
+               sl.remaining_workstation_count, sl.slot_status, sl.version, sl.create_by,
+               sl.create_time, sl.update_by, sl.update_time, sl.deleted,
+               r.resource_name, r.resource_type, sr.deployment_location, sr.workstations_per_device
+        from competition_scene_resource_slot sl
+        left join competition_scene_schedule_resource sr
+               on sl.schedule_resource_id = sr.schedule_resource_id and sr.deleted = 0
+        left join competition_scene_resource r
+               on sl.resource_id = r.resource_id and r.deleted = 0
+    </sql>
+
+    <select id="selectCompetitionSceneResourceSlotById" parameterType="Long"
+            resultMap="CompetitionSceneResourceSlotVOResult">
+        <include refid="selectCompetitionSceneResourceSlotVo"/>
+        where sl.slot_id = #{slotId}
+          and sl.deleted = 0
+    </select>
+
+    <select id="selectCompetitionSceneResourceSlotEntityById" parameterType="Long"
+            resultMap="CompetitionSceneResourceSlotResult">
+        select slot_id, schedule_resource_id, schedule_id, resource_id, event_id, start_time, end_time,
+               workstation_count, total_device_count, total_workstation_count,
+               device_capacity, reserved_device_count, remaining_device_count, workstation_capacity,
+               reserved_workstation_count, remaining_workstation_count, slot_status, version,
+               create_by, create_time, update_by, update_time, deleted
+        from competition_scene_resource_slot
+        where slot_id = #{slotId}
+          and deleted = 0
+    </select>
+
+    <select id="selectCompetitionSceneResourceSlotEntitiesByIds" resultMap="CompetitionSceneResourceSlotResult">
+        select slot_id, schedule_resource_id, schedule_id, resource_id, event_id, start_time, end_time,
+               workstation_count, total_device_count, total_workstation_count,
+               device_capacity, reserved_device_count, remaining_device_count, workstation_capacity,
+               reserved_workstation_count, remaining_workstation_count, slot_status, version,
+               create_by, create_time, update_by, update_time, deleted
+        from competition_scene_resource_slot
+        where deleted = 0
+          and slot_id in
+        <foreach item="slotId" collection="slotIds" open="(" separator="," close=")">
+            #{slotId}
+        </foreach>
+    </select>
+
+    <select id="selectCompetitionSceneResourceSlotList"
+            parameterType="com.teaching.competition.domain.CompetitionSceneResourceSlotQuery"
+            resultMap="CompetitionSceneResourceSlotVOResult">
+        <include refid="selectCompetitionSceneResourceSlotVo"/>
+        <where>
+            sl.deleted = 0
+            <if test="scheduleResourceId != null">
+                and sl.schedule_resource_id = #{scheduleResourceId}
+            </if>
+            <if test="scheduleId != null">
+                and sl.schedule_id = #{scheduleId}
+            </if>
+            <if test="resourceId != null">
+                and sl.resource_id = #{resourceId}
+            </if>
+            <if test="eventId != null">
+                and sl.event_id = #{eventId}
+            </if>
+            <if test="slotStatus != null and slotStatus != ''">
+                and sl.slot_status = #{slotStatus}
+            </if>
+            <if test="startTime != null">
+                and sl.start_time &gt;= #{startTime}
+            </if>
+            <if test="endTime != null">
+                and sl.end_time &lt;= #{endTime}
+            </if>
+        </where>
+        order by sl.start_time asc, sl.slot_id asc
+    </select>
+
+    <select id="countOverlappingSlots" resultType="int">
+        select count(1)
+        from competition_scene_resource_slot
+        where deleted = 0
+          and schedule_resource_id = #{scheduleResourceId}
+          and start_time &lt; #{endTime}
+          and end_time &gt; #{startTime}
+        <if test="excludeSlotId != null">
+          and slot_id != #{excludeSlotId}
+        </if>
+    </select>
+
+    <insert id="insertCompetitionSceneResourceSlot"
+            parameterType="com.teaching.competition.domain.CompetitionSceneResourceSlot"
+            useGeneratedKeys="true" keyProperty="slotId">
+        insert into competition_scene_resource_slot
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="scheduleResourceId != null">schedule_resource_id,</if>
+            <if test="scheduleId != null">schedule_id,</if>
+            <if test="resourceId != null">resource_id,</if>
+            <if test="eventId != null">event_id,</if>
+            <if test="startTime != null">start_time,</if>
+            <if test="endTime != null">end_time,</if>
+            <if test="workstationCount != null">workstation_count,</if>
+            <if test="totalDeviceCount != null">total_device_count,</if>
+            <if test="totalWorkstationCount != null">total_workstation_count,</if>
+            <if test="deviceCapacity != null">device_capacity,</if>
+            <if test="reservedDeviceCount != null">reserved_device_count,</if>
+            <if test="remainingDeviceCount != null">remaining_device_count,</if>
+            <if test="workstationCapacity != null">workstation_capacity,</if>
+            <if test="reservedWorkstationCount != null">reserved_workstation_count,</if>
+            <if test="remainingWorkstationCount != null">remaining_workstation_count,</if>
+            <if test="slotStatus != null">slot_status,</if>
+            <if test="version != null">version,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="deleted != null">deleted,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="scheduleResourceId != null">#{scheduleResourceId},</if>
+            <if test="scheduleId != null">#{scheduleId},</if>
+            <if test="resourceId != null">#{resourceId},</if>
+            <if test="eventId != null">#{eventId},</if>
+            <if test="startTime != null">#{startTime},</if>
+            <if test="endTime != null">#{endTime},</if>
+            <if test="workstationCount != null">#{workstationCount},</if>
+            <if test="totalDeviceCount != null">#{totalDeviceCount},</if>
+            <if test="totalWorkstationCount != null">#{totalWorkstationCount},</if>
+            <if test="deviceCapacity != null">#{deviceCapacity},</if>
+            <if test="reservedDeviceCount != null">#{reservedDeviceCount},</if>
+            <if test="remainingDeviceCount != null">#{remainingDeviceCount},</if>
+            <if test="workstationCapacity != null">#{workstationCapacity},</if>
+            <if test="reservedWorkstationCount != null">#{reservedWorkstationCount},</if>
+            <if test="remainingWorkstationCount != null">#{remainingWorkstationCount},</if>
+            <if test="slotStatus != null">#{slotStatus},</if>
+            <if test="version != null">#{version},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="deleted != null">#{deleted},</if>
+        </trim>
+    </insert>
+
+    <insert id="batchInsertCompetitionSceneResourceSlot">
+        insert into competition_scene_resource_slot (
+            schedule_resource_id, schedule_id, resource_id, event_id, start_time, end_time,
+            workstation_count, total_device_count, total_workstation_count,
+            device_capacity, reserved_device_count, remaining_device_count, workstation_capacity,
+            reserved_workstation_count, remaining_workstation_count, slot_status, version,
+            create_by, create_time, update_by, update_time, deleted
+        )
+        values
+        <foreach item="slot" collection="slots" separator=",">
+            (
+                #{slot.scheduleResourceId}, #{slot.scheduleId}, #{slot.resourceId}, #{slot.eventId},
+                #{slot.startTime}, #{slot.endTime}, #{slot.workstationCount}, #{slot.totalDeviceCount},
+                #{slot.totalWorkstationCount}, #{slot.deviceCapacity}, #{slot.reservedDeviceCount},
+                #{slot.remainingDeviceCount}, #{slot.workstationCapacity}, #{slot.reservedWorkstationCount},
+                #{slot.remainingWorkstationCount}, #{slot.slotStatus}, #{slot.version},
+                #{slot.createBy}, #{slot.createTime}, #{slot.updateBy}, #{slot.updateTime}, #{slot.deleted}
+            )
+        </foreach>
+    </insert>
+
+    <update id="updateCompetitionSceneResourceSlot"
+            parameterType="com.teaching.competition.domain.CompetitionSceneResourceSlot">
+        update competition_scene_resource_slot
+        <set>
+            <if test="scheduleResourceId != null">schedule_resource_id = #{scheduleResourceId},</if>
+            <if test="scheduleId != null">schedule_id = #{scheduleId},</if>
+            <if test="resourceId != null">resource_id = #{resourceId},</if>
+            <if test="eventId != null">event_id = #{eventId},</if>
+            <if test="startTime != null">start_time = #{startTime},</if>
+            <if test="endTime != null">end_time = #{endTime},</if>
+            <if test="workstationCount != null">workstation_count = #{workstationCount},</if>
+            <if test="totalDeviceCount != null">total_device_count = #{totalDeviceCount},</if>
+            <if test="totalWorkstationCount != null">total_workstation_count = #{totalWorkstationCount},</if>
+            <if test="deviceCapacity != null">device_capacity = #{deviceCapacity},</if>
+            <if test="reservedDeviceCount != null">reserved_device_count = #{reservedDeviceCount},</if>
+            <if test="remainingDeviceCount != null">remaining_device_count = #{remainingDeviceCount},</if>
+            <if test="workstationCapacity != null">workstation_capacity = #{workstationCapacity},</if>
+            <if test="reservedWorkstationCount != null">reserved_workstation_count = #{reservedWorkstationCount},</if>
+            <if test="remainingWorkstationCount != null">remaining_workstation_count = #{remainingWorkstationCount},</if>
+            <if test="slotStatus != null">slot_status = #{slotStatus},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            version = version + 1,
+        </set>
+        where slot_id = #{slotId}
+          and deleted = 0
+    </update>
+
+    <update id="deleteCompetitionSceneResourceSlotByIds">
+        update competition_scene_resource_slot
+        set deleted = 1,
+            update_by = #{updateBy},
+            update_time = now(),
+            version = version + 1
+        where deleted = 0
+          and slot_id in
+        <foreach item="slotId" collection="slotIds" open="(" separator="," close=")">
+            #{slotId}
+        </foreach>
+    </update>
+
+    <update id="updateCompetitionSceneResourceSlotStatus">
+        update competition_scene_resource_slot
+        set slot_status = #{slotStatus},
+            update_by = #{updateBy},
+            update_time = now(),
+            version = version + 1
+        where slot_id = #{slotId}
+          and deleted = 0
+    </update>
+
+    <update id="updateCompetitionSceneResourceSlotStatusIfCurrent">
+        update competition_scene_resource_slot
+        set slot_status = #{slotStatus},
+            update_by = #{updateBy},
+            update_time = now(),
+            version = version + 1
+        where slot_id = #{slotId}
+          and deleted = 0
+          and slot_status = #{fromStatus}
+    </update>
+
+    <update id="reserveSharedCompetitionSceneResourceSlotCapacity">
+        update competition_scene_resource_slot
+        set reserved_workstation_count = reserved_workstation_count + #{reservedWorkstationCount},
+            remaining_workstation_count = remaining_workstation_count - #{reservedWorkstationCount},
+            update_by = #{updateBy},
+            update_time = now(),
+            version = version + 1
+        where slot_id = #{slotId}
+          and deleted = 0
+          and slot_status = 'OPEN'
+          and start_time &gt; #{now}
+          and remaining_workstation_count &gt;= #{reservedWorkstationCount}
+    </update>
+
+    <update id="reserveExclusiveCompetitionSceneResourceSlotCapacity">
+        update competition_scene_resource_slot
+        set reserved_device_count = reserved_device_count + #{reservedDeviceCount},
+            remaining_device_count = remaining_device_count - #{reservedDeviceCount},
+            reserved_workstation_count = reserved_workstation_count + #{reservedWorkstationCount},
+            remaining_workstation_count = remaining_workstation_count - #{reservedWorkstationCount},
+            update_by = #{updateBy},
+            update_time = now(),
+            version = version + 1
+        where slot_id = #{slotId}
+          and deleted = 0
+          and slot_status = 'OPEN'
+          and start_time &gt; #{now}
+          and remaining_device_count &gt;= #{reservedDeviceCount}
+          and remaining_workstation_count &gt;= #{reservedWorkstationCount}
+    </update>
+
+    <update id="reserveCompetitionSceneResourceSlotCapacity">
+        update competition_scene_resource_slot
+        set reserved_device_count = reserved_device_count + #{reservedDeviceCount},
+            remaining_device_count = remaining_device_count - #{reservedDeviceCount},
+            reserved_workstation_count = reserved_workstation_count + #{reservedWorkstationCount},
+            remaining_workstation_count = remaining_workstation_count - #{reservedWorkstationCount},
+            update_by = #{updateBy},
+            update_time = now(),
+            version = version + 1
+        where slot_id = #{slotId}
+          and deleted = 0
+          and slot_status = 'OPEN'
+          and remaining_device_count &gt;= #{reservedDeviceCount}
+          and remaining_workstation_count &gt;= #{reservedWorkstationCount}
+    </update>
+
+    <update id="releaseSharedCompetitionSceneResourceSlotCapacity">
+        update competition_scene_resource_slot
+        set reserved_workstation_count = greatest(reserved_workstation_count - #{reservedWorkstationCount}, 0),
+            remaining_workstation_count = least(
+                remaining_workstation_count + #{reservedWorkstationCount},
+                coalesce(nullif(total_workstation_count, 0), workstation_capacity)
+            ),
+            update_by = #{updateBy},
+            update_time = now(),
+            version = version + 1
+        where slot_id = #{slotId}
+          and deleted = 0
+    </update>
+
+    <update id="releaseExclusiveCompetitionSceneResourceSlotCapacity">
+        update competition_scene_resource_slot
+        set reserved_device_count = greatest(reserved_device_count - #{reservedDeviceCount}, 0),
+            remaining_device_count = least(
+                remaining_device_count + #{reservedDeviceCount},
+                coalesce(nullif(total_device_count, 0), device_capacity)
+            ),
+            reserved_workstation_count = greatest(reserved_workstation_count - #{reservedWorkstationCount}, 0),
+            remaining_workstation_count = least(
+                remaining_workstation_count + #{reservedWorkstationCount},
+                coalesce(nullif(total_workstation_count, 0), workstation_capacity)
+            ),
+            update_by = #{updateBy},
+            update_time = now(),
+            version = version + 1
+        where slot_id = #{slotId}
+          and deleted = 0
+    </update>
+
+    <update id="releaseCompetitionSceneResourceSlotCapacity">
+        update competition_scene_resource_slot
+        set reserved_device_count = greatest(reserved_device_count - #{reservedDeviceCount}, 0),
+            remaining_device_count = least(remaining_device_count + #{reservedDeviceCount}, device_capacity),
+            reserved_workstation_count = greatest(reserved_workstation_count - #{reservedWorkstationCount}, 0),
+            remaining_workstation_count = least(remaining_workstation_count + #{reservedWorkstationCount}, workstation_capacity),
+            update_by = #{updateBy},
+            update_time = now(),
+            version = version + 1
+        where slot_id = #{slotId}
+          and deleted = 0
+    </update>
+</mapper>

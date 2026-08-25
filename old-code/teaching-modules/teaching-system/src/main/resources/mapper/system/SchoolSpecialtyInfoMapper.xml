@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.system.mapper.SchoolSpecialtyInfoMapper">
+
+    <resultMap type="SchoolSpecialtyInfo" id="SchoolSpecialtyInfoResult">
+        <result property="id"    column="id"    />
+        <result property="disciplineCategory"    column="discipline_category"    />
+        <result property="disciplineCategoryCode"    column="discipline_category_code"    />
+        <result property="majorClass"    column="major_class"    />
+        <result property="majorClassCode"    column="major_class_code"    />
+        <result property="minorClass"    column="minor_class"    />
+        <result property="minorClassCode"    column="minor_class_code"    />
+        <result property="delFlag"    column="del_flag"    />
+    </resultMap>
+
+    <sql id="selectSchoolSpecialtyInfoVo">
+        select id, discipline_category, discipline_category_code, major_class, major_class_code, minor_class, minor_class_code, del_flag from school_specialty_info
+    </sql>
+
+    <select id="selectSchoolSpecialtyInfoList" parameterType="SchoolSpecialtyInfo" resultMap="SchoolSpecialtyInfoResult">
+        <include refid="selectSchoolSpecialtyInfoVo"/>
+        <where>
+            <if test="disciplineCategory != null  and disciplineCategory != ''"> and discipline_category = #{disciplineCategory}</if>
+            <if test="disciplineCategoryCode != null  and disciplineCategoryCode != ''"> and discipline_category_code = #{disciplineCategoryCode}</if>
+            <if test="majorClass != null  and majorClass != ''"> and major_class = #{majorClass}</if>
+            <if test="majorClassCode != null  and majorClassCode != ''"> and major_class_code = #{majorClassCode}</if>
+            <if test="minorClass != null  and minorClass != ''"> and minor_class like concat('%', #{minorClass}, '%')</if>
+            <if test="minorClassCode != null  and minorClassCode != ''"> and minor_class_code = #{minorClassCode}</if>
+        </where>
+    </select>
+
+    <select id="selectSchoolSpecialtyInfoByMajorClassList10" parameterType="SchoolSpecialtyInfo"  resultMap="SchoolSpecialtyInfoResult">
+        <include refid="selectSchoolSpecialtyInfoVo"/>
+        <where>
+            and del_flag = '0'
+            <if test="disciplineCategory != null  and disciplineCategory != ''"> and discipline_category = #{disciplineCategory}</if>
+            <if test="disciplineCategoryCode != null  and disciplineCategoryCode != ''"> and discipline_category_code = #{disciplineCategoryCode}</if>
+            <if test="majorClass != null  and majorClass != ''"> and major_class = #{majorClass}</if>
+            <if test="majorClassCode != null  and majorClassCode != ''"> and major_class_code = #{majorClassCode}</if>
+            <if test="minorClass != null  and minorClass != ''"> and minor_class like concat('%', #{minorClass}, '%')</if>
+            <if test="minorClassCode != null  and minorClassCode != ''"> and minor_class_code = #{minorClassCode}</if>
+        </where>
+        ORDER BY discipline_category_code,major_class_code,minor_class_code LIMIT 10
+    </select>
+
+    <select id="selectSchoolSpecialtyInfoById" parameterType="Long" resultMap="SchoolSpecialtyInfoResult">
+        <include refid="selectSchoolSpecialtyInfoVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertSchoolSpecialtyInfo" parameterType="SchoolSpecialtyInfo" useGeneratedKeys="true" keyProperty="id">
+        insert into school_specialty_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="disciplineCategory != null">discipline_category,</if>
+            <if test="disciplineCategoryCode != null">discipline_category_code,</if>
+            <if test="majorClass != null">major_class,</if>
+            <if test="majorClassCode != null">major_class_code,</if>
+            <if test="minorClass != null">minor_class,</if>
+            <if test="minorClassCode != null">minor_class_code,</if>
+            <if test="delFlag != null">del_flag,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="disciplineCategory != null">#{disciplineCategory},</if>
+            <if test="disciplineCategoryCode != null">#{disciplineCategoryCode},</if>
+            <if test="majorClass != null">#{majorClass},</if>
+            <if test="majorClassCode != null">#{majorClassCode},</if>
+            <if test="minorClass != null">#{minorClass},</if>
+            <if test="minorClassCode != null">#{minorClassCode},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+        </trim>
+    </insert>
+
+    <update id="updateSchoolSpecialtyInfo" parameterType="SchoolSpecialtyInfo">
+        update school_specialty_info
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="disciplineCategory != null">discipline_category = #{disciplineCategory},</if>
+            <if test="disciplineCategoryCode != null">discipline_category_code = #{disciplineCategoryCode},</if>
+            <if test="majorClass != null">major_class = #{majorClass},</if>
+            <if test="majorClassCode != null">major_class_code = #{majorClassCode},</if>
+            <if test="minorClass != null">minor_class = #{minorClass},</if>
+            <if test="minorClassCode != null">minor_class_code = #{minorClassCode},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteSchoolSpecialtyInfoById" parameterType="Long">
+        delete from school_specialty_info where id = #{id}
+    </delete>
+
+    <delete id="deleteSchoolSpecialtyInfoByIds" parameterType="String">
+        delete from school_specialty_info where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

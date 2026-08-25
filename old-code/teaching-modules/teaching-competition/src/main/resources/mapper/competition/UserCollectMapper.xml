@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.competition.mapper.UserCollectMapper">
+    
+    <resultMap type="com.teaching.competition.domain.UserCollect" id="UserCollectResult">
+        <result property="collectId"    column="collect_id"    />
+        <result property="userId"    column="user_id"    />
+        <result property="courseId"    column="course_id"    />
+        <result property="competitionId"    column="competition_id"    />
+        <result property="competitionSeriesId"    column="competition_series_id"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="version"    column="version"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="orgId"    column="org_id"    />
+    </resultMap>
+
+    <sql id="selectUserCollectVo">
+        select collect_id, user_id, course_id, competition_id, competition_series_id, create_by, create_time, update_by, update_time, version, del_flag, org_id from user_collect
+    </sql>
+
+    <select id="selectUserCollectList" parameterType="com.teaching.competition.domain.UserCollect" resultMap="UserCollectResult">
+        <include refid="selectUserCollectVo"/>
+        <where>  
+            <if test="userId != null "> and user_id = #{userId}</if>
+            <if test="courseId != null "> and course_id = #{courseId}</if>
+            <if test="competitionId != null "> and competition_id = #{competitionId}</if>
+            <if test="competitionSeriesId != null "> and competition_series_id = #{competitionSeriesId}</if>
+            <if test="version != null "> and version = #{version}</if>
+            <if test="orgId != null "> and org_id = #{orgId}</if>
+        </where>
+    </select>
+
+    <select id="selectCollectCompetitionCount" parameterType="java.util.HashMap" resultType="Integer">
+        select count(user_id) from user_collect
+         where competition_id = #{competitionId}
+        and competition_series_id = #{competitionSeriesId}
+        and user_id is not null
+    </select>
+    
+    <select id="selectUserCollectByCollectId" parameterType="Long" resultMap="UserCollectResult">
+        <include refid="selectUserCollectVo"/>
+        where collect_id = #{collectId}
+    </select>
+
+    <insert id="insertUserCollect" parameterType="com.teaching.competition.domain.UserCollect" useGeneratedKeys="true" keyProperty="collectId">
+        insert into user_collect
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">user_id,</if>
+            <if test="courseId != null">course_id,</if>
+            <if test="competitionId != null">competition_id,</if>
+            <if test="competitionSeriesId != null">competition_series_id,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="version != null">version,</if>
+            <if test="delFlag != null">del_flag,</if>
+            <if test="orgId != null">org_id,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">#{userId},</if>
+            <if test="courseId != null">#{courseId},</if>
+            <if test="competitionId != null">#{competitionId},</if>
+            <if test="competitionSeriesId != null">#{competitionSeriesId},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="version != null">#{version},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+            <if test="orgId != null">#{orgId},</if>
+         </trim>
+    </insert>
+
+    <update id="updateUserCollect" parameterType="com.teaching.competition.domain.UserCollect">
+        update user_collect
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="courseId != null">course_id = #{courseId},</if>
+            <if test="competitionId != null">competition_id = #{competitionId},</if>
+            <if test="competitionSeriesId != null">competition_series_id = #{competitionSeriesId},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="version != null">version = #{version},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+            <if test="orgId != null">org_id = #{orgId},</if>
+        </trim>
+        where collect_id = #{collectId}
+    </update>
+
+    <delete id="deleteUserCollectByCollectId" parameterType="com.teaching.competition.domain.UserCollect">
+        delete from user_collect where
+        user_id = #{userId}
+        <if test="courseId != null">
+            and course_id = #{courseId}
+        </if>
+        <if test="competitionId != null">
+            and competition_id = #{competitionId}
+        </if>
+        <if test="competitionSeriesId != null">
+            and competition_series_id = #{competitionSeriesId}
+        </if>
+    </delete>
+
+    <delete id="deleteUserCollectByCollectIds" parameterType="String">
+        delete from user_collect where collect_id in 
+        <foreach item="collectId" collection="array" open="(" separator="," close=")">
+            #{collectId}
+        </foreach>
+    </delete>
+</mapper>

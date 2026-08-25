@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.content.mapper.ContentDetailMapper">
+
+    <resultMap type="ContentDetail" id="ContentDetailResult">
+        <result property="detailId" column="detail_id"/>
+        <result property="columnId" column="column_id"/>
+        <result property="detailTitle" column="detail_title"/>
+        <result property="detailContent" column="detail_content"/>
+        <result property="detailImage" column="detail_image"/>
+        <result property="orderNum" column="order_num"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="remark" column="remark"/>
+        <result property="delFlag" column="del_flag"/>
+    </resultMap>
+
+    <sql id="selectContentDetailVo">
+        select detail_id,
+               column_id,
+               detail_title,
+               detail_content,
+               detail_image,
+               order_num,
+               create_by,
+               create_time,
+               update_by,
+               update_time,
+               remark,
+               del_flag
+        from content_detail
+    </sql>
+
+    <select id="selectContentDetailList" parameterType="ContentDetail" resultMap="ContentDetailResult">
+        <include refid="selectContentDetailVo"/>
+        <where>
+            del_flag = '0'
+            <if test="columnId != null">
+                and column_id = #{columnId}
+            </if>
+            <if test="detailTitle != null and detailTitle != ''">
+                and detail_title like concat('%', #{detailTitle}, '%')
+            </if>
+        </where>
+        order by order_num,create_time desc
+    </select>
+
+    <select id="selectContentDetailByDetailId" parameterType="Long" resultMap="ContentDetailResult">
+        <include refid="selectContentDetailVo"/>
+        where detail_id = #{detailId} and del_flag = '0'
+    </select>
+
+    <select id="selectContentDetailByColumnId" parameterType="Long" resultMap="ContentDetailResult">
+        <include refid="selectContentDetailVo"/>
+        where column_id = #{columnId} and del_flag = '0'
+        limit 1
+    </select>
+
+    <insert id="insertContentDetail" parameterType="ContentDetail" useGeneratedKeys="true" keyProperty="detailId">
+        insert into content_detail
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="columnId != null">column_id,</if>
+            <if test="detailTitle != null">detail_title,</if>
+            <if test="detailContent != null">detail_content,</if>
+            <if test="detailImage != null">detail_image,</if>
+            <if test="orderNum != null">order_num,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="remark != null">remark,</if>
+            <if test="delFlag != null">del_flag,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="columnId != null">#{columnId},</if>
+            <if test="detailTitle != null">#{detailTitle},</if>
+            <if test="detailContent != null">#{detailContent},</if>
+            <if test="detailImage != null">#{detailImage},</if>
+            <if test="orderNum != null">#{orderNum},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+        </trim>
+    </insert>
+
+    <update id="updateContentDetail" parameterType="ContentDetail">
+        update content_detail
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="columnId != null">column_id = #{columnId},</if>
+            <if test="detailTitle != null">detail_title = #{detailTitle},</if>
+            <if test="detailContent != null">detail_content = #{detailContent},</if>
+            <if test="detailImage != null">detail_image = #{detailImage},</if>
+            <if test="orderNum != null">order_num = #{orderNum},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where detail_id = #{detailId}
+    </update>
+
+    <delete id="deleteContentDetailByDetailId" parameterType="Long">
+        update content_detail set del_flag = '2' where detail_id = #{detailId}
+    </delete>
+
+    <delete id="deleteContentDetailByDetailIds" parameterType="String">
+        update content_detail set del_flag = '2' where detail_id in
+        <foreach item="detailId" collection="array" open="(" separator="," close=")">
+            #{detailId}
+        </foreach>
+    </delete>
+
+
+    <select id="selectNotices" resultType="java.util.Map">
+        SELECT
+        d.detail_title AS title,
+        d.detail_content AS content,
+        d.detail_image AS image,
+        d.order_num AS orderNum
+        FROM
+        content_detail d
+        INNER JOIN content_column c
+        ON d.column_id = c.column_id
+        AND c.del_flag = '0'
+        AND c.status = '0'
+        AND c.column_name = '维护公告'
+        WHERE
+        d.del_flag = '0'
+        ORDER BY
+        d.column_id,
+        d.order_num
+    </select>
+</mapper>
+
+

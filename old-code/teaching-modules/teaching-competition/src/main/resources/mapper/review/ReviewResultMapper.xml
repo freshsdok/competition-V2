@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.competition.review.mapper.ReviewResultMapper">
+
+    <resultMap type="com.teaching.competition.review.domain.ReviewResult" id="ReviewResultResult">
+<id property="id" column="id"/>
+<result property="activityId" column="activity_id"/>
+<result property="roundId" column="round_id"/>
+<result property="objectId" column="object_id"/>
+<result property="reviewerCount" column="reviewer_count"/>
+<result property="submittedCount" column="submitted_count"/>
+<result property="calculatedScore" column="calculated_score"/>
+<result property="calculatedGrade" column="calculated_grade"/>
+<result property="calculatedRank" column="calculated_rank"/>
+<result property="evaluationConclusion" column="evaluation_conclusion"/>
+<result property="conclusionGeneratedBy" column="conclusion_generated_by"/>
+<result property="conclusionGeneratedTime" column="conclusion_generated_time"/>
+<result property="resultStatus" column="result_status"/>
+<result property="generatedBy" column="generated_by"/>
+<result property="generatedTime" column="generated_time"/>
+<result property="publishedBy" column="published_by"/>
+<result property="publishedTime" column="published_time"/>
+<result property="revokedBy" column="revoked_by"/>
+<result property="revokedTime" column="revoked_time"/>
+<result property="createBy" column="create_by"/>
+<result property="createTime" column="create_time"/>
+<result property="updateBy" column="update_by"/>
+<result property="updateTime" column="update_time"/>
+<result property="remark" column="remark"/>
+<result property="delFlag" column="del_flag"/>
+    </resultMap>
+
+    <sql id="selectReviewResultVo">
+        select id, activity_id, round_id, object_id, reviewer_count, submitted_count, calculated_score, calculated_grade, calculated_rank, evaluation_conclusion, conclusion_generated_by, conclusion_generated_time, result_status, generated_by, generated_time, published_by, published_time, revoked_by, revoked_time, create_by, create_time, update_by, update_time, remark, del_flag
+        from review_result
+    </sql>
+
+    <select id="selectById" parameterType="Long" resultMap="ReviewResultResult">
+        <include refid="selectReviewResultVo"/>
+        where id = #{id} and del_flag = '0'
+    </select>
+
+    <select id="selectList" parameterType="com.teaching.competition.review.domain.ReviewResult" resultMap="ReviewResultResult">
+        <include refid="selectReviewResultVo"/>
+        <where>
+    del_flag = '0'
+    <if test="activityId != null">
+        and activity_id = #{activityId}
+    </if>
+    <if test="roundId != null">
+        and round_id = #{roundId}
+    </if>
+    <if test="objectId != null">
+        and object_id = #{objectId}
+    </if>
+    <if test="reviewerCount != null">
+        and reviewer_count = #{reviewerCount}
+    </if>
+    <if test="submittedCount != null">
+        and submitted_count = #{submittedCount}
+    </if>
+    <if test="calculatedScore != null">
+        and calculated_score = #{calculatedScore}
+    </if>
+    <if test="calculatedGrade != null and calculatedGrade != ''">
+        and calculated_grade = #{calculatedGrade}
+    </if>
+    <if test="calculatedRank != null">
+        and calculated_rank = #{calculatedRank}
+    </if>
+    <if test="evaluationConclusion != null and evaluationConclusion != ''">
+        and evaluation_conclusion = #{evaluationConclusion}
+    </if>
+    <if test="conclusionGeneratedBy != null">
+        and conclusion_generated_by = #{conclusionGeneratedBy}
+    </if>
+    <if test="conclusionGeneratedTime != null">
+        and conclusion_generated_time = #{conclusionGeneratedTime}
+    </if>
+    <if test="resultStatus != null and resultStatus != ''">
+        and result_status = #{resultStatus}
+    </if>
+    <if test="generatedBy != null">
+        and generated_by = #{generatedBy}
+    </if>
+    <if test="generatedTime != null">
+        and generated_time = #{generatedTime}
+    </if>
+    <if test="publishedBy != null">
+        and published_by = #{publishedBy}
+    </if>
+    <if test="publishedTime != null">
+        and published_time = #{publishedTime}
+    </if>
+    <if test="revokedBy != null">
+        and revoked_by = #{revokedBy}
+    </if>
+    <if test="revokedTime != null">
+        and revoked_time = #{revokedTime}
+    </if>
+        </where>
+        order by id desc
+    </select>
+
+    <select id="selectGenerateItems" parameterType="com.teaching.competition.review.dto.ReviewResultGenerateDTO"
+            resultType="com.teaching.competition.review.vo.ReviewResultGenerateItemVO">
+        select o.activity_id as activityId,
+               coalesce(a.round_id, #{roundId}) as roundId,
+               o.id as objectId,
+               o.object_code as objectCode,
+               o.object_name as objectName,
+               count(distinct a.id) as assignedCount,
+               count(distinct case when r.id is not null then a.id end) as submittedCount,
+               round(avg(r.total_score), 2) as calculatedScore
+        from review_object o
+        left join review_assignment a
+          on a.activity_id = o.activity_id
+         and a.object_id = o.id
+         and a.del_flag = '0'
+        <if test="roundId != null">
+         and a.round_id = #{roundId}
+        </if>
+        left join review_record r
+          on r.assignment_id = a.id
+         and r.del_flag = '0'
+         and r.record_status = 'SUBMITTED'
+         and r.total_score is not null
+        where o.del_flag = '0'
+          and o.activity_id = #{activityId}
+        <if test="roundId == null">
+          and a.round_id is not null
+        </if>
+        <if test="objectIds != null and objectIds.size() > 0">
+          and o.id in
+          <foreach item="objectId" collection="objectIds" open="(" separator="," close=")">
+              #{objectId}
+          </foreach>
+        </if>
+        group by o.activity_id, coalesce(a.round_id, #{roundId}), o.id, o.object_code, o.object_name
+    </select>
+
+    <select id="selectResultList" parameterType="com.teaching.competition.review.dto.ReviewResultQueryDTO"
+            resultType="com.teaching.competition.review.vo.ReviewResultListVO">
+        select *
+        from (
+            select res.id as resultId,
+                   m.activityId as activityId,
+                   act.activity_name as activityName,
+                   m.roundId as roundId,
+                   rd.round_name as roundName,
+                   m.objectId as objectId,
+                   o.object_code as objectCode,
+                   o.object_name as objectName,
+                   o.org_name as orgName,
+                   o.submit_status as submitStatus,
+                   m.assignedCount as reviewerCount,
+                   m.submittedCount as submittedCount,
+                   greatest(m.assignedCount - m.submittedCount, 0) as unsubmittedCount,
+                   concat(m.submittedCount, '/', m.assignedCount) as completionText,
+                   case
+                     when m.submittedCount = 0 then 'NOT_STARTED'
+                     when m.assignedCount > 0 and m.submittedCount >= m.assignedCount then 'COMPLETED'
+                     else 'PARTIAL'
+                   end as completionStatus,
+                   res.calculated_score as calculatedScore,
+                   res.calculated_grade as calculatedGrade,
+                   res.calculated_rank as calculatedRank,
+                   res.evaluation_conclusion as evaluationConclusion,
+                   res.result_status as resultStatus,
+                   res.generated_time as generatedTime,
+                   res.published_time as publishedTime,
+                   res.revoked_time as revokedTime
+            from (
+                select a.activity_id as activityId,
+                       a.round_id as roundId,
+                       a.object_id as objectId,
+                       count(distinct a.id) as assignedCount,
+                       count(distinct case when r.id is not null then a.id end) as submittedCount
+                from review_assignment a
+                left join review_record r
+                  on r.assignment_id = a.id
+                 and r.del_flag = '0'
+                 and r.record_status = 'SUBMITTED'
+                 and r.total_score is not null
+                where a.del_flag = '0'
+                <if test="activityId != null">
+                  and a.activity_id = #{activityId}
+                </if>
+                <if test="roundId != null">
+                  and a.round_id = #{roundId}
+                </if>
+                group by a.activity_id, a.round_id, a.object_id
+            ) m
+            inner join review_object o on o.id = m.objectId and o.del_flag = '0'
+            left join review_activity act on act.id = m.activityId and act.del_flag = '0'
+            left join review_round rd on rd.id = m.roundId and rd.del_flag = '0'
+            left join review_result res
+              on res.activity_id = m.activityId
+             and res.round_id = m.roundId
+             and res.object_id = m.objectId
+             and res.del_flag = '0'
+            where 1 = 1
+            <if test="objectCode != null and objectCode != ''">
+              and o.object_code like concat('%', #{objectCode}, '%')
+            </if>
+            <if test="objectName != null and objectName != ''">
+              and o.object_name like concat('%', #{objectName}, '%')
+            </if>
+            <if test="orgName != null and orgName != ''">
+              and o.org_name like concat('%', #{orgName}, '%')
+            </if>
+            <if test="resultStatus != null and resultStatus != ''">
+              and res.result_status = #{resultStatus}
+            </if>
+        ) result_view
+        <where>
+            <if test="completionStatus != null and completionStatus != ''">
+                completionStatus = #{completionStatus}
+            </if>
+        </where>
+        order by activityId desc, roundId desc, calculatedRank is null, calculatedRank asc, objectId asc
+    </select>
+
+    <select id="selectRecordList" resultType="com.teaching.competition.review.vo.ReviewResultRecordVO">
+        select r.id as recordId,
+               r.assignment_id as assignmentId,
+               r.reviewer_id as reviewerId,
+               r.reviewer_user_id as reviewerUserId,
+               coalesce(rp1.reviewer_name, rp2.reviewer_name, concat('用户', r.reviewer_user_id)) as reviewerName,
+               r.record_status as recordStatus,
+               r.total_score as totalScore,
+               r.grade as grade,
+               r.recommendation as recommendation,
+               r.comment_text as commentText,
+               r.submitted_time as submittedTime
+        from review_record r
+        left join reviewer_profile rp1 on rp1.id = r.reviewer_id and rp1.del_flag = '0'
+        left join reviewer_profile rp2 on rp2.user_id = r.reviewer_user_id and rp2.del_flag = '0'
+        where r.del_flag = '0'
+          and r.activity_id = #{activityId}
+          and r.round_id = #{roundId}
+          and r.object_id = #{objectId}
+        order by r.submitted_time desc, r.id desc
+    </select>
+
+    <select id="selectScoreDetailList" resultType="com.teaching.competition.review.vo.ReviewScoreDetailReadonlyVO">
+        select id as detailId,
+               record_id as recordId,
+               criteria_id as criteriaId,
+               criteria_name as criteriaName,
+               score_type as scoreType,
+               score_value as scoreValue,
+               option_value as optionValue,
+               text_value as textValue,
+               weight as weight,
+               sort_order as sortOrder
+        from review_score_detail
+        where del_flag = '0'
+          and record_id = #{recordId}
+        order by sort_order asc, id asc
+    </select>
+
+    <insert id="insert" parameterType="com.teaching.competition.review.domain.ReviewResult" useGeneratedKeys="true" keyProperty="id">
+        insert into review_result
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+    <if test="activityId != null">activity_id,</if>
+    <if test="roundId != null">round_id,</if>
+    <if test="objectId != null">object_id,</if>
+    <if test="reviewerCount != null">reviewer_count,</if>
+    <if test="submittedCount != null">submitted_count,</if>
+    <if test="calculatedScore != null">calculated_score,</if>
+    <if test="calculatedGrade != null">calculated_grade,</if>
+    <if test="calculatedRank != null">calculated_rank,</if>
+    <if test="evaluationConclusion != null">evaluation_conclusion,</if>
+    <if test="conclusionGeneratedBy != null">conclusion_generated_by,</if>
+    <if test="conclusionGeneratedTime != null">conclusion_generated_time,</if>
+    <if test="resultStatus != null">result_status,</if>
+    <if test="generatedBy != null">generated_by,</if>
+    <if test="generatedTime != null">generated_time,</if>
+    <if test="publishedBy != null">published_by,</if>
+    <if test="publishedTime != null">published_time,</if>
+    <if test="revokedBy != null">revoked_by,</if>
+    <if test="revokedTime != null">revoked_time,</if>
+    <if test="createBy != null">create_by,</if>
+    <if test="createTime != null">create_time,</if>
+    <if test="updateBy != null">update_by,</if>
+    <if test="updateTime != null">update_time,</if>
+    <if test="remark != null">remark,</if>
+    <if test="delFlag != null">del_flag,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+    <if test="activityId != null">#{activityId},</if>
+    <if test="roundId != null">#{roundId},</if>
+    <if test="objectId != null">#{objectId},</if>
+    <if test="reviewerCount != null">#{reviewerCount},</if>
+    <if test="submittedCount != null">#{submittedCount},</if>
+    <if test="calculatedScore != null">#{calculatedScore},</if>
+    <if test="calculatedGrade != null">#{calculatedGrade},</if>
+    <if test="calculatedRank != null">#{calculatedRank},</if>
+    <if test="evaluationConclusion != null">#{evaluationConclusion},</if>
+    <if test="conclusionGeneratedBy != null">#{conclusionGeneratedBy},</if>
+    <if test="conclusionGeneratedTime != null">#{conclusionGeneratedTime},</if>
+    <if test="resultStatus != null">#{resultStatus},</if>
+    <if test="generatedBy != null">#{generatedBy},</if>
+    <if test="generatedTime != null">#{generatedTime},</if>
+    <if test="publishedBy != null">#{publishedBy},</if>
+    <if test="publishedTime != null">#{publishedTime},</if>
+    <if test="revokedBy != null">#{revokedBy},</if>
+    <if test="revokedTime != null">#{revokedTime},</if>
+    <if test="createBy != null">#{createBy},</if>
+    <if test="createTime != null">#{createTime},</if>
+    <if test="updateBy != null">#{updateBy},</if>
+    <if test="updateTime != null">#{updateTime},</if>
+    <if test="remark != null">#{remark},</if>
+    <if test="delFlag != null">#{delFlag},</if>
+        </trim>
+    </insert>
+
+    <update id="update" parameterType="com.teaching.competition.review.domain.ReviewResult">
+        update review_result
+        <set>
+    <if test="activityId != null">activity_id = #{activityId},</if>
+    <if test="roundId != null">round_id = #{roundId},</if>
+    <if test="objectId != null">object_id = #{objectId},</if>
+    <if test="reviewerCount != null">reviewer_count = #{reviewerCount},</if>
+    <if test="submittedCount != null">submitted_count = #{submittedCount},</if>
+    <if test="calculatedScore != null">calculated_score = #{calculatedScore},</if>
+    <if test="calculatedGrade != null">calculated_grade = #{calculatedGrade},</if>
+    <if test="calculatedRank != null">calculated_rank = #{calculatedRank},</if>
+    <if test="evaluationConclusion != null">evaluation_conclusion = #{evaluationConclusion},</if>
+    <if test="conclusionGeneratedBy != null">conclusion_generated_by = #{conclusionGeneratedBy},</if>
+    <if test="conclusionGeneratedTime != null">conclusion_generated_time = #{conclusionGeneratedTime},</if>
+    <if test="resultStatus != null">result_status = #{resultStatus},</if>
+    <if test="generatedBy != null">generated_by = #{generatedBy},</if>
+    <if test="generatedTime != null">generated_time = #{generatedTime},</if>
+    <if test="publishedBy != null">published_by = #{publishedBy},</if>
+    <if test="publishedTime != null">published_time = #{publishedTime},</if>
+    <if test="revokedBy != null">revoked_by = #{revokedBy},</if>
+    <if test="revokedTime != null">revoked_time = #{revokedTime},</if>
+    <if test="updateBy != null">update_by = #{updateBy},</if>
+    <if test="updateTime != null">update_time = #{updateTime},</if>
+    <if test="remark != null">remark = #{remark},</if>
+        </set>
+        where id = #{id} and del_flag = '0'
+    </update>
+
+    <update id="deleteByIds">
+        update review_result
+        set del_flag = '1', update_by = #{updateBy}, update_time = now()
+        where id in
+        <foreach item="id" collection="ids" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+
+    <update id="updateRank">
+        update review_result
+        set calculated_rank = #{rank}, update_by = #{updateBy}, update_time = now()
+        where id = #{id} and del_flag = '0'
+    </update>
+</mapper>

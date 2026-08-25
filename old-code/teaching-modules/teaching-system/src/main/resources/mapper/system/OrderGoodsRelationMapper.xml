@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.system.mapper.OrderGoodsRelationMapper">
+    
+    <resultMap type="com.teaching.system.domain.OrderGoodsRelation" id="OrderGoodsRelationResult">
+        <result property="id"    column="id"    />
+        <result property="orderId"    column="order_id"    />
+        <result property="commodityId"    column="commodity_id"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="version"    column="version"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="orgId"    column="org_id"    />
+        <result property="users" column="users" />
+        <result property="changeType" column="change_type" />
+        <result property="payStatus" column="pay_status"/>
+    </resultMap>
+
+    <sql id="selectOrderGoodsRelationVo">
+        select id, order_id, commodity_id, create_by, create_time, update_by, update_time, version, del_flag, org_id,users,change_type,pay_status from order_goods_relation
+    </sql>
+
+    <select id="selectOrderGoodsRelationList" parameterType="com.teaching.system.domain.OrderGoodsRelation" resultMap="OrderGoodsRelationResult">
+        <include refid="selectOrderGoodsRelationVo"/>
+        <where>
+            del_flag = 0
+            <if test="orderId != null  and orderId != ''"> and order_id = #{orderId}</if>
+            <if test="commodityId != null  and commodityId != ''"> and commodity_id = #{commodityId}</if>
+            <if test="version != null "> and version = #{version}</if>
+            <if test="orgId != null "> and org_id = #{orgId}</if>
+        </where>
+    </select>
+    
+    <select id="selectOrderGoodsRelationById" parameterType="Long" resultMap="OrderGoodsRelationResult">
+        <include refid="selectOrderGoodsRelationVo"/>
+        where id = #{id} and del_flag = 0
+    </select>
+    <select id="selectByOrderId" resultMap="OrderGoodsRelationResult">
+        <include refid="selectOrderGoodsRelationVo"/>
+        where order_id = #{orderId} and del_flag = 0
+    </select>
+
+    <select id="selectByOrderIdAndCommodityId" resultMap="OrderGoodsRelationResult">
+        <include refid="selectOrderGoodsRelationVo"/>
+        where order_id = #{orderId} and commodity_id = #{commodityId} and del_flag = 0
+    </select>
+
+    <insert id="insertOrderGoodsRelation" parameterType="com.teaching.system.domain.OrderGoodsRelation" useGeneratedKeys="true" keyProperty="id">
+        insert into order_goods_relation
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="orderId != null">order_id,</if>
+            <if test="commodityId != null">commodity_id,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="version != null">version,</if>
+            <if test="delFlag != null">del_flag,</if>
+            <if test="orgId != null">org_id,</if>
+            <if test="users != null">users,</if>
+            <if test="changeType != null">change_type,</if>
+            <if test="payStatus!=null">pay_status,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="orderId != null">#{orderId},</if>
+            <if test="commodityId != null">#{commodityId},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="version != null">#{version},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+            <if test="orgId != null">#{orgId},</if>
+            <if test="users != null">#{users},</if>
+            <if test="changeType != null">#{changeType},</if>
+            <if test="payStatus!=null">#{payStatus}</if>
+         </trim>
+    </insert>
+
+    <insert id="insertOrderGoodsRelationBatch" parameterType="java.util.List">
+        insert into order_goods_relation (order_id, commodity_id, create_by, create_time, update_by, update_time, version, del_flag, org_id,users,change_type,pay_status)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.orderId}, #{item.commodityId}, #{item.createBy}, #{item.createTime}, #{item.updateBy}, #{item.updateTime}, #{item.version}, #{item.delFlag}, #{item.orgId}, #{item.users}, #{item.changeType},#{item.payStatus})
+        </foreach>
+    </insert>
+
+    <update id="updateOrderGoodsRelation" parameterType="com.teaching.system.domain.OrderGoodsRelation">
+        update order_goods_relation
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="orderId != null">order_id = #{orderId},</if>
+            <if test="commodityId != null">commodity_id = #{commodityId},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="version != null">version = #{version},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+            <if test="orgId != null">org_id = #{orgId},</if>
+            <if test="users != null">users = #{users},</if>
+            <if test="changeType != null">change_type = #{changeType},</if>
+            <if test="payStatus!=null">pay_status = #{payStatus},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteOrderGoodsRelationById" parameterType="Long">
+        delete from order_goods_relation where id = #{id}
+    </delete>
+
+    <delete id="deleteOrderGoodsRelationByIds" parameterType="String">
+        delete from order_goods_relation where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    <update id="deleteByOrderId" parameterType="String">
+        update order_goods_relation set del_flag = 1 where order_id = #{orderId} and del_flag = 0
+    </update>
+
+    <update id="updateChangeType">
+        update order_goods_relation set change_type = #{changeType},pay_status = 'pending' where order_id = #{orderId} and commodity_id=#{teamCode} and del_flag = 0
+    </update>
+
+    <update id="updatePayStatus">
+        update order_goods_relation set pay_status = #{payStatus} where order_id = #{orderId} and commodity_id=#{teamCode} and del_flag = 0
+    </update>
+
+    <select id="selectByCommodityId" resultMap="OrderGoodsRelationResult">
+        <include refid="selectOrderGoodsRelationVo"/>
+        where commodity_id = #{commodityId} and del_flag = 0
+    </select>
+</mapper>

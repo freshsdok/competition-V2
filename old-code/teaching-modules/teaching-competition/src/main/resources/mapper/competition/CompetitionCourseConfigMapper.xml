@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.competition.mapper.CompetitionCourseConfigMapper">
+    
+    <resultMap type="com.teaching.system.api.domain.CompetitionCourseConfig" id="CompetitionCourseConfigResult">
+        <result property="courseConfigId"    column="course_config_id"    />
+        <result property="competitionSeriesId"    column="competition_series_id"    />
+        <result property="courseId"    column="course_id"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="version"    column="version"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="userId"    column="user_id"    />
+        <result property="orgId"    column="org_id"    />
+    </resultMap>
+
+    <sql id="selectCompetitionCourseConfigVo">
+        select course_config_id, competition_series_id, course_id, create_by, create_time, update_by, update_time, version, del_flag, user_id, org_id from competition_course_config
+    </sql>
+
+    <select id="selectCompetitionCourseConfigList" parameterType="Long" resultMap="CompetitionCourseConfigResult">
+        <include refid="selectCompetitionCourseConfigVo"/>
+        where del_flag = '0'
+            <if test="competitionSeriesId != null "> and competition_series_id = #{competitionSeriesId}</if>
+    </select>
+    
+    <select id="selectCompetitionCourseConfigByCourseConfigId" parameterType="Long" resultMap="CompetitionCourseConfigResult">
+        <include refid="selectCompetitionCourseConfigVo"/>
+        where course_config_id = #{courseConfigId}
+    </select>
+
+    <insert id="insertCompetitionCourseConfig" parameterType="com.teaching.system.api.domain.CompetitionCourseConfig">
+
+            insert into competition_course_config (course_config_id,competition_series_id,course_id,create_by,create_time,version,
+            del_flag,user_id,org_id)
+            values
+        <foreach collection="courseConfigList" item="item" index="index" separator=",">
+            (#{item.courseConfigId},#{item.competitionSeriesId},#{item.courseId},#{item.createBy},#{item.createTime},#{item.version},
+            #{item.delFlag},#{item.userId},#{item.orgId})
+        </foreach>
+    </insert>
+
+    <update id="updateCompetitionCourseConfig" parameterType="com.teaching.system.api.domain.CompetitionCourseConfig">
+        update competition_course_config
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="competitionSeriesId != null">competition_series_id = #{competitionSeriesId},</if>
+            <if test="courseId != null">course_id = #{courseId},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            version = version+1,
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="orgId != null">org_id = #{orgId},</if>
+        </trim>
+        where course_config_id = #{courseConfigId} and competition_series_id = #{competitionSeriesId}
+    </update>
+
+    <delete id="deleteCompetitionCourseConfigBySeriesId" parameterType="Long">
+        update competition_course_config set del_flag = '1',update_time = now(),version = version+1 where competition_series_id = #{competitionSeriesId}
+    </delete>
+
+    <delete id="deleteCompetitionCourseConfigByCourseConfigIds" parameterType="String">
+        update competition_course_config set del_flag = '1',update_time = now(),version = version+1 where competition_series_id in
+        <foreach item="competitionSeriesId" collection="array" open="(" separator="," close=")">
+            #{competitionSeriesId}
+        </foreach>
+    </delete>
+</mapper>

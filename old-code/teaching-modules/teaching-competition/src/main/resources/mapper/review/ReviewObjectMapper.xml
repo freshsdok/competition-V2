@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.competition.review.mapper.ReviewObjectMapper">
+
+    <resultMap type="com.teaching.competition.review.domain.ReviewObject" id="ReviewObjectResult">
+<id property="id" column="id"/>
+<result property="activityId" column="activity_id"/>
+<result property="objectCode" column="object_code"/>
+<result property="objectName" column="object_name"/>
+<result property="objectType" column="object_type"/>
+<result property="summary" column="summary"/>
+<result property="subjectCode1" column="subject_code_1"/>
+<result property="subjectCode2" column="subject_code_2"/>
+<result property="subjectCode3" column="subject_code_3"/>
+<result property="categoryCodes" column="category_codes"/>
+<result property="keywords" column="keywords"/>
+<result property="orgName" column="org_name"/>
+<result property="contactName" column="contact_name"/>
+<result property="contactPhone" column="contact_phone"/>
+<result property="contactEmail" column="contact_email"/>
+<result property="submitStatus" column="submit_status"/>
+<result property="submitTime" column="submit_time"/>
+<result property="submittedBy" column="submitted_by"/>
+<result property="lockedTime" column="locked_time"/>
+<result property="invalidTime" column="invalid_time"/>
+<result property="createdFrom" column="created_from"/>
+<result property="sourceModule" column="source_module"/>
+<result property="sourceBizType" column="source_biz_type"/>
+<result property="sourceBizId" column="source_biz_id"/>
+<result property="sourceTeamId" column="source_team_id"/>
+<result property="sourceRegistrationId" column="source_registration_id"/>
+<result property="extraData" column="extra_data"/>
+<result property="createBy" column="create_by"/>
+<result property="createTime" column="create_time"/>
+<result property="updateBy" column="update_by"/>
+<result property="updateTime" column="update_time"/>
+<result property="remark" column="remark"/>
+<result property="delFlag" column="del_flag"/>
+    </resultMap>
+
+    <sql id="selectReviewObjectVo">
+        select id, activity_id, object_code, object_name, object_type, summary, subject_code_1, subject_code_2, subject_code_3, category_codes, keywords, org_name, contact_name, contact_phone, contact_email, submit_status, submit_time, submitted_by, locked_time, invalid_time, created_from, source_module, source_biz_type, source_biz_id, source_team_id, source_registration_id, extra_data, create_by, create_time, update_by, update_time, remark, del_flag
+        from review_object
+    </sql>
+
+    <select id="selectById" parameterType="Long" resultMap="ReviewObjectResult">
+        <include refid="selectReviewObjectVo"/>
+        where id = #{id} and del_flag = '0'
+    </select>
+
+    <select id="selectList" parameterType="com.teaching.competition.review.domain.ReviewObject" resultMap="ReviewObjectResult">
+        <include refid="selectReviewObjectVo"/>
+        <where>
+    del_flag = '0'
+    <if test="activityId != null">
+        and activity_id = #{activityId}
+    </if>
+    <if test="objectCode != null and objectCode != ''">
+        and object_code = #{objectCode}
+    </if>
+    <if test="objectName != null and objectName != ''">
+        and object_name like concat('%', #{objectName}, '%')
+    </if>
+    <if test="objectType != null and objectType != ''">
+        and object_type = #{objectType}
+    </if>
+    <if test="summary != null and summary != ''">
+        and summary like concat('%', #{summary}, '%')
+    </if>
+    <if test="subjectCode1 != null and subjectCode1 != ''">
+        and subject_code_1 = #{subjectCode1}
+    </if>
+    <if test="subjectCode2 != null and subjectCode2 != ''">
+        and subject_code_2 = #{subjectCode2}
+    </if>
+    <if test="subjectCode3 != null and subjectCode3 != ''">
+        and subject_code_3 = #{subjectCode3}
+    </if>
+    <if test="categoryCodes != null and categoryCodes != ''">
+        and category_codes = #{categoryCodes}
+    </if>
+    <if test="keywords != null and keywords != ''">
+        and keywords = #{keywords}
+    </if>
+    <if test="orgName != null and orgName != ''">
+        and org_name like concat('%', #{orgName}, '%')
+    </if>
+    <if test="contactName != null and contactName != ''">
+        and contact_name like concat('%', #{contactName}, '%')
+    </if>
+    <if test="contactPhone != null and contactPhone != ''">
+        and contact_phone = #{contactPhone}
+    </if>
+    <if test="contactEmail != null and contactEmail != ''">
+        and contact_email = #{contactEmail}
+    </if>
+    <if test="submitStatus != null and submitStatus != ''">
+        and submit_status = #{submitStatus}
+    </if>
+    <if test="submitTime != null">
+        and submit_time = #{submitTime}
+    </if>
+    <if test="submittedBy != null">
+        and submitted_by = #{submittedBy}
+    </if>
+    <if test="lockedTime != null">
+        and locked_time = #{lockedTime}
+    </if>
+    <if test="invalidTime != null">
+        and invalid_time = #{invalidTime}
+    </if>
+    <if test="createdFrom != null and createdFrom != ''">
+        and created_from = #{createdFrom}
+    </if>
+    <if test="sourceModule != null and sourceModule != ''">
+        and source_module = #{sourceModule}
+    </if>
+    <if test="sourceBizType != null and sourceBizType != ''">
+        and source_biz_type = #{sourceBizType}
+    </if>
+    <if test="sourceBizId != null and sourceBizId != ''">
+        and source_biz_id = #{sourceBizId}
+    </if>
+    <if test="sourceTeamId != null and sourceTeamId != ''">
+        and source_team_id = #{sourceTeamId}
+    </if>
+    <if test="sourceRegistrationId != null and sourceRegistrationId != ''">
+        and source_registration_id = #{sourceRegistrationId}
+    </if>
+    <if test="extraData != null and extraData != ''">
+        and extra_data = #{extraData}
+    </if>
+        </where>
+        order by id desc
+    </select>
+
+    <select id="selectBySourceRef" resultMap="ReviewObjectResult">
+        <include refid="selectReviewObjectVo"/>
+        where activity_id = #{activityId}
+          and source_module = #{sourceModule}
+          and source_biz_type = #{sourceBizType}
+          and source_biz_id = #{sourceBizId}
+          and del_flag = '0'
+        limit 1
+    </select>
+
+    <insert id="insert" parameterType="com.teaching.competition.review.domain.ReviewObject" useGeneratedKeys="true" keyProperty="id">
+        insert into review_object
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+    <if test="activityId != null">activity_id,</if>
+    <if test="objectCode != null">object_code,</if>
+    <if test="objectName != null">object_name,</if>
+    <if test="objectType != null">object_type,</if>
+    <if test="summary != null">summary,</if>
+    <if test="subjectCode1 != null">subject_code_1,</if>
+    <if test="subjectCode2 != null">subject_code_2,</if>
+    <if test="subjectCode3 != null">subject_code_3,</if>
+    <if test="categoryCodes != null">category_codes,</if>
+    <if test="keywords != null">keywords,</if>
+    <if test="orgName != null">org_name,</if>
+    <if test="contactName != null">contact_name,</if>
+    <if test="contactPhone != null">contact_phone,</if>
+    <if test="contactEmail != null">contact_email,</if>
+    <if test="submitStatus != null">submit_status,</if>
+    <if test="submitTime != null">submit_time,</if>
+    <if test="submittedBy != null">submitted_by,</if>
+    <if test="lockedTime != null">locked_time,</if>
+    <if test="invalidTime != null">invalid_time,</if>
+    <if test="createdFrom != null">created_from,</if>
+    <if test="sourceModule != null">source_module,</if>
+    <if test="sourceBizType != null">source_biz_type,</if>
+    <if test="sourceBizId != null">source_biz_id,</if>
+    <if test="sourceTeamId != null">source_team_id,</if>
+    <if test="sourceRegistrationId != null">source_registration_id,</if>
+    <if test="extraData != null">extra_data,</if>
+    <if test="createBy != null">create_by,</if>
+    <if test="createTime != null">create_time,</if>
+    <if test="updateBy != null">update_by,</if>
+    <if test="updateTime != null">update_time,</if>
+    <if test="remark != null">remark,</if>
+    <if test="delFlag != null">del_flag,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+    <if test="activityId != null">#{activityId},</if>
+    <if test="objectCode != null">#{objectCode},</if>
+    <if test="objectName != null">#{objectName},</if>
+    <if test="objectType != null">#{objectType},</if>
+    <if test="summary != null">#{summary},</if>
+    <if test="subjectCode1 != null">#{subjectCode1},</if>
+    <if test="subjectCode2 != null">#{subjectCode2},</if>
+    <if test="subjectCode3 != null">#{subjectCode3},</if>
+    <if test="categoryCodes != null">#{categoryCodes},</if>
+    <if test="keywords != null">#{keywords},</if>
+    <if test="orgName != null">#{orgName},</if>
+    <if test="contactName != null">#{contactName},</if>
+    <if test="contactPhone != null">#{contactPhone},</if>
+    <if test="contactEmail != null">#{contactEmail},</if>
+    <if test="submitStatus != null">#{submitStatus},</if>
+    <if test="submitTime != null">#{submitTime},</if>
+    <if test="submittedBy != null">#{submittedBy},</if>
+    <if test="lockedTime != null">#{lockedTime},</if>
+    <if test="invalidTime != null">#{invalidTime},</if>
+    <if test="createdFrom != null">#{createdFrom},</if>
+    <if test="sourceModule != null">#{sourceModule},</if>
+    <if test="sourceBizType != null">#{sourceBizType},</if>
+    <if test="sourceBizId != null">#{sourceBizId},</if>
+    <if test="sourceTeamId != null">#{sourceTeamId},</if>
+    <if test="sourceRegistrationId != null">#{sourceRegistrationId},</if>
+    <if test="extraData != null">#{extraData},</if>
+    <if test="createBy != null">#{createBy},</if>
+    <if test="createTime != null">#{createTime},</if>
+    <if test="updateBy != null">#{updateBy},</if>
+    <if test="updateTime != null">#{updateTime},</if>
+    <if test="remark != null">#{remark},</if>
+    <if test="delFlag != null">#{delFlag},</if>
+        </trim>
+    </insert>
+
+    <update id="update" parameterType="com.teaching.competition.review.domain.ReviewObject">
+        update review_object
+        <set>
+    <if test="activityId != null">activity_id = #{activityId},</if>
+    <if test="objectCode != null">object_code = #{objectCode},</if>
+    <if test="objectName != null">object_name = #{objectName},</if>
+    <if test="objectType != null">object_type = #{objectType},</if>
+    <if test="summary != null">summary = #{summary},</if>
+    <if test="subjectCode1 != null">subject_code_1 = #{subjectCode1},</if>
+    <if test="subjectCode2 != null">subject_code_2 = #{subjectCode2},</if>
+    <if test="subjectCode3 != null">subject_code_3 = #{subjectCode3},</if>
+    <if test="categoryCodes != null">category_codes = #{categoryCodes},</if>
+    <if test="keywords != null">keywords = #{keywords},</if>
+    <if test="orgName != null">org_name = #{orgName},</if>
+    <if test="contactName != null">contact_name = #{contactName},</if>
+    <if test="contactPhone != null">contact_phone = #{contactPhone},</if>
+    <if test="contactEmail != null">contact_email = #{contactEmail},</if>
+    <if test="submitStatus != null">submit_status = #{submitStatus},</if>
+    <if test="submitTime != null">submit_time = #{submitTime},</if>
+    <if test="submittedBy != null">submitted_by = #{submittedBy},</if>
+    <if test="lockedTime != null">locked_time = #{lockedTime},</if>
+    <if test="invalidTime != null">invalid_time = #{invalidTime},</if>
+    <if test="createdFrom != null">created_from = #{createdFrom},</if>
+    <if test="sourceModule != null">source_module = #{sourceModule},</if>
+    <if test="sourceBizType != null">source_biz_type = #{sourceBizType},</if>
+    <if test="sourceBizId != null">source_biz_id = #{sourceBizId},</if>
+    <if test="sourceTeamId != null">source_team_id = #{sourceTeamId},</if>
+    <if test="sourceRegistrationId != null">source_registration_id = #{sourceRegistrationId},</if>
+    <if test="extraData != null">extra_data = #{extraData},</if>
+    <if test="updateBy != null">update_by = #{updateBy},</if>
+    <if test="updateTime != null">update_time = #{updateTime},</if>
+    <if test="remark != null">remark = #{remark},</if>
+        </set>
+        where id = #{id} and del_flag = '0'
+    </update>
+
+    <update id="deleteByIds">
+        update review_object
+        set del_flag = '1', update_by = #{updateBy}, update_time = now()
+        where id in
+        <foreach item="id" collection="ids" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+</mapper>

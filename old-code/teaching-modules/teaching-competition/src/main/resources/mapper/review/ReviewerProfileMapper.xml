@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.competition.review.mapper.ReviewerProfileMapper">
+
+    <resultMap type="com.teaching.competition.review.domain.ReviewerProfile" id="ReviewerProfileResult">
+<id property="id" column="id"/>
+<result property="userId" column="user_id"/>
+<result property="reviewerName" column="reviewer_name"/>
+<result property="orgName" column="org_name"/>
+<result property="phone" column="phone"/>
+<result property="email" column="email"/>
+<result property="subjectCode1" column="subject_code_1"/>
+<result property="subjectCode2" column="subject_code_2"/>
+<result property="subjectCode3" column="subject_code_3"/>
+<result property="categoryCodes" column="category_codes"/>
+<result property="keywords" column="keywords"/>
+<result property="maxTaskCount" column="max_task_count"/>
+<result property="status" column="status"/>
+<result property="createBy" column="create_by"/>
+<result property="createTime" column="create_time"/>
+<result property="updateBy" column="update_by"/>
+<result property="updateTime" column="update_time"/>
+<result property="remark" column="remark"/>
+<result property="delFlag" column="del_flag"/>
+    </resultMap>
+
+    <sql id="selectReviewerProfileVo">
+        select id, user_id, reviewer_name, org_name, phone, email, subject_code_1, subject_code_2, subject_code_3, category_codes, keywords, max_task_count, status, create_by, create_time, update_by, update_time, remark, del_flag
+        from reviewer_profile
+    </sql>
+
+    <select id="selectById" parameterType="Long" resultMap="ReviewerProfileResult">
+        <include refid="selectReviewerProfileVo"/>
+        where id = #{id} and del_flag = '0'
+    </select>
+
+    <select id="selectList" parameterType="com.teaching.competition.review.domain.ReviewerProfile" resultMap="ReviewerProfileResult">
+        <include refid="selectReviewerProfileVo"/>
+        <where>
+    del_flag = '0'
+    <if test="userId != null">
+        and user_id = #{userId}
+    </if>
+    <if test="reviewerName != null and reviewerName != ''">
+        and reviewer_name like concat('%', #{reviewerName}, '%')
+    </if>
+    <if test="orgName != null and orgName != ''">
+        and org_name like concat('%', #{orgName}, '%')
+    </if>
+    <if test="phone != null and phone != ''">
+        and phone = #{phone}
+    </if>
+    <if test="email != null and email != ''">
+        and email = #{email}
+    </if>
+    <if test="subjectCode1 != null and subjectCode1 != ''">
+        and subject_code_1 = #{subjectCode1}
+    </if>
+    <if test="subjectCode2 != null and subjectCode2 != ''">
+        and subject_code_2 = #{subjectCode2}
+    </if>
+    <if test="subjectCode3 != null and subjectCode3 != ''">
+        and subject_code_3 = #{subjectCode3}
+    </if>
+    <if test="categoryCodes != null and categoryCodes != ''">
+        and category_codes = #{categoryCodes}
+    </if>
+    <if test="keywords != null and keywords != ''">
+        and keywords = #{keywords}
+    </if>
+    <if test="maxTaskCount != null">
+        and max_task_count = #{maxTaskCount}
+    </if>
+    <if test="status != null and status != ''">
+        and status = #{status}
+    </if>
+        </where>
+        order by id desc
+    </select>
+
+    <insert id="insert" parameterType="com.teaching.competition.review.domain.ReviewerProfile" useGeneratedKeys="true" keyProperty="id">
+        insert into reviewer_profile
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+    <if test="userId != null">user_id,</if>
+    <if test="reviewerName != null">reviewer_name,</if>
+    <if test="orgName != null">org_name,</if>
+    <if test="phone != null">phone,</if>
+    <if test="email != null">email,</if>
+    <if test="subjectCode1 != null">subject_code_1,</if>
+    <if test="subjectCode2 != null">subject_code_2,</if>
+    <if test="subjectCode3 != null">subject_code_3,</if>
+    <if test="categoryCodes != null">category_codes,</if>
+    <if test="keywords != null">keywords,</if>
+    <if test="maxTaskCount != null">max_task_count,</if>
+    <if test="status != null">status,</if>
+    <if test="createBy != null">create_by,</if>
+    <if test="createTime != null">create_time,</if>
+    <if test="updateBy != null">update_by,</if>
+    <if test="updateTime != null">update_time,</if>
+    <if test="remark != null">remark,</if>
+    <if test="delFlag != null">del_flag,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+    <if test="userId != null">#{userId},</if>
+    <if test="reviewerName != null">#{reviewerName},</if>
+    <if test="orgName != null">#{orgName},</if>
+    <if test="phone != null">#{phone},</if>
+    <if test="email != null">#{email},</if>
+    <if test="subjectCode1 != null">#{subjectCode1},</if>
+    <if test="subjectCode2 != null">#{subjectCode2},</if>
+    <if test="subjectCode3 != null">#{subjectCode3},</if>
+    <if test="categoryCodes != null">#{categoryCodes},</if>
+    <if test="keywords != null">#{keywords},</if>
+    <if test="maxTaskCount != null">#{maxTaskCount},</if>
+    <if test="status != null">#{status},</if>
+    <if test="createBy != null">#{createBy},</if>
+    <if test="createTime != null">#{createTime},</if>
+    <if test="updateBy != null">#{updateBy},</if>
+    <if test="updateTime != null">#{updateTime},</if>
+    <if test="remark != null">#{remark},</if>
+    <if test="delFlag != null">#{delFlag},</if>
+        </trim>
+    </insert>
+
+    <update id="update" parameterType="com.teaching.competition.review.domain.ReviewerProfile">
+        update reviewer_profile
+        <set>
+    <if test="userId != null">user_id = #{userId},</if>
+    <if test="reviewerName != null">reviewer_name = #{reviewerName},</if>
+    <if test="orgName != null">org_name = #{orgName},</if>
+    <if test="phone != null">phone = #{phone},</if>
+    <if test="email != null">email = #{email},</if>
+    <if test="subjectCode1 != null">subject_code_1 = #{subjectCode1},</if>
+    <if test="subjectCode2 != null">subject_code_2 = #{subjectCode2},</if>
+    <if test="subjectCode3 != null">subject_code_3 = #{subjectCode3},</if>
+    <if test="categoryCodes != null">category_codes = #{categoryCodes},</if>
+    <if test="keywords != null">keywords = #{keywords},</if>
+    <if test="maxTaskCount != null">max_task_count = #{maxTaskCount},</if>
+    <if test="status != null">status = #{status},</if>
+    <if test="updateBy != null">update_by = #{updateBy},</if>
+    <if test="updateTime != null">update_time = #{updateTime},</if>
+    <if test="remark != null">remark = #{remark},</if>
+        </set>
+        where id = #{id} and del_flag = '0'
+    </update>
+
+    <update id="deleteByIds">
+        update reviewer_profile
+        set del_flag = '1', update_by = #{updateBy}, update_time = now()
+        where id in
+        <foreach item="id" collection="ids" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+</mapper>

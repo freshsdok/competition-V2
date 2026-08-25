@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.content.mapper.DataSourceInfoMapper">
+
+    <resultMap type="DataSourceInfo" id="DataSourceInfoResult">
+        <result property="dataId" column="data_id"/>
+        <result property="dataName" column="data_name"/>
+        <result property="type" column="type"/>
+        <result property="interfaceUrl" column="interface_url"/>
+        <result property="requestMode" column="request_mode"/>
+        <result property="parameter" column="parameter"/>
+        <result property="header" column="header"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="version" column="version"/>
+        <result property="isBuiltIn" column="is_built_in"/>
+        <result property="delFlag" column="del_flag"/>
+        <result property="remark" column="remark"/>
+        <result property="userId" column="user_id"/>
+        <result property="orgId" column="org_id"/>
+    </resultMap>
+
+    <sql id="selectDataSourceInfoVo">
+        select data_id,
+               data_name,
+               type,
+               interface_url,
+               request_mode,
+               parameter,
+               header,
+               create_by,
+               create_time,
+               update_by,
+               update_time,
+               version,
+               is_built_in,
+               del_flag,
+               remark,
+               user_id,
+               org_id
+        from data_source_info
+    </sql>
+
+    <select id="selectDataSourceInfoList" parameterType="DataSourceInfo" resultMap="DataSourceInfoResult">
+        <include refid="selectDataSourceInfoVo"/>
+        <where>
+            and del_flag = '0'
+            <if test="dataName != null  and dataName != ''">and data_name like concat('%', #{dataName}, '%')</if>
+            <if test="type != null  and type != ''">and type = #{type}</if>
+            <if test="interfaceUrl != null  and interfaceUrl != ''">and interface_url = #{interfaceUrl}</if>
+            <if test="requestMode != null  and requestMode != ''">and request_mode = #{requestMode}</if>
+            <if test="parameter != null  and parameter != ''">and parameter = #{parameter}</if>
+            <if test="header != null  and header != ''">and header = #{header}</if>
+            <if test="version != null ">and version = #{version}</if>
+            <if test="isBuiltIn != null ">and is_built_in = #{isBuiltIn}</if>
+            <if test="userId != null ">and user_id = #{userId}</if>
+            <if test="orgId != null ">and org_id = #{orgId}</if>
+        </where>
+    </select>
+
+    <select id="selectDataSourceInfoByDataId" parameterType="Long" resultMap="DataSourceInfoResult">
+        <include refid="selectDataSourceInfoVo"/>
+        where data_id = #{dataId}
+    </select>
+
+    <insert id="insertDataSourceInfo" parameterType="DataSourceInfo" useGeneratedKeys="true" keyProperty="dataId">
+        insert into data_source_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="dataName != null and dataName != ''">data_name,</if>
+            <if test="type != null">type,</if>
+            <if test="interfaceUrl != null and interfaceUrl != ''">interface_url,</if>
+            <if test="requestMode != null">request_mode,</if>
+            <if test="parameter != null">parameter,</if>
+            <if test="header != null">header,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="version != null">version,</if>
+            <if test="isBuiltIn != null">is_built_in,</if>
+            <if test="remark != null">remark,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="orgId != null">org_id,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="dataName != null and dataName != ''">#{dataName},</if>
+            <if test="type != null">#{type},</if>
+            <if test="interfaceUrl != null and interfaceUrl != ''">#{interfaceUrl},</if>
+            <if test="requestMode != null">#{requestMode},</if>
+            <if test="parameter != null">#{parameter},</if>
+            <if test="header != null">#{header},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="version != null">#{version},</if>
+            <if test="isBuiltIn != null">#{isBuiltIn},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="orgId != null">#{orgId},</if>
+        </trim>
+    </insert>
+
+    <update id="updateDataSourceInfo" parameterType="DataSourceInfo">
+        update data_source_info
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="dataName != null and dataName != ''">data_name = #{dataName},</if>
+            <if test="type != null">type = #{type},</if>
+            <if test="interfaceUrl != null and interfaceUrl != ''">interface_url = #{interfaceUrl},</if>
+            <if test="requestMode != null">request_mode = #{requestMode},</if>
+            <if test="parameter != null">parameter = #{parameter},</if>
+            <if test="header != null">header = #{header},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            version = version + 1,
+            <if test="isBuiltIn != null">is_built_in = #{isBuiltIn},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="orgId != null">org_id = #{orgId},</if>
+        </trim>
+        where data_id = #{dataId}
+    </update>
+
+    <delete id="deleteDataSourceInfoByDataId" parameterType="Long">
+        delete
+        from data_source_info
+        where data_id = #{dataId}
+    </delete>
+
+    <delete id="deleteDataSourceInfoByDataIds" parameterType="String">
+        delete from data_source_info where data_id in
+        <foreach item="dataId" collection="array" open="(" separator="," close=")">
+            #{dataId}
+        </foreach>
+    </delete>
+</mapper>

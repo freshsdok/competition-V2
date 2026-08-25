@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.system.mapper.ExpertReviewNotesMapper">
+
+    <resultMap type="com.teaching.system.domain.ExpertReviewNotes" id="ExpertReviewNotesResult">
+        <result property="id" column="id"/>
+        <result property="processedRelationId" column="processed_relation_id"/>
+        <result property="expertId" column="expert_id"/>
+        <result property="describe" column="describe"/>
+        <result property="delFlag" column="del_flag"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="remark" column="remark"/>
+    </resultMap>
+
+    <sql id="selectExpertReviewNotesVo">
+        select id,
+               processed_relation_id,
+               expert_id, `describe`, del_flag, create_by, create_time, update_by, update_time, remark
+        from review_expert_review_notes
+    </sql>
+
+    <select id="selectExpertReviewNotesList" parameterType="com.teaching.system.domain.ExpertReviewNotes" resultMap="ExpertReviewNotesResult">
+        <include refid="selectExpertReviewNotesVo"/>
+        <where>
+            and del_flag = '0'
+            <if test="processedRelationId != null ">and processed_relation_id = #{processedRelationId}</if>
+            <if test="expertId != null ">and expert_id = #{expertId}</if>
+            <if test="describe != null  and describe != ''">and `describe` = #{describe}</if>
+        </where>
+        order by create_time desc
+    </select>
+
+    <select id="selectExpertReviewNotesById" parameterType="Long" resultMap="ExpertReviewNotesResult">
+        <include refid="selectExpertReviewNotesVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertExpertReviewNotes" parameterType="com.teaching.system.domain.ExpertReviewNotes">
+        insert into review_expert_review_notes
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="processedRelationId != null">processed_relation_id,</if>
+            <if test="expertId != null">expert_id,</if>
+            <if test="describe != null">`describe`,</if>
+            <if test="delFlag != null">del_flag,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="processedRelationId != null">#{processedRelationId},</if>
+            <if test="expertId != null">#{expertId},</if>
+            <if test="describe != null">#{describe},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+        </trim>
+    </insert>
+
+    <update id="updateExpertReviewNotes" parameterType="com.teaching.system.domain.ExpertReviewNotes">
+        update review_expert_review_notes
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="processedRelationId != null">processed_relation_id = #{processedRelationId},</if>
+            <if test="expertId != null">expert_id = #{expertId},</if>
+            <if test="describe != null">`describe` = #{describe},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteExpertReviewNotesById" parameterType="Long">
+        delete
+        from review_expert_review_notes
+        where id = #{id}
+    </delete>
+
+    <delete id="deleteExpertReviewNotesByIds" parameterType="String">
+        delete from review_expert_review_notes where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

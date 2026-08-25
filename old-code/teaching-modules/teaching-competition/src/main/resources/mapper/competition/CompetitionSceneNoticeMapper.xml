@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.competition.mapper.CompetitionSceneNoticeMapper">
+
+    <resultMap type="com.teaching.competition.domain.CompetitionSceneNoticeVo" id="CompetitionSceneNoticeResult">
+        <id property="noticeId" column="notice_id"/>
+        <result property="noticeType" column="notice_type"/>
+        <result property="scopeType" column="scope_type"/>
+        <result property="competitionSeriesId" column="competition_series_id"/>
+        <result property="competitionId" column="competition_id"/>
+        <result property="competitionName" column="competition_name"/>
+        <result property="targetId" column="target_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="memberId" column="member_id"/>
+        <result property="recipientName" column="recipient_name"/>
+        <result property="title" column="title"/>
+        <result property="content" column="content"/>
+        <result property="noticeLevel" column="notice_level"/>
+        <result property="isTop" column="is_top"/>
+        <result property="sortNo" column="sort_no"/>
+        <result property="publishStatus" column="publish_status"/>
+        <result property="publishTime" column="publish_time"/>
+        <result property="expireTime" column="expire_time"/>
+        <result property="status" column="status"/>
+        <result property="delFlag" column="del_flag"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="remark" column="remark"/>
+        <result property="scheduleNames" column="schedule_names"/>
+    </resultMap>
+
+    <resultMap type="com.teaching.competition.domain.CompetitionSceneNoticeAccessVo" id="CompetitionSceneNoticeAccessResult">
+        <result property="accessType" column="access_type"/>
+        <result property="competitionSeriesId" column="competition_series_id"/>
+        <result property="scheduleId" column="schedule_id"/>
+        <result property="targetId" column="target_id"/>
+        <result property="memberId" column="member_id"/>
+    </resultMap>
+
+    <sql id="selectNoticeColumns">
+        select n.notice_id,
+               n.notice_type,
+               n.scope_type,
+               n.competition_series_id,
+               coalesce(n.competition_id, csi.competition_id) as competition_id,
+               coalesce(cmi.competition_name, csi.competition_series_name,
+                        (select max(ss.competition_name)
+                         from competition_scene_schedule ss
+                         where ss.competition_series_id = n.competition_series_id and ss.del_flag = '0')) as competition_name,
+               n.target_id,
+               n.user_id,
+               n.member_id,
+               n.recipient_name,
+               n.title,
+               n.content,
+               n.notice_level,
+               n.is_top,
+               n.sort_no,
+               n.publish_status,
+               n.publish_time,
+               n.expire_time,
+               n.status,
+               n.del_flag,
+               n.create_by,
+               n.create_time,
+               n.update_by,
+               n.update_time,
+               n.remark,
+               (select group_concat(distinct ss.schedule_name order by ss.contest_start_time, ss.schedule_id separator '、')
+                from competition_scene_notice_schedule ns
+                inner join competition_scene_schedule ss on ss.schedule_id = ns.schedule_id and ss.del_flag = '0'
+                where ns.notice_id = n.notice_id) as schedule_names
+        from competition_scene_notice n
+        left join competition_series_info csi on csi.competition_series_id = n.competition_series_id
+        left join competition_main_info cmi on cmi.competition_id = coalesce(n.competition_id, csi.competition_id)
+    </sql>
+
+    <sql id="noticeOrderBy">
+        order by n.is_top desc,
+                 case n.notice_level when 'URGENT' then 1 when 'IMPORTANT' then 2 else 3 end,
+                 n.sort_no asc,
+                 n.publish_time desc,
+                 n.notice_id desc
+    </sql>
+
+    <select id="selectCompetitionSceneNoticeById" parameterType="Long" resultMap="CompetitionSceneNoticeResult">
+        <include refid="selectNoticeColumns"/>
+        where n.notice_id = #{noticeId} and n.del_flag = '0'
+    </select>
+
+    <select id="selectCompetitionSceneNoticeList"
+            parameterType="com.teaching.competition.domain.CompetitionSceneNoticeQuery"
+            resultMap="CompetitionSceneNoticeResult">
+        <include refid="selectNoticeColumns"/>
+        <where>
+            n.del_flag = '0'
+            <if test="noticeType != null and noticeType != ''">
+                and n.notice_type = #{noticeType}
+            </if>
+            <if test="scopeType != null and scopeType != ''">
+                and n.scope_type = #{scopeType}
+            </if>
+            <if test="competitionSeriesId != null">
+                and n.competition_series_id = #{competitionSeriesId}
+            </if>
+            <if test="scheduleId != null">
+                and exists (
+                    select 1 from competition_scene_notice_schedule fns
+                    where fns.notice_id = n.notice_id and fns.schedule_id = #{scheduleId}
+                )
+            </if>
+            <if test="targetId != null">
+                and n.target_id = #{targetId}
+            </if>
+            <if test="title != null and title != ''">
+                and n.title like concat('%', #{title}, '%')
+            </if>
+            <if test="noticeLevel != null and noticeLevel != ''">
+                and n.notice_level = #{noticeLevel}
+            </if>
+            <if test="publishStatus != null and publishStatus != ''">
+                and n.publish_status = #{publishStatus}
+            </if>
+        </where>
+        <include refid="noticeOrderBy"/>
+    </select>
+
+    <sql id="activeCredentialConditions">
+        c.del_flag = '0'
+        and c.credential_status = 'EFFECTIVE'
+        and (c.valid_from is null or c.valid_from &lt;= now())
+        and (c.valid_to is null or c.valid_to &gt; now())
+    </sql>
+
+    <sql id="activeTargetConditions">
+        t.del_flag = '0'
+        and t.status = '0'
+        and (t.match_status is null or t.match_status = 'MATCHED')
+    </sql>
+
+    <select id="selectMySceneNoticeAccess" resultMap="CompetitionSceneNoticeAccessResult">
+        select 'IDENTITY' as access_type,
+               ai.competition_series_id,
+               null as schedule_id,
+               null as target_id,
+               ai.member_id
+        from competition_apply_info ai
+        where ai.user_id = #{userId}
+          and ai.del_flag = '0'
+          and ai.member_id is not null
+
+        union all
+
+        select 'CREDENTIAL' as access_type,
+               c.competition_series_id,
+               c.schedule_id,
+               null as target_id,
+               c.member_id
+        from competition_scene_credential c
+        where c.user_id = #{userId}
+          and <include refid="activeCredentialConditions"/>
+
+        union all
+
+        select 'CREDENTIAL' as access_type,
+               c.competition_series_id,
+               c.schedule_id,
+               null as target_id,
+               c.member_id
+        from competition_apply_info ai
+        inner join competition_scene_credential c
+          on c.competition_series_id = ai.competition_series_id
+         and c.member_id = ai.member_id
+        where ai.user_id = #{userId}
+          and ai.del_flag = '0'
+          and ai.member_id is not null
+          and <include refid="activeCredentialConditions"/>
+
+        union all
+
+        select 'CREDENTIAL' as access_type,
+               c.competition_series_id,
+               c.schedule_id,
+               null as target_id,
+               c.member_id
+        from competition_apply_info ai
+        inner join competition_scene_credential c
+          on c.competition_series_id = ai.competition_series_id
+         and c.team_code collate utf8mb4_general_ci = ai.team_code collate utf8mb4_general_ci
+        where ai.user_id = #{userId}
+          and ai.del_flag = '0'
+          and ai.team_code is not null
+          and ai.team_code != ''
+          and <include refid="activeCredentialConditions"/>
+
+        union all
+
+        select 'TARGET' as access_type,
+               t.competition_series_id,
+               t.schedule_id,
+               t.target_id,
+               t.member_id
+        from competition_scene_schedule_target t
+        where t.user_id = #{userId}
+          and <include refid="activeTargetConditions"/>
+
+        union all
+
+        select 'TARGET' as access_type,
+               t.competition_series_id,
+               t.schedule_id,
+               t.target_id,
+               t.member_id
+        from competition_apply_info ai
+        inner join competition_scene_schedule_target t
+          on t.competition_series_id = ai.competition_series_id
+         and t.member_id = ai.member_id
+        where ai.user_id = #{userId}
+          and ai.del_flag = '0'
+          and ai.member_id is not null
+          and <include refid="activeTargetConditions"/>
+
+        union all
+
+        select 'TARGET' as access_type,
+               t.competition_series_id,
+               t.schedule_id,
+               t.target_id,
+               t.member_id
+        from competition_apply_info ai
+        inner join competition_scene_schedule_target t
+          on t.competition_series_id = ai.competition_series_id
+         and t.team_code collate utf8mb4_general_ci = ai.team_code collate utf8mb4_general_ci
+        where ai.user_id = #{userId}
+          and ai.del_flag = '0'
+          and ai.team_code is not null
+          and ai.team_code != ''
+          and <include refid="activeTargetConditions"/>
+    </select>
+
+    <select id="selectMyVisibleNoticeList" resultMap="CompetitionSceneNoticeResult">
+        <include refid="selectNoticeColumns"/>
+        where n.del_flag = '0'
+          and n.status = '0'
+          and n.publish_status = 'PUBLISHED'
+          and (n.publish_time is null or n.publish_time &lt;= now())
+          and (n.expire_time is null or n.expire_time &gt; now())
+          and (
+              (
+                  n.notice_type = 'PERSONAL'
+                  and n.scope_type = 'PERSON'
+                  and (
+                      n.user_id = #{userId}
+                      <if test="memberIds != null and memberIds.size() > 0">
+                          or n.member_id in
+                          <foreach collection="memberIds" item="memberId" open="(" separator="," close=")">
+                              #{memberId}
+                          </foreach>
+                      </if>
+                      <if test="targetIds != null and targetIds.size() > 0">
+                          or n.target_id in
+                          <foreach collection="targetIds" item="targetId" open="(" separator="," close=")">
+                              #{targetId}
+                          </foreach>
+                      </if>
+                  )
+              )
+              <if test="seriesIds != null and seriesIds.size() > 0">
+                  or (
+                      n.notice_type = 'ANNOUNCEMENT'
+                      and n.scope_type = 'COMPETITION'
+                      and n.competition_series_id in
+                      <foreach collection="seriesIds" item="seriesId" open="(" separator="," close=")">
+                          #{seriesId}
+                      </foreach>
+                  )
+              </if>
+              <if test="seriesIds != null and seriesIds.size() > 0 and scheduleIds != null and scheduleIds.size() > 0">
+                  or (
+                      n.notice_type = 'ANNOUNCEMENT'
+                      and n.scope_type = 'SCHEDULE'
+                      and n.competition_series_id in
+                      <foreach collection="seriesIds" item="seriesId" open="(" separator="," close=")">
+                          #{seriesId}
+                      </foreach>
+                      and exists (
+                          select 1
+                          from competition_scene_notice_schedule ns
+                          where ns.notice_id = n.notice_id
+                            and ns.schedule_id in
+                            <foreach collection="scheduleIds" item="scheduleId" open="(" separator="," close=")">
+                                #{scheduleId}
+                            </foreach>
+                      )
+                  )
+              </if>
+          )
+        <include refid="noticeOrderBy"/>
+    </select>
+
+    <select id="selectNoticeScheduleIds" parameterType="Long" resultType="java.lang.Long">
+        select schedule_id
+        from competition_scene_notice_schedule
+        where notice_id = #{noticeId}
+        order by id
+    </select>
+
+    <select id="countSchedulesInSeries" resultType="int">
+        select count(distinct schedule_id)
+        from competition_scene_schedule
+        where competition_series_id = #{competitionSeriesId}
+          and del_flag = '0'
+          and status = '0'
+          and schedule_id in
+        <foreach collection="scheduleIds" item="scheduleId" open="(" separator="," close=")">
+            #{scheduleId}
+        </foreach>
+    </select>
+
+    <select id="selectCompetitionIdBySeriesId" parameterType="Long" resultType="java.lang.Long">
+        select competition_id
+        from competition_series_info
+        where competition_series_id = #{competitionSeriesId}
+          and del_flag = '0'
+        limit 1
+    </select>
+
+    <insert id="insertCompetitionSceneNotice"
+            parameterType="com.teaching.competition.domain.CompetitionSceneNotice"
+            useGeneratedKeys="true" keyProperty="noticeId" keyColumn="notice_id">
+        insert into competition_scene_notice
+        (notice_type, scope_type, competition_series_id, competition_id, target_id, user_id, member_id,
+         recipient_name, title, content, notice_level, is_top, sort_no, publish_status, publish_time,
+         expire_time, status, del_flag, create_by, create_time, remark)
+        values
+        (#{noticeType}, #{scopeType}, #{competitionSeriesId}, #{competitionId}, #{targetId}, #{userId}, #{memberId},
+         #{recipientName}, #{title}, #{content}, #{noticeLevel}, #{isTop}, #{sortNo}, #{publishStatus}, #{publishTime},
+         #{expireTime}, #{status}, #{delFlag}, #{createBy}, #{createTime}, #{remark})
+    </insert>
+
+    <update id="updateCompetitionSceneNotice" parameterType="com.teaching.competition.domain.CompetitionSceneNotice">
+        update competition_scene_notice
+        set notice_type = #{noticeType},
+            scope_type = #{scopeType},
+            competition_series_id = #{competitionSeriesId},
+            competition_id = #{competitionId},
+            target_id = #{targetId},
+            user_id = #{userId},
+            member_id = #{memberId},
+            recipient_name = #{recipientName},
+            title = #{title},
+            content = #{content},
+            notice_level = #{noticeLevel},
+            is_top = #{isTop},
+            sort_no = #{sortNo},
+            publish_time = #{publishTime},
+            expire_time = #{expireTime},
+            status = #{status},
+            update_by = #{updateBy},
+            update_time = #{updateTime},
+            remark = #{remark}
+        where notice_id = #{noticeId} and del_flag = '0'
+    </update>
+
+    <update id="updateNoticePublishStatus">
+        update competition_scene_notice
+        set publish_status = #{publishStatus},
+            publish_time = case
+                when #{publishStatus} = 'PUBLISHED' then coalesce(publish_time, #{publishTime})
+                else publish_time
+            end,
+            update_by = #{updateBy},
+            update_time = now()
+        where notice_id = #{noticeId} and del_flag = '0'
+    </update>
+
+    <update id="deleteCompetitionSceneNoticeByIds">
+        update competition_scene_notice
+        set del_flag = '1', update_by = #{updateBy}, update_time = now()
+        where del_flag = '0' and notice_id in
+        <foreach collection="noticeIds" item="noticeId" open="(" separator="," close=")">
+            #{noticeId}
+        </foreach>
+    </update>
+
+    <delete id="deleteNoticeScheduleRelations" parameterType="Long">
+        delete from competition_scene_notice_schedule where notice_id = #{noticeId}
+    </delete>
+
+    <insert id="batchInsertNoticeScheduleRelations">
+        insert into competition_scene_notice_schedule
+        (notice_id, schedule_id, create_by, create_time)
+        values
+        <foreach collection="relations" item="relation" separator=",">
+            (#{relation.noticeId}, #{relation.scheduleId}, #{relation.createBy}, #{relation.createTime})
+        </foreach>
+    </insert>
+</mapper>

@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.system.mapper.SuggBackMapper">
+
+    <resultMap type="SuggBack" id="SuggBackResult">
+        <result property="suggBackId"     column="sugg_back_id"     />
+        <result property="backCode"       column="back_code"         />
+        <result property="type"           column="type"             />
+        <result property="title"          column="title"            />
+        <result property="userName"       column="user_name"        />
+        <result property="content"        column="content"          />
+        <result property="phone"          column="phone"            />
+        <result property="dealStatus"     column="deal_status"     />
+        <result property="suggTime"       column="sugg_time"       />
+        <result property="dealResult"     column="deal_result"     />
+        <result property="replyContent"   column="reply_content"   />
+        <result property="replyTime"      column="reply_time"      />
+        <result property="saftEval"       column="saft_eval"       />
+        <result property="userId"         column="user_id"          />
+        <result property="orgId"          column="org_id"           />
+        <result property="createBy"       column="create_by"        />
+        <result property="createTime"      column="create_time"      />
+        <result property="updateBy"       column="update_by"        />
+        <result property="updateTime"      column="update_time"      />
+        <result property="version"        column="version"          />
+        <result property="delFlag"        column="del_flag"         />
+    </resultMap>
+
+    <sql id="selectSuggBackVo">
+        select sugg_back_id, back_code, type, title, user_name, content, phone, deal_status, sugg_time,
+               deal_result, reply_content, reply_time, saft_eval, user_id, org_id, create_by, create_time,
+               update_by, update_time, version, del_flag
+        from suggestion_feedback_info
+    </sql>
+
+    <select id="selectSuggBackBySuggBackId" parameterType="Long" resultMap="SuggBackResult">
+        <include refid="selectSuggBackVo"/>
+        where sugg_back_id = #{suggBackId} and del_flag = '0'
+    </select>
+
+    <select id="selectSuggBackList" parameterType="SuggBack" resultMap="SuggBackResult">
+        <include refid="selectSuggBackVo"/>
+        <where>
+            del_flag = '0'
+            <!-- 关键词：匹配编号/标题/用户名/内容/电话 -->
+            <if test="params.keyword != null and params.keyword != ''">
+                AND (
+                    back_code like concat('%', #{params.keyword}, '%')
+                    OR title like concat('%', #{params.keyword}, '%')
+                    OR user_name like concat('%', #{params.keyword}, '%')
+                    OR content like concat('%', #{params.keyword}, '%')
+                    OR phone like concat('%', #{params.keyword}, '%')
+                )
+            </if>
+            <if test="backCode != null and backCode != ''">
+                AND back_code like concat('%', #{backCode}, '%')
+            </if>
+            <if test="type != null and type != ''">
+                AND type = #{type}
+            </if>
+            <if test="title != null and title != ''">
+                AND title like concat('%', #{title}, '%')
+            </if>
+            <if test="userName != null and userName != ''">
+                AND user_name like concat('%', #{userName}, '%')
+            </if>
+            <if test="content != null and content != ''">
+                AND content like concat('%', #{content}, '%')
+            </if>
+            <if test="phone != null and phone != ''">
+                AND phone like concat('%', #{phone}, '%')
+            </if>
+            <if test="dealStatus != null and dealStatus != ''">
+                AND deal_status = #{dealStatus}
+            </if>
+            <if test="saftEval != null and saftEval != ''">
+                AND saft_eval like concat('%', #{saftEval}, '%')
+            </if>
+            <!-- 处理人员：按更新人模糊匹配 -->
+            <if test="params.handler != null and params.handler != ''">
+                AND update_by like concat('%', #{params.handler}, '%')
+            </if>
+            <if test="params.beginTime != null and params.beginTime != ''"><!-- 开始时间检索 -->
+                AND date_format(sugg_time,'%y%m%d') &gt;= date_format(#{params.beginTime},'%y%m%d')
+            </if>
+            <if test="params.endTime != null and params.endTime != ''"><!-- 结束时间检索 -->
+                AND date_format(sugg_time,'%y%m%d') &lt;= date_format(#{params.endTime},'%y%m%d')
+            </if>
+        </where>
+        order by sugg_time desc
+    </select>
+
+    <insert id="insertSuggBack" parameterType="SuggBack" useGeneratedKeys="true" keyProperty="suggBackId">
+        insert into suggestion_feedback_info (
+            <if test="backCode != null and backCode != ''">back_code,</if>
+            <if test="type != null and type != ''">type,</if>
+            <if test="title != null and title != ''">title,</if>
+            <if test="userName != null and userName != ''">user_name,</if>
+            <if test="content != null and content != ''">content,</if>
+            <if test="phone != null and phone != ''">phone,</if>
+            <if test="dealStatus != null and dealStatus != ''">deal_status,</if>
+            <if test="suggTime != null">sugg_time,</if>
+            <if test="dealResult != null and dealResult != ''">deal_result,</if>
+            <if test="replyContent != null and replyContent != ''">reply_content,</if>
+            <if test="replyTime != null">reply_time,</if>
+            <if test="saftEval != null and saftEval != ''">saft_eval,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="orgId != null">org_id,</if>
+            <if test="files != null">files,</if>
+            <if test="createBy != null and createBy != ''">create_by,</if>
+            create_time,
+            version,
+            del_flag
+        ) values (
+            <if test="backCode != null and backCode != ''">#{backCode},</if>
+            <if test="type != null and type != ''">#{type},</if>
+            <if test="title != null and title != ''">#{title},</if>
+            <if test="userName != null and userName != ''">#{userName},</if>
+            <if test="content != null and content != ''">#{content},</if>
+            <if test="phone != null and phone != ''">#{phone},</if>
+            <if test="dealStatus != null and dealStatus != ''">#{dealStatus},</if>
+            <if test="suggTime != null">#{suggTime},</if>
+            <if test="dealResult != null and dealResult != ''">#{dealResult},</if>
+            <if test="replyContent != null and replyContent != ''">#{replyContent},</if>
+            <if test="replyTime != null">#{replyTime},</if>
+            <if test="saftEval != null and saftEval != ''">#{saftEval},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="orgId != null">#{orgId},</if>
+            <if test="files != null">#{files,typeHandler=com.teaching.system.handler.SuggBackFileListTypeHandler},</if>
+            <if test="createBy != null and createBy != ''">#{createBy},</if>
+            sysdate(),
+            0,
+            '0'
+        )
+    </insert>
+
+    <update id="updateSuggBack" parameterType="SuggBack">
+        update suggestion_feedback_info
+        <set>
+            <if test="backCode != null and backCode != ''">back_code = #{backCode},</if>
+            <if test="type != null and type != ''">type = #{type},</if>
+            <if test="title != null and title != ''">title = #{title},</if>
+            <if test="userName != null and userName != ''">user_name = #{userName},</if>
+            <if test="content != null and content != ''">content = #{content},</if>
+            <if test="phone != null and phone != ''">phone = #{phone},</if>
+            <if test="dealStatus != null and dealStatus != ''">deal_status = #{dealStatus},</if>
+            <if test="suggTime != null">sugg_time = #{suggTime},</if>
+            <if test="dealResult != null and dealResult != ''">deal_result = #{dealResult},</if>
+            <if test="replyContent != null and replyContent != ''">reply_content = #{replyContent},</if>
+            <if test="replyTime != null">reply_time = #{replyTime},</if>
+            <if test="saftEval != null and saftEval != ''">saft_eval = #{saftEval},</if>
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="orgId != null">org_id = #{orgId},</if>
+            <if test="files != null">files = #{files,typeHandler=com.fasterxml.jackson.databind.JsonNode},</if>
+            <if test="updateBy != null and updateBy != ''">update_by = #{updateBy},</if>
+            update_time = sysdate(),
+            version = version + 1
+        </set>
+        where sugg_back_id = #{suggBackId}
+    </update>
+
+    <update id="replySuggBack" parameterType="SuggBack">
+        update suggestion_feedback_info
+        <set>
+            <if test="replyContent != null and replyContent != ''">reply_content = #{replyContent},</if>
+            <if test="dealResult != null and dealResult != ''">deal_result = #{dealResult},</if>
+            <if test="dealStatus != null and dealStatus != ''">deal_status = #{dealStatus},</if>
+            reply_time = sysdate(),
+            <if test="updateBy != null and updateBy != ''">update_by = #{updateBy},</if>
+            update_time = sysdate(),
+            version = version + 1
+        </set>
+        where sugg_back_id = #{suggBackId}
+    </update>
+
+    <update id="transferSuggBack" parameterType="SuggBack">
+        update suggestion_feedback_info
+        <set>
+            <if test="dealStatus != null and dealStatus != ''">deal_status = #{dealStatus},</if>
+            <if test="dealResult != null and dealResult != ''">deal_result = #{dealResult},</if>
+            <if test="updateBy != null and updateBy != ''">update_by = #{updateBy},</if>
+            update_time = sysdate(),
+            version = version + 1
+        </set>
+        where sugg_back_id = #{suggBackId}
+    </update>
+
+    <!-- 重置接口已取消，改为前端重置查询条件，无需后端重置数据 -->
+
+    <delete id="deleteSuggBackBySuggBackId" parameterType="Long">
+        update suggestion_feedback_info set del_flag = '1' where sugg_back_id = #{suggBackId}
+    </delete>
+
+    <delete id="deleteSuggBackBySuggBackIds" parameterType="Long">
+        update suggestion_feedback_info set del_flag = '1' where sugg_back_id in
+        <foreach item="suggBackId" collection="array" open="(" separator="," close=")">
+            #{suggBackId}
+        </foreach>
+    </delete>
+
+    <select id="selectMaxBackCodeByDatePrefix" parameterType="String" resultType="String">
+        select back_code
+        from suggestion_feedback_info
+        where back_code like concat(#{datePrefix}, '%')
+        and del_flag = '0'
+        order by back_code desc
+        limit 1
+    </select>
+
+</mapper>

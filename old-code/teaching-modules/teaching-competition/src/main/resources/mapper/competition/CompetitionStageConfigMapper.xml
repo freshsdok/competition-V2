@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.competition.mapper.CompetitionStageConfigMapper">
+    
+    <resultMap type="com.teaching.system.api.domain.CompetitionStageConfig" id="CompetitionStageConfigResult">
+        <result property="stageId"    column="stage_id"    />
+        <result property="competitionSeriesId"    column="competition_series_id"    />
+        <result property="stageName"    column="stage_name"    />
+        <result property="scoreWay"    column="score_way"    />
+        <result property="promoteNum"    column="promote_num"    />
+        <result property="promoteScore"    column="promote_score"    />
+        <result property="stageDesc"    column="stage_desc"    />
+        <result property="stageStartTime"    column="stage_start_time"    />
+        <result property="stageEndTime"    column="stage_end_time"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="version"    column="version"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="userId"    column="user_id"    />
+        <result property="orgId"    column="org_id"    />
+    </resultMap>
+
+    <sql id="selectCompetitionStageConfigVo">
+        select stage_id, competition_series_id, stage_name, score_way, promote_num, promote_score, stage_desc, stage_start_time, stage_end_time, create_by, create_time, update_by, update_time, version, del_flag, user_id, org_id from competition_stage_config
+    </sql>
+
+    <select id="selectCompetitionStageConfigList" parameterType="Long" resultMap="CompetitionStageConfigResult">
+        <include refid="selectCompetitionStageConfigVo"/>
+        where del_flag = '0'
+            <if test="competitionSeriesId != null ">
+                and competition_series_id = #{competitionSeriesId}
+            </if>
+    </select>
+    
+    <select id="selectCompetitionStageConfigByStageId" parameterType="String" resultMap="CompetitionStageConfigResult">
+        <include refid="selectCompetitionStageConfigVo"/>
+        where stage_id = #{stageId} and del_flag = '0'
+    </select>
+
+    <insert id="insertCompetitionStageConfig">
+            insert into competition_stage_config
+            (stage_id,competition_series_id,stage_name,score_way,promote_num,promote_score,stage_desc,stage_start_time,
+            stage_end_time,create_by,create_time,version,del_flag,user_id,org_id)
+            values
+        <foreach collection="stageConfigList" item="item" index="index" separator=",">
+            (#{item.stageId},#{item.competitionSeriesId},#{item.stageName},#{item.scoreWay},#{item.promoteNum},#{item.promoteScore},
+            #{item.stageDesc},#{item.stageStartTime},#{item.stageEndTime},#{item.createBy},#{item.createTime},#{item.version},#{item.delFlag},
+            #{item.userId},#{item.orgId})
+        </foreach>
+    </insert>
+
+    <update id="updateCompetitionStageConfig" parameterType="com.teaching.system.api.domain.CompetitionStageConfig">
+        update competition_stage_config
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="competitionSeriesId != null">competition_series_id = #{competitionSeriesId},</if>
+            <if test="stageName != null">stage_name = #{stageName},</if>
+            <if test="scoreWay != null">score_way = #{scoreWay},</if>
+            <if test="promoteNum != null">promote_num = #{promoteNum},</if>
+            <if test="promoteScore != null">promote_score = #{promoteScore},</if>
+            <if test="stageDesc != null">stage_desc = #{stageDesc},</if>
+            <if test="stageStartTime != null">stage_start_time = #{stageStartTime},</if>
+            <if test="stageEndTime != null">stage_end_time = #{stageEndTime},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            version = version+1,
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="orgId != null">org_id = #{orgId},</if>
+        </trim>
+        where stage_id = #{stageId} and competition_series_id = #{competitionSeriesId}
+    </update>
+
+    <delete id="deleteCompetitionStageConfigBySeriesId" parameterType="Long">
+        update competition_stage_config set del_flag = '1',update_time = now(),version = version+1 where competition_series_id = #{competitionSeriesId}
+    </delete>
+
+    <delete id="deleteCompetitionStageConfigByStageIds" parameterType="String">
+        update competition_stage_config set del_flag = '1',update_time = now(),version = version+1 where competition_series_id in
+        <foreach item="competitionSeriesId" collection="array" open="(" separator="," close=")">
+            #{competitionSeriesId}
+        </foreach>
+    </delete>
+</mapper>

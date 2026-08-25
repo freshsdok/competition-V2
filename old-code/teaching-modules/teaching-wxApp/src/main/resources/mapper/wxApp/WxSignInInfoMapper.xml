@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.wxApp.mapper.WxSignInInfoMapper">
+
+    <resultMap type="com.teaching.wxApp.domain.WxSignInInfo" id="WxSignInInfoResult">
+        <result property="signId" column="sign_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="signTime" column="sign_time"/>
+        <result property="recordId" column="record_id"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="remark" column="remark"/>
+        <result property="version" column="version"/>
+        <result property="delFlag" column="del_flag"/>
+        <result property="resultType" column="result_type"/>
+        <result property="ip" column="ip"/>
+        <result property="checkInType" column="check_in_type"/>
+        <result property="phoneNumber" column="phone_number"/>
+        <result property="nickName" column="nick_name"/>
+        <result property="realName" column="real_name"/>
+        <result property="schoolName" column="school_name"/>
+        <result property="signName" column="sign_name"/>
+        <result property="signNick" column="sign_nick"/>
+        <result property="codeConfigName" column="code_config_name"/>
+    </resultMap>
+
+    <sql id="selectWxSignInInfoVo">
+        select sign_id,
+               user_id,
+               sign_time,
+               record_id,
+               create_by,
+               create_time,
+               update_by,
+               update_time,
+               remark,
+               version,
+               del_flag,
+               result_type,
+               ip,
+               check_in_type
+        from wx_sign_in_info
+    </sql>
+    <sql id="selectWxSignInInfoVoLeftUser">
+        WITH latest_auth AS (
+            SELECT user_id,
+                   auth_status,
+                   real_name,
+                   ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY auth_time DESC) AS rn
+            FROM auth_info
+        )
+        SELECT qcc.code_config_name,
+            ws.sign_id,
+               ws.user_id,
+               ws.sign_time,
+               ws.record_id,
+               ws.create_by,
+               ws.create_time,
+               ws.update_by,
+               ws.update_time,
+               ws.remark,
+               ws.version,
+               ws.del_flag,
+               ws.result_type,
+               ws.ip,
+               ws.check_in_type,
+               su.phonenumber as phone_number,su.nick_name,
+                a.real_name,nci.school_name,aa.real_name as sign_name,
+                ss.nick_name as sign_nick
+        FROM wx_sign_in_info ws
+        LEFT JOIN wx_qc_code_record qcr on qcr.record_id = ws.record_id
+        LEFT JOIN wx_qc_code_config qcc on qcc.code_config_id = qcr.code_config_id
+        LEFT JOIN sys_user su on ws.user_id = su.user_id
+        LEFT JOIN latest_auth a ON a.user_id = ws.user_id AND a.rn = 1
+        LEFT JOIN identity_info i1 ON i1.user_id = ws.user_id AND i1.del_flag = '0' AND i1.check_status = '6'
+        LEFT JOIN nationwide_college_info nci ON nci.id= i1.school
+        LEFT JOIN sys_user ss on ss.user_id = ws.create_by
+        LEFT JOIN latest_auth aa ON aa.user_id = ws.create_by AND aa.rn = 1
+    </sql>
+
+    <select id="selectWxSignInInfoList" parameterType="com.teaching.wxApp.domain.WxSignInInfo"
+            resultMap="WxSignInInfoResult">
+        <include refid="selectWxSignInInfoVoLeftUser"/>
+        <where>
+            and ws.del_flag = '0'
+            <if test="userId != null">
+                and ws.user_id = #{userId}
+            </if>
+            <if test="signTime != null">
+                and ws.sign_time = #{signTime}
+            </if>
+            <if test="recordId != null">
+                and ws.record_id = #{recordId}
+            </if>
+            <if test="version != null">
+                and ws.version = #{version}
+            </if>
+            <if test="resultType != null">
+                and ws.result_type = #{resultType}
+            </if>
+            <if test="ip != null and ip !=''">
+                and ws.ip like concat('%',#{ip},'%')
+            </if>
+            <if test="checkInType != null and checkInType !=''">
+                and ws.check_in_type like concat('%',#{checkInType},'%')
+            </if>
+            <if test="remark != null and remark !=''">
+                and ws.remark like concat('%',#{remark},'%')
+            </if>
+            <if test="signTimeStart != null and signTimeStart != ''"><!-- 开始时间检索 -->
+                AND date_format(ws.sign_time,'%Y%m%d%H%i%s') &gt;= date_format(#{signTimeStart},'%Y%m%d%H%i%s')
+            </if>
+            <if test="signTimeEnd != null and signTimeEnd != ''"><!-- 结束时间检索 -->
+                AND date_format(ws.sign_time,'%Y%m%d%H%i%s') &lt;= date_format(#{signTimeEnd},'%Y%m%d%H%i%s')
+            </if>
+            <if test="createTimeStart != null and createTimeStart != ''"><!-- 开始时间检索 -->
+                AND date_format(ws.create_time,'%Y%m%d%H%i%s') &gt;= date_format(#{createTimeStart},'%Y%m%d%H%i%s')
+            </if>
+            <if test="createTimeEnd != null and createTimeEnd != ''"><!-- 结束时间检索 -->
+                AND date_format(ws.create_time,'%Y%m%d%H%i%s') &lt;= date_format(#{createTimeEnd},'%Y%m%d%H%i%s')
+            </if>
+            <if test="phoneNumber != null and phoneNumber != ''">
+                and su.phonenumber like concat('%',#{phoneNumber},'%')
+            </if>
+            <if test="nickName != null and nickName != ''">
+                and su.nick_name like concat('%',#{nickName},'%')
+            </if>
+            <if test="schoolName !=null and schoolName != ''">
+                and nci.school_name like concat('%',#{schoolName},'%')
+            </if>
+            <if test="codeConfigName != null and codeConfigName != ''">
+                and qcc.code_config_name like concat('%',#{codeConfigName},'%')
+            </if>
+        </where>
+        order by ws.sign_time desc
+    </select>
+    <!-- 测试优化 -->
+    <select id="selectWxSignInInfoList2" parameterType="com.teaching.wxApp.domain.WxSignInInfo"
+            resultMap="WxSignInInfoResult">
+        SELECT qcc.code_config_name,
+               ws.sign_id,
+               ws.user_id,
+               ws.sign_time,
+               ws.record_id,
+               ws.create_by,
+               ws.create_time,
+               ws.update_by,
+               ws.update_time,
+               ws.remark,
+               ws.version,
+               ws.del_flag,
+               ws.result_type,
+               ws.ip,
+               ws.check_in_type,
+               su.phonenumber AS phone_number,
+               su.nick_name,
+               a.real_name,
+               nci.school_name,
+               aa.real_name AS sign_name,
+               ss.nick_name AS sign_nick
+        FROM wx_sign_in_info ws
+                 LEFT JOIN wx_qc_code_record qcr ON qcr.record_id = ws.record_id
+                 LEFT JOIN wx_qc_code_config qcc ON qcc.code_config_id = qcr.code_config_id
+                 LEFT JOIN sys_user su ON ws.user_id = su.user_id
+                 LEFT JOIN auth_info a
+                           ON a.user_id = ws.user_id
+                               AND NOT EXISTS (
+                                   SELECT 1
+                                   FROM auth_info a2
+                                   WHERE a2.user_id = a.user_id
+                                     AND a2.auth_time > a.auth_time
+                               )
+                 LEFT JOIN identity_info i1
+                           ON i1.user_id = ws.user_id
+                               AND i1.del_flag = '0'
+                               AND i1.check_status = '6'
+                 LEFT JOIN nationwide_college_info nci ON nci.id = i1.school
+                 LEFT JOIN sys_user ss ON ss.user_id = ws.create_by
+                 LEFT JOIN auth_info aa
+                           ON aa.user_id = ws.create_by
+                               AND NOT EXISTS (
+                                   SELECT 1
+                                   FROM auth_info a2
+                                   WHERE a2.user_id = aa.user_id
+                                     AND a2.auth_time > aa.auth_time
+                               );
+
+    </select>
+
+    <select id="selectWxSignInInfoBySignId" parameterType="Long" resultMap="WxSignInInfoResult">
+        <include refid="selectWxSignInInfoVo"/>
+        where sign_id = #{signId}
+    </select>
+
+    <insert id="insertWxSignInInfo" parameterType="com.teaching.wxApp.domain.WxSignInInfo" useGeneratedKeys="true"
+            keyProperty="signId">
+        insert into wx_sign_in_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">user_id,</if>
+            <if test="signTime != null">sign_time,</if>
+            <if test="recordId != null">record_id,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+            <if test="version != null">version,</if>
+            <if test="delFlag != null">del_flag,</if>
+            <if test="resultType != null">result_type,</if>
+            <if test="ip != null">ip,</if>
+            <if test="checkInType != null">check_in_type,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">#{userId},</if>
+            <if test="signTime != null">#{signTime},</if>
+            <if test="recordId != null">#{recordId},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="version != null">#{version},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+            <if test="resultType != null">#{resultType},</if>
+            <if test="ip != null">#{ip},</if>
+            <if test="checkInType != null">#{checkInType},</if>
+        </trim>
+    </insert>
+
+    <update id="updateWxSignInInfo" parameterType="com.teaching.wxApp.domain.WxSignInInfo">
+        update wx_sign_in_info
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="signTime != null">sign_time = #{signTime},</if>
+            <if test="recordId != null">record_id = #{recordId},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="version != null">version = #{version},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+            <if test="resultType != null">result_type = #{resultType},</if>
+            <if test="ip != null">ip = #{ip},</if>
+            <if test="checkInType != null">check_in_type = #{checkInType},</if>
+        </trim>
+        where sign_id = #{signId}
+    </update>
+
+    <delete id="deleteWxSignInInfoBySignId" parameterType="Long">
+        update wx_sign_in_info
+        set del_flag = '2'
+        where sign_id = #{signId}
+    </delete>
+
+    <delete id="deleteWxSignInInfoBySignIds">
+        update wx_sign_in_info
+        set del_flag = '2'
+        where sign_id in
+        <foreach collection="array" item="signId" open="(" separator="," close=")">
+            #{signId}
+        </foreach>
+    </delete>
+</mapper>

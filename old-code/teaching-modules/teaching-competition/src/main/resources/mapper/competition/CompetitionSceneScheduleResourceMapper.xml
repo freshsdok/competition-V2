@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.competition.mapper.CompetitionSceneScheduleResourceMapper">
+
+    <resultMap type="com.teaching.competition.domain.CompetitionSceneScheduleResource" id="CompetitionSceneScheduleResourceResult">
+        <id property="scheduleResourceId" column="schedule_resource_id"/>
+        <result property="scheduleId" column="schedule_id"/>
+        <result property="resourceId" column="resource_id"/>
+        <result property="eventId" column="event_id"/>
+        <result property="deploymentLocation" column="deployment_location"/>
+        <result property="deployedDeviceCount" column="deployed_device_count"/>
+        <result property="workstationsPerDevice" column="workstations_per_device"/>
+        <result property="totalWorkstations" column="total_workstations"/>
+        <result property="slotDurationMinutes" column="slot_duration_minutes"/>
+        <result property="sharedOccupancy" column="shared_occupancy"/>
+        <result property="needOpsConfirm" column="need_ops_confirm"/>
+        <result property="opsContactName" column="ops_contact_name"/>
+        <result property="opsContactPhone" column="ops_contact_phone"/>
+        <result property="bookingStatus" column="booking_status"/>
+        <result property="bookingOpenTime" column="booking_open_time"/>
+        <result property="bookingCloseTime" column="booking_close_time"/>
+        <result property="safetyNoticeOverride" column="safety_notice_override"/>
+        <result property="attentionNotesOverride" column="attention_notes_override"/>
+        <result property="usageInstructionsOverride" column="usage_instructions_override"/>
+        <result property="adminRemark" column="admin_remark"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="deleted" column="deleted"/>
+    </resultMap>
+
+    <resultMap type="com.teaching.competition.domain.CompetitionSceneScheduleResourceVO" id="CompetitionSceneScheduleResourceVOResult">
+        <id property="scheduleResourceId" column="schedule_resource_id"/>
+        <result property="scheduleId" column="schedule_id"/>
+        <result property="resourceId" column="resource_id"/>
+        <result property="eventId" column="event_id"/>
+        <result property="deploymentLocation" column="deployment_location"/>
+        <result property="deployedDeviceCount" column="deployed_device_count"/>
+        <result property="workstationsPerDevice" column="workstations_per_device"/>
+        <result property="totalWorkstations" column="total_workstations"/>
+        <result property="slotDurationMinutes" column="slot_duration_minutes"/>
+        <result property="sharedOccupancy" column="shared_occupancy"/>
+        <result property="needOpsConfirm" column="need_ops_confirm"/>
+        <result property="opsContactName" column="ops_contact_name"/>
+        <result property="opsContactPhone" column="ops_contact_phone"/>
+        <result property="bookingStatus" column="booking_status"/>
+        <result property="bookingOpenTime" column="booking_open_time"/>
+        <result property="bookingCloseTime" column="booking_close_time"/>
+        <result property="safetyNoticeOverride" column="safety_notice_override"/>
+        <result property="attentionNotesOverride" column="attention_notes_override"/>
+        <result property="usageInstructionsOverride" column="usage_instructions_override"/>
+        <result property="adminRemark" column="admin_remark"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="scheduleName" column="schedule_name"/>
+        <result property="competitionName" column="competition_name"/>
+        <result property="resourceCode" column="resource_code"/>
+        <result property="resourceName" column="resource_name"/>
+        <result property="resourceType" column="resource_type"/>
+        <result property="resourceStatus" column="resource_status"/>
+        <result property="brandModel" column="brand_model"/>
+    </resultMap>
+
+    <sql id="selectCompetitionSceneScheduleResourceVo">
+        select sr.schedule_resource_id, sr.schedule_id, sr.resource_id, sr.event_id,
+               sr.deployment_location, sr.deployed_device_count, sr.workstations_per_device,
+               sr.total_workstations, sr.slot_duration_minutes, sr.shared_occupancy,
+               sr.need_ops_confirm, sr.ops_contact_name, sr.ops_contact_phone, sr.booking_status,
+               sr.booking_open_time, sr.booking_close_time, sr.safety_notice_override,
+               sr.attention_notes_override, sr.usage_instructions_override, sr.admin_remark,
+               sr.create_by, sr.create_time, sr.update_by, sr.update_time, sr.deleted,
+               s.schedule_name, s.competition_name,
+               r.resource_code, r.resource_name, r.resource_type, r.resource_status, r.brand_model
+        from competition_scene_schedule_resource sr
+        left join competition_scene_schedule s on sr.schedule_id = s.schedule_id and s.del_flag = '0'
+        left join competition_scene_resource r on sr.resource_id = r.resource_id and r.deleted = 0
+    </sql>
+
+    <select id="selectCompetitionSceneScheduleResourceById" parameterType="Long"
+            resultMap="CompetitionSceneScheduleResourceVOResult">
+        <include refid="selectCompetitionSceneScheduleResourceVo"/>
+        where sr.schedule_resource_id = #{scheduleResourceId}
+          and sr.deleted = 0
+    </select>
+
+    <select id="selectCompetitionSceneScheduleResourceEntityById" parameterType="Long"
+            resultMap="CompetitionSceneScheduleResourceResult">
+        select schedule_resource_id, schedule_id, resource_id, event_id, deployment_location,
+               deployed_device_count, workstations_per_device, total_workstations, slot_duration_minutes,
+               shared_occupancy, need_ops_confirm, ops_contact_name, ops_contact_phone, booking_status,
+               booking_open_time, booking_close_time, safety_notice_override, attention_notes_override,
+               usage_instructions_override, admin_remark, create_by, create_time, update_by, update_time, deleted
+        from competition_scene_schedule_resource
+        where schedule_resource_id = #{scheduleResourceId}
+          and deleted = 0
+    </select>
+
+    <select id="selectCompetitionSceneScheduleResourceList"
+            parameterType="com.teaching.competition.domain.CompetitionSceneScheduleResourceQuery"
+            resultMap="CompetitionSceneScheduleResourceVOResult">
+        <include refid="selectCompetitionSceneScheduleResourceVo"/>
+        <where>
+            sr.deleted = 0
+            <if test="scheduleId != null">
+                and sr.schedule_id = #{scheduleId}
+            </if>
+            <if test="scheduleResourceId != null">
+                and sr.schedule_resource_id = #{scheduleResourceId}
+            </if>
+            <if test="resourceId != null">
+                and sr.resource_id = #{resourceId}
+            </if>
+            <if test="eventId != null">
+                and sr.event_id = #{eventId}
+            </if>
+            <if test="resourceName != null and resourceName != ''">
+                and r.resource_name like concat('%', #{resourceName}, '%')
+            </if>
+            <if test="resourceType != null and resourceType != ''">
+                and r.resource_type = #{resourceType}
+            </if>
+            <if test="bookingStatus != null and bookingStatus != ''">
+                and sr.booking_status = #{bookingStatus}
+            </if>
+        </where>
+        order by sr.schedule_resource_id desc
+    </select>
+
+    <insert id="insertCompetitionSceneScheduleResource"
+            parameterType="com.teaching.competition.domain.CompetitionSceneScheduleResource"
+            useGeneratedKeys="true" keyProperty="scheduleResourceId">
+        insert into competition_scene_schedule_resource
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="scheduleId != null">schedule_id,</if>
+            <if test="resourceId != null">resource_id,</if>
+            <if test="eventId != null">event_id,</if>
+            <if test="deploymentLocation != null">deployment_location,</if>
+            <if test="deployedDeviceCount != null">deployed_device_count,</if>
+            <if test="workstationsPerDevice != null">workstations_per_device,</if>
+            <if test="totalWorkstations != null">total_workstations,</if>
+            <if test="slotDurationMinutes != null">slot_duration_minutes,</if>
+            <if test="sharedOccupancy != null">shared_occupancy,</if>
+            <if test="needOpsConfirm != null">need_ops_confirm,</if>
+            <if test="opsContactName != null">ops_contact_name,</if>
+            <if test="opsContactPhone != null">ops_contact_phone,</if>
+            <if test="bookingStatus != null">booking_status,</if>
+            <if test="bookingOpenTime != null">booking_open_time,</if>
+            <if test="bookingCloseTime != null">booking_close_time,</if>
+            <if test="safetyNoticeOverride != null">safety_notice_override,</if>
+            <if test="attentionNotesOverride != null">attention_notes_override,</if>
+            <if test="usageInstructionsOverride != null">usage_instructions_override,</if>
+            <if test="adminRemark != null">admin_remark,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="deleted != null">deleted,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="scheduleId != null">#{scheduleId},</if>
+            <if test="resourceId != null">#{resourceId},</if>
+            <if test="eventId != null">#{eventId},</if>
+            <if test="deploymentLocation != null">#{deploymentLocation},</if>
+            <if test="deployedDeviceCount != null">#{deployedDeviceCount},</if>
+            <if test="workstationsPerDevice != null">#{workstationsPerDevice},</if>
+            <if test="totalWorkstations != null">#{totalWorkstations},</if>
+            <if test="slotDurationMinutes != null">#{slotDurationMinutes},</if>
+            <if test="sharedOccupancy != null">#{sharedOccupancy},</if>
+            <if test="needOpsConfirm != null">#{needOpsConfirm},</if>
+            <if test="opsContactName != null">#{opsContactName},</if>
+            <if test="opsContactPhone != null">#{opsContactPhone},</if>
+            <if test="bookingStatus != null">#{bookingStatus},</if>
+            <if test="bookingOpenTime != null">#{bookingOpenTime},</if>
+            <if test="bookingCloseTime != null">#{bookingCloseTime},</if>
+            <if test="safetyNoticeOverride != null">#{safetyNoticeOverride},</if>
+            <if test="attentionNotesOverride != null">#{attentionNotesOverride},</if>
+            <if test="usageInstructionsOverride != null">#{usageInstructionsOverride},</if>
+            <if test="adminRemark != null">#{adminRemark},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="deleted != null">#{deleted},</if>
+        </trim>
+    </insert>
+
+    <update id="updateCompetitionSceneScheduleResource"
+            parameterType="com.teaching.competition.domain.CompetitionSceneScheduleResource">
+        update competition_scene_schedule_resource
+        <set>
+            <if test="scheduleId != null">schedule_id = #{scheduleId},</if>
+            <if test="resourceId != null">resource_id = #{resourceId},</if>
+            <if test="eventId != null">event_id = #{eventId},</if>
+            <if test="deploymentLocation != null">deployment_location = #{deploymentLocation},</if>
+            <if test="deployedDeviceCount != null">deployed_device_count = #{deployedDeviceCount},</if>
+            <if test="workstationsPerDevice != null">workstations_per_device = #{workstationsPerDevice},</if>
+            <if test="totalWorkstations != null">total_workstations = #{totalWorkstations},</if>
+            <if test="slotDurationMinutes != null">slot_duration_minutes = #{slotDurationMinutes},</if>
+            <if test="sharedOccupancy != null">shared_occupancy = #{sharedOccupancy},</if>
+            <if test="needOpsConfirm != null">need_ops_confirm = #{needOpsConfirm},</if>
+            <if test="opsContactName != null">ops_contact_name = #{opsContactName},</if>
+            <if test="opsContactPhone != null">ops_contact_phone = #{opsContactPhone},</if>
+            <if test="bookingStatus != null">booking_status = #{bookingStatus},</if>
+            <if test="bookingOpenTime != null">booking_open_time = #{bookingOpenTime},</if>
+            <if test="bookingCloseTime != null">booking_close_time = #{bookingCloseTime},</if>
+            <if test="safetyNoticeOverride != null">safety_notice_override = #{safetyNoticeOverride},</if>
+            <if test="attentionNotesOverride != null">attention_notes_override = #{attentionNotesOverride},</if>
+            <if test="usageInstructionsOverride != null">usage_instructions_override = #{usageInstructionsOverride},</if>
+            <if test="adminRemark != null">admin_remark = #{adminRemark},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </set>
+        where schedule_resource_id = #{scheduleResourceId}
+          and deleted = 0
+    </update>
+
+    <update id="deleteCompetitionSceneScheduleResourceByIds">
+        update competition_scene_schedule_resource
+        set deleted = 1,
+            update_by = #{updateBy},
+            update_time = now()
+        where deleted = 0
+          and schedule_resource_id in
+        <foreach item="scheduleResourceId" collection="scheduleResourceIds" open="(" separator="," close=")">
+            #{scheduleResourceId}
+        </foreach>
+    </update>
+
+    <update id="updateCompetitionSceneScheduleResourceBookingStatus">
+        update competition_scene_schedule_resource
+        set booking_status = #{bookingStatus},
+            update_by = #{updateBy},
+            update_time = now()
+        where schedule_resource_id = #{scheduleResourceId}
+          and deleted = 0
+    </update>
+</mapper>

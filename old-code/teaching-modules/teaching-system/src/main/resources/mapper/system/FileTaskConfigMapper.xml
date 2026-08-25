@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teaching.system.mapper.FileTaskConfigMapper">
+    
+    <resultMap type="com.teaching.system.domain.FileTaskConfig" id="FileTaskConfigResult">
+        <result property="id"    column="id"    />
+        <result property="taskId"    column="task_id"    />
+        <result property="taskType"    column="task_type"    />
+        <result property="fileName"    column="file_name"    />
+        <result property="fileSize"    column="file_size"    />
+        <result property="uploadStart"    column="upload_start"    />
+        <result property="uploadEnd"    column="upload_end"    />
+        <result property="tempFileName"    column="temp_file_name"    />
+        <result property="tempFile"    column="temp_file"    />
+        <result property="fileType"    column="file_type"    />
+        <result property="annoucement"    column="annoucement"    />
+        <result property="isPerminate"    column="is_perminate"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectFileTaskConfigVo">
+        select id, task_id, task_type, file_name, file_size, upload_start, upload_end, temp_file_name,temp_file, file_type, annoucement, is_perminate,del_flag, create_by, create_time, update_by, update_time, remark from file_task_config
+    </sql>
+
+    <select id="selectFileTaskConfigList" parameterType="com.teaching.system.domain.FileTaskConfig" resultMap="FileTaskConfigResult">
+        <include refid="selectFileTaskConfigVo"/>
+        where  del_flag = '0'
+            <if test="taskId != null "> and task_id = #{taskId}</if>
+            <if test="taskType != null  and taskType != ''"> and task_type = #{taskType}</if>
+            <if test="fileName != null  and fileName != ''"> and file_name like concat('%', #{fileName}, '%')</if>
+            <if test="fileSize != null  and fileSize != ''"> and file_size = #{fileSize}</if>
+            <if test="uploadStart != null "> and upload_start = #{uploadStart}</if>
+            <if test="uploadEnd != null "> and upload_end = #{uploadEnd}</if>
+            <if test="tempFile != null  and tempFile != ''"> and temp_file = #{tempFile}</if>
+            <if test="fileType != null  and fileType != ''"> and file_type = #{fileType}</if>
+            <if test="annoucement != null  and annoucement != ''"> and annoucement = #{annoucement}</if>
+            <if test="isPerminate != null "> and is_perminate = #{isPerminate}</if>
+    </select>
+    
+    <select id="selectFileTaskConfigById" parameterType="Long" resultMap="FileTaskConfigResult">
+        <include refid="selectFileTaskConfigVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertFileTaskConfig" parameterType="com.teaching.system.domain.FileTaskConfig" useGeneratedKeys="true" keyProperty="id">
+        insert into file_task_config
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="taskId != null">task_id,</if>
+            <if test="taskType != null">task_type,</if>
+            <if test="fileName != null">file_name,</if>
+            <if test="fileSize != null">file_size,</if>
+            <if test="uploadStart != null">upload_start,</if>
+            <if test="uploadEnd != null">upload_end,</if>
+            <if test="tempFile != null">temp_file,</if>
+            <if test="tempFileName != null">temp_file_name,</if>
+            <if test="fileType != null">file_type,</if>
+            <if test="annoucement != null">annoucement,</if>
+            <if test="isPerminate != null">is_perminate,</if>
+            <if test="delFlag != null">del_flag,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="taskId != null">#{taskId},</if>
+            <if test="taskType != null">#{taskType},</if>
+            <if test="fileName != null">#{fileName},</if>
+            <if test="fileSize != null">#{fileSize},</if>
+            <if test="uploadStart != null">#{uploadStart},</if>
+            <if test="uploadEnd != null">#{uploadEnd},</if>
+            <if test="tempFile != null">#{tempFile},</if>
+            <if test="tempFileName != null">#{tempFileName},</if>
+            <if test="fileType != null">#{fileType},</if>
+            <if test="annoucement != null">#{annoucement},</if>
+            <if test="isPerminate != null">#{isPerminate},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+         </trim>
+    </insert>
+
+    <insert id="batchInsertFileTaskConfig">
+        insert into file_task_config (task_id, task_type, file_name, file_size, upload_start, upload_end, temp_file,temp_file_name,
+        file_type, annoucement, is_perminate, create_by, create_time, update_by, update_time, remark)
+        values
+        <foreach item="item" collection="fileTaskConfigList" separator=",">
+            (#{item.taskId}, #{item.taskType}, #{item.fileName}, #{item.fileSize}, #{item.uploadStart}, #{item.uploadEnd}, #{item.tempFile},#{item.tempFileName},
+            #{item.fileType}, #{item.annoucement}, #{item.isPerminate}, #{item.createBy}, now(),
+            #{item.updateBy}, #{item.updateTime}, #{item.remark})
+        </foreach>
+    </insert>
+
+    <update id="updateFileTaskConfig" parameterType="com.teaching.system.domain.FileTaskConfig">
+        update file_task_config
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="taskId != null">task_id = #{taskId},</if>
+            <if test="taskType != null">task_type = #{taskType},</if>
+            <if test="fileName != null">file_name = #{fileName},</if>
+            <if test="fileSize != null">file_size = #{fileSize},</if>
+            <if test="uploadStart != null">upload_start = #{uploadStart},</if>
+            <if test="uploadEnd != null">upload_end = #{uploadEnd},</if>
+            <if test="tempFile != null">temp_file = #{tempFile},</if>
+            <if test="tempFileName != null">temp_file_name = #{tempFileName},</if>
+            <if test="fileType != null">file_type = #{fileType},</if>
+            <if test="annoucement != null">annoucement = #{annoucement},</if>
+            <if test="isPerminate != null">is_perminate = #{isPerminate},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <update id="batchUpdateFileTaskConfig">
+        update file_task_config
+        <set>
+            <if test="list[0].taskType!=null">
+                task_type = CASE
+                <foreach collection="list" item="item">
+                    WHEN id = #{item.id} THEN #{item.taskType}
+                </foreach>
+                ELSE task_type
+                END,
+            </if>
+            <if test="list[0].fileName!=null">
+                file_name = CASE
+                <foreach collection="list" item="item">
+                    WHEN id = #{item.id} THEN #{item.fileName}
+                </foreach>
+                ELSE file_name
+                END,
+            </if>
+            <if test="list[0].fileSize!=null">
+                file_size = CASE
+                <foreach collection="list" item="item">
+                    WHEN id = #{item.id} THEN #{item.fileSize}
+                </foreach>
+                ELSE file_size
+                END,
+            </if>
+            <if test="list[0].uploadStart!=null">
+                upload_start = CASE
+                <foreach collection="list" item="item">
+                    WHEN id = #{item.id} THEN #{item.uploadStart}
+                </foreach>
+                ELSE upload_start
+                END,
+            </if>
+            <if test="list[0].uploadEnd!=null">
+                upload_end = CASE
+                <foreach collection="list" item="item">
+                    WHEN id = #{item.id} THEN #{item.uploadEnd}
+                </foreach>
+                ELSE upload_end
+                END,
+            </if>
+            <if test="list[0].tempFile!=null">
+                temp_file = CASE
+                <foreach collection="list" item="item">
+                    WHEN id = #{item.id} THEN #{item.tempFile}
+                </foreach>
+                ELSE temp_file
+                END,
+            </if>
+            <if test="list[0].tempFileName!=null">
+                temp_file_name = CASE
+                <foreach collection="list" item="item">
+                    WHEN id = #{item.id} THEN #{item.tempFileName}
+                </foreach>
+                ELSE temp_file_name
+                END,
+            </if>
+            <if test="list[0].fileType!=null">
+                file_type = CASE
+                <foreach collection="list" item="item">
+                    WHEN id = #{item.id} THEN #{item.fileType}
+                </foreach>
+                ELSE file_type
+                END,
+            </if>
+            <if test="list[0].annoucement!=null">
+                annoucement = CASE
+                <foreach collection="list" item="item">
+                    WHEN id = #{item.id} THEN #{item.annoucement}
+                </foreach>
+                ELSE annoucement
+                END,
+            </if>
+            <if test="list[0].isPerminate!=null">
+                is_perminate = CASE
+                <foreach collection="list" item="item">
+                    WHEN id = #{item.id} THEN #{item.isPerminate}
+                </foreach>
+                ELSE is_perminate
+                END,
+            </if>
+            update_time = NOW(),
+            version = version + 1
+        </set>
+        WHERE id IN
+        <foreach collection="list" item="item" open="(" separator="," close=")">
+            #{item.id}
+        </foreach>
+    </update>
+
+    <delete id="deleteFileTaskConfigById" parameterType="Long">
+        update file_task_config set del_flag = '1' where task_id = #{id}
+    </delete>
+
+    <delete id="deleteFileTaskConfigByTaskIds" parameterType="String">
+        update file_task_config set del_flag = '1' where task_id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <delete id="deleteFileTaskConfigByIds" parameterType="String">
+        update file_task_config set del_flag = '1' where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
