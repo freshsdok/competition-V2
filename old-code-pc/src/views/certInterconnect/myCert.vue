@@ -152,6 +152,20 @@
         </el-button>
       </template>
     </el-dialog>
+
+    <el-dialog v-model="previewDialogVisible" :title="`证书预览${previewCertCode ? `（${previewCertCode}）` : ''}`"
+      width="80%" top="5vh" append-to-body destroy-on-close>
+      <div class="certificate-preview-container">
+        <el-image v-if="previewImageUrl" :src="previewImageUrl" fit="contain" class="certificate-preview-image"
+          @error="handlePreviewImageError" />
+      </div>
+      <template #footer>
+        <a v-if="previewImageUrl" :href="previewImageUrl" target="_blank" rel="noopener noreferrer">
+          <el-button style="margin-right: 10px;">下载</el-button>
+        </a>
+        <el-button type="primary" @click="previewDialogVisible = false">关闭</el-button>
+      </template>
+    </el-dialog>
   </div>
 </template>
 
@@ -178,6 +192,9 @@ const guidedTotal = ref(0);
 const selectedCertCodes = reactive(new Set());
 const fallbackRequested = new Set();
 const previewingCode = ref("");
+const previewDialogVisible = ref(false);
+const previewImageUrl = ref("");
+const previewCertCode = ref("");
 const exportTask = ref(null);
 let certificatePollingTimer;
 let exportPollingTimer;
@@ -307,9 +324,20 @@ const previewCertificate = async (row) => {
   previewingCode.value = row.certCode;
   try {
     const response = await getGuidedCertificatePreview(row.certCode);
-    window.open(response?.data, "_blank", "noopener,noreferrer");
+    console.log(response);
+    
+    const imageUrl = response.msg;
+    if (!imageUrl || !["http:", "https:"].includes(new URL(imageUrl, window.location.origin).protocol)) {
+      throw new Error("接口未返回有效的证书图片地址");
+    }
+    previewImageUrl.value = imageUrl;
+    previewCertCode.value = row.certCode;
+    previewDialogVisible.value = true;
   } catch (error) { ElMessage.error(error?.message || "打开证书图片失败"); }
   finally { previewingCode.value = ""; }
+};
+const handlePreviewImageError = () => {
+  ElMessage.error("证书图片加载失败，下载地址可能已过期，请关闭后重试");
 };
 
 const createExport = async (scope) => {
@@ -378,5 +406,7 @@ onBeforeUnmount(() => { stopCertificatePolling(); stopExportPolling(); });
 .export-progress-title { margin-bottom: 10px; color: #303133; font-weight: 600; }
 .export-progress-detail { margin-top: 8px; color: #606266; }
 .export-error { margin-top: 6px; color: #f56c6c; }
+.certificate-preview-container { display: flex; justify-content: center; min-height: 240px; max-height: 72vh; overflow: auto; background: #f5f7fa; }
+.certificate-preview-image { width: 100%; min-height: 240px; max-height: 72vh; }
 @media (max-width: 768px) { .guided-download-card { align-items: flex-start; flex-direction: column; } }
 </style>
