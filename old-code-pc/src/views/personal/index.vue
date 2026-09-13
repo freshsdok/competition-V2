@@ -175,6 +175,7 @@
             设备预约
           </div>
           <div
+            v-if="canCollectSettlement"
             class="Studystatisticsleftbq Studystatisticsleftbqout"
             @click="enterPayoutTransition"
           >
@@ -249,6 +250,7 @@ import myfile from "./personaltabs/myfile.vue";
 import SceneResourceReservation from "./personaltabs/SceneResourceReservation.vue";
 import { useRouter } from "vue-router";
 import { getAuthInfo } from "@/api/index";
+import { getMyTeamCollections } from "@/api/teamCollection";
 import { onMounted } from "vue";
 import { getinfo, getToken, setinfo } from "@/utils/auth";
 import baomingchenggong from "@/assets/images/baomingchenggong.png";
@@ -258,6 +260,7 @@ import { useRoute } from "vue-router";
 const route = useRoute();
 const router = useRouter();
 const userinfo = ref({});
+const canCollectSettlement = ref(false);
 const lefttabs = ref("我的团队");
 
 const { proxy } = getCurrentInstance();
@@ -299,6 +302,9 @@ const userinfolist = () => {
 
 onMounted(() => {
   userinfolist();
+  getMyTeamCollections()
+    .then((res) => { canCollectSettlement.value = Array.isArray(res?.data) && res.data.length > 0; })
+    .catch(() => { canCollectSettlement.value = false; });
   lefttabs.value = route.query.lefttabs ? route.query.lefttabs : lefttabs.value;
   console.log(lefttabs.value,123)
 });

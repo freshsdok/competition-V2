@@ -1,0 +1,23 @@
+{
+  "sha256": "967559dfddf2be3b70ac513b9e0074835ddbccec441fe29e626bf98a2740e9ec",
+  "teams": 520,
+  "student_cells": 1216,
+  "sheets": [
+    {
+      "sheet": "赛道一名单",
+      "teams": 356,
+      "student_cells": 712
+    },
+    {
+      "sheet": "赛道二名单",
+      "teams": 54,
+      "student_cells": 284
+    },
+    {
+      "sheet": "赛道三名单",
+      "teams": 110,
+      "student_cells": 220
+    }
+  ],
+  "collection_code": "XINKE_13_2026"
+}

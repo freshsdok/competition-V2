@@ -1,7 +1,7 @@
 <script setup>
 import { onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
-import { enterEmbeddedCredential, enterEmbeddedSettlement } from '@/api/internalEmbeddedBridge'
+import { enterEmbeddedCredential } from '@/api/internalEmbeddedBridge'
 import { isAllowedEmbeddedEntryPath } from '@/utils/embeddedEntryPath'
 
 const props = defineProps({ target: { type: String, required: true } })
@@ -10,9 +10,9 @@ async function open() {
   if (busy.value) return
   busy.value = true; message.value = ''; source.value = ''
   try {
-    const response = props.target === 'SETTLEMENT_PROFILE'
-      ? await enterEmbeddedSettlement()
-      : await enterEmbeddedCredential(Number(route.params.programId))
+    // 收款入口已交由队伍办理页控制，此通用组件不能退回无队伍校验的旧路径。
+    if (props.target !== 'CREDENTIAL_EXCHANGE') throw new Error('TEAM_COLLECTION_REQUIRED')
+    const response = await enterEmbeddedCredential(Number(route.params.programId))
     const path = response?.data?.entryPath
     if (!isAllowedEmbeddedEntryPath(path)) throw new Error('INVALID_EMBEDDED_ENTRY')
     source.value = path

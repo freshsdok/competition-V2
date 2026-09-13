@@ -22,3 +22,8 @@ v2:
     allow-private-http: ${V2_INTERNAL_ALLOW_PRIVATE_HTTP:false}
     connect-timeout: ${V2_INTERNAL_CONNECT_TIMEOUT:3s}
     read-timeout: ${V2_INTERNAL_READ_TIMEOUT:5s}
+
+# 先执行V1名单建表、匹配审核与启用脚本，再显式开放。关闭时也不恢复无资格校验的旧入口。
+v1:
+  team-collection:
+    enabled: ${V1_TEAM_COLLECTION_ENABLED:true}

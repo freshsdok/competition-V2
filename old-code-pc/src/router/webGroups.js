@@ -138,8 +138,7 @@ const webGroups = {
           path: "settlement-profile",
           name: "embeddedSettlementProfile",
           meta: { showNav: false, label: "我的收款信息" },
-          component: () => import("@/views/embedded/V2EmbeddedFrame.vue"),
-          props: { target: "SETTLEMENT_PROFILE" },
+          component: () => import("@/views/personal/TeamCollection.vue"),
         },
         {
           path: "paymentrecords",

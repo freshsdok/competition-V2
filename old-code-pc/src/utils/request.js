@@ -105,7 +105,7 @@ service.interceptors.response.use(
       return res.data;
     }
     res.data = replaceFileOrigin(res.data);
-    console.log("res.data", res.data);
+    // 响应可能包含一次性桥接入口，不输出到控制台。
     // 未设置状态码则默认成功状态
     const code = res.data.code || 200;
     // 获取错误信息
