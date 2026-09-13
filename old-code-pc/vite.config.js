@@ -91,6 +91,17 @@ export default defineConfig(({ mode, command }) => {
       host: true,
       open: true,
       proxy: {
+        // V2内嵌开发实例以相同base启动；保留前缀，避免模块资源落回V1。
+        '/v2-embedded/': {
+          target: env.VITE_V2_EMBEDDED_WEB_TARGET || 'http://localhost:5176',
+          changeOrigin: true,
+          ws: true,
+        },
+        // 与内嵌反向代理合同一致，仅代理浏览器所需API；内部HMAC签发端点不在此列。
+        '^/api/v1/(?:public/internal-bridge/sessions/consume|auth/session(?:/step-up/sms)?|auth/sms-challenges|me(?:/identity)?|settlement-profiles/me(?:/tenant-access/[1-9][0-9]*)?|public/credential-exchange/offerings|credential-ecosystem/me/.*|mall/.*)(?:\\?.*)?$': {
+          target: env.VITE_V2_EMBEDDED_API_TARGET || 'http://localhost:8080',
+          changeOrigin: true,
+        },
         '/dev-api': {
           // target: 'http://8.130.171.65:8897',//正式环境！！！！
           //  target: "https://wxapp.ksup.cn", //测试

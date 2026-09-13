@@ -129,6 +129,19 @@ const webGroups = {
           component: () => import("@/views/personal/accountmanagement.vue"),
         },
         {
+          path: "payout",
+          name: "payoutTransition",
+          meta: { showNav: false, label: "付款资料办理" },
+          component: () => import("@/views/personal/payoutTransition.vue"),
+        },
+        {
+          path: "settlement-profile",
+          name: "embeddedSettlementProfile",
+          meta: { showNav: false, label: "我的收款信息" },
+          component: () => import("@/views/embedded/V2EmbeddedFrame.vue"),
+          props: { target: "SETTLEMENT_PROFILE" },
+        },
+        {
           path: "paymentrecords",
           name: "paymentrecordsview",
           meta: { label: "我的订单" },
@@ -170,6 +183,13 @@ const webGroups = {
           ],
         },
       ],
+    },
+    {
+      path: "credential-exchange/:programId([1-9][0-9]*)",
+      name: "embeddedCredentialExchange",
+      meta: { showNav: false, label: "赛证互通" },
+      component: () => import("@/views/embedded/V2EmbeddedFrame.vue"),
+      props: { target: "CREDENTIAL_EXCHANGE" },
     },
     {
       path: "feedback",

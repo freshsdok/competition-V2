@@ -1,6 +1,7 @@
 <template>
   <div class="global-page">
     <PageBanner :banner="bannerSrc" />
+    <V2CredentialDiscovery />
     <!-- 搜索 -->
     <div class="__search mt-[60px] mb-[70px] ">
       <el-input v-model="queryParams.keyWord" placeholder="请输入关键词搜索" class="mr-[15px] h-[54px]">
@@ -45,6 +46,7 @@
 
   // *********** 组件 ***********
   import CertRuleItem from "./components/CertRuleItem.vue"
+  import V2CredentialDiscovery from "@/components/V2CredentialDiscovery.vue"
   import PageBanner from "@/components/PageBanner/index.vue"
   import bannerSrc from '@/assets/images/certInterconnect_banner.png'
 

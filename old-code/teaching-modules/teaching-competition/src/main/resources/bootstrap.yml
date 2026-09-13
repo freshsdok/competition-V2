@@ -2,9 +2,9 @@
 spring:
   profiles:
     # 环境配置
-   active: dev
+#   active: dev
     # 测试
-#    active: test
+    active: test
     #备案
 #    active: filing
 #   active: cluster

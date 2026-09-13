@@ -12,3 +12,13 @@ spring:
 security:
   pc-login:
     trusted-proxies: ${SECURITY_PC_LOGIN_TRUSTED_PROXIES:127.0.0.1;::1;teaching-gateway;teaching-nginx}
+
+# 内嵌桥默认关闭；HMAC秘密只从V1_V2_INTERNAL_BRIDGE_HMAC_SECRET环境变量读取。
+v2:
+  internal-embedded:
+    enabled: ${V2_INTERNAL_EMBEDDED_ENABLED:false}
+    internal-base-url: ${V2_INTERNAL_BASE_URL:}
+    same-origin-prefix: ${V2_EMBEDDED_PROXY_PREFIX:/v2-embedded}
+    allow-private-http: ${V2_INTERNAL_ALLOW_PRIVATE_HTTP:false}
+    connect-timeout: ${V2_INTERNAL_CONNECT_TIMEOUT:3s}
+    read-timeout: ${V2_INTERNAL_READ_TIMEOUT:5s}

@@ -174,6 +174,12 @@
           >
             设备预约
           </div>
+          <div
+            class="Studystatisticsleftbq Studystatisticsleftbqout"
+            @click="enterPayoutTransition"
+          >
+            我的收款信息
+          </div>
           <!-- <div
             class="Studystatisticsleftbq"
             :class="
@@ -275,6 +281,10 @@ const zhanghaoshezhi = (item) => {
       classification: item,
     },
   });
+};
+// V1保留导航外壳，收款资料事实和敏感操作始终由V2独立页面负责。
+const enterPayoutTransition = () => {
+  router.push({ path: "/personal/settlement-profile" });
 };
 const isuserinfo = ref(false);
 const userinfolist = () => {

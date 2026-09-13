@@ -26,7 +26,7 @@ spring:
     host: smtpdm.aliyun.com
     port: 465
     username: notice@ksup.cn
-    password: UCftsFsuQCshn4h2A
+    password: ${V1_SMTP_PASSWORD:}
     from: 2217056@qq.com
     ssl:
       enable: true
