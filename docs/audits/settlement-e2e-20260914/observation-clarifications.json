@@ -1,0 +1,12 @@
+{
+  "recorded_at_utc": "2026-09-14T14:45:41.362957+00:00",
+  "clarifications": [
+    {
+      "event_number": 40,
+      "field": "observed",
+      "correction": "短暂toast的AX原文为“服务未找到”；事件记录额外写入“公共”二字不准确。接口或服务来源未定位，不作公共服务归因。",
+      "source": "实际Chrome Cmd+R后的AX观察；随后第二成员登录也短暂出现同文案，截图34前已消失。"
+    }
+  ],
+  "original_events_preserved": true
+}

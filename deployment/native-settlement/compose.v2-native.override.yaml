@@ -1,0 +1,14 @@
+# Use WITH V2 docker/compose.prod.yaml; not a standalone stack or demo override.
+# Required values force explicit review of existing keys and claim policy.
+services:
+  platform-app:
+    environment:
+      V1_V2_NATIVE_SETTLEMENT_ENABLED: "true"
+      V1_V2_INTERNAL_BRIDGE_HMAC_SECRET: ${V1_V2_INTERNAL_BRIDGE_HMAC_SECRET:?Set the same existing bridge secret as V1}
+      PLATFORM_AUTHENTICATION_ALLOWED_ORIGINS: ${V2_NATIVE_ALLOWED_ORIGINS:?Preserve allowed origins and add https://www.ksup.cn}
+      # Prerequisite: all ordinary Web/Admin login origins already support HTTPS.
+      PLATFORM_AUTHENTICATION_COOKIE_SECURE: "true"
+      PLATFORM_AUTHENTICATION_LEGACY_CLAIM_ENABLED: ${AUTH_LEGACY_CLAIM_ENABLED:?Explicitly preserve or enable existing legacy claim policy}
+      PAYOUT_DATA_ENCRYPTION_KEY: ${PAYOUT_DATA_ENCRYPTION_KEY:?Reuse the existing bank data encryption key}
+      PAYOUT_DATA_FINGERPRINT_KEY: ${PAYOUT_DATA_FINGERPRINT_KEY:?Reuse the existing bank data fingerprint key}
+      PLATFORM_PAYOUT_DATA_KEY_VERSION: ${PAYOUT_DATA_KEY_VERSION:?Reuse the existing key version}

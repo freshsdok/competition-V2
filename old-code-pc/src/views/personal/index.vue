@@ -174,13 +174,8 @@
           >
             设备预约
           </div>
-          <div
-            v-if="canCollectSettlement"
-            class="Studystatisticsleftbq Studystatisticsleftbqout"
-            @click="enterPayoutTransition"
-          >
-            我的收款信息
-          </div>
+          <div v-if="canCollectNativeSettlement" class="Studystatisticsleftbq Studystatisticsleftbqout"
+            @click="router.push('/personal/settlement-profile-v2')">我的收款信息</div>
           <!-- <div
             class="Studystatisticsleftbq"
             :class="
@@ -241,6 +236,7 @@
   </div>
 </template>
 <script setup>
+import { getMyNativeCollections } from '@/api/teamCollectionNative';
 import img1 from "@/assets/images/shawn-avatar.png";
 import team from "./components/team.vue";
 import Competition from "./personaltabs/Competition.vue";
@@ -250,7 +246,6 @@ import myfile from "./personaltabs/myfile.vue";
 import SceneResourceReservation from "./personaltabs/SceneResourceReservation.vue";
 import { useRouter } from "vue-router";
 import { getAuthInfo } from "@/api/index";
-import { getMyTeamCollections } from "@/api/teamCollection";
 import { onMounted } from "vue";
 import { getinfo, getToken, setinfo } from "@/utils/auth";
 import baomingchenggong from "@/assets/images/baomingchenggong.png";
@@ -260,7 +255,7 @@ import { useRoute } from "vue-router";
 const route = useRoute();
 const router = useRouter();
 const userinfo = ref({});
-const canCollectSettlement = ref(false);
+const canCollectNativeSettlement = ref(false);
 const lefttabs = ref("我的团队");
 
 const { proxy } = getCurrentInstance();
@@ -285,10 +280,6 @@ const zhanghaoshezhi = (item) => {
     },
   });
 };
-// V1保留导航外壳，收款资料事实和敏感操作始终由V2独立页面负责。
-const enterPayoutTransition = () => {
-  router.push({ path: "/personal/settlement-profile" });
-};
 const isuserinfo = ref(false);
 const userinfolist = () => {
   // userinfo.value = JSON.parse(getinfo());
@@ -302,9 +293,7 @@ const userinfolist = () => {
 
 onMounted(() => {
   userinfolist();
-  getMyTeamCollections()
-    .then((res) => { canCollectSettlement.value = Array.isArray(res?.data) && res.data.length > 0; })
-    .catch(() => { canCollectSettlement.value = false; });
+  getMyNativeCollections().then(res => { canCollectNativeSettlement.value = Array.isArray(res?.data) && res.data.length > 0; }).catch(() => { canCollectNativeSettlement.value = false; });
   lefttabs.value = route.query.lefttabs ? route.query.lefttabs : lefttabs.value;
   console.log(lefttabs.value,123)
 });

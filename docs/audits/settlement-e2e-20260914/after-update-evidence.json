@@ -1,0 +1,28 @@
+{
+  "at_utc": "2026-09-14T13:42:04.220648+00:00",
+  "profile_current": [
+    [
+      {
+        "subject_id": "1000051946",
+        "current_profile_version_id": "5",
+        "version": "2",
+        "created_at": "2026-09-14 13:12:13.285582",
+        "updated_at": "2026-09-14 13:41:11.286673"
+      }
+    ]
+  ],
+  "unit_access": [
+    []
+  ],
+  "team": [
+    [
+      {
+        "id": "363",
+        "status": "IN_PROGRESS",
+        "version": "1",
+        "holder_user_id": "52050"
+      }
+    ]
+  ],
+  "scope": "Read-only metadata verification after UI profile update; no unit grant or final team confirmation performed."
+}

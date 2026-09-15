@@ -1,0 +1,28 @@
+{
+  "artifact": "/Users/wwang/Documents/ClaudeCode/deshi_competition_2/docs/audits/settlement-e2e-20260914/操作手册-实测至资料保存（待收尾验证）.docx",
+  "sha256": "8a3c37e5ef5bf0f8ffd27fc0ab18c08039eb1ca858946781978164c13e22c56f",
+  "status": "USER_REVIEW_DRAFT_PARTIAL_E2E",
+  "render_directory": "/Users/wwang/Documents/ClaudeCode/deshi_competition_2/docs/audits/settlement-e2e-20260914/manual-build/review-render-v3",
+  "source_screenshots": [
+    "13-v2-login-guidance-fixed.png",
+    "14-v2-password-hint-fixed.png",
+    "04-empty-form.png",
+    "15-security-modal-header-fixed.png",
+    "17-updated-profile-saved.png",
+    "08-unit-selected-consent-required.png",
+    "16-identity-conflict-guidance-fixed.png"
+  ],
+  "embedded_images_match_original_source_bytes": true,
+  "all_seven_images_have_srcRect_crops": true,
+  "old_05_included": false,
+  "privacy_review": "All seven source screenshots were visually inspected. No full real identity number, phone number or plaintext password was observed. The empty-input security/login captures and explicitly simulated identity/bank values were preserved unchanged; display crops exclude account bars and full team identifiers.",
+  "evidence_boundary": "Desktop Chrome evidence to profile save and update only, with selected validation/recipient controls observed. Provision, revocation, Tour and final completion remain unverified; SMS remains unverified. No mobile pass claim.",
+  "layout_review": "PASS: All five final page PNGs visually inspected after the final scope clarification. No text clipping, overlap, missing glyphs, blank overflow pages or broken captions. Pictures display only their documented srcRect regions. The five-page review document is ready for human review, not a claim of completed E2E.",
+  "pages_visually_reviewed": [
+    1,
+    2,
+    3,
+    4,
+    5
+  ]
+}

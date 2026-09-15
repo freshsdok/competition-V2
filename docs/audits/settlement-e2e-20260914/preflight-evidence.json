@@ -1,0 +1,64 @@
+{
+  "native_candidates": [
+    [
+      {
+        "v1_user_id": "52030",
+        "v2_account_id": "2000051926",
+        "v2_subject_id": "1000051926",
+        "native_identity_candidate_state": "HOLD",
+        "provenance_count": "1",
+        "relation_count": "1",
+        "matching_active_relation_count": "0",
+        "unresolved_claim_count": "1",
+        "open_dispute_count": "0",
+        "active_identity_evidence_count": "1",
+        "active_phone_factor_count": "0",
+        "active_password_factor_count": "0"
+      },
+      {
+        "v1_user_id": "52050",
+        "v2_account_id": "2000051946",
+        "v2_subject_id": "1000051946",
+        "native_identity_candidate_state": "READY_SOURCE_SNAPSHOT",
+        "provenance_count": "1",
+        "relation_count": "1",
+        "matching_active_relation_count": "1",
+        "unresolved_claim_count": "0",
+        "open_dispute_count": "0",
+        "active_identity_evidence_count": "1",
+        "active_phone_factor_count": "0",
+        "active_password_factor_count": "1"
+      }
+    ]
+  ],
+  "profile_before": [
+    [],
+    []
+  ],
+  "identity_compatibility": [
+    {
+      "v1_user_id": 52030,
+      "v2_subject_id": 1000051926,
+      "compatibility": [
+        {
+          "active_verified_evidence_count": "1",
+          "historical_evidence_count": "1",
+          "historical_match_count": "1",
+          "compatibility_state": "HISTORICAL_IDENTIFIER_COMPATIBLE"
+        }
+      ]
+    },
+    {
+      "v1_user_id": 52050,
+      "v2_subject_id": 1000051946,
+      "compatibility": [
+        {
+          "active_verified_evidence_count": "1",
+          "historical_evidence_count": "1",
+          "historical_match_count": "1",
+          "compatibility_state": "HISTORICAL_IDENTIFIER_COMPATIBLE"
+        }
+      ]
+    }
+  ]
+}

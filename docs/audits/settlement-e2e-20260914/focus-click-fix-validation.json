@@ -1,0 +1,28 @@
+{
+  "recorded_at_utc": "2026-09-14T14:37:15.672558+00:00",
+  "actual_browser_issue": "从DevTools转焦首击仅触发后台核对，未发confirm；同页坐标第二击成功。",
+  "cause": "onFocus后台校验清除verified，使pointer click到达前按钮被disabled。",
+  "changed_files": [
+    "old-code-pc/src/views/personal/TeamCollectionNative.vue",
+    "old-code-pc/src/views/personal/TeamCollectionNative.test.js"
+  ],
+  "fix": "只在相同已验证provided状态的后台focus/poll核验期间保留确认可点击；最终点击仍独立fresh核验，错误或撤销失效；晚到响应受sequence约束。",
+  "validation": {
+    "source_review": "PASS by parent",
+    "agent_targeted_tests": {
+      "files": 5,
+      "passed": 54,
+      "new_cases": 6,
+      "command": "./node_modules/.bin/vitest run --config vitest.team-collection.config.js",
+      "cwd": "/Users/wwang/Documents/ClaudeCode/deshi_competition_2/old-code-pc",
+      "started_at_beijing": "2026-09-14 22:32:46",
+      "vitest_duration_seconds": 1.13,
+      "command_wall_seconds": 1.52,
+      "exit_code": 0,
+      "standalone_log": "not saved; agent tool output evidence"
+    },
+    "v1_git_diff_check_exit": 0,
+    "v2_git_diff_check_exit": 0,
+    "browser_final_confirmation_after_fix": "NOT_EXECUTED; team was already completed before this fix."
+  }
+}

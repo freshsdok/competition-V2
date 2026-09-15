@@ -45,6 +45,19 @@ public class TeamCollectionMySqlTest {
 
     private <T> T transaction(Supplier<T> action) { return tx.execute(status -> action.get()); }
 
+    @Test public void nativeAndLegacyEntrancesShareHolderVersionAndCompletion() {
+        transaction(() -> service.start(1,101,0));
+        transaction(() -> { service.assertNativeHolder(1,101,1); return null; });
+        assertThrows(ServiceException.class, () -> transaction(() -> { service.assertNativeHolder(1,102,1); return null; }));
+        transaction(() -> service.release(1,101,1));
+        transaction(() -> service.start(1,102,2));
+        assertThrows(ServiceException.class, () -> transaction(() -> { service.assertNativeHolder(1,101,1); return null; }));
+        transaction(() -> { service.assertNativeHolder(1,102,3); return null; });
+        transaction(() -> service.confirm(1,102,3));
+        assertThrows(ServiceException.class, () -> transaction(() -> { service.assertNativeHolder(1,102,4); return null; }));
+        verifyNoInteractions(bridge);
+    }
+
     @Test public void twoMembersRacingOnlyOneAcquiresAndOtherCannotIssueEntry() throws Exception {
         var ready = new CountDownLatch(2);
         var go = new CountDownLatch(1);

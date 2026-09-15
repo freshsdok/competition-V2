@@ -1,0 +1,34 @@
+{
+  "at_utc": "2026-09-14T14:20:16.179508+00:00",
+  "unit_access": [
+    [
+      {
+        "subject_id": "1000051946",
+        "tenant_id": "7",
+        "status": "REVOKED",
+        "version": "1",
+        "updated_at": "2026-09-14 14:20:04.824755"
+      }
+    ]
+  ],
+  "profile_current": [
+    [
+      {
+        "subject_id": "1000051946",
+        "current_profile_version_id": "5",
+        "version": "2"
+      }
+    ]
+  ],
+  "team": [
+    [
+      {
+        "id": "363",
+        "status": "IN_PROGRESS",
+        "version": "1",
+        "holder_user_id": "52050"
+      }
+    ]
+  ],
+  "scope": "Read-only metadata after Chrome revoke of XINKESAI future access; final confirmation not executed."
+}

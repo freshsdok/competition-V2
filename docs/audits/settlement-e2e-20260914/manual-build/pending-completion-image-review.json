@@ -1,0 +1,40 @@
+{
+  "status": "FINAL_COMPLETION_SCREENSHOT_MISSING",
+  "images": [
+    {
+      "role": "provided",
+      "source": "/Users/wwang/Documents/ClaudeCode/deshi_competition_2/docs/audits/settlement-e2e-20260914/screenshots/29-provided-pending-final.png",
+      "sha256": "671d02d523eb575a891b792bd74a3c74035262abac5c8c076f17f41b5c4d5140",
+      "source_size": [
+        1476,
+        768
+      ],
+      "proposed_display_crop_pixels": [
+        474,
+        480,
+        1003,
+        684
+      ],
+      "proposed_width_inches": 6.4,
+      "visual_review": "Original inspected; no full real identity number, phone number or plaintext password observed. Provided screen shows masked simulated bank data. Crop omits account bar and complete team identifiers."
+    },
+    {
+      "role": "tour",
+      "source": "/Users/wwang/Documents/ClaudeCode/deshi_competition_2/docs/audits/settlement-e2e-20260914/screenshots/28-provided-tour-initial.png",
+      "sha256": "2b6da8730a39c5a0874287f739c2e7d43ab1b7ec791ee8262eb839d0548403cc",
+      "source_size": [
+        1476,
+        768
+      ],
+      "proposed_display_crop_pixels": [
+        868,
+        234,
+        1082,
+        453
+      ],
+      "proposed_width_inches": 3.2,
+      "visual_review": "Original inspected; no full real identity number, phone number or plaintext password observed. Provided screen shows masked simulated bank data. Crop omits account bar and complete team identifiers."
+    }
+  ],
+  "current_final_docx_generated": false
+}

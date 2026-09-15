@@ -1,0 +1,1897 @@
+<!doctype html>
+<html lang="en" data-visualize-standalone>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline' 'unsafe-eval' 'wasm-unsafe-eval' blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; style-src 'unsafe-inline' blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; img-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; font-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; media-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; worker-src blob:; connect-src blob: data:; frame-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<title>银行卡资料填报 · 引导式原型 A</title>
+<style>:root{color-scheme:light dark;background:light-dark(rgb(255 255 255), rgb(24 24 24))}html,body{margin:0}body{box-sizing:border-box;padding:1rem;background:inherit}iframe{display:block;width:100%;height:calc(100vh - 2rem);margin:0 auto;border:0}</style>
+</head>
+<body>
+<iframe sandbox="allow-scripts" referrerpolicy="no-referrer" title="银行卡资料填报 · 引导式原型 A" srcdoc="&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot; data-visualize-standalone&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;utf-8&quot;&gt;
+&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+&lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot;&gt;
+&lt;meta http-equiv=&quot;Content-Security-Policy&quot; content=&quot;default-src &#x27;none&#x27;; script-src &#x27;unsafe-inline&#x27; &#x27;unsafe-eval&#x27; &#x27;wasm-unsafe-eval&#x27; blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; style-src &#x27;unsafe-inline&#x27; blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; img-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; font-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; media-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; worker-src blob:; connect-src blob: data:; frame-src &#x27;none&#x27;; object-src &#x27;none&#x27;; base-uri &#x27;none&#x27;; form-action &#x27;none&#x27;&quot;&gt;
+&lt;title&gt;银行卡资料填报 · 引导式原型 A&lt;/title&gt;
+&lt;style&gt;:root {
+  color-scheme: light dark;
+  background-color: var(
+    --background,
+    var(--color-background-primary, light-dark(rgb(255 255 255), rgb(24 24 24)))
+  ) !important;
+
+  /* Agent-facing contract; keep in sync with SKILL.md. */
+  --background: var(
+    --color-background-primary,
+    light-dark(rgb(255 255 255), rgb(24 24 24))
+  );
+  --foreground: var(
+    --color-text-primary,
+    light-dark(rgb(26 28 31), rgb(255 255 255))
+  );
+  --card: color-mix(in oklab, var(--foreground) 5%, var(--background));
+  --card-foreground: var(
+    --color-text-primary,
+    light-dark(rgb(26 28 31), rgb(255 255 255))
+  );
+  --popover: var(
+    --color-background-secondary,
+    light-dark(rgb(255 255 255), rgb(45 45 45))
+  );
+  --popover-foreground: var(
+    --color-text-primary,
+    light-dark(rgb(26 28 31), rgb(255 255 255))
+  );
+  --primary: var(
+    --color-text-info,
+    light-dark(rgb(51 156 255), rgb(131 195 255))
+  );
+  --primary-foreground: var(
+    --color-text-inverse,
+    light-dark(rgb(255 255 255), rgb(13 13 13))
+  );
+  --secondary: var(
+    --color-background-secondary,
+    light-dark(rgb(255 255 255 / 96%), rgb(54 54 54 / 96%))
+  );
+  --secondary-foreground: var(
+    --color-text-primary,
+    light-dark(rgb(26 28 31), rgb(255 255 255))
+  );
+  --muted: color-mix(in srgb, var(--foreground) 10%, transparent);
+  --muted-foreground: var(
+    --color-text-secondary,
+    light-dark(rgb(26 28 31 / 49.4%), rgb(255 255 255 / 49.8%))
+  );
+  --accent: var(
+    --color-background-info,
+    light-dark(rgb(229 242 255), rgb(13 39 63))
+  );
+  --accent-foreground: var(
+    --color-text-info,
+    light-dark(rgb(51 156 255), rgb(131 195 255))
+  );
+  --destructive: var(
+    --color-text-warning,
+    light-dark(rgb(226 85 7), rgb(255 133 73))
+  );
+  --border: var(
+    --color-border-secondary,
+    light-dark(rgb(26 28 31 / 8%), rgb(255 255 255 / 8.2%))
+  );
+  --input: var(
+    --color-border-primary,
+    light-dark(
+      rgb(26 28 31 / 11.8%),
+      color-mix(in oklab, rgb(0 0 0) 10%, transparent)
+    )
+  );
+  --ring: var(
+    --color-ring-primary,
+    light-dark(rgb(51 156 255), rgb(131 195 255 / 76%))
+  );
+  --font-size-base: var(--font-text-md-size, 14px);
+  --blue: light-dark(rgb(51 156 255), rgb(51 156 255));
+  --orange: light-dark(rgb(226 85 7), rgb(251 106 34));
+  --green: light-dark(rgb(0 162 64), rgb(64 201 119));
+  --red: light-dark(rgb(224 46 42), rgb(255 103 100));
+  --purple: light-dark(rgb(146 79 247), rgb(173 123 249));
+  --yellow: light-dark(rgb(255 195 0), rgb(255 210 64));
+  --viz-series-1: var(--primary);
+  --viz-series-2: light-dark(rgb(243 136 59), rgb(245 154 86));
+  --viz-series-3: light-dark(rgb(93 201 119), rgb(116 213 139));
+  --viz-series-4: light-dark(rgb(235 119 177), rgb(240 143 192));
+  --viz-series-5: light-dark(rgb(155 121 236), rgb(170 145 239));
+  --viz-series-6: light-dark(rgb(58 185 177), rgb(90 203 194));
+
+  /* Internal implementation variables; not part of the agent contract. */
+  --font-sans: -apple-system, system-ui, &quot;Segoe UI&quot;, sans-serif;
+  --font-mono:
+    ui-monospace, SFMono-Regular, &quot;SF Mono&quot;, Menlo, Consolas, &quot;Liberation Mono&quot;,
+    monospace;
+  --font-size-normal: max(11px, var(--font-size-base));
+  --font-size-tooltip: calc(var(--font-size-base) - 1px);
+  --font-size-small: max(11px, calc(var(--font-size-base) - 2px));
+  --font-size-h1: calc(var(--font-size-normal) * 1.7142857143);
+  --font-size-h2: calc(var(--font-size-normal) * 1.4285714286);
+  --font-size-h3: calc(var(--font-size-normal) * 1.2857142857);
+  --font-weight-normal: 430;
+  --font-weight-medium: 500;
+  --icon-size: 16px;
+  --line-height-normal: calc(var(--font-size-normal) * 1.5);
+  --line-height-tooltip: calc(var(--font-size-tooltip) * 1.4285714286);
+  --line-height-small: calc(var(--font-size-small) + 4px);
+  --corner-shape: round;
+  --radius: var(--border-radius-lg, 10px);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-2xl: calc(var(--radius) * 1.6);
+  --radius-full: 9999px;
+  --shadow-sm: 0 1px 2px -1px rgb(0 0 0 / 8%);
+  --checkmark-image: url(&quot;data:image/svg+xml,%3Csvg xmlns=&#x27;http://www.w3.org/2000/svg&#x27; viewBox=&#x27;0 0 17 17&#x27;%3E%3Cpath d=&#x27;M12.8961 3.64101C13.1297 3.41418 13.4984 3.37523 13.7779 3.56581C14.0571 3.75635 14.1554 4.11331 14.0299 4.41347L13.9615 4.53847L7.71151 13.7045C7.59411 13.8767 7.4063 13.9877 7.19881 14.0072C6.99136 14.0267 6.78564 13.9533 6.63826 13.806L2.88826 10.056L2.79842 9.9457C2.6192 9.67407 2.64927 9.30496 2.88826 9.06581C3.12738 8.82669 3.49647 8.79676 3.76815 8.97597L3.8785 9.06581L7.03084 12.2182L12.8053 3.74941L12.8961 3.64101Z&#x27;/%3E%3C/svg%3E&quot;);
+
+  /* Legacy aliases; not part of the current agent contract. */
+  --viz-bg: transparent;
+  --viz-panel: var(--card);
+  --viz-border: var(--border);
+  --viz-text: var(--foreground);
+  --viz-muted: var(--muted-foreground);
+  --viz-accent: var(--primary);
+  --viz-accent-text: var(--primary-foreground);
+  --viz-accent-bg: var(--accent);
+  --viz-font-size: var(--font-size-base);
+  --viz-warning: var(--destructive);
+}
+
+:root[data-theme=&quot;light&quot;] {
+  color-scheme: light;
+}
+
+:root[data-theme=&quot;dark&quot;] {
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html &gt; body {
+  /* Preserve MCP aliases for older inline renderers without creating :root cycles. */
+  --color-background-primary: var(
+    --background,
+    light-dark(rgb(255 255 255), rgb(24 24 24))
+  );
+  --color-text-primary: var(
+    --foreground,
+    light-dark(rgb(26 28 31), rgb(255 255 255))
+  );
+  --color-border-secondary: var(
+    --border,
+    light-dark(rgb(26 28 31 / 8%), rgb(255 255 255 / 8.2%))
+  );
+
+  margin: 0;
+  padding: var(--visualize-paint-gutter, 0px);
+  color: var(--foreground);
+  background: transparent !important;
+  font-family: var(--font-sans) !important;
+  font-size: var(--font-size-normal);
+  font-weight: var(--font-weight-normal);
+  line-height: var(--line-height-normal);
+}
+
+a {
+  color: color-mix(in srgb, var(--viz-accent) 80%, var(--viz-text) 20%);
+  cursor: pointer;
+  font-weight: var(--font-weight-medium, 500);
+  text-decoration: none;
+  text-underline-offset: 2px;
+}
+
+a:is(:hover, :focus-visible) {
+  text-decoration-line: underline;
+  text-decoration-style: dashed;
+  text-decoration-thickness: 0.5px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin-block: 0;
+}
+
+h1 {
+  font-size: var(--font-size-h1);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.25;
+}
+
+h2 {
+  font-size: var(--font-size-h2);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.25;
+}
+
+h3,
+h4,
+h5,
+h6 {
+  font-size: var(--font-size-h3);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.3;
+}
+
+b,
+strong,
+th {
+  font-weight: var(--font-weight-medium);
+}
+
+code:not(pre code) {
+  display: inline;
+  padding: 1px 6px;
+  border-radius: var(--radius-sm);
+  corner-shape: var(--corner-shape);
+  background: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 0.92em;
+  overflow-wrap: anywhere;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  word-break: break-word;
+}
+
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  color: var(--foreground);
+  font: inherit;
+  text-align: start;
+}
+
+.table :is(th, td) {
+  padding-block: 10px;
+  padding-inline: 0 24px;
+  overflow-wrap: anywhere;
+  border-bottom: 1px solid var(--border);
+  text-align: start;
+  vertical-align: top;
+}
+
+.table-responsive &gt; .table :is(th, td) {
+  overflow-wrap: break-word;
+}
+
+.table :is(th, td):last-child {
+  padding-inline-end: 0;
+}
+
+.table :is(caption, thead th) {
+  font-weight: 600;
+}
+
+.table thead th {
+  padding-block: 8px;
+  border-bottom-color: color-mix(in srgb, var(--foreground) 16%, transparent);
+}
+
+.table tbody tr:last-child :is(th, td) {
+  border-bottom: 0;
+}
+
+.table.table-sm :is(th, td) {
+  padding-block: 6px;
+}
+
+.table.table-sm :is(th, td):not(:last-child) {
+  padding-inline-end: 16px;
+}
+
+.table :is(.text-end, [align=&quot;right&quot;]) {
+  text-align: end;
+  font-variant-numeric: tabular-nums;
+}
+
+.table :is(.text-center, [align=&quot;center&quot;]) {
+  text-align: center;
+}
+
+.table .text-nowrap {
+  white-space: nowrap;
+}
+
+#widget {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  padding: 0;
+  background: transparent !important;
+}
+
+.card {
+  min-width: 0;
+  padding: 12px;
+  overflow: hidden;
+  overflow-wrap: break-word;
+  border-radius: var(--radius-2xl);
+  corner-shape: var(--corner-shape);
+  color: var(--card-foreground);
+  background: var(--card);
+}
+
+#widget &gt; :not(.card, .progress) {
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.tooltip {
+  position: fixed;
+  z-index: 50;
+  top: 0;
+  left: 0;
+  width: max-content;
+  max-width: min(
+    20rem,
+    var(--tooltip-available-width, calc(100vw - 10px)),
+    calc(100vw - 10px)
+  );
+  max-height: min(
+    var(--tooltip-available-height, calc(100vh - 10px)),
+    calc(100vh - 10px)
+  );
+  padding: 4px 8px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  corner-shape: var(--corner-shape);
+  color: var(--popover-foreground);
+  background: var(--popover);
+  box-shadow: none;
+  font-size: var(--font-size-tooltip);
+  line-height: var(--line-height-tooltip);
+  overflow-wrap: break-word;
+  white-space: normal;
+  pointer-events: none;
+  user-select: none;
+}
+
+.viz-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(max(180px, 24%), 1fr));
+  gap: 10px;
+}
+
+.viz-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.viz-stat-value {
+  font-size: var(--font-size-h2);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.25;
+}
+
+.viz-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+hr {
+  width: 100%;
+  height: 1px;
+  margin-block: 6px;
+  border: 0;
+  background: var(--border);
+}
+
+.nav {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 4px;
+}
+
+.progress {
+  display: flex;
+  height: 8px;
+  margin-block: calc((var(--line-height-normal, 1.5em) - 8px) / 2);
+  overflow: hidden;
+  border: 0;
+  border-radius: var(--radius-full);
+  background: var(--muted);
+}
+
+.progress-bar:only-child {
+  border-radius: var(--radius-full);
+}
+
+.progress-bar {
+  height: 100%;
+  flex-shrink: 0;
+  border: 0;
+  background: var(--viz-series-1);
+}
+
+.viz-badge {
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+  color: var(--accent-foreground);
+  background: var(--accent);
+  font-weight: var(--font-weight-medium);
+}
+
+small,
+.text-small,
+.viz-badge {
+  font-size: var(--font-size-small);
+  line-height: var(--line-height-small);
+}
+
+.text-muted {
+  color: var(--muted-foreground);
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.viz-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.viz-controls &gt; .form-label {
+  display: grid;
+  min-width: min(100%, 260px);
+  flex: 1 1 280px;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: 2px 12px;
+  margin-bottom: 0;
+}
+
+.viz-controls &gt; .form-label &gt; :is(.form-control, .form-range, .form-select) {
+  grid-column: 1 / -1;
+}
+
+.btn,
+.nav-link,
+.form-check-input,
+.form-control,
+.form-range,
+.form-select {
+  font: inherit;
+}
+
+.btn,
+.nav-link {
+  appearance: button;
+  display: inline-flex;
+  inline-size: fit-content;
+  max-inline-size: 100%;
+  min-height: 28px;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  margin: 0;
+  padding: 0 8px;
+  -webkit-app-region: no-drag;
+  border: 1px solid var(--input);
+  border-radius: var(--radius-lg);
+  corner-shape: var(--corner-shape);
+  color: var(--secondary-foreground);
+  background: var(--secondary);
+  cursor: var(--cursor-interaction, pointer);
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  user-select: none;
+  -webkit-font-smoothing: antialiased;
+}
+
+.btn:is(.btn-block, .viz-tile) {
+  inline-size: 100%;
+}
+
+.btn.viz-tile {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  white-space: normal;
+}
+
+a.btn {
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.btn:not(:disabled):hover,
+.nav-link:not(:disabled):not([aria-disabled=&quot;true&quot;]):hover {
+  background: color-mix(in srgb, var(--foreground) 6%, var(--secondary));
+}
+
+.btn-primary {
+  border-color: transparent;
+  color: var(--primary-foreground);
+  background: var(--foreground);
+  background-clip: padding-box;
+}
+
+.btn-primary .text-muted {
+  color: color-mix(in srgb, var(--primary-foreground) 50%, transparent);
+}
+
+.btn-primary:not(:disabled):hover {
+  background: color-mix(in srgb, var(--foreground) 80%, transparent);
+  background-clip: padding-box;
+}
+
+.btn-ghost {
+  border-color: transparent;
+  color: var(--muted-foreground);
+  background: transparent;
+}
+
+.btn-ghost:not(:disabled):hover {
+  color: var(--foreground);
+  background: color-mix(in srgb, var(--foreground) 6%, var(--secondary));
+}
+
+.nav-pills .nav-link {
+  min-width: 0;
+  border-color: transparent;
+  color: var(--muted-foreground);
+  background: transparent;
+}
+
+.nav-justified .nav-link {
+  flex: 1 1 0;
+  overflow-wrap: anywhere;
+  white-space: normal;
+}
+
+.nav-pills .nav-link.active {
+  color: var(--foreground);
+  background: var(--muted);
+}
+
+.btn:disabled,
+.nav-link:disabled,
+.nav-link[aria-disabled=&quot;true&quot;] {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+[data-lucide] {
+  stroke-width: 1.6;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--foreground);
+}
+
+.form-control {
+  display: block;
+  width: 100%;
+  min-height: 28px;
+  padding: 0 8px;
+  outline: none;
+  border: 1px solid var(--input);
+  border-radius: var(--radius-lg);
+  corner-shape: var(--corner-shape);
+  color: var(--foreground);
+  background: var(--secondary);
+}
+
+.form-control::placeholder {
+  color: var(--muted-foreground);
+}
+
+.form-control[type=&quot;file&quot;] {
+  padding: 0;
+  overflow: hidden;
+  cursor: var(--cursor-interaction, pointer);
+}
+
+.form-control[type=&quot;file&quot;]::file-selector-button {
+  min-height: 26px;
+  margin-right: 8px;
+  padding: 0 8px;
+  border: 0;
+  border-right: 1px solid var(--input);
+  color: var(--secondary-foreground);
+  background: var(--secondary);
+  cursor: inherit;
+  font: inherit;
+}
+
+.form-control[type=&quot;file&quot;]:not(:disabled):hover::file-selector-button {
+  background: color-mix(in srgb, var(--foreground) 6%, var(--secondary));
+}
+
+.form-control-color[type=&quot;color&quot;] {
+  width: 40px;
+  height: 28px;
+  padding: 3px;
+  cursor: var(--cursor-interaction, pointer);
+}
+
+.form-control-color[type=&quot;color&quot;]::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+
+.form-control-color[type=&quot;color&quot;]::-webkit-color-swatch {
+  border: 0;
+  border-radius: calc(var(--radius-lg) - 4px);
+  corner-shape: var(--corner-shape);
+}
+
+textarea.form-control {
+  height: auto;
+  min-height: 72px;
+  padding: 8px 10px;
+  resize: vertical;
+}
+
+.form-control:focus-visible {
+  border-color: var(--ring);
+  box-shadow: inset 0 0 0 1px var(--ring);
+}
+
+.form-control:disabled,
+.form-select:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+.form-select {
+  appearance: none;
+  display: block;
+  width: 100%;
+  min-height: 28px;
+  margin: 0;
+  padding: 0 32px 0 8px;
+  outline: none;
+  border: 1px solid var(--input);
+  border-radius: var(--radius-lg);
+  corner-shape: var(--corner-shape);
+  color: var(--foreground);
+  background-color: var(--secondary);
+  background-image:
+    linear-gradient(45deg, transparent 50%, var(--muted-foreground) 50%),
+    linear-gradient(135deg, var(--muted-foreground) 50%, transparent 50%);
+  background-position:
+    calc(100% - 14px) 50%,
+    calc(100% - 10px) 50%;
+  background-repeat: no-repeat;
+  background-size: 4px 4px;
+  cursor: var(--cursor-interaction, default);
+}
+
+.form-select:not(:disabled):hover {
+  background-color: color-mix(in srgb, var(--foreground) 6%, var(--secondary));
+}
+
+.form-select:focus-visible {
+  border-color: var(--ring);
+  box-shadow: inset 0 0 0 1px var(--ring);
+}
+
+.form-check {
+  display: flex;
+  min-height: 20px;
+  align-items: center;
+  gap: 6px;
+}
+
+.form-check-input {
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  flex: 0 0 auto;
+  margin: 0;
+  border: 1px solid var(--input);
+  color: var(--primary-foreground);
+  background-color: transparent;
+  cursor: var(--cursor-interaction, default);
+  transition:
+    background-color 150ms,
+    border-color 150ms,
+    box-shadow 150ms;
+}
+
+.form-check:not(.form-switch) .form-check-input[type=&quot;checkbox&quot;] {
+  border-color: var(--input);
+  border-radius: var(--radius-sm);
+  corner-shape: var(--corner-shape);
+  background-color: var(--secondary);
+  box-shadow: var(--shadow-sm);
+}
+
+.form-check:not(.form-switch)
+  .form-check-input:not(:disabled):not(:checked):hover {
+  background-color: var(--card);
+}
+
+.form-check:not(.form-switch) .form-check-input[type=&quot;checkbox&quot;]:checked {
+  border-color: var(--primary);
+  background-color: var(--primary);
+}
+
+.form-check:not(.form-switch)
+  .form-check-input[type=&quot;checkbox&quot;]:checked::before {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--primary-foreground);
+  content: &quot;&quot;;
+  mask: var(--checkmark-image) center / 12px 12px no-repeat;
+}
+
+.form-check-input[type=&quot;radio&quot;] {
+  width: 14px;
+  height: 14px;
+  border-radius: var(--radius-full);
+}
+
+.form-check-input[type=&quot;radio&quot;]:checked {
+  border: 2px solid var(--primary);
+  background:
+    radial-gradient(circle, var(--primary-foreground) 0 2.5px, transparent 3px),
+    var(--primary);
+}
+
+.form-check:not(.form-switch) .form-check-input:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+.form-check:not(.form-switch) .form-check-input:disabled {
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.form-check:not(.form-switch) .form-check-input:disabled + .form-check-label {
+  cursor: not-allowed;
+}
+
+.form-switch .form-check-input:disabled,
+.form-switch .form-check-input:disabled + .form-check-label {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.form-check-label {
+  color: var(--foreground);
+  cursor: var(--cursor-interaction, default);
+}
+
+.form-switch .form-check-input {
+  position: relative;
+  width: 32px;
+  height: 20px;
+  border: 0;
+  border-radius: var(--radius-full);
+  background: var(--muted);
+  box-shadow: none;
+  transition: background-color 200ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.form-switch .form-check-input::before {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 16px;
+  height: 16px;
+  box-sizing: border-box;
+  border: 1px solid light-dark(var(--primary-foreground), var(--foreground));
+  border-radius: var(--radius-full);
+  background: light-dark(var(--primary-foreground), var(--foreground));
+  box-shadow: var(--shadow-sm);
+  content: &quot;&quot;;
+  transform: translate(2px, -50%);
+  transition: transform 200ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.form-switch .form-check-input:checked {
+  background: var(--primary);
+}
+
+.form-switch .form-check-input:checked::before {
+  transform: translate(14px, -50%);
+}
+
+.form-switch .form-check-input:focus-visible {
+  box-shadow: 0 0 0 2px var(--ring);
+}
+
+.form-range {
+  appearance: none;
+  display: block;
+  width: 100%;
+  height: 28px;
+  flex: 1;
+  margin: 0;
+  padding: 0;
+  outline: none;
+  border: 0;
+  accent-color: var(--primary);
+  background: linear-gradient(
+      color-mix(in srgb, var(--foreground) 7%, transparent),
+      color-mix(in srgb, var(--foreground) 7%, transparent)
+    )
+    center / 100% 2px no-repeat;
+}
+
+.form-range::-webkit-slider-runnable-track {
+  height: 28px;
+  background: transparent;
+}
+
+.form-range::-webkit-slider-thumb {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  margin-top: 4px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  background: light-dark(var(--primary-foreground), var(--foreground));
+}
+
+.form-range:focus-visible::-webkit-slider-thumb {
+  border-color: var(--ring);
+  box-shadow: inset 0 0 0 1px var(--ring);
+}
+
+.form-range::-moz-range-track {
+  height: 28px;
+  background: transparent;
+}
+
+.form-range::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  background: light-dark(var(--primary-foreground), var(--foreground));
+}
+
+.form-range:focus-visible::-moz-range-thumb {
+  border-color: var(--ring);
+  box-shadow: inset 0 0 0 1px var(--ring);
+}
+
+.form-range:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+.btn:not(.btn-primary, .viz-tile):is(
+  [aria-pressed=&quot;true&quot;],
+  [aria-selected=&quot;true&quot;],
+  .is-selected
+) {
+  border-color: var(--primary);
+  color: var(--primary-foreground);
+  background: var(--primary);
+}
+
+.btn.viz-tile:is([aria-pressed=&quot;true&quot;], [aria-selected=&quot;true&quot;], .is-selected) {
+  border-color: var(--primary);
+  box-shadow: inset 0 0 0 1px var(--primary);
+}
+
+.btn:focus-visible,
+.nav-link:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+@media (pointer: coarse) {
+  .btn,
+  .nav-link,
+  .form-control,
+  .form-select {
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  /* Keep small-screen WebKit from zooming when a text field receives focus. */
+  .form-control,
+  .form-select {
+    font-size: max(16px, var(--font-size-normal));
+  }
+
+  .form-control[type=&quot;file&quot;]::file-selector-button {
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  .form-control-color[type=&quot;color&quot;] {
+    width: 44px;
+    height: 44px;
+  }
+
+  .form-control:is(
+    [type=&quot;date&quot;],
+    [type=&quot;datetime-local&quot;],
+    [type=&quot;month&quot;],
+    [type=&quot;time&quot;],
+    [type=&quot;week&quot;]
+  ) {
+    min-width: 0;
+    max-width: 100%;
+    padding-block: 8px;
+  }
+
+  .form-check {
+    min-height: 44px;
+    padding-inline: 15px;
+  }
+
+  .form-check-input {
+    position: relative;
+  }
+
+  .form-check-input::after {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 44px;
+    height: 44px;
+    content: &quot;&quot;;
+    transform: translate(-50%, -50%);
+  }
+
+  .form-check-label {
+    display: inline-flex;
+    min-width: 44px;
+    min-height: 44px;
+    align-items: center;
+  }
+
+  .form-range {
+    height: 44px;
+    touch-action: pan-y;
+  }
+
+  .form-range::-webkit-slider-runnable-track {
+    height: 44px;
+  }
+
+  .form-range::-moz-range-track {
+    height: 44px;
+  }
+
+  .form-range::-webkit-slider-thumb {
+    margin-top: 12px;
+  }
+}
+
+svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+#widget &gt; svg {
+  width: 100%;
+}
+
+/* Model-authored chart rules can otherwise stretch icons after these styles load. */
+svg.lucide {
+  display: block;
+  width: var(--icon-size) !important;
+  height: var(--icon-size) !important;
+  flex: none;
+  margin: 0 !important;
+  stroke-width: 1.6;
+}
+
+.text-warning,
+.text-destructive {
+  color: var(--destructive);
+}
+
+html&gt;body{padding:0}&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div id=&quot;settlement-guided-prototype&quot; lang=&quot;zh-CN&quot; aria-label=&quot;银行资料填报交互原型&quot;&gt;
+  &lt;style&gt;
+    #settlement-guided-prototype {
+      --bank-bg: light-dark(#f4f6fa, #111a29);
+      --bank-surface: light-dark(#ffffff, #1a2535);
+      --bank-ink: light-dark(#172b48, #e8eef9);
+      --bank-muted: light-dark(#65748a, #aebcd1);
+      --bank-line: light-dark(#dfe6f0, #354258);
+      --bank-blue: light-dark(#2864cc, #99bcff);
+      --bank-blue-ink: light-dark(#ffffff, #102444);
+      --bank-blue-soft: light-dark(#edf4ff, #233955);
+      --bank-green: light-dark(#20744d, #9cdec0);
+      --bank-green-soft: light-dark(#edf8f1, #203e36);
+      --bank-amber: light-dark(#8d5c11, #ffcf85);
+      --bank-amber-soft: light-dark(#fff6e5, #463720);
+      --bank-danger: light-dark(#ac3434, #ffabab);
+      --bank-shadow: 0 12px 36px light-dark(#18324e12, #00000026);
+      font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, &quot;PingFang SC&quot;, &quot;Microsoft YaHei&quot;, sans-serif;
+      font-size: 16px; line-height: 1.65; color: var(--bank-ink); background: var(--bank-bg);
+      position: relative; isolation: isolate; overflow: clip; width: 100%; color-scheme: light dark;
+    }
+    #settlement-guided-prototype * { box-sizing: border-box; }
+    #settlement-guided-prototype [hidden] { display: none !important; }
+    #settlement-guided-prototype h1, #settlement-guided-prototype h2, #settlement-guided-prototype h3, #settlement-guided-prototype p { margin: 0; }
+    #settlement-guided-prototype button, #settlement-guided-prototype input, #settlement-guided-prototype select { font: inherit; }
+    #settlement-guided-prototype button { cursor: pointer; border: 0; font-weight: 600; }
+    #settlement-guided-prototype button:disabled { cursor: not-allowed; opacity: .5; }
+    #settlement-guided-prototype .proto-strip { padding: 10px 26px; background: light-dark(#e9edf5, #263246); color: var(--bank-muted); display: flex; flex-wrap: wrap; align-items: center; gap: 6px 16px; font-size: 13px; }
+    #settlement-guided-prototype .proto-strip strong { color: var(--bank-ink); font-weight: 600; }
+    #settlement-guided-prototype .proto-actions { margin-left: auto; display: flex; gap: 16px; }
+    #settlement-guided-prototype .proto-actions button { padding: 0; min-height: 30px; background: transparent; color: var(--bank-blue); font-size: 13px; }
+    #settlement-guided-prototype .app-header { display: flex; align-items: center; gap: 12px; min-height: 72px; padding: 16px 32px; background: var(--bank-surface); border-bottom: 1px solid var(--bank-line); }
+    #settlement-guided-prototype .brand-mark { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 9px; color: var(--bank-blue-ink); background: var(--bank-blue); font-size: 18px; font-weight: 700; }
+    #settlement-guided-prototype .brand-name { font-size: 18px; font-weight: 700; letter-spacing: .03em; }
+    #settlement-guided-prototype .app-location { border-left: 1px solid var(--bank-line); margin-left: 8px; padding-left: 20px; font-size: 15px; color: var(--bank-muted); }
+    #settlement-guided-prototype .account { display: flex; align-items: center; gap: 8px; margin-left: auto; font-size: 14px; color: var(--bank-muted); }
+    #settlement-guided-prototype .avatar { width: 28px; height: 28px; border-radius: 50%; background: var(--bank-blue-soft); color: var(--bank-blue); display: grid; place-items: center; font-size: 12px; }
+    #settlement-guided-prototype .page { max-width: 1040px; margin: auto; padding: 28px 32px 36px; }
+    #settlement-guided-prototype .title-row { display: flex; align-items: flex-start; gap: 20px; justify-content: space-between; margin-bottom: 24px; }
+    #settlement-guided-prototype h1 { font-size: 28px; line-height: 1.4; font-weight: 700; letter-spacing: -.02em; }
+    #settlement-guided-prototype .title-sub { color: var(--bank-muted); font-size: 15px; margin-top: 7px; }
+    #settlement-guided-prototype .title-tools { display: flex; align-items: center; gap: 20px; padding-top: 8px; flex-shrink: 0; }
+    #settlement-guided-prototype .text-action { padding: 4px 0; background: transparent; color: var(--bank-blue); font-size: 14px; }
+    #settlement-guided-prototype .text-action:hover { text-decoration: underline; }
+    #settlement-guided-prototype .team-bar { position: sticky; top: 8px; z-index: 10; border: 1px solid var(--bank-line); background: var(--bank-surface); border-radius: 12px; padding: 20px 24px 0; box-shadow: 0 4px 12px light-dark(#25395306, #00000012); }
+    #settlement-guided-prototype .team-top { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    #settlement-guided-prototype .team-name { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; font-size: 17px; font-weight: 650; }
+    #settlement-guided-prototype .team-sub { font-size: 14px; color: var(--bank-muted); margin-top: 5px; }
+    #settlement-guided-prototype .state-chip { padding: 3px 9px; border-radius: 5px; font-size: 12px; font-weight: 600; color: var(--bank-blue); background: var(--bank-blue-soft); }
+    #settlement-guided-prototype .finish-area { text-align: right; flex-shrink: 0; }
+    #settlement-guided-prototype .finish-note { font-size: 12px; color: var(--bank-muted); margin-top: 5px; }
+    #settlement-guided-prototype .action-primary, #settlement-guided-prototype .action-secondary { padding: 11px 22px; min-height: 46px; border-radius: 7px; font-size: 16px; line-height: 1.4; white-space: normal; }
+    #settlement-guided-prototype .action-primary { color: var(--bank-blue-ink); background: var(--bank-blue); }
+    #settlement-guided-prototype .action-primary:hover:not(:disabled) { filter: brightness(.94); }
+    #settlement-guided-prototype .action-secondary { background: var(--bank-surface); color: var(--bank-ink); border: 1px solid var(--bank-line); }
+    #settlement-guided-prototype .action-secondary:hover:not(:disabled) { background: var(--bank-blue-soft); }
+    #settlement-guided-prototype #sg-finish { font-size: 15px; padding-inline: 18px; }
+    #settlement-guided-prototype #sg-finish.ready { box-shadow: 0 0 0 4px var(--bank-blue-soft); }
+    #settlement-guided-prototype .steps { display: flex; align-items: center; gap: 12px; list-style: none; padding: 18px 0 17px; margin: 17px 0 0; border-top: 1px solid var(--bank-line); }
+    #settlement-guided-prototype .step { display: flex; align-items: center; gap: 8px; font-size: 14px; color: var(--bank-muted); white-space: nowrap; }
+    #settlement-guided-prototype .step-number { width: 25px; height: 25px; border-radius: 50%; display: inline-grid; place-items: center; border: 1px solid var(--bank-line); font-size: 12px; font-weight: 650; }
+    #settlement-guided-prototype .step.current { color: var(--bank-blue); font-weight: 650; }
+    #settlement-guided-prototype .step.current .step-number { color: var(--bank-blue-ink); background: var(--bank-blue); border-color: var(--bank-blue); }
+    #settlement-guided-prototype .step.complete { color: var(--bank-green); }
+    #settlement-guided-prototype .step.complete .step-number { border-color: transparent; background: var(--bank-green-soft); }
+    #settlement-guided-prototype .connector { flex: 1; height: 1px; min-width: 8px; background: var(--bank-line); }
+    #settlement-guided-prototype .working-panel { margin-top: 22px; border: 1px solid var(--bank-line); border-radius: 12px; background: var(--bank-surface); overflow: hidden; }
+    #settlement-guided-prototype .panel-heading { padding: 24px 28px 0; }
+    #settlement-guided-prototype h2 { font-size: 21px; line-height: 1.5; font-weight: 650; }
+    #settlement-guided-prototype .panel-sub { color: var(--bank-muted); font-size: 14px; margin-top: 5px; }
+    #settlement-guided-prototype .form-body { padding: 24px 28px 28px; }
+    #settlement-guided-prototype .group-title { margin-bottom: 14px; display: flex; align-items: center; gap: 9px; font-size: 15px; font-weight: 650; }
+    #settlement-guided-prototype .group-title::before { content: &#x27;&#x27;; width: 3px; height: 15px; border-radius: 1px; background: var(--bank-blue); }
+    #settlement-guided-prototype .field-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 19px 24px; }
+    #settlement-guided-prototype label { display: block; font-size: 14px; color: var(--bank-ink); }
+    #settlement-guided-prototype label &gt; span { display: inline-block; margin-bottom: 7px; }
+    #settlement-guided-prototype label input, #settlement-guided-prototype label select { display: block; width: 100%; min-width: 0; padding: 10px 12px; min-height: 44px; border: 1px solid var(--bank-line); border-radius: 6px; background: var(--bank-surface); color: var(--bank-ink); font-size: 16px; }
+    #settlement-guided-prototype input::placeholder { color: var(--bank-muted); }
+    #settlement-guided-prototype .field-wide { grid-column: 1 / -1; }
+    #settlement-guided-prototype .field-help { display: block; font-size: 12px; color: var(--bank-muted); margin-top: 6px; }
+    #settlement-guided-prototype .group-divider { margin: 26px 0; border: 0; border-top: 1px solid var(--bank-line); }
+    #settlement-guided-prototype .optional-fields { margin-top: 20px; }
+    #settlement-guided-prototype summary { cursor: pointer; color: var(--bank-blue); font-size: 14px; }
+    #settlement-guided-prototype .optional-fields label { margin-top: 12px; max-width: 400px; }
+    #settlement-guided-prototype .panel-footer { border-top: 1px solid var(--bank-line); background: light-dark(#fafbfd, #202c3d); padding: 18px 28px; display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+    #settlement-guided-prototype .quiet-note { color: var(--bank-muted); font-size: 13px; max-width: 420px; }
+    #settlement-guided-prototype .saved-strip { padding: 13px 28px; display: flex; align-items: center; gap: 10px; background: var(--bank-green-soft); color: var(--bank-green); font-size: 14px; }
+    #settlement-guided-prototype .saved-strip .text-action { margin-left: auto; color: var(--bank-green); }
+    #settlement-guided-prototype .compact-bank { display: flex; flex-wrap: wrap; gap: 8px 24px; padding: 18px 28px; border-bottom: 1px solid var(--bank-line); font-size: 14px; }
+    #settlement-guided-prototype .compact-bank span { color: var(--bank-muted); }
+    #settlement-guided-prototype .share-body { padding: 23px 28px 28px; }
+    #settlement-guided-prototype .share-body &gt; label:first-child { margin-top: 22px; }
+    #settlement-guided-prototype .consent-row { display: flex; gap: 11px; align-items: flex-start; padding: 17px; margin-top: 20px; border: 1px solid var(--bank-line); border-radius: 8px; background: var(--bank-blue-soft); font-size: 15px; line-height: 1.8; }
+    #settlement-guided-prototype .consent-row input { flex: 0 0 18px; width: 18px; min-height: 18px; height: 18px; margin: 5px 0 0; accent-color: var(--bank-blue); padding: 0; }
+    #settlement-guided-prototype .consent-row &gt; span { margin: 0; }
+    #settlement-guided-prototype .rights { margin: 14px 0 0; font-size: 13px; color: var(--bank-muted); }
+    #settlement-guided-prototype .rights p { margin-top: 8px; line-height: 1.8; }
+    #settlement-guided-prototype .return-notice { margin-top: 20px; padding: 17px 22px; display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; background: var(--bank-amber-soft); color: var(--bank-amber); border-radius: 8px; }
+    #settlement-guided-prototype .return-notice strong { font-size: 16px; }
+    #settlement-guided-prototype .return-notice .text-action { margin-left: auto; color: var(--bank-amber); }
+    #settlement-guided-prototype .result-body { padding: 32px 28px; }
+    #settlement-guided-prototype .result-heading { display: flex; align-items: center; gap: 14px; }
+    #settlement-guided-prototype .result-symbol { width: 46px; height: 46px; display: grid; place-items: center; border-radius: 50%; font-size: 24px; color: var(--bank-green); background: var(--bank-green-soft); flex-shrink: 0; }
+    #settlement-guided-prototype .receipt { margin: 25px 0 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    #settlement-guided-prototype .receipt dt { color: var(--bank-muted); font-size: 13px; }
+    #settlement-guided-prototype .receipt dd { margin: 3px 0 0; font-size: 15px; overflow-wrap: anywhere; }
+    #settlement-guided-prototype .success-summary { text-align: center; padding: 42px 28px 32px; }
+    #settlement-guided-prototype .success-summary .result-symbol { margin: 0 auto 17px; width: 56px; height: 56px; font-size: 28px; }
+    #settlement-guided-prototype .success-summary h2 { font-size: 24px; }
+    #settlement-guided-prototype .success-summary p { margin-top: 10px; color: var(--bank-muted); font-size: 15px; }
+    #settlement-guided-prototype .success-receipt { padding: 24px 28px; border-top: 1px solid var(--bank-line); }
+    #settlement-guided-prototype .success-receipt .receipt { margin-top: 0; }
+    #settlement-guided-prototype .page-foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 18px; color: var(--bank-muted); font-size: 13px; }
+    #settlement-guided-prototype .page-foot .text-action { font-size: 13px; }
+    #settlement-guided-prototype .tour-layer { position: absolute; inset: 0; pointer-events: none; z-index: 40; }
+    #settlement-guided-prototype .tour-focus { position: absolute; border-radius: 10px; border: 2px solid light-dark(#5798ff, #b9d0ff); box-shadow: 0 0 0 3000px #081b36a6; pointer-events: none; }
+    #settlement-guided-prototype .tour-callout { position: absolute; width: 320px; max-width: calc(100% - 24px); border-radius: 12px; padding: 22px; background: var(--bank-surface); color: var(--bank-ink); box-shadow: 0 16px 50px #071d3b35; pointer-events: auto; }
+    #settlement-guided-prototype .tour-callout::before { content: &#x27;&#x27;; position: absolute; top: -7px; left: var(--tip-x, 50%); width: 14px; height: 14px; background: var(--bank-surface); transform: rotate(45deg); }
+    #settlement-guided-prototype .tour-eyebrow { font-size: 12px; font-weight: 650; color: var(--bank-blue); margin-bottom: 7px; }
+    #settlement-guided-prototype .tour-callout h3 { font-size: 19px; font-weight: 650; }
+    #settlement-guided-prototype .tour-callout p { font-size: 15px; margin-top: 8px; line-height: 1.8; }
+    #settlement-guided-prototype .tour-callout button { margin-top: 17px; color: var(--bank-muted); font-size: 13px; }
+    #settlement-guided-prototype .tour-layer.light .tour-focus { box-shadow: 0 0 0 5px var(--bank-blue-soft); }
+    #settlement-guided-prototype .dialog-layer { position: absolute; inset: 0; z-index: 60; background: #0b1f3b88; padding: 100px 18px 40px; }
+    #settlement-guided-prototype .dialog-pane { width: min(100%, 440px); margin: 0 auto; background: var(--bank-surface); border: 1px solid var(--bank-line); border-radius: 15px; padding: 26px; box-shadow: var(--bank-shadow); }
+    #settlement-guided-prototype .dialog-title { display: flex; align-items: center; gap: 15px; justify-content: space-between; margin-bottom: 8px; }
+    #settlement-guided-prototype .dialog-close { display: grid; place-items: center; padding: 0; width: 36px; height: 36px; color: var(--bank-muted); background: transparent; font-size: 22px; }
+    #settlement-guided-prototype .dialog-sub { color: var(--bank-muted); font-size: 14px; }
+    #settlement-guided-prototype .method-tabs { display: flex; gap: 8px; margin: 20px 0; }
+    #settlement-guided-prototype .method-tabs button { padding: 8px 14px; border: 1px solid var(--bank-line); border-radius: 6px; background: var(--bank-surface); color: var(--bank-muted); font-size: 14px; }
+    #settlement-guided-prototype .method-tabs button[aria-pressed=&quot;true&quot;] { color: var(--bank-blue); border-color: var(--bank-blue); background: var(--bank-blue-soft); }
+    #settlement-guided-prototype .verify-inputs { display: grid; gap: 17px; margin-top: 22px; }
+    #settlement-guided-prototype .otp-row { display: flex; gap: 8px; }
+    #settlement-guided-prototype .otp-row input { flex: 1; min-width: 0; }
+    #settlement-guided-prototype .otp-row button { padding: 8px 12px; border: 1px solid var(--bank-line); border-radius: 6px; color: var(--bank-blue); background: var(--bank-blue-soft); font-size: 14px; white-space: nowrap; }
+    #settlement-guided-prototype .dialog-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 24px; }
+    #settlement-guided-prototype .dialog-note { font-size: 13px; color: var(--bank-muted); margin-top: 15px; }
+    #settlement-guided-prototype .error-note { color: var(--bank-danger); font-size: 14px; margin-top: 12px; }
+    #settlement-guided-prototype .notice-list { padding-left: 20px; margin: 18px 0 0; font-size: 15px; }
+    #settlement-guided-prototype .notice-list li { margin-bottom: 10px; }
+    #settlement-guided-prototype .toast { padding: 10px 18px; background: var(--bank-blue-soft); color: var(--bank-blue); border-radius: 7px; margin: 14px 0 0; font-size: 14px; }
+    #settlement-guided-prototype[data-density=&quot;comfortable&quot;] .form-body { padding-top: 28px; padding-bottom: 32px; }
+    #settlement-guided-prototype[data-density=&quot;comfortable&quot;] .field-grid { gap: 25px 24px; }
+    @media (max-width: 640px) {
+      #settlement-guided-prototype .proto-strip { padding: 10px 16px; }
+      #settlement-guided-prototype .proto-actions { margin-left: 0; }
+      #settlement-guided-prototype .app-header { padding: 14px 16px; gap: 9px; min-height: 60px; }
+      #settlement-guided-prototype .brand-name { font-size: 16px; }
+      #settlement-guided-prototype .app-location { display: none; }
+      #settlement-guided-prototype .account { font-size: 12px; }
+      #settlement-guided-prototype .page { padding: 22px 14px 28px; }
+      #settlement-guided-prototype .title-row { gap: 12px; margin-bottom: 19px; }
+      #settlement-guided-prototype h1 { font-size: 24px; }
+      #settlement-guided-prototype .title-sub { font-size: 13px; }
+      #settlement-guided-prototype .title-tools { padding-top: 5px; }
+      #settlement-guided-prototype .team-bar { padding: 17px 16px 0; position: relative; top: auto; }
+      #settlement-guided-prototype .team-top { flex-wrap: wrap; gap: 14px; }
+      #settlement-guided-prototype .finish-area { width: 100%; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; text-align: left; }
+      #settlement-guided-prototype #sg-finish { padding: 10px 14px; min-height: 42px; }
+      #settlement-guided-prototype .finish-note { margin: 0; }
+      #settlement-guided-prototype .steps { gap: 7px; margin-top: 16px; padding: 14px 0; }
+      #settlement-guided-prototype .step { font-size: 12px; gap: 5px; }
+      #settlement-guided-prototype .step-number { width: 21px; height: 21px; font-size: 11px; }
+      #settlement-guided-prototype .panel-heading { padding: 20px 18px 0; }
+      #settlement-guided-prototype .form-body, #settlement-guided-prototype .share-body { padding: 21px 18px; }
+      #settlement-guided-prototype .field-grid { grid-template-columns: minmax(0,1fr); gap: 18px; }
+      #settlement-guided-prototype .field-wide { grid-column: auto; }
+      #settlement-guided-prototype .panel-footer { padding: 17px 18px; flex-direction: column-reverse; align-items: stretch; gap: 12px; }
+      #settlement-guided-prototype .panel-footer .quiet-note { text-align: center; }
+      #settlement-guided-prototype .saved-strip, #settlement-guided-prototype .compact-bank { padding-inline: 18px; }
+      #settlement-guided-prototype .receipt { grid-template-columns: minmax(0,1fr); }
+      #settlement-guided-prototype .page-foot { align-items: flex-start; flex-wrap: wrap; }
+      #settlement-guided-prototype .dialog-layer { padding: 66px 10px 20px; }
+      #settlement-guided-prototype .dialog-pane { padding: 21px 18px; }
+      #settlement-guided-prototype .dialog-actions { gap: 8px; }
+      #settlement-guided-prototype .dialog-actions button { padding-inline: 15px; }
+      #settlement-guided-prototype .tour-callout { width: 290px; padding: 19px; }
+    }
+    @media (max-width: 380px) {
+      #settlement-guided-prototype .step { flex: 1; flex-direction: column; gap: 5px; }
+      #settlement-guided-prototype .connector { min-width: 0; margin-bottom: 20px; }
+      #settlement-guided-prototype .steps { gap: 4px; }
+    }
+    @media (prefers-reduced-motion: reduce) { #settlement-guided-prototype * { scroll-behavior: auto !important; } }
+  &lt;/style&gt;
+
+  &lt;div class=&quot;proto-strip&quot;&gt;
+    &lt;strong&gt;交互原型 A&lt;/strong&gt;&lt;span&gt;示例数据 · 不会提交真实资料&lt;/span&gt;
+    &lt;div class=&quot;proto-actions&quot;&gt;&lt;button type=&quot;button&quot; data-act=&quot;preview-final&quot;&gt;直接看最后一步&lt;/button&gt;&lt;button type=&quot;button&quot; data-act=&quot;restart&quot;&gt;重新体验&lt;/button&gt;&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;product-surface&quot;&gt;
+    &lt;header class=&quot;app-header&quot;&gt;
+      &lt;span class=&quot;brand-mark&quot; aria-hidden=&quot;true&quot;&gt;赛&lt;/span&gt;&lt;span class=&quot;brand-name&quot;&gt;信科赛&lt;/span&gt;
+      &lt;span class=&quot;app-location&quot;&gt;个人中心 / 银行资料填报&lt;/span&gt;
+      &lt;div class=&quot;account&quot;&gt;&lt;span class=&quot;avatar&quot; aria-hidden=&quot;true&quot;&gt;示&lt;/span&gt;示例同学 · 已登录&lt;/div&gt;
+    &lt;/header&gt;
+    &lt;main class=&quot;page&quot;&gt;
+      &lt;div class=&quot;title-row&quot;&gt;
+        &lt;div&gt;&lt;h1&gt;银行卡资料填报&lt;/h1&gt;&lt;p class=&quot;title-sub&quot;&gt;每队一人，使用本人账号和银行卡。&lt;/p&gt;&lt;/div&gt;
+        &lt;div class=&quot;title-tools&quot;&gt;&lt;button class=&quot;text-action&quot; type=&quot;button&quot; data-act=&quot;help&quot;&gt;填报须知&lt;/button&gt;&lt;/div&gt;
+      &lt;/div&gt;
+      &lt;section class=&quot;team-bar&quot; aria-label=&quot;团队办理进度&quot;&gt;
+        &lt;div class=&quot;team-top&quot;&gt;
+          &lt;div&gt;&lt;div class=&quot;team-name&quot;&gt;星火示例团队 &lt;span id=&quot;sg-team-state&quot; class=&quot;state-chip&quot;&gt;由你办理&lt;/span&gt;&lt;/div&gt;&lt;p class=&quot;team-sub&quot; id=&quot;sg-team-sub&quot;&gt;示例同学正在填写 · 其他队员无需操作&lt;/p&gt;&lt;/div&gt;
+          &lt;div class=&quot;finish-area&quot;&gt;&lt;button type=&quot;button&quot; class=&quot;action-primary&quot; id=&quot;sg-finish&quot; data-act=&quot;finish&quot; disabled&gt;我已完成填报&lt;/button&gt;&lt;p class=&quot;finish-note&quot; id=&quot;sg-finish-note&quot;&gt;提供资料后，再完成最终确认&lt;/p&gt;&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;ol class=&quot;steps&quot; aria-label=&quot;三个填报步骤&quot;&gt;
+          &lt;li class=&quot;step current&quot; data-step=&quot;0&quot; aria-current=&quot;step&quot;&gt;&lt;span class=&quot;step-number&quot;&gt;1&lt;/span&gt;填写银行卡&lt;/li&gt;
+          &lt;li class=&quot;connector&quot; aria-hidden=&quot;true&quot;&gt;&lt;/li&gt;
+          &lt;li class=&quot;step&quot; data-step=&quot;1&quot;&gt;&lt;span class=&quot;step-number&quot;&gt;2&lt;/span&gt;确认提供&lt;/li&gt;
+          &lt;li class=&quot;connector&quot; aria-hidden=&quot;true&quot;&gt;&lt;/li&gt;
+          &lt;li class=&quot;step&quot; data-step=&quot;2&quot;&gt;&lt;span class=&quot;step-number&quot;&gt;3&lt;/span&gt;完成填报&lt;/li&gt;
+        &lt;/ol&gt;
+      &lt;/section&gt;
+      &lt;div class=&quot;toast&quot; role=&quot;status&quot; id=&quot;sg-toast&quot; hidden&gt;&lt;/div&gt;
+
+      &lt;section class=&quot;working-panel&quot; data-panel=&quot;fill&quot;&gt;
+        &lt;div class=&quot;panel-heading&quot;&gt;&lt;h2&gt;填写收款信息&lt;/h2&gt;&lt;p class=&quot;panel-sub&quot;&gt;除选填项外，请填写完整。&lt;/p&gt;&lt;/div&gt;
+        &lt;form id=&quot;sg-bank-form&quot; autocomplete=&quot;off&quot;&gt;
+          &lt;div class=&quot;form-body&quot;&gt;
+            &lt;h3 class=&quot;group-title&quot;&gt;本人信息&lt;/h3&gt;
+            &lt;div class=&quot;field-grid&quot;&gt;
+              &lt;label&gt;&lt;span&gt;收款人姓名&lt;/span&gt;&lt;input name=&quot;name&quot; value=&quot;示例同学&quot; required maxlength=&quot;80&quot; autocomplete=&quot;off&quot;&gt;&lt;/label&gt;
+              &lt;label&gt;&lt;span&gt;收款联系手机号&lt;/span&gt;&lt;input name=&quot;phone&quot; value=&quot;13000000000&quot; required maxlength=&quot;32&quot; inputmode=&quot;tel&quot; autocomplete=&quot;off&quot;&gt;&lt;/label&gt;
+              &lt;label class=&quot;field-wide&quot;&gt;&lt;span&gt;身份号码&lt;/span&gt;&lt;input name=&quot;identity&quot; value=&quot;110000000000000000&quot; required maxlength=&quot;32&quot; autocomplete=&quot;off&quot;&gt;&lt;/label&gt;
+            &lt;/div&gt;
+            &lt;hr class=&quot;group-divider&quot;&gt;
+            &lt;h3 class=&quot;group-title&quot;&gt;银行卡信息&lt;/h3&gt;
+            &lt;div class=&quot;field-grid&quot;&gt;
+              &lt;label&gt;&lt;span&gt;开户省份&lt;/span&gt;&lt;input name=&quot;province&quot; value=&quot;示例省&quot; required maxlength=&quot;80&quot; autocomplete=&quot;off&quot;&gt;&lt;/label&gt;
+              &lt;label&gt;&lt;span&gt;开户城市&lt;/span&gt;&lt;input name=&quot;city&quot; value=&quot;示例市&quot; required maxlength=&quot;80&quot; autocomplete=&quot;off&quot;&gt;&lt;/label&gt;
+              &lt;label&gt;&lt;span&gt;开户银行&lt;/span&gt;&lt;input name=&quot;bank&quot; value=&quot;示例银行&quot; required maxlength=&quot;160&quot; autocomplete=&quot;off&quot;&gt;&lt;/label&gt;
+              &lt;label&gt;&lt;span&gt;开户支行&lt;/span&gt;&lt;input name=&quot;branch&quot; value=&quot;示例大学路支行&quot; required maxlength=&quot;240&quot; autocomplete=&quot;off&quot;&gt;&lt;/label&gt;
+              &lt;label class=&quot;field-wide&quot;&gt;&lt;span&gt;银行卡号&lt;/span&gt;&lt;input name=&quot;card&quot; value=&quot;0000 0000 0000 0001&quot; required maxlength=&quot;64&quot; inputmode=&quot;numeric&quot; autocomplete=&quot;off&quot;&gt;&lt;small class=&quot;field-help&quot;&gt;请核对为收款人本人的银行卡。&lt;/small&gt;&lt;/label&gt;
+            &lt;/div&gt;
+            &lt;details class=&quot;optional-fields&quot;&gt;&lt;summary&gt;补充开户行号（选填）&lt;/summary&gt;&lt;label&gt;&lt;span&gt;CNAPS 联行号&lt;/span&gt;&lt;input name=&quot;cnaps&quot; placeholder=&quot;12 位数字，不清楚可留空&quot; maxlength=&quot;12&quot; inputmode=&quot;numeric&quot; autocomplete=&quot;off&quot;&gt;&lt;/label&gt;&lt;/details&gt;
+          &lt;/div&gt;
+          &lt;footer class=&quot;panel-footer&quot;&gt;&lt;p class=&quot;quiet-note&quot;&gt;必要时会弹出安全验证，已填内容会保留。&lt;/p&gt;&lt;button type=&quot;button&quot; data-act=&quot;save&quot; class=&quot;action-primary&quot; id=&quot;sg-save&quot;&gt;保存并继续 &lt;span aria-hidden=&quot;true&quot;&gt;→&lt;/span&gt;&lt;/button&gt;&lt;/footer&gt;
+        &lt;/form&gt;
+      &lt;/section&gt;
+
+      &lt;section class=&quot;working-panel&quot; data-panel=&quot;share&quot; hidden&gt;
+        &lt;div class=&quot;saved-strip&quot;&gt;&lt;span aria-hidden=&quot;true&quot;&gt;✓&lt;/span&gt;银行卡已保存&lt;button class=&quot;text-action&quot; type=&quot;button&quot; data-act=&quot;edit&quot;&gt;修改&lt;/button&gt;&lt;/div&gt;
+        &lt;div class=&quot;compact-bank&quot;&gt;&lt;div&gt;&lt;span&gt;收款人：&lt;/span&gt;&lt;strong data-value=&quot;masked-name&quot;&gt;示**&lt;/strong&gt;&lt;/div&gt;&lt;div&gt;&lt;span&gt;银行卡：&lt;/span&gt;&lt;strong data-value=&quot;masked-card&quot;&gt;尾号 0001&lt;/strong&gt;&lt;/div&gt;&lt;/div&gt;
+        &lt;div class=&quot;share-body&quot; id=&quot;sg-recipient-section&quot;&gt;
+          &lt;h2&gt;确认提供给大赛办理单位&lt;/h2&gt;&lt;p class=&quot;panel-sub&quot;&gt;选择接收单位，并确认资料使用范围。&lt;/p&gt;
+          &lt;label&gt;&lt;span&gt;接收单位&lt;/span&gt;&lt;select id=&quot;sg-recipient&quot;&gt;&lt;option value=&quot;&quot;&gt;请选择本次大赛的办理单位&lt;/option&gt;&lt;option value=&quot;a&quot;&gt;示例大赛结算中心&lt;/option&gt;&lt;option value=&quot;b&quot;&gt;示例高校赛事办公室&lt;/option&gt;&lt;/select&gt;&lt;/label&gt;
+          &lt;label class=&quot;consent-row&quot;&gt;&lt;input id=&quot;sg-consent&quot; type=&quot;checkbox&quot; disabled&gt;&lt;span&gt;我同意将收款资料提供给&lt;strong id=&quot;sg-consent-recipient&quot;&gt;上述指定单位&lt;/strong&gt;，用于大赛结算。&lt;/span&gt;&lt;/label&gt;
+          &lt;details class=&quot;rights&quot;&gt;&lt;summary&gt;谁可以使用这些资料？&lt;/summary&gt;&lt;p&gt;仅所选单位获授权的财务人员可以使用当前资料及后续更新。撤销后停止新增访问；历史结算快照及已合法导出的资料仍按保留政策留存。&lt;/p&gt;&lt;/details&gt;
+        &lt;/div&gt;
+        &lt;footer class=&quot;panel-footer&quot;&gt;&lt;p class=&quot;quiet-note&quot; id=&quot;sg-share-help&quot;&gt;请选择单位并勾选同意。&lt;/p&gt;&lt;button class=&quot;action-primary&quot; type=&quot;button&quot; id=&quot;sg-share&quot; data-act=&quot;share&quot; disabled&gt;确认提供&lt;/button&gt;&lt;/footer&gt;
+      &lt;/section&gt;
+
+      &lt;div data-panel=&quot;finish&quot; hidden&gt;
+        &lt;div class=&quot;return-notice&quot; role=&quot;status&quot;&gt;&lt;strong&gt;还差最后一步：完成团队确认&lt;/strong&gt;&lt;button type=&quot;button&quot; class=&quot;text-action&quot; data-act=&quot;show-tour&quot;&gt;查看完成按钮 ↑&lt;/button&gt;&lt;/div&gt;
+        &lt;section class=&quot;working-panel&quot;&gt;
+          &lt;div class=&quot;result-body&quot;&gt;
+            &lt;div class=&quot;result-heading&quot;&gt;&lt;span class=&quot;result-symbol&quot; aria-hidden=&quot;true&quot;&gt;✓&lt;/span&gt;&lt;div&gt;&lt;h2&gt;收款资料已提供&lt;/h2&gt;&lt;p class=&quot;panel-sub&quot;&gt;请点击上方“我已完成填报”，结束本队办理。&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;
+            &lt;dl class=&quot;receipt&quot;&gt;&lt;div&gt;&lt;dt&gt;接收单位&lt;/dt&gt;&lt;dd data-value=&quot;recipient&quot;&gt;示例大赛结算中心&lt;/dd&gt;&lt;/div&gt;&lt;div&gt;&lt;dt&gt;收款银行卡&lt;/dt&gt;&lt;dd&gt;&lt;span data-value=&quot;bank&quot;&gt;示例银行&lt;/span&gt; · &lt;span data-value=&quot;masked-card&quot;&gt;尾号 0001&lt;/span&gt;&lt;/dd&gt;&lt;/div&gt;&lt;/dl&gt;
+          &lt;/div&gt;
+        &lt;/section&gt;
+      &lt;/div&gt;
+
+      &lt;section class=&quot;working-panel&quot; data-panel=&quot;done&quot; hidden&gt;
+        &lt;div class=&quot;success-summary&quot;&gt;&lt;div class=&quot;result-symbol&quot; aria-hidden=&quot;true&quot;&gt;✓&lt;/div&gt;&lt;h2&gt;本团队已完成填报&lt;/h2&gt;&lt;p&gt;可以关闭页面，同队成员无需重复办理。&lt;/p&gt;&lt;/div&gt;
+        &lt;div class=&quot;success-receipt&quot;&gt;&lt;dl class=&quot;receipt&quot;&gt;&lt;div&gt;&lt;dt&gt;完成确认人&lt;/dt&gt;&lt;dd&gt;示例同学 · 刚刚（演示）&lt;/dd&gt;&lt;/div&gt;&lt;div&gt;&lt;dt&gt;接收单位&lt;/dt&gt;&lt;dd data-value=&quot;recipient&quot;&gt;示例大赛结算中心&lt;/dd&gt;&lt;/div&gt;&lt;div&gt;&lt;dt&gt;收款银行卡&lt;/dt&gt;&lt;dd&gt;&lt;span data-value=&quot;bank&quot;&gt;示例银行&lt;/span&gt; · &lt;span data-value=&quot;masked-card&quot;&gt;尾号 0001&lt;/span&gt;&lt;/dd&gt;&lt;/div&gt;&lt;div&gt;&lt;dt&gt;办理状态&lt;/dt&gt;&lt;dd&gt;已由办理人确认完成&lt;/dd&gt;&lt;/div&gt;&lt;/dl&gt;&lt;/div&gt;
+      &lt;/section&gt;
+      &lt;footer class=&quot;page-foot&quot;&gt;&lt;span id=&quot;sg-foot-note&quot;&gt;关闭页面不会释放办理名额。&lt;/span&gt;&lt;button class=&quot;text-action&quot; type=&quot;button&quot; data-act=&quot;more&quot; id=&quot;sg-more&quot;&gt;更多操作&lt;/button&gt;&lt;/footer&gt;
+    &lt;/main&gt;
+  &lt;/div&gt;
+
+  &lt;div class=&quot;tour-layer&quot; id=&quot;sg-tour&quot; hidden&gt;
+    &lt;div class=&quot;tour-focus&quot; id=&quot;sg-tour-focus&quot;&gt;&lt;/div&gt;
+    &lt;div class=&quot;tour-callout&quot; id=&quot;sg-tour-callout&quot; role=&quot;dialog&quot; aria-label=&quot;最后一步引导&quot; aria-modal=&quot;false&quot;&gt;
+      &lt;div class=&quot;tour-eyebrow&quot;&gt;最后一步 · 团队确认&lt;/div&gt;&lt;h3&gt;点击这里，才算办完&lt;/h3&gt;&lt;p&gt;资料已提供。请点击上方高亮的“我已完成填报”，确认本队办理完成。&lt;/p&gt;&lt;button type=&quot;button&quot; class=&quot;text-action&quot; data-act=&quot;hide-tour&quot;&gt;稍后确认，收起引导&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div class=&quot;dialog-layer&quot; id=&quot;sg-auth-layer&quot; hidden&gt;
+    &lt;section class=&quot;dialog-pane&quot; role=&quot;dialog&quot; aria-modal=&quot;true&quot; aria-labelledby=&quot;sg-auth-title&quot;&gt;
+      &lt;div class=&quot;dialog-title&quot;&gt;&lt;h2 id=&quot;sg-auth-title&quot;&gt;确认是你本人操作&lt;/h2&gt;&lt;button type=&quot;button&quot; class=&quot;dialog-close&quot; data-act=&quot;cancel-auth&quot; aria-label=&quot;关闭安全验证&quot;&gt;×&lt;/button&gt;&lt;/div&gt;
+      &lt;p class=&quot;dialog-sub&quot;&gt;验证通过后，自动继续保存。&lt;/p&gt;
+      &lt;div class=&quot;method-tabs&quot; role=&quot;group&quot; aria-label=&quot;安全验证方式&quot;&gt;&lt;button type=&quot;button&quot; data-act=&quot;method-sms&quot; aria-pressed=&quot;true&quot;&gt;手机验证码&lt;/button&gt;&lt;button type=&quot;button&quot; data-act=&quot;method-password&quot; aria-pressed=&quot;false&quot;&gt;密码验证&lt;/button&gt;&lt;/div&gt;
+      &lt;form id=&quot;sg-auth-form&quot;&gt;
+        &lt;div class=&quot;verify-inputs&quot; id=&quot;sg-sms-fields&quot;&gt;
+          &lt;label&gt;&lt;span&gt;当前账号绑定的手机号&lt;/span&gt;&lt;input id=&quot;sg-auth-phone&quot; inputmode=&quot;tel&quot; value=&quot;13000000000&quot; autocomplete=&quot;off&quot; required&gt;&lt;/label&gt;
+          &lt;label&gt;&lt;span&gt;验证码&lt;/span&gt;&lt;div class=&quot;otp-row&quot;&gt;&lt;input id=&quot;sg-code&quot; placeholder=&quot;输入验证码&quot; inputmode=&quot;numeric&quot; maxlength=&quot;6&quot; autocomplete=&quot;off&quot; required&gt;&lt;button type=&quot;button&quot; data-act=&quot;send-code&quot; id=&quot;sg-send-code&quot;&gt;获取验证码&lt;/button&gt;&lt;/div&gt;&lt;/label&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;verify-inputs&quot; id=&quot;sg-password-fields&quot; hidden&gt;&lt;label&gt;&lt;span&gt;当前账号密码&lt;/span&gt;&lt;input id=&quot;sg-password&quot; type=&quot;password&quot; autocomplete=&quot;off&quot; placeholder=&quot;原型可输入任意演示文本&quot; disabled&gt;&lt;/label&gt;&lt;/div&gt;
+        &lt;p class=&quot;dialog-note&quot; id=&quot;sg-auth-note&quot;&gt;仅演示交互，不会发送真实短信。&lt;/p&gt;&lt;p class=&quot;error-note&quot; id=&quot;sg-auth-error&quot; role=&quot;alert&quot; hidden&gt;&lt;/p&gt;
+        &lt;div class=&quot;dialog-actions&quot;&gt;&lt;button type=&quot;button&quot; class=&quot;action-secondary&quot; data-act=&quot;cancel-auth&quot;&gt;取消&lt;/button&gt;&lt;button type=&quot;button&quot; data-act=&quot;verify&quot; class=&quot;action-primary&quot; id=&quot;sg-verify&quot;&gt;验证并继续&lt;/button&gt;&lt;/div&gt;
+      &lt;/form&gt;
+    &lt;/section&gt;
+  &lt;/div&gt;
+
+  &lt;div class=&quot;dialog-layer&quot; id=&quot;sg-info-layer&quot; hidden&gt;
+    &lt;section class=&quot;dialog-pane&quot; role=&quot;dialog&quot; aria-modal=&quot;true&quot; aria-labelledby=&quot;sg-info-title&quot;&gt;&lt;div class=&quot;dialog-title&quot;&gt;&lt;h2 id=&quot;sg-info-title&quot;&gt;填报须知&lt;/h2&gt;&lt;button type=&quot;button&quot; class=&quot;dialog-close&quot; data-act=&quot;close-info&quot; aria-label=&quot;关闭说明&quot;&gt;×&lt;/button&gt;&lt;/div&gt;&lt;div id=&quot;sg-info-body&quot;&gt;&lt;/div&gt;&lt;div class=&quot;dialog-actions&quot;&gt;&lt;button class=&quot;action-primary&quot; type=&quot;button&quot; data-act=&quot;close-info&quot;&gt;知道了&lt;/button&gt;&lt;/div&gt;&lt;/section&gt;
+  &lt;/div&gt;
+
+  &lt;script&gt;
+    (() =&gt; {
+      const root = document.getElementById(&#x27;settlement-guided-prototype&#x27;);
+      const $ = (selector) =&gt; root.querySelector(selector);
+      const $$ = (selector) =&gt; [...root.querySelectorAll(selector)];
+      const state = { stage: &#x27;fill&#x27;, authenticated: false, method: &#x27;sms&#x27;, sent: false, busy: false, generation: 0, tour: false };
+      const design = { guide: &#x27;spotlight&#x27;, density: &#x27;compact&#x27; };
+      const bankForm = $(&#x27;#sg-bank-form&#x27;);
+      let previousFocus = null;
+      let saved = {};
+      const setText = (selector, value) =&gt; { $(selector).textContent = value; };
+      const setValues = (key, value) =&gt; $$(&#x27;[data-value=&quot;&#x27; + key + &#x27;&quot;]&#x27;).forEach(el =&gt; { el.textContent = value; });
+      const scrollTo = (element) =&gt; element.scrollIntoView({ block: &#x27;center&#x27;, inline: &#x27;nearest&#x27;, behavior: &#x27;instant&#x27; });
+      function announce(text) { setText(&#x27;#sg-toast&#x27;, text); $(&#x27;#sg-toast&#x27;).hidden = !text; }
+      function updateConsent() {
+        const select = $(&#x27;#sg-recipient&#x27;);
+        $(&#x27;#sg-consent&#x27;).disabled = !select.value || state.busy;
+        $(&#x27;#sg-share&#x27;).disabled = !select.value || !$(&#x27;#sg-consent&#x27;).checked || state.busy;
+        setText(&#x27;#sg-consent-recipient&#x27;, select.value ? select.selectedOptions[0].textContent : &#x27;上述指定单位&#x27;);
+        setText(&#x27;#sg-share-help&#x27;, !select.value ? &#x27;请选择单位并勾选同意。&#x27; : !$(&#x27;#sg-consent&#x27;).checked ? &#x27;请阅读并勾选资料使用确认。&#x27; : &#x27;确认后，所选单位可使用收款资料办理结算。&#x27;);
+      }
+      function render() {
+        $$(&#x27;[data-panel]&#x27;).forEach(el =&gt; { el.hidden = el.dataset.panel !== state.stage; });
+        const index = { fill: 0, share: 1, finish: 2, done: 3 }[state.stage];
+        $$(&#x27;.step&#x27;).forEach((el, i) =&gt; {
+          el.classList.toggle(&#x27;complete&#x27;, i &lt; index);
+          el.classList.toggle(&#x27;current&#x27;, i === index);
+          if (i === index) el.setAttribute(&#x27;aria-current&#x27;, &#x27;step&#x27;); else el.removeAttribute(&#x27;aria-current&#x27;);
+          el.querySelector(&#x27;.step-number&#x27;).textContent = i &lt; index ? &#x27;✓&#x27; : String(i + 1);
+        });
+        $(&#x27;#sg-finish&#x27;).disabled = state.stage !== &#x27;finish&#x27; || state.busy;
+        $(&#x27;#sg-finish&#x27;).classList.toggle(&#x27;ready&#x27;, state.stage === &#x27;finish&#x27;);
+        setText(&#x27;#sg-finish&#x27;, state.stage === &#x27;done&#x27; ? &#x27;已完成填报&#x27; : state.busy &amp;&amp; state.stage === &#x27;finish&#x27; ? &#x27;正在确认…&#x27; : &#x27;我已完成填报&#x27;);
+        setText(&#x27;#sg-finish-note&#x27;, state.stage === &#x27;done&#x27; ? &#x27;本队办理已结束&#x27; : state.stage === &#x27;finish&#x27; ? &#x27;点击即确认本队完成填报&#x27; : &#x27;提供资料后，再完成最终确认&#x27;);
+        setText(&#x27;#sg-team-state&#x27;, { fill: &#x27;由你办理&#x27;, share: &#x27;待确认提供&#x27;, finish: &#x27;待最终确认&#x27;, done: &#x27;已完成&#x27; }[state.stage]);
+        setText(&#x27;#sg-team-sub&#x27;, state.stage === &#x27;done&#x27; ? &#x27;已由示例同学确认完成&#x27; : state.stage === &#x27;finish&#x27; ? &#x27;资料已提供 · 请完成最后确认&#x27; : &#x27;办理人：示例同学&#x27;);
+        setText(&#x27;#sg-foot-note&#x27;, state.stage === &#x27;done&#x27; ? &#x27;如需调整已提交资料，请联系大赛办理方。&#x27; : &#x27;关闭页面不会释放办理名额。&#x27;);
+        $(&#x27;#sg-more&#x27;).hidden = state.stage === &#x27;done&#x27;;
+        $(&#x27;#sg-save&#x27;).disabled = state.busy;
+        $(&#x27;#sg-save&#x27;).textContent = state.busy &amp;&amp; state.stage === &#x27;fill&#x27; ? &#x27;正在保存…&#x27; : &#x27;保存并继续 →&#x27;;
+        $(&#x27;#sg-share&#x27;).textContent = state.busy &amp;&amp; state.stage === &#x27;share&#x27; ? &#x27;正在提供…&#x27; : &#x27;确认提供&#x27;;
+        $(&#x27;#sg-recipient&#x27;).disabled = state.busy;
+        updateConsent();
+      }
+      function openLayer(id) {
+        hideTour();
+        previousFocus = document.activeElement;
+        $(id).hidden = false;
+        $(&#x27;.product-surface&#x27;).inert = true;
+        requestAnimationFrame(() =&gt; { scrollTo($(id + &#x27; .dialog-pane&#x27;)); $(id + &#x27; input:not(:disabled), &#x27; + id + &#x27; button&#x27;).focus({ preventScroll: true }); });
+      }
+      function closeLayer(id) {
+        $(id).hidden = true;
+        $(&#x27;.product-surface&#x27;).inert = false;
+        if (previousFocus &amp;&amp; previousFocus.isConnected &amp;&amp; !previousFocus.disabled) previousFocus.focus({ preventScroll: true });
+        previousFocus = null;
+      }
+      function showInfo(title, html) {
+        setText(&#x27;#sg-info-title&#x27;, title); $(&#x27;#sg-info-body&#x27;).innerHTML = html; openLayer(&#x27;#sg-info-layer&#x27;);
+      }
+      function selectMethod(method) {
+        if (state.busy) return;
+        state.method = method; state.sent = false;
+        $(&#x27;#sg-code&#x27;).value = &#x27;&#x27;; $(&#x27;#sg-password&#x27;).value = &#x27;&#x27;;
+        $(&#x27;#sg-sms-fields&#x27;).hidden = method !== &#x27;sms&#x27;; $(&#x27;#sg-password-fields&#x27;).hidden = method !== &#x27;password&#x27;;
+        $(&#x27;#sg-code&#x27;).disabled = method !== &#x27;sms&#x27;; $(&#x27;#sg-auth-phone&#x27;).disabled = method !== &#x27;sms&#x27;;
+        $(&#x27;#sg-password&#x27;).disabled = method !== &#x27;password&#x27;; $(&#x27;#sg-password&#x27;).required = method === &#x27;password&#x27;;
+        $$(&#x27;[data-act^=&quot;method-&quot;]&#x27;).forEach(button =&gt; button.setAttribute(&#x27;aria-pressed&#x27;, String(button.dataset.act === &#x27;method-&#x27; + method)));
+        $(&#x27;#sg-auth-error&#x27;).hidden = true;
+        setText(&#x27;#sg-send-code&#x27;, &#x27;获取验证码&#x27;);
+        setText(&#x27;#sg-auth-note&#x27;, method === &#x27;sms&#x27; ? &#x27;仅演示交互，不会发送真实短信。&#x27; : &#x27;未绑定手机号时，可使用已设置的账号密码。&#x27;);
+      }
+      function resetAuth() {
+        state.generation++; state.busy = false; state.sent = false;
+        $(&#x27;#sg-code&#x27;).value = &#x27;&#x27;; $(&#x27;#sg-password&#x27;).value = &#x27;&#x27;;
+        $(&#x27;#sg-verify&#x27;).disabled = false; setText(&#x27;#sg-verify&#x27;, &#x27;验证并继续&#x27;);
+        $$(&#x27;[data-act^=&quot;method-&quot;]&#x27;).forEach(el =&gt; { el.disabled = false; });
+        $(&#x27;#sg-send-code&#x27;).disabled = false;
+      }
+      function saveProfile() {
+        state.busy = true; announce(&#x27;&#x27;); render();
+        const generation = state.generation;
+        setTimeout(() =&gt; {
+          if (generation !== state.generation) return;
+          saved = Object.fromEntries(new FormData(bankForm));
+          setValues(&#x27;masked-name&#x27;, String(saved.name).slice(0, 1) + &#x27;**&#x27;);
+          setValues(&#x27;masked-card&#x27;, &#x27;尾号 &#x27; + String(saved.card).replace(/\s/g, &#x27;&#x27;).slice(-4));
+          setValues(&#x27;bank&#x27;, saved.bank);
+          state.stage = &#x27;share&#x27;; state.busy = false; $(&#x27;#sg-consent&#x27;).checked = false; render();
+          scrollTo($(&#x27;#sg-recipient-section&#x27;)); $(&#x27;#sg-recipient&#x27;).focus({ preventScroll: true });
+        }, 400);
+      }
+      function submitBank() {
+        if (state.busy || state.stage !== &#x27;fill&#x27; || !bankForm.reportValidity()) return;
+        if (!state.authenticated) { selectMethod(&#x27;sms&#x27;); openLayer(&#x27;#sg-auth-layer&#x27;); } else saveProfile();
+      }
+      bankForm.addEventListener(&#x27;submit&#x27;, (event) =&gt; { event.preventDefault(); submitBank(); });
+      $(&#x27;#sg-auth-phone&#x27;).addEventListener(&#x27;input&#x27;, () =&gt; { state.sent = false; $(&#x27;#sg-code&#x27;).value = &#x27;&#x27;; setText(&#x27;#sg-send-code&#x27;, &#x27;获取验证码&#x27;); });
+      function verifyAuth() {
+        if (state.busy || !$(&#x27;#sg-auth-form&#x27;).reportValidity()) return;
+        if (state.method === &#x27;sms&#x27; &amp;&amp; (!state.sent || $(&#x27;#sg-code&#x27;).value !== &#x27;246810&#x27;)) {
+          setText(&#x27;#sg-auth-error&#x27;, state.sent ? &#x27;演示验证码为 246810，请重新输入。&#x27; : &#x27;请先点击“获取验证码”。&#x27;); $(&#x27;#sg-auth-error&#x27;).hidden = false; return;
+        }
+        if (state.method === &#x27;password&#x27; &amp;&amp; !$(&#x27;#sg-password&#x27;).value) return;
+        state.busy = true; $(&#x27;#sg-auth-error&#x27;).hidden = true;
+        $(&#x27;#sg-verify&#x27;).disabled = true; setText(&#x27;#sg-verify&#x27;, &#x27;正在验证…&#x27;);
+        $$(&#x27;[data-act^=&quot;method-&quot;]&#x27;).forEach(el =&gt; { el.disabled = true; }); $(&#x27;#sg-send-code&#x27;).disabled = true;
+        const generation = state.generation;
+        setTimeout(() =&gt; {
+          if (generation !== state.generation) return;
+          state.authenticated = true; closeLayer(&#x27;#sg-auth-layer&#x27;); resetAuth(); saveProfile();
+        }, 450);
+      }
+      $(&#x27;#sg-auth-form&#x27;).addEventListener(&#x27;submit&#x27;, (event) =&gt; { event.preventDefault(); verifyAuth(); });
+      $(&#x27;#sg-recipient&#x27;).addEventListener(&#x27;change&#x27;, () =&gt; { $(&#x27;#sg-consent&#x27;).checked = false; updateConsent(); });
+      $(&#x27;#sg-consent&#x27;).addEventListener(&#x27;change&#x27;, updateConsent);
+      function positionTour() {
+        if (!state.tour) return;
+        const target = $(&#x27;#sg-finish&#x27;).getBoundingClientRect(); const base = root.getBoundingClientRect();
+        const focus = $(&#x27;#sg-tour-focus&#x27;); const popup = $(&#x27;#sg-tour-callout&#x27;);
+        Object.assign(focus.style, { left: (target.left - base.left - 6) + &#x27;px&#x27;, top: (target.top - base.top - 6) + &#x27;px&#x27;, width: (target.width + 12) + &#x27;px&#x27;, height: (target.height + 12) + &#x27;px&#x27; });
+        const width = Math.min(root.clientWidth - 24, root.clientWidth &lt;= 640 ? 290 : 320);
+        const left = Math.max(12, Math.min(root.clientWidth - width - 12, target.right - base.left - width));
+        const top = target.bottom - base.top + 18;
+        Object.assign(popup.style, { width: width + &#x27;px&#x27;, left: left + &#x27;px&#x27;, top: top + &#x27;px&#x27; });
+        popup.style.setProperty(&#x27;--tip-x&#x27;, Math.max(18, Math.min(width - 30, target.left - base.left + target.width / 2 - left - 7)) + &#x27;px&#x27;);
+      }
+      function showTour() {
+        if (state.stage !== &#x27;finish&#x27;) return;
+        state.tour = true; $(&#x27;#sg-tour&#x27;).hidden = false; $(&#x27;#sg-tour&#x27;).classList.toggle(&#x27;light&#x27;, design.guide === &#x27;light&#x27;);
+        scrollTo($(&#x27;#sg-finish&#x27;)); positionTour(); $(&#x27;#sg-finish&#x27;).focus({ preventScroll: true });
+        requestAnimationFrame(positionTour);
+      }
+      function hideTour() { state.tour = false; $(&#x27;#sg-tour&#x27;).hidden = true; }
+      function restart() {
+        hideTour(); closeLayer(&#x27;#sg-auth-layer&#x27;); closeLayer(&#x27;#sg-info-layer&#x27;); resetAuth();
+        state.stage = &#x27;fill&#x27;; state.authenticated = false; saved = {}; bankForm.reset();
+        $(&#x27;#sg-recipient&#x27;).value = &#x27;&#x27;; $(&#x27;#sg-consent&#x27;).checked = false; announce(&#x27;&#x27;); render(); scrollTo($(&#x27;.title-row&#x27;));
+      }
+      root.addEventListener(&#x27;click&#x27;, (event) =&gt; {
+        const button = event.target.closest(&#x27;button[data-act]&#x27;); if (!button || button.disabled) return;
+        const action = button.dataset.act;
+        if (action === &#x27;save&#x27;) return submitBank();
+        if (action === &#x27;verify&#x27;) return verifyAuth();
+        if (action === &#x27;restart&#x27;) return restart();
+        if (action === &#x27;preview-final&#x27;) {
+          restart(); state.stage = &#x27;finish&#x27;; saved = Object.fromEntries(new FormData(bankForm));
+          setValues(&#x27;recipient&#x27;, &#x27;示例大赛结算中心&#x27;); setValues(&#x27;bank&#x27;, &#x27;示例银行&#x27;); setValues(&#x27;masked-card&#x27;, &#x27;尾号 0001&#x27;); render(); showTour(); return;
+        }
+        if (action === &#x27;help&#x27;) return showInfo(&#x27;填报须知&#x27;, &#x27;&lt;ul class=&quot;notice-list&quot;&gt;&lt;li&gt;每队由一位队员办理，使用本人的账号和银行卡。&lt;/li&gt;&lt;li&gt;依次完成保存资料、确认提供、团队完成确认。&lt;/li&gt;&lt;li&gt;入口有效 30 分钟；过期后从原平台重新进入。&lt;/li&gt;&lt;li&gt;如需安全验证，请使用账号已绑定的手机或已设置的密码。&lt;/li&gt;&lt;/ul&gt;&#x27;);
+        if (action === &#x27;more&#x27;) return showInfo(&#x27;其他办理操作&#x27;, &#x27;&lt;p class=&quot;dialog-sub&quot;&gt;关闭页面不会释放名额，可稍后回来继续。&lt;/p&gt;&lt;ul class=&quot;notice-list&quot;&gt;&lt;li&gt;状态未更新时，可刷新办理状态。&lt;/li&gt;&lt;li&gt;确需更换办理人时，先停止填报，再主动放弃本次办理。&lt;/li&gt;&lt;/ul&gt;&lt;p class=&quot;dialog-note&quot;&gt;原型仅展示这些入口的收纳方式，不执行名额释放。&lt;/p&gt;&#x27;);
+        if (action === &#x27;close-info&#x27;) return closeLayer(&#x27;#sg-info-layer&#x27;);
+        if (action === &#x27;cancel-auth&#x27;) { closeLayer(&#x27;#sg-auth-layer&#x27;); resetAuth(); render(); announce(&#x27;已取消验证，填写内容已保留。&#x27;); return; }
+        if (action === &#x27;method-sms&#x27;) return selectMethod(&#x27;sms&#x27;);
+        if (action === &#x27;method-password&#x27;) return selectMethod(&#x27;password&#x27;);
+        if (action === &#x27;send-code&#x27;) {
+          if (!$(&#x27;#sg-auth-phone&#x27;).value.trim()) { setText(&#x27;#sg-auth-error&#x27;, &#x27;请填写当前账号绑定的手机号。&#x27;); $(&#x27;#sg-auth-error&#x27;).hidden = false; return; }
+          state.sent = true; $(&#x27;#sg-auth-error&#x27;).hidden = true; setText(&#x27;#sg-auth-note&#x27;, &#x27;演示验证码：246810（未发送真实短信）&#x27;); setText(&#x27;#sg-send-code&#x27;, &#x27;重新获取&#x27;); $(&#x27;#sg-code&#x27;).focus(); return;
+        }
+        if (action === &#x27;edit&#x27; &amp;&amp; !state.busy) { hideTour(); state.stage = &#x27;fill&#x27;; $(&#x27;#sg-consent&#x27;).checked = false; render(); scrollTo($(&#x27;#sg-bank-form&#x27;)); return; }
+        if (action === &#x27;share&#x27; &amp;&amp; state.stage === &#x27;share&#x27; &amp;&amp; !state.busy &amp;&amp; $(&#x27;#sg-recipient&#x27;).value &amp;&amp; $(&#x27;#sg-consent&#x27;).checked) {
+          state.busy = true; setValues(&#x27;recipient&#x27;, $(&#x27;#sg-recipient&#x27;).selectedOptions[0].textContent); render();
+          const generation = state.generation;
+          setTimeout(() =&gt; { if (generation !== state.generation) return; state.busy = false; state.stage = &#x27;finish&#x27;; $(&#x27;#sg-consent&#x27;).checked = false; render(); showTour(); }, 500); return;
+        }
+        if (action === &#x27;show-tour&#x27;) return showTour();
+        if (action === &#x27;hide-tour&#x27;) { hideTour(); $(&#x27;#sg-finish&#x27;).focus({ preventScroll: true }); return; }
+        if (action === &#x27;finish&#x27; &amp;&amp; state.stage === &#x27;finish&#x27; &amp;&amp; !state.busy) {
+          hideTour(); state.busy = true; render(); const generation = state.generation;
+          setTimeout(() =&gt; { if (generation !== state.generation) return; state.stage = &#x27;done&#x27;; state.busy = false; render(); scrollTo($(&#x27;[data-panel=&quot;done&quot;]&#x27;)); }, 450);
+        }
+      });
+      root.addEventListener(&#x27;keydown&#x27;, (event) =&gt; {
+        if (event.key === &#x27;Enter&#x27; &amp;&amp; event.target.tagName === &#x27;INPUT&#x27;) {
+          event.preventDefault();
+          if (event.target.closest(&#x27;#sg-bank-form&#x27;)) submitBank();
+          else if (event.target.closest(&#x27;#sg-auth-form&#x27;)) verifyAuth();
+          return;
+        }
+        const activeLayer = !$(&#x27;#sg-auth-layer&#x27;).hidden ? &#x27;#sg-auth-layer&#x27; : !$(&#x27;#sg-info-layer&#x27;).hidden ? &#x27;#sg-info-layer&#x27; : &#x27;&#x27;;
+        if (event.key === &#x27;Escape&#x27;) {
+          if (activeLayer === &#x27;#sg-auth-layer&#x27;) { closeLayer(activeLayer); resetAuth(); render(); announce(&#x27;已取消验证，填写内容已保留。&#x27;); }
+          else if (activeLayer) closeLayer(activeLayer); else hideTour();
+          event.preventDefault();
+        }
+        if (event.key === &#x27;Tab&#x27; &amp;&amp; activeLayer) {
+          const controls = [...$(activeLayer).querySelectorAll(&#x27;button:not(:disabled), input:not(:disabled), select:not(:disabled)&#x27;)].filter(el =&gt; !el.closest(&#x27;[hidden]&#x27;));
+          const first = controls[0], last = controls[controls.length - 1];
+          if (event.shiftKey &amp;&amp; document.activeElement === first) { event.preventDefault(); last.focus(); }
+          else if (!event.shiftKey &amp;&amp; document.activeElement === last) { event.preventDefault(); first.focus(); }
+        }
+      });
+      new ResizeObserver(positionTour).observe(root);
+      window.addEventListener(&#x27;scroll&#x27;, positionTour, { passive: true });
+      window.addEventListener(&#x27;resize&#x27;, positionTour);
+      function renderDesign() { root.dataset.density = design.density; $(&#x27;#sg-tour&#x27;).classList.toggle(&#x27;light&#x27;, design.guide === &#x27;light&#x27;); requestAnimationFrame(positionTour); }
+      render(); renderDesign();
+      if (globalThis.Tweak) {
+        const tweak = new Tweak({ container: root, onChange: renderDesign });
+        tweak.addSelect(design, &#x27;guide&#x27;, { label: &#x27;最后一步引导&#x27;, options: [{label:&#x27;聚光漫游&#x27;, value:&#x27;spotlight&#x27;}, {label:&#x27;轻提示浮层&#x27;, value:&#x27;light&#x27;}] });
+        tweak.addSelect(design, &#x27;density&#x27;, { label: &#x27;表单间距&#x27;, options: [{label:&#x27;精简&#x27;, value:&#x27;compact&#x27;}, {label:&#x27;宽松&#x27;, value:&#x27;comfortable&#x27;}] });
+      }
+    })();
+  &lt;/script&gt;
+&lt;/div&gt;
+
+&lt;script src=&quot;https://unpkg.com/@floating-ui/core@1.7.3/dist/floating-ui.core.umd.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;https://unpkg.com/@floating-ui/dom@1.7.4/dist/floating-ui.dom.umd.min.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+(() =&gt; {
+  if (window.FloatingUIDOM == null) {
+    return;
+  }
+  const { autoUpdate, computePosition, flip, offset, shift, size } =
+    window.FloatingUIDOM;
+  const tooltipPlacements = new Set([&quot;top&quot;, &quot;right&quot;, &quot;bottom&quot;, &quot;left&quot;]);
+  const tooltipId = `codex-visualization-tooltip-${
+    window.crypto?.randomUUID?.() ?? Date.now().toString(36)
+  }`;
+  const tooltipGap = 5;
+  const hoverDelay = 700;
+  const skipDelay = 300;
+  let activeTrigger = null;
+  let pendingTrigger = null;
+  let tooltip = null;
+  let openTimeout = null;
+  let autoUpdateCleanup = null;
+  let positionRequest = 0;
+  let skipDelayUntil = 0;
+  let lastPointerWasTouch = false;
+  let pinnedByTouch = false;
+
+  const getTrigger = (target) =&gt;
+    target?.nodeType === Node.ELEMENT_NODE
+      ? target.closest(&quot;[data-tooltip]&quot;)
+      : null;
+  const containsTarget = (trigger, target) =&gt;
+    target?.nodeType != null &amp;&amp; trigger.contains(target);
+  const getContent = (trigger) =&gt;
+    trigger.getAttribute(&quot;data-tooltip&quot;)?.trim() ?? &quot;&quot;;
+  const getPlacement = (trigger) =&gt; {
+    const placement = trigger.getAttribute(&quot;data-tooltip-placement&quot;);
+    return tooltipPlacements.has(placement) ? placement : &quot;top&quot;;
+  };
+  const getTooltip = () =&gt; {
+    if (tooltip == null) {
+      tooltip = document.createElement(&quot;div&quot;);
+      tooltip.id = tooltipId;
+      tooltip.className = &quot;tooltip&quot;;
+      tooltip.setAttribute(&quot;role&quot;, &quot;tooltip&quot;);
+    }
+    return tooltip;
+  };
+  const setDescribedBy = (trigger, described) =&gt; {
+    const ids = new Set(
+      (trigger.getAttribute(&quot;aria-describedby&quot;) ?? &quot;&quot;)
+        .split(/\s+/)
+        .filter(Boolean),
+    );
+    if (described) {
+      ids.add(tooltipId);
+    } else {
+      ids.delete(tooltipId);
+    }
+    if (ids.size === 0) {
+      trigger.removeAttribute(&quot;aria-describedby&quot;);
+    } else {
+      trigger.setAttribute(&quot;aria-describedby&quot;, [...ids].join(&quot; &quot;));
+    }
+  };
+  const clearOpenTimeout = () =&gt; {
+    if (openTimeout != null) {
+      window.clearTimeout(openTimeout);
+      openTimeout = null;
+    }
+    pendingTrigger = null;
+  };
+  const closeTooltip = (activateSkipDelay = true) =&gt; {
+    clearOpenTimeout();
+    pinnedByTouch = false;
+    positionRequest += 1;
+    autoUpdateCleanup?.();
+    autoUpdateCleanup = null;
+    if (activeTrigger == null) {
+      return;
+    }
+    setDescribedBy(activeTrigger, false);
+    activeTrigger = null;
+    tooltip?.remove();
+    if (activateSkipDelay) {
+      skipDelayUntil = Date.now() + skipDelay;
+    }
+  };
+  const updatePosition = (trigger, floating) =&gt; {
+    const request = ++positionRequest;
+    void computePosition(trigger, floating, {
+      middleware: [
+        offset(tooltipGap),
+        flip({ padding: tooltipGap }),
+        shift({ padding: tooltipGap }),
+        size({
+          padding: tooltipGap,
+          apply({ availableHeight, availableWidth, elements }) {
+            elements.floating.style.setProperty(
+              &quot;--tooltip-available-width&quot;,
+              `${Math.max(0, availableWidth)}px`,
+            );
+            elements.floating.style.setProperty(
+              &quot;--tooltip-available-height&quot;,
+              `${Math.max(0, availableHeight)}px`,
+            );
+          },
+        }),
+      ],
+      placement: getPlacement(trigger),
+      strategy: &quot;fixed&quot;,
+    })
+      .then(({ x, y }) =&gt; {
+        if (activeTrigger !== trigger || request !== positionRequest) {
+          return;
+        }
+        const scale = window.devicePixelRatio || 1;
+        floating.style.transform = `translate(${Math.round(x * scale) / scale}px, ${Math.round(y * scale) / scale}px)`;
+        floating.style.visibility = &quot;visible&quot;;
+      })
+      .catch(() =&gt; {
+        if (activeTrigger === trigger &amp;&amp; request === positionRequest) {
+          closeTooltip(false);
+        }
+      });
+  };
+  const openTooltip = (trigger) =&gt; {
+    const content = getContent(trigger);
+    if (!trigger.isConnected || content.length === 0) {
+      return;
+    }
+    clearOpenTimeout();
+    if (activeTrigger === trigger) {
+      return;
+    }
+    closeTooltip();
+    const floating = getTooltip();
+    floating.textContent = content;
+    floating.style.visibility = &quot;hidden&quot;;
+    floating.style.transform = &quot;translate(0, 0)&quot;;
+    document.body.appendChild(floating);
+    activeTrigger = trigger;
+    setDescribedBy(trigger, true);
+    autoUpdateCleanup = autoUpdate(trigger, floating, () =&gt; {
+      updatePosition(trigger, floating);
+    });
+  };
+  const requestOpen = (trigger, immediate = false) =&gt; {
+    if (
+      getContent(trigger).length === 0 ||
+      activeTrigger === trigger ||
+      pendingTrigger === trigger
+    ) {
+      return;
+    }
+    clearOpenTimeout();
+    pendingTrigger = trigger;
+    const delay =
+      immediate || activeTrigger != null || Date.now() &lt; skipDelayUntil
+        ? 0
+        : hoverDelay;
+    if (delay === 0) {
+      openTooltip(trigger);
+      return;
+    }
+    openTimeout = window.setTimeout(() =&gt; {
+      openTimeout = null;
+      pendingTrigger = null;
+      openTooltip(trigger);
+    }, delay);
+  };
+  const handlePointerOpen = (event) =&gt; {
+    if (event.pointerType === &quot;touch&quot;) {
+      return;
+    }
+    const trigger = getTrigger(event.target);
+    if (trigger == null || containsTarget(trigger, event.relatedTarget)) {
+      return;
+    }
+    requestOpen(trigger);
+  };
+  const handlePointer = (event) =&gt; {
+    lastPointerWasTouch =
+      event.type === &quot;pointerdown&quot; &amp;&amp; event.pointerType === &quot;touch&quot;;
+  };
+  const handleTouchClick = (event) =&gt; {
+    const isTouch = event.pointerType === &quot;touch&quot; || lastPointerWasTouch;
+    lastPointerWasTouch = false;
+    if (!isTouch || event.detail === 0) {
+      return;
+    }
+    const trigger = getTrigger(event.target);
+    if (
+      trigger == null ||
+      !trigger.isConnected ||
+      getContent(trigger).length === 0 ||
+      (pinnedByTouch &amp;&amp; activeTrigger === trigger)
+    ) {
+      if (pinnedByTouch) {
+        closeTooltip();
+      }
+      return;
+    }
+    openTooltip(trigger);
+    pinnedByTouch = activeTrigger === trigger;
+    window.setTimeout(() =&gt; {
+      if (activeTrigger === trigger &amp;&amp; !trigger.isConnected) {
+        closeTooltip(false);
+      }
+    }, 0);
+  };
+  const handleLeave = (event) =&gt; {
+    if (pinnedByTouch) {
+      return;
+    }
+    const trigger = getTrigger(event.target);
+    if (trigger == null || containsTarget(trigger, event.relatedTarget)) {
+      return;
+    }
+    if (activeTrigger === trigger || pendingTrigger === trigger) {
+      closeTooltip();
+    }
+  };
+  const handleFocusIn = (event) =&gt; {
+    const trigger = getTrigger(event.target);
+    if (trigger?.matches(&quot;:focus-visible&quot;)) {
+      requestOpen(trigger, true);
+    }
+  };
+  const handleKeyDown = (event) =&gt; {
+    if (event.key === &quot;Escape&quot;) {
+      closeTooltip();
+    }
+  };
+  const handleContextMenu = (event) =&gt; {
+    lastPointerWasTouch = false;
+    const trigger = getTrigger(event.target);
+    if (activeTrigger === trigger || pendingTrigger === trigger) {
+      closeTooltip();
+    }
+  };
+  const destroy = () =&gt; {
+    closeTooltip(false);
+    lastPointerWasTouch = false;
+    document.removeEventListener(&quot;pointerover&quot;, handlePointerOpen);
+    document.removeEventListener(&quot;pointerdown&quot;, handlePointer);
+    document.removeEventListener(&quot;pointercancel&quot;, handlePointer);
+    document.removeEventListener(&quot;click&quot;, handleTouchClick);
+    document.removeEventListener(&quot;pointerout&quot;, handleLeave);
+    document.removeEventListener(&quot;focusin&quot;, handleFocusIn);
+    document.removeEventListener(&quot;focusout&quot;, handleLeave);
+    document.removeEventListener(&quot;keydown&quot;, handleKeyDown);
+    document.removeEventListener(&quot;contextmenu&quot;, handleContextMenu);
+    tooltip = null;
+  };
+
+  document.addEventListener(&quot;pointerover&quot;, handlePointerOpen);
+  document.addEventListener(&quot;pointerdown&quot;, handlePointer);
+  document.addEventListener(&quot;pointercancel&quot;, handlePointer);
+  document.addEventListener(&quot;click&quot;, handleTouchClick);
+  document.addEventListener(&quot;pointerout&quot;, handleLeave);
+  document.addEventListener(&quot;focusin&quot;, handleFocusIn);
+  document.addEventListener(&quot;focusout&quot;, handleLeave);
+  document.addEventListener(&quot;keydown&quot;, handleKeyDown);
+  document.addEventListener(&quot;contextmenu&quot;, handleContextMenu);
+  window.addEventListener(&quot;pagehide&quot;, destroy, { once: true });
+})();
+&lt;/script&gt;
+&lt;script id=&quot;codex-visualization-tabs&quot;&gt;
+(() =&gt; {
+  const selector = &#x27;.nav[role=&quot;tablist&quot;] [role=&quot;tab&quot;]&#x27;;
+  const disabled = &#x27;:disabled,[aria-disabled=&quot;true&quot;]&#x27;;
+  const selectTab = (selected) =&gt; {
+    const panelId = selected.getAttribute(&quot;aria-controls&quot;);
+    for (const tab of selected.closest(&#x27;[role=&quot;tablist&quot;]&#x27;).querySelectorAll(&#x27;[role=&quot;tab&quot;]&#x27;)) {
+      const active = tab === selected;
+      tab.classList.toggle(&quot;active&quot;, active);
+      tab.setAttribute(&quot;aria-selected&quot;, String(active));
+      const id = tab.getAttribute(&quot;aria-controls&quot;);
+      const panel = id &amp;&amp; document.getElementById(id);
+      if (panel != null) {
+        panel.hidden = id !== panelId;
+        if (!panel.hidden &amp;&amp; selected.id) {
+          panel.setAttribute(&quot;aria-labelledby&quot;, selected.id);
+        }
+      }
+    }
+  };
+  const interact = (event) =&gt; {
+    const tab = event.target?.closest?.(selector);
+    if (event.defaultPrevented || tab == null || tab.matches(disabled)) {
+      return;
+    }
+    if (event.type === &quot;click&quot;) {
+      selectTab(tab);
+      return;
+    }
+    const tabs = Array.from(
+      tab.closest(&#x27;[role=&quot;tablist&quot;]&#x27;).querySelectorAll(&#x27;[role=&quot;tab&quot;]&#x27;),
+    ).filter((candidate) =&gt; !candidate.matches(disabled));
+    const current = tabs.indexOf(tab);
+    let next;
+    if (event.key === &quot;ArrowRight&quot; || event.key === &quot;ArrowDown&quot;) {
+      next = (current + 1) % tabs.length;
+    } else if (event.key === &quot;ArrowLeft&quot; || event.key === &quot;ArrowUp&quot;) {
+      next = (current + tabs.length - 1) % tabs.length;
+    } else if (event.key === &quot;Home&quot;) {
+      next = 0;
+    } else if (event.key === &quot;End&quot;) {
+      next = tabs.length - 1;
+    } else {
+      return;
+    }
+    event.preventDefault();
+    tabs[next].focus();
+    selectTab(tabs[next]);
+  };
+
+  for (const list of document.querySelectorAll(&#x27;.nav[role=&quot;tablist&quot;]&#x27;)) {
+    const selected =
+      list.querySelector(&#x27;[role=&quot;tab&quot;][aria-selected=&quot;true&quot;]&#x27;) ??
+      list.querySelector(&#x27;[role=&quot;tab&quot;].active&#x27;) ??
+      list.querySelector(&#x27;[role=&quot;tab&quot;]&#x27;);
+    if (selected != null) {
+      selectTab(selected);
+    }
+  }
+  document.addEventListener(&quot;click&quot;, interact);
+  document.addEventListener(&quot;keydown&quot;, interact);
+  window.addEventListener(&quot;pagehide&quot;, () =&gt; {
+    document.removeEventListener(&quot;click&quot;, interact);
+    document.removeEventListener(&quot;keydown&quot;, interact);
+  }, { once: true });
+})();
+&lt;/script&gt;
+&lt;script id=&quot;codex-visualization-lucide&quot; async src=&quot;https://unpkg.com/lucide@1.17.0/dist/umd/lucide.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+(() =&gt; {
+  const initialize = () =&gt; {
+    globalThis.lucide?.createIcons({ attrs: { width: 16, height: 16 } });
+  };
+  if (globalThis.lucide != null) {
+    initialize();
+    return;
+  }
+  document
+    .getElementById(&quot;codex-visualization-lucide&quot;)
+    ?.addEventListener(&quot;load&quot;, initialize, { once: true });
+})();
+&lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+"></iframe>
+</body>
+</html>

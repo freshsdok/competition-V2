@@ -1,0 +1,26 @@
+{
+  "at_utc": "2026-09-14T14:21:57.247286+00:00",
+  "unit_access": [
+    [
+      {
+        "subject_id": "1000051946",
+        "tenant_id": "7",
+        "status": "PROVIDED",
+        "version": "2",
+        "created_at": "2026-09-14 14:16:45.712783",
+        "updated_at": "2026-09-14 14:21:25.959018"
+      }
+    ]
+  ],
+  "team": [
+    [
+      {
+        "id": "363",
+        "status": "IN_PROGRESS",
+        "version": "1",
+        "holder_user_id": "52050"
+      }
+    ]
+  ],
+  "scope": "Read-only after Chrome re-provision to the same approved unit; no grants submitted to other unit options."
+}

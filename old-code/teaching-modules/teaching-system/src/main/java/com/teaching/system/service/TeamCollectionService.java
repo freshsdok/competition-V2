@@ -113,6 +113,11 @@ public class TeamCollectionService {
         }
     }
 
+    // 仅由独立的新入口短事务调用；原入口的签发与状态变更逻辑保持原状。
+    void assertNativeHolder(long id, long userId, long expected) {
+        requireHolder(authorizedLock(id,userId,expected),userId,expected);
+    }
+
     private Row authorizedLock(long id, long userId, long expected) {
         requireUser(userId);
         if (!enabled) throw new ServiceException("收款资料办理暂未开放", 503);

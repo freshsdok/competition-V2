@@ -1,0 +1,14 @@
+{
+  "collected_at_utc": "2026-09-14T14:00:36.399950+00:00",
+  "scope": "Final responsive fix file fingerprints. Complements earlier environment-metadata snapshot; does not replace it.",
+  "files": {
+    "v1": {
+      "old-code-pc/src/views/personal/TeamCollectionNative.vue": "f0902061a7caf144ec1f0892541e1b4accc2a4261832be716766b7bc568d0b89",
+      "old-code-pc/src/views/personal/TeamCollectionNative.test.js": "e73532eb3514ff0877c7e015dbab543088bfbbd98225e1cd47bca2dcfd27ee2d"
+    },
+    "v2": {
+      "frontend/apps/web/src/main.ts": "be3bca3d1f00a695b959c38da39918dcfb765bca3786c91ee77ce6cd59e0c1d0",
+      "frontend/apps/web/src/assets/styles/base.css": "d1118298f2265552b12e635d0aed5768ff46fcaad26f6d78dd7fb11ecbd507ae"
+    }
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "at_utc": "2026-09-14T13:22:53.990683+00:00",
+  "v1_user_id": 52030,
+  "v2_account_id": 2000051926,
+  "account_claim": [
+    [
+      {
+        "account_id": "2000051926",
+        "account_status": "ACTIVE",
+        "username_status": "ACTIVE",
+        "cohort": "CLAIMABLE",
+        "claim_status": "CLAIMED"
+      }
+    ]
+  ],
+  "credentials": [
+    [
+      {
+        "id": "49642",
+        "status": "REPLACED",
+        "scheme_id": "LEGACY_BCRYPT_2A_10",
+        "version": "2"
+      },
+      {
+        "id": "65603",
+        "status": "ACTIVE",
+        "scheme_id": "V2_PASSWORD_SCHEME_1",
+        "version": "0"
+      }
+    ]
+  ],
+  "method": "Observed after formal Chrome original-account login; database read-only verification, no manual state update."
+}

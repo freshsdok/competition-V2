@@ -1,0 +1,32 @@
+[
+  [
+    {
+      "account_id": "2000051926",
+      "subject_id": "1000051926",
+      "v1_source": "sys_user:52030",
+      "account_status": "DISABLED",
+      "username_status": "PENDING_CLAIM",
+      "credential_id": "49642",
+      "credential_status": "MIGRATED_PENDING",
+      "scheme_id": "LEGACY_BCRYPT_2A_10",
+      "credential_version": "1",
+      "cohort": "CLAIMABLE",
+      "claim_status": "ELIGIBLE",
+      "source_matches": "1"
+    },
+    {
+      "account_id": "2000051946",
+      "subject_id": "1000051946",
+      "v1_source": "sys_user:52050",
+      "account_status": "ACTIVE",
+      "username_status": "ACTIVE",
+      "credential_id": "65602",
+      "credential_status": "ACTIVE",
+      "scheme_id": "V2_PASSWORD_SCHEME_1",
+      "credential_version": "0",
+      "cohort": "CLAIMABLE",
+      "claim_status": "CLAIMED",
+      "source_matches": null
+    }
+  ]
+]

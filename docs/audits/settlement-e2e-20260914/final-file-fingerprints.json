@@ -1,0 +1,30 @@
+{
+  "recorded_at_utc": "2026-09-14T14:40:16.652899+00:00",
+  "files": [
+    {
+      "path": "/Users/wwang/Documents/ClaudeCode/deshi_competition_2/old-code-pc/src/views/personal/TeamCollectionNative.vue",
+      "sha256": "daf4c473300039d3f07caf66d9fecb14961b322877363382e06dc0c90f151c67"
+    },
+    {
+      "path": "/Users/wwang/Documents/ClaudeCode/deshi_competition_2/old-code-pc/src/views/personal/TeamCollectionNative.test.js",
+      "sha256": "96b2682244c340a218c2072873d716c7e2d3f81bf5600dbee822f1d4709366c2"
+    },
+    {
+      "path": "/Users/wwang/Documents/ClaudeCode/deshi_competition_v2/frontend/apps/web/src/features/commerce/SettlementProfileView.vue",
+      "sha256": "02a243305aa7f75692ef70a0fcb51c67d7c24da288009e2e01490179eb3cd3b8"
+    },
+    {
+      "path": "/Users/wwang/Documents/ClaudeCode/deshi_competition_v2/frontend/apps/web/src/main.ts",
+      "sha256": "be3bca3d1f00a695b959c38da39918dcfb765bca3786c91ee77ce6cd59e0c1d0"
+    },
+    {
+      "path": "/Users/wwang/Documents/ClaudeCode/deshi_competition_v2/frontend/apps/web/src/assets/styles/base.css",
+      "sha256": "d1118298f2265552b12e635d0aed5768ff46fcaad26f6d78dd7fb11ecbd507ae"
+    },
+    {
+      "path": "/Users/wwang/Documents/ClaudeCode/deshi_competition_v2/frontend/apps/web/src/features/identity/LoginView.vue",
+      "sha256": "e1ca9c1546fbd6680982687b313bde035e3cfe3b7e2878bd2c563e03516b3c84"
+    }
+  ],
+  "note": "最终工作区文件指纹；不替代各测试运行时刻或浏览器实测版本的历史记录。"
+}

@@ -1,0 +1,12 @@
+{
+  "provided": {
+    "filename": "29-provided-pending-final.png",
+    "box": [474, 480, 1003, 684],
+    "width": 6.4
+  },
+  "tour": {
+    "filename": "28-provided-tour-initial.png",
+    "box": [868, 234, 1082, 453],
+    "width": 3.2
+  }
+}

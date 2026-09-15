@@ -1,0 +1,31 @@
+{
+  "at_utc": "2026-09-14T12:23:30.140672+00:00",
+  "source_roster": "/Users/wwang/Documents/ClaudeCode/deshi_competition_v2/outputs/v1-v2-test-accounts-20260913/V1_V2_TEST_ACCOUNTS_20260913.xlsx",
+  "approved_roster_distinct_v1_user_count": 60,
+  "enabled_collection_intersection": [
+    [
+      {
+        "matched_user_count": "0"
+      }
+    ]
+  ],
+  "selected_team_state": [
+    [
+      {
+        "team_id": "363",
+        "status": "IN_PROGRESS",
+        "version": "1",
+        "holder_user_id": "52050",
+        "member_user_id": "52030"
+      },
+      {
+        "team_id": "363",
+        "status": "IN_PROGRESS",
+        "version": "1",
+        "holder_user_id": "52050",
+        "member_user_id": "52050"
+      }
+    ]
+  ],
+  "read_only": true
+}

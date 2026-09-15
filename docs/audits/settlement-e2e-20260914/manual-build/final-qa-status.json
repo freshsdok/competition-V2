@@ -1,0 +1,56 @@
+{
+  "artifact": "/Users/wwang/Documents/ClaudeCode/deshi_competition_2/docs/audits/settlement-e2e-20260914/获奖团队银行卡资料填报操作手册.docx",
+  "sha256": "7f0c9a9ab059858c3a69def08e23563cd821d98430cf4e36efe48adf3ef8240f",
+  "status": "FINAL_USER_MANUAL_RENDER_QA_PASS",
+  "page_count": 5,
+  "render_directory": "/Users/wwang/Documents/ClaudeCode/deshi_competition_2/docs/audits/settlement-e2e-20260914/manual-build/final-render-v1",
+  "rendered_pages": [
+    "/Users/wwang/Documents/ClaudeCode/deshi_competition_2/docs/audits/settlement-e2e-20260914/manual-build/final-render-v1/page-1.png",
+    "/Users/wwang/Documents/ClaudeCode/deshi_competition_2/docs/audits/settlement-e2e-20260914/manual-build/final-render-v1/page-2.png",
+    "/Users/wwang/Documents/ClaudeCode/deshi_competition_2/docs/audits/settlement-e2e-20260914/manual-build/final-render-v1/page-3.png",
+    "/Users/wwang/Documents/ClaudeCode/deshi_competition_2/docs/audits/settlement-e2e-20260914/manual-build/final-render-v1/page-4.png",
+    "/Users/wwang/Documents/ClaudeCode/deshi_competition_2/docs/audits/settlement-e2e-20260914/manual-build/final-render-v1/page-5.png"
+  ],
+  "pages_visually_reviewed": [
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "embedded_original_images": 8,
+  "source_screenshots": [
+    "13-v2-login-guidance-fixed.png",
+    "14-v2-password-hint-fixed.png",
+    "04-empty-form.png",
+    "15-security-modal-header-fixed.png",
+    "08-unit-selected-consent-required.png",
+    "29-provided-pending-final.png",
+    "28-provided-tour-initial.png",
+    "33-team-completed.png"
+  ],
+  "all_embedded_images_match_original_source_bytes": true,
+  "all_images_use_word_srcRect_only": true,
+  "old_05_included": false,
+  "title_style_border_free": true,
+  "privacy_review": "All embedded original screenshots were visually inspected. No full real identity number, real phone number or plaintext password was observed. Captures preserve original bytes, with simulated bank values and empty login/security fields. Visible display crops exclude account bars and full team identifiers; the completion receipt retains the authorized visible handler name and time.",
+  "workflow_evidence": "Root confirmed actual provision, Tour and final team completion. Images 28, 29 and 33 show these steps. This manual explains the user flow and does not claim every feature or every security branch passed testing.",
+  "sms_evidence_boundary": "Explicitly states that SMS verification was not actually validated in this run.",
+  "layout_review": "PASS: All five page PNGs visually inspected at native render size. No clipping, overlap, missing glyphs, unintended blank pages, broken captions or table overflow. All relevant screenshot buttons and completion text are visible.",
+  "preserved_review_draft": "/Users/wwang/Documents/ClaudeCode/deshi_competition_2/docs/audits/settlement-e2e-20260914/操作手册-实测至资料保存（待收尾验证）.docx",
+  "preserved_review_draft_sha256": "6fdcbcbfb693b25f055bc7987e4dc79d880bd83bd1eeea0cf02dbcd8a09d5573",
+  "review_draft_unchanged_during_final_build": true,
+  "image_record": "/Users/wwang/Documents/ClaudeCode/deshi_competition_2/docs/audits/settlement-e2e-20260914/manual-build/获奖团队银行卡资料填报操作手册-image-display-records.json",
+  "parent_visual_review": {
+    "at_utc": "2026-09-14T14:38:35.192149+00:00",
+    "pages": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "result": "PASS",
+    "notes": "主执行者再次逐页打开渲染图，未见裁切、重叠或缺字；关键截图和完成状态可读。"
+  }
+}

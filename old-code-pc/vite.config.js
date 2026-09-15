@@ -1,3 +1,4 @@
+import { nativeProxy, nativeProxyGuard } from '../scripts/native-collection/proxy.mjs';
 import { defineConfig, loadEnv } from "vite";
 import vue from "@vitejs/plugin-vue";
 import path from "path";
@@ -17,6 +18,7 @@ export default defineConfig(({ mode, command }) => {
   const { VITE_APP_ENV } = env;
   return {
     plugins: [
+      nativeProxyGuard(),
       vue(),
       AutoImport({
         imports: ["vue"], // 自动导入 Vue 3 的 API
@@ -91,6 +93,7 @@ export default defineConfig(({ mode, command }) => {
       host: true,
       open: true,
       proxy: {
+        ...nativeProxy(env),
         // V2内嵌开发实例以相同base启动；保留前缀，避免模块资源落回V1。
         '/v2-embedded/': {
           target: env.VITE_V2_EMBEDDED_WEB_TARGET || 'http://localhost:5176',

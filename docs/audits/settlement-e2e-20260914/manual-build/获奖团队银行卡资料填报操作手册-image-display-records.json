@@ -1,0 +1,138 @@
+[
+  {
+    "source": "/Users/wwang/Documents/ClaudeCode/deshi_competition_2/docs/audits/settlement-e2e-20260914/screenshots/13-v2-login-guidance-fixed.png",
+    "sha256": "7f3fd0feb8f7509659b85e3a3bb857a6244787f6cc58e6d5fa509c71cd98923b",
+    "source_size": [
+      1476,
+      768
+    ],
+    "display_crop_pixels": [
+      619,
+      555,
+      853,
+      590
+    ],
+    "display_width_inches": 4.7,
+    "display_height_inches": 0.7029914529914529,
+    "caption": "选择原账号 / 密码入口"
+  },
+  {
+    "source": "/Users/wwang/Documents/ClaudeCode/deshi_competition_2/docs/audits/settlement-e2e-20260914/screenshots/14-v2-password-hint-fixed.png",
+    "sha256": "300a4db460319635ed10bf76206b27ff19f1c34a057e8819ce9b64b1eb057592",
+    "source_size": [
+      1476,
+      768
+    ],
+    "display_crop_pixels": [
+      619,
+      479,
+      853,
+      596
+    ],
+    "display_width_inches": 4.7,
+    "display_height_inches": 2.35,
+    "caption": "向下滚动填写用户名与密码 原平台账号使用原密码"
+  },
+  {
+    "source": "/Users/wwang/Documents/ClaudeCode/deshi_competition_2/docs/audits/settlement-e2e-20260914/screenshots/04-empty-form.png",
+    "sha256": "382650dfb68127de6299380bce3d4d9e143a7ffcfadc71ec4533b76e5565921a",
+    "source_size": [
+      1476,
+      768
+    ],
+    "display_crop_pixels": [
+      475,
+      392,
+      1003,
+      568
+    ],
+    "display_width_inches": 6.4,
+    "display_height_inches": 2.1333333333333333,
+    "caption": "填写银行卡信息后点击保存并继续"
+  },
+  {
+    "source": "/Users/wwang/Documents/ClaudeCode/deshi_competition_2/docs/audits/settlement-e2e-20260914/screenshots/15-security-modal-header-fixed.png",
+    "sha256": "dbeee35b9506c103f1520377c857862728cc9e643ccaa6e79a375f1bf3124269",
+    "source_size": [
+      1476,
+      768
+    ],
+    "display_crop_pixels": [
+      576,
+      112,
+      901,
+      337
+    ],
+    "display_width_inches": 3.7,
+    "display_height_inches": 2.5615384615384613,
+    "caption": "未绑定手机号时可以使用当前密码完成安全验证"
+  },
+  {
+    "source": "/Users/wwang/Documents/ClaudeCode/deshi_competition_2/docs/audits/settlement-e2e-20260914/screenshots/08-unit-selected-consent-required.png",
+    "sha256": "e4373e90d0710b02f5d5ec9df0362eb3e353c574e654b269ab72a5593cfe01f4",
+    "source_size": [
+      1476,
+      768
+    ],
+    "display_crop_pixels": [
+      474,
+      180,
+      1003,
+      476
+    ],
+    "display_width_inches": 6.4,
+    "display_height_inches": 3.5810964083175807,
+    "caption": "选择单位后仍需勾选同意 才能点击确认提供"
+  },
+  {
+    "source": "/Users/wwang/Documents/ClaudeCode/deshi_competition_2/docs/audits/settlement-e2e-20260914/screenshots/29-provided-pending-final.png",
+    "sha256": "671d02d523eb575a891b792bd74a3c74035262abac5c8c076f17f41b5c4d5140",
+    "source_size": [
+      1476,
+      768
+    ],
+    "display_crop_pixels": [
+      474,
+      480,
+      1003,
+      684
+    ],
+    "display_width_inches": 6.4,
+    "display_height_inches": 2.468052930056711,
+    "caption": "资料已提供给指定单位 仍需完成团队最终确认"
+  },
+  {
+    "source": "/Users/wwang/Documents/ClaudeCode/deshi_competition_2/docs/audits/settlement-e2e-20260914/screenshots/28-provided-tour-initial.png",
+    "sha256": "2b6da8730a39c5a0874287f739c2e7d43ab1b7ec791ee8262eb839d0548403cc",
+    "source_size": [
+      1476,
+      768
+    ],
+    "display_crop_pixels": [
+      868,
+      234,
+      1082,
+      453
+    ],
+    "display_width_inches": 2.9,
+    "display_height_inches": 2.9677570093457946,
+    "caption": "跟随页面引导 点击上方我已完成填报"
+  },
+  {
+    "source": "/Users/wwang/Documents/ClaudeCode/deshi_competition_2/docs/audits/settlement-e2e-20260914/screenshots/33-team-completed.png",
+    "sha256": "9fa3244eb7f024d4def2a900986cd1527165af3aa79f79188f6c2cd284b3fb62",
+    "source_size": [
+      1476,
+      768
+    ],
+    "display_crop_pixels": [
+      590,
+      360,
+      891,
+      479
+    ],
+    "display_width_inches": 4.7,
+    "display_height_inches": 1.858139534883721,
+    "caption": "显示本队已完成填报后 本队入口关闭"
+  }
+]

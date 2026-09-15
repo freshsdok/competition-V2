@@ -1,0 +1,80 @@
+{
+  "recorded_at_utc": "2026-09-14T14:34:14.374872+00:00",
+  "result_sets": [
+    [
+      {
+        "id": "118",
+        "scope_type": "TENANT",
+        "tenant_id": "7",
+        "actor_account_id": "2000051946",
+        "actor_subject_id": "1000051946",
+        "action_code": "SETTLEMENT_PROFILE_PROVIDED",
+        "outcome": "SUCCEEDED",
+        "risk_level": "HIGH",
+        "target_domain": "COMMERCE_FINANCE",
+        "target_kind": "SETTLEMENT_PROFILE",
+        "target_reference": "1000051946",
+        "profile_version_id_at_action": "5",
+        "occurred_at": "2026-09-14 14:16:45.571319",
+        "recorded_at": "2026-09-14 14:16:45.731249"
+      },
+      {
+        "id": "119",
+        "scope_type": "TENANT",
+        "tenant_id": "7",
+        "actor_account_id": "2000051946",
+        "actor_subject_id": "1000051946",
+        "action_code": "SETTLEMENT_PROFILE_REVOKED",
+        "outcome": "SUCCEEDED",
+        "risk_level": "HIGH",
+        "target_domain": "COMMERCE_FINANCE",
+        "target_kind": "SETTLEMENT_PROFILE",
+        "target_reference": "1000051946",
+        "profile_version_id_at_action": "5",
+        "occurred_at": "2026-09-14 14:20:04.720088",
+        "recorded_at": "2026-09-14 14:20:04.844622"
+      },
+      {
+        "id": "120",
+        "scope_type": "TENANT",
+        "tenant_id": "7",
+        "actor_account_id": "2000051946",
+        "actor_subject_id": "1000051946",
+        "action_code": "SETTLEMENT_PROFILE_PROVIDED",
+        "outcome": "SUCCEEDED",
+        "risk_level": "HIGH",
+        "target_domain": "COMMERCE_FINANCE",
+        "target_kind": "SETTLEMENT_PROFILE",
+        "target_reference": "1000051946",
+        "profile_version_id_at_action": "5",
+        "occurred_at": "2026-09-14 14:21:25.858436",
+        "recorded_at": "2026-09-14 14:21:25.986296"
+      }
+    ],
+    [
+      {
+        "subject_id": "1000051946",
+        "current_profile_version_id": "5",
+        "version": "2"
+      }
+    ],
+    [
+      {
+        "subject_id": "1000051946",
+        "tenant_id": "7",
+        "status": "PROVIDED",
+        "version": "2"
+      }
+    ]
+  ],
+  "note": "只读等价技术元数据查询；未查询敏感资料正文。",
+  "query_scope": {
+    "audit_actor_subject_id": 1000051946,
+    "audit_tenant_id": 7,
+    "profile_and_access_subject_ids": [
+      1000051946,
+      1000051926
+    ],
+    "limit_per_audit_query": 100
+  }
+}

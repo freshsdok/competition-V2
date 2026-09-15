@@ -1,0 +1,14 @@
+{
+  "at_utc": "2026-09-14T14:36:06.010594+00:00",
+  "private_text_scan": "PASS",
+  "removed_temporary_directory": "/tmp/deshi-settlement-e2e-resume",
+  "removed_files": [
+    "__pycache__/db.cpython-314.pyc",
+    "db.py",
+    "private-inputs.json"
+  ],
+  "cua_private_inputs_cleared": true,
+  "test_incognito_window_closed": true,
+  "database_test_state_retained": "team363 completed; subject1000051946 profile id5 version2, XINKESAI access PROVIDED version2",
+  "note": "仅删除本轮创建的临时数据库辅助脚本及私密账号输入；未修改用户连接配置，未删除截图及历史证据。"
+}

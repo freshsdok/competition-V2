@@ -135,10 +135,15 @@ const webGroups = {
           component: () => import("@/views/personal/payoutTransition.vue"),
         },
         {
+          path: "settlement-profile-v2",
+          name: "teamCollectionNative",
+          meta: { showNav: false, label: "我的收款信息v2" },
+          component: () => import("@/views/personal/TeamCollectionNative.vue"),
+        },
+        {
           path: "settlement-profile",
           name: "embeddedSettlementProfile",
-          meta: { showNav: false, label: "我的收款信息" },
-          component: () => import("@/views/personal/TeamCollection.vue"),
+          redirect: "/personal/settlement-profile-v2",
         },
         {
           path: "paymentrecords",

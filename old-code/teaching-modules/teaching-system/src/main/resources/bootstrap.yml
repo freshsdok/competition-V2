@@ -27,3 +27,6 @@ v2:
 v1:
   team-collection:
     enabled: ${V1_TEAM_COLLECTION_ENABLED:true}
+
+    # 独立入口，复用名单和队伍办理状态；默认关闭。
+    native-enabled: ${V1_TEAM_COLLECTION_NATIVE_ENABLED:true}

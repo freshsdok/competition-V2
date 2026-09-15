@@ -1,0 +1,31 @@
+{
+  "recorded_at_utc": "2026-09-14T12:22:33Z",
+  "browser_requested": "Chrome",
+  "target_url": "http://localhost:8082/personal/settlement-profile-v2",
+  "status": "BLOCKED",
+  "observations": [
+    {
+      "surface": "Chrome extension browser control",
+      "operation": "user.openTabs",
+      "result": "Execution timed out after 30 seconds; no tab inventory was returned."
+    },
+    {
+      "surface": "Chrome native accessibility",
+      "operation": "getApp / getAXState",
+      "result": "Returned a New Tab window title with an admin navigation menu only; usable current form state was unavailable."
+    },
+    {
+      "surface": "Chrome native screenshot",
+      "operation": "getScreenshot",
+      "result": "Screenshot unavailable for /Applications/Google Chrome.app."
+    }
+  ],
+  "saved_screenshot_count": 0,
+  "browser_login_performed_by_agent": false,
+  "bank_data_submitted_by_agent": false,
+  "tenant_access_provided_by_agent": false,
+  "team_final_confirmation_performed_by_agent": false,
+  "full_browser_e2e_pass": false,
+  "requested_user_recovery": "Reconnect or enable the Codex browser control extension in Chrome, then bring the requested page to the foreground.",
+  "scope_note": "Database preflight evidence and source-based test plans do not establish browser acceptance."
+}

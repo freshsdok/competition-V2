@@ -1,0 +1,35 @@
+{
+  "at_utc": "2026-09-14T14:19:07.552789+00:00",
+  "profile_current": [
+    [
+      {
+        "subject_id": "1000051946",
+        "current_profile_version_id": "5",
+        "version": "2"
+      }
+    ]
+  ],
+  "unit_access": [
+    [
+      {
+        "subject_id": "1000051946",
+        "tenant_id": "7",
+        "status": "PROVIDED",
+        "version": "0",
+        "created_at": "2026-09-14 14:16:45.712783",
+        "updated_at": "2026-09-14 14:16:45.712783"
+      }
+    ]
+  ],
+  "team": [
+    [
+      {
+        "id": "363",
+        "status": "IN_PROGRESS",
+        "version": "1",
+        "holder_user_id": "52050"
+      }
+    ]
+  ],
+  "scope": "Read-only metadata after user-authorized Chrome provision to XINKESAI; before revocation/final confirmation."
+}

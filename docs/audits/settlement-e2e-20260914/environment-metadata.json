@@ -1,0 +1,48 @@
+{
+  "collected_at_utc": "2026-09-14T13:49:26.374649+00:00",
+  "scope": "Metadata snapshot collected after profile version 2 UI save; not retroactively asserted as execution-start state. No process environment or credential values collected.",
+  "repositories": {
+    "v1": {
+      "root": "/Users/wwang/Documents/ClaudeCode/deshi_competition_2",
+      "head": "3260e30a11b328a0330ba75ba7d99f3f577c472a",
+      "file_sha256": {
+        "old-code-pc/src/views/personal/TeamCollectionNative.vue": "f3205b6041c155f79df0392b0aff98124101300ad40e56e4c389639056e7ee14",
+        "old-code-pc/src/views/personal/TeamCollectionNative.test.js": "cafc1e85f81246d49e90990258a21b475c321f9a9b5ac8dc27bd9118769c53e5",
+        "old-code-pc/src/utils/nativeCollectionProgress.js": "258bdc7192b89273593f19713d755672dc07b787d0ef382d26902e1aaf89b44f"
+      }
+    },
+    "v2": {
+      "root": "/Users/wwang/Documents/ClaudeCode/deshi_competition_v2",
+      "head": "74fb7a4852d3f31246ebcf39f9375cd83c822758",
+      "file_sha256": {
+        "frontend/apps/web/src/features/commerce/SettlementProfileView.vue": "02a243305aa7f75692ef70a0fcb51c67d7c24da288009e2e01490179eb3cd3b8",
+        "frontend/apps/web/src/features/commerce/NativeSettlementView.vue": "2c53d814b162dd420663ec45bb0756196427d4a8adf90d816d0abdef0c85b774",
+        "frontend/apps/web/src/features/identity/LoginView.vue": "e1ca9c1546fbd6680982687b313bde035e3cfe3b7e2878bd2c563e03516b3c84",
+        "frontend/apps/web/src/services/native-settlement-progress.ts": "cc4c616bae161479420fb55b115a4d6da17af7ca5dc21fff5495ba147ab92ff2"
+      }
+    }
+  },
+  "chrome_installed_version": "153.0.8010.37",
+  "listeners": [
+    {
+      "port": 8080,
+      "output": "p38240\ncjava\nf140\nn*:8080"
+    },
+    {
+      "port": 8081,
+      "output": "p71037\ncjava\nf213\nn*:8081"
+    },
+    {
+      "port": 8082,
+      "output": "p27484\ncnode\nf42\nn*:8082"
+    },
+    {
+      "port": 8083,
+      "output": "p28365\ncnode\nf18\nn*:8083"
+    },
+    {
+      "port": 5177,
+      "output": "p57886\ncnode\nf30\nn127.0.0.1:5177"
+    }
+  ]
+}

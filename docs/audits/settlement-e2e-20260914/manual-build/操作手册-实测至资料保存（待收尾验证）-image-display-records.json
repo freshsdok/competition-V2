@@ -1,0 +1,121 @@
+[
+  {
+    "source": "/Users/wwang/Documents/ClaudeCode/deshi_competition_2/docs/audits/settlement-e2e-20260914/screenshots/13-v2-login-guidance-fixed.png",
+    "sha256": "7f3fd0feb8f7509659b85e3a3bb857a6244787f6cc58e6d5fa509c71cd98923b",
+    "source_size": [
+      1476,
+      768
+    ],
+    "display_crop_pixels": [
+      619,
+      555,
+      853,
+      590
+    ],
+    "display_width_inches": 4.7,
+    "display_height_inches": 0.7029914529914529,
+    "caption": "选择原账号 / 密码入口"
+  },
+  {
+    "source": "/Users/wwang/Documents/ClaudeCode/deshi_competition_2/docs/audits/settlement-e2e-20260914/screenshots/14-v2-password-hint-fixed.png",
+    "sha256": "300a4db460319635ed10bf76206b27ff19f1c34a057e8819ce9b64b1eb057592",
+    "source_size": [
+      1476,
+      768
+    ],
+    "display_crop_pixels": [
+      619,
+      479,
+      853,
+      596
+    ],
+    "display_width_inches": 4.7,
+    "display_height_inches": 2.35,
+    "caption": "向下滚动填写用户名与密码 原平台账号使用原密码"
+  },
+  {
+    "source": "/Users/wwang/Documents/ClaudeCode/deshi_competition_2/docs/audits/settlement-e2e-20260914/screenshots/04-empty-form.png",
+    "sha256": "382650dfb68127de6299380bce3d4d9e143a7ffcfadc71ec4533b76e5565921a",
+    "source_size": [
+      1476,
+      768
+    ],
+    "display_crop_pixels": [
+      475,
+      392,
+      1003,
+      568
+    ],
+    "display_width_inches": 6.4,
+    "display_height_inches": 2.1333333333333333,
+    "caption": "填写银行卡信息后点击保存并继续"
+  },
+  {
+    "source": "/Users/wwang/Documents/ClaudeCode/deshi_competition_2/docs/audits/settlement-e2e-20260914/screenshots/15-security-modal-header-fixed.png",
+    "sha256": "dbeee35b9506c103f1520377c857862728cc9e643ccaa6e79a375f1bf3124269",
+    "source_size": [
+      1476,
+      768
+    ],
+    "display_crop_pixels": [
+      576,
+      112,
+      901,
+      337
+    ],
+    "display_width_inches": 3.7,
+    "display_height_inches": 2.5615384615384613,
+    "caption": "未绑定手机号时可以使用当前密码完成安全验证"
+  },
+  {
+    "source": "/Users/wwang/Documents/ClaudeCode/deshi_competition_2/docs/audits/settlement-e2e-20260914/screenshots/17-updated-profile-saved.png",
+    "sha256": "dcdcd596d5c0cf25d29f6548ed3963b01c2b370389f4dff8428fbe82ce97f228",
+    "source_size": [
+      1476,
+      768
+    ],
+    "display_crop_pixels": [
+      482,
+      241,
+      991,
+      307
+    ],
+    "display_width_inches": 6.4,
+    "display_height_inches": 0.8298624754420433,
+    "caption": "实际更新保存后 接收单位仍为未选择"
+  },
+  {
+    "source": "/Users/wwang/Documents/ClaudeCode/deshi_competition_2/docs/audits/settlement-e2e-20260914/screenshots/08-unit-selected-consent-required.png",
+    "sha256": "e4373e90d0710b02f5d5ec9df0362eb3e353c574e654b269ab72a5593cfe01f4",
+    "source_size": [
+      1476,
+      768
+    ],
+    "display_crop_pixels": [
+      474,
+      180,
+      1003,
+      476
+    ],
+    "display_width_inches": 6.4,
+    "display_height_inches": 3.5810964083175807,
+    "caption": "选择单位后仍需勾选同意 才能点击确认提供"
+  },
+  {
+    "source": "/Users/wwang/Documents/ClaudeCode/deshi_competition_2/docs/audits/settlement-e2e-20260914/screenshots/16-identity-conflict-guidance-fixed.png",
+    "sha256": "153af03f68fdb90e2ade549e667d9fa3187b6fa20eabf06e05f2c6691241237c",
+    "source_size": [
+      1476,
+      768
+    ],
+    "display_crop_pixels": [
+      474,
+      148,
+      1003,
+      198
+    ],
+    "display_width_inches": 6.4,
+    "display_height_inches": 0.6049149338374291,
+    "caption": "实际核对失败提示说明 本次提交未生效并引导检查本人证件"
+  }
+]
