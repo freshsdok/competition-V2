@@ -190,7 +190,7 @@ function onFrameMessage(event) {
   if (event.data.type === 'deshi:native-settlement:ready') { connectFrame(); return }
   if (event.data.channel !== opened.nonce) return
   if (event.data.type === 'deshi:native-settlement:height') {
-    if (Number.isFinite(event.data.height)) frameHeight.value = Math.min(2800, Math.max(420, Math.ceil(event.data.height)))
+    if (Number.isFinite(event.data.height)) frameHeight.value = Math.min(2800, Math.max(980, Math.ceil(event.data.height)))
     return
   }
   if (event.data.type === 'deshi:native-settlement:guide') { void showGuide(); return }
@@ -298,7 +298,7 @@ onBeforeUnmount(() => {
       <div><p class="eyebrow">获奖团队 · 结算办理</p><h1>银行卡资料填报</h1><p class="page-description">每队一人，使用本人账号和银行卡。</p></div>
       <button class="secondary refresh-button" :disabled="busy || checkingProgress" @click="refreshAll()">刷新状态</button>
     </header>
-    <details class="instructions">
+    <details class="instructions" open>
       <summary>填报须知 <span>首次办理建议阅读</span></summary>
       <p><strong>以团队为发奖单位，每队仅采集首位办理人的银行卡信息。一人完成后，其他队员不能再填报。</strong></p>
       <ol>
