@@ -869,8 +869,15 @@ public class OrderInfoServiceImpl implements IOrderInfoService
         return getPaymentUrl(orderInfo, false);
     }
 
+    @Autowired(required = false)
+    private com.teaching.system.integration.payment.V2CommerceCallbackDispatcher v2CommerceCallbackDispatcher;
+
     @Override
     public Map<String, String> paymentCallback(Map<String, String> notifyMap){
+        if (v2CommerceCallbackDispatcher != null) {
+            Optional<Map<String, String>> forwarded = v2CommerceCallbackDispatcher.forwardPaymentIfUnknown(notifyMap);
+            if (forwarded.isPresent()) return forwarded.get();
+        }
         log.info("支付回调请求参数："+notifyMap);
 
         Map<String,String> resultMap = new HashMap<>();
