@@ -2,6 +2,7 @@ package com.teaching.system.controller;
 
 import java.math.BigDecimal;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import cn.hutool.core.collection.CollUtil;
 import com.teaching.common.core.constant.SecurityConstants;
@@ -15,6 +16,7 @@ import com.teaching.system.api.domain.SelectOrderStatusReq;
 import com.teaching.system.api.domain.TeamChangeDto;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -37,6 +39,7 @@ import com.teaching.common.core.web.page.TableDataInfo;
  */
 @RestController
 @RequestMapping("/order")
+@Slf4j
 public class OrderInfoController extends BaseController
 {
     @Autowired
@@ -188,8 +191,12 @@ public class OrderInfoController extends BaseController
      * 订单支付成功回调
      */
     @PostMapping("/paymentCallback")
-    public Map<String, String> paymentCallback(@RequestParam Map<String,String> notifyMap) {
-        return orderInfoService.paymentCallback(notifyMap);
+    public Map<String, String> paymentCallback(@RequestParam Map<String,String> notifyMap, HttpServletRequest request) {
+        logCallbackRequest("payment", notifyMap, request);
+        Map<String, String> response = orderInfoService.paymentCallback(notifyMap);
+        log.info("V1_CMB_CALLBACK_CONTROLLER_RESPONSE type=payment returnCode={} respCode={} respMsg={} responseKeys={}",
+                response.get("returnCode"), response.get("respCode"), response.get("respMsg"), response.keySet());
+        return response;
     }
 
     /**
@@ -219,8 +226,48 @@ public class OrderInfoController extends BaseController
      * 退款成功回调
      */
     @PostMapping("/refundCallback")
-    public Map<String, String> refundCallback(@RequestParam Map<String,String> notifyMap) {
-        return orderInfoService.refundCallback(notifyMap);
+    public Map<String, String> refundCallback(@RequestParam Map<String,String> notifyMap, HttpServletRequest request) {
+        logCallbackRequest("refund", notifyMap, request);
+        Map<String, String> response = orderInfoService.refundCallback(notifyMap);
+        log.info("V1_CMB_CALLBACK_CONTROLLER_RESPONSE type=refund returnCode={} respCode={} respMsg={} responseKeys={}",
+                response.get("returnCode"), response.get("respCode"), response.get("respMsg"), response.keySet());
+        return response;
+    }
+
+    private void logCallbackRequest(String type, Map<String, String> notifyMap, HttpServletRequest request) {
+        String bizContent = notifyMap.get("biz_content");
+        log.info("V1_CMB_CALLBACK_CONTROLLER_HIT type={} method={} uri={} query={} remoteAddr={} forwardedFor={} contentType={} contentLength={} paramCount={} paramKeys={} bizContentLength={} safeParams={}",
+                type,
+                request.getMethod(),
+                request.getRequestURI(),
+                request.getQueryString(),
+                request.getRemoteAddr(),
+                request.getHeader("X-Forwarded-For"),
+                request.getContentType(),
+                request.getContentLengthLong(),
+                notifyMap.size(),
+                notifyMap.keySet(),
+                bizContent == null ? 0 : bizContent.length(),
+                safeCallbackParams(notifyMap));
+    }
+
+    private Map<String, String> safeCallbackParams(Map<String, String> notifyMap) {
+        return notifyMap.entrySet().stream()
+                .collect(Collectors.toMap(Map.Entry::getKey, entry -> safeCallbackValue(entry.getKey(), entry.getValue())));
+    }
+
+    private String safeCallbackValue(String key, String value) {
+        if (value == null) {
+            return null;
+        }
+        String lowerKey = key == null ? "" : key.toLowerCase(Locale.ROOT);
+        if (lowerKey.contains("sign") || lowerKey.contains("key") || lowerKey.contains("secret")) {
+            return "***";
+        }
+        if ("biz_content".equals(key)) {
+            return value.length() > 256 ? value.substring(0, 256) + "...(len=" + value.length() + ")" : value;
+        }
+        return value.length() > 128 ? value.substring(0, 128) + "...(len=" + value.length() + ")" : value;
     }
 
     /**

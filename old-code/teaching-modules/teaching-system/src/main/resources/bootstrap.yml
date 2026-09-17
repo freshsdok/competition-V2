@@ -2,9 +2,9 @@
 spring:
   profiles:
     # 环境配置
-#    active: dev
+    active: dev
     # 测试
-    active: test
+#    active: test
 #   active: cluster
 
 # 仅信任明确配置的反向代理。Docker 默认链路为 Nginx -> Gateway -> System；

@@ -878,6 +878,11 @@ public class OrderInfoServiceImpl implements IOrderInfoService
             Optional<Map<String, String>> forwarded = v2CommerceCallbackDispatcher.forwardPaymentIfUnknown(notifyMap);
             if (forwarded.isPresent()) return forwarded.get();
         }
+        log.info("V1_CMB_PAYMENT_CALLBACK_SERVICE_ENTER paramCount={} paramKeys={} bizContentLength={} signPresent={}",
+                notifyMap == null ? 0 : notifyMap.size(),
+                notifyMap == null ? Collections.emptySet() : notifyMap.keySet(),
+                notifyMap == null || notifyMap.get(BIZ_CONTENT) == null ? 0 : notifyMap.get(BIZ_CONTENT).length(),
+                notifyMap != null && notifyMap.containsKey("sign"));
         log.info("支付回调请求参数："+notifyMap);
 
         Map<String,String> resultMap = new HashMap<>();
@@ -893,6 +898,8 @@ public class OrderInfoServiceImpl implements IOrderInfoService
         String sign = notifyMap.remove("sign");
         //对待加签内容进行排序拼接
         String contentStr = SignatureUtil.getSignContent(notifyMap);
+        log.info("V1_CMB_PAYMENT_CALLBACK_SIGN_PREPARED signPresent={} signContentLength={} remainingParamKeys={}",
+                StringUtils.isNotBlank(sign), contentStr == null ? 0 : contentStr.length(), notifyMap.keySet());
         //验证签名-使用招行公钥进行验签
         /*boolean flag = PaySM2Util.sm2Check(contentStr,sign, publicKey);
         if (!flag) {
@@ -908,10 +915,20 @@ public class OrderInfoServiceImpl implements IOrderInfoService
         Map<String, String> responseBodyMap = null;
         try {
             responseBodyMap = objectMapper.readValue(bizContent, Map.class);
+            log.info("V1_CMB_PAYMENT_CALLBACK_BIZ_PARSED keys={} orderId={} txnAmt={} payType={} thirdOrderId={} outOrderId={} cmbOrderId={}",
+                    responseBodyMap.keySet(),
+                    responseBodyMap.get("orderId"),
+                    responseBodyMap.get("txnAmt"),
+                    responseBodyMap.get("payType"),
+                    responseBodyMap.get("thirdOrderId"),
+                    responseBodyMap.get("outOrderId"),
+                    responseBodyMap.get("cmbOrderId"));
         }catch (JsonProcessingException e) {
             resultMap.put("returnCode", SUCCESS);
             resultMap.put("respCode",FAIL);  //响应码
             resultMap.put("respMsg","支付回调数据解析失败，返回数据："+resultMap);  //响应信息
+            log.warn("V1_CMB_PAYMENT_CALLBACK_BIZ_PARSE_FAILED bizContentLength={} error={} result={}",
+                    bizContent == null ? 0 : bizContent.length(), e.getMessage(), resultMap);
             return resultMap;
         }
         //商户订单号
@@ -935,25 +952,44 @@ public class OrderInfoServiceImpl implements IOrderInfoService
         String cmbOrderId = responseBodyMap.get("cmbOrderId"); //招行生成的订单号
 
         //根据订单号查询本地订单信息
+        log.info("V1_CMB_PAYMENT_CALLBACK_ORDER_LOOKUP_START orderId={}", orderId);
         OrderInfo orderInfo = orderInfoMapper.selectOrderInfoByOrderId(orderId);
         if (orderInfo == null) {
             resultMap.put("respCode",FAIL);  //响应码
             resultMap.put("respMsg","订单不存在");  //响应信息
+            log.warn("V1_CMB_PAYMENT_CALLBACK_ORDER_NOT_FOUND orderId={} txnAmt={} thirdOrderId={} result={}",
+                    orderId, txnAmt, targetOrderId, resultMap);
             log.info("支付回调处理失败，返回数据："+resultMap);
             return resultMap;
         }
+        log.info("V1_CMB_PAYMENT_CALLBACK_ORDER_FOUND orderId={} id={} payStatus={} amount={} merId={} commodityId={} userId={}",
+                orderId,
+                orderInfo.getId(),
+                orderInfo.getPayStatus(),
+                orderInfo.getAmount(),
+                orderInfo.getMerId(),
+                orderInfo.getCommodityId(),
+                orderInfo.getUserId());
         if (!DictConstant.PENDING.equals(orderInfo.getPayStatus())) {
             resultMap.put("returnCode", SUCCESS);
             resultMap.put("respCode",SUCCESS);  //响应码
             addSignToMap(resultMap,orderInfo);
+            log.info("V1_CMB_PAYMENT_CALLBACK_ALREADY_FINAL orderId={} id={} payStatus={} result={}",
+                    orderId, orderInfo.getId(), orderInfo.getPayStatus(), resultMap);
             log.info("本地订单非待支付状态，无需再次处理数据，直接返回数据："+resultMap);
             return resultMap;
         }
         //校验金额是否一致,本地存储数据单位为元，支付返回为分
-        if (orderInfo.getAmount().multiply(new BigDecimal(100)).compareTo(new BigDecimal(txnAmt)) != 0) {
+        BigDecimal expectedTxnAmt = orderInfo.getAmount().multiply(new BigDecimal(100));
+        BigDecimal actualTxnAmt = new BigDecimal(txnAmt);
+        log.info("V1_CMB_PAYMENT_CALLBACK_AMOUNT_CHECK orderId={} expectedFen={} callbackFen={}",
+                orderId, expectedTxnAmt, actualTxnAmt);
+        if (expectedTxnAmt.compareTo(actualTxnAmt) != 0) {
             resultMap.put("returnCode", SUCCESS);
             resultMap.put("respCode", FAIL);  //响应码
             resultMap.put("respMsg", "订单金额不一致");  //响应信息
+            log.warn("V1_CMB_PAYMENT_CALLBACK_AMOUNT_MISMATCH orderId={} expectedFen={} callbackFen={} result={}",
+                    orderId, expectedTxnAmt, actualTxnAmt, resultMap);
             log.info("支付回调处理失败，返回数据：" + resultMap);
             return resultMap;
         }
@@ -968,14 +1004,20 @@ public class OrderInfoServiceImpl implements IOrderInfoService
         orderInfo.setOutOrderId(outOrderId);
         orderInfo.setPayMethod(ONLINE);
         orderInfoMapper.updateOrderInfo(orderInfo);
+        log.info("V1_CMB_PAYMENT_CALLBACK_ORDER_UPDATED orderId={} id={} targetOrderId={} cmbOrderId={} bizOrderId={} outOrderId={} payType={}",
+                orderId, orderInfo.getId(), targetOrderId, cmbOrderId, bizOrderId, outOrderId, payType);
         //构建成功结果
         resultMap.put("returnCode", SUCCESS);
         resultMap.put("respCode",SUCCESS);  //响应码
         addSignToMap(resultMap,orderInfo);
+        log.info("V1_CMB_PAYMENT_CALLBACK_ACK_READY orderId={} id={} resultKeys={} returnCode={} respCode={}",
+                orderId, orderInfo.getId(), resultMap.keySet(), resultMap.get("returnCode"), resultMap.get("respCode"));
         log.info("支付回调处理成功，返回数据："+resultMap);
         updateBusinessStatus(orderInfo);
+        log.info("V1_CMB_PAYMENT_CALLBACK_BUSINESS_STATUS_UPDATED orderId={} id={}", orderId, orderInfo.getId());
         //判断是否是退费重缴,是的话发起退费流程
         startRefundFlow(orderInfo);
+        log.info("V1_CMB_PAYMENT_CALLBACK_SERVICE_SUCCESS orderId={} id={}", orderId, orderInfo.getId());
         return resultMap;
     }
 
